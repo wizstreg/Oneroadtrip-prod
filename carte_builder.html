@@ -579,12 +579,74 @@ body:not(.preview-open) .itinerary-flow {
   filter: drop-shadow(0 2px 4px rgba(225,29,72,0.5));
 }
 
+/* Bandeau mobile collapsible - caché par défaut */
+.mobile-itin-header {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  /* Carte et layout */
+  /* Bandeau mobile collapsible */
+  .mobile-itin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: #113f7a;
+    color: #fff;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .mobile-itin-header .mobile-itin-toggle {
+    transition: transform 0.2s;
+    margin-left: 8px;
+  }
+  .mobile-itin-header.open .mobile-itin-toggle {
+    transform: rotate(180deg);
+  }
+  .validate-btn-mobile {
+    background: #22c55e;
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+  .validate-btn-mobile:hover { background: #16a34a; }
+  
+  /* Cacher le header desktop sur mobile */
+  .top-panel-header {
+    display: none !important;
+  }
+  
+  /* Liste collapsible - cachée par défaut sur mobile */
+  .itinerary-flow {
+    max-height: 0;
+    overflow: hidden;
+    margin-top: 0;
+    padding: 0;
+    transition: max-height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+  }
+  .top-panel.list-open .itinerary-flow {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 10px;
+    padding-right: 0;
+  }
+  
+  /* Ajuster hauteur carte quand liste fermée */
   .map-container { 
-    height: calc(100vh - 320px);
+    height: calc(100vh - 180px);
     margin: 0 8px 8px;
   }
+  .top-panel.list-open ~ .map-controls ~ .map-container,
+  .top-panel.list-open + .map-controls + .map-container {
+    height: calc(100vh - 320px);
+  }
+  
   .top-panel { margin: 8px; }
   .map-controls { margin: 0 8px 8px; }
   
@@ -869,6 +931,13 @@ body:not(.preview-open) .itinerary-flow {
 
 <!-- Panneau itinéraire personnalisé -->
 <div class="top-panel">
+  <!-- Bandeau collapsible mobile -->
+  <div id="mobileItinHeader" class="mobile-itin-header" onclick="toggleMobileItinList()">
+    <span id="mobileItinCount">0 étapes</span>
+    <span class="mobile-itin-toggle">▼</span>
+    <button id="validateBtnMobile" class="validate-btn-mobile" onclick="event.stopPropagation(); document.getElementById('validateBtn').click();">✓ Valider</button>
+  </div>
+  
   <div class="top-panel-header">
     <h2 id="panelTitle">🗺️ Mon itinéraire personnalisé</h2>
     <button id="resetBtn" class="reset-btn">🔄 Réinitialiser</button>
@@ -904,6 +973,7 @@ body:not(.preview-open) .itinerary-flow {
       <!-- 4 photos ici -->
     </div>
     <div class="preview-duration" id="previewDuration">⏱️ Durée estimée: 0 min</div>
+    <button id="addPlaceBtn" class="add-place-btn">+ Ajouter à mon itinéraire</button>
     <div class="preview-section">
       <h4 id="visitsLabel">🏛️ Visites possibles</h4>
       <ul class="preview-list" id="previewVisits"></ul>
@@ -912,7 +982,6 @@ body:not(.preview-open) .itinerary-flow {
       <h4 id="activitiesLabel">🎯 Activités</h4>
       <ul class="preview-list" id="previewActivities"></ul>
     </div>
-    <button id="addPlaceBtn" class="add-place-btn">+ Ajouter à mon itinéraire</button>
   </div>
   
   <!-- Barre fixe bouton (mobile uniquement) -->
@@ -946,20 +1015,6 @@ body:not(.preview-open) .itinerary-flow {
     <div class="config-field">
       <label id="labelNbDays">Nombre de jours souhaités :</label>
       <input type="number" id="nbDays" class="config-input" value="7" min="1" max="30">
-    </div>
-    
-    <div class="config-field">
-      <label id="labelBudget">Budget hôtel (€/jour/personne) :</label>
-      <div class="budget-options" id="budgetOptions">
-        <button type="button" class="budget-btn" data-value="0-50">0–50</button>
-        <button type="button" class="budget-btn" data-value="50-100">50–100</button>
-        <button type="button" class="budget-btn" data-value="100-150">100–150</button>
-        <button type="button" class="budget-btn" data-value="150-200">150–200</button>
-        <button type="button" class="budget-btn" data-value="200-250">200–250</button>
-        <button type="button" class="budget-btn" data-value="250-300">250–300</button>
-        <button type="button" class="budget-btn" data-value="300-500">300–500</button>
-        <button type="button" class="budget-btn" data-value="500+">500+</button>
-      </div>
     </div>
     
     <div class="config-actions">
@@ -1372,7 +1427,6 @@ function applyTranslations() {
   document.getElementById('configTitle').textContent = TXT.configTitle;
   document.getElementById('labelDepartDate').textContent = TXT.labelDepartDate;
   document.getElementById('labelNbDays').textContent = TXT.labelNbDays;
-  document.getElementById('labelBudget').textContent = TXT.labelBudget;
   document.getElementById('configCancel').textContent = TXT.cancel;
   document.getElementById('configConfirm').textContent = TXT.confirm;
 }
@@ -2012,6 +2066,16 @@ function closePlacePreview() {
   }
 }
 
+// Toggle liste itinéraire sur mobile
+function toggleMobileItinList() {
+  const panel = document.querySelector('.top-panel');
+  const header = document.getElementById('mobileItinHeader');
+  if (panel && header) {
+    panel.classList.toggle('list-open');
+    header.classList.toggle('open');
+  }
+}
+
 // ===============================
 // GESTION ITINÉRAIRE
 // ===============================
@@ -2036,7 +2100,14 @@ function updateItineraryList() {
   const emptyMsg = document.getElementById('emptyMsg');
   const validateBtn = document.getElementById('validateBtn');
   const resetBtn = document.getElementById('resetBtn');
+  const mobileCount = document.getElementById('mobileItinCount');
   const TXT = T[currentLang] || T.fr;
+  
+  // Mise à jour compteur mobile
+  if (mobileCount) {
+    const count = selectedPlaces.length;
+    mobileCount.textContent = count === 0 ? TXT.emptyItinerary : `${count} étape${count > 1 ? 's' : ''}`;
+  }
 
   if (selectedPlaces.length === 0) {
     flow.innerHTML = `<span class="itinerary-empty">${TXT.emptyItinerary}</span>`;
@@ -2151,35 +2222,17 @@ function onDragEnd(e) {
 // ===============================
 // VALIDATION ET CONFIGURATION
 // ===============================
-let selectedBudgets = [];
+let selectedBudgets = ['100-150']; // Valeur par défaut
 
 // Initialiser la modal
 function initConfigModal() {
   const modal = document.getElementById('configModal');
   const cancelBtn = document.getElementById('configCancel');
   const confirmBtn = document.getElementById('configConfirm');
-  const budgetBtns = document.querySelectorAll('.budget-btn');
   
   // Date par défaut = aujourd'hui
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('departDate').value = today;
-  
-  // Gestion des boutons budget - MULTICHOIX
-  budgetBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      const value = btn.dataset.value;
-      
-      if (btn.classList.contains('selected')) {
-        // Désélectionner
-        btn.classList.remove('selected');
-        selectedBudgets = selectedBudgets.filter(b => b !== value);
-      } else {
-        // Sélectionner
-        btn.classList.add('selected');
-        selectedBudgets.push(value);
-      }
-    });
-  });
   
   // Annuler
   cancelBtn.addEventListener('click', () => {
@@ -2202,11 +2255,19 @@ function initConfigModal() {
 function showConfigModal() {
   const TXT = T[currentLang] || T.fr;
   
+  // Calculer la somme des jours conseillés
+  const totalSuggestedDays = selectedPlaces.reduce((sum, place) => {
+    return sum + (place.suggested_days || 1);
+  }, 0);
+  
+  // Pré-remplir avec la somme (minimum 1, maximum 30)
+  const nbDaysInput = document.getElementById('nbDays');
+  nbDaysInput.value = Math.min(30, Math.max(1, totalSuggestedDays));
+  
   // Mettre à jour les textes
   document.getElementById('configTitle').textContent = TXT.configTitle;
   document.getElementById('labelDepartDate').textContent = TXT.labelDepartDate;
   document.getElementById('labelNbDays').textContent = TXT.labelNbDays;
-  document.getElementById('labelBudget').textContent = TXT.labelBudget;
   document.getElementById('configCancel').textContent = TXT.cancel;
   document.getElementById('configConfirm').textContent = TXT.confirm;
   

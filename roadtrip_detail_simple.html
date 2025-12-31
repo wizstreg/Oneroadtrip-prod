@@ -708,7 +708,7 @@ body.view-itin-only #rows{
   max-width: 100%;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 3px 8px;
 }
 /* Lignes ultra-compactes en plein écran */
@@ -2115,6 +2115,20 @@ if(!icoWrap){
   const tipSave = window.t ? window.t('tipSave') : 'Enregistrer';
   bSave.type='button'; bSave.className='pill-ico'; bSave.title=tipSave; bSave.setAttribute('aria-label',tipSave); bSave.textContent='💾';
   
+  // Bouton + vert pour mode expert
+  const bExpert = document.createElement('button');
+  const tipExpert = window.t ? window.t('switchToExpert') : 'Basculer en mode expert ?';
+  bExpert.type='button'; bExpert.id='btnExpertMode'; bExpert.title=tipExpert; bExpert.setAttribute('aria-label',tipExpert);
+  bExpert.style.cssText='background:#22c55e;color:#fff;width:28px;height:28px;border-radius:50%;border:none;cursor:pointer;font-size:18px;font-weight:bold;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 6px rgba(0,0,0,0.15);margin-right:4px;';
+  bExpert.textContent='+';
+  bExpert.addEventListener('click', function() {
+    const msg = window.t ? window.t('switchToExpertConfirm') : 'Basculer en mode expert ?';
+    if (confirm(msg)) {
+      const newUrl = window.location.href.replace(/roadtrip_detail_simple\.html/, 'roadtrip_detail.html');
+      window.location.href = newUrl;
+    }
+  });
+  
   const bFlag = document.createElement('button');
   const tipFlag = window.t ? window.t('tipFlag') : 'Signaler une erreur';
   bFlag.type='button'; bFlag.className='pill-ico danger'; bFlag.title=tipFlag; bFlag.setAttribute('aria-label',tipFlag); bFlag.textContent='❗'; bFlag.style.display='none';
@@ -2318,6 +2332,7 @@ if(!icoWrap){
   bRate.addEventListener('click', (e)=>{ e.stopPropagation(); openRatePopover(bRate); });
 
   icoWrap.appendChild(bSave);
+  icoWrap.appendChild(bExpert);
 
   icoWrap.appendChild(avgBadge);
   // bRate déplacé dans le menu Outils
@@ -2603,7 +2618,7 @@ console.log('[TOOLBAR] ✅ Row ajouté au toolbar');
     <section class="card">
      <div style="display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:12px">
   <div class="small" data-i18n="dragToReorder">Glissez pour réordonner</div>
-  <div style="display:flex;gap:6px;">
+  <div style="display:flex;gap:6px;align-items:center;">
     <button id="btnListFull" class="iconbtn" type="button" title="Plein écran liste" data-i18n-title="fullscreenList">⤢</button>
     <button id="btnListExit" class="iconbtn" type="button" title="Quitter plein écran" data-i18n-title="exitFullscreen" style="display:none">⤡ <span data-i18n="reduce">Réduire</span></button>
   </div>
@@ -2611,16 +2626,6 @@ console.log('[TOOLBAR] ✅ Row ajouté au toolbar');
 
 
       <div id="rows"></div>
-      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn" id="btnSave" data-i18n="save">💾 Sauvegarder</button>
-        <button class="btn ghost" id="btnExport" data-i18n="export">📥 Exporter</button>
-        <button class="btn ghost" id="btnReorganizeHotels" title="Changer la stratégie de regroupement des hôtels (5 modes)" data-i18n-title="hotelStrategy" style="display:none">
-          🏨 <span data-i18n="reorganizeHotels">Réorganiser hôtels</span>
-        </button>
-        <button class="btn ghost" id="btnResetGroups" data-i18n-title="resetGroupsHelp">
-          ✖ <span data-i18n="resetGroups">Annuler groupes/hôtels</span>
-        </button>
-      </div>
     </section>
 
     <aside class="sidebar">
@@ -4825,10 +4830,18 @@ async function initFromItin(it){
   // PASSE 1b : Rattacher les hubs fusionnés comme satellites
   steps.forEach((step, idx) => {
     if(step._mergedInto !== undefined){
-      const masterHub = steps[step._mergedInto];
-      step._hubGroup = step._mergedInto;
+      // Suivre la chaîne _mergedInto jusqu'au hub final
+      let finalMaster = step._mergedInto;
+      let safetyCounter = 0;
+      while(steps[finalMaster]._mergedInto !== undefined && safetyCounter < 20){
+        finalMaster = steps[finalMaster]._mergedInto;
+        safetyCounter++;
+      }
+      const masterHub = steps[finalMaster];
+      step._hubGroup = finalMaster;
       step._isSatellite = true;
-      if(masterHub._satellites) masterHub._satellites.push(idx);
+      if(!masterHub._satellites) masterHub._satellites = [];
+      masterHub._satellites.push(idx);
       console.log(`[NIGHTS] Hub fusionné "${step.name}" → satellite de "${masterHub.name}"`);
     }
   });
@@ -4848,9 +4861,15 @@ async function initFromItin(it){
     
     // Chercher en arrière (premier hub OU hub fusionné rencontré)
     for(let h = idx - 1; h >= 0; h--){
-      // Un hub fusionné compte comme barrière - on utilise son hub maître
+      // Un hub fusionné compte comme barrière - on utilise son hub maître final
       if(steps[h]._mergedInto !== undefined){
-        const masterIdx = steps[h]._mergedInto;
+        // Suivre la chaîne _mergedInto jusqu'au hub final
+        let masterIdx = steps[h]._mergedInto;
+        let safetyCounter = 0;
+        while(steps[masterIdx]._mergedInto !== undefined && safetyCounter < 20){
+          masterIdx = steps[masterIdx]._mergedInto;
+          safetyCounter++;
+        }
         for(let k = masterIdx; k < idx; k++) distBefore += steps[k]._distanceToNext || 50;
         if(distBefore < PROXIMITY_MAX_KM){
           hubBefore = masterIdx;
@@ -4870,7 +4889,13 @@ async function initFromItin(it){
     // Chercher en avant (premier hub OU hub fusionné rencontré)
     for(let h = idx + 1; h < steps.length; h++){
       if(steps[h]._mergedInto !== undefined){
-        const masterIdx = steps[h]._mergedInto;
+        // Suivre la chaîne _mergedInto jusqu'au hub final
+        let masterIdx = steps[h]._mergedInto;
+        let safetyCounter = 0;
+        while(steps[masterIdx]._mergedInto !== undefined && safetyCounter < 20){
+          masterIdx = steps[masterIdx]._mergedInto;
+          safetyCounter++;
+        }
         for(let k = idx; k < masterIdx; k++) distAfter += steps[k]._distanceToNext || 50;
         if(distAfter < PROXIMITY_MAX_KM){
           hubAfter = masterIdx;
@@ -4948,11 +4973,23 @@ async function initFromItin(it){
           step._satellites = [];
           console.log(`[NIGHTS] ${step.name} → hub indépendant`);
         } else {
-          // Satellite
-          step._hubGroup = nearestHub;
+          // Satellite - suivre la chaîne _mergedInto jusqu'au hub final
+          let finalHub = nearestHub;
+          let safetyCounter = 0;
+          while(steps[finalHub]._mergedInto !== undefined && safetyCounter < 20){
+            finalHub = steps[finalHub]._mergedInto;
+            safetyCounter++;
+          }
+          
+          step._hubGroup = finalHub;
           step._isSatellite = true;
-          steps[nearestHub]._satellites.push(idx);
-          console.log(`[NIGHTS] ${step.name} → satellite`);
+          
+          // S'assurer que le hub final a _satellites
+          if(!steps[finalHub]._satellites){
+            steps[finalHub]._satellites = [];
+          }
+          steps[finalHub]._satellites.push(idx);
+          console.log(`[NIGHTS] ${step.name} → satellite de ${steps[finalHub].name}`);
         }
       }
     } else {
@@ -8628,20 +8665,32 @@ console.log('[TICKETMASTER] ✅ Ticketmaster widget ready');
       if (window.firebase?.apps?.length) return window.firebase;
       await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
       await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js');
+      await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js');
       if (!window.firebase.apps?.length && window.__FIREBASE_CONFIG__) {
         window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
       }
       return window.firebase;
     }
     
-    ensureFb().then(function(fb) {
+    ensureFb().then(async function(fb) {
       const btn = document.getElementById('openAuth');
       const btnLogout = document.getElementById('btnLogout');
       const btnGoogle = document.getElementById('btnGoogle');
       const btnEmail = document.getElementById('btnEmail');
       if (!btn) return;
       
-      fb.auth().onAuthStateChanged(function(user) {
+      fb.auth().onAuthStateChanged(async function(user) {
+        // Initialiser ORT_STATE avec l'utilisateur
+        if (window.ORT_STATE) {
+          if (typeof window.ORT_STATE.init === 'function') {
+            await window.ORT_STATE.init({ user: user, premium: false });
+          }
+          if (user && typeof window.ORT_STATE.updateUser === 'function') {
+            await window.ORT_STATE.updateUser(user);
+            console.log('[AUTH-FALLBACK] ORT_STATE.updateUser appelé:', user.uid);
+          }
+        }
+        
         if (user) {
           const name = user.displayName || (user.email || '').split('@')[0] || 'Mon compte';
           btn.innerHTML = '<span>👤 ' + name.slice(0, 12) + '</span>';
@@ -8663,6 +8712,241 @@ console.log('[TICKETMASTER] ✅ Ticketmaster widget ready');
       console.warn('[AUTH-FALLBACK] Firebase init failed:', e);
     });
   }, 500);
+})();
+</script>
+
+<!-- ===== INITIALISATION STATE MANAGER (SYNC) ===== -->
+<script>
+(async function initStateManager() {
+  console.log('[INIT] Initialisation State Manager...');
+  
+  // Charger Firebase si pas déjà chargé
+  if (!window.firebase?.apps?.length) {
+    console.log('[INIT] 🔄 Chargement Firebase...');
+    const load = (src) => new Promise((ok, ko) => {
+      const s = document.createElement('script');
+      s.src = src;
+      s.onload = ok;
+      s.onerror = () => ko(new Error('load ' + src));
+      document.head.appendChild(s);
+    });
+    
+    try {
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js");
+      
+      // Attendre que firebase.auth soit vraiment disponible
+      let authReady = false;
+      for (let i = 0; i < 50 && !authReady; i++) {
+        if (typeof window.firebase?.auth === 'function') {
+          authReady = true;
+        } else {
+          await new Promise(r => setTimeout(r, 50));
+        }
+      }
+      
+      if (!authReady) {
+        throw new Error('firebase.auth not available after loading');
+      }
+      
+      // Initialiser Firebase seulement si pas déjà fait
+      if (!window.firebase.apps.length) {
+        window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
+      }
+      await window.firebase.auth().setPersistence(window.firebase.auth.Auth.Persistence.LOCAL);
+      console.log('[INIT] ✅ Firebase chargé');
+    } catch (e) {
+      console.warn('[INIT] ⚠️ Erreur chargement Firebase:', e);
+    }
+  }
+  
+  // Attend que Firebase Auth soit prêt
+  console.log('[INIT] 🔍 Firebase disponible?', !!window.firebase);
+  console.log('[INIT] 🔍 Firebase.auth disponible?', !!window.firebase?.auth);
+  
+  const user = await new Promise(resolve => {
+    if (window.firebase?.auth) {
+      console.log('[INIT] ⏳ Attente onAuthStateChanged...');
+      const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+        console.log('[INIT] ✅ Auth state:', user ? user.uid : 'null', 'email:', user?.email);
+        unsubscribe();
+        resolve(user);
+      });
+    } else {
+      console.log('[INIT] ❌ Firebase.auth non disponible');
+      resolve(null);
+    }
+  });
+
+  // Initialiser ORT_STATE de façon synchrone
+  if (window.ORT_STATE && typeof window.ORT_STATE.init === 'function') {
+    await window.ORT_STATE.init({
+      user: user,
+      premium: false
+    });
+    
+    // Mettre à jour le user pour activer Firestore
+    if (user && typeof window.ORT_STATE.updateUser === 'function') {
+      console.log('[INIT] 🔄 Mise à jour user dans State Manager...');
+      await window.ORT_STATE.updateUser(user);
+    }
+    
+    console.log('[INIT] ✅ State Manager initialisé avec user:', user?.uid || 'non connecté');
+  } else {
+    console.warn('[INIT] ⚠️ ORT_STATE non disponible');
+  }
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromTemp = urlParams.get('from') === 'temp';
+  const rtKey = urlParams.get('rtKey');
+  
+  // MODE IMPORT : Ne pas utiliser le State Manager
+  if (fromTemp && rtKey) {
+    console.log('[INIT] Mode IMPORT detecte - rtKey:', rtKey);
+    const ccFromRtKey = rtKey.split('_')[0]?.toUpperCase() || 'XX';
+    state._itinRef = { country: ccFromRtKey, itin: `${ccFromRtKey}::temp_${Date.now()}` };
+    state.country = ccFromRtKey;
+    state.cc = ccFromRtKey;
+    
+    const waitForImport = setInterval(() => {
+      if (window.state && window.state.steps && window.state.steps.length > 0) {
+        clearInterval(waitForImport);
+        const tempTripId = `temp_${Date.now()}`;
+        if (window.ORT_DETAIL_ADAPTER) window.ORT_DETAIL_ADAPTER.init(tempTripId, window.state);
+        localStorage.setItem('ORT_CURRENT_TRIP_ID', tempTripId);
+        localStorage.setItem(`ORT_TEMP_STATE_${tempTripId}`, JSON.stringify(window.state));
+        console.log('[INIT] Import initialisé avec tripId temp:', tempTripId);
+      }
+    }, 100);
+    setTimeout(() => clearInterval(waitForImport), 5000);
+    return;
+  }
+
+  // MODE DASHBOARD : tripId dans l'URL SANS cc/itin
+  const tripIdFromUrl = urlParams.get('tripId');
+  const ccParam = urlParams.get('cc');
+  const itinParam = urlParams.get('itin');
+
+  if (tripIdFromUrl && !ccParam && !itinParam) {
+    console.log('[INIT] 📌 Mode DASHBOARD détecté - tripId:', tripIdFromUrl);
+    
+    const waitForDeps = setInterval(async () => {
+      if (window.ORT_STATE && typeof window.ORT_STATE.getTrip === 'function' && typeof window.renderRows === 'function') {
+        clearInterval(waitForDeps);
+        console.log('[INIT] ✅ Dépendances prêtes');
+        
+        try {
+          let savedTrip = null;
+          
+          if (tripIdFromUrl.startsWith('temp_')) {
+            const savedStateStr = localStorage.getItem(`ORT_TEMP_STATE_${tripIdFromUrl}`);
+            if (savedStateStr) savedTrip = JSON.parse(savedStateStr);
+          }
+          
+          if (!savedTrip) {
+            savedTrip = await window.ORT_STATE.getTrip(tripIdFromUrl);
+          }
+          
+          if (savedTrip && savedTrip.steps && savedTrip.steps.length > 0) {
+            console.log('[INIT] ✅ Voyage trouvé:', savedTrip.title || tripIdFromUrl);
+            
+            window.state = window.state || {};
+            window.state.steps = savedTrip.steps;
+            window.state.title = savedTrip.title || 'Roadtrip';
+            window.state.cc = savedTrip.country || 'XX';
+            window.state.country = savedTrip.country || 'XX';
+            window.state.tripId = tripIdFromUrl;
+            
+            if (savedTrip.nights) {
+              window.state.targetNights = savedTrip.nights;
+              window.state.initialNights = savedTrip.initialNights || savedTrip.nights;
+            }
+            
+            Object.assign(state, window.state);
+            
+            if (window.ORT_DETAIL_ADAPTER) window.ORT_DETAIL_ADAPTER.init(tripIdFromUrl, window.state);
+            localStorage.setItem('ORT_CURRENT_TRIP_ID', tripIdFromUrl);
+            
+            window.renderRows();
+            if (typeof setTitleTranslated === 'function') setTitleTranslated(window.state.title);
+            
+            console.log('[INIT] ✅ Mode DASHBOARD - Affichage terminé');
+          }
+        } catch (e) {
+          console.error('[INIT] ❌ Erreur chargement:', e);
+        }
+      }
+    }, 100);
+    
+    setTimeout(() => clearInterval(waitForDeps), 10000);
+    return;
+  }
+
+  // MODE NORMAL : Attendre que window.state soit prêt
+  const waitForState = setInterval(async () => {
+    if (window.state && window.state.steps) {
+      clearInterval(waitForState);
+      console.log('[INIT] window.state prêt');
+      
+      let tripId = urlParams.get('tripId');
+      
+      if (!tripId) {
+        const cc = urlParams.get('cc');
+        const itin = urlParams.get('itin');
+        
+        if (cc && itin) {
+          tripId = `user::${cc}::${itin}`.replace(/[^a-zA-Z0-9:_-]/g, '_');
+          console.log('[INIT] ✅ TripId stable généré:', tripId);
+        } else if (window.ORT_STATE && typeof window.ORT_STATE.generateTripId === 'function') {
+          tripId = window.ORT_STATE.generateTripId();
+          console.log('[INIT] ⚠️ TripId temporaire généré:', tripId);
+        } else {
+          tripId = `trip_${Date.now()}`;
+        }
+      }
+      
+      // Chercher modifications sauvegardées
+      if (tripId && window.ORT_STATE && typeof window.ORT_STATE.getTrip === 'function') {
+        try {
+          const savedTrip = await window.ORT_STATE.getTrip(tripId);
+          
+          if (savedTrip && savedTrip.steps && savedTrip.steps.length > 0) {
+            console.log('[INIT] ✅ Modifications trouvées, application...');
+            
+            window.state.steps = savedTrip.steps;
+            if (savedTrip.title) window.state.title = savedTrip.title;
+            if (savedTrip.country) window.state.cc = savedTrip.country;
+            if (savedTrip.nights) {
+              window.state.targetNights = savedTrip.nights;
+              window.state.initialNights = savedTrip.initialNights || savedTrip.nights;
+            }
+            
+            if (typeof window.renderRows === 'function') window.renderRows();
+            if (typeof window.renderMap === 'function') window.renderMap();
+            if (typeof setTitleTranslated === 'function') setTitleTranslated(window.state.title);
+            
+            console.log('[INIT] ✅ Modifications appliquées');
+          }
+        } catch (error) {
+          console.error('[INIT] ❌ Erreur chargement modifications:', error);
+        }
+      }
+      
+      // Initialiser l'adaptateur
+      if (window.ORT_DETAIL_ADAPTER) {
+        window.ORT_DETAIL_ADAPTER.init(tripId, window.state);
+      }
+      
+      localStorage.setItem('ORT_CURRENT_TRIP_ID', tripId);
+      console.log('[INIT] ✅ State Manager initialisé pour trip:', tripId);
+    }
+  }, 100);
+  
+  setTimeout(() => {
+    clearInterval(waitForState);
+    console.warn('[INIT] ⚠️ Timeout atteint');
+  }, 5000);
 })();
 </script>
 

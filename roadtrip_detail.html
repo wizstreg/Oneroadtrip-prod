@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-JK3QGQGDDL');
 </script>
-<!-- Mobile redirect (skip in iframes/artifacts) -->
+<!-- Mobile redirect (only for narrow screens < 900px) -->
 <script>
 (function(){
   // ANTI-LOOP: utiliser localStorage (persiste entre rechargements) au lieu de sessionStorage
@@ -27,25 +27,35 @@
     return;
   }
   
+  // Fonction de redirection vers mobile
+  function redirectToMobile() {
+    localStorage.setItem(REDIRECT_MARKER, '1');
+    var newUrl = location.href.replace(/roadtrip_detail(_simple)?(\.html)?/, 'roadtrip_mobile.html');
+    if (newUrl === location.href) newUrl = location.href.replace(/\/([^\/]*)$/, '/roadtrip_mobile.html$1');
+    if (!/mobile=0/.test(newUrl)) {
+      var sep = newUrl.includes('?') ? '&' : '?';
+      newUrl += sep + 'mobile=0';
+    }
+    console.log('[ORT] Redirecting to mobile:', newUrl);
+    location.replace(newUrl);
+  }
+  
   // Detect mobile via user-agent
   var isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
   if (!isMobile) return;
   
-  // Mark that we're about to redirect
-  localStorage.setItem(REDIRECT_MARKER, '1');
-  
-  // Redirect immédiatement AVANT le DOM (évite les boucles de DOMContentLoaded)
-  var newUrl = location.href.replace(/roadtrip_detail(_simple)?(\.html)?/, 'roadtrip_mobile.html');
-  if (newUrl === location.href) newUrl = location.href.replace(/\/([^\/]*)$/, '/roadtrip_mobile.html$1');
-  
-  // Ajouter mobile=0 SEULEMENT si ce n'est pas déjà le cas, pour éviter les boucles
-  if (!/mobile=0/.test(newUrl)) {
-    var sep = newUrl.includes('?') ? '&' : '?';
-    newUrl += sep + 'mobile=0';
+  // Rediriger si écran étroit au chargement
+  if (window.innerWidth < 900) {
+    redirectToMobile();
+    return;
   }
   
-  console.log('[ORT] Redirecting to mobile:', newUrl);
-  location.replace(newUrl);
+  // Écouter les changements d'orientation/resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth < 900) {
+      redirectToMobile();
+    }
+  });
 })();
 </script>
 <title>OneRoadTrip - Détails du roadtrip</title>
@@ -609,7 +619,7 @@ body.view-itin-only #rows {
   max-width: 100%;
   margin: 0;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: 1fr;
   gap: 3px 8px;
 }
 
@@ -3039,11 +3049,33 @@ hdr.appendChild(row);
   }
 
  async function ensureFirebase(){
-    if(window.firebase?.apps?.length) return window.firebase;
-    await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
-    await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");
-    await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js");
-    window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
+    if(window.firebase?.apps?.length && typeof window.firebase.auth === 'function') return window.firebase;
+    
+    // Charger les scripts si nécessaire
+    if (!window.firebase?.initializeApp) {
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
+    }
+    if (typeof window.firebase?.auth !== 'function') {
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");
+    }
+    if (!window.firebase?.firestore) {
+      await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js");
+    }
+    
+    // Attendre que firebase.auth soit vraiment disponible
+    for (let i = 0; i < 50; i++) {
+      if (typeof window.firebase?.auth === 'function') break;
+      await new Promise(r => setTimeout(r, 50));
+    }
+    
+    if (typeof window.firebase?.auth !== 'function') {
+      throw new Error('firebase.auth not available');
+    }
+    
+    // Initialiser seulement si pas déjà fait
+    if (!window.firebase.apps.length) {
+      window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
+    }
     await window.firebase.auth().setPersistence(window.firebase.auth.Auth.Persistence.LOCAL);
     return window.firebase;
   }
@@ -3187,6 +3219,7 @@ function getTripId() {
   const params = new URLSearchParams(location.search);
   const cc = params.get('cc');
   const itin = params.get('itin');
+  const from = params.get('from');
   
   // Pour les RT standards (cc+itin), créer un tripId STABLE
   if (cc && itin) {
@@ -3195,7 +3228,18 @@ function getTripId() {
     return tripId;
   }
   
-  // Pour RT temporaires, vérifier si on a déjà un tripId en cours
+  // ══════════════════════════════════════════════════════════════
+  // ROUTE BUILDER : Toujours créer un NOUVEAU tripId
+  // Sinon on réutilise un ancien voyage = BUG CRITIQUE
+  // ══════════════════════════════════════════════════════════════
+  if (from === 'builder') {
+    const newId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('ORT_CURRENT_TRIP_ID', newId);
+    console.log('[getTripId] 🆕 Nouveau tripId (Route Builder):', newId);
+    return newId;
+  }
+  
+  // Pour RT temporaires (import, etc.), vérifier si on a déjà un tripId en cours
   const tempId = localStorage.getItem('ORT_CURRENT_TRIP_ID');
   if (tempId) {
     console.log('[getTripId] ✅ TripId temporaire existant:', tempId);
@@ -4670,6 +4714,22 @@ function generateBuilderItinerary(steps, config, lang) {
       console.log('[ROUTE-BUILDER] ensurePlacesIndex terminé');
     } else {
       console.warn('[ROUTE-BUILDER] ⚠️ ensurePlacesIndex non disponible');
+    }
+    
+    // ══════════════════════════════════════════════════════════════
+    // CRITIQUE : Créer un nouveau tripId et initialiser l'adaptateur
+    // ══════════════════════════════════════════════════════════════
+    const newTripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    localStorage.setItem('ORT_CURRENT_TRIP_ID', newTripId);
+    state.tripId = newTripId;
+    window.state.tripId = newTripId;
+    console.log('[ROUTE-BUILDER] 🆕 Nouveau tripId créé:', newTripId);
+    
+    if (window.ORT_DETAIL_ADAPTER && typeof window.ORT_DETAIL_ADAPTER.init === 'function') {
+      window.ORT_DETAIL_ADAPTER.init(newTripId, window.state);
+      console.log('[ROUTE-BUILDER] ✅ ORT_DETAIL_ADAPTER initialisé');
+    } else {
+      console.warn('[ROUTE-BUILDER] ⚠️ ORT_DETAIL_ADAPTER non disponible');
     }
     
     if (typeof renderRows === 'function') {
@@ -11964,7 +12024,25 @@ if (previewBtn) {
       await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js");
       await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js");
       await load("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js");
-      window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
+      
+      // Attendre que firebase.auth soit vraiment disponible (le script peut mettre du temps à s'initialiser)
+      let authReady = false;
+      for (let i = 0; i < 50 && !authReady; i++) {
+        if (typeof window.firebase?.auth === 'function') {
+          authReady = true;
+        } else {
+          await new Promise(r => setTimeout(r, 50));
+        }
+      }
+      
+      if (!authReady) {
+        throw new Error('firebase.auth not available after loading');
+      }
+      
+      // Initialiser Firebase seulement si pas déjà fait
+      if (!window.firebase.apps.length) {
+        window.firebase.initializeApp(window.__FIREBASE_CONFIG__);
+      }
       await window.firebase.auth().setPersistence(window.firebase.auth.Auth.Persistence.LOCAL);
       console.log('[INIT] ✅ Firebase chargé');
     } catch (e) {
@@ -12156,6 +12234,16 @@ if (tripIdFromUrl && !ccParam && !itinParam) {
 }
 
 // === FALLBACK: URL VIDE → Charger depuis localStorage + ORT_STATE ===
+// ══════════════════════════════════════════════════════════════
+// SKIP si from=builder - le Route Builder gère tout lui-même
+// ══════════════════════════════════════════════════════════════
+const fromBuilder = urlParams.get('from');
+if (fromBuilder === 'builder') {
+  console.log('[INIT] ⏭️ Skip fallback - Route Builder actif');
+  // Le Route Builder va créer son propre tripId et initialiser l'adaptateur
+  return;
+}
+
 const cc = urlParams.get('cc');
 const itin = urlParams.get('itin');
 if (!cc || !itin) {
@@ -12231,7 +12319,7 @@ if (!cc || !itin) {
       clearInterval(waitForStateManager);
       
       try {
-        const trip = ORT_STATE.getTrip(savedTripId);
+        const trip = await ORT_STATE.getTrip(savedTripId);
         console.log('[INIT] Trip récupéré:', trip ? trip.id : 'null');
         
         if (trip && trip.steps && trip.steps.length > 0) {
