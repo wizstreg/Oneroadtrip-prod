@@ -30,6 +30,32 @@
   // Fonction de redirection vers mobile
   function redirectToMobile() {
     localStorage.setItem(REDIRECT_MARKER, '1');
+    
+    // === SAUVEGARDER LE STATE POUR MOBILE ===
+    // Quand on redirige vers mobile, sauvegarder le state actuel dans localStorage
+    // pour que RT Mobile puisse le récupérer même sans connexion Firestore
+    try {
+      if (window.state && window.state.steps && window.state.steps.length > 0) {
+        var tripId = window.state.tripId || window.ORT_TRIPID?.get() || localStorage.getItem('ORT_CURRENT_TRIP_ID');
+        if (tripId) {
+          var stateToSave = {
+            id: tripId,
+            tripId: tripId,
+            title: window.state.title || 'Roadtrip',
+            country: window.state.country || window.state.cc || 'XX',
+            steps: window.state.steps,
+            startDateStr: window.state.startDateStr || '',
+            totalBudget: window.state.totalBudget || 0
+          };
+          localStorage.setItem('ort_trip_' + tripId, JSON.stringify(stateToSave));
+          localStorage.setItem('ORT_MOBILE_HANDOFF', tripId);
+          console.log('[ORT] ✅ State sauvegardé pour mobile:', tripId, stateToSave.steps.length, 'étapes');
+        }
+      }
+    } catch (e) {
+      console.warn('[ORT] Erreur sauvegarde state pour mobile:', e);
+    }
+    
     var newUrl = location.href.replace(/roadtrip_detail(_simple)?(\.html)?/, 'roadtrip_mobile.html');
     if (newUrl === location.href) newUrl = location.href.replace(/\/([^\/]*)$/, '/roadtrip_mobile.html$1');
     if (!/mobile=0/.test(newUrl)) {
@@ -39,6 +65,43 @@
     console.log('[ORT] Redirecting to mobile:', newUrl);
     location.replace(newUrl);
   }
+  
+  // === SAUVEGARDE AUTOMATIQUE DU STATE POUR MOBILE ===
+  // Sauvegarder le state périodiquement pour permettre la synchronisation avec mobile
+  function saveStateForMobile() {
+    try {
+      if (window.state && window.state.steps && window.state.steps.length > 0) {
+        var tripId = window.state.tripId || (window.ORT_TRIPID && window.ORT_TRIPID.get()) || localStorage.getItem('ORT_CURRENT_TRIP_ID');
+        if (tripId) {
+          var stateToSave = {
+            id: tripId,
+            tripId: tripId,
+            title: window.state.title || 'Roadtrip',
+            country: window.state.country || window.state.cc || 'XX',
+            steps: window.state.steps,
+            startDateStr: window.state.startDateStr || '',
+            totalBudget: window.state.totalBudget || 0,
+            _savedAt: Date.now()
+          };
+          localStorage.setItem('ort_trip_' + tripId, JSON.stringify(stateToSave));
+        }
+      }
+    } catch (e) { /* ignore */ }
+  }
+  
+  // Sauvegarder toutes les 10 secondes si le state existe
+  setInterval(saveStateForMobile, 10000);
+  
+  // Aussi sauvegarder quand la fenêtre perd le focus (changement d'onglet, etc.)
+  window.addEventListener('blur', saveStateForMobile);
+  window.addEventListener('visibilitychange', function() {
+    if (document.hidden) saveStateForMobile();
+  });
+  
+  // Première sauvegarde après 3 secondes (laisser le temps au state de se charger)
+  setTimeout(saveStateForMobile, 3000);
+  // Et une autre après 10 secondes pour être sûr
+  setTimeout(saveStateForMobile, 10000);
   
   // Detect mobile via user-agent
   var isMobile = /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -59,12 +122,31 @@
 })();
 </script>
 <title>OneRoadTrip - Détails du roadtrip</title>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <style>
 :root{--bg:#113f7a;--card:#fff;--ink:#113f7a;--bd:#c3d6b6;--mut:#6b7a99;--danger:#c62828;--ok:#1b5e20}
 *{box-sizing:border-box}
 html,body{height:100%;overflow-x:hidden}
 body{margin:0;background:linear-gradient(rgba(17,63,122,0.85),rgba(17,63,122,0.85)),url("/assets/image_index.webp") center/cover fixed;background-color:#113f7a;color:#e7f6fb;font-family:system-ui,sans-serif}
+
+/* Mode lecture seule (partage) */
+body.shared-view-only .delete-btn,
+body.shared-view-only .edit-btn,
+body.shared-view-only #btnSave,
+body.shared-view-only #btnAddStep,
+body.shared-view-only #btnAddMapStep,
+body.shared-view-only #btnEditMapRoute,
+body.shared-view-only .add-step-btn,
+body.shared-view-only [contenteditable="true"] {
+  display: none !important;
+  pointer-events: none !important;
+}
+body.shared-view-only [contenteditable="true"] {
+  display: block !important;
+  pointer-events: none !important;
+  user-select: text !important;
+}
+
 .wrap{max-width:1400px;margin:0 auto;padding:16px}
 .card{background:var(--card);color:var(--ink);border-radius:14px;border:1px solid rgba(0,0,0,.08);padding:14px}
 .small{font-size:.9rem;color:#1a3a7f}
@@ -1962,7 +2044,9 @@ header{position:sticky;top:0;z-index:10;background:url("/assets/image_index.webp
 
 <!-- ⬇️ AJOUTER AVANT </head> -->
 <script src="/js/ort-config.js"></script>
+<script src="/js/ort-tripid.js"></script>
 <script src="/js/ort-i18n.js"></script>
+<script src="/js/ort-trip-data.js"></script>
 <script>
 // === Fallback i18n si ort-i18n.js non chargé ===
 if (typeof t !== 'function') {
@@ -1977,6 +2061,21 @@ if (typeof t !== 'function') {
     countrySheet: { fr: 'Fiche pays', en: 'Country sheet', es: 'Ficha país', it: 'Scheda paese', pt: 'Ficha país', ar: 'بطاقة البلد' },
     userPhotosResas: { fr: '📷 Photos et résas', en: '📷 Photos & bookings', es: '📷 Fotos y reservas', it: '📷 Foto e prenotazioni', pt: '📷 Fotos e reservas', ar: '📷 الصور والحجوزات' },
     userPhotosResasTooltip: { fr: 'Insérez vos propres photos et vos réservations', en: 'Add your own photos and bookings', es: 'Añade tus propias fotos y reservas', it: 'Inserisci le tue foto e prenotazioni', pt: 'Adicione suas próprias fotos e reservas', ar: 'أضف صورك وحجوزاتك الخاصة' },
+    customize: { fr: '✨ Personnaliser', en: '✨ Customize', es: '✨ Personalizar', it: '✨ Personalizza', pt: '✨ Personalizar', ar: '✨ تخصيص' },
+    customizeTooltip: { fr: 'Photos, réservations et documents', en: 'Photos, bookings and documents', es: 'Fotos, reservas y documentos', it: 'Foto, prenotazioni e documenti', pt: 'Fotos, reservas e documentos', ar: 'الصور والحجوزات والوثائق' },
+    menuMyPhotos: { fr: '📷 Intégrer mes photos', en: '📷 Add my photos', es: '📷 Añadir mis fotos', it: '📷 Aggiungi le mie foto', pt: '📷 Adicionar minhas fotos', ar: '📷 إضافة صوري' },
+    menuImportBooking: { fr: '➕ Importer une réservation', en: '➕ Import a booking', es: '➕ Importar una reserva', it: '➕ Importa una prenotazione', pt: '➕ Importar uma reserva', ar: '➕ استيراد حجز' },
+    menuViewBookings: { fr: '📋 Voir mes réservations', en: '📋 View my bookings', es: '📋 Ver mis reservas', it: '📋 Vedi le mie prenotazioni', pt: '📋 Ver minhas reservas', ar: '📋 عرض حجوزاتي' },
+    budget: { fr: 'Budget', en: 'Budget', es: 'Presupuesto', it: 'Budget', pt: 'Orçamento', ar: 'الميزانية' },
+    budgetTooltip: { fr: 'Cliquez pour voir le détail', en: 'Click to see details', es: 'Haga clic para ver los detalles', it: 'Clicca per vedere i dettagli', pt: 'Clique para ver detalhes', ar: 'انقر لرؤية التفاصيل' },
+    budgetTotal: { fr: 'Budget total', en: 'Total budget', es: 'Presupuesto total', it: 'Budget totale', pt: 'Orçamento total', ar: 'الميزانية الإجمالية' },
+    budgetByCategory: { fr: 'Par catégorie', en: 'By category', es: 'Por categoría', it: 'Per categoria', pt: 'Por categoria', ar: 'حسب الفئة' },
+    budgetTransport: { fr: 'Transport', en: 'Transport', es: 'Transporte', it: 'Trasporto', pt: 'Transporte', ar: 'النقل' },
+    budgetAccommodation: { fr: 'Hébergement', en: 'Accommodation', es: 'Alojamiento', it: 'Alloggio', pt: 'Hospedagem', ar: 'الإقامة' },
+    budgetActivities: { fr: 'Activités', en: 'Activities', es: 'Actividades', it: 'Attività', pt: 'Atividades', ar: 'الأنشطة' },
+    budgetOther: { fr: 'Autres', en: 'Other', es: 'Otros', it: 'Altro', pt: 'Outros', ar: 'أخرى' },
+    addManualItem: { fr: '➕ Ajouter une dépense', en: '➕ Add expense', es: '➕ Añadir gasto', it: '➕ Aggiungi spesa', pt: '➕ Adicionar despesa', ar: '➕ إضافة نفقة' },
+    noBudget: { fr: 'Aucune réservation', en: 'No bookings', es: 'Sin reservas', it: 'Nessuna prenotazione', pt: 'Sem reservas', ar: 'لا توجد حجوزات' },
     flights: { fr: 'Vols', en: 'Flights', es: 'Vuelos', it: 'Voli', pt: 'Voos', ar: 'الرحلات' },
     carRental: { fr: 'Location voiture', en: 'Car rental', es: 'Alquiler de coche', it: 'Noleggio auto', pt: 'Aluguel de carro', ar: 'تأجير سيارات' },
     transfers: { fr: 'Transferts', en: 'Transfers', es: 'Traslados', it: 'Trasferimenti', pt: 'Transferências', ar: 'التحويلات' },
@@ -2075,6 +2174,9 @@ if (typeof t !== 'function') {
     </button>
     <button class="tools-item" id="btnToolsRate" type="button">
       ⭐ <span data-i18n="rateTrip">Noter ce road trip</span>
+    </button>
+    <button class="tools-item" id="btnShareTrip" type="button">
+      🔗 <span data-i18n="shareTrip">Partager ce voyage</span>
     </button>
     
     <!-- SUPPRIMÉ: km/mi, modes transport, gestion nuits/groupes, hébergements -->
@@ -2656,30 +2758,77 @@ pdfBtnRow.addEventListener('click', () => {
 });
 row.appendChild(pdfBtnRow);
 
-// === Bouton Photos et Résas dans le header ===
-const userPhotosBtn = document.createElement('button');
-userPhotosBtn.id = 'btnUserPhotos';
-userPhotosBtn.type = 'button';
-userPhotosBtn.className = 'hdr-btn';
-userPhotosBtn.textContent = t('userPhotosResas');
-userPhotosBtn.title = t('userPhotosResasTooltip');
-Object.assign(userPhotosBtn.style, {
-  marginLeft: '6px',
+// === Menu Personnaliser (Photos, Résas, Documents) ===
+const customizeWrap = document.createElement('div');
+customizeWrap.className = 'customize-dropdown';
+customizeWrap.style.cssText = 'position:relative;display:inline-block;margin-left:6px;';
+
+const customizeBtn = document.createElement('button');
+customizeBtn.id = 'btnCustomize';
+customizeBtn.type = 'button';
+customizeBtn.className = 'hdr-btn';
+customizeBtn.textContent = t('customize');
+customizeBtn.title = t('customizeTooltip');
+Object.assign(customizeBtn.style, {
   background: '#fff',
   color: '#113f7a',
-  border: '1px solid #113f7a'
+  border: '1px solid #113f7a',
+  cursor: 'pointer'
 });
-userPhotosBtn.addEventListener('click', () => {
+
+const customizeMenu = document.createElement('div');
+customizeMenu.className = 'customize-menu';
+customizeMenu.style.cssText = `
+  display:none;position:absolute;top:100%;right:0;margin-top:4px;
+  background:#fff;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,0.15);
+  min-width:220px;z-index:1000;overflow:hidden;border:1px solid #e5e7eb;
+`;
+
+const menuItems = [
+  { key: 'menuMyPhotos', page: 'rt-photos.html', icon: '📷' },
+  { key: 'menuImportBooking', page: 'rt-booking-import.html', icon: '➕' },
+  { key: 'menuViewBookings', page: 'rt-bookings.html', icon: '📋' }
+];
+
+menuItems.forEach((item, idx) => {
+  const menuItem = document.createElement('div');
+  menuItem.className = 'customize-menu-item';
+  menuItem.textContent = t(item.key);
+  menuItem.style.cssText = `
+    padding:12px 16px;cursor:pointer;font-weight:500;color:#113f7a;
+    border-bottom:${idx < menuItems.length - 1 ? '1px solid #f1f5f9' : 'none'};
+    transition:background 0.15s;
+  `;
+  menuItem.addEventListener('mouseenter', () => menuItem.style.background = '#f8fafc');
+  menuItem.addEventListener('mouseleave', () => menuItem.style.background = '#fff');
+  menuItem.addEventListener('click', () => {
+    customizeMenu.style.display = 'none';
+    navigateToCustomizePage(item.page);
+  });
+  customizeMenu.appendChild(menuItem);
+});
+
+customizeBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  const isOpen = customizeMenu.style.display === 'block';
+  customizeMenu.style.display = isOpen ? 'none' : 'block';
+});
+
+document.addEventListener('click', () => {
+  customizeMenu.style.display = 'none';
+});
+
+customizeWrap.appendChild(customizeBtn);
+customizeWrap.appendChild(customizeMenu);
+row.appendChild(customizeWrap);
+
+function navigateToCustomizePage(page) {
+  const tripId = window.ORT_TRIPID ? window.ORT_TRIPID.get() : (window.state?.tripId || 'default');
   const params = new URLSearchParams(location.search);
-  const cc = params.get('cc');
-  const itin = params.get('itin');
-  let tripId = params.get('tripId') || params.get('id');
-  if (!tripId && cc && itin) {
-    tripId = `user::${cc}::${itin}`.replace(/[^a-zA-Z0-9:_-]/g, '_');
-  }
-  tripId = tripId || window.state?.tripId || 'default';
+  const cc = params.get('cc') || '';
+  const itin = params.get('itin') || '';
   
-  // Stocker le trip enrichi pour rt-user
+  // Stocker le trip enrichi
   if (window.state && window.state.steps) {
     const tripData = {
       id: tripId,
@@ -2689,13 +2838,16 @@ userPhotosBtn.addEventListener('click', () => {
       updatedAt: Date.now()
     };
     localStorage.setItem(`ort_trip_${tripId}`, JSON.stringify(tripData));
-    console.log('[USER-PHOTOS] Trip stocké:', tripId, tripData.steps.length, 'étapes');
+    console.log('[CUSTOMIZE] Trip stocké:', tripId, tripData.steps.length, 'étapes');
   }
   
-  console.log('[USER-PHOTOS] tripId:', tripId);
-  window.location.href = `rt-user.html?id=${encodeURIComponent(tripId)}&cc=${cc || ''}&itin=${itin || ''}`;
-});
-row.appendChild(userPhotosBtn);
+  console.log('[CUSTOMIZE] Navigation vers:', page, 'tripId:', tripId);
+  if (window.ORT_TRIPID) {
+    window.ORT_TRIPID.navigateTo(page, { id: tripId, cc: cc, itin: itin });
+  } else {
+    window.location.href = `${page}?id=${encodeURIComponent(tripId)}&cc=${cc}&itin=${itin}`;
+  }
+}
 
 hdr.appendChild(row);
 
@@ -2908,6 +3060,9 @@ hdr.appendChild(row);
     <div id="quickStats" class="pill stats" data-i18n-title="legend" title="Survolez pour la légende">
       <span id="qsNights">— nuits</span> · <span id="qsDelta">Δ 0</span> ·
       <span id="qsKm">— km</span> · <span id="qsTime">— h — min</span> · <span id="qsTravelDays" title="Jours de trajet (vols/longues routes)">+0j trajet</span>
+    </div>
+    <div id="budgetBadge" class="pill budget-badge" style="display:none;cursor:pointer;background:#dcfce7;color:#166534;border-color:#86efac;" title="Cliquez pour voir le détail">
+      💰 <span id="budgetAmount">0 €</span>
     </div>
     <button id="helpBtn" class="hdr-btn" title="Aide" aria-expanded="false" data-i18n-title="help.title">ℹ️</button>
     <div id="helpPop" class="help-pop" role="dialog" aria-hidden="true"></div>
@@ -3166,13 +3321,13 @@ hdr.appendChild(row);
 
     const sel=document.getElementById('langSel'); if(sel){ sel.value=lang; sel.addEventListener('change',e=>{ const code=e.target.value; localStorage.setItem('lang',code); const u=new URL(location.href); u.searchParams.set('lang',code); location.replace(u.toString()); }); }
     const home=document.getElementById('homeLink'); if(home){ home.addEventListener('click',e=>{ e.preventDefault(); const u=new URL('presentation.html', location.href); u.searchParams.set('lang', lang); location.href=u.toString(); }); }
-    /* Libellés du bouton selon langue */
-    if(openAuth) openAuth.textContent = L().login;
+    /* Libellés du bouton selon langue - seulement si pas encore connecté */
+    if(openAuth && !window.firebase?.auth?.()?.currentUser) openAuth.textContent = L().login;
   })();
 })();
 </script>
 
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script src="js/ort-step-common.js"></script>
 <!-- STATE MANAGER -->
 <script src="js/ort-state-manager.js"></script>
@@ -3446,13 +3601,240 @@ function getCategoryIconForCell(category) {
     lodging: '🏨',
     hotel: '🏨',
     flight: '✈️',
+    car_rental: '🚗',
     car: '🚗',
     train: '🚆',
     restaurant: '🍽️',
     activity: '🎯',
+    visit: '🏛️',
+    show: '🎭',
+    insurance: '🛡️',
     other: '📄'
   };
   return icons[category] || '📄';
+}
+
+// === MODALE RÉSERVATIONS ÉTAPE ===
+function openBookingsModal(stepIdx, stepName) {
+  // Récupérer les réservations
+  let bookings = [];
+  if (window.ORT_TRIP_DATA) {
+    bookings = ORT_TRIP_DATA.getStepBookings(stepIdx) || [];
+  } else if (typeof globalBookingManager !== 'undefined' && globalBookingManager) {
+    bookings = globalBookingManager.getBookings(stepIdx) || [];
+  }
+  
+  const lang = (localStorage.getItem('lang') || 'fr').slice(0,2);
+  const I18N = {
+    title: { fr: 'Réservations', en: 'Bookings', es: 'Reservas', it: 'Prenotazioni', pt: 'Reservas', ar: 'الحجوزات' },
+    noBookings: { fr: 'Aucune réservation pour cette étape', en: 'No bookings for this step', es: 'Sin reservas para esta etapa', it: 'Nessuna prenotazione per questa tappa', pt: 'Sem reservas para esta etapa', ar: 'لا حجوزات لهذه المرحلة' },
+    close: { fr: 'Fermer', en: 'Close', es: 'Cerrar', it: 'Chiudi', pt: 'Fechar', ar: 'إغلاق' },
+    outbound: { fr: 'ALLER', en: 'OUTBOUND', es: 'IDA', it: 'ANDATA', pt: 'IDA', ar: 'ذهاب' },
+    return: { fr: 'RETOUR', en: 'RETURN', es: 'VUELTA', it: 'RITORNO', pt: 'VOLTA', ar: 'عودة' },
+    pickup: { fr: 'PRISE EN CHARGE', en: 'PICKUP', es: 'RECOGIDA', it: 'RITIRO', pt: 'RETIRADA', ar: 'استلام' },
+    dropoff: { fr: 'RESTITUTION', en: 'DROPOFF', es: 'DEVOLUCIÓN', it: 'RICONSEGNA', pt: 'DEVOLUÇÃO', ar: 'تسليم' },
+    duration: { fr: 'Durée', en: 'Duration', es: 'Duración', it: 'Durata', pt: 'Duração', ar: 'المدة' },
+    mileage: { fr: 'Kilométrage', en: 'Mileage', es: 'Kilometraje', it: 'Chilometraggio', pt: 'Quilometragem', ar: 'المسافة' },
+    fuel: { fr: 'Carburant', en: 'Fuel', es: 'Combustible', it: 'Carburante', pt: 'Combustível', ar: 'الوقود' },
+    addToCalendar: { fr: '📅 Calendrier', en: '📅 Calendar', es: '📅 Calendario', it: '📅 Calendario', pt: '📅 Calendário', ar: '📅 التقويم' },
+    addAllToCalendar: { fr: '📅 Tout ajouter au calendrier', en: '📅 Add all to calendar', es: '📅 Añadir todo al calendario', it: '📅 Aggiungi tutto al calendario', pt: '📅 Adicionar tudo ao calendário', ar: '📅 إضافة الكل للتقويم' }
+  };
+  const t = (key) => I18N[key]?.[lang] || I18N[key]?.fr || key;
+  
+  // Formater la durée
+  const formatDuration = (minutes) => {
+    if (!minutes) return '';
+    const h = Math.floor(minutes / 60);
+    const m = minutes % 60;
+    return m > 0 ? `${h}h${String(m).padStart(2, '0')}` : `${h}h`;
+  };
+  
+  // Formater une date
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    try {
+      const d = new Date(dateStr);
+      if (isNaN(d.getTime())) return dateStr;
+      return d.toLocaleDateString(lang || 'fr', { day: '2-digit', month: '2-digit', year: 'numeric' });
+    } catch (e) {
+      return dateStr;
+    }
+  };
+  
+  // Générer la ligne de date avec nuits si applicable
+  const getDateLine = (b) => {
+    let parts = [];
+    if (b.date_start) parts.push(formatDate(b.date_start));
+    if (b.date_end && b.date_end !== b.date_start) parts.push('→ ' + formatDate(b.date_end));
+    
+    let line = parts.length > 0 ? `📅 ${parts.join(' ')}` : '';
+    
+    // Ajouter les nuits pour les hôtels
+    if (b.nights && b.nights > 0) {
+      line += line ? ` (${b.nights} nuit${b.nights > 1 ? 's' : ''})` : `🌙 ${b.nights} nuit${b.nights > 1 ? 's' : ''}`;
+    }
+    return line;
+  };
+  
+  // Stocker les bookings pour l'export calendrier
+  window._currentModalBookings = bookings;
+  
+  // Générer le HTML des réservations
+  let bookingsHTML = '';
+  if (bookings.length === 0) {
+    bookingsHTML = `<div style="text-align:center;padding:40px;color:#666">${t('noBookings')}</div>`;
+  } else {
+    bookings.forEach((b, bIdx) => {
+      const icon = getCategoryIconForCell(b.category);
+      let detailsHTML = '';
+      
+      // Détails spécifiques aux vols
+      if (b.category === 'flight' && b.flights && b.flights.length > 0) {
+        detailsHTML = '<div style="margin-top:10px;border-top:1px solid #e5e7eb;padding-top:10px">';
+        b.flights.forEach(flight => {
+          const typeLabel = flight.type === 'outbound' ? `✈️ ${t('outbound')}` : `✈️ ${t('return')}`;
+          const route = `${flight.departure_city || '?'} (${flight.departure_airport || '?'}) → ${flight.arrival_city || '?'} (${flight.arrival_airport || '?'})`;
+          
+          detailsHTML += `
+            <div style="margin-bottom:12px;padding:10px;background:#f0f9ff;border-radius:8px">
+              <div style="font-weight:700;color:#1e40af;margin-bottom:6px">${typeLabel}</div>
+              <div style="font-size:0.9rem;margin-bottom:4px">🛫 ${route}</div>
+              ${flight.airline || flight.flight_number ? `<div style="font-size:0.85rem;color:#666">🔢 ${[flight.airline, flight.flight_number].filter(Boolean).join(' • ')}</div>` : ''}
+              ${flight.departure_date || flight.departure_time ? `<div style="font-size:0.85rem;color:#666">🛫 Départ: ${[flight.departure_date, flight.departure_time ? 'à ' + flight.departure_time : ''].filter(Boolean).join(' ')}</div>` : ''}
+              ${flight.arrival_date || flight.arrival_time ? `<div style="font-size:0.85rem;color:#666">🛬 Arrivée: ${[flight.arrival_date, flight.arrival_time ? 'à ' + flight.arrival_time : ''].filter(Boolean).join(' ')}${flight.arrival_date && flight.departure_date && flight.arrival_date !== flight.departure_date ? ' (+1j)' : ''}</div>` : ''}
+              ${flight.duration_minutes ? `<div style="font-size:0.85rem;color:#666">⏱️ ${t('duration')}: ${formatDuration(flight.duration_minutes)}</div>` : ''}
+            </div>
+          `;
+        });
+        detailsHTML += '</div>';
+      }
+      
+      // Détails spécifiques aux locations de voiture
+      if (b.category === 'car_rental' && b.car_rental) {
+        const car = b.car_rental;
+        detailsHTML = `
+          <div style="margin-top:10px;border-top:1px solid #e5e7eb;padding-top:10px">
+            ${car.vehicle_model || car.vehicle_type ? `<div style="font-size:0.9rem;margin-bottom:8px">🚗 ${car.vehicle_model || car.vehicle_type}</div>` : ''}
+            
+            <div style="margin-bottom:8px;padding:8px;background:#f0fdf4;border-radius:6px">
+              <div style="font-weight:600;color:#16a34a;margin-bottom:4px">📍 ${t('pickup')}</div>
+              ${car.pickup_location ? `<div style="font-size:0.85rem">${car.pickup_location}</div>` : ''}
+              ${car.pickup_date || car.pickup_time ? `<div style="font-size:0.85rem;color:#666">📅 ${[car.pickup_date, car.pickup_time ? 'à ' + car.pickup_time : ''].filter(Boolean).join(' ')}</div>` : ''}
+            </div>
+            
+            <div style="margin-bottom:8px;padding:8px;background:#fef2f2;border-radius:6px">
+              <div style="font-weight:600;color:#dc2626;margin-bottom:4px">📍 ${t('dropoff')}</div>
+              ${car.dropoff_location ? `<div style="font-size:0.85rem">${car.dropoff_location}</div>` : ''}
+              ${car.dropoff_date || car.dropoff_time ? `<div style="font-size:0.85rem;color:#666">📅 ${[car.dropoff_date, car.dropoff_time ? 'à ' + car.dropoff_time : ''].filter(Boolean).join(' ')}</div>` : ''}
+            </div>
+            
+            ${car.included_km ? `<div style="font-size:0.85rem;color:#666">🛣️ ${t('mileage')}: ${car.included_km}</div>` : ''}
+            ${car.fuel_policy ? `<div style="font-size:0.85rem;color:#666">⛽ ${t('fuel')}: ${car.fuel_policy}</div>` : ''}
+          </div>
+        `;
+      }
+      
+      bookingsHTML += `
+        <div style="background:#fff;border:1px solid #e5e7eb;border-radius:10px;padding:14px;margin-bottom:12px;box-shadow:0 1px 3px rgba(0,0,0,0.05)">
+          <div style="display:flex;align-items:flex-start;gap:12px">
+            <div style="font-size:1.8rem">${icon}</div>
+            <div style="flex:1">
+              <div style="font-weight:700;font-size:1rem;color:#1f2937">${b.name || 'Sans nom'}</div>
+              ${b.provider ? `<div style="font-size:0.85rem;color:#6b7280">🏢 ${b.provider}</div>` : ''}
+              ${getDateLine(b) ? `<div style="font-size:0.85rem;color:#6b7280">${getDateLine(b)}</div>` : ''}
+              ${b.reference ? `<div style="font-size:0.85rem;color:#6b7280">🔖 Réf: ${b.reference}</div>` : ''}
+              ${b.price ? `<div style="font-size:0.9rem;font-weight:600;color:#16a34a;margin-top:4px">💰 ${typeof b.price === 'object' ? b.price.amount : b.price} €</div>` : ''}
+              ${b.address ? `<div style="font-size:0.85rem;color:#6b7280">📍 ${b.address}</div>` : ''}
+              ${b.notes ? `<div style="font-size:0.85rem;color:#6b7280;font-style:italic;margin-top:4px">📝 ${b.notes}</div>` : ''}
+            </div>
+            <button onclick="addBookingToCalendar(${bIdx})" style="padding:6px 10px;background:#f0f9ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:6px;cursor:pointer;font-size:0.8rem;white-space:nowrap" title="${t('addToCalendar')}">${t('addToCalendar')}</button>
+          </div>
+          ${detailsHTML}
+        </div>
+      `;
+    });
+  }
+  
+  // Créer la modale
+  const modalId = 'stepBookingsModal';
+  let modal = document.getElementById(modalId);
+  if (modal) modal.remove();
+  
+  modal = document.createElement('div');
+  modal.id = modalId;
+  modal.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;display:flex;align-items:center;justify-content:center;padding:20px';
+  
+  modal.innerHTML = `
+    <div style="background:#f8fafc;border-radius:16px;max-width:500px;width:100%;max-height:85vh;display:flex;flex-direction:column;overflow:hidden">
+      <div style="background:#113f7a;color:#fff;padding:16px 20px;display:flex;align-items:center;justify-content:space-between">
+        <h2 style="margin:0;font-size:1.1rem">📋 ${t('title')} - ${stepName}</h2>
+        <button onclick="document.getElementById('${modalId}').remove()" style="background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer;padding:0">×</button>
+      </div>
+      <div style="padding:16px;overflow-y:auto;flex:1">
+        ${bookingsHTML}
+      </div>
+      <div style="padding:12px 16px;border-top:1px solid #e5e7eb;display:flex;gap:10px;justify-content:space-between">
+        ${bookings.length > 0 ? `<button onclick="addAllBookingsToCalendar()" style="padding:10px 16px;background:#f0f9ff;color:#1e40af;border:1px solid #bfdbfe;border-radius:8px;cursor:pointer;font-weight:600;font-size:0.9rem">${t('addAllToCalendar')}</button>` : '<div></div>'}
+        <button onclick="document.getElementById('${modalId}').remove()" style="padding:10px 24px;background:#113f7a;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600">${t('close')}</button>
+      </div>
+    </div>
+  `;
+  
+  // Fermer au clic sur le backdrop
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) modal.remove();
+  });
+  
+  document.body.appendChild(modal);
+}
+
+// Fonction pour ajouter une réservation au calendrier
+function addBookingToCalendar(bookingIdx) {
+  const booking = window._currentModalBookings?.[bookingIdx];
+  if (!booking) {
+    console.warn('[CALENDAR] Réservation non trouvée');
+    return;
+  }
+  
+  if (window.ORT_CALENDAR) {
+    ORT_CALENDAR.showCalendarMenu(booking, 1, event?.target);
+  } else {
+    // Fallback: générer un fichier ICS simple
+    console.warn('[CALENDAR] Module ORT_CALENDAR non chargé, fallback...');
+    const title = booking.name || 'Réservation';
+    const start = booking.date_start || '';
+    const end = booking.date_end || start;
+    
+    if (!start) {
+      alert('Pas de date pour cette réservation');
+      return;
+    }
+    
+    // Lien Google Calendar
+    const googleUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${start.replace(/-/g, '')}/${end.replace(/-/g, '')}&details=${encodeURIComponent(booking.reference ? 'Réf: ' + booking.reference : '')}`;
+    window.open(googleUrl, '_blank');
+  }
+}
+
+// Fonction pour ajouter toutes les réservations au calendrier
+function addAllBookingsToCalendar() {
+  const bookings = window._currentModalBookings || [];
+  if (bookings.length === 0) return;
+  
+  if (window.ORT_CALENDAR) {
+    // Créer un map simulé pour l'export
+    const stepBookingsMap = {};
+    bookings.forEach((b, i) => {
+      stepBookingsMap[`booking_${i}`] = { booking: b, steps: [0], firstStepIndex: 0 };
+    });
+    
+    const result = ORT_CALENDAR.exportAllBookings([], stepBookingsMap, window.state?.title || 'Voyage');
+    if (result && result.ics) {
+      ORT_CALENDAR.downloadICS(result.ics, 'reservations.ics');
+    }
+  } else {
+    alert('Module calendrier non disponible');
+  }
 }
 
 
@@ -3625,6 +4007,66 @@ localStorage.setItem('ort.view', mapOnly ? 'map' : 'normal');
 })();
 
 function initApp(){
+// === VÉRIFICATION MODE PARTAGÉ ===
+(async function checkShareMode(){
+  const shareToken = new URLSearchParams(location.search).get('share');
+  if (!shareToken) return;
+  
+  console.log('[SHARE] Mode partagé détecté, token:', shareToken);
+  
+  // Afficher indicateur de chargement
+  const loadingBanner = document.createElement('div');
+  loadingBanner.id = 'shareLoadingBanner';
+  loadingBanner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#3b82f6;color:#fff;padding:10px;text-align:center;z-index:10001;font-weight:600';
+  loadingBanner.textContent = '⏳ Chargement du voyage partagé...';
+  document.body.appendChild(loadingBanner);
+  
+  try {
+    // Attendre Firebase
+    await new Promise(resolve => {
+      if (window.firebase?.firestore) resolve();
+      else setTimeout(resolve, 1000);
+    });
+    
+    if (typeof ORT_SHARE !== 'undefined') {
+      const sharedData = await ORT_SHARE.checkSharedAccess();
+      if (sharedData) {
+        console.log('[SHARE] ✅ Trip chargé, mode:', sharedData.mode);
+        
+        // Stocker les données pour le chargement
+        window._sharedTripData = sharedData;
+        
+        // Afficher le mode
+        loadingBanner.innerHTML = sharedData.mode === 'viewer' 
+          ? '👁️ Mode lecture seule' 
+          : '✏️ Mode modification';
+        loadingBanner.style.background = sharedData.mode === 'viewer' ? '#f59e0b' : '#16a34a';
+        
+        // Masquer après 3s
+        setTimeout(() => loadingBanner.remove(), 3000);
+        
+        // Désactiver édition si viewer
+        if (sharedData.mode === 'viewer') {
+          document.body.classList.add('shared-view-only');
+          // Masquer boutons d'édition
+          setTimeout(() => {
+            document.querySelectorAll('#btnSave, #btnAddStep, #btnAddMapStep, .delete-btn, .edit-btn').forEach(el => {
+              el.style.display = 'none';
+            });
+          }, 100);
+        }
+      } else {
+        loadingBanner.innerHTML = '❌ Lien invalide ou expiré';
+        loadingBanner.style.background = '#dc2626';
+        setTimeout(() => loadingBanner.remove(), 5000);
+      }
+    }
+  } catch(e) {
+    console.error('[SHARE] Erreur:', e);
+    loadingBanner.remove();
+  }
+})();
+
 window.closeMapPopup=()=>{
   window.popupLocked = false; // déverrouille si on clique sur ✕
   document.getElementById('mapPopup').classList.remove('show');
@@ -4041,6 +4483,26 @@ async function loadPhotosJSON(){
 }
 
 function getPhotosForPlace(pid){return (PHOTOS_CACHE[pid]||{}).photos||[]}
+
+// Récupère les photos pour une étape en priorisant les photos utilisateur
+function getPhotosForStep(stepIndex, pid) {
+  // 1. Priorité aux photos utilisateur si ORT_TRIP_DATA est disponible
+  if (window.ORT_TRIP_DATA) {
+    const userPhotos = ORT_TRIP_DATA.getStepPhotos(stepIndex);
+    if (userPhotos && userPhotos.length > 0) {
+      // Combiner: userPhotos d'abord, puis compléter avec photos catalogue
+      const catalogPhotos = getPhotosForPlace(pid) || [];
+      const combined = [...userPhotos];
+      // Ajouter les photos catalogue qui ne sont pas déjà présentes
+      catalogPhotos.forEach(p => {
+        if (!combined.includes(p)) combined.push(p);
+      });
+      return combined;
+    }
+  }
+  // 2. Fallback: photos du catalogue
+  return getPhotosForPlace(pid) || [];
+}
 
 // Convertir un nom en slug pour matcher les place_id (format CC::nom-en-slug)
 function toSlug(name) {
@@ -4940,22 +5402,29 @@ function renderTripBookings() {
     return;
   }
   
-  // Vérifier qu'il y a des réservations
-  if (typeof globalBookingManager === 'undefined' || !globalBookingManager) {
-    container.innerHTML = '';
-    return;
-  }
-  
-  // Récupérer les réservations non liées à une étape
+  // Collecter toutes les réservations voyage
   const tripBookings = [];
   
-  Object.entries(globalBookingManager.bookings).forEach(([stepIdx, bookings]) => {
-    bookings.forEach(booking => {
-      if (booking.category && ['flight', 'car', 'train', 'restaurant', 'other'].includes(booking.category)) {
+  // 1. Depuis globalBookingManager (résas par étape avec catégorie voyage)
+  if (typeof globalBookingManager !== 'undefined' && globalBookingManager) {
+    Object.entries(globalBookingManager.bookings).forEach(([stepIdx, bookings]) => {
+      bookings.forEach(booking => {
+        if (booking.category && ['flight', 'car', 'train', 'restaurant', 'other'].includes(booking.category)) {
+          tripBookings.push(booking);
+        }
+      });
+    });
+  }
+  
+  // 2. Depuis window.state.travelBookings (nouvelles résas via ORT_TRIP_DATA)
+  if (window.state?.travelBookings && Array.isArray(window.state.travelBookings)) {
+    window.state.travelBookings.forEach(booking => {
+      // Éviter les doublons (par ID)
+      if (!tripBookings.find(b => b.id === booking.id)) {
         tripBookings.push(booking);
       }
     });
-  });
+  }
   
   if (tripBookings.length === 0) {
     container.innerHTML = '';
@@ -4965,7 +5434,7 @@ function renderTripBookings() {
   // Grouper par catégorie
   const grouped = {};
   tripBookings.forEach(booking => {
-    const cat = booking.category || 'other';
+    const cat = booking.category || booking.type || 'other';
     if (!grouped[cat]) grouped[cat] = [];
     grouped[cat].push(booking);
   });
@@ -4982,6 +5451,7 @@ function renderTripBookings() {
         car: 'bookingCategoryVehicles',
         train: 'bookingCategoryTrains',
         restaurant: 'bookingCategoryRestaurants',
+        hotel: 'bookingCategoryHotels',
         other: 'bookingCategoryOther'
       };
       const i18nKey = categoryMap[category];
@@ -5333,37 +5803,40 @@ dateCell.style.textAlign='left';
   
   let hasBookings = false;
   
-  // Récupérer les réservations de cette étape
-  if (typeof globalBookingManager !== 'undefined' && globalBookingManager) {
-    const stepBookings = globalBookingManager.getBookings(idx) || [];
-    hasBookings = stepBookings.length > 0;
+  // Récupérer les réservations de cette étape depuis ORT_TRIP_DATA
+  let stepBookings = [];
+  if (window.ORT_TRIP_DATA) {
+    stepBookings = ORT_TRIP_DATA.getStepBookings(idx) || [];
+  } else if (typeof globalBookingManager !== 'undefined' && globalBookingManager) {
+    // Fallback sur ancien système
+    stepBookings = globalBookingManager.getBookings(idx) || [];
+  }
+  
+  hasBookings = stepBookings.length > 0;
+  
+  if (stepBookings.length > 0) {
+    const categoryGroups = {};
     
-    if (stepBookings.length > 0) {
-      const categoryGroups = {};
-      
-      // Grouper par catégorie
-      stepBookings.forEach(booking => {
-        const cat = booking.category || 'other';
-        if (!categoryGroups[cat]) {
-          categoryGroups[cat] = [];
-        }
-        categoryGroups[cat].push(booking);
-      });
-      
-      // Afficher un résumé
-      let html = '<div style="font-size:0.8rem;line-height:1.4;font-weight:600">';
-      Object.entries(categoryGroups).forEach(([cat, bookings]) => {
-        const icon = getCategoryIconForCell(cat);
-        html += `<div style="margin:2px 0;color:#555">${icon} ${bookings.length}</div>`;
-      });
-      html += '</div>';
-      
-      bookingsCell.innerHTML = html;
-      bookingsCell.style.backgroundColor = '#f0f9ff';
-      bookingsCell.style.border = '1px solid #93c5fd';
-    } else {
-      bookingsCell.innerHTML = '<div style="color:#999;font-size:0.85rem">—</div>';
-    }
+    // Grouper par catégorie
+    stepBookings.forEach(booking => {
+      const cat = booking.category || 'other';
+      if (!categoryGroups[cat]) {
+        categoryGroups[cat] = [];
+      }
+      categoryGroups[cat].push(booking);
+    });
+    
+    // Afficher un résumé
+    let html = '<div style="font-size:0.8rem;line-height:1.4;font-weight:600">';
+    Object.entries(categoryGroups).forEach(([cat, bookings]) => {
+      const icon = getCategoryIconForCell(cat);
+      html += `<div style="margin:2px 0;color:#555">${icon} ${bookings.length}</div>`;
+    });
+    html += '</div>';
+    
+    bookingsCell.innerHTML = html;
+    bookingsCell.style.backgroundColor = '#f0f9ff';
+    bookingsCell.style.border = '1px solid #93c5fd';
   } else {
     bookingsCell.innerHTML = '<div style="color:#999;font-size:0.85rem">—</div>';
   }
@@ -5374,6 +5847,10 @@ dateCell.style.textAlign='left';
     e.stopPropagation();
     if (typeof openBookingsModal === 'function') {
       openBookingsModal(idx, step.name || step.place_id);
+    } else if (typeof openStepBookingsModal === 'function') {
+      openStepBookingsModal(idx, step.name || step.place_id);
+    } else {
+      console.warn('[BOOKINGS] Aucune fonction modale disponible');
     }
   });
   
@@ -8882,6 +9359,17 @@ await ensurePlacesIndex().catch(()=>{});
     }
   }
   
+  // Skip si mode DASHBOARD (tripId présent mais cc/itin absents ou null)
+  const _tripIdParam = new URLSearchParams(location.search).get('tripId') || new URLSearchParams(location.search).get('id');
+  const _ccParam = new URLSearchParams(location.search).get('cc');
+  const _itinParam = new URLSearchParams(location.search).get('itin');
+  const _isDashboardMode = _tripIdParam && (!_ccParam || _ccParam === 'null' || !_itinParam || _itinParam === 'null');
+  
+  if (_isDashboardMode) {
+    console.log('[INIT] ⏭️ Skip loadItin - Mode DASHBOARD actif');
+    return;
+  }
+  
   if(!CC||!ITIN_ID){
 state.title='Aucun roadtrip sélectionné';
 setTitleTranslated(state.title);
@@ -8899,7 +9387,13 @@ return;
   
 state.country=CC;
    state.cc = CC; // ← AJOUT : pour collectCurrentData()
-   state.tripId = ensureRid(); // ← AJOUT pour ORT_DETAIL_ADAPTER
+   
+   // INIT ORT_TRIPID - Source de vérité unique pour le tripId
+   if (window.ORT_TRIPID) {
+     state.tripId = window.ORT_TRIPID.init({ source: 'detail' });
+   } else {
+     state.tripId = ensureRid(); // Fallback
+   }
    
    // Stocker la référence à l'itinéraire de base
    // Créer même si ITIN_ID est temporaire - on a besoin du country pour sauvegarder
@@ -9190,6 +9684,23 @@ renderRows();
       // Utilise le même popover que le bouton inline
       if(typeof openRatePopover === 'function'){
         openRatePopover(rateBtn);
+      }
+    });
+  }
+  
+  // Bouton Partager le voyage
+  const shareBtn = document.getElementById('btnShareTrip');
+  if(shareBtn){
+    shareBtn.addEventListener('click', ()=>{
+      toolsPop.classList.remove('show');
+      if(typeof ORT_SHARE !== 'undefined' && ORT_SHARE.showModal){
+        // Récupérer le tripId depuis l'URL ou le state
+        const params = new URLSearchParams(location.search);
+        const tripId = params.get('tripId') || params.get('id') || window.state?.tripId;
+        const tripTitle = window.state?.title || document.getElementById('rtTitle')?.textContent || 'Voyage';
+        ORT_SHARE.showModal(tripId, tripTitle);
+      } else {
+        toast('❌ Module de partage non disponible');
       }
     });
   }
@@ -10962,11 +11473,15 @@ if (fromTemp && rtKey) {
 }
 
 // === MODE DASHBOARD : tripId dans l'URL SANS cc/itin → Charger depuis Firestore ===
-const tripIdFromUrl = urlParams.get('tripId');
+const tripIdFromUrl = urlParams.get('tripId') || urlParams.get('id');
 const ccParam = urlParams.get('cc');
 const itinParam = urlParams.get('itin');
 
-if (tripIdFromUrl && !ccParam && !itinParam) {
+// Détecter si cc/itin sont vraiment définis (pas null/undefined/"null")
+const hasValidCc = ccParam && ccParam !== 'null' && ccParam !== 'undefined';
+const hasValidItin = itinParam && itinParam !== 'null' && itinParam !== 'undefined';
+
+if (tripIdFromUrl && (!hasValidCc || !hasValidItin)) {
   console.log('[INIT] 📌 Mode DASHBOARD détecté - tripId:', tripIdFromUrl);
   
   // Attendre que ORT_STATE et renderRows soient prêts
@@ -11009,7 +11524,7 @@ if (tripIdFromUrl && !ccParam && !itinParam) {
             window.state.initialNights = savedTrip.initialNights || savedTrip.nights;
           }
           
-          // Restaurer les réservations
+          // Restaurer les réservations (ancien format: savedTrip.bookings)
           if (savedTrip.bookings && typeof globalBookingManager !== 'undefined' && globalBookingManager) {
             window.state.bookings = savedTrip.bookings;
             Object.entries(savedTrip.bookings).forEach(([stepIdx, bookings]) => {
@@ -11019,7 +11534,25 @@ if (tripIdFromUrl && !ccParam && !itinParam) {
                 });
               }
             });
-            console.log('[INIT] ✅ Réservations restaurées');
+            console.log('[INIT] ✅ Réservations restaurées (ancien format)');
+          }
+          
+          // Restaurer les réservations (nouveau format: steps[].bookings)
+          if (savedTrip.steps && typeof globalBookingManager !== 'undefined' && globalBookingManager) {
+            savedTrip.steps.forEach((step, stepIdx) => {
+              if (step.bookings && Array.isArray(step.bookings) && step.bookings.length > 0) {
+                step.bookings.forEach(booking => {
+                  globalBookingManager.addBooking(stepIdx, booking);
+                });
+                console.log('[INIT] ✅ Réservations étape', stepIdx, ':', step.bookings.length);
+              }
+            });
+          }
+          
+          // Restaurer les réservations voyage (travelBookings: vol, voiture, etc.)
+          if (savedTrip.travelBookings && Array.isArray(savedTrip.travelBookings) && savedTrip.travelBookings.length > 0) {
+            window.state.travelBookings = savedTrip.travelBookings;
+            console.log('[INIT] ✅ Réservations voyage restaurées:', savedTrip.travelBookings.length);
           }
           
           // Restaurer les groupes d'étapes
@@ -11052,6 +11585,14 @@ if (tripIdFromUrl && !ccParam && !itinParam) {
           window.renderRows();
           if (typeof setTitleTranslated === 'function') setTitleTranslated(window.state.title);
           if (typeof loadGroups === 'function') loadGroups();
+          
+          // Charger le budget et les photos utilisateur APRÈS init complète
+          setTimeout(() => {
+            if (typeof loadBudgetData === 'function') {
+              console.log('[INIT] 🔄 Chargement budget/photos pour tripId:', tripIdFromUrl);
+              loadBudgetData();
+            }
+          }, 500);
           
           console.log('[INIT] ✅ Mode DASHBOARD - Affichage terminé');
         } else {
@@ -11210,24 +11751,36 @@ if (!cc || !itin) {
       console.log('[INIT] window.state prêt');
       
       // Générer ou récupérer tripId de manière STABLE
-      let tripId = urlParams.get('tripId');
+      // PRIORITÉ: tripId > id > ORT_TRIPID > génération depuis cc+itin
+      let tripId = urlParams.get('tripId') || urlParams.get('id');
+      
+      // Fallback sur ORT_TRIPID si pas dans URL
+      if (!tripId && window.ORT_TRIPID) {
+        tripId = window.ORT_TRIPID.get();
+        if (tripId) console.log('[INIT] ✅ TripId depuis ORT_TRIPID:', tripId);
+      }
       
       if (!tripId) {
         // Pour les RT standards (cc+itin), créer un tripId stable
         const cc = urlParams.get('cc');
         const itin = urlParams.get('itin');
         
-        if (cc && itin) {
+        if (cc && itin && cc !== 'null' && itin !== 'null') {
           // TripId stable basé sur l'itinéraire (même ID à chaque visite)
           tripId = `user::${cc}::${itin}`.replace(/[^a-zA-Z0-9:_-]/g, '_');
           console.log('[INIT] ✅ TripId stable généré depuis cc+itin:', tripId);
         } else {
           // Sinon, générer un ID unique (RT temporaire/personnalisé)
           tripId = window.ORT_STATE.generateTripId();
-          console.log('[INIT] ⚠️ TripId temporaire généré (pas de cc/itin):', tripId);
+          console.log('[INIT] ⚠️ TripId temporaire généré (pas de cc/itin valides):', tripId);
         }
       } else {
         console.log('[INIT] ✅ TripId depuis URL:', tripId);
+      }
+      
+      // Stocker dans ORT_TRIPID pour cohérence
+      if (window.ORT_TRIPID && tripId) {
+        window.ORT_TRIPID.store(tripId);
       }
       
      // Chercher modifications sauvegardées (accepte trip_, user:: ET temp_)
@@ -11250,6 +11803,7 @@ if (!cc || !itin) {
             }
             
             // === RESTAURER LES RÉSERVATIONS ===
+            // Ancien format: savedTrip.bookings
             if (savedTrip.bookings && typeof globalBookingManager !== 'undefined' && globalBookingManager) {
               window.state.bookings = savedTrip.bookings;
               
@@ -11262,7 +11816,25 @@ if (!cc || !itin) {
                 }
               });
               
-              console.log('[INIT] ✅ Réservations restaurées:', Object.keys(savedTrip.bookings).length, 'étapes');
+              console.log('[INIT] ✅ Réservations restaurées (ancien format):', Object.keys(savedTrip.bookings).length, 'étapes');
+            }
+            
+            // Nouveau format: steps[].bookings (ORT_TRIP_DATA)
+            if (savedTrip.steps && typeof globalBookingManager !== 'undefined' && globalBookingManager) {
+              savedTrip.steps.forEach((step, stepIdx) => {
+                if (step.bookings && Array.isArray(step.bookings) && step.bookings.length > 0) {
+                  step.bookings.forEach(booking => {
+                    globalBookingManager.addBooking(stepIdx, booking);
+                  });
+                  console.log('[INIT] ✅ Réservations étape', stepIdx, ':', step.bookings.length);
+                }
+              });
+            }
+            
+            // Réservations voyage (travelBookings: vol, voiture, etc.)
+            if (savedTrip.travelBookings && Array.isArray(savedTrip.travelBookings) && savedTrip.travelBookings.length > 0) {
+              window.state.travelBookings = savedTrip.travelBookings;
+              console.log('[INIT] ✅ Réservations voyage restaurées:', savedTrip.travelBookings.length);
             }
             
             // 🔗 RESTAURER LES GROUPES D'ÉTAPES (V7)
@@ -12859,10 +13431,238 @@ if (mapPopup) {
 }
 </script>
 
+<!-- Budget Modal -->
+<div id="budgetModal" style="position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;padding:16px;">
+  <div style="background:#fff;border-radius:16px;max-width:500px;width:100%;max-height:80vh;overflow:hidden;display:flex;flex-direction:column;">
+    <div style="padding:20px;border-bottom:1px solid #e5e7eb;">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h3 style="margin:0;color:#113f7a;font-size:1.2rem;">💰 <span data-i18n="budgetTotal">Budget total</span></h3>
+        <button onclick="closeBudgetModal()" style="background:none;border:none;font-size:1.5rem;cursor:pointer;color:#64748b;">×</button>
+      </div>
+      <div id="budgetTotalDisplay" style="font-size:2rem;font-weight:800;color:#166534;margin-top:8px;">0 €</div>
+    </div>
+    <div style="padding:20px;overflow-y:auto;flex:1;">
+      <div id="budgetCategories"></div>
+      <div id="budgetItems" style="margin-top:16px;"></div>
+    </div>
+    <div style="padding:16px;border-top:1px solid #e5e7eb;display:flex;gap:8px;">
+      <button onclick="goToAddBooking()" style="flex:1;padding:12px;background:#113f7a;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">➕ <span data-i18n="addManualItem">Ajouter une dépense</span></button>
+      <button onclick="closeBudgetModal()" style="padding:12px 20px;background:#e5e7eb;color:#113f7a;border:none;border-radius:8px;font-weight:600;cursor:pointer;" data-i18n="close">Fermer</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// === BUDGET SYSTEM ===
+const BUDGET_CATEGORIES = {
+  transport: { icon: '✈️', keys: ['flight', 'car_rental', 'transfer'], label: 'budgetTransport' },
+  accommodation: { icon: '🏨', keys: ['hotel'], label: 'budgetAccommodation' },
+  activities: { icon: '🎯', keys: ['activity', 'visit', 'show'], label: 'budgetActivities' },
+  other: { icon: '📋', keys: ['insurance', 'other'], label: 'budgetOther' }
+};
+
+let budgetData = { total: 0, byCategory: {}, items: [] };
+
+async function loadBudgetData() {
+  if (!window.ORT_TRIP_DATA) return;
+  
+  // En mode Dashboard, utiliser le tripId de l'URL (pas celui du catalogue)
+  const params = new URLSearchParams(location.search);
+  const tripIdFromUrl = params.get('tripId') || params.get('id');
+  const tripId = tripIdFromUrl || window.state?.tripId || (window.ORT_TRIPID ? ORT_TRIPID.get() : null);
+  
+  if (!tripId) {
+    console.log('[BUDGET] Pas de tripId trouvé');
+    return;
+  }
+  
+  console.log('[BUDGET] Chargement données pour tripId:', tripId);
+  await ORT_TRIP_DATA.loadTrip(tripId);
+  
+  // === INJECTER LES PHOTOS UTILISATEUR DANS state.steps ===
+  if (window.state?.steps) {
+    window.state.steps.forEach((step, i) => {
+      const userPhotos = ORT_TRIP_DATA.getStepPhotos(i) || [];
+      if (userPhotos.length > 0) {
+        // Priorité aux userPhotos, puis les photos catalogue existantes
+        const catalogPhotos = step.images || [];
+        const combined = [...userPhotos];
+        catalogPhotos.forEach(p => {
+          if (p && !combined.includes(p)) combined.push(p);
+        });
+        step.images = combined;
+        console.log(`[PHOTOS] Étape ${i+1}: ${userPhotos.length} photos utilisateur injectées`);
+      }
+    });
+    // Re-render si des photos ont été injectées (pour mettre à jour l'affichage)
+    if (window.state.steps.some((s, i) => (ORT_TRIP_DATA.getStepPhotos(i) || []).length > 0)) {
+      if (typeof renderRows === 'function') {
+        console.log('[PHOTOS] Re-render des étapes avec photos utilisateur');
+        renderRows();
+      }
+    }
+  }
+  
+  const travelBookings = ORT_TRIP_DATA.getTravelBookings() || [];
+  const allBookings = [...travelBookings];
+  
+  // Collect step bookings (deduplicated - keep original price)
+  const seenBookingIds = new Set();
+  if (window.state?.steps) {
+    window.state.steps.forEach((step, i) => {
+      const stepBookings = ORT_TRIP_DATA.getStepBookings(i) || [];
+      stepBookings.forEach(b => {
+        const bookingId = b.id || `${b.name}-${b.date_start}`;
+        if (!seenBookingIds.has(bookingId)) {
+          seenBookingIds.add(bookingId);
+          // Garder le prix original (pas de division)
+          allBookings.push({ ...b, stepName: step.name || `Étape ${i+1}` });
+        }
+      });
+    });
+  }
+  
+  // Calculate totals
+  budgetData = { total: 0, byCategory: { transport: 0, accommodation: 0, activities: 0, other: 0 }, items: [] };
+  
+  allBookings.forEach(b => {
+    const price = b.price ? (typeof b.price === 'object' ? b.price.amount : b.price) : 0;
+    const amount = parseFloat(price) || 0;
+    if (amount <= 0) return;
+    
+    budgetData.total += amount;
+    budgetData.items.push({ ...b, amount });
+    
+    // Categorize
+    let found = false;
+    for (const [cat, def] of Object.entries(BUDGET_CATEGORIES)) {
+      if (def.keys.includes(b.category)) {
+        budgetData.byCategory[cat] += amount;
+        found = true;
+        break;
+      }
+    }
+    if (!found) budgetData.byCategory.other += amount;
+  });
+  
+  updateBudgetBadge();
+}
+
+function updateBudgetBadge() {
+  const badge = document.getElementById('budgetBadge');
+  const amount = document.getElementById('budgetAmount');
+  if (!badge || !amount) return;
+  
+  if (budgetData.total > 0) {
+    badge.style.display = 'inline-flex';
+    amount.textContent = budgetData.total.toFixed(0) + ' €';
+    badge.title = t('budgetTooltip');
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+function openBudgetModal() {
+  const modal = document.getElementById('budgetModal');
+  if (!modal) return;
+  
+  // Update total
+  document.getElementById('budgetTotalDisplay').textContent = budgetData.total.toFixed(2) + ' €';
+  
+  // Update categories
+  const catHtml = Object.entries(BUDGET_CATEGORIES).map(([key, def]) => {
+    const val = budgetData.byCategory[key] || 0;
+    if (val <= 0) return '';
+    const pct = budgetData.total > 0 ? Math.round(val / budgetData.total * 100) : 0;
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid #f1f5f9;">
+      <span>${def.icon} ${t(def.label)}</span>
+      <span style="font-weight:600;">${val.toFixed(0)} € <span style="color:#64748b;font-size:0.8rem;">(${pct}%)</span></span>
+    </div>`;
+  }).join('');
+  document.getElementById('budgetCategories').innerHTML = catHtml || `<div style="color:#64748b;text-align:center;padding:20px;">${t('noBudget')}</div>`;
+  
+  // Update items list
+  const itemsHtml = budgetData.items.map(item => {
+    const icon = { flight:'✈️', car_rental:'🚗', hotel:'🏨', activity:'🎯', visit:'🏛️', show:'🎭', insurance:'🛡️' }[item.category] || '📋';
+    return `<div style="display:flex;align-items:center;gap:10px;padding:10px;background:#f8fafc;border-radius:8px;margin-bottom:6px;">
+      <span style="font-size:1.2rem;">${icon}</span>
+      <div style="flex:1;">
+        <div style="font-weight:600;font-size:0.9rem;color:#113f7a;">${item.name || 'Réservation'}</div>
+        <div style="font-size:0.75rem;color:#64748b;">${item.date_start || ''} ${item.stepName ? '• ' + item.stepName : ''}</div>
+      </div>
+      <div style="font-weight:700;color:#166534;">${item.amount.toFixed(0)} €</div>
+    </div>`;
+  }).join('');
+  document.getElementById('budgetItems').innerHTML = itemsHtml;
+  
+  modal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBudgetModal() {
+  const modal = document.getElementById('budgetModal');
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+function goToAddBooking() {
+  closeBudgetModal();
+  const tripId = window.ORT_TRIPID ? ORT_TRIPID.get() : window.state?.tripId;
+  const params = new URLSearchParams(location.search);
+  const cc = params.get('cc') || '';
+  const itin = params.get('itin') || '';
+  
+  if (window.ORT_TRIPID) {
+    ORT_TRIPID.navigateTo('rt-booking-import.html', { cc, itin });
+  } else {
+    location.href = `rt-booking-import.html?tripId=${tripId}&cc=${cc}&itin=${itin}`;
+  }
+}
+
+// Event listeners
+document.getElementById('budgetBadge')?.addEventListener('click', openBudgetModal);
+document.getElementById('budgetModal')?.addEventListener('click', function(e) { if (e.target === this) closeBudgetModal(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeBudgetModal(); });
+
+// Load budget after page init
+// Load budget appelé manuellement après init complète du mode Dashboard
+// setTimeout(loadBudgetData, 2000); // DÉSACTIVÉ - appelé depuis initDashboardMode
+window.addEventListener('ort:trip-data-saved', loadBudgetData);
+
+// Refresh automatique des bookings quand on revient sur la page
+let lastDetailVisibilityTime = Date.now();
+document.addEventListener('visibilitychange', async function() {
+  if (document.visibilityState === 'visible') {
+    const timeSinceHidden = Date.now() - lastDetailVisibilityTime;
+    if (timeSinceHidden > 2000 && window.ORT_TRIP_DATA) {
+      console.log('[RT-DETAIL] Retour sur la page, refresh des bookings...');
+      try {
+        const tripId = window.ORT_TRIPID ? ORT_TRIPID.get() : null;
+        if (tripId) {
+          await ORT_TRIP_DATA.loadTrip(tripId);
+          await loadBudgetData();
+          console.log('[RT-DETAIL] ✅ Bookings rafraîchis');
+        }
+      } catch (e) {
+        console.warn('[RT-DETAIL] Erreur refresh:', e);
+      }
+    }
+  } else {
+    lastDetailVisibilityTime = Date.now();
+  }
+});
+
+console.log('[BUDGET] ✅ Budget system ready');
+</script>
+
 
 <script src="ort-ratings.js"></script>
 <script src="ort-map-resize-fix.js"></script>
 <script src="/js/ort-pdf-export-v6.js"></script>
+<script src="/js/ort-calendar-export.js"></script>
+<script src="/js/ort-share.js"></script>
 <script src="/js/ort-footer.js"></script>
 </body>
 </html>

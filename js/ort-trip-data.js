@@ -64,6 +64,71 @@
     // Initialise les structures si absentes
     ensureStructure();
 
+    // === CHARGER LES DONNÉES UTILISATEUR DEPUIS FIRESTORE ===
+    const user = window.firebase?.auth?.()?.currentUser;
+    if (user && window.firebase?.firestore) {
+      try {
+        const db = firebase.firestore();
+        const tripRef = db.collection('users').doc(user.uid).collection('trips').doc(tripId);
+        
+        // 1. Charger les bookings depuis sous-collection
+        const bookingsSnapshot = await tripRef.collection('bookings').get();
+        if (!bookingsSnapshot.empty) {
+          tripData.travelBookings = [];
+          
+          // D'abord, nettoyer les bookings existants dans steps
+          tripData.steps.forEach(step => {
+            if (step.bookings) step.bookings = [];
+          });
+          
+          bookingsSnapshot.forEach(doc => {
+            const booking = doc.data();
+            booking.id = doc.id;
+            
+            if (booking.bookingType === 'travel') {
+              // Résa voyage
+              tripData.travelBookings.push(booking);
+            } else if (booking.bookingType === 'step') {
+              // Résa étape - utiliser stepIndexes si disponible, sinon stepIndex
+              const stepIndexes = booking.stepIndexes && Array.isArray(booking.stepIndexes) && booking.stepIndexes.length > 0
+                ? booking.stepIndexes
+                : (typeof booking.stepIndex === 'number' ? [booking.stepIndex] : []);
+              
+              stepIndexes.forEach(idx => {
+                if (tripData.steps[idx]) {
+                  if (!tripData.steps[idx].bookings) {
+                    tripData.steps[idx].bookings = [];
+                  }
+                  // Éviter les doublons (même booking ID)
+                  if (!tripData.steps[idx].bookings.find(b => b.id === booking.id)) {
+                    tripData.steps[idx].bookings.push(booking);
+                  }
+                }
+              });
+            }
+          });
+          
+          console.log('📦 [TRIP-DATA] Bookings chargés depuis Firestore:', bookingsSnapshot.size);
+        }
+        
+        // 2. Charger les userPhotos depuis sous-collection
+        const photosSnapshot = await tripRef.collection('userPhotos').get();
+        if (!photosSnapshot.empty) {
+          photosSnapshot.forEach(doc => {
+            const photoData = doc.data();
+            if (typeof photoData.stepIndex === 'number' && tripData.steps[photoData.stepIndex]) {
+              tripData.steps[photoData.stepIndex].userPhotos = photoData.photos || [];
+            }
+          });
+          
+          console.log('📦 [TRIP-DATA] Photos utilisateur chargées depuis Firestore:', photosSnapshot.size);
+        }
+        
+      } catch (e) {
+        console.warn('⚠️ [TRIP-DATA] Erreur chargement sous-collections:', e);
+      }
+    }
+
     // Migration des anciennes données localStorage
     await migrateOldUserContent();
 
@@ -276,23 +341,56 @@
    * @param {number} stepIndex - Index de l'étape
    * @param {number|string} bookingIdOrIndex - Index ou ID de la réservation
    */
-  function removeStepBooking(stepIndex, bookingIdOrIndex) {
-    if (!tripData?.steps?.[stepIndex]?.bookings) return false;
+  async function removeStepBooking(stepIndex, bookingIdOrIndex) {
+    if (!tripData?.steps) return false;
 
-    const bookings = tripData.steps[stepIndex].bookings;
+    let bookingId = null;
+    let removed = false;
 
+    // Trouver l'ID du booking
     if (typeof bookingIdOrIndex === 'string') {
-      // Par ID
-      const idx = bookings.findIndex(b => b.id === bookingIdOrIndex);
-      if (idx !== -1) bookings.splice(idx, 1);
-    } else {
-      // Par index
-      bookings.splice(bookingIdOrIndex, 1);
+      bookingId = bookingIdOrIndex;
+    } else if (tripData.steps[stepIndex]?.bookings?.[bookingIdOrIndex]) {
+      bookingId = tripData.steps[stepIndex].bookings[bookingIdOrIndex]?.id;
     }
 
-    console.log('🗑️ [TRIP-DATA] Réservation supprimée étape', stepIndex);
-    scheduleSave();
-    return true;
+    // Supprimer de TOUTES les étapes où ce booking apparaît
+    tripData.steps.forEach((step, idx) => {
+      if (step.bookings) {
+        const beforeLen = step.bookings.length;
+        if (bookingId) {
+          step.bookings = step.bookings.filter(b => b.id !== bookingId);
+        } else if (idx === stepIndex && typeof bookingIdOrIndex === 'number') {
+          step.bookings.splice(bookingIdOrIndex, 1);
+        }
+        if (step.bookings.length < beforeLen) {
+          console.log('🗑️ [TRIP-DATA] Booking retiré de l\'étape', idx);
+          removed = true;
+        }
+      }
+    });
+
+    // Supprimer aussi dans Firestore
+    if (bookingId) {
+      const user = window.firebase?.auth?.()?.currentUser;
+      if (user && window.firebase?.firestore) {
+        try {
+          const db = firebase.firestore();
+          await db.collection('users').doc(user.uid)
+            .collection('trips').doc(currentTripId)
+            .collection('bookings').doc(bookingId).delete();
+          console.log('🗑️ [TRIP-DATA] Réservation supprimée de Firestore:', bookingId);
+          removed = true;
+        } catch (e) {
+          console.warn('⚠️ [TRIP-DATA] Erreur suppression Firestore:', e);
+        }
+      }
+    }
+
+    if (removed) {
+      console.log('🗑️ [TRIP-DATA] Réservation supprimée:', bookingId || bookingIdOrIndex);
+    }
+    return removed;
   }
 
   /**
@@ -333,18 +431,37 @@
    * Supprime une réservation de voyage
    * @param {number|string} bookingIdOrIndex - Index ou ID
    */
-  function removeTravelBooking(bookingIdOrIndex) {
+  async function removeTravelBooking(bookingIdOrIndex) {
     if (!tripData?.travelBookings) return false;
 
+    let bookingId = null;
+
     if (typeof bookingIdOrIndex === 'string') {
+      bookingId = bookingIdOrIndex;
       const idx = tripData.travelBookings.findIndex(b => b.id === bookingIdOrIndex);
       if (idx !== -1) tripData.travelBookings.splice(idx, 1);
     } else {
+      bookingId = tripData.travelBookings[bookingIdOrIndex]?.id;
       tripData.travelBookings.splice(bookingIdOrIndex, 1);
     }
 
+    // Supprimer aussi dans Firestore
+    if (bookingId) {
+      const user = window.firebase?.auth?.()?.currentUser;
+      if (user && window.firebase?.firestore) {
+        try {
+          const db = firebase.firestore();
+          await db.collection('users').doc(user.uid)
+            .collection('trips').doc(currentTripId)
+            .collection('bookings').doc(bookingId).delete();
+          console.log('🗑️ [TRIP-DATA] Réservation voyage supprimée de Firestore:', bookingId);
+        } catch (e) {
+          console.warn('⚠️ [TRIP-DATA] Erreur suppression Firestore:', e);
+        }
+      }
+    }
+
     console.log('🗑️ [TRIP-DATA] Réservation voyage supprimée');
-    scheduleSave();
     return true;
   }
 
@@ -442,16 +559,80 @@
     tripData.updatedAt = Date.now();
 
     try {
-      // Via ORT_STATE si disponible
-      if (window.ORT_STATE) {
-        await window.ORT_STATE.saveTrip(tripData);
+      const user = window.firebase?.auth?.()?.currentUser;
+      
+      if (user && window.firebase?.firestore) {
+        // === SAUVEGARDE FIRESTORE DIRECTE ===
+        const db = firebase.firestore();
+        const tripRef = db.collection('users').doc(user.uid).collection('trips').doc(currentTripId);
+        
+        // 1. Sauvegarder les travelBookings dans sous-collection
+        if (tripData.travelBookings && tripData.travelBookings.length > 0) {
+          const bookingsRef = tripRef.collection('bookings');
+          
+          for (const booking of tripData.travelBookings) {
+            const bookingId = booking.id || `travel_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+            booking.id = bookingId;
+            booking.bookingType = 'travel'; // Marquer comme résa voyage
+            await bookingsRef.doc(bookingId).set(booking, { merge: true });
+            console.log('💾 [TRIP-DATA] Résa voyage sauvée:', booking.name);
+          }
+        }
+        
+        // 2. Sauvegarder les bookings par étape dans sous-collection
+        if (tripData.steps) {
+          const bookingsRef = tripRef.collection('bookings');
+          
+          for (let stepIndex = 0; stepIndex < tripData.steps.length; stepIndex++) {
+            const step = tripData.steps[stepIndex];
+            if (step.bookings && step.bookings.length > 0) {
+              for (const booking of step.bookings) {
+                const bookingId = booking.id || `step_${stepIndex}_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`;
+                booking.id = bookingId;
+                booking.bookingType = 'step'; // Marquer comme résa étape
+                booking.stepIndex = stepIndex;
+                booking.stepName = step.name || '';
+                await bookingsRef.doc(bookingId).set(booking, { merge: true });
+                console.log('💾 [TRIP-DATA] Résa étape', stepIndex, 'sauvée:', booking.name);
+              }
+            }
+          }
+        }
+        
+        // 3. Sauvegarder les userPhotos dans sous-collection
+        if (tripData.steps) {
+          const photosRef = tripRef.collection('userPhotos');
+          
+          for (let stepIndex = 0; stepIndex < tripData.steps.length; stepIndex++) {
+            const step = tripData.steps[stepIndex];
+            if (step.userPhotos && step.userPhotos.some(p => p)) {
+              await photosRef.doc(`step_${stepIndex}`).set({
+                stepIndex: stepIndex,
+                stepName: step.name || '',
+                photos: step.userPhotos,
+                updatedAt: Date.now()
+              }, { merge: true });
+              console.log('💾 [TRIP-DATA] Photos étape', stepIndex, 'sauvées');
+            }
+          }
+        }
+        
+        // 4. Mettre à jour le timestamp du document principal
+        await tripRef.set({ 
+          userDataUpdatedAt: Date.now(),
+          hasUserBookings: (tripData.travelBookings?.length > 0) || tripData.steps?.some(s => s.bookings?.length > 0),
+          hasUserPhotos: tripData.steps?.some(s => s.userPhotos?.some(p => p))
+        }, { merge: true });
+        
+        console.log('✅ [TRIP-DATA] Sauvegardé dans Firestore');
+        
       } else {
-        // Fallback localStorage
+        // Fallback localStorage si pas connecté
         localStorage.setItem(`ort_trip_${currentTripId}`, JSON.stringify(tripData));
+        console.log('✅ [TRIP-DATA] Sauvegardé en localStorage (non connecté)');
       }
 
       pendingChanges = false;
-      console.log('✅ [TRIP-DATA] Sauvegardé');
 
       // Émet un événement
       window.dispatchEvent(new CustomEvent('ort:trip-data-saved', {

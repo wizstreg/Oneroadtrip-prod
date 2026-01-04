@@ -1776,4 +1776,361 @@ window.ORT_I18N.suggestOtherPlaces = {
   ar: 'اقترح أماكن أخرى'
 };
 
+// ═══════════════════════════════════════════════════════════════
+// RESTRICTIONS CONNEXION / VOYAGE SAUVEGARDÉ
+// ═══════════════════════════════════════════════════════════════
+window.ORT_I18N.loginRequired = {
+  fr: 'Connexion requise',
+  en: 'Login required',
+  es: 'Inicio de sesión requerido',
+  it: 'Accesso richiesto',
+  pt: 'Login necessário',
+  ar: 'تسجيل الدخول مطلوب'
+};
+window.ORT_I18N.loginRequiredMsg = {
+  fr: 'Vous devez être connecté pour ajouter des photos et réservations.',
+  en: 'You must be logged in to add photos and bookings.',
+  es: 'Debes iniciar sesión para añadir fotos y reservas.',
+  it: 'Devi accedere per aggiungere foto e prenotazioni.',
+  pt: 'Você precisa estar conectado para adicionar fotos e reservas.',
+  ar: 'يجب تسجيل الدخول لإضافة الصور والحجوزات.'
+};
+window.ORT_I18N.tripSaveRequired = {
+  fr: 'Voyage non sauvegardé',
+  en: 'Trip not saved',
+  es: 'Viaje no guardado',
+  it: 'Viaggio non salvato',
+  pt: 'Viagem não salva',
+  ar: 'الرحلة غير محفوظة'
+};
+window.ORT_I18N.tripSaveRequiredMsg = {
+  fr: 'Vous devez d\'abord enregistrer ce voyage dans votre Dashboard pour pouvoir ajouter des photos et réservations.',
+  en: 'You must first save this trip to your Dashboard before adding photos and bookings.',
+  es: 'Primero debes guardar este viaje en tu Panel para poder añadir fotos y reservas.',
+  it: 'Devi prima salvare questo viaggio nella tua Dashboard per aggiungere foto e prenotazioni.',
+  pt: 'Você precisa primeiro salvar esta viagem no seu Painel para adicionar fotos e reservas.',
+  ar: 'يجب أولاً حفظ هذه الرحلة في لوحة التحكم لإضافة الصور والحجوزات.'
+};
+window.ORT_I18N.goToLogin = {
+  fr: 'Se connecter',
+  en: 'Log in',
+  es: 'Iniciar sesión',
+  it: 'Accedi',
+  pt: 'Entrar',
+  ar: 'تسجيل الدخول'
+};
+window.ORT_I18N.goToDashboard = {
+  fr: 'Aller au Dashboard',
+  en: 'Go to Dashboard',
+  es: 'Ir al Panel',
+  it: 'Vai alla Dashboard',
+  pt: 'Ir para o Painel',
+  ar: 'الذهاب إلى لوحة التحكم'
+};
+window.ORT_I18N.goBack = {
+  fr: 'Retour',
+  en: 'Back',
+  es: 'Volver',
+  it: 'Indietro',
+  pt: 'Voltar',
+  ar: 'رجوع'
+};
+
+// ═══════════════════════════════════════════════════════════════
+// RT-USER.HTML - PHOTOS ET RÉSERVATIONS UTILISATEUR
+// ═══════════════════════════════════════════════════════════════
+
+window.ORT_I18N.userPageTitle = {
+  fr: 'Mes photos et réservations',
+  en: 'My photos and bookings',
+  es: 'Mis fotos y reservas',
+  it: 'Le mie foto e prenotazioni',
+  pt: 'Minhas fotos e reservas',
+  ar: 'صوري وحجوزاتي'
+};
+
+window.ORT_I18N.myPhotos = {
+  fr: 'Mes photos',
+  en: 'My photos',
+  es: 'Mis fotos',
+  it: 'Le mie foto',
+  pt: 'Minhas fotos',
+  ar: 'صوري'
+};
+
+window.ORT_I18N.myBookings = {
+  fr: 'Mes réservations',
+  en: 'My bookings',
+  es: 'Mis reservas',
+  it: 'Le mie prenotazioni',
+  pt: 'Minhas reservas',
+  ar: 'حجوزاتي'
+};
+
+window.ORT_I18N.addPhoto = {
+  fr: 'Ajouter',
+  en: 'Add',
+  es: 'Añadir',
+  it: 'Aggiungi',
+  pt: 'Adicionar',
+  ar: 'إضافة'
+};
+
+window.ORT_I18N.addBooking = {
+  fr: 'Ajouter une réservation',
+  en: 'Add a booking',
+  es: 'Añadir una reserva',
+  it: 'Aggiungi una prenotazione',
+  pt: 'Adicionar uma reserva',
+  ar: 'إضافة حجز'
+};
+
+window.ORT_I18N.travelBookings = {
+  fr: 'Réservations de voyage',
+  en: 'Travel bookings',
+  es: 'Reservas de viaje',
+  it: 'Prenotazioni viaggio',
+  pt: 'Reservas de viagem',
+  ar: 'حجوزات السفر'
+};
+
+window.ORT_I18N.travelHint = {
+  fr: 'Avion, voiture, assurance...',
+  en: 'Flight, car, insurance...',
+  es: 'Avión, coche, seguro...',
+  it: 'Aereo, auto, assicurazione...',
+  pt: 'Avião, carro, seguro...',
+  ar: 'طيران، سيارة، تأمين...'
+};
+
+window.ORT_I18N.addTravelBooking = {
+  fr: 'Ajouter (avion, voiture...)',
+  en: 'Add (flight, car...)',
+  es: 'Añadir (avión, coche...)',
+  it: 'Aggiungi (aereo, auto...)',
+  pt: 'Adicionar (avião, carro...)',
+  ar: 'إضافة (طيران، سيارة...)'
+};
+
+window.ORT_I18N.enterPhotoUrl = {
+  fr: 'Entrez l\'URL de la photo',
+  en: 'Enter photo URL',
+  es: 'Ingrese la URL de la foto',
+  it: 'Inserisci l\'URL della foto',
+  pt: 'Digite a URL da foto',
+  ar: 'أدخل رابط الصورة'
+};
+
+window.ORT_I18N.previewHere = {
+  fr: 'Aperçu ici',
+  en: 'Preview here',
+  es: 'Vista previa aquí',
+  it: 'Anteprima qui',
+  pt: 'Visualização aqui',
+  ar: 'معاينة هنا'
+};
+
+window.ORT_I18N.invalidUrl = {
+  fr: 'URL invalide ou image inaccessible',
+  en: 'Invalid URL or image not accessible',
+  es: 'URL inválida o imagen inaccesible',
+  it: 'URL non valido o immagine non accessibile',
+  pt: 'URL inválida ou imagem inacessível',
+  ar: 'رابط غير صالح أو صورة غير متاحة'
+};
+
+window.ORT_I18N.add = {
+  fr: 'Ajouter',
+  en: 'Add',
+  es: 'Añadir',
+  it: 'Aggiungi',
+  pt: 'Adicionar',
+  ar: 'إضافة'
+};
+
+window.ORT_I18N.saveAll = {
+  fr: 'Enregistrer tout',
+  en: 'Save all',
+  es: 'Guardar todo',
+  it: 'Salva tutto',
+  pt: 'Salvar tudo',
+  ar: 'حفظ الكل'
+};
+
+window.ORT_I18N.saving = {
+  fr: 'Enregistrement...',
+  en: 'Saving...',
+  es: 'Guardando...',
+  it: 'Salvataggio...',
+  pt: 'Salvando...',
+  ar: 'جار الحفظ...'
+};
+
+window.ORT_I18N.saved = {
+  fr: 'Enregistré !',
+  en: 'Saved!',
+  es: '¡Guardado!',
+  it: 'Salvato!',
+  pt: 'Salvo!',
+  ar: 'تم الحفظ!'
+};
+
+window.ORT_I18N.errorSaving = {
+  fr: 'Erreur lors de l\'enregistrement',
+  en: 'Error saving',
+  es: 'Error al guardar',
+  it: 'Errore durante il salvataggio',
+  pt: 'Erro ao salvar',
+  ar: 'خطأ في الحفظ'
+};
+
+window.ORT_I18N.savedLocal = {
+  fr: 'Enregistré localement ✓',
+  en: 'Saved locally ✓',
+  es: 'Guardado localmente ✓',
+  it: 'Salvato localmente ✓',
+  pt: 'Salvo localmente ✓',
+  ar: 'تم الحفظ محليًا ✓'
+};
+
+window.ORT_I18N.cloudReminder = {
+  fr: 'Pour retrouver vos photos et réservations sur un autre appareil, sauvegardez votre voyage dans le cloud via le Dashboard.',
+  en: 'To access your photos and bookings on another device, save your trip to the cloud via the Dashboard.',
+  es: 'Para acceder a sus fotos y reservas en otro dispositivo, guarde su viaje en la nube desde el Dashboard.',
+  it: 'Per ritrovare foto e prenotazioni su un altro dispositivo, salva il viaggio nel cloud dal Dashboard.',
+  pt: 'Para acessar suas fotos e reservas em outro dispositivo, salve sua viagem na nuvem pelo Dashboard.',
+  ar: 'للوصول إلى صورك وحجوزاتك على جهاز آخر، احفظ رحلتك في السحابة عبر لوحة التحكم.'
+};
+
+window.ORT_I18N.maxBookings = {
+  fr: 'Limite de 30 réservations atteinte',
+  en: 'Maximum 30 bookings reached',
+  es: 'Límite de 30 reservas alcanzado',
+  it: 'Limite di 30 prenotazioni raggiunto',
+  pt: 'Limite de 30 reservas atingido',
+  ar: 'تم الوصول إلى الحد الأقصى 30 حجزًا'
+};
+
+window.ORT_I18N.noTrip = {
+  fr: 'Voyage non trouvé',
+  en: 'Trip not found',
+  es: 'Viaje no encontrado',
+  it: 'Viaggio non trovato',
+  pt: 'Viagem não encontrada',
+  ar: 'الرحلة غير موجودة'
+};
+
+window.ORT_I18N.noSteps = {
+  fr: 'Retournez sur la page du roadtrip et cliquez à nouveau sur le bouton',
+  en: 'Go back to the roadtrip page and click the button again',
+  es: 'Vuelva a la página del roadtrip y haga clic en el botón de nuevo',
+  it: 'Torna alla pagina del roadtrip e clicca di nuovo sul pulsante',
+  pt: 'Volte à página do roadtrip e clique no botão novamente',
+  ar: 'عد إلى صفحة الرحلة وانقر على الزر مرة أخرى'
+};
+
+window.ORT_I18N.unsavedChanges = {
+  fr: 'Modifications non enregistrées. Quitter quand même ?',
+  en: 'Unsaved changes. Leave anyway?',
+  es: 'Cambios sin guardar. ¿Salir de todos modos?',
+  it: 'Modifiche non salvate. Uscire comunque?',
+  pt: 'Alterações não salvas. Sair mesmo assim?',
+  ar: 'تغييرات غير محفوظة. هل تريد الخروج على أي حال؟'
+};
+
+window.ORT_I18N.bookingName = {
+  fr: 'Nom de la réservation :',
+  en: 'Booking name:',
+  es: 'Nombre de la reserva:',
+  it: 'Nome della prenotazione:',
+  pt: 'Nome da reserva:',
+  ar: 'اسم الحجز:'
+};
+
+window.ORT_I18N.travelBookingName = {
+  fr: 'Nom de la réservation voyage :',
+  en: 'Travel booking name:',
+  es: 'Nombre de la reserva de viaje:',
+  it: 'Nome della prenotazione viaggio:',
+  pt: 'Nome da reserva de viagem:',
+  ar: 'اسم حجز السفر:'
+};
+
+window.ORT_I18N.booking = {
+  fr: 'Réservation',
+  en: 'Booking',
+  es: 'Reserva',
+  it: 'Prenotazione',
+  pt: 'Reserva',
+  ar: 'حجز'
+};
+
+// ═══════════════════════════════════════════════════════════════
+// MENU PERSONNALISER (RT-DETAIL HEADER)
+// ═══════════════════════════════════════════════════════════════
+
+window.ORT_I18N.customize = {
+  fr: '✨ Personnaliser',
+  en: '✨ Customize',
+  es: '✨ Personalizar',
+  it: '✨ Personalizza',
+  pt: '✨ Personalizar',
+  ar: '✨ تخصيص'
+};
+
+window.ORT_I18N.customizeTooltip = {
+  fr: 'Photos, réservations et documents',
+  en: 'Photos, bookings and documents',
+  es: 'Fotos, reservas y documentos',
+  it: 'Foto, prenotazioni e documenti',
+  pt: 'Fotos, reservas e documentos',
+  ar: 'الصور والحجوزات والوثائق'
+};
+
+window.ORT_I18N.menuMyPhotos = {
+  fr: '📷 Intégrer mes photos',
+  en: '📷 Add my photos',
+  es: '📷 Añadir mis fotos',
+  it: '📷 Aggiungi le mie foto',
+  pt: '📷 Adicionar minhas fotos',
+  ar: '📷 إضافة صوري'
+};
+
+window.ORT_I18N.menuImportBooking = {
+  fr: '➕ Importer une réservation',
+  en: '➕ Import a booking',
+  es: '➕ Importar una reserva',
+  it: '➕ Importa una prenotazione',
+  pt: '➕ Importar uma reserva',
+  ar: '➕ استيراد حجز'
+};
+
+window.ORT_I18N.menuViewBookings = {
+  fr: '📋 Voir mes réservations',
+  en: '📋 View my bookings',
+  es: '📋 Ver mis reservas',
+  it: '📋 Vedi le mie prenotazioni',
+  pt: '📋 Ver minhas reservas',
+  ar: '📋 عرض حجوزاتي'
+};
+
+// === AJOUT D'ÉTAPE ===
+window.ORT_I18N.stepAddedAtEnd = {
+  fr: '✅ Étape ajoutée à la fin',
+  en: '✅ Step added at the end',
+  es: '✅ Paso añadido al final',
+  it: '✅ Tappa aggiunta alla fine',
+  pt: '✅ Etapa adicionada ao final',
+  ar: '✅ تم إضافة المرحلة في النهاية'
+};
+
+window.ORT_I18N.dragToReorder = {
+  fr: 'Faites-la glisser pour la déplacer dans la liste',
+  en: 'Drag it to move it in the list',
+  es: 'Arrástralo para moverlo en la lista',
+  it: 'Trascinalo per spostarlo nell\'elenco',
+  pt: 'Arraste-o para movê-lo na lista',
+  ar: 'اسحبها لنقلها في القائمة'
+};
+
 console.log('[ORT-I18N] ✅ Chargé -', Object.keys(window.ORT_I18N).length, 'clés');
