@@ -244,7 +244,9 @@
     }
     .how-dev li{ margin:6px 0; }
     
-    /* Bouton Comment ça marche */
+    /* Bouton Comment ça marche - VISIBLE SEULEMENT EN MOBILE */
+    .cta-btn.how{display:none}
+    @media(max-width:640px){.cta-btn.how{display:block}}
     .cta-btn.how{
       background:linear-gradient(135deg, rgba(120,80,200,0.85) 0%, rgba(180,100,220,0.85) 100%);
     }
@@ -592,7 +594,7 @@
 <body>
 <main id="stage" role="main" aria-label="Accueil OneRoadTrip"></main>
 
-  <script src="/js/ort-i18n-modes.js"></script>
+  <script src="./ort-i18n-modes.js"></script>
 <script>
   (function(){
     // Langues supportées
@@ -1411,11 +1413,12 @@
       // Obtenir la langue
       function getLang(){
         const p = new URLSearchParams(location.search).get('lang');
-        const stored = localStorage.getItem('ORT_LANG');
+        const stored = localStorage.getItem('lang');
         return p || stored || 'fr';
       }
       
       const lang = getLang();
+      localStorage.setItem('lang', lang);
       
       // Fonction pour afficher le contenu
       function showContent(mode){
@@ -1522,11 +1525,12 @@
             // Obtenir la langue
             function getLang(){
               const p = new URLSearchParams(location.search).get('lang');
-              const stored = localStorage.getItem('ORT_LANG');
+              const stored = localStorage.getItem('lang');
               return p || stored || 'fr';
             }
             
             const lang = getLang();
+            localStorage.setItem('lang', lang);
             
             // Fonction pour afficher le contenu
             function showTab(mode){
