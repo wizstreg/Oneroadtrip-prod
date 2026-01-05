@@ -2517,13 +2517,16 @@ async function loadAllItineraries() {
             const data = await response.json();
             const countryName = COUNTRY_NAMES[countryCode]?.[lang] || countryCode;
             const itins = (data.itineraries || []).map(itin => {
-              // Créer un itin_id au bon format si absent
-              let itinId = itin.itin_id || itin.id || itin.slug || '';
-              if (!itinId.includes('::')) {
-                // Si pas de format CC::slug, le créer
-                const slug = itin.slug || itin.title?.toLowerCase().replace(/\s+/g, '-') || itinId;
-                itinId = `${countryCode}::${slug}`;
+              // TOUJOURS créer un itin_id au bon format CC::slug
+              let slug = itin.slug || itin.title?.toLowerCase().replace(/\s+/g, '-') || '';
+              
+              // Fallback: utiliser l'ID numérique si pas de slug
+              if (!slug) {
+                const id = itin.itin_id || itin.id || '';
+                slug = String(id);
               }
+              
+              const itinId = `${countryCode}::${slug}`;
               
               return {
                 ...itin,
@@ -3278,7 +3281,7 @@ function showMobileSelectionModal(itin) {
   // Stocker l'itin actuel
   window.setCurrentItinForModal?.(itin);
   
-  // JUSTE le titre + infos basiques
+  // Titre + infos basiques
   const titleEl = document.getElementById('mobileModalTitle');
   const infoEl = document.getElementById('mobileModalInfo');
   
@@ -3290,10 +3293,34 @@ function showMobileSelectionModal(itin) {
     </div>
   `;
   
-  // Vider les autres sections
+  // Ajouter les villes visitées
+  let citiesHtml = '';
+  if (itin.cities && itin.cities.length > 0) {
+    citiesHtml = `
+      <div style="margin-top:12px;padding-top:12px;border-top:1px solid #e5e7eb;">
+        <strong style="font-size:13px;color:#113f7a;">Villes visitées :</strong>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+          ${itin.cities.map(city => `
+            <span style="padding:4px 10px;background:#f3f4f6;border-radius:12px;font-size:12px;color:#333;">
+              ${city}
+            </span>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+  
+  // Afficher infos + villes dans la modale
+  if (infoEl) {
+    infoEl.innerHTML += citiesHtml;
+  }
+  
+  // Vider les photos
   const photosEl = document.getElementById('mobileModalPhotos');
-  const stepsEl = document.getElementById('mobileModalSteps');
   if (photosEl) photosEl.innerHTML = '';
+  
+  // Vider les étapes (on affiche les villes à la place)
+  const stepsEl = document.getElementById('mobileModalSteps');
   if (stepsEl) stepsEl.innerHTML = '';
   
   // Afficher la modale
@@ -3526,13 +3553,10 @@ function validateAndContinue() {
       window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(id)}&lang=${lang}&mode=${mode}&budget=${budget}`;
     } else {
       // 2-3 itinéraires -> fusion COMPOSED
-      // Extraire juste les slugs (partie après ::)
-      const slugs = selectedItineraries.map(itin => {
-        const parts = itin.itin_id.split('::');
-        return parts[1] || parts[0];  // Si format CC::slug, prendre slug. Sinon prendre le tout.
-      });
+      // Inclure les codes pays pour chaque itinéraire
+      const fullIds = selectedItineraries.map(itin => itin.itin_id);  // ["FR::slug1", "DE::slug2"]
+      const composed = `COMPOSED::${fullIds.join('+')}`;
       const cc = selectedItineraries[0].country || 'MULTI';
-      const composed = `COMPOSED::${slugs.join('+')}`;
       console.log('[VALIDATE] Composed ID:', composed);
       window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(composed)}&lang=${lang}&mode=${mode}&budget=${budget}`;
     }
