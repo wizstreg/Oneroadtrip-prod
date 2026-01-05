@@ -8,9 +8,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.oneroadtrip.com/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="https://www.oneroadtrip.com/apple-touch-icon.png">
 <link rel="shortcut icon" href="https://www.oneroadtrip.com/favicon.ico">
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JK3QGQGDDL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JK3QGQGDDL');gtag('config','GT-WF83FMCX');</script>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <title>جميع المسارات | OneRoadTrip</title>
 <meta name="description" content="636 مسارات - 99 بلدان">
 <link rel="canonical" href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html">
@@ -8937,6 +8935,23 @@ document.addEventListener('click', (e) => {
         };
     });
 })();
+</script>
+
+<!-- Google Analytics (différé pour améliorer LCP) -->
+<script>
+window.addEventListener('load', function() {
+    var s = document.createElement('script');
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-JK3QGQGDDL';
+    s.async = true;
+    document.head.appendChild(s);
+    s.onload = function() {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-JK3QGQGDDL');
+        gtag('config', 'GT-WF83FMCX');
+    };
+});
 </script>
 </body>
 </html>

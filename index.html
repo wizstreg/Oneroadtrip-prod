@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>OneRoadTrip – Accueil</title>
   <meta name="color-scheme" content="light dark"/>
+  <meta name="google-site-verification" content="9x0vlxR-FI8v0TreX1905W8nidw7h6uvzovMmwY2ihg" />
   <style>
+
     :root{
       --bg:#113f7a; --ink:#e7f6fb; --accent:#00b2ff; --heroBase:#0a2a57;
       --max:1100px;
@@ -16,7 +18,7 @@
 
     /* HERO : image réelle + overlay sombre ; contenu légèrement remonté */
     .hero{
-      position:relative; width:100%; min-height:78vh;
+      position:relative; width:100%; min-height:65vh;
       display:flex; align-items:flex-start; justify-content:center;
       text-align:left; color:#fff; background:var(--heroBase); overflow:hidden;
     }
@@ -89,23 +91,19 @@
     .cta-wrapper{display:flex;gap:8px;align-items:center;position:relative}
     .cta-btn-info{background:none;border:none;color:inherit;font-size:24px;font-weight:700;cursor:pointer;padding:0;width:32px;height:32px;display:flex;align-items:center;justify-content:center;transition:all .2s ease;flex-shrink:0}
     .cta-btn-info:hover{transform:scale(1.15)}
-    
     /* Caché en mobile */
     @media(max-width:640px){.cta-btn-info{display:none}}
-    
     /* Modale explicative - une seule pour tous les modes */
-    .mode-info-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;display:none;align-items:center;justify-content:center;padding:20px}
-    .mode-info-modal.active{display:flex;animation:fadeIn .3s ease}
-    .mode-info-content{background:linear-gradient(135deg, #0a2a57 0%, #113f7a 100%);border-radius:16px;padding:0;max-width:700px;width:100%;max-height:85vh;overflow:hidden;color:#fff;box-shadow:0 25px 80px rgba(0,0,0,.5);animation:slideUp .3s ease;display:flex;flex-direction:column}
+    .mode-info-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9998;opacity:0;pointer-events:none;display:flex;align-items:center;justify-content:center;padding:20px;transition:opacity .3s ease}
+    .mode-info-modal.active{opacity:1;pointer-events:auto}
+    .mode-info-content{background:linear-gradient(135deg, #0a2a57 0%, #113f7a 100%);border-radius:16px;padding:0;max-width:700px;width:100%;max-height:85vh;overflow:hidden;color:#fff;box-shadow:0 25px 80px rgba(0,0,0,.5);display:flex;flex-direction:column;transform:scale(0.95);opacity:0;transition:all .3s ease}.mode-info-modal.active .mode-info-content{transform:scale(1);opacity:1}
     .mode-info-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.1);border:none;color:#fff;width:36px;height:36px;border-radius:50%;font-size:24px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s ease;z-index:10}
     .mode-info-close:hover{background:rgba(255,255,255,0.2);transform:scale(1.1)}
-    
     /* Tabs */
     .mode-info-tabs{display:flex;gap:0;border-bottom:1px solid rgba(255,255,255,0.2);padding:0;background:rgba(0,0,0,0.2)}
     .mode-info-tab{padding:12px 16px;cursor:pointer;border:none;background:none;color:#fff;font-weight:600;font-size:clamp(0.85rem, 2.5vw, 1rem);transition:all .2s ease;border-bottom:3px solid transparent}
     .mode-info-tab:hover{background:rgba(255,255,255,0.05)}
     .mode-info-tab.active{border-bottom-color:#00b2ff;background:rgba(255,255,255,0.08)}
-    
     /* Tab content */
     .mode-info-body{padding:24px;overflow-y:auto;flex:1}
     .mode-info-body h2{margin:0 0 16px 0;font-size:clamp(1.4rem, 5vw, 1.8rem);font-weight:800}
@@ -243,16 +241,27 @@
       opacity:0.88;
     }
     .how-dev li{ margin:6px 0; }
-    
     /* Bouton Comment ça marche - VISIBLE SEULEMENT EN MOBILE */
-    .cta-btn.how{display:none}
-    @media(max-width:640px){.cta-btn.how{display:block}}
     .cta-btn.how{
+      display:none;
       background:linear-gradient(135deg, rgba(120,80,200,0.85) 0%, rgba(180,100,220,0.85) 100%);
     }
     .cta-btn.how:hover{
       background:linear-gradient(135deg, rgba(100,60,180,0.95) 0%, rgba(160,80,200,0.95) 100%);
       transform:translateY(-2px);
+    }
+    @media(max-width:640px){
+      /* Cacher TOUS les boutons texte en mobile */
+      .cta-btn{display:none}
+      
+      /* Afficher SEULEMENT le bouton "How" */
+      .cta-btn.how{display:block !important}
+      
+      /* Cacher le conteneur CTA (buttons corner) */
+      .cta-container{display:none !important}
+      
+      /* Afficher les icônes latérales */
+      .icon-buttons{display:flex !important}
     }
     .cta-btn.trips{
       background:linear-gradient(135deg, rgba(255,170,50,0.85) 0%, rgba(255,200,100,0.85) 100%);
@@ -261,7 +270,6 @@
       background:linear-gradient(135deg, rgba(230,150,30,0.95) 0%, rgba(230,180,80,0.95) 100%);
       transform:translateY(-2px);
     }
-    
     /* Icônes réseaux sociaux */
     .social-links{
       display:flex;
@@ -296,7 +304,6 @@
     .social-link.instagram:hover{ background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) }
     .social-link.facebook:hover{ background:#1877F2 }
     .social-link.x:hover{ background:#000 }
-    
     /* Boutons icône ronds (mobile) */
     .icon-buttons{
       display:none;
@@ -342,12 +349,14 @@
     .icon-btn.plus{
       background:linear-gradient(135deg, rgba(33,71,107,0.9) 0%, rgba(16,185,129,0.9) 100%);
     }
+    .icon-btn.home{
+      background:linear-gradient(135deg, rgba(217,119,6,0.9) 0%, rgba(251,146,60,0.9) 100%);
+    }
     .icon-btn svg{
       width:22px;
       height:22px;
       fill:currentColor;
     }
-    
     @media (max-width: 480px) {
       .icon-buttons{
         right:6px;
@@ -388,7 +397,6 @@
     .cta-btn.expert{ background:linear-gradient(135deg, rgba(33,71,107,0.85) 0%, rgba(16,185,129,0.85) 100%); color:#fff }
     .cta-btn.itins{ background:linear-gradient(135deg, rgba(17,63,122,0.85) 0%, rgba(0,178,255,0.85) 100%); color:#fff }
     .cta-btn.itins:hover{ background:linear-gradient(135deg, rgba(10,42,87,0.95) 0%, rgba(0,144,204,0.95) 100%); transform:translateY(-2px) }
-    
     /* Modal popup */
     .modal-overlay{
       display:none; position:fixed; inset:0; z-index:999;
@@ -422,25 +430,23 @@
     .anim-rise .metrics,
     .anim-rise .features li {
       opacity:0;
-      transform:translateY(12px);
+      transform:translate3d(0, 12px, 0);
+      will-change:transform, opacity;
       animation:fadeUp .66s ease-out forwards;
       animation-delay:var(--d, 0ms);
     }
-    @keyframes fadeUp{ from{ opacity:0; transform:translateY(12px) } to{ opacity:1; transform:translateY(0) } }
+    @keyframes fadeUp{ from{ opacity:0; transform:translate3d(0, 12px, 0) } to{ opacity:1; transform:translate3d(0, 0, 0) } }
 
     /* RTL */
     [dir="rtl"] .hero{ text-align:right }
     [dir="rtl"] .features{ padding-left:0; padding-right:22px }
 
     /* ===== RESPONSIVE MOBILE ===== */
-    
     /* Tablettes et petits écrans */
     @media (max-width: 768px) {
       .hero{ min-height:auto; padding-bottom:60px } /* Espace pour bandeau social uniquement */
       .hero > .content{ padding:clamp(32px, 8vh, 80px) 60px 24px 16px; max-width:var(--max) }
-      
       .headline{ font-size:clamp(24px, 6vw, 36px); margin-bottom:16px }
-      
       .metrics{ 
         flex-direction:column; 
         gap:12px; 
@@ -449,7 +455,6 @@
       .metric{ gap:8px }
       .metric .num{ font-size:clamp(20px, 5vw, 28px) !important }
       .metric .lbl{ font-size:clamp(13px, 3.5vw, 16px) }
-      
       .features{ 
         font-size:clamp(14px, 3.8vw, 17px); 
         padding-left:18px;
@@ -458,21 +463,16 @@
       }
       .features li{ margin:8px 0 }
       .features li:last-child{ margin-bottom:0 }
-      
       /* Afficher la note mobile */
       .mobile-note{ display:block }
-      
       /* Cacher tous les boutons texte sur mobile */
       .cta-btn{ display:none }
-      
       /* Afficher les boutons icône sur mobile */
       .icon-buttons{ display:flex }
-      
       /* Cacher le container CTA (les boutons texte) */
       .cta-container{
         display:none;
       }
-      
       /* Icônes sociales sur mobile - plus compact */
       .social-links{
         justify-content:center;
@@ -492,7 +492,6 @@
         width:16px;
         height:16px;
       }
-      
       /* Modal responsive */
       .modal-content{
         margin:12px;
@@ -504,7 +503,6 @@
       .modal-text{ font-size:15px }
       .modal-actions{ flex-direction:column; gap:10px }
       .modal-btn{ width:100%; text-align:center }
-      
       /* Modale How responsive */
       .how-modal{
         width:100%;
@@ -525,14 +523,11 @@
       .how-dev h3{ font-size:15px }
       .how-dev ul{ font-size:13px }
     }
-    
     /* Smartphones petits */
     @media (max-width: 480px) {
       .hero{ padding-bottom:55px } /* Espace pour bandeau social uniquement */
       .hero > .content{ padding:24px 55px 20px 12px }
-      
       .headline{ font-size:clamp(20px, 5.5vw, 28px) }
-      
       .metrics{
         display:grid;
         grid-template-columns: repeat(2, 1fr);
@@ -541,7 +536,6 @@
       .metric.rt{ grid-column: span 2; justify-self:start }
       .metric .num{ font-size:clamp(18px, 4.5vw, 24px) !important }
       .metric .lbl{ font-size:clamp(12px, 3vw, 14px) }
-      
       .features{ 
         font-size:clamp(13px, 3.5vw, 15px);
         padding-left:16px;
@@ -550,17 +544,14 @@
       }
       .features li{ margin:6px 0 }
       .features li:last-child{ margin-bottom:0 }
-      
       .cta-btn{
         padding:12px 16px;
         font-size:0.9rem;
       }
-      
       .modal-content{ padding:16px }
       .modal-title{ font-size:18px }
       .modal-text{ font-size:14px; line-height:1.5 }
     }
-    
     /* Mode paysage sur mobile */
     @media (max-width: 768px) and (orientation: landscape) {
       .hero{ min-height:100vh }
@@ -577,19 +568,18 @@
         width:180px;
       }
     }
-    
     /* Touch-friendly : pas d'effets hover sur mobile */
     @media (hover: none) {
       .cta-btn:hover{ transform:none }
     }
-    
     /* Safe area pour iPhone avec encoche */
     @supports (padding-bottom: env(safe-area-inset-bottom)) {
       .cta-container{
         padding-bottom:env(safe-area-inset-bottom);
       }
     }
-  </style>
+  
+</style>
 </head>
 <body>
 <main id="stage" role="main" aria-label="Accueil OneRoadTrip"></main>
@@ -1050,9 +1040,11 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
     }
 
     window.addEventListener("DOMContentLoaded", async ()=>{
+      console.log('[TRACE] DOMContentLoaded - START');
       const t = T[lang] || T.fr;
       const stats = await getStats();
 
+      console.log('[TRACE] Avant document.getElementById("stage").innerHTML = HERO');
       document.getElementById("stage").innerHTML = `
         <section class="hero" role="banner" aria-label="Hero OneRoadTrip">
           <div class="content anim-rise">
@@ -1130,7 +1122,96 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       }
 
       // Fonction pour afficher la modale Comment ça marche
+      function openHelpModal(){
+        console.log('[DEBUG] openHelpModal() innerWidth:', window.innerWidth, '> 1024?', window.innerWidth > 1024);
+        if(window.innerWidth > 1024){
+          // DESKTOP : modale how
+          console.log('[DEBUG] Desktop mode - affichant showHowModal()');
+          showHowModal();
+        } else {
+          // MOBILE : modale 3 onglets
+          console.log('[DEBUG] Mobile mode - affichant modale onglets');
+          let modal = document.getElementById('mobileHowModal');
+          if(!modal){
+            console.log('[DEBUG] Création modale mobile');
+            modal = document.createElement('div');
+            modal.id = 'mobileHowModal';
+            modal.className = 'mode-info-modal';
+            modal.innerHTML = `
+              <div class="mode-info-content">
+                <button class="mode-info-close" aria-label="Fermer">×</button>
+                <div class="mode-info-tabs">
+                  <button class="mode-info-tab active" data-tab="simple">Simple</button>
+                  <button class="mode-info-tab" data-tab="expert">Expert</button>
+                  <button class="mode-info-tab" data-tab="itins">Itinéraires</button>
+                  <button class="mode-info-tab" data-tab="vision">Vision</button>
+                </div>
+                <div class="mode-info-body"></div>
+              </div>
+            `;
+            document.body.appendChild(modal);
+            
+            const lang = localStorage.getItem('lang') || 'fr';
+            console.log('[DEBUG] Langue:', lang, '| ORT_I18N_MODES existe?', !!window.ORT_I18N_MODES);
+            
+            function showTab(mode){
+              console.log('[DEBUG] showTab() appelée pour mode:', mode);
+              if(!window.ORT_I18N_MODES) {
+                console.error('[ERROR] ORT_I18N_MODES non disponible!');
+                return;
+              }
+              const body = modal.querySelector('.mode-info-body');
+              const tabs = modal.querySelectorAll('.mode-info-tab');
+              tabs.forEach(t => t.classList.remove('active'));
+              modal.querySelector(`.mode-info-tab[data-tab="${mode}"]`).classList.add('active');
+              
+              let html = '';
+              if(mode === 'vision'){
+                html = `<h2>${window.ORT_I18N_MODES.visionTitle[lang]}</h2><p>${window.ORT_I18N_MODES.visionDesc[lang]}</p>`;
+              } else if(mode === 'expert'){
+                html = `<h2>${window.ORT_I18N_MODES.expertTitle[lang]}</h2><p>${window.ORT_I18N_MODES.expertDesc[lang]}</p><p>${window.ORT_I18N_MODES.expertFourWays[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.expertWaysList[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.expertCreatedTitle[lang]}</p><p>${window.ORT_I18N_MODES.expertViews[lang]}</p><p>${window.ORT_I18N_MODES.expertListTitle[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.expertListItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.expertMapTitle[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.expertMapItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.expertLocationNote[lang]}</p><p>${window.ORT_I18N_MODES.expertBookingTitle[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.expertBookingItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.expertBeforeTitle[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.expertBeforeItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul>`;
+              } else if(mode === 'itins'){
+                html = `<h2>${window.ORT_I18N_MODES.itinsTitle[lang]}</h2><p>${window.ORT_I18N_MODES.itinsDesc[lang]}</p><p>${window.ORT_I18N_MODES.itinsFeatures[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.itinsFeaturesList[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.itinsExplore[lang]}</p>`;
+              } else {
+                html = `<h2>${window.ORT_I18N_MODES.simpleTitle[lang]}</h2><p>${window.ORT_I18N_MODES.simpleDesc[lang]}</p><p><strong>${window.ORT_I18N_MODES.simpleAccessTitle[lang]}</strong></p><p>${window.ORT_I18N_MODES.simpleListView[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.simpleListItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul><p>${window.ORT_I18N_MODES.simpleMapView[lang]}</p><p>${window.ORT_I18N_MODES.simpleTools[lang]}</p><ul class="mode-info-list">`;
+                window.ORT_I18N_MODES.simpleToolsItems[lang].forEach(item => html += `<li>${item}</li>`);
+                html += `</ul>`;
+              }
+              body.innerHTML = html;
+              console.log('[DEBUG] Contenu HTML ajouté pour', mode);
+            }
+            
+            modal.querySelector('.mode-info-close').addEventListener('click', ()=> modal.classList.remove('active'));
+            modal.addEventListener('click', (e)=> {if(e.target === modal) modal.classList.remove('active')});
+            modal.querySelectorAll('.mode-info-tab').forEach(tab => {
+              tab.addEventListener('click', () => showTab(tab.dataset.tab));
+            });
+            
+            showTab('simple');
+          } else {
+            console.log('[DEBUG] Modale mobile existe déjà');
+          }
+          
+          modal.classList.add('active');
+        }
+      }
+
       function showHowModal(){
+        console.log('[DEBUG] showHowModal() appelée');
         const overlay = document.createElement("div");
         overlay.className = "how-modal-overlay";
         overlay.innerHTML = `
@@ -1240,7 +1321,13 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       btnHow.type = "button";
       btnHow.textContent = t.cta_how;
       btnHow.setAttribute("aria-label", t.cta_how);
-      btnHow.addEventListener("click", showHowModal);
+      
+      // Event listener qui détecte mobile/desktop au moment du clic
+      btnHow.addEventListener("click", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        openHelpModal();
+      });
       
       // Bouton Vos voyages (desktop)
       const btnTrips = document.createElement("button");
@@ -1347,7 +1434,80 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
         url.searchParams.set("lang", lang);
         window.location.href = url.toString();
       });
-      iconButtons.querySelector('.icon-btn.help').addEventListener('click', showHowModal);
+      iconButtons.querySelector('.icon-btn.help').addEventListener('click', openHelpModal);
+      
+      // 🟢 FIX: Fonction GÉNÉRALE pour ouvrir la modale multi-onglets
+      function showModeInfoModal() {
+        console.log('[DEBUG] showModeInfoModal() appelée');
+        
+        const lang = localStorage.getItem('lang') || 'fr';
+        
+        // Vérifier que window.ORT_I18N_MODES existe
+        if(!window.ORT_I18N_MODES) {
+          console.warn('[WARN] ORT_I18N_MODES n\'existe pas');
+          return;
+        }
+        
+        // Créer la modale
+        const modal = document.createElement('div');
+        modal.className = 'mode-info-modal';
+        modal.innerHTML = `
+          <div class="mode-info-content">
+            <button class="mode-info-close" aria-label="Fermer">×</button>
+            <div class="mode-info-tabs">
+              <button class="mode-info-tab active" data-tab="simple">Simple</button>
+              <button class="mode-info-tab" data-tab="expert">Expert</button>
+              <button class="mode-info-tab" data-tab="itins">Itinéraires</button>
+            </div>
+            <div class="mode-info-body"></div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+        
+        // Fonction pour changer d'onglet
+        function showTab(mode){
+          console.log('[DEBUG] showTab() appelée pour mode:', mode);
+          const body = modal.querySelector('.mode-info-body');
+          const tabs = modal.querySelectorAll('.mode-info-tab');
+          tabs.forEach(t => t.classList.remove('active'));
+          modal.querySelector(`.mode-info-tab[data-tab="${mode}"]`).classList.add('active');
+          
+          let html = '';
+          if(mode === 'expert'){
+            html = `<h2>${window.ORT_I18N_MODES.expertTitle[lang]}</h2><p>${window.ORT_I18N_MODES.expertDesc[lang]}</p><p>${window.ORT_I18N_MODES.expertFourWays[lang]}</p><ul class="mode-info-list">`;
+            window.ORT_I18N_MODES.expertWaysList[lang].forEach(item => html += `<li>${item}</li>`);
+            html += `</ul>`;
+          } else if(mode === 'itins'){
+            html = `<h2>${window.ORT_I18N_MODES.itinsTitle[lang]}</h2><p>${window.ORT_I18N_MODES.itinsDesc[lang]}</p><ul class="mode-info-list">`;
+            window.ORT_I18N_MODES.itinsFeaturesList[lang].forEach(item => html += `<li>${item}</li>`);
+            html += `</ul>`;
+          } else {
+            html = `<h2>${window.ORT_I18N_MODES.simpleTitle[lang]}</h2><p>${window.ORT_I18N_MODES.simpleDesc[lang]}</p><ul class="mode-info-list">`;
+            window.ORT_I18N_MODES.simpleListItems[lang].forEach(item => html += `<li>${item}</li>`);
+            html += `</ul>`;
+          }
+          body.innerHTML = html;
+        }
+        
+        // Event listeners
+        modal.querySelector('.mode-info-close').addEventListener('click', ()=> {
+          modal.classList.remove('active');
+          setTimeout(() => modal.remove(), 300);
+        });
+        modal.addEventListener('click', (e)=> {
+          if(e.target === modal) {
+            modal.classList.remove('active');
+            setTimeout(() => modal.remove(), 300);
+          }
+        });
+        modal.querySelectorAll('.mode-info-tab').forEach(tab => {
+          tab.addEventListener('click', () => showTab(tab.dataset.tab));
+        });
+        
+        // Afficher l'onglet Simple par défaut
+        setTimeout(() => modal.classList.add('active'), 10);
+        showTab('simple');
+      }
       
       // Wrapper pour Expert + bouton ?
       const wrapExpert = document.createElement("div");
@@ -1359,6 +1519,7 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       btnInfoExpert.style.color = "#14b8a6"; // turquoise
       btnInfoExpert.setAttribute("aria-label", "Info Mode Expert");
       btnInfoExpert.dataset.mode = "expert";
+      btnInfoExpert.addEventListener('click', () => showModeInfoModal());
       wrapExpert.appendChild(btnInfoExpert);
       wrapExpert.appendChild(btnExpert);
       
@@ -1372,6 +1533,7 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       btnInfoSimple.style.color = "#a0533d"; // marron-rouge
       btnInfoSimple.setAttribute("aria-label", "Info Mode Simple");
       btnInfoSimple.dataset.mode = "simple";
+      btnInfoSimple.addEventListener('click', () => showModeInfoModal());
       wrapSimple.appendChild(btnInfoSimple);
       wrapSimple.appendChild(btnSimple);
       
@@ -1385,6 +1547,7 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       btnInfoItins.style.color = "#00b2ff"; // bleu
       btnInfoItins.setAttribute("aria-label", "Info Itinéraires");
       btnInfoItins.dataset.mode = "itins";
+      btnInfoItins.addEventListener('click', () => showModeInfoModal());
       wrapItins.appendChild(btnInfoItins);
       wrapItins.appendChild(btnItins);
       
@@ -1393,307 +1556,19 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       ctaContainer.appendChild(wrapItins);
       ctaContainer.appendChild(btnHow);
       ctaContainer.appendChild(btnTrips);
-      document.body.appendChild(ctaContainer);
-      document.body.appendChild(iconButtons);
-      document.body.appendChild(socialLinks);
+      
+      // Utiliser DocumentFragment pour ajouter les 3 éléments en UNE SEULE opération
+      // = 1 reflow au lieu de 3
+      console.log('[TRACE] Avant DocumentFragment');
+      const fragment = document.createDocumentFragment();
+      fragment.appendChild(ctaContainer);
+      fragment.appendChild(iconButtons);
+      fragment.appendChild(socialLinks);
+      document.body.appendChild(fragment);
+      console.log('[TRACE] Après DocumentFragment');
+      
+      console.log('[TRACE] DOMContentLoaded - END');
     });
-  })();
-  
-  // ===== MODALE EXPLICATIVE DES MODES (DESKTOP) =====
-  (function(){
-    // Détecter mobile/desktop
-    const isMobile = window.innerWidth <= 640;
-    
-    if(!isMobile){
-      // DESKTOP : Modale simple pour chaque mode (pas d'onglets)
-      const modal = document.createElement('div');
-      modal.id = 'modeInfoModal';
-      modal.className = 'mode-info-modal';
-      modal.innerHTML = `
-        <div class="mode-info-content">
-          <button class="mode-info-close" aria-label="Fermer">×</button>
-          <div class="mode-info-body"></div>
-        </div>
-      `;
-      document.body.appendChild(modal);
-      
-      // Obtenir la langue
-      function getLang(){
-        const p = new URLSearchParams(location.search).get('lang');
-        const stored = localStorage.getItem('lang');
-        return p || stored || 'fr';
-      }
-      
-      const lang = getLang();
-      localStorage.setItem('lang', lang);
-      
-      // Fonction pour afficher le contenu
-      function showContent(mode){
-        if(!window.ORT_I18N_MODES) return;
-        
-        const body = document.querySelector('.mode-info-body');
-        let html = '';
-        
-        // TITRE + DESCRIPTION (pour tous)
-        html = `<h2>${window.ORT_I18N_MODES[mode + 'Title'][lang]}</h2>`;
-        html += `<p>${window.ORT_I18N_MODES[mode + 'Desc'][lang]}</p>`;
-        
-        if(mode === 'expert'){
-          // EXPERT - structure spéciale
-          html += `<p>${window.ORT_I18N_MODES.expertFourWays[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.expertWaysList[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertCreatedTitle[lang]}</p>`;
-          html += `<p>${window.ORT_I18N_MODES.expertViews[lang]}</p>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertListTitle[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.expertListItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertMapTitle[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.expertMapItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertLocationNote[lang]}</p>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertBookingTitle[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.expertBookingItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          
-          html += `<p>${window.ORT_I18N_MODES.expertBeforeTitle[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.expertBeforeItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          
-        } else if(mode === 'itins'){
-          // ITINÉRAIRES
-          html += `<p>${window.ORT_I18N_MODES.itinsFeatures[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.itinsFeaturesList[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          html += `<p>${window.ORT_I18N_MODES.itinsExplore[lang]}</p>`;
-          
-        } else if(mode === 'simple'){
-          // SIMPLE
-          html += `<p><strong>${window.ORT_I18N_MODES.simpleAccessTitle[lang]}</strong></p>`;
-          html += `<p>${window.ORT_I18N_MODES.simpleListView[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.simpleListItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-          html += `<p>${window.ORT_I18N_MODES.simpleMapView[lang]}</p>`;
-          html += `<p>${window.ORT_I18N_MODES.simpleTools[lang]}</p>`;
-          html += `<ul class="mode-info-list">`;
-          window.ORT_I18N_MODES.simpleToolsItems[lang].forEach(item => {
-            html += `<li>${item}</li>`;
-          });
-          html += `</ul>`;
-        }
-        
-        body.innerHTML = html;
-      }
-      
-      function closeModal(){
-        modal.classList.remove('active');
-      }
-      
-      function openModal(mode){
-        showContent(mode);
-        modal.classList.add('active');
-      }
-      
-      // Événements
-      modal.querySelector('.mode-info-close').addEventListener('click', closeModal);
-      modal.addEventListener('click', (e)=>{
-        if(e.target === modal) closeModal();
-      });
-      
-      // Ajouter event listeners aux boutons ?
-      setTimeout(()=>{
-        const btnInfoExpert = document.querySelector('.cta-btn-info[data-mode="expert"]');
-        const btnInfoSimple = document.querySelector('.cta-btn-info[data-mode="simple"]');
-        const btnInfoItins = document.querySelector('.cta-btn-info[data-mode="itins"]');
-        
-        if(btnInfoExpert) btnInfoExpert.addEventListener('click', ()=> openModal('expert'));
-        if(btnInfoSimple) btnInfoSimple.addEventListener('click', ()=> openModal('simple'));
-        if(btnInfoItins) btnInfoItins.addEventListener('click', ()=> openModal('itins'));
-      }, 100);
-    }
-  })();
-  
-  // ===== MODALE "COMMENT ÇA MARCHE" (MOBILE - 4 ONGLETS) =====
-  (function(){
-    const isMobile = window.innerWidth <= 640;
-    
-    if(isMobile){
-      // Intercepter le bouton "Comment ça marche"
-      setTimeout(()=>{
-        const btnHow = document.querySelector('.cta-btn.how');
-        if(!btnHow) return;
-        
-        btnHow.addEventListener('click', (e)=>{
-          e.preventDefault();
-          e.stopPropagation();
-          
-          // Créer la modale si elle n'existe pas
-          let modal = document.getElementById('mobileHowModal');
-          if(!modal){
-            modal = document.createElement('div');
-            modal.id = 'mobileHowModal';
-            modal.className = 'mode-info-modal';
-            modal.innerHTML = `
-              <div class="mode-info-content">
-                <button class="mode-info-close" aria-label="Fermer">×</button>
-                <div class="mode-info-tabs">
-                  <button class="mode-info-tab active" data-tab="simple">Simple</button>
-                  <button class="mode-info-tab" data-tab="itins">Itinéraires</button>
-                  <button class="mode-info-tab" data-tab="expert">Expert</button>
-                  <button class="mode-info-tab" data-tab="vision">Vision</button>
-                </div>
-                <div class="mode-info-body"></div>
-              </div>
-            `;
-            document.body.appendChild(modal);
-            
-            // Obtenir la langue
-            function getLang(){
-              const p = new URLSearchParams(location.search).get('lang');
-              const stored = localStorage.getItem('lang');
-              return p || stored || 'fr';
-            }
-            
-            const lang = getLang();
-            localStorage.setItem('lang', lang);
-            
-            // Fonction pour afficher le contenu
-            function showTab(mode){
-              if(!window.ORT_I18N_MODES) return;
-              
-              const body = modal.querySelector('.mode-info-body');
-              const tabs = modal.querySelectorAll('.mode-info-tab');
-              tabs.forEach(t => t.classList.remove('active'));
-              modal.querySelector(`.mode-info-tab[data-tab="${mode}"]`).classList.add('active');
-              
-              let html = '';
-              
-              if(mode === 'vision'){
-                html = `<h2>${window.ORT_I18N_MODES.visionTitle[lang]}</h2>`;
-                html += `<p>${window.ORT_I18N_MODES.visionDesc[lang]}</p>`;
-              } else if(mode === 'expert'){
-                html = `<h2>${window.ORT_I18N_MODES.expertTitle[lang]}</h2>`;
-                html += `<p>${window.ORT_I18N_MODES.expertDesc[lang]}</p>`;
-                html += `<p>${window.ORT_I18N_MODES.expertFourWays[lang]}</p>`;
-                html += `<ul class="mode-info-list">`;
-                const waysList = window.ORT_I18N_MODES.expertWaysList[lang];
-                waysList.forEach(item => {
-                  html += `<li>${item}</li>`;
-                });
-                html += `</ul>`;
-                html += `<p>${window.ORT_I18N_MODES.expertCreatedTitle[lang]}</p>`;
-                html += `<p>${window.ORT_I18N_MODES.expertViews[lang]}</p>`;
-                html += `<p>${window.ORT_I18N_MODES.expertListTitle[lang]}</p>`;
-                html += `<ul class="mode-info-list">`;
-                const listItems = window.ORT_I18N_MODES.expertListItems[lang];
-                listItems.forEach(item => {
-                  html += `<li>${item}</li>`;
-                });
-                html += `</ul>`;
-                html += `<p>${window.ORT_I18N_MODES.expertMapTitle[lang]}</p>`;
-                html += `<ul class="mode-info-list">`;
-                const mapItems = window.ORT_I18N_MODES.expertMapItems[lang];
-                mapItems.forEach(item => {
-                  html += `<li>${item}</li>`;
-                });
-                html += `</ul>`;
-                html += `<p>${window.ORT_I18N_MODES.expertLocationNote[lang]}</p>`;
-                html += `<p>${window.ORT_I18N_MODES.expertBookingTitle[lang]}</p>`;
-                html += `<ul class="mode-info-list">`;
-                const bookingItems = window.ORT_I18N_MODES.expertBookingItems[lang];
-                bookingItems.forEach(item => {
-                  html += `<li>${item}</li>`;
-                });
-                html += `</ul>`;
-                html += `<p>${window.ORT_I18N_MODES.expertBeforeTitle[lang]}</p>`;
-                html += `<ul class="mode-info-list">`;
-                const beforeItems = window.ORT_I18N_MODES.expertBeforeItems[lang];
-                beforeItems.forEach(item => {
-                  html += `<li>${item}</li>`;
-                });
-                html += `</ul>`;
-              } else {
-                html = `<h2>${window.ORT_I18N_MODES[mode + 'Title'][lang]}</h2>`;
-                html += `<p>${window.ORT_I18N_MODES[mode + 'Desc'][lang]}</p>`;
-                
-                if(mode === 'itins'){
-                  html += `<p>${window.ORT_I18N_MODES.itinsFeatures[lang]}</p>`;
-                  html += `<ul class="mode-info-list">`;
-                  const featuresList = window.ORT_I18N_MODES.itinsFeaturesList[lang];
-                  featuresList.forEach(item => {
-                    html += `<li>${item}</li>`;
-                  });
-                  html += `</ul>`;
-                  html += `<p>${window.ORT_I18N_MODES.itinsExplore[lang]}</p>`;
-                } else {
-                  html += `<p><strong>${window.ORT_I18N_MODES[mode + 'AccessTitle'][lang]}</strong></p>`;
-                  html += `<p>${window.ORT_I18N_MODES[mode + 'ListView'][lang]}</p>`;
-                  html += `<ul class="mode-info-list">`;
-                  const items = window.ORT_I18N_MODES[mode + 'ListItems'][lang];
-                  items.forEach(item => {
-                    html += `<li>${item}</li>`;
-                  });
-                  html += `</ul>`;
-                  html += `<p>${window.ORT_I18N_MODES[mode + 'MapView'][lang]}</p>`;
-                  html += `<p>${window.ORT_I18N_MODES[mode + 'Tools'][lang]}</p>`;
-                  html += `<ul class="mode-info-list">`;
-                  const toolItems = window.ORT_I18N_MODES[mode + 'ToolsItems'][lang];
-                  toolItems.forEach(item => {
-                    html += `<li>${item}</li>`;
-                  });
-                  html += `</ul>`;
-                }
-              }
-              
-              body.innerHTML = html;
-            }
-            
-            // Événements
-            modal.querySelector('.mode-info-close').addEventListener('click', ()=>{
-              modal.classList.remove('active');
-            });
-            
-            modal.addEventListener('click', (e)=>{
-              if(e.target === modal) modal.classList.remove('active');
-            });
-            
-            modal.querySelectorAll('.mode-info-tab').forEach(tab => {
-              tab.addEventListener('click', ()=> showTab(tab.dataset.tab));
-            });
-            
-            showTab('simple');
-          }
-          
-          modal.classList.add('active');
-        });
-      }, 100);
-    }
   })();
   </script>
 </body>
