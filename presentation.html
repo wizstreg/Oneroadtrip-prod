@@ -2517,8 +2517,8 @@ async function loadAllItineraries() {
             const data = await response.json();
             const countryName = COUNTRY_NAMES[countryCode]?.[lang] || countryCode;
             const itins = (data.itineraries || []).map(itin => {
-              // Garder l'ID ORIGINAL du JSON (c'est celui qu'utilise roadtrip_detail.html!)
-              const originalId = itin.itin_id || itin.id || itin.slug || '';
+              // Garder l'ID ORIGINAL du JSON (utiliser JUSTE id ou slug, jamais itin_id qui peut être cassé!)
+              const originalId = itin.id || itin.slug || '';
               
               // TOUJOURS créer un itin_id au bon format CC::slug pour la sélection/affichage
               let slug = itin.slug || itin.title?.toLowerCase() || '';
