@@ -2787,8 +2787,109 @@ function autoCalculateNights(totalDays) {
 }
 
 // === DATA LOADING ===
+// === Fonctions pour supporter les itinéraires composés ===
+function isComposedId(id) {
+  return typeof id === 'string' && id.startsWith('COMPOSED::');
+}
+
+function parseComposedIds(id) {
+  if (!isComposedId(id)) return [];
+  return id.replace('COMPOSED::', '').split('+').map(decodeURIComponent).filter(Boolean);
+}
+
 async function loadItinerary(cc, itinId, lang) {
   const baseUrl = './data/Roadtripsprefabriques/countries';
+  
+  // === TRAITER COMPOSED ===
+  if (isComposedId(itinId)) {
+    const ids = parseComposedIds(itinId);
+    const allSteps = [];
+    const allTitles = [];
+    
+    // Charger chaque itinéraire depuis son pays
+    for (const id of ids) {
+      try {
+        // Parser l'ID pour extraire le pays si présent (format: CC::slug ou juste slug/id)
+        let ccForItin = cc;
+        let idToSearch = id;
+        
+        if (id.includes('::')) {
+          const parts = id.split('::');
+          ccForItin = parts[0];
+          idToSearch = parts.slice(1).join('::');
+        }
+        
+        const ccLower = ccForItin.toLowerCase();
+        const url = `${baseUrl}/${ccLower}/${ccLower}.itins.modules-${lang}.json`;
+        
+        const resp = await fetch(url);
+        if (!resp.ok) continue;
+        
+        const data = await resp.json();
+        const itins = data.itins || data.itineraries || data || [];
+        const itin = itins.find(i => {
+          const checkId = i.id || i.itin_id || '';
+          return checkId === idToSearch || checkId === id;
+        });
+        
+        if (!itin) continue;
+        
+        allTitles.push(itin.title || itin.name || 'RT');
+        
+        const daysPlan = itin.days_plan || itin.steps || [];
+        daysPlan.forEach((day, idx) => {
+          const nightData = day.night || {};
+          const placeId = nightData.place_id || day.place_id || '';
+          const coords = nightData.coords || [];
+          const suggestedDays = day.suggested_days || 1;
+          const driveMin = day.to_next_leg?.drive_min || 0;
+          const distanceKm = day.to_next_leg?.distance_km || 0;
+          
+          let transportBonus = driveMin > 300 ? 1.0 : driveMin > 180 ? 0.5 : 0;
+          const nights = Math.max(0, Math.round(suggestedDays + transportBonus));
+          
+          let name = day.name || '';
+          if (!name && placeId) {
+            const parts = placeId.split('::');
+            name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || `Étape ${idx + 1}`;
+          }
+          
+          const visits = Array.isArray(day.visits) ? day.visits : [];
+          const description = visits.map(v => typeof v === 'string' ? v : v.text).filter(Boolean).join(' ');
+          
+          let photos = [];
+          if (Array.isArray(day.photos) && day.photos.length) photos = day.photos;
+          else if (Array.isArray(day.images) && day.images.length) photos = day.images;
+          else if (typeof day.image === 'string' && day.image) photos = [day.image];
+          else if (typeof day.photo === 'string' && day.photo) photos = [day.photo];
+          else if (typeof day.thumb === 'string' && day.thumb) photos = [day.thumb];
+          
+          allSteps.push({
+            _idx: allSteps.length,
+            name: name || `Étape ${idx + 1}`,
+            lat: coords[0] || day.lat,
+            lng: coords[1] || day.lng || day.lon,
+            nights, description,
+            photos: photos,
+            distance_km: distanceKm,
+            placeId: day.place_id || day.placeId || placeId
+          });
+        });
+      } catch (e) {
+        console.error(`[COMPOSED] Erreur chargement ${id}:`, e);
+      }
+    }
+    
+    if (allSteps.length === 0) throw new Error('Aucun itinéraire composé n\'a pu être chargé');
+    
+    state.title = allTitles.join(' + ');
+    state._originalItinId = itinId;
+    state.cc = cc;
+    state.steps = allSteps;
+    return;
+  }
+  
+  // === CAS NORMAL: UN SEUL ITINÉRAIRE ===
   const ccLower = cc.toLowerCase();
   const url = `${baseUrl}/${ccLower}/${ccLower}.itins.modules-${lang}.json`;
   

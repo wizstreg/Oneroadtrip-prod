@@ -457,10 +457,12 @@ header{position:sticky;top:0;z-index:10000;background:url("/assets/image_index.w
   align-items:center;
   justify-content:center;
   padding:20px;
+  pointer-events: none;  /* ← Pas cliquable quand fermée */
 }
 
 .mobile-selection-modal.show{
   display:flex !important;
+  pointer-events: auto;  /* ← Cliquable quand ouverte */
 }
 
 /* NEW: grille photo du preview */
@@ -3565,7 +3567,7 @@ function validateAndContinue() {
       // 1 seul itinéraire - utiliser l'ID ORIGINAL du JSON
       const id = selectedItineraries[0]._originalItinId || selectedItineraries[0].itin_id;
       const cc = selectedItineraries[0].country || 'FR';
-      window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(id)}&lang=${lang}&mode=${mode}&budget=${budget}`;
+      window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(id)}&lang=${lang}&mode=${mode}&budget=${budget}&skipMobileRedirect=1`;
     } else {
       // 2-3 itinéraires -> fusion COMPOSED
       // Utiliser les IDs ORIGINAUX du JSON (les vrais IDs!)
@@ -3573,7 +3575,7 @@ function validateAndContinue() {
       const composed = `COMPOSED::${originalIds.join('+')}`;
       const cc = selectedItineraries[0].country || 'MULTI';
       console.log('[VALIDATE] Composed ID:', composed);
-      window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(composed)}&lang=${lang}&mode=${mode}&budget=${budget}`;
+      window.location.href = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(composed)}&lang=${lang}&mode=${mode}&budget=${budget}&skipMobileRedirect=1`;
     }
   }, totalDays, firstTitle);
 }
