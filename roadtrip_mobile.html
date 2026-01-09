@@ -15,6 +15,70 @@
   gtag('js', new Date());
   gtag('config', 'G-JK3QGQGDDL');
 </script>
+<!-- 🔴 CHECK CATALOGUE: redirection immédiate si c'est un catalogue -->
+<script>
+(function(){
+  const qs = new URLSearchParams(location.search);
+  const tripId = qs.get('tripId') || qs.get('id');
+  const cc = qs.get('cc');
+  const itin = qs.get('itin');
+  const from = qs.get('from');
+  
+  // Cas 1: tripId explicitement catalog:: ou custom::
+  if (tripId && (tripId.startsWith('catalog::') || tripId.startsWith('custom::'))) {
+    const sourceType = tripId.startsWith('catalog::') ? 'Catalogue' : 'Custom (Carte/Import)';
+    console.log(`[INIT-EARLY] 📚 ${sourceType} détecté (tripId), génération NEW tripId`);
+    const newTripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    sessionStorage.setItem('ort_catalog_source', tripId);
+    console.log('[INIT-EARLY] ✅ Source sauvegardée:', tripId);
+    
+    // Remplacer tripId mais conserver tous les autres paramètres
+    qs.set('tripId', newTripId);
+    const newUrl = `${location.pathname}?${qs.toString()}`;
+    console.log('[INIT-EARLY] Redirect vers:', newUrl);
+    window.location.href = newUrl;
+    return;
+  }
+  
+  // Cas 2: cc + itin (accès catalogue via paramètres séparés) - inclut COMPOSED::
+  if (cc && itin && !tripId) {
+    console.log('[INIT-EARLY] 📚 Catalogue détecté (cc+itin), génération NEW tripId');
+    const catalogId = `catalog::${cc.toUpperCase()}::${itin}`;
+    const newTripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    sessionStorage.setItem('ort_catalog_source', catalogId);
+    console.log('[INIT-EARLY] ✅ Source catalogue sauvegardée:', catalogId);
+    
+    // Ajouter tripId mais conserver tous les autres paramètres (cc, itin, days, depart, mode, etc.)
+    qs.set('tripId', newTripId);
+    const newUrl = `${location.pathname}?${qs.toString()}`;
+    console.log('[INIT-EARLY] Redirect vers:', newUrl);
+    window.location.href = newUrl;
+    return;
+  }
+  
+  // Cas 3: from=builder ou from=temp sans tripId valide (Route Builder, Carte Builder, Import IA)
+  if ((from === 'builder' || from === 'temp') && (!tripId || !tripId.startsWith('trip_'))) {
+    const sourceType = from === 'builder' ? 'Route Builder' : 'Carte/Import';
+    console.log(`[INIT-EARLY] 🛠️ ${sourceType} détecté sans tripId, génération NEW tripId`);
+    const newTripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Sauvegarder la source si rtKey existe
+    const rtKey = qs.get('rtKey');
+    if (rtKey) {
+      sessionStorage.setItem('ort_catalog_source', `custom::${rtKey}`);
+      console.log('[INIT-EARLY] ✅ Source custom sauvegardée:', `custom::${rtKey}`);
+    }
+    
+    qs.set('tripId', newTripId);
+    const newUrl = `${location.pathname}?${qs.toString()}`;
+    console.log('[INIT-EARLY] Redirect vers:', newUrl);
+    window.location.href = newUrl;
+    return;
+  }
+})();
+</script>
 <!-- Clean redirect marker on mobile arrival -->
 <script>
 (function(){
@@ -499,6 +563,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 8px;
+  position: relative;
 }
 
 .sheet-header-center {
@@ -1208,6 +1273,17 @@ html, body {
   color: #333;
 }
 </style>
+<!-- Mode partage - masquer édition -->
+<style>
+  body.shared-view-only #btnSave,
+  body.shared-view-only #btnAddStep,
+  body.shared-view-only #btnAddMapRoute,
+  body.shared-view-only .delete-btn,
+  body.shared-view-only button.trash,
+  body.shared-view-only [contenteditable="true"] {
+    display: none !important;
+  }
+</style>
 </head>
 <body>
 
@@ -1221,10 +1297,11 @@ html, body {
 <header class="header">
   <button class="header-back" id="btnHome" aria-label="Dashboard" onclick="location.href='dashboard_user.html'">🏠</button>
   <button class="header-back" id="btnBack" aria-label="Retour">←</button>
-  <div class="header-title" id="headerTitle">Roadtrip</div>
-  <button class="header-expert" id="btnExpertMode" aria-label="Mode expert" title="Basculer en mode expert" style="background:#113f7a;color:#fff;border:none;padding:4px 8px;border-radius:4px;font-size:11px;font-weight:600;cursor:pointer;">🎯 Expert</button>
-  <button class="header-user" id="btnUser" aria-label="Profil utilisateur" style="background:none;border:none;font-size:20px;cursor:pointer;padding:4px 8px;margin-left:auto;">👤</button>
-  <button class="header-menu" id="btnMenu" aria-label="Menu">☰</button>
+  <div style="flex:1;"></div>
+  <button class="header-btn" id="btnLangHeader" aria-label="Langue" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">🌐</button>
+  <button class="header-btn" id="btnSaveHeader" aria-label="Sauvegarder" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">💾</button>
+  <button class="header-btn" id="btnShareHeader" aria-label="Partager" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">🔗</button>
+  <button class="header-btn" id="btnUser" aria-label="Profil utilisateur" style="background:none;border:none;font-size:20px;cursor:pointer;padding:4px 8px;color:#fff;">👤</button>
 </header>
 
 <!-- Main Content -->
@@ -1240,6 +1317,7 @@ html, body {
   <!-- Map Panel -->
   <div class="tab-panel" id="mapPanel">
     <div id="map"></div>
+    <button id="btnCenterMap" aria-label="Centrer la carte" style="position:absolute;bottom:20px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center;">🎯</button>
   </div>
   
   <!-- List Panel -->
@@ -1247,11 +1325,11 @@ html, body {
     <div class="summary-card" id="summaryCard">
       <div class="summary-stat">
         <div class="value" id="statSteps">-</div>
-        <div class="label">Étapes</div>
+        <div class="label" data-i18n="steps">Étapes</div>
       </div>
       <div class="summary-stat">
         <div class="value" id="statNights">-</div>
-        <div class="label">Nuits</div>
+        <div class="label" data-i18n="nights">Nuits</div>
       </div>
       <div class="summary-stat">
         <div class="value" id="statKm">-</div>
@@ -1266,19 +1344,19 @@ html, body {
 <nav class="tab-bar">
   <button class="tab-btn active" id="tabList" data-panel="listPanel">
     <span class="tab-icon">📋</span>
-    <span>Itinéraire</span>
+    <span data-i18n="itinerary">Itinéraire</span>
   </button>
   <button class="tab-btn" id="tabMap" data-panel="mapPanel">
     <span class="tab-icon">🗺️</span>
-    <span>Carte</span>
+    <span data-i18n="map">Carte</span>
   </button>
   <button class="tab-btn" id="tabBookings" data-panel="bookingsPanel">
     <span class="tab-icon">🏨</span>
-    <span>Réservations</span>
+    <span data-i18n="bookings">Réservations</span>
   </button>
   <button class="tab-btn" id="tabServices">
     <span class="tab-icon">🛎️</span>
-    <span>Services</span>
+    <span data-i18n="services">Services</span>
   </button>
 </nav>
 
@@ -1316,11 +1394,11 @@ html, body {
     <div class="sheet-section">
       <div class="content-buttons">
         <button class="content-btn" id="btnOpenVisits" onclick="openVisitsModal()">
-          📍 <span>Voir les visites</span>
+          📍 <span data-i18n="seeVisits">Voir les visites</span>
           <span class="content-count" id="visitsCount">0</span>
         </button>
         <button class="content-btn" id="btnOpenActivities" onclick="openActivitiesModal()">
-          🎯 <span>Voir les activités</span>
+          🎯 <span data-i18n="seeActivities">Voir les activités</span>
           <span class="content-count" id="activitiesCount">0</span>
         </button>
       </div>
@@ -1328,12 +1406,12 @@ html, body {
     
     <!-- Contrôle des nuits -->
     <div class="sheet-section">
-      <div class="sheet-section-title">Nombre de nuits</div>
+      <div class="sheet-section-title" data-i18n="numberOfNights">Nombre de nuits</div>
       <div class="nights-control">
         <button class="nights-btn" id="btnNightsMinus">−</button>
         <div>
           <div class="nights-value" id="nightsValue">0</div>
-          <div class="nights-label">nuit(s)</div>
+          <div class="nights-label" data-i18n="nightPlural">nuits</div>
         </div>
         <button class="nights-btn" id="btnNightsPlus">+</button>
       </div>
@@ -1341,104 +1419,109 @@ html, body {
     
     <!-- Section réservations de l'étape -->
     <div class="sheet-section" id="stepBookingsSection" style="display:none">
-      <div class="sheet-section-title">Mes réservations</div>
+      <div class="sheet-section-title" data-i18n="myBookings">Mes réservations</div>
       <div class="step-bookings-list" id="stepBookingsList"></div>
     </div>
   </div>
   <div class="sheet-actions">
     <button class="sheet-btn sheet-btn-danger" id="btnDeleteStep">🗑️</button>
-    <button class="sheet-btn sheet-btn-primary" id="btnCloseSheet">Fermer</button>
+    <button class="sheet-btn sheet-btn-primary" id="btnCloseSheet" data-i18n="close">Fermer</button>
   </div>
 </div>
 
 <!-- Modale Visites -->
 <div class="content-modal" id="visitsModal">
   <div class="content-modal-header">
-    <h2>📍 Visites prévues</h2>
+    <h2 data-i18n="plannedVisits">📍 Visites prévues</h2>
     <span class="content-modal-step" id="visitsModalStep"></span>
   </div>
   <div class="content-modal-body" id="visitsModalBody">
     <!-- Contenu rempli dynamiquement -->
   </div>
   <button class="floating-back-btn" onclick="closeVisitsModal()">
-    ← Retour
+    <span data-i18n="back">← Retour</span>
   </button>
 </div>
 
 <!-- Modale Activités -->
 <div class="content-modal" id="activitiesModal">
   <div class="content-modal-header">
-    <h2>🎯 Activités</h2>
+    <h2>🎯 <span data-i18n="activities">Activités</span></h2>
     <span class="content-modal-step" id="activitiesModalStep"></span>
   </div>
   <div class="content-modal-body" id="activitiesModalBody">
     <!-- Contenu rempli dynamiquement -->
   </div>
   <button class="floating-back-btn" onclick="closeActivitiesModal()">
-    ← Retour
+    <span data-i18n="back">← Retour</span>
   </button>
 </div>
 
 <!-- Modale Partage -->
 <div class="content-modal" id="shareModal">
   <div class="content-modal-header">
-    <h2>🔗 Partager ce voyage</h2>
+    <h2 data-i18n="shareTitle">🔗 Partager ce voyage</h2>
     <span class="content-modal-step" id="shareModalTitle"></span>
   </div>
   <div class="content-modal-body">
     <div class="share-options">
-      <!-- Mode de partage -->
-      <div class="share-mode-section">
-        <label class="share-mode-option">
-          <input type="radio" name="shareMode" value="viewer" checked>
-          <div class="share-mode-info">
-            <span class="share-mode-icon">👁️</span>
-            <div>
-              <strong>Lecture seule</strong>
-              <p>Peut voir le roadtrip mais pas le modifier</p>
-            </div>
-          </div>
-        </label>
-        <label class="share-mode-option">
-          <input type="radio" name="shareMode" value="editor">
-          <div class="share-mode-info">
-            <span class="share-mode-icon">✏️</span>
-            <div>
-              <strong>Modification</strong>
-              <p>Peut modifier les dates, étapes, réservations</p>
-            </div>
-          </div>
-        </label>
-      </div>
-      
       <!-- Avertissement -->
-      <div class="share-warning">
-        ⚠️ Toute personne avec ce lien pourra accéder au voyage
+      <div class="share-warning" data-i18n="shareWarning" style="margin-bottom:20px;">
+        ⚠️ Toute personne avec ce lien pourra voir votre voyage
       </div>
       
       <!-- Bouton générer -->
-      <button class="share-generate-btn" id="btnGenerateShare" onclick="generateShareLink()">
-        🔗 Générer le lien
+      <button class="share-generate-btn" id="btnGenerateShare" onclick="generateShareLink()" style="width:100%;padding:14px;background:#113f7a;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;">
+        <span data-i18n="shareGenerate">🔗 Générer le lien</span>
       </button>
       
       <!-- Résultat (caché par défaut) -->
-      <div class="share-result" id="shareResult" style="display:none">
-        <input type="text" class="share-url-input" id="shareUrlInput" readonly>
-        <div class="share-actions">
-          <button class="share-action-btn" onclick="copyShareLink()">📋 Copier</button>
-          <button class="share-action-btn" onclick="nativeShare()">📤 Partager</button>
+      <div class="share-result" id="shareResult" style="display:none;margin-top:16px;">
+        <input type="text" class="share-url-input" id="shareUrlInput" readonly style="width:100%;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:14px;margin-bottom:12px;">
+        <div class="share-actions" style="display:flex;gap:10px;">
+          <button class="share-action-btn" onclick="copyShareLink()" style="flex:1;padding:12px;background:#16a34a;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">
+            <span data-i18n="shareCopy">📋 Copier</span>
+          </button>
+          <button class="share-action-btn" onclick="nativeShare()" style="flex:1;padding:12px;background:#3b82f6;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;">
+            <span data-i18n="shareNative">📤 Partager</span>
+          </button>
         </div>
       </div>
-      
-      <!-- Révoquer (caché par défaut) -->
-      <button class="share-revoke-btn" id="btnRevokeShare" style="display:none" onclick="revokeShare()">
-        🗑️ Révoquer le lien
-      </button>
     </div>
   </div>
   <button class="floating-back-btn" onclick="closeShareModal()">
-    ← Retour
+    <span data-i18n="back">← Retour</span>
   </button>
+</div>
+
+<!-- Modale Login Requis pour Partage -->
+<div class="share-alert-modal" id="loginRequiredModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:10001;">
+  <div style="width:min(340px,90vw);background:#fff;border-radius:16px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.25);text-align:center;">
+    <div style="font-size:48px;margin-bottom:16px;">🔐</div>
+    <h3 data-i18n="loginRequired" style="margin:0 0 12px;color:#113f7a;font-size:1.2rem;">Connexion requise</h3>
+    <p data-i18n="loginRequiredDesc" style="color:#666;margin:0 0 20px;font-size:0.95rem;">Connectez-vous pour partager ce voyage avec vos proches.</p>
+    <button id="btnLoginRequiredLogin" style="width:100%;padding:14px;background:#113f7a;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;margin-bottom:10px;">
+      <span data-i18n="loginBtn">Se connecter</span>
+    </button>
+    <button id="btnLoginRequiredCancel" style="width:100%;padding:12px;background:#f5f5f5;color:#666;border:none;border-radius:10px;font-size:0.95rem;cursor:pointer;">
+      <span data-i18n="cancelBtn">Annuler</span>
+    </button>
+  </div>
+</div>
+
+<!-- Modale Sauvegarde Requise pour Partage -->
+<div class="share-alert-modal" id="saveRequiredModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);align-items:center;justify-content:center;z-index:10001;">
+  <div style="width:min(340px,90vw);background:#fff;border-radius:16px;padding:24px;box-shadow:0 10px 40px rgba(0,0,0,.25);text-align:center;">
+    <div style="font-size:48px;margin-bottom:16px;">💾</div>
+    <h3 data-i18n="saveRequired" style="margin:0 0 12px;color:#113f7a;font-size:1.2rem;">Sauvegarde requise</h3>
+    <p data-i18n="saveRequiredDesc" style="color:#666;margin:0 0 20px;font-size:0.95rem;">Sauvegardez votre voyage avant de le partager.</p>
+    <button id="btnSaveRequiredSave" style="width:100%;padding:14px;background:#113f7a;color:#fff;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;margin-bottom:10px;">
+      <span data-i18n="saveBtn">Sauvegarder</span>
+    </button>
+    <button id="btnSaveRequiredCancel" style="width:100%;padding:12px;background:#f5f5f5;color:#666;border:none;border-radius:10px;font-size:0.95rem;cursor:pointer;">
+      <span data-i18n="cancelBtn">Annuler</span>
+    </button>
+  </div>
 </div>
 
 <!-- Services Bottom Sheet -->
@@ -1485,59 +1568,32 @@ html, body {
 </div>
 
 <!-- Menu Bottom Sheet -->
-<div class="bottom-sheet" id="menuSheet">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <div class="sheet-title">Menu</div>
-  </div>
-  <div class="sheet-body">
-    <div class="menu-item" id="menuSave">
-      <span class="menu-icon">💾</span>
-      <span>Sauvegarder</span>
-    </div>
-    <div class="menu-item" id="menuShare">
-      <span class="menu-icon">📤</span>
-      <span>Partager</span>
-    </div>
-    <div class="menu-item" id="menuLang">
-      <span class="menu-icon">🌐</span>
-      <span>Langue</span>
-    </div>
-    <div class="menu-item" id="menuCenter">
-      <span class="menu-icon">🎯</span>
-      <span>Centrer la carte</span>
-    </div>
-    <div class="menu-item desktop-only" id="menuDesktop">
-      <span class="menu-icon">💻</span>
-      <span>Édition avancée (sur ordi)</span>
-    </div>
-  </div>
-</div>
-
 <!-- User Profile Bottom Sheet -->
 <div class="bottom-sheet" id="userSheet">
-  <div class="sheet-handle"></div>
+  <div class="sheet-handle" onclick="closeAllSheets()"></div>
   <div class="sheet-header">
-    <div class="sheet-title">Profil</div>
+    <div class="sheet-title" data-i18n="profile">Profil</div>
+    <button class="sheet-close-btn" onclick="closeAllSheets()" style="position:absolute;right:16px;top:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#666;">✕</button>
   </div>
   <div class="sheet-body">
     <div id="userInfoSection" style="padding:16px;text-align:center;border-bottom:1px solid #eee;">
-      <div id="userEmail" style="font-weight:600;margin-bottom:8px;">Non connecté</div>
+      <div id="userEmail" style="font-weight:600;margin-bottom:8px;" data-i18n="notConnected">Non connecté</div>
       <div id="userStatus" style="font-size:12px;color:#666;"></div>
     </div>
     <div id="userAuthSection" style="padding:16px;">
-      <button id="btnUserLogin" class="btn btn-primary" style="width:100%;margin-bottom:8px;display:none;">🔐 Se connecter</button>
-      <button id="btnUserLogout" class="btn btn-danger" style="width:100%;margin-bottom:8px;display:none;">🔓 Déconnexion</button>
-      <button id="btnUserEmail" class="btn" style="width:100%;margin-bottom:8px;display:none;">✉️ Changer email</button>
-      <button id="btnUserPassword" class="btn" style="width:100%;margin-bottom:8px;display:none;">🔑 Changer mot de passe</button>
-      <button id="btnUserDelete" class="btn btn-danger" style="width:100%;display:none;opacity:0.5;">🗑️ Supprimer compte</button>
+      <button id="btnUserLogin" class="btn btn-primary" style="width:100%;margin-bottom:8px;display:none;" data-i18n="loginBtn">🔐 Se connecter</button>
+      <button id="btnUserLogout" class="btn btn-danger" style="width:100%;margin-bottom:8px;display:none;" data-i18n="logout">🔓 Déconnexion</button>
+      <button id="btnUserEmail" class="btn" style="width:100%;margin-bottom:8px;display:none;" data-i18n="changeEmail">✉️ Changer email</button>
+      <button id="btnUserPassword" class="btn" style="width:100%;margin-bottom:8px;display:none;" data-i18n="changePassword">🔑 Changer mot de passe</button>
+      <button id="btnUserDelete" class="btn btn-danger" style="width:100%;display:none;opacity:0.5;" data-i18n="deleteAccount">🗑️ Supprimer compte</button>
     </div>
   </div>
 </div>
 <div class="bottom-sheet" id="langSheet">
-  <div class="sheet-handle"></div>
+  <div class="sheet-handle" onclick="closeAllSheets()"></div>
   <div class="sheet-header">
     <div class="sheet-title">🌐 Langue / Language</div>
+    <button class="sheet-close-btn" onclick="closeAllSheets()" style="position:absolute;right:16px;top:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#666;">✕</button>
   </div>
   <div class="sheet-body">
     <div class="service-grid">
@@ -1628,11 +1684,325 @@ window.debugLog = function(msg) {
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 <script src="/js/ort-config.js"></script>
+<script src="/js/ort-utils.js"></script>
+<script src="/js/ort-data-loader.js"></script>
+<script src="/js/ort-routing.js"></script>
 <script src="/js/ort-tripid.js"></script>
 <script src="/js/ort-trip-data.js"></script>
-<script src="/js/ort-share.js"></script>
+<script src="./js/ort-share.js"></script>
 <script src="/js/ort-state-manager.js"></script>
 <script src="/js/ort-i18n.js"></script>
+
+<!-- ========== MODALE AUTH LÉGÈRE POUR MOBILE ========== -->
+<script>
+(function() {
+  'use strict';
+  
+  const MODAL_ID = 'ortMobileAuthModal';
+  let currentMode = 'login'; // 'login' | 'signup' | 'reset'
+  
+  // Traductions
+  const T = {
+    fr: {
+      loginTitle: 'Se connecter',
+      signupTitle: 'Créer un compte',
+      resetTitle: 'Mot de passe oublié',
+      email: 'E-mail',
+      password: 'Mot de passe',
+      confirmPassword: 'Confirmer',
+      login: 'Connexion',
+      signup: 'Créer',
+      sendReset: 'Envoyer',
+      cancel: 'Annuler',
+      noAccount: 'Pas de compte ?',
+      hasAccount: 'Déjà un compte ?',
+      forgotPwd: 'Mot de passe oublié ?',
+      orGoogle: 'ou avec Google',
+      success: '✅ Connecté !',
+      resetSent: '✅ E-mail envoyé !',
+      accountCreated: '✅ Compte créé ! Vérifiez vos e-mails.',
+      errFill: 'Remplissez tous les champs',
+      errEmail: 'E-mail invalide',
+      errPwdShort: 'Mot de passe trop court (min 6)',
+      errPwdMatch: 'Mots de passe différents',
+      errWrongPwd: 'Mot de passe incorrect',
+      errNotFound: 'Compte inexistant',
+      errExists: 'E-mail déjà utilisé',
+      errGeneric: 'Erreur, réessayez'
+    },
+    en: {
+      loginTitle: 'Sign in',
+      signupTitle: 'Create account',
+      resetTitle: 'Forgot password',
+      email: 'E-mail',
+      password: 'Password',
+      confirmPassword: 'Confirm',
+      login: 'Sign in',
+      signup: 'Create',
+      sendReset: 'Send',
+      cancel: 'Cancel',
+      noAccount: 'No account?',
+      hasAccount: 'Have an account?',
+      forgotPwd: 'Forgot password?',
+      orGoogle: 'or with Google',
+      success: '✅ Signed in!',
+      resetSent: '✅ Email sent!',
+      accountCreated: '✅ Account created! Check your emails.',
+      errFill: 'Fill all fields',
+      errEmail: 'Invalid email',
+      errPwdShort: 'Password too short (min 6)',
+      errPwdMatch: 'Passwords don\'t match',
+      errWrongPwd: 'Wrong password',
+      errNotFound: 'Account not found',
+      errExists: 'Email already used',
+      errGeneric: 'Error, try again'
+    }
+  };
+  
+  function t(key) {
+    const lang = localStorage.getItem('ort_lang') || 'fr';
+    return T[lang]?.[key] || T.fr[key] || key;
+  }
+  
+  function createModal() {
+    let modal = document.getElementById(MODAL_ID);
+    if (modal) return modal;
+    
+    modal = document.createElement('div');
+    modal.id = MODAL_ID;
+    modal.style.cssText = `
+      display:none;position:fixed;inset:0;
+      background:rgba(0,0,0,.6);
+      align-items:center;justify-content:center;
+      z-index:10000;
+    `;
+    modal.innerHTML = `
+      <div style="
+        width:min(360px,92vw);
+        background:#fff;
+        border-radius:16px;
+        padding:20px;
+        box-shadow:0 10px 40px rgba(0,0,0,.25);
+      ">
+        <h3 id="authModalTitle" style="margin:0 0 16px;color:#113f7a;font-size:1.3rem;text-align:center"></h3>
+        
+        <div id="authModalMsg" style="display:none;padding:10px;border-radius:8px;margin-bottom:12px;text-align:center;font-size:0.9rem"></div>
+        
+        <input id="authEmail" type="email" style="
+          width:100%;padding:12px;border:1.5px solid #113f7a;border-radius:10px;
+          margin-bottom:10px;font-size:1rem;
+        ">
+        
+        <input id="authPwd" type="password" style="
+          width:100%;padding:12px;border:1.5px solid #113f7a;border-radius:10px;
+          margin-bottom:10px;font-size:1rem;
+        ">
+        
+        <input id="authPwd2" type="password" style="
+          display:none;width:100%;padding:12px;border:1.5px solid #113f7a;border-radius:10px;
+          margin-bottom:10px;font-size:1rem;
+        ">
+        
+        <button id="authSubmit" style="
+          width:100%;padding:14px;background:#113f7a;color:#fff;
+          border:none;border-radius:10px;font-size:1rem;font-weight:600;
+          cursor:pointer;margin-bottom:10px;
+        "></button>
+        
+        <button id="authGoogle" style="
+          width:100%;padding:12px;background:#fff;color:#333;
+          border:1px solid #ddd;border-radius:10px;font-size:0.95rem;
+          cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;
+        ">
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" style="width:20px;height:20px">
+          <span id="authGoogleText"></span>
+        </button>
+        
+        <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:0.9rem">
+          <button id="authToggle" style="background:none;border:none;color:#113f7a;text-decoration:underline;cursor:pointer"></button>
+          <button id="authForgot" style="background:none;border:none;color:#666;cursor:pointer"></button>
+        </div>
+        
+        <button id="authCancel" style="
+          width:100%;padding:10px;background:#f5f5f5;color:#666;
+          border:none;border-radius:10px;font-size:0.95rem;
+          cursor:pointer;margin-top:12px;
+        "></button>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Events
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.getElementById('authSubmit').onclick = handleSubmit;
+    document.getElementById('authGoogle').onclick = handleGoogle;
+    document.getElementById('authToggle').onclick = () => {
+      currentMode = currentMode === 'login' ? 'signup' : 'login';
+      updateModalUI();
+    };
+    document.getElementById('authForgot').onclick = () => {
+      currentMode = 'reset';
+      updateModalUI();
+    };
+    document.getElementById('authCancel').onclick = closeModal;
+    
+    // Enter key
+    ['authEmail', 'authPwd', 'authPwd2'].forEach(id => {
+      document.getElementById(id).onkeydown = e => { if (e.key === 'Enter') handleSubmit(); };
+    });
+    
+    return modal;
+  }
+  
+  function updateModalUI() {
+    const title = document.getElementById('authModalTitle');
+    const email = document.getElementById('authEmail');
+    const pwd = document.getElementById('authPwd');
+    const pwd2 = document.getElementById('authPwd2');
+    const submit = document.getElementById('authSubmit');
+    const google = document.getElementById('authGoogle');
+    const googleText = document.getElementById('authGoogleText');
+    const toggle = document.getElementById('authToggle');
+    const forgot = document.getElementById('authForgot');
+    const cancel = document.getElementById('authCancel');
+    const msg = document.getElementById('authModalMsg');
+    
+    msg.style.display = 'none';
+    email.placeholder = t('email');
+    pwd.placeholder = t('password');
+    pwd2.placeholder = t('confirmPassword');
+    cancel.textContent = t('cancel');
+    googleText.textContent = t('orGoogle');
+    
+    if (currentMode === 'login') {
+      title.textContent = t('loginTitle');
+      pwd.style.display = '';
+      pwd2.style.display = 'none';
+      google.style.display = '';
+      submit.textContent = t('login');
+      toggle.textContent = t('noAccount');
+      forgot.textContent = t('forgotPwd');
+      forgot.style.display = '';
+    } else if (currentMode === 'signup') {
+      title.textContent = t('signupTitle');
+      pwd.style.display = '';
+      pwd2.style.display = '';
+      google.style.display = '';
+      submit.textContent = t('signup');
+      toggle.textContent = t('hasAccount');
+      forgot.style.display = 'none';
+    } else if (currentMode === 'reset') {
+      title.textContent = t('resetTitle');
+      pwd.style.display = 'none';
+      pwd2.style.display = 'none';
+      google.style.display = 'none';
+      submit.textContent = t('sendReset');
+      toggle.textContent = t('hasAccount');
+      forgot.style.display = 'none';
+    }
+  }
+  
+  function showMsg(text, isError) {
+    const msg = document.getElementById('authModalMsg');
+    msg.textContent = text;
+    msg.style.display = '';
+    msg.style.background = isError ? '#fee' : '#efe';
+    msg.style.color = isError ? '#c00' : '#060';
+  }
+  
+  async function handleSubmit() {
+    const email = document.getElementById('authEmail').value.trim().toLowerCase();
+    const pwd = document.getElementById('authPwd').value;
+    const pwd2 = document.getElementById('authPwd2').value;
+    const submit = document.getElementById('authSubmit');
+    
+    if (!email || !email.includes('@')) {
+      showMsg(t('errEmail'), true);
+      return;
+    }
+    
+    if (currentMode !== 'reset') {
+      if (!pwd || pwd.length < 6) {
+        showMsg(t('errPwdShort'), true);
+        return;
+      }
+    }
+    
+    if (currentMode === 'signup' && pwd !== pwd2) {
+      showMsg(t('errPwdMatch'), true);
+      return;
+    }
+    
+    const oldText = submit.textContent;
+    submit.disabled = true;
+    submit.textContent = '...';
+    
+    try {
+      const auth = firebase.auth();
+      
+      if (currentMode === 'login') {
+        await auth.signInWithEmailAndPassword(email, pwd);
+        showMsg(t('success'), false);
+        setTimeout(closeModal, 1000);
+        
+      } else if (currentMode === 'signup') {
+        const result = await auth.createUserWithEmailAndPassword(email, pwd);
+        await result.user.sendEmailVerification();
+        showMsg(t('accountCreated'), false);
+        setTimeout(() => { currentMode = 'login'; updateModalUI(); }, 2000);
+        
+      } else if (currentMode === 'reset') {
+        await auth.sendPasswordResetEmail(email);
+        showMsg(t('resetSent'), false);
+        setTimeout(() => { currentMode = 'login'; updateModalUI(); }, 2000);
+      }
+      
+    } catch (e) {
+      let msg = t('errGeneric');
+      if (e.code === 'auth/user-not-found') msg = t('errNotFound');
+      else if (e.code === 'auth/wrong-password' || e.code === 'auth/invalid-credential') msg = t('errWrongPwd');
+      else if (e.code === 'auth/email-already-in-use') msg = t('errExists');
+      showMsg(msg, true);
+    } finally {
+      submit.disabled = false;
+      submit.textContent = oldText;
+    }
+  }
+  
+  async function handleGoogle() {
+    try {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      await firebase.auth().signInWithPopup(provider);
+      showMsg(t('success'), false);
+      setTimeout(closeModal, 1000);
+    } catch (e) {
+      if (e.code !== 'auth/popup-closed-by-user') {
+        showMsg(t('errGeneric'), true);
+      }
+    }
+  }
+  
+  function closeModal() {
+    const modal = document.getElementById(MODAL_ID);
+    if (modal) modal.style.display = 'none';
+  }
+  
+  // API publique
+  window.openAuth = function(mode = 'login') {
+    currentMode = mode;
+    createModal();
+    updateModalUI();
+    document.getElementById(MODAL_ID).style.display = 'flex';
+    document.getElementById('authEmail').value = '';
+    document.getElementById('authPwd').value = '';
+    document.getElementById('authPwd2').value = '';
+    document.getElementById('authEmail').focus();
+  };
+  
+  console.log('[ORT-MOBILE-AUTH] ✅ Modale auth initialisée');
+})();
+</script>
+
 <script>
 // === GLOBAL REDIRECT PROTECTION ===
 // Intercept location.replace/assign to ensure desktop redirects include mobile=0
@@ -1694,86 +2064,12 @@ const AFFILIATE = {
 // Placeholder image
 const PLACEHOLDER_IMG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTJlOGYwIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJzYW5zLXNlcmlmIiBmb250LXNpemU9IjE2IiBmaWxsPSIjOTRhM2I4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+8J+TtyBQaG90bzwvdGV4dD48L3N2Zz4=';
 
-// Photo cache
-let PHOTOS_CACHE = {};
+// PHOTOS_CACHE est géré par ort-data-loader.js (window.PHOTOS_CACHE)
+if (!window.PHOTOS_CACHE) window.PHOTOS_CACHE = {};
+var PHOTOS_CACHE = window.PHOTOS_CACHE;
 
-// Convertir un nom en slug pour matcher les place_id
-function toSlug(name) {
-  if (!name) return '';
-  return name
-    .toLowerCase()
-    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // accents
-    .replace(/['']/g, '-')
-    .replace(/\s+/g, '-')
-    .replace(/[^a-z0-9-]/g, '')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-}
-
-// Trouver les photos pour un lieu (essaie plusieurs formats)
-function findPhotosForPlace(name, cc) {
-  if (!name || !PHOTOS_CACHE) return [];
-  
-  const slug = toSlug(name);
-  const ccUp = (cc || '').toUpperCase();
-  
-  // Formats à essayer
-  const keys = [
-    `${ccUp}::${slug}`,
-    `${ccUp}::${name.toLowerCase()}`,
-    slug,
-    name.toLowerCase()
-  ];
-  
-  for (const key of keys) {
-    if (PHOTOS_CACHE[key]?.photos?.length) {
-      return PHOTOS_CACHE[key].photos;
-    }
-  }
-  
-  // Recherche partielle par nom
-  const found = Object.keys(PHOTOS_CACHE).find(k => {
-    const kName = k.split('::').pop() || k;
-    return kName === slug || kName.includes(slug) || slug.includes(kName);
-  });
-  
-  if (found && PHOTOS_CACHE[found]?.photos?.length) {
-    return PHOTOS_CACHE[found].photos;
-  }
-  
-  return [];
-}
-
-async function loadPhotosCache() {
-  try {
-    // Essayer plusieurs chemins possibles
-    const paths = [
-      './data/photos-json/photos_lieux.json',
-      '/data/photos-json/photos_lieux.json',
-      '../data/photos-json/photos_lieux.json'
-    ];
-    for (const path of paths) {
-      try {
-        const r = await fetch(path, { cache: 'no-store' });
-        if (r.ok) {
-          PHOTOS_CACHE = await r.json() || {};
-          console.log('[PHOTOS] Cache chargé:', Object.keys(PHOTOS_CACHE).length, 'lieux');
-          return;
-        }
-      } catch (e) { /* try next */ }
-    }
-    // Fallback localStorage
-    const cached = localStorage.getItem('ort.photos_cache');
-    if (cached) PHOTOS_CACHE = JSON.parse(cached) || {};
-  } catch (e) {
-    console.warn('[PHOTOS] Cache non disponible:', e);
-  }
-}
-
-function getPhotosForPlace(placeId) {
-  if (!placeId) return [];
-  return (PHOTOS_CACHE[placeId]?.photos) || (PHOTOS_CACHE[placeId]?.images) || [];
-}
+// toSlug() → fourni par ort-utils.js
+// findPhotosForPlace(), getPhotosForPlace(), loadPhotosCache() → fournis par ort-data-loader.js
 
 // === STATE ===
 let state = { title: 'Roadtrip', steps: [], cc: '', lang: 'fr', _originalItinId: null };
@@ -1784,7 +2080,365 @@ let currentStepIndex = null;
 let hasUnsavedChanges = false;
 let totalRouteKm = 0;
 let CITY_NAMES_INDEX = {};
-let PLACES_INDEX = null;
+// PLACES_INDEX est géré par ort-data-loader.js (window.PLACES_INDEX)
+if (!window.PLACES_INDEX) window.PLACES_INDEX = {};
+// Alias local pour compatibilité
+var PLACES_INDEX = window.PLACES_INDEX;
+
+// === I18N GLOBAL ===
+const I18N_MOBILE = {
+  fr: {
+    // Navigation
+    steps: 'Étapes',
+    nights: 'Nuits',
+    night: 'nuit',
+    nightPlural: 'nuits',
+    itinerary: 'Itinéraire',
+    map: 'Carte',
+    bookings: 'Réservations',
+    services: 'Services',
+    noBookings: 'Aucune réservation',
+    // Step sheet
+    stepOf: 'Étape {0} sur {1}',
+    numberOfNights: 'Nombre de nuits',
+    myBookings: 'Mes réservations',
+    close: 'Fermer',
+    // Visites & Activités
+    visits: 'Visites',
+    activities: 'Activités',
+    seeVisits: 'Voir les visites',
+    seeActivities: 'Voir les activités',
+    plannedVisits: '📍 Visites prévues',
+    noVisits: 'Aucune visite prévue pour cette étape',
+    noActivities: 'Aucune activité prévue pour cette étape',
+    visit: 'Visite',
+    activity: 'Activité',
+    // Partage
+    shareTitle: '🔗 Partager ce voyage',
+    shareWarning: '⚠️ Toute personne avec ce lien pourra voir votre voyage',
+    shareGenerate: '🔗 Générer le lien',
+    shareRegenerate: '🔄 Régénérer le lien',
+    shareGenerating: '⏳ Génération...',
+    shareCopy: '📋 Copier',
+    shareNative: '📤 Partager',
+    back: '← Retour',
+    // Auth
+    loginRequired: '🔐 Connexion requise',
+    loginRequiredDesc: 'Connectez-vous pour sauvegarder et partager ce voyage.',
+    loginBtn: 'Se connecter',
+    saveRequired: '💾 Sauvegarde requise',
+    saveRequiredDesc: 'Sauvegardez votre voyage avant de le partager.',
+    saveBtn: 'Sauvegarder',
+    cancelBtn: 'Annuler',
+    // User profile
+    profile: 'Profil',
+    notConnected: 'Non connecté',
+    connectionRequired: 'Connexion requise',
+    connectedSince: 'Connecté depuis',
+    logout: '🔓 Déconnexion',
+    changeEmail: '✉️ Changer email',
+    changePassword: '🔑 Changer mot de passe',
+    deleteAccount: '🗑️ Supprimer compte',
+    // Messages
+    linkCreated: '✅ Lien créé !',
+    linkCopied: '📋 Lien copié !',
+    saved: '✅ Sauvegardé !',
+    mapCentered: '🎯 Carte centrée',
+    noStepsToShare: '❌ Aucune étape à partager',
+    tripNotSaved: '❌ Voyage non sauvegardé',
+    unsavedChanges: 'Modifications non sauvegardées. Quitter ?'
+  },
+  en: {
+    steps: 'Steps',
+    nights: 'Nights',
+    night: 'night',
+    nightPlural: 'nights',
+    itinerary: 'Itinerary',
+    map: 'Map',
+    bookings: 'Bookings',
+    services: 'Services',
+    noBookings: 'No bookings',
+    stepOf: 'Step {0} of {1}',
+    numberOfNights: 'Number of nights',
+    myBookings: 'My bookings',
+    close: 'Close',
+    visits: 'Visits',
+    activities: 'Activities',
+    seeVisits: 'See visits',
+    seeActivities: 'See activities',
+    plannedVisits: '📍 Planned visits',
+    noVisits: 'No visits planned for this step',
+    noActivities: 'No activities planned for this step',
+    visit: 'Visit',
+    activity: 'Activity',
+    shareTitle: '🔗 Share this trip',
+    shareWarning: '⚠️ Anyone with this link can view your trip',
+    shareGenerate: '🔗 Generate link',
+    shareRegenerate: '🔄 Regenerate link',
+    shareGenerating: '⏳ Generating...',
+    shareCopy: '📋 Copy',
+    shareNative: '📤 Share',
+    back: '← Back',
+    loginRequired: '🔐 Login required',
+    loginRequiredDesc: 'Sign in to save and share this trip.',
+    loginBtn: 'Sign in',
+    saveRequired: '💾 Save required',
+    saveRequiredDesc: 'Save your trip before sharing it.',
+    saveBtn: 'Save',
+    cancelBtn: 'Cancel',
+    profile: 'Profile',
+    notConnected: 'Not connected',
+    connectionRequired: 'Login required',
+    connectedSince: 'Connected since',
+    logout: '🔓 Logout',
+    changeEmail: '✉️ Change email',
+    changePassword: '🔑 Change password',
+    deleteAccount: '🗑️ Delete account',
+    linkCreated: '✅ Link created!',
+    linkCopied: '📋 Link copied!',
+    saved: '✅ Saved!',
+    mapCentered: '🎯 Map centered',
+    noStepsToShare: '❌ No steps to share',
+    tripNotSaved: '❌ Trip not saved',
+    unsavedChanges: 'Unsaved changes. Leave?'
+  },
+  es: {
+    steps: 'Etapas',
+    nights: 'Noches',
+    night: 'noche',
+    nightPlural: 'noches',
+    itinerary: 'Itinerario',
+    map: 'Mapa',
+    bookings: 'Reservas',
+    services: 'Servicios',
+    noBookings: 'Sin reservas',
+    stepOf: 'Etapa {0} de {1}',
+    numberOfNights: 'Número de noches',
+    myBookings: 'Mis reservas',
+    close: 'Cerrar',
+    visits: 'Visitas',
+    activities: 'Actividades',
+    seeVisits: 'Ver visitas',
+    seeActivities: 'Ver actividades',
+    plannedVisits: '📍 Visitas previstas',
+    noVisits: 'Sin visitas previstas para esta etapa',
+    noActivities: 'Sin actividades previstas para esta etapa',
+    visit: 'Visita',
+    activity: 'Actividad',
+    shareTitle: '🔗 Compartir este viaje',
+    shareWarning: '⚠️ Cualquiera con este enlace podrá ver tu viaje',
+    shareGenerate: '🔗 Generar enlace',
+    shareRegenerate: '🔄 Regenerar enlace',
+    shareGenerating: '⏳ Generando...',
+    shareCopy: '📋 Copiar',
+    shareNative: '📤 Compartir',
+    back: '← Volver',
+    loginRequired: '🔐 Inicio de sesión requerido',
+    loginRequiredDesc: 'Inicia sesión para guardar y compartir este viaje.',
+    loginBtn: 'Iniciar sesión',
+    saveRequired: '💾 Guardado requerido',
+    saveRequiredDesc: 'Guarda tu viaje antes de compartirlo.',
+    saveBtn: 'Guardar',
+    cancelBtn: 'Cancelar',
+    profile: 'Perfil',
+    notConnected: 'No conectado',
+    connectionRequired: 'Inicio de sesión requerido',
+    connectedSince: 'Conectado desde',
+    logout: '🔓 Cerrar sesión',
+    changeEmail: '✉️ Cambiar email',
+    changePassword: '🔑 Cambiar contraseña',
+    deleteAccount: '🗑️ Eliminar cuenta',
+    linkCreated: '✅ ¡Enlace creado!',
+    linkCopied: '📋 ¡Enlace copiado!',
+    saved: '✅ ¡Guardado!',
+    mapCentered: '🎯 Mapa centrado',
+    noStepsToShare: '❌ Sin etapas para compartir',
+    tripNotSaved: '❌ Viaje no guardado',
+    unsavedChanges: 'Cambios no guardados. ¿Salir?'
+  },
+  it: {
+    steps: 'Tappe',
+    nights: 'Notti',
+    night: 'notte',
+    nightPlural: 'notti',
+    itinerary: 'Itinerario',
+    map: 'Mappa',
+    bookings: 'Prenotazioni',
+    services: 'Servizi',
+    noBookings: 'Nessuna prenotazione',
+    stepOf: 'Tappa {0} di {1}',
+    numberOfNights: 'Numero di notti',
+    myBookings: 'Le mie prenotazioni',
+    close: 'Chiudi',
+    visits: 'Visite',
+    activities: 'Attività',
+    seeVisits: 'Vedi visite',
+    seeActivities: 'Vedi attività',
+    plannedVisits: '📍 Visite previste',
+    noVisits: 'Nessuna visita prevista per questa tappa',
+    noActivities: 'Nessuna attività prevista per questa tappa',
+    visit: 'Visita',
+    activity: 'Attività',
+    shareTitle: '🔗 Condividi questo viaggio',
+    shareWarning: '⚠️ Chiunque con questo link potrà vedere il tuo viaggio',
+    shareGenerate: '🔗 Genera link',
+    shareRegenerate: '🔄 Rigenera link',
+    shareGenerating: '⏳ Generazione...',
+    shareCopy: '📋 Copia',
+    shareNative: '📤 Condividi',
+    back: '← Indietro',
+    loginRequired: '🔐 Accesso richiesto',
+    loginRequiredDesc: 'Accedi per salvare e condividere questo viaggio.',
+    loginBtn: 'Accedi',
+    saveRequired: '💾 Salvataggio richiesto',
+    saveRequiredDesc: 'Salva il tuo viaggio prima di condividerlo.',
+    saveBtn: 'Salva',
+    cancelBtn: 'Annulla',
+    profile: 'Profilo',
+    notConnected: 'Non connesso',
+    connectionRequired: 'Accesso richiesto',
+    connectedSince: 'Connesso da',
+    logout: '🔓 Esci',
+    changeEmail: '✉️ Cambia email',
+    changePassword: '🔑 Cambia password',
+    deleteAccount: '🗑️ Elimina account',
+    linkCreated: '✅ Link creato!',
+    linkCopied: '📋 Link copiato!',
+    saved: '✅ Salvato!',
+    mapCentered: '🎯 Mappa centrata',
+    noStepsToShare: '❌ Nessuna tappa da condividere',
+    tripNotSaved: '❌ Viaggio non salvato',
+    unsavedChanges: 'Modifiche non salvate. Uscire?'
+  },
+  pt: {
+    steps: 'Etapas',
+    nights: 'Noites',
+    night: 'noite',
+    nightPlural: 'noites',
+    itinerary: 'Itinerário',
+    map: 'Mapa',
+    bookings: 'Reservas',
+    services: 'Serviços',
+    noBookings: 'Sem reservas',
+    stepOf: 'Etapa {0} de {1}',
+    numberOfNights: 'Número de noites',
+    myBookings: 'Minhas reservas',
+    close: 'Fechar',
+    visits: 'Visitas',
+    activities: 'Atividades',
+    seeVisits: 'Ver visitas',
+    seeActivities: 'Ver atividades',
+    plannedVisits: '📍 Visitas previstas',
+    noVisits: 'Nenhuma visita prevista para esta etapa',
+    noActivities: 'Nenhuma atividade prevista para esta etapa',
+    visit: 'Visita',
+    activity: 'Atividade',
+    shareTitle: '🔗 Partilhar esta viagem',
+    shareWarning: '⚠️ Qualquer pessoa com este link poderá ver a sua viagem',
+    shareGenerate: '🔗 Gerar link',
+    shareRegenerate: '🔄 Regenerar link',
+    shareGenerating: '⏳ A gerar...',
+    shareCopy: '📋 Copiar',
+    shareNative: '📤 Partilhar',
+    back: '← Voltar',
+    loginRequired: '🔐 Login necessário',
+    loginRequiredDesc: 'Entre para guardar e partilhar esta viagem.',
+    loginBtn: 'Entrar',
+    saveRequired: '💾 Guardar necessário',
+    saveRequiredDesc: 'Guarde a sua viagem antes de a partilhar.',
+    saveBtn: 'Guardar',
+    cancelBtn: 'Cancelar',
+    profile: 'Perfil',
+    notConnected: 'Não conectado',
+    connectionRequired: 'Login necessário',
+    connectedSince: 'Conectado desde',
+    logout: '🔓 Sair',
+    changeEmail: '✉️ Alterar email',
+    changePassword: '🔑 Alterar senha',
+    deleteAccount: '🗑️ Eliminar conta',
+    linkCreated: '✅ Link criado!',
+    linkCopied: '📋 Link copiado!',
+    saved: '✅ Guardado!',
+    mapCentered: '🎯 Mapa centrado',
+    noStepsToShare: '❌ Sem etapas para partilhar',
+    tripNotSaved: '❌ Viagem não guardada',
+    unsavedChanges: 'Alterações não guardadas. Sair?'
+  },
+  ar: {
+    steps: 'المراحل',
+    nights: 'الليالي',
+    night: 'ليلة',
+    nightPlural: 'ليالي',
+    itinerary: 'خط السير',
+    map: 'الخريطة',
+    bookings: 'الحجوزات',
+    services: 'الخدمات',
+    noBookings: 'لا توجد حجوزات',
+    stepOf: 'مرحلة {0} من {1}',
+    numberOfNights: 'عدد الليالي',
+    myBookings: 'حجوزاتي',
+    close: 'إغلاق',
+    visits: 'الزيارات',
+    activities: 'الأنشطة',
+    seeVisits: 'عرض الزيارات',
+    seeActivities: 'عرض الأنشطة',
+    plannedVisits: '📍 الزيارات المخططة',
+    noVisits: 'لا توجد زيارات مخططة لهذه المرحلة',
+    noActivities: 'لا توجد أنشطة مخططة لهذه المرحلة',
+    visit: 'زيارة',
+    activity: 'نشاط',
+    shareTitle: '🔗 مشاركة هذه الرحلة',
+    shareWarning: '⚠️ أي شخص لديه هذا الرابط يمكنه رؤية رحلتك',
+    shareGenerate: '🔗 إنشاء رابط',
+    shareRegenerate: '🔄 إعادة إنشاء الرابط',
+    shareGenerating: '⏳ جارٍ الإنشاء...',
+    shareCopy: '📋 نسخ',
+    shareNative: '📤 مشاركة',
+    back: '← رجوع',
+    loginRequired: '🔐 تسجيل الدخول مطلوب',
+    loginRequiredDesc: 'سجّل الدخول لحفظ ومشاركة هذه الرحلة.',
+    loginBtn: 'تسجيل الدخول',
+    saveRequired: '💾 الحفظ مطلوب',
+    saveRequiredDesc: 'احفظ رحلتك قبل مشاركتها.',
+    saveBtn: 'حفظ',
+    cancelBtn: 'إلغاء',
+    profile: 'الملف الشخصي',
+    notConnected: 'غير متصل',
+    connectionRequired: 'تسجيل الدخول مطلوب',
+    connectedSince: 'متصل منذ',
+    logout: '🔓 تسجيل الخروج',
+    changeEmail: '✉️ تغيير البريد',
+    changePassword: '🔑 تغيير كلمة المرور',
+    deleteAccount: '🗑️ حذف الحساب',
+    linkCreated: '✅ تم إنشاء الرابط!',
+    linkCopied: '📋 تم نسخ الرابط!',
+    saved: '✅ تم الحفظ!',
+    mapCentered: '🎯 تم توسيط الخريطة',
+    noStepsToShare: '❌ لا توجد مراحل للمشاركة',
+    tripNotSaved: '❌ الرحلة غير محفوظة',
+    unsavedChanges: 'تغييرات غير محفوظة. هل تريد المغادرة؟'
+  }
+};
+
+function i18n(key) {
+  const lang = localStorage.getItem('lang') || localStorage.getItem('ort_lang') || 'fr';
+  // 1. Chercher dans I18N_MOBILE local
+  if (I18N_MOBILE[lang]?.[key]) return I18N_MOBILE[lang][key];
+  if (I18N_MOBILE.fr?.[key]) return I18N_MOBILE.fr[key];
+  // 2. Chercher dans ORT_I18N global (ort-i18n.js)
+  if (window.ORT_I18N?.[key]?.[lang]) return window.ORT_I18N[key][lang];
+  if (window.ORT_I18N?.[key]?.fr) return window.ORT_I18N[key].fr;
+  return key;
+}
+
+function applyI18n() {
+  const lang = localStorage.getItem('lang') || localStorage.getItem('ort_lang') || 'fr';
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const text = i18n(key);
+    if (text && text !== key) el.textContent = text;
+  });
+}
 
 /**
  * Retourne le nom de ville dans la langue demandée avec fallbacks
@@ -1814,106 +2468,7 @@ function getCityDisplayName(place, lang) {
 }
 
 // === FUNCTIONS POUR CHARGER PLACES ===
-async function loadJSON(path){
-  try{
-    const r=await fetch(path,{cache:'no-store'});
-    if(!r.ok) return null;
-    const ct = r.headers.get('content-type')||'';
-    if(!ct.includes('application/json')) {
-      console.warn('[loadJSON] Not JSON:', path, 'content-type:', ct);
-      return null;
-    }
-    return await r.json();
-  }catch(e){console.error('[loadJSON] Error:',path,e);return null}
-}
-
-async function loadWithLangFallback(baseUrl, lang) {
-  const langOrder = [lang, 'en', 'fr'].filter((v, i, a) => a.indexOf(v) === i);
-  
-  for (const tryLang of langOrder) {
-    const url = baseUrl.replace('.json', `-${tryLang}.json`);
-    const result = await loadJSON(url);
-    if (result) {
-      console.log(`[LOAD] ✅ Chargé: ${url}`);
-      return { data: result, lang: tryLang };
-    }
-  }
-  
-  const result = await loadJSON(baseUrl);
-  if (result) {
-    console.log(`[LOAD] ⚠️ Fallback ancien format: ${baseUrl}`);
-    return { data: result, lang: 'fr' };
-  }
-  
-  return null;
-}
-
-async function ensurePlacesIndex(additionalCountries = []){
-  const mainCC = (state.cc || state.country || '').toUpperCase();
-  const lang = localStorage.getItem('lang') || 'fr';
-  
-  const countriesToLoad = new Set();
-  if (mainCC) countriesToLoad.add(mainCC);
-  
-  if (state.steps && state.steps.length > 0) {
-    state.steps.forEach(step => {
-      if (step.cc) countriesToLoad.add(step.cc.toUpperCase());
-    });
-  }
-  
-  additionalCountries.forEach(cc => {
-    if (cc) countriesToLoad.add(cc.toUpperCase());
-  });
-  
-  PLACES_INDEX = {};
-  
-  for (const cc of countriesToLoad) {
-    if (!cc) continue;
-    const basePath = `./data/Roadtripsprefabriques/countries/${cc.toLowerCase()}/${cc.toLowerCase()}.places.master.json`;
-    const result = await loadWithLangFallback(basePath, lang);
-    
-    if (result && result.data) {
-      const obj = result.data;
-      const arr = Array.isArray(obj) ? obj : (obj.places || []);
-      let count = 0;
-      arr.forEach(pl => {
-        const pid = pl.place_id || pl.id;
-        if (!pid) return;
-        if (PLACES_INDEX[pid]) return;
-        const visits = Array.isArray(pl.visits) ? pl.visits.map(v => (typeof v === 'string' ? {text:v} : v)) : [];
-        const activities = Array.isArray(pl.activities) ? pl.activities.map(a => (typeof a === 'string' ? {text:a} : a)) : [];
-        PLACES_INDEX[pid] = {
-          lat: Number(pl.lat) || null,
-          lon: Number(pl.lon) || Number(pl.lng) || null,
-          name: pl.name || pl.title || '',
-          rating: Number(pl.rating) || 0,
-          suggested_days: Number(pl.suggested_days) || 1,
-          visits,
-          activities,
-          cc: cc
-        };
-        count++;
-      });
-      if (count > 0) console.log(`[PLACES] ✅ ${cc}: ${count} lieux chargés`);
-    }
-  }
-  
-  console.log(`[PLACES] Total: ${Object.keys(PLACES_INDEX).length} lieux dans l'index`);
-  
-  if (state.steps && state.steps.length > 0) {
-    state.steps.forEach(step => {
-      if (step.place_id && PLACES_INDEX[step.place_id]) {
-        const masterData = PLACES_INDEX[step.place_id];
-        if (!step.visits || step.visits.length === 0) {
-          step.visits = masterData.visits || [];
-        }
-        if (!step.activities || step.activities.length === 0) {
-          step.activities = masterData.activities || [];
-        }
-      }
-    });
-  }
-}
+// loadJSON(), loadWithLangFallback(), ensurePlacesIndex() → fournis par ort-data-loader.js
 
 // === DOM REFS ===
 const $ = id => document.getElementById(id);
@@ -1988,6 +2543,7 @@ async function init() {
   await loadPhotosCache();
   
   const params = new URLSearchParams(location.search);
+  const shareToken = params.get('share'); // 🔴 Mode partage
   const cc = params.get('cc')?.toUpperCase() || '';
   const itinId = params.get('itin') || '';
   const rtKey = params.get('rtKey') || '';
@@ -2017,6 +2573,15 @@ async function init() {
     localStorage.removeItem('ORT_MOBILE_HANDOFF'); // Nettoyer après utilisation
   }
   
+  // 🔴 DETECT NEW TRIP: tripId avec source (pas encore dans Firestore)
+  // Si on a un tripId trip_xxx MAIS aussi des paramètres source (cc+itin, from+rtKey, etc.)
+  // → C'est un NOUVEAU voyage, pas un voyage existant dans Firestore
+  const hasSourceParams = (cc && itinId) || (fromTemp && rtKey) || builderMode;
+  const isNewTrip = effectiveTripId && effectiveTripId.startsWith('trip_') && hasSourceParams;
+  if (isNewTrip) {
+    debugLog('🆕 Nouveau voyage détecté (tripId + source params)');
+  }
+  
   state.cc = cc;
   state.lang = lang;
   localStorage.setItem('ort_lang', lang);
@@ -2029,16 +2594,23 @@ async function init() {
   
   setupTabs();
   setupEvents();
+  applyI18n(); // Appliquer les traductions
   
   try {
     debugLog('Mode sélectionné...');
-    if (fromBuilderResult) {
+    
+    // 🔴 MODE PARTAGÉ - Priorité absolue
+    if (shareToken) {
+      debugLog('→ loadFromShare(' + shareToken + ')');
+      await loadFromShare(shareToken, lang);
+    } else if (fromBuilderResult) {
       debugLog('→ loadBuilderResult');
       await loadBuilderResult();
     } else if (builderMode) {
       debugLog('→ initRouteBuilder');
       await initRouteBuilder(params);
-    } else if (effectiveDashboardMode) {
+    } else if (effectiveDashboardMode && !isNewTrip) {
+      // 🔴 ONLY load from dashboard if NOT a new trip with source params
       debugLog('→ loadFromDashboard(' + effectiveTripId + ')');
       await loadFromDashboard(effectiveTripId);
     } else if (fromTemp && rtKey) {
@@ -2092,6 +2664,13 @@ async function init() {
     }
     
     debugLog('Chargement terminé! state.steps=' + state.steps.length);
+    
+    // 🔴 S'assurer que state.tripId est défini (nécessaire pour partage/sauvegarde)
+    if (!state.tripId) {
+      state.tripId = window.ORT_TRIPID?.get() || effectiveTripId;
+      debugLog('tripId récupéré après chargement: ' + state.tripId);
+    }
+    
     debugLog('Appel renderList...');
     renderList();
     debugLog('Appel renderBookings...');
@@ -2100,7 +2679,6 @@ async function init() {
     updateSummary();
     debugLog('Appel initMap...');
     initMap();
-    $('headerTitle').textContent = state.title || 'Roadtrip';
     debugLog('✅ RENDU TERMINÉ - ' + state.title);
     
   } catch (err) {
@@ -2119,6 +2697,73 @@ async function init() {
   }
   
   setTimeout(() => $('loadingOverlay')?.classList.add('hide'), 300);
+}
+
+// === LOAD FROM SHARE (voyage partagé) ===
+async function loadFromShare(shareToken, lang) {
+  console.log('[MOBILE] 🔗 loadFromShare:', shareToken);
+  
+  // Attendre que ORT_SHARE soit disponible
+  let waitCount = 0;
+  while (typeof ORT_SHARE === 'undefined' && waitCount < 50) {
+    await new Promise(r => setTimeout(r, 100));
+    waitCount++;
+  }
+  
+  if (typeof ORT_SHARE === 'undefined') {
+    throw new Error('Module de partage non disponible');
+  }
+  
+  try {
+    const sharedData = await ORT_SHARE.checkSharedAccess();
+    
+    if (!sharedData || !sharedData.data) {
+      throw new Error('Voyage partagé non trouvé ou expiré');
+    }
+    
+    console.log('[MOBILE] ✅ Voyage partagé chargé:', sharedData);
+    
+    // Stocker pour référence
+    window._sharedTripData = sharedData;
+    
+    // Mode lecture seule
+    document.body.classList.add('shared-view-only');
+    
+    // Charger les données dans state
+    const tripData = sharedData.data;
+    state.title = tripData.title || 'Voyage partagé';
+    state.cc = tripData.country || tripData.cc || '';
+    state.steps = tripData.steps || [];
+    state.lang = lang;
+    state._isShared = true; // Marquer comme partagé
+    state._shareToken = shareToken;
+    
+    // Afficher banner de lecture seule
+    const banner = document.createElement('div');
+    banner.id = 'shareBanner';
+    banner.style.cssText = `
+      position: fixed; top: 56px; left: 0; right: 0;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); 
+      color: white; padding: 10px 16px; 
+      text-align: center; z-index: 99; font-weight: 600;
+      font-size: 14px; box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    `;
+    const ownerName = sharedData.ownerName || 'Un voyageur';
+    banner.innerHTML = `👁️ Voyage partagé par <strong>${ownerName}</strong> • Mode lecture seule`;
+    document.body.appendChild(banner);
+    
+    // Ajuster le contenu principal
+    const mainContent = document.querySelector('.main-content');
+    if (mainContent) {
+      mainContent.style.top = 'calc(var(--header-height) + 44px)';
+    }
+    
+    console.log('[MOBILE] ✅ State chargé:', state.steps.length, 'étapes');
+    
+  } catch (error) {
+    console.error('[MOBILE] ❌ Erreur chargement partage:', error);
+    throw new Error('Impossible de charger le voyage partagé: ' + error.message);
+  }
 }
 
 // === LOAD FROM TEMP (localStorage) ===
@@ -2164,6 +2809,23 @@ async function loadFromTemp(rtKey) {
     else if (s.photo) photos = [s.photo];
     else if (s.placeId && placesObj[s.placeId]?.photos) photos = placesObj[s.placeId].photos;
     
+    // Récupérer visits et activities
+    let visits = [];
+    let activities = [];
+    if (Array.isArray(s.visits)) {
+      visits = s.visits.map(v => typeof v === 'string' ? {text: v} : v);
+    }
+    if (Array.isArray(s.activities)) {
+      activities = s.activities.map(a => typeof a === 'string' ? {text: a} : a);
+    }
+    // Fallback depuis placesObj si disponible
+    if (visits.length === 0 && s.placeId && placesObj[s.placeId]?.visits) {
+      visits = placesObj[s.placeId].visits.map(v => typeof v === 'string' ? {text: v} : v);
+    }
+    if (activities.length === 0 && s.placeId && placesObj[s.placeId]?.activities) {
+      activities = placesObj[s.placeId].activities.map(a => typeof a === 'string' ? {text: a} : a);
+    }
+    
     return {
       _idx: idx,
       name: s.name || s.place_name || `Étape ${idx + 1}`,
@@ -2173,7 +2835,10 @@ async function loadFromTemp(rtKey) {
       description: s.description || s.desc || '',
       photos: photos,
       distance_km: s.distance_km || s.to_next_leg?.distance_km || 0,
-      placeId: s.placeId || s.place_id || null
+      placeId: s.placeId || s.place_id || null,
+      place_id: s.place_id || s.placeId || null,
+      visits: visits,
+      activities: activities
     };
   });
   
@@ -2435,16 +3100,7 @@ async function applyTripDataToState(tripData) {
 }
 
 // === ROUTE BUILDER ===
-function haversineDistance(lat1, lon1, lat2, lon2) {
-  const R = 6371;
-  const dLat = (lat2 - lat1) * Math.PI / 180;
-  const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon/2) * Math.sin(dLon/2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-  return R * c;
-}
+// haversineDistance() → fourni par ort-utils.js
 
 async function initRouteBuilder(params) {
   console.log('[MOBILE-BUILDER] Redirection vers RT Detail pour calcul...');
@@ -2526,59 +3182,8 @@ async function loadBuilderResult() {
   localStorage.removeItem('ORT_BUILDER_RESULT');
 }
 
-async function calculateOSRMRoute(start, end) {
-  const urlCoords = `${start.lon},${start.lat};${end.lon},${end.lat}`;
-  const url = `https://router.project-osrm.org/route/v1/driving/${urlCoords}?overview=full&geometries=geojson`;
-  
-  try {
-    const resp = await fetch(url, { signal: AbortSignal.timeout(10000) });
-    const data = await resp.json();
-    
-    if (data.code === 'Ok' && data.routes?.[0]) {
-      const route = data.routes[0];
-      const rawCoords = route.geometry.coordinates; // [lon, lat]
-      
-      // Simplifier à ~100 points et convertir en [lat, lon]
-      const step = Math.max(1, Math.floor(rawCoords.length / 100));
-      const routeCoords = [];
-      for (let i = 0; i < rawCoords.length; i += step) {
-        routeCoords.push([rawCoords[i][1], rawCoords[i][0]]);
-      }
-      if (routeCoords[routeCoords.length-1][0] !== rawCoords[rawCoords.length-1][1]) {
-        routeCoords.push([rawCoords[rawCoords.length-1][1], rawCoords[rawCoords.length-1][0]]);
-      }
-      
-      // Distances cumulées
-      const cumDist = [0];
-      for (let i = 1; i < routeCoords.length; i++) {
-        cumDist.push(cumDist[i-1] + haversineDistance(routeCoords[i-1][0], routeCoords[i-1][1], routeCoords[i][0], routeCoords[i][1]));
-      }
-      
-      return {
-        coords: routeCoords,
-        distance: Math.round(route.distance / 1000),
-        cumDist,
-        isReal: true
-      };
-    }
-  } catch (e) {
-    console.warn('[MOBILE-BUILDER] OSRM failed:', e);
-  }
-  
-  // Fallback: ligne droite
-  const totalDist = haversineDistance(start.lat, start.lon, end.lat, end.lon);
-  const numPoints = Math.max(10, Math.ceil(totalDist / 50));
-  const fallbackCoords = [];
-  for (let i = 0; i <= numPoints; i++) {
-    const t = i / numPoints;
-    fallbackCoords.push([start.lat + t * (end.lat - start.lat), start.lon + t * (end.lon - start.lon)]);
-  }
-  const cumDist = [0];
-  for (let i = 1; i < fallbackCoords.length; i++) {
-    cumDist.push(cumDist[i-1] + haversineDistance(fallbackCoords[i-1][0], fallbackCoords[i-1][1], fallbackCoords[i][0], fallbackCoords[i][1]));
-  }
-  return { coords: fallbackCoords, distance: Math.round(totalDist), cumDist, isReal: false };
-}
+// calculateOSRMRoute() → fourni par ort-routing.js
+// Note: ort-routing.js accepte les deux formats: (waypoints, mode) et ({lat,lon}, {lat,lon})
 
 async function loadPlacesForRoute(config, routeData) {
   const SEARCH_RADIUS = 50; // km
@@ -2787,15 +3392,7 @@ function autoCalculateNights(totalDays) {
 }
 
 // === DATA LOADING ===
-// === Fonctions pour supporter les itinéraires composés ===
-function isComposedId(id) {
-  return typeof id === 'string' && id.startsWith('COMPOSED::');
-}
-
-function parseComposedIds(id) {
-  if (!isComposedId(id)) return [];
-  return id.replace('COMPOSED::', '').split('+').map(decodeURIComponent).filter(Boolean);
-}
+// isComposedId() et parseComposedIds() → fournis par ort-utils.js
 
 async function loadItinerary(cc, itinId, lang) {
   const baseUrl = './data/Roadtripsprefabriques/countries';
@@ -2854,8 +3451,9 @@ async function loadItinerary(cc, itinId, lang) {
             name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || `Étape ${idx + 1}`;
           }
           
-          const visits = Array.isArray(day.visits) ? day.visits : [];
-          const description = visits.map(v => typeof v === 'string' ? v : v.text).filter(Boolean).join(' ');
+          const visits = Array.isArray(day.visits) ? day.visits.map(v => typeof v === 'string' ? {text: v} : v) : [];
+          const activities = Array.isArray(day.activities) ? day.activities.map(a => typeof a === 'string' ? {text: a} : a) : [];
+          const description = visits.map(v => v.text || v).filter(Boolean).join(' ');
           
           let photos = [];
           if (Array.isArray(day.photos) && day.photos.length) photos = day.photos;
@@ -2872,7 +3470,10 @@ async function loadItinerary(cc, itinId, lang) {
             nights, description,
             photos: photos,
             distance_km: distanceKm,
-            placeId: day.place_id || day.placeId || placeId
+            placeId: day.place_id || day.placeId || placeId,
+            place_id: day.place_id || day.placeId || placeId,
+            visits: visits,
+            activities: activities
           });
         });
       } catch (e) {
@@ -2925,8 +3526,9 @@ async function loadItinerary(cc, itinId, lang) {
       name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || `Étape ${idx + 1}`;
     }
     
-    const visits = Array.isArray(day.visits) ? day.visits : [];
-    const description = visits.map(v => typeof v === 'string' ? v : v.text).filter(Boolean).join(' ');
+    const visits = Array.isArray(day.visits) ? day.visits.map(v => typeof v === 'string' ? {text: v} : v) : [];
+    const activities = Array.isArray(day.activities) ? day.activities.map(a => typeof a === 'string' ? {text: a} : a) : [];
+    const description = visits.map(v => v.text || v).filter(Boolean).join(' ');
     
     // Récupérer les photos avec plusieurs fallbacks
     let photos = [];
@@ -2944,7 +3546,10 @@ async function loadItinerary(cc, itinId, lang) {
       nights, description,
       photos: photos,
       distance_km: distanceKm,
-      placeId: day.place_id || day.placeId || placeId
+      placeId: day.place_id || day.placeId || placeId,
+      place_id: day.place_id || day.placeId || placeId,
+      visits: visits,
+      activities: activities
     });
   });
   
@@ -2978,6 +3583,10 @@ async function loadFromFirebase(rtKey) {
       photos = [window._cachedPhotos[s.placeId]];
     }
     
+    // Récupérer visits et activities
+    const visits = Array.isArray(s.visits) ? s.visits.map(v => typeof v === 'string' ? {text: v} : v) : [];
+    const activities = Array.isArray(s.activities) ? s.activities.map(a => typeof a === 'string' ? {text: a} : a) : [];
+    
     return {
       _idx: idx,
       name: s.name || `Étape ${idx + 1}`,
@@ -2986,7 +3595,10 @@ async function loadFromFirebase(rtKey) {
       description: s.description || '',
       photos: photos,
       distance_km: s.distance_km || 0,
-      placeId: s.placeId || null
+      placeId: s.placeId || s.place_id || null,
+      place_id: s.place_id || s.placeId || null,
+      visits: visits,
+      activities: activities
     };
   });
 }
@@ -3227,7 +3839,11 @@ function setupEvents() {
     history.back();
   };
   
-  $('btnMenu').onclick = () => openSheet($('menuSheet'));
+  // === NOUVEAUX BOUTONS HEADER ===
+  $('btnSaveHeader').onclick = saveTrip;
+  $('btnLangHeader').onclick = () => openSheet($('langSheet'));
+  $('btnShareHeader').onclick = openShareModal;
+  $('btnCenterMap').onclick = centerMap;
   
   // === USER PROFILE BUTTON ===
   $('btnUser').onclick = () => {
@@ -3241,11 +3857,6 @@ function setupEvents() {
   $('btnDeleteStep').onclick = deleteCurrentStep;
   $('btnCloseSheet').onclick = closeAllSheets;
   
-  $('menuSave').onclick = saveTrip;
-  $('menuShare').onclick = shareTrip;
-  $('menuLang').onclick = () => { closeAllSheets(); openSheet($('langSheet')); };
-  $('menuCenter').onclick = centerMap;
-  
   // Handlers changement de langue
   document.querySelectorAll('.lang-option').forEach(opt => {
     opt.onclick = () => {
@@ -3257,7 +3868,6 @@ function setupEvents() {
       setTimeout(() => location.reload(), 500);
     };
   });
-  $('menuDesktop').onclick = showDesktopMessage;
 }
 
 // === USER PROFILE MANAGEMENT ===
@@ -3635,7 +4245,6 @@ function closeSheet(sheet) {
 function closeAllSheets() {
   $('sheetOverlay').classList.remove('show');
   $('stepSheet').classList.remove('show');
-  $('menuSheet').classList.remove('show');
   $('servicesSheet').classList.remove('show');
   $('langSheet').classList.remove('show');
   $('scannerSheet').classList.remove('show');
@@ -3653,7 +4262,10 @@ function openStepSheet(idx) {
   const lang = state.lang || 'fr';
   
   $('sheetStepName').textContent = getCityDisplayName(step, lang) || step.name;
-  $('sheetStepMeta').textContent = `Étape ${idx + 1} sur ${state.steps.length}`;
+  
+  // i18n pour "Étape X sur Y"
+  const stepOfText = i18n('stepOf').replace('{0}', idx + 1).replace('{1}', state.steps.length);
+  $('sheetStepMeta').textContent = stepOfText;
   
   $('nightsValue').textContent = step.nights || 0;
   
@@ -3686,9 +4298,9 @@ function openStepSheet(idx) {
   $('activitiesCount').textContent = activitiesCount || '';
   $('activitiesCount').dataset.count = activitiesCount;
   
-  // Masquer les boutons si pas de contenu
-  $('btnOpenVisits').style.display = visitsCount > 0 ? '' : 'none';
-  $('btnOpenActivities').style.display = activitiesCount > 0 ? '' : 'none';
+  // Toujours afficher les boutons (même si vides - on montre un message dans la modale)
+  $('btnOpenVisits').style.display = '';
+  $('btnOpenActivities').style.display = '';
   
   // Charger la photo avec fallback et timeout
   const photoEl = $('sheetStepPhoto');
@@ -3751,6 +4363,9 @@ function openStepSheet(idx) {
     bookingsSection.style.display = 'none';
   }
   
+  // Appliquer les traductions i18n
+  applyI18n();
+  
   openSheet($('stepSheet'));
 }
 
@@ -3768,15 +4383,17 @@ function openVisitsModal() {
   const step = state.steps[currentStepIndex];
   const stepName = getCityDisplayName(step, state.lang) || step.name;
   
-  $('visitsModalStep').textContent = `${stepName} - Étape ${currentStepIndex + 1}`;
+  // i18n pour "Étape X sur Y"
+  const stepOfText = i18n('stepOf').replace('{0}', currentStepIndex + 1).replace('{1}', state.steps.length);
+  $('visitsModalStep').textContent = `${stepName} - ${stepOfText}`;
   
   const body = $('visitsModalBody');
   if (currentStepVisits.length === 0) {
-    body.innerHTML = '<div class="content-empty">Aucune visite prévue pour cette étape</div>';
+    body.innerHTML = `<div class="content-empty">${i18n('noVisits')}</div>`;
   } else {
-    body.innerHTML = currentStepVisits.map((v, i) => {
+    body.innerHTML = currentStepVisits.map((v, idx) => {
       const text = typeof v === 'string' ? v : (v.text || v.description || v.name || '');
-      const title = typeof v === 'object' && v.title ? v.title : `Visite ${i + 1}`;
+      const title = typeof v === 'object' && v.title ? v.title : `${i18n('visit')} ${idx + 1}`;
       return `
         <div class="content-item">
           ${typeof v === 'object' && v.title ? `<div class="content-item-title">${title}</div>` : ''}
@@ -3799,15 +4416,17 @@ function openActivitiesModal() {
   const step = state.steps[currentStepIndex];
   const stepName = getCityDisplayName(step, state.lang) || step.name;
   
-  $('activitiesModalStep').textContent = `${stepName} - Étape ${currentStepIndex + 1}`;
+  // i18n pour "Étape X sur Y"
+  const stepOfText = i18n('stepOf').replace('{0}', currentStepIndex + 1).replace('{1}', state.steps.length);
+  $('activitiesModalStep').textContent = `${stepName} - ${stepOfText}`;
   
   const body = $('activitiesModalBody');
   if (currentStepActivities.length === 0) {
-    body.innerHTML = '<div class="content-empty">Aucune activité prévue pour cette étape</div>';
+    body.innerHTML = `<div class="content-empty">${i18n('noActivities')}</div>`;
   } else {
-    body.innerHTML = currentStepActivities.map((a, i) => {
+    body.innerHTML = currentStepActivities.map((a, idx) => {
       const text = typeof a === 'string' ? a : (a.text || a.description || a.name || '');
-      const title = typeof a === 'object' && a.title ? a.title : `Activité ${i + 1}`;
+      const title = typeof a === 'object' && a.title ? a.title : `${i18n('activity')} ${idx + 1}`;
       return `
         <div class="content-item">
           ${typeof a === 'object' && a.title ? `<div class="content-item-title">${title}</div>` : ''}
@@ -3867,13 +4486,28 @@ async function saveTrip() {
     // Vérifier si Firebase est disponible et utilisateur connecté
     const user = typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser;
     
+    // 🔴 Si pas connecté, afficher modale de login
+    if (!user) {
+      $('loginRequiredModal').style.display = 'flex';
+      applyI18n();
+      return;
+    }
+    
     if (user && window.ORT_STATE) {
       // Utilise ORT_TRIPID pour garantir un tripId cohérent
       let tripId = window.ORT_TRIPID ? window.ORT_TRIPID.get() : null;
       if (!tripId) {
         tripId = state.tripId || state._originalItinId || `mobile::${Date.now()}`;
-        if (window.ORT_TRIPID) window.ORT_TRIPID.store(tripId);
       }
+      
+      // 🔴 DÉTECTION CATALOGUE: Forcer génération NEW tripId si c'est un catalogue
+      if (tripId && tripId.startsWith('catalog::')) {
+        console.log('[SAVE] 📚 Détection catalogue, génération NEW tripId');
+        tripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        console.log('[SAVE] ✅ NEW tripId généré:', tripId);
+      }
+      
+      if (window.ORT_TRIPID) window.ORT_TRIPID.store(tripId);
       
       const tripData = {
         id: tripId,
@@ -3910,7 +4544,14 @@ async function saveTrip() {
     } else if (user) {
       // Fallback Firestore direct si ORT_STATE non disponible
       console.warn('[SAVE] ORT_STATE non disponible, fallback Firestore direct');
-      const tripId = state._originalItinId || `mobile_${Date.now()}`;
+      let tripId = state._originalItinId || `mobile_${Date.now()}`;
+      
+      // 🔴 DÉTECTION CATALOGUE: Forcer génération NEW tripId si c'est un catalogue
+      if (tripId && tripId.startsWith('catalog::')) {
+        console.log('[SAVE] 📚 Détection catalogue (fallback), génération NEW tripId');
+        tripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      }
+      
       const tripData = {
         title: state.title || 'Roadtrip',
         cc: state.cc || 'XX',
@@ -3936,12 +4577,19 @@ async function saveTrip() {
         .collection('trips').doc(tripId)
         .set(tripData, { merge: true });
       
+      // Mettre à jour le tripId dans state
+      state.tripId = tripId;
+      
       hasUnsavedChanges = false;
       showToast('✅ Sauvegardé dans votre Dashboard !');
     } else {
       // Fallback localStorage pour non-connectés
-      const saveKey = `ort_trip_${state._originalItinId || Date.now()}`;
-      localStorage.setItem(saveKey, JSON.stringify({ ...state, savedAt: new Date().toISOString() }));
+      let saveKey = state._originalItinId || Date.now();
+      // 🔴 DÉTECTION CATALOGUE: Ne pas utiliser l'ID catalogue
+      if (saveKey && String(saveKey).startsWith('catalog::')) {
+        saveKey = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      }
+      localStorage.setItem(`ort_trip_${saveKey}`, JSON.stringify({ ...state, savedAt: new Date().toISOString() }));
       hasUnsavedChanges = false;
       showToast('✅ Sauvegardé localement (connectez-vous pour synchroniser)');
     }
@@ -3951,34 +4599,101 @@ async function saveTrip() {
   }
 }
 
-function shareTrip() {
-  closeAllSheets();
+function openShareModal() {
+  // Appliquer les traductions
+  applyI18n();
   
-  // Vérifier si connecté
-  const user = firebase.auth().currentUser;
+  // 🔴 1) Vérifier que l'utilisateur est connecté
+  const user = typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser;
   if (!user) {
-    showToast('❌ Connectez-vous pour partager');
+    // Afficher modale "Connexion requise"
+    $('loginRequiredModal').style.display = 'flex';
     return;
   }
   
-  // Vérifier si trip sauvegardé
-  if (!state.tripId) {
-    showToast('❌ Sauvegardez d\'abord le voyage');
+  // 🔴 2) Vérifier que le voyage est sauvegardé
+  const tripId = window.ORT_TRIPID ? window.ORT_TRIPID.get() : state.tripId;
+  const isSaved = tripId && !tripId.startsWith('catalog::') && !tripId.startsWith('custom::') && !tripId.startsWith('temp_');
+  
+  if (!isSaved) {
+    // Afficher modale "Sauvegarde requise"
+    $('saveRequiredModal').style.display = 'flex';
     return;
   }
+  
+  // 🔴 3) Tout est OK, ouvrir la modale de partage
+  openShareModalDirect();
+}
+
+function openShareModalDirect() {
+  // Appliquer les traductions à la modale
+  applyI18n();
+  
+  // Mettre à jour le titre avec le nom du voyage
+  $('shareModalTitle').textContent = state.title || 'Mon roadtrip';
+  
+  // Reset état
+  $('shareResult').style.display = 'none';
+  $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
+  $('btnGenerateShare').disabled = false;
   
   // Ouvrir la modale
-  $('shareModalTitle').textContent = state.title || 'Mon roadtrip';
-  $('shareResult').style.display = 'none';
-  $('btnRevokeShare').style.display = 'none';
-  $('btnGenerateShare').style.display = '';
-  
-  // Charger le lien existant si présent
-  loadExistingShare();
-  
   $('shareModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
+function closeLoginRequiredModal() {
+  $('loginRequiredModal').style.display = 'none';
+}
+
+function closeSaveRequiredModal() {
+  $('saveRequiredModal').style.display = 'none';
+}
+
+// Handlers pour les modales d'alerte
+document.addEventListener('DOMContentLoaded', () => {
+  // Login Required Modal
+  const btnLoginRequiredLogin = document.getElementById('btnLoginRequiredLogin');
+  const btnLoginRequiredCancel = document.getElementById('btnLoginRequiredCancel');
+  const loginRequiredModal = document.getElementById('loginRequiredModal');
+  
+  if (btnLoginRequiredLogin) {
+    btnLoginRequiredLogin.onclick = () => {
+      closeLoginRequiredModal();
+      if (window.openAuth) window.openAuth('login');
+    };
+  }
+  if (btnLoginRequiredCancel) {
+    btnLoginRequiredCancel.onclick = closeLoginRequiredModal;
+  }
+  if (loginRequiredModal) {
+    loginRequiredModal.onclick = (e) => {
+      if (e.target === loginRequiredModal) closeLoginRequiredModal();
+    };
+  }
+  
+  // Save Required Modal
+  const btnSaveRequiredSave = document.getElementById('btnSaveRequiredSave');
+  const btnSaveRequiredCancel = document.getElementById('btnSaveRequiredCancel');
+  const saveRequiredModal = document.getElementById('saveRequiredModal');
+  
+  if (btnSaveRequiredSave) {
+    btnSaveRequiredSave.onclick = async () => {
+      closeSaveRequiredModal();
+      await saveTrip();
+      // Après sauvegarde, ouvrir la modale de partage
+      setTimeout(() => openShareModal(), 500);
+    };
+  }
+  if (btnSaveRequiredCancel) {
+    btnSaveRequiredCancel.onclick = closeSaveRequiredModal;
+  }
+  if (saveRequiredModal) {
+    saveRequiredModal.onclick = (e) => {
+      if (e.target === saveRequiredModal) closeSaveRequiredModal();
+    };
+  }
+});
 
 function closeShareModal() {
   $('shareModal').classList.remove('open');
@@ -3986,51 +4701,71 @@ function closeShareModal() {
 }
 
 async function loadExistingShare() {
-  if (!window.ORT_SHARE) return;
-  
-  try {
-    const existing = await ORT_SHARE.getShareInfo(state.tripId);
-    if (existing && existing.url) {
-      $('shareUrlInput').value = existing.url;
-      $('shareResult').style.display = '';
-      $('btnRevokeShare').style.display = '';
-      $('btnGenerateShare').textContent = '🔄 Régénérer le lien';
-      
-      // Cocher le bon mode
-      const modeRadio = document.querySelector(`input[name="shareMode"][value="${existing.mode || 'viewer'}"]`);
-      if (modeRadio) modeRadio.checked = true;
-    }
-  } catch (e) {
-    console.warn('[SHARE] Erreur chargement:', e);
-  }
+  // Plus besoin - on génère le lien à la volée
 }
 
 async function generateShareLink() {
-  if (!window.ORT_SHARE) {
-    showToast('❌ Module de partage non disponible');
-    return;
-  }
+  // Les vérifications user/sauvegarde sont déjà faites dans openShareModal
   
-  const mode = document.querySelector('input[name="shareMode"]:checked')?.value || 'viewer';
-  
-  $('btnGenerateShare').textContent = '⏳ Génération...';
+  $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerating')}</span>`;
   $('btnGenerateShare').disabled = true;
   
   try {
-    const result = await ORT_SHARE.createShareLink(state.tripId, mode);
+    const tripId = state.tripId || (window.ORT_TRIPID ? window.ORT_TRIPID.get() : null);
     
-    if (result && result.url) {
-      $('shareUrlInput').value = result.url;
-      $('shareResult').style.display = '';
-      $('btnRevokeShare').style.display = '';
-      $('btnGenerateShare').textContent = '🔄 Régénérer le lien';
-      showToast('✅ Lien créé !');
-    } else {
-      showToast('❌ Erreur lors de la création');
+    if (!tripId) {
+      showToast('❌ Voyage non sauvegardé');
+      $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
+      $('btnGenerateShare').disabled = false;
+      return;
     }
+    
+    // Vérifier que state.steps existe
+    if (!state.steps || state.steps.length === 0) {
+      showToast('❌ Aucune étape à partager');
+      $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
+      $('btnGenerateShare').disabled = false;
+      return;
+    }
+    
+    console.log('[SHARE] 📤 Partage de', state.steps.length, 'étapes');
+    console.log('[SHARE] Titre:', state.title, 'Pays:', state.cc);
+    
+    // Utiliser ORT_SHARE si disponible
+    if (window.ORT_SHARE && typeof ORT_SHARE.createShareLink === 'function') {
+      const result = await ORT_SHARE.createShareLink(state, state.title || 'Voyage');
+      
+      console.log('[SHARE] Résultat ORT_SHARE:', result ? '✅' : '❌');
+      
+      if (result && result.shareUrl) {
+        // Pointer vers roadtrip_detail.html
+        let shareUrl = result.shareUrl
+          .replace('roadtrip_mobile.html', 'roadtrip_detail.html')
+          .replace(/roadtrip_mobile(\?|$)/, 'roadtrip_detail.html$1');
+        
+        $('shareUrlInput').value = shareUrl;
+        $('shareResult').style.display = '';
+        $('btnGenerateShare').innerHTML = `<span>${i18n('shareRegenerate')}</span>`;
+        showToast(i18n('linkCreated'));
+      } else {
+        throw new Error('Échec création lien');
+      }
+    } else {
+      // Fallback: lien simple (ne fonctionnera que si le destinataire est connecté au même compte)
+      console.warn('[SHARE] ORT_SHARE non disponible, fallback lien simple');
+      const baseUrl = location.origin + location.pathname.replace('roadtrip_mobile.html', 'roadtrip_detail.html');
+      const shareUrl = `${baseUrl}?tripId=${encodeURIComponent(tripId)}`;
+      
+      $('shareUrlInput').value = shareUrl;
+      $('shareResult').style.display = '';
+      $('btnGenerateShare').innerHTML = `<span>${i18n('shareRegenerate')}</span>`;
+      showToast(i18n('linkCreated'));
+    }
+    
   } catch (e) {
     console.error('[SHARE] Erreur:', e);
     showToast('❌ ' + (e.message || 'Erreur'));
+    $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
   } finally {
     $('btnGenerateShare').disabled = false;
   }
@@ -4040,7 +4775,7 @@ function copyShareLink() {
   const url = $('shareUrlInput').value;
   if (url) {
     navigator.clipboard.writeText(url);
-    showToast('📋 Lien copié !');
+    showToast(i18n('linkCopied'));
   }
 }
 
@@ -4054,22 +4789,6 @@ function nativeShare() {
     });
   } else {
     copyShareLink();
-  }
-}
-
-async function revokeShare() {
-  if (!window.ORT_SHARE) return;
-  
-  if (!confirm('Révoquer le lien de partage ?')) return;
-  
-  try {
-    await ORT_SHARE.revokeShareLink(state.tripId);
-    $('shareResult').style.display = 'none';
-    $('btnRevokeShare').style.display = 'none';
-    $('btnGenerateShare').textContent = '🔗 Générer le lien';
-    showToast('✅ Lien révoqué');
-  } catch (e) {
-    showToast('❌ Erreur: ' + e.message);
   }
 }
 
@@ -4087,16 +4806,7 @@ function exportPdf() {
   window.open(desktopUrl, '_blank');
 }
 
-function showDesktopMessage() {
-  closeAllSheets();
-  const url = location.href.replace('roadtrip_mobile.html', 'roadtrip_detail.html') + '&mobile=0';
-  if (navigator.share) {
-    navigator.share({ title: 'Continuer sur ordinateur', text: 'Ouvrez ce lien sur un écran plus grand', url });
-  } else {
-    navigator.clipboard.writeText(url);
-    showToast('📋 Lien copié !');
-  }
-}
+// currentUser() → fourni par ort-utils.js
 
 // === TOAST ===
 function showToast(message, duration = 2500) {
@@ -4315,30 +5025,6 @@ $('btnScanAnalyze').onclick = () => SCANNER.analyze();
 $('btnScanNew').onclick = () => SCANNER.newScan();
 $('btnScanSave').onclick = () => SCANNER.save();
 
-// Bouton Mode Expert - bascule vers roadtrip_detail.html avec alerte
-$('btnExpertMode').onclick = function() {
-  const LANG = (localStorage.getItem('lang') || 'fr').slice(0,2);
-  const messages = {
-    fr: 'Vous allez basculer en mode expert.\nIl est préférable de tester ce mode sur un écran plus large.',
-    en: 'You are about to switch to expert mode.\nIt is recommended to use this mode on a larger screen.',
-    es: 'Vas a cambiar al modo experto.\nSe recomienda usar este modo en una pantalla más grande.',
-    it: 'Stai per passare alla modalità esperto.\nSi consiglia di utilizzare questa modalità su uno schermo più grande.',
-    pt: 'Você vai mudar para o modo especialista.\nRecomenda-se usar este modo em uma tela maior.',
-    ar: 'أنت على وشك التبديل إلى وضع الخبير.\nيُفضل استخدام هذا الوضع على شاشة أكبر.'
-  };
-  const msg = messages[LANG] || messages.fr;
-  
-  if (confirm(msg)) {
-    // Utilise ORT_TRIPID pour préserver le tripId
-    if (window.ORT_TRIPID) {
-      window.ORT_TRIPID.navigateTo('roadtrip_detail.html');
-    } else {
-      const newUrl = location.href.replace(/roadtrip_mobile\.html/, 'roadtrip_detail.html');
-      window.location.href = newUrl;
-    }
-  }
-};
-
 // Expose
 window.openStepSheet = openStepSheet;
 window.navigateStep = navigateStep;
@@ -4350,7 +5036,6 @@ window.closeShareModal = closeShareModal;
 window.generateShareLink = generateShareLink;
 window.copyShareLink = copyShareLink;
 window.nativeShare = nativeShare;
-window.revokeShare = revokeShare;
 
 // Rafraîchir les bookings quand on revient sur cette page
 // (après avoir été sur rt-booking-import par exemple)
@@ -4446,5 +5131,7 @@ window.addEventListener('pageshow', async function(event) {
   document.addEventListener('DOMContentLoaded', () => setTimeout(updateFabVisibility, 100));
 })();
 </script>
+<script src="./js/ort-modals.js"></script>
+
 </body>
 </html>

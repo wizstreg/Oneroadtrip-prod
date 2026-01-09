@@ -267,7 +267,7 @@
       return false;
     }
 
-    // Évite les sauvegardes en parallèle et les modifications pendant la sauvegarde
+    // Évite les sauvegardes en parallèle
     if (isSaving) {
       console.log('[DETAIL] Sauvegarde déjà en cours, ignoré');
       return false;
@@ -287,14 +287,51 @@
         console.log('[DETAIL] Voyage marque comme sauvegarde');
       }
       
+      console.log('[DETAIL] ✅ Sauvegarde avec tripId:', currentTripId, 'Données:', {
+        title: tripData.title,
+        country: tripData.country,
+        steps: tripData.steps?.length || 0
+      });
+      
       // Sauvegarde via State Manager
-      const saved = await window.ORT_STATE.saveTrip({
+      // Le State Manager gère la conversion des IDs temporaires (catalog::, custom::, etc.)
+      // et retourne { success: boolean, tripId: string }
+      const result = await window.ORT_STATE.saveTrip({
         id: currentTripId,
         ...tripData
       });
 
-      if (saved) {
+      // Gestion du résultat (compatible ancien format boolean et nouveau format {success, tripId})
+      const success = typeof result === 'object' ? result.success : result;
+      const finalTripId = typeof result === 'object' ? result.tripId : currentTripId;
+
+      if (success) {
         console.log('✅ [DETAIL] Voyage sauvegardé avec succès');
+        
+        // 🔴 Si le tripId a changé (conversion catalog/custom → trip_xxx)
+        if (finalTripId && finalTripId !== currentTripId) {
+          console.log(`[DETAIL] 🔄 TripId changé: ${currentTripId} → ${finalTripId}`);
+          
+          // Met à jour l'URL sans reload (préserve tous les autres paramètres)
+          const params = new URLSearchParams(location.search);
+          params.set('tripId', finalTripId);
+          // Supprimer les paramètres de source catalogue (plus nécessaires)
+          params.delete('itin');
+          params.delete('rtKey');
+          params.delete('from');
+          history.replaceState({}, '', `${location.pathname}?${params.toString()}`);
+          
+          // Met à jour pour les futures sauvegardes
+          currentTripId = finalTripId;
+          
+          // Met à jour ORT_TRIPID si disponible
+          if (window.ORT_TRIPID) {
+            window.ORT_TRIPID.store(finalTripId);
+          }
+          
+          console.log('[DETAIL] ✅ URL et tripId mis à jour');
+        }
+        
         showSaveConfirmation();
         
         // Met à jour la référence originale
@@ -302,7 +339,7 @@
         
         // Dispatch event pour notifier les autres modules
         document.dispatchEvent(new CustomEvent('ort:trip-saved', {
-          detail: { tripId: currentTripId }
+          detail: { tripId: finalTripId }
         }));
         
         isSaving = false;
@@ -584,9 +621,6 @@
     init,
     saveCurrent,
     collectCurrentData,
-    get tripId() {
-      return currentTripId;
-    },
     hasPendingChanges: () => {
       return currentTripId ? window.ORT_STATE.hasPendingChanges(currentTripId) : false;
     }

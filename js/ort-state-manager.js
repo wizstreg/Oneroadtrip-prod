@@ -288,6 +288,22 @@
   async function getTrip(tripId, forceReload = false) {
     console.log(`🔍 [STATE] Récupération voyage: ${tripId}`);
 
+    // 🔴 SI c'est un NEW tripId depuis catalogue: chercher le catalogue original
+    const catalogSource = sessionStorage.getItem('ort_catalog_source');
+    if (catalogSource && tripId.startsWith('trip_')) {
+      console.log('[STATE] 📚 NEW tripId depuis catalogue, cherche source:', catalogSource);
+      // Faire un appel récursif pour charger le catalogue
+      const catalogData = await getTrip(catalogSource, true);
+      if (catalogData) {
+        console.log('[STATE] ✅ Données catalogue chargées pour NEW tripId');
+        // Mettre à jour l'ID et cacher l'origine
+        catalogData.id = tripId;
+        catalogData.tripId = tripId;
+        // Pas nettoyer sessionStorage ici - nettoyer à la sauvegarde
+        return catalogData;
+      }
+    }
+
     // Si en cache et pas de force reload
     if (!forceReload && tripsCache[tripId]) {
       console.log('💨 [STATE] Voyage trouvé en cache');
@@ -342,32 +358,64 @@
   /**
    * Sauvegarde un voyage complet
    * @param {Object} tripData - Données du voyage
-   * @returns {boolean} Succès de la sauvegarde
+   * @returns {Object} { success: boolean, tripId: string } - Succès et ID final utilisé
    * 
    * RÈGLE : Firestore = UNIQUEMENT si saved === true
    *         localStorage = brouillons et modifs temporaires
+   * 
+   * RÈGLE CATALOGUE : Les IDs catalog::, COMPOSED::, custom:: ne vont JAMAIS dans Firestore
+   *                   On génère un nouveau trip_xxx à la sauvegarde
    */
   async function saveTrip(tripData) {
     if (!tripData || !tripData.id) {
       console.error('❌ [STATE] Données de voyage invalides');
-      return false;
+      return { success: false, tripId: null };
+    }
+
+    let finalTripId = tripData.id;
+    
+    // 🔴 RÈGLE CATALOGUE : Générer un nouveau tripId si c'est un catalogue/COMPOSED/custom
+    const isTemporaryId = finalTripId.startsWith('catalog::') || 
+                          finalTripId.includes('COMPOSED::') || 
+                          finalTripId.startsWith('custom::') ||
+                          finalTripId.startsWith('temp_') ||
+                          finalTripId.startsWith('mobile::');
+    
+    if (isTemporaryId) {
+      finalTripId = `trip_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      console.log(`📚 [STATE] ID temporaire détecté, nouveau tripId: ${finalTripId}`);
+      
+      // Met à jour l'ID dans les données
+      tripData.id = finalTripId;
+      tripData.tripId = finalTripId;
+      
+      // Nettoie le sessionStorage (plus besoin de la source catalogue)
+      sessionStorage.removeItem('ort_catalog_source');
     }
 
     // Prépare les données
     const preparedData = prepareTripData(tripData);
+    
+    // S'assurer que l'ID final est bien dans preparedData
+    preparedData.id = finalTripId;
+    preparedData.tripId = finalTripId;
 
-    // Mise à jour du cache
-    tripsCache[tripData.id] = preparedData;
+    // Mise à jour du cache avec le nouvel ID
+    tripsCache[finalTripId] = preparedData;
 
     // RÈGLE ABSOLUE : Firestore = saved:true UNIQUEMENT
     // Brouillons et modifs temporaires → localStorage
+    let success = false;
     if (currentUser && preparedData.saved === true) {
-      console.log(`💾 [STATE] Sauvegarde Firestore (saved=true): ${tripData.id}`);
-      return await saveTripToFirestore(preparedData);
+      console.log(`💾 [STATE] Sauvegarde Firestore (saved=true): ${finalTripId}`);
+      success = await saveTripToFirestore(preparedData);
     } else {
-      console.log(`💾 [STATE] Sauvegarde localStorage (brouillon): ${tripData.id}`);
-      return saveTripToLocalStorage(preparedData);
+      console.log(`💾 [STATE] Sauvegarde localStorage (brouillon): ${finalTripId}`);
+      success = saveTripToLocalStorage(preparedData);
     }
+    
+    // Retourne le succès ET le tripId final (pour mise à jour URL)
+    return { success, tripId: finalTripId };
   }
 
   /**
@@ -595,7 +643,7 @@
       return JSON.stringify(obj);
     }
     
-if (Array.isArray(obj)) {
+    if (Array.isArray(obj)) {
       // Vérifie si le tableau contient directement d'autres tableaux
       const hasNestedArray = obj.some(item => Array.isArray(item));
       if (hasNestedArray) {
@@ -615,16 +663,15 @@ if (Array.isArray(obj)) {
       
       for (const [key, value] of Object.entries(obj)) {
         if (Array.isArray(value)) {
-          // Vérifie récursivement si le tableau contient des nested arrays
-          const hasDeepNesting = value.some(item => {
+          // Pour "steps", toujours vérifier s'il contient visits/activities/photos
+          // qui sont des tableaux dans des objets
+          const hasAnyNestedArray = value.some(item => {
             if (typeof item !== 'object' || item === null) return false;
-            // Vérifie si l'objet contient des tableaux
             return Object.values(item).some(v => Array.isArray(v));
           });
           
-if (hasDeepNesting) {
+          if (hasAnyNestedArray) {
             // SOLUTION RADICALE : Convertir en JSON string
-            // Firestore accepte les strings, on reconvertira à la lecture
             console.log(`🔧 [STATE] Nested array détecté dans "${key}", sérialisation JSON`);
             
             // Nettoyer les undefined avant stringify
@@ -644,7 +691,7 @@ if (hasDeepNesting) {
           }
         } else if (typeof value === 'object' && value !== null) {
           cleaned[key] = cleanNestedArrays(value, depth + 1);
-       } else if (value !== undefined) {
+        } else if (value !== undefined) {
           cleaned[key] = value;
         }
       }
@@ -702,11 +749,35 @@ if (hasDeepNesting) {
   /**
    * Sauvegarde dans Firestore
    */
+  // Track des sauvegardes en cours pour éviter les doublons
+  const savingInProgress = {};
+  const lastSaveTime = {};
+  const SAVE_DEBOUNCE_MS = 3000; // 3 secondes entre sauvegardes
+  
   async function saveTripToFirestore(tripData) {
     if (!firestoreDb || !currentUser) {
       console.warn('⚠️ [STATE] Firestore non disponible, sauvegarde en local');
       return saveTripToLocalStorage(tripData);
     }
+    
+    // Éviter les sauvegardes en double
+    const tripId = tripData.id;
+    const now = Date.now();
+    
+    // Debounce temporel : ignorer si sauvegarde récente
+    if (lastSaveTime[tripId] && (now - lastSaveTime[tripId]) < SAVE_DEBOUNCE_MS) {
+      console.log(`⏳ [STATE] Sauvegarde trop récente pour ${tripId} (${now - lastSaveTime[tripId]}ms), ignoré`);
+      return true;
+    }
+    
+    // Debounce par flag : ignorer si en cours
+    if (savingInProgress[tripId]) {
+      console.log(`⏳ [STATE] Sauvegarde déjà en cours pour ${tripId}, ignoré`);
+      return true;
+    }
+    
+    savingInProgress[tripId] = true;
+    lastSaveTime[tripId] = now;
 
     // Vérifier la limite de voyages sauvegardés (sauf si c'est une mise à jour ou admin)
     const isAdmin = currentUser.email && ADMIN_EMAILS.includes(currentUser.email.toLowerCase());
@@ -734,6 +805,7 @@ if (hasDeepNesting) {
             window.dispatchEvent(new CustomEvent('ort:limit-reached', {
               detail: { type: 'trips', limit: MAX_SAVED_TRIPS, current: snapshot.size }
             }));
+            delete savingInProgress[tripId];
             return false;
           }
         }
@@ -743,7 +815,7 @@ if (hasDeepNesting) {
       }
     }
 
-try {
+    try {
       // Nettoie les nested arrays avant sauvegarde
       let cleanedData = cleanNestedArrays(tripData);
       
@@ -769,17 +841,19 @@ try {
         .collection('users')
         .doc(currentUser.uid)
         .collection('trips')
-        .doc(tripData.id)
+        .doc(tripId)
         .set(cleanedData, { merge: true });
 
       console.log('✅ [STATE] Voyage sauvegardé dans Firestore');
       
-      // Nettoie les modifications en attente
-      delete pendingChanges[tripData.id];
+      // Nettoie les modifications en attente et le flag
+      delete pendingChanges[tripId];
+      delete savingInProgress[tripId];
       
       return true;
     } catch (error) {
       console.error('❌ [STATE] Erreur sauvegarde Firestore:', error);
+      delete savingInProgress[tripId];
       
       // Fallback sur localStorage
       console.log('🔄 [STATE] Fallback sur localStorage...');
