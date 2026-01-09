@@ -11195,6 +11195,12 @@ if (tripIdFromUrl && (!hasValidCc || !hasValidItin)) {
           window.ORT_DETAIL_ADAPTER.init(tripIdFromUrl, window.state);
           localStorage.setItem('ORT_CURRENT_TRIP_ID', tripIdFromUrl);
           
+          // Charger les places master pour le pays du voyage (visites, activities, ratings)
+          if (window.state?.cc && typeof ensurePlacesIndex === 'function') {
+            await ensurePlacesIndex({ mainCC: window.state.cc });
+            console.log('[INIT] PLACES_INDEX chargé pour', window.state.cc, ':', Object.keys(PLACES_INDEX || {}).length, 'places');
+          }
+          
           // Rafraîchir l'affichage
           window.renderRows();
           if (typeof setTitleTranslated === 'function') setTitleTranslated(window.state.title);

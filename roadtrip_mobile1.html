@@ -3032,6 +3032,15 @@ async function loadFromDashboard(tripId) {
 async function applyTripDataToState(tripData) {
   debugLog('applyTripDataToState: ' + tripData?.title + ' / ' + tripData?.steps?.length + ' steps');
   
+  // DEBUG: Afficher les visites des steps bruts
+  if (tripData?.steps) {
+    tripData.steps.forEach((s, i) => {
+      if (s.visits?.length || s.pois?.length) {
+        debugLog(`Step ${i} (${s.name}): ${s.visits?.length || 0} visits, ${s.pois?.length || 0} pois`);
+      }
+    });
+  }
+  
   state.title = tripData.title || tripData.name || 'Roadtrip';
   state.cc = tripData.country || tripData.cc || 'XX';
   state.tripId = tripData.id || tripData.tripId;
@@ -3068,7 +3077,9 @@ async function applyTripDataToState(tripData) {
   
   // Charger les visites et activités des places depuis le master si vides
   if (state.cc) {
+    debugLog('🔄 Chargement PLACES_INDEX pour ' + state.cc);
     await ensurePlacesIndex([state.cc]);
+    debugLog('✅ PLACES_INDEX chargé: ' + Object.keys(PLACES_INDEX || {}).length + ' places');
   }
   
   // Budget si présent
@@ -3840,6 +3851,7 @@ function setupEvents() {
     opt.onclick = () => {
       const newLang = opt.dataset.lang;
       localStorage.setItem('lang', newLang);
+      localStorage.setItem('ort_lang', newLang); // Important pour RT Mobile
       state.lang = newLang;
       closeAllSheets();
       showToast(`✅ Langue: ${newLang.toUpperCase()}`);
@@ -4256,8 +4268,9 @@ function openStepSheet(idx) {
   currentStepActivities = Array.isArray(step.activities) ? step.activities : [];
   
   // Si vides, chercher dans PLACES_INDEX (comme RT detail)
-  if (step.place_id && PLACES_INDEX && PLACES_INDEX[step.place_id]) {
-    const masterData = PLACES_INDEX[step.place_id];
+  const stepPlaceId = step.placeId || step.place_id;
+  if (stepPlaceId && PLACES_INDEX && PLACES_INDEX[stepPlaceId]) {
+    const masterData = PLACES_INDEX[stepPlaceId];
     if (currentStepVisits.length === 0 && masterData.visits) {
       currentStepVisits = masterData.visits;
       step.visits = currentStepVisits;  // Mettre à jour le step aussi
