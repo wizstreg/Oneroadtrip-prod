@@ -1326,6 +1326,11 @@ html, body {
   font-size: 12px;
 }
 
+.edit-bar-tip {
+  color: #93c5fd;
+  font-size: 12px;
+}
+
 .edit-bar-validate {
   width: 100%;
   margin-top: 12px;
@@ -1434,6 +1439,7 @@ body.map-edit-mode #btnCenterMap {
   </div>
   <div class="edit-bar-content">
     <p data-i18n="editInstructions">Touchez les étapes pour définir l'ordre. Appui long pour supprimer.</p>
+    <p class="edit-bar-tip">💡 <span data-i18n="editDesktopTip">Pour plus de personnalisation, allez sur ordinateur.</span></p>
     <p class="edit-bar-warning">⚠️ <span data-i18n="editSaveWarning">Pensez à sauvegarder dans le Dashboard.</span></p>
   </div>
   <button id="btnEditValidate" class="edit-bar-validate" data-i18n="editValidate">✓ Valider</button>
@@ -2285,6 +2291,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'Réorganiser l\'itinéraire',
     editInstructions: 'Touchez les étapes pour définir l\'ordre. Appui long pour supprimer.',
+    editDesktopTip: 'Pour plus de personnalisation, allez sur ordinateur.',
     editSaveWarning: 'Pensez à sauvegarder dans le Dashboard.',
     editValidate: '✓ Valider',
     editApplied: '✅ Itinéraire réorganisé',
@@ -2346,6 +2353,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'Reorganize itinerary',
     editInstructions: 'Tap steps to set order. Long press to delete.',
+    editDesktopTip: 'For more customization, use a computer.',
     editSaveWarning: 'Remember to save in the Dashboard.',
     editValidate: '✓ Validate',
     editApplied: '✅ Itinerary reorganized',
@@ -2407,6 +2415,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'Reorganizar itinerario',
     editInstructions: 'Toca las etapas para definir el orden. Mantén pulsado para eliminar.',
+    editDesktopTip: 'Para más personalización, usa un ordenador.',
     editSaveWarning: 'Recuerda guardar en el Dashboard.',
     editValidate: '✓ Validar',
     editApplied: '✅ Itinerario reorganizado',
@@ -2468,6 +2477,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'Riorganizza itinerario',
     editInstructions: 'Tocca le tappe per definire l\'ordine. Premi a lungo per eliminare.',
+    editDesktopTip: 'Per maggiore personalizzazione, usa un computer.',
     editSaveWarning: 'Ricorda di salvare nella Dashboard.',
     editValidate: '✓ Conferma',
     editApplied: '✅ Itinerario riorganizzato',
@@ -2529,6 +2539,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'Reorganizar itinerário',
     editInstructions: 'Toque nas etapas para definir a ordem. Pressão longa para eliminar.',
+    editDesktopTip: 'Para mais personalização, use um computador.',
     editSaveWarning: 'Lembre-se de guardar no Dashboard.',
     editValidate: '✓ Validar',
     editApplied: '✅ Itinerário reorganizado',
@@ -2590,6 +2601,7 @@ const I18N_MOBILE = {
     // Edit mode
     editTitle: 'إعادة ترتيب المسار',
     editInstructions: 'انقر على المراحل لتحديد الترتيب. اضغط مطولاً للحذف.',
+    editDesktopTip: 'لمزيد من التخصيص، استخدم جهاز كمبيوتر.',
     editSaveWarning: 'تذكر الحفظ في لوحة التحكم.',
     editValidate: '✓ تأكيد',
     editApplied: '✅ تم إعادة ترتيب المسار',
@@ -4484,7 +4496,9 @@ function cancelEditMode() {
   
   showToast(i18n('editCancelled'));
   
+  // Revenir à l'onglet liste
   setTimeout(() => {
+    $('tabList').click();
     if (map) map.invalidateSize();
   }, 100);
 }
@@ -4533,7 +4547,9 @@ function validateEditMode() {
   
   showToast(i18n('editApplied'));
   
+  // Revenir à l'onglet liste
   setTimeout(() => {
+    $('tabList').click();
     if (map) map.invalidateSize();
   }, 100);
 }
