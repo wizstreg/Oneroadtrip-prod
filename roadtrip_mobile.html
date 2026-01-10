@@ -1272,6 +1272,128 @@ html, body {
   font-weight: 600;
   color: #333;
 }
+
+/* === EDIT BAR === */
+.edit-bar {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(135deg, #113f7a 0%, #1e5a9e 100%);
+  color: #fff;
+  z-index: 1000;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+  padding: 12px 16px;
+  padding-top: max(12px, env(safe-area-inset-top));
+}
+
+.edit-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.edit-bar-cancel {
+  background: rgba(255,255,255,0.2);
+  border: none;
+  color: #fff;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-bar-content {
+  font-size: 13px;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+.edit-bar-content p {
+  margin: 0 0 6px 0;
+}
+
+.edit-bar-warning {
+  color: #fcd34d;
+  font-size: 12px;
+}
+
+.edit-bar-validate {
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 20px;
+  background: #22c55e;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(34,197,94,0.4);
+}
+
+.edit-bar-validate:active {
+  transform: scale(0.98);
+}
+
+/* Edit mode markers */
+.step-marker-edit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #113f7a;
+  color: #fff;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  border: 2px solid #fff;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: all 0.2s;
+}
+
+.step-marker-edit.selected {
+  background: #e11d48 !important;
+  border-color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 3px 10px rgba(225,29,72,0.5);
+}
+
+.step-marker-edit.deleted {
+  background: #9ca3af !important;
+  border-color: #d1d5db;
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+/* Body in edit mode */
+body.map-edit-mode .header {
+  display: none;
+}
+
+body.map-edit-mode .edit-bar {
+  display: block;
+}
+
+body.map-edit-mode .main-content {
+  top: 0;
+}
+
+body.map-edit-mode .tab-bar {
+  display: none;
+}
+
+body.map-edit-mode #btnEditMap,
+body.map-edit-mode #btnCenterMap {
+  display: none;
+}
 </style>
 <!-- Mode partage - masquer édition -->
 <style>
@@ -1304,6 +1426,19 @@ html, body {
   <button class="header-btn" id="btnUser" aria-label="Profil utilisateur" style="background:none;border:none;font-size:20px;cursor:pointer;padding:4px 8px;color:#fff;">👤</button>
 </header>
 
+<!-- Edit Bar (replaces header when editing) -->
+<div id="editBar" class="edit-bar">
+  <div class="edit-bar-header">
+    <span>✏️ <span data-i18n="editTitle">Réorganiser l'itinéraire</span></span>
+    <button id="btnEditCancel" class="edit-bar-cancel">✕</button>
+  </div>
+  <div class="edit-bar-content">
+    <p data-i18n="editInstructions">Touchez les étapes pour définir l'ordre. Appui long pour supprimer.</p>
+    <p class="edit-bar-warning">⚠️ <span data-i18n="editSaveWarning">Pensez à sauvegarder dans le Dashboard.</span></p>
+  </div>
+  <button id="btnEditValidate" class="edit-bar-validate" data-i18n="editValidate">✓ Valider</button>
+</div>
+
 <!-- Main Content -->
 <main class="main-content">
   <!-- Map Panel -->
@@ -1317,6 +1452,7 @@ html, body {
   <!-- Map Panel -->
   <div class="tab-panel" id="mapPanel">
     <div id="map"></div>
+    <button id="btnEditMap" aria-label="Éditer l'itinéraire" style="position:absolute;bottom:74px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:18px;cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center;">✏️</button>
     <button id="btnCenterMap" aria-label="Centrer la carte" style="position:absolute;bottom:20px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center;">🎯</button>
   </div>
   
@@ -2145,7 +2281,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 Carte centrée',
     noStepsToShare: '❌ Aucune étape à partager',
     tripNotSaved: '❌ Voyage non sauvegardé',
-    unsavedChanges: 'Modifications non sauvegardées. Quitter ?'
+    unsavedChanges: 'Modifications non sauvegardées. Quitter ?',
+    // Edit mode
+    editTitle: 'Réorganiser l\'itinéraire',
+    editInstructions: 'Touchez les étapes pour définir l\'ordre. Appui long pour supprimer.',
+    editSaveWarning: 'Pensez à sauvegarder dans le Dashboard.',
+    editValidate: '✓ Valider',
+    editApplied: '✅ Itinéraire réorganisé',
+    editCancelled: '↩️ Édition annulée'
   },
   en: {
     steps: 'Steps',
@@ -2199,7 +2342,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 Map centered',
     noStepsToShare: '❌ No steps to share',
     tripNotSaved: '❌ Trip not saved',
-    unsavedChanges: 'Unsaved changes. Leave?'
+    unsavedChanges: 'Unsaved changes. Leave?',
+    // Edit mode
+    editTitle: 'Reorganize itinerary',
+    editInstructions: 'Tap steps to set order. Long press to delete.',
+    editSaveWarning: 'Remember to save in the Dashboard.',
+    editValidate: '✓ Validate',
+    editApplied: '✅ Itinerary reorganized',
+    editCancelled: '↩️ Edit cancelled'
   },
   es: {
     steps: 'Etapas',
@@ -2253,7 +2403,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 Mapa centrado',
     noStepsToShare: '❌ Sin etapas para compartir',
     tripNotSaved: '❌ Viaje no guardado',
-    unsavedChanges: 'Cambios no guardados. ¿Salir?'
+    unsavedChanges: 'Cambios no guardados. ¿Salir?',
+    // Edit mode
+    editTitle: 'Reorganizar itinerario',
+    editInstructions: 'Toca las etapas para definir el orden. Mantén pulsado para eliminar.',
+    editSaveWarning: 'Recuerda guardar en el Dashboard.',
+    editValidate: '✓ Validar',
+    editApplied: '✅ Itinerario reorganizado',
+    editCancelled: '↩️ Edición cancelada'
   },
   it: {
     steps: 'Tappe',
@@ -2307,7 +2464,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 Mappa centrata',
     noStepsToShare: '❌ Nessuna tappa da condividere',
     tripNotSaved: '❌ Viaggio non salvato',
-    unsavedChanges: 'Modifiche non salvate. Uscire?'
+    unsavedChanges: 'Modifiche non salvate. Uscire?',
+    // Edit mode
+    editTitle: 'Riorganizza itinerario',
+    editInstructions: 'Tocca le tappe per definire l\'ordine. Premi a lungo per eliminare.',
+    editSaveWarning: 'Ricorda di salvare nella Dashboard.',
+    editValidate: '✓ Conferma',
+    editApplied: '✅ Itinerario riorganizzato',
+    editCancelled: '↩️ Modifica annullata'
   },
   pt: {
     steps: 'Etapas',
@@ -2361,7 +2525,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 Mapa centrado',
     noStepsToShare: '❌ Sem etapas para partilhar',
     tripNotSaved: '❌ Viagem não guardada',
-    unsavedChanges: 'Alterações não guardadas. Sair?'
+    unsavedChanges: 'Alterações não guardadas. Sair?',
+    // Edit mode
+    editTitle: 'Reorganizar itinerário',
+    editInstructions: 'Toque nas etapas para definir a ordem. Pressão longa para eliminar.',
+    editSaveWarning: 'Lembre-se de guardar no Dashboard.',
+    editValidate: '✓ Validar',
+    editApplied: '✅ Itinerário reorganizado',
+    editCancelled: '↩️ Edição cancelada'
   },
   ar: {
     steps: 'المراحل',
@@ -2415,7 +2586,14 @@ const I18N_MOBILE = {
     mapCentered: '🎯 تم توسيط الخريطة',
     noStepsToShare: '❌ لا توجد مراحل للمشاركة',
     tripNotSaved: '❌ الرحلة غير محفوظة',
-    unsavedChanges: 'تغييرات غير محفوظة. هل تريد المغادرة؟'
+    unsavedChanges: 'تغييرات غير محفوظة. هل تريد المغادرة؟',
+    // Edit mode
+    editTitle: 'إعادة ترتيب المسار',
+    editInstructions: 'انقر على المراحل لتحديد الترتيب. اضغط مطولاً للحذف.',
+    editSaveWarning: 'تذكر الحفظ في لوحة التحكم.',
+    editValidate: '✓ تأكيد',
+    editApplied: '✅ تم إعادة ترتيب المسار',
+    editCancelled: '↩️ تم إلغاء التعديل'
   }
 };
 
@@ -3854,6 +4032,9 @@ function setupEvents() {
   $('btnLangHeader').onclick = () => openSheet($('langSheet'));
   $('btnShareHeader').onclick = openShareModal;
   $('btnCenterMap').onclick = centerMap;
+  $('btnEditMap').onclick = startEditMode;
+  $('btnEditCancel').onclick = cancelEditMode;
+  $('btnEditValidate').onclick = validateEditMode;
   
   // === USER PROFILE BUTTON ===
   $('btnUser').onclick = () => {
@@ -4258,6 +4439,246 @@ function centerMap() {
   $('tabMap').click();
   showToast('🎯 Carte centrée');
 }
+
+// === EDIT MODE ===
+let editMode = {
+  active: false,
+  selectedOrder: [],  // Indices des étapes dans l'ordre de sélection
+  deletedIndices: [], // Indices des étapes supprimées
+  editMarkers: [],    // Marqueurs en mode édition
+  longPressTimer: null
+};
+
+function startEditMode() {
+  editMode.active = true;
+  editMode.selectedOrder = [];
+  editMode.deletedIndices = [];
+  
+  document.body.classList.add('map-edit-mode');
+  
+  // S'assurer qu'on est sur l'onglet carte
+  $('tabMap').click();
+  
+  // Appliquer les traductions
+  applyI18n();
+  
+  // Recréer les marqueurs en mode édition
+  renderEditMarkers();
+  
+  // Ajuster la carte pour la nouvelle barre
+  setTimeout(() => {
+    if (map) map.invalidateSize();
+    fitMapBounds();
+  }, 100);
+}
+
+function cancelEditMode() {
+  editMode.active = false;
+  editMode.selectedOrder = [];
+  editMode.deletedIndices = [];
+  
+  document.body.classList.remove('map-edit-mode');
+  
+  // Restaurer les marqueurs normaux
+  renderMarkers();
+  
+  showToast(i18n('editCancelled'));
+  
+  setTimeout(() => {
+    if (map) map.invalidateSize();
+  }, 100);
+}
+
+function validateEditMode() {
+  if (!editMode.active) return;
+  
+  // Construire le nouvel ordre
+  const newSteps = [];
+  const usedIndices = new Set();
+  
+  // 1. D'abord les étapes sélectionnées dans l'ordre
+  editMode.selectedOrder.forEach(idx => {
+    if (!editMode.deletedIndices.includes(idx)) {
+      newSteps.push(state.steps[idx]);
+      usedIndices.add(idx);
+    }
+  });
+  
+  // 2. Ensuite les étapes non touchées (ni sélectionnées ni supprimées) dans leur ordre original
+  state.steps.forEach((step, idx) => {
+    if (!usedIndices.has(idx) && !editMode.deletedIndices.includes(idx)) {
+      newSteps.push(step);
+    }
+  });
+  
+  // Appliquer le nouvel ordre
+  state.steps = newSteps;
+  
+  // Recalculer les indices
+  state.steps.forEach((step, idx) => {
+    step._idx = idx;
+  });
+  
+  // Quitter le mode édition
+  editMode.active = false;
+  editMode.selectedOrder = [];
+  editMode.deletedIndices = [];
+  document.body.classList.remove('map-edit-mode');
+  
+  // Rafraîchir l'affichage
+  renderMarkers();
+  renderSteps();
+  updateSummary();
+  fetchAndDrawRoute();
+  
+  showToast(i18n('editApplied'));
+  
+  setTimeout(() => {
+    if (map) map.invalidateSize();
+  }, 100);
+}
+
+function renderEditMarkers() {
+  if (!map) return;
+  
+  // Supprimer les anciens marqueurs
+  markers.forEach(m => map.removeLayer(m));
+  markers = [];
+  editMode.editMarkers = [];
+  
+  state.steps.forEach((step, idx) => {
+    if (!step.lat || !step.lng) return;
+    
+    const markerEl = createEditMarkerElement(idx);
+    
+    const icon = L.divIcon({
+      className: 'step-marker-edit',
+      html: markerEl.innerHTML,
+      iconSize: [30, 30],
+      iconAnchor: [15, 15]
+    });
+    
+    const marker = L.marker([step.lat, step.lng], { icon, stepIndex: idx });
+    
+    // Gestion du tap et long press
+    let touchStartTime = 0;
+    let touchTimer = null;
+    
+    const handleTap = () => {
+      if (editMode.deletedIndices.includes(idx)) return; // Déjà supprimé
+      
+      const orderPos = editMode.selectedOrder.indexOf(idx);
+      if (orderPos === -1) {
+        // Ajouter à la sélection
+        editMode.selectedOrder.push(idx);
+      } else {
+        // Retirer de la sélection
+        editMode.selectedOrder.splice(orderPos, 1);
+      }
+      updateEditMarkerStyle(marker, idx);
+    };
+    
+    const handleLongPress = () => {
+      if (editMode.deletedIndices.includes(idx)) {
+        // Restaurer
+        editMode.deletedIndices = editMode.deletedIndices.filter(i => i !== idx);
+      } else {
+        // Supprimer + retirer de la sélection
+        editMode.deletedIndices.push(idx);
+        editMode.selectedOrder = editMode.selectedOrder.filter(i => i !== idx);
+      }
+      updateEditMarkerStyle(marker, idx);
+      
+      // Vibration feedback si disponible
+      if (navigator.vibrate) navigator.vibrate(50);
+    };
+    
+    // Touch events
+    marker.on('touchstart', (e) => {
+      touchStartTime = Date.now();
+      touchTimer = setTimeout(() => {
+        handleLongPress();
+        touchTimer = null;
+      }, 500); // 500ms pour long press
+    });
+    
+    marker.on('touchend', (e) => {
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+        // C'était un tap court
+        handleTap();
+      }
+    });
+    
+    marker.on('touchmove', () => {
+      if (touchTimer) {
+        clearTimeout(touchTimer);
+        touchTimer = null;
+      }
+    });
+    
+    // Mouse events (pour desktop)
+    marker.on('click', (e) => {
+      // Seulement si pas en touch
+      if (touchStartTime === 0 || Date.now() - touchStartTime > 600) {
+        handleTap();
+      }
+    });
+    
+    marker.on('contextmenu', (e) => {
+      e.originalEvent.preventDefault();
+      handleLongPress();
+    });
+    
+    marker.addTo(map);
+    markers.push(marker);
+    editMode.editMarkers.push({ marker, idx });
+  });
+}
+
+function createEditMarkerElement(idx) {
+  const div = document.createElement('div');
+  div.innerHTML = `${idx + 1}`;
+  return div;
+}
+
+function updateEditMarkerStyle(marker, idx) {
+  const isSelected = editMode.selectedOrder.includes(idx);
+  const isDeleted = editMode.deletedIndices.includes(idx);
+  const orderPos = editMode.selectedOrder.indexOf(idx);
+  
+  let className = 'step-marker-edit';
+  let content = `${idx + 1}`;
+  
+  if (isDeleted) {
+    className += ' deleted';
+    content = '✕';
+  } else if (isSelected) {
+    className += ' selected';
+    content = `${orderPos + 1}`;
+  }
+  
+  const icon = L.divIcon({
+    className: className,
+    html: content,
+    iconSize: [30, 30],
+    iconAnchor: [15, 15]
+  });
+  
+  marker.setIcon(icon);
+}
+
+// Event listeners pour le mode édition
+document.addEventListener('DOMContentLoaded', () => {
+  const btnEdit = $('btnEditMap');
+  const btnCancel = $('btnEditCancel');
+  const btnValidate = $('btnEditValidate');
+  
+  if (btnEdit) btnEdit.onclick = startEditMode;
+  if (btnCancel) btnCancel.onclick = cancelEditMode;
+  if (btnValidate) btnValidate.onclick = validateEditMode;
+});
 
 // === SHEETS ===
 function openSheet(sheet) {
