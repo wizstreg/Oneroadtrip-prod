@@ -11143,8 +11143,9 @@ if (tripIdFromUrl && (!hasValidCc || !hasValidItin)) {
           window.state = window.state || {};
           window.state.steps = savedTrip.steps;
           window.state.title = savedTrip.title || 'Roadtrip';
-          window.state.cc = savedTrip.country || 'XX';
-          window.state.country = savedTrip.country || 'XX';
+          // Préserver state.cc s'il existe (depuis l'URL), sinon prendre savedTrip.country
+          window.state.cc = savedTrip.country || window.state.cc || CC || 'XX';
+          window.state.country = savedTrip.country || window.state.country || CC || 'XX';
           window.state.tripId = tripIdFromUrl;
           
           if (savedTrip.nights) {

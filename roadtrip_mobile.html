@@ -3874,10 +3874,13 @@ function setupEvents() {
       localStorage.setItem('lang', newLang);
       localStorage.setItem('ort_lang', newLang); // Important pour RT Mobile
       
-      // Nettoyer les données temporaires avec visites dans l'ancienne langue
+      // Nettoyer les données temporaires et caches avec visites dans l'ancienne langue
       Object.keys(localStorage).forEach(k => {
-        if (k.startsWith('ORT_TEMP_STATE_') || k.startsWith('ort_trip_temp_')) {
-          console.log('[LANG] Suppression cache temp:', k);
+        if (k.startsWith('ORT_TEMP_STATE_') || 
+            k.startsWith('ort_trip_temp_') ||
+            k.startsWith('ort_trip_') ||
+            k.startsWith('ORT_TEMP_TRIP_')) {
+          console.log('[LANG] Suppression cache:', k);
           localStorage.removeItem(k);
         }
       });
@@ -3885,7 +3888,11 @@ function setupEvents() {
       state.lang = newLang;
       closeAllSheets();
       showToast(`✅ Langue: ${newLang.toUpperCase()}`);
-      setTimeout(() => location.reload(), 500);
+      
+      // Mettre à jour l'URL avec la nouvelle langue puis reload
+      const url = new URL(location.href);
+      url.searchParams.set('lang', newLang);
+      setTimeout(() => location.replace(url.toString()), 500);
     };
   });
 }
