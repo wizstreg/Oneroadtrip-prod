@@ -4541,9 +4541,12 @@ function validateEditMode() {
   
   // Rafraîchir l'affichage
   renderMarkers();
-  renderSteps();
+  renderList();
   updateSummary();
   fetchAndDrawRoute();
+  
+  // Marquer comme modifié
+  hasUnsavedChanges = true;
   
   showToast(i18n('editApplied'));
   
