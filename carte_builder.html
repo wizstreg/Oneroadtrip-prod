@@ -585,6 +585,18 @@ body:not(.preview-open) .itinerary-flow {
 }
 
 @media (max-width: 768px) {
+  /* Top-panel sticky en haut sur mobile */
+  .top-panel {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0 !important;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  
   /* Bandeau mobile collapsible */
   .mobile-itin-header {
     display: flex;
@@ -593,7 +605,7 @@ body:not(.preview-open) .itinerary-flow {
     padding: 10px 12px;
     background: #113f7a;
     color: #fff;
-    border-radius: 8px;
+    border-radius: 0;
     cursor: pointer;
     font-weight: 600;
     font-size: 14px;
@@ -622,32 +634,40 @@ body:not(.preview-open) .itinerary-flow {
     display: none !important;
   }
   
-  /* Liste collapsible - cachée par défaut sur mobile */
+  /* Liste avec scroll horizontal - largeur fixe */
   .itinerary-flow {
     max-height: 0;
     overflow: hidden;
     margin-top: 0;
     padding: 0;
     transition: max-height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    flex-wrap: nowrap !important;
   }
   .top-panel.list-open .itinerary-flow {
-    max-height: 300px;
-    overflow-y: auto;
+    max-height: 60px;
+    overflow-x: auto;
+    overflow-y: hidden;
     margin-top: 10px;
     padding-right: 0;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
   }
   
-  /* Ajuster hauteur carte quand liste fermée */
+  /* Masquer la barre d'action mobile (bandeau rouge "Retirer") */
+  .mobile-action-bar {
+    display: none !important;
+  }
+  
+  /* Ajuster hauteur carte */
   .map-container { 
-    height: calc(100vh - 180px);
-    margin: 0 8px 8px;
+    height: calc(100vh - 130px);
+    margin: 8px;
   }
   .top-panel.list-open ~ .map-controls ~ .map-container,
   .top-panel.list-open + .map-controls + .map-container {
-    height: calc(100vh - 320px);
+    height: calc(100vh - 190px);
   }
   
-  .top-panel { margin: 8px; }
   .map-controls { margin: 0 8px 8px; }
   
   /* Preview popup - Plein écran sur mobile */
@@ -662,7 +682,7 @@ body:not(.preview-open) .itinerary-flow {
     border-radius: 0;
     z-index: 20000;
     padding: 20px;
-    padding-bottom: 100px; /* Espace pour le bouton fixe en bas */
+    padding-bottom: 20px;
     border: none;
     overflow-y: auto;
   }
@@ -734,45 +754,14 @@ body:not(.preview-open) .itinerary-flow {
     font-size: 14px;
   }
   
-  /* Bouton ajouter fixé en bas sur mobile */
+  /* Bouton ajouter visible dans la popup sur mobile */
   .add-place-btn {
-    display: none; /* Masquer le bouton dans la popup sur mobile */
-  }
-  
-  /* Barre action fixe mobile */
-  .mobile-action-bar {
-    display: block !important;
-    position: fixed;
+    display: block;
+    position: sticky;
     bottom: 0;
-    left: 0;
-    right: 0;
-    background: #fff;
-    padding: 12px 20px 20px;
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.2);
-    z-index: 20001;
-    display: none;
-  }
-  
-  .mobile-action-bar.show {
-    display: block !important;
-  }
-  
-  .add-place-btn-mobile {
-    display: block !important;
-    width: 100%;
-    font-size: 17px;
-    padding: 16px 20px;
-    min-height: 56px;
-    background: #22c55e;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  
-  .add-place-btn-mobile.remove {
-    background: #e11d48;
+    margin-top: 16px;
+    font-size: 16px;
+    padding: 14px 20px;
   }
   
   /* Masquer les contrôles inutiles sur mobile */
