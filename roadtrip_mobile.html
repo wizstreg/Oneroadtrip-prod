@@ -728,6 +728,39 @@ html, body {
   padding: 0;
 }
 
+.gmap-filters {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  background: #f8fafc;
+  border-bottom: 1px solid var(--ort-border);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gmap-filter-btn {
+  padding: 8px 14px;
+  border: 2px solid var(--ort-border);
+  border-radius: 20px;
+  background: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.gmap-filter-btn.active {
+  background: var(--ort-blue);
+  border-color: var(--ort-blue);
+  color: #fff;
+}
+
+.gmap-filter-btn:not(.active):active {
+  background: #f1f5f9;
+}
+
 .gmap-iframe-wrapper {
   flex: 1;
   position: relative;
@@ -1676,6 +1709,14 @@ html, body {
             <div class="viz-step-nights"></div>
           </div>
           <button class="viz-nav-btn viz-nav-next">›</button>
+        </div>
+        <div class="gmap-filters">
+          <button class="gmap-filter-btn active" data-filter="">📍 Lieu</button>
+          <button class="gmap-filter-btn" data-filter="restaurants">🍽️ Restos</button>
+          <button class="gmap-filter-btn" data-filter="monuments">🏛️ Monuments</button>
+          <button class="gmap-filter-btn" data-filter="museums">🎨 Musées</button>
+          <button class="gmap-filter-btn" data-filter="hotels">🏨 Hôtels</button>
+          <button class="gmap-filter-btn" data-filter="supermarket">🛒 Courses</button>
         </div>
         <div class="gmap-iframe-wrapper" id="gmapWrapper">
           <div class="gmap-placeholder">
@@ -5819,6 +5860,9 @@ window.nativeShare = nativeShare;
   // Index de l'étape courante PARTAGÉ entre les 3 sous-onglets
   let vizCurrentStep = 0;
   
+  // Filtre POI actuel pour Google Maps
+  let currentMapFilter = '';
+  
   // Gestion des sous-onglets
   document.querySelectorAll('.sub-tab-btn').forEach(btn => {
     btn.addEventListener('click', function() {
@@ -5856,6 +5900,20 @@ window.nativeShare = nativeShare;
         vizCurrentStep++;
         renderCurrentStep();
       }
+    });
+  });
+  
+  // Gestion des filtres POI Google Maps
+  document.querySelectorAll('.gmap-filter-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      // Désactiver tous les boutons
+      document.querySelectorAll('.gmap-filter-btn').forEach(b => b.classList.remove('active'));
+      // Activer celui cliqué
+      this.classList.add('active');
+      // Mettre à jour le filtre
+      currentMapFilter = this.dataset.filter || '';
+      // Recharger la carte
+      renderGoogleMap();
     });
   });
   
@@ -6032,10 +6090,18 @@ window.nativeShare = nativeShare;
     const name = encodeURIComponent(step.name || 'Lieu');
     
     let mapUrl = '';
-    if (lat && lng) {
-      mapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
-    } else if (step.name) {
-      mapUrl = `https://maps.google.com/maps?q=${name}&output=embed`;
+    
+    if (currentMapFilter) {
+      // Recherche par catégorie de POI près du lieu
+      const searchQuery = encodeURIComponent(`${currentMapFilter} near ${step.name || ''}`);
+      mapUrl = `https://maps.google.com/maps?q=${searchQuery}&output=embed`;
+    } else {
+      // Affichage du lieu simple
+      if (lat && lng) {
+        mapUrl = `https://maps.google.com/maps?q=${lat},${lng}&z=14&output=embed`;
+      } else if (step.name) {
+        mapUrl = `https://maps.google.com/maps?q=${name}&output=embed`;
+      }
     }
     
     if (mapUrl) {
@@ -6049,7 +6115,7 @@ window.nativeShare = nativeShare;
       `;
     }
     
-    console.log('[VIZ] Google Map rendu pour étape', vizCurrentStep + 1);
+    console.log('[VIZ] Google Map rendu pour étape', vizCurrentStep + 1, 'filtre:', currentMapFilter || 'aucun');
   }
   
   // Rendre Stay22
