@@ -3436,8 +3436,14 @@ function showPreview(itin) {
     pathSimplified.style.display = 'none';
   }
 
-  // Bouton "Sélectionner"
-  document.getElementById('previewSelectBtn').onclick = () => { selectItinerary(itin); closeItinPreview(); };
+  // Bouton "Sélectionner" - cacher sur desktop car le clic a déjà sélectionné l'itinéraire
+  const previewSelectBtn = document.getElementById('previewSelectBtn');
+  if (window.innerWidth > 1024) {
+    previewSelectBtn.style.display = 'none';
+  } else {
+    previewSelectBtn.style.display = 'block';
+    previewSelectBtn.onclick = () => { selectItinerary(itin); closeItinPreview(); };
+  }
 
   // Barre mobile : afficher et attacher les handlers
   const mobileBar = document.getElementById('mobileActionBar');
@@ -3559,18 +3565,17 @@ function validateAndContinue() {
   const totalDays = selectedItineraries.reduce((sum, itin) => sum + (itin.days || 7), 0);
   const firstTitle = selectedItineraries[0]?.title || 'Voyage';
   
-  // Ouvrir la modale budget avec callback de redirection
+  // Ouvrir la modale configuration avec callback de redirection
   showBudgetModal((config) => {
-    const budget = config.budget || '50-100';
-    const depart = config.departureDate || '';
+    const departDate = config.departureDate || '';
     const days = config.numDays || '';
     
     if (selectedItineraries.length === 1) {
       // 1 seul itinéraire - utiliser l'ID ORIGINAL du JSON
       const id = selectedItineraries[0]._originalItinId || selectedItineraries[0].itin_id;
       const cc = selectedItineraries[0].country || 'FR';
-      let url = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(id)}&lang=${lang}&mode=${mode}&budget=${budget}&skipMobileRedirect=1`;
-      if (depart) url += `&depart=${depart}`;
+      let url = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(id)}&lang=${lang}&mode=${mode}&skipMobileRedirect=1`;
+      if (departDate) url += `&departDate=${departDate}`;
       if (days) url += `&days=${days}`;
       window.location.href = url;
     } else {
@@ -3580,8 +3585,8 @@ function validateAndContinue() {
       const composed = `COMPOSED::${originalIds.join('+')}`;
       const cc = selectedItineraries[0].country || 'MULTI';
       console.log('[VALIDATE] Composed ID:', composed);
-      let url = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(composed)}&lang=${lang}&mode=${mode}&budget=${budget}&skipMobileRedirect=1`;
-      if (depart) url += `&depart=${depart}`;
+      let url = `roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(composed)}&lang=${lang}&mode=${mode}&skipMobileRedirect=1`;
+      if (departDate) url += `&departDate=${departDate}`;
       if (days) url += `&days=${days}`;
       window.location.href = url;
     }
@@ -3735,7 +3740,7 @@ function showBudgetModal(callback, itinDays, itinTitle) {
     const departureDate = document.getElementById('inputDepartureDate').value;
     const numDays = document.getElementById('inputNumDays').value;
     
-    callback({ departureDate, numDays, budget: '' });
+    callback({ departureDate, numDays });
   };
   
   // Bouton Annuler
@@ -4113,20 +4118,24 @@ document.getElementById('btnResetFiltersFull')?.addEventListener('click', () => 
   setTextById('btnValidateSelection',L.compareBtn);
   setTextById('previewSelectBtn',L.selectBtnText);
   
-  // Mettre à jour les options des filtres
+  // Mettre à jour les options des filtres (avec protection)
   const filterDays = document.getElementById('filterDaysFull');
-  filterDays.options[0].text = L.filterAllDays;
-  filterDays.options[1].text = L.filter_days_1_3;
-  filterDays.options[2].text = L.filter_days_4_7;
-  filterDays.options[3].text = L.filter_days_8_14;
-  filterDays.options[4].text = L.filter_days_15plus;
+  if (filterDays && filterDays.options) {
+    if (filterDays.options[0]) filterDays.options[0].text = L.filterAllDays;
+    if (filterDays.options[1]) filterDays.options[1].text = L.filter_days_1_3;
+    if (filterDays.options[2]) filterDays.options[2].text = L.filter_days_4_7;
+    if (filterDays.options[3]) filterDays.options[3].text = L.filter_days_8_14;
+    if (filterDays.options[4]) filterDays.options[4].text = L.filter_days_15plus;
+  }
   
   const filterDist = document.getElementById('filterDistanceFull');
-  filterDist.options[0].text = L.filterAllDistances;
-  filterDist.options[1].text = L.filter_dist_0_500;
-  filterDist.options[2].text = L.filter_dist_501_1000;
-  filterDist.options[3].text = L.filter_dist_1001_2000;
-  filterDist.options[4].text = L.filter_dist_2001plus;
+  if (filterDist && filterDist.options) {
+    if (filterDist.options[0]) filterDist.options[0].text = L.filterAllDistances;
+    if (filterDist.options[1]) filterDist.options[1].text = L.filter_dist_0_500;
+    if (filterDist.options[2]) filterDist.options[2].text = L.filter_dist_501_1000;
+    if (filterDist.options[3]) filterDist.options[3].text = L.filter_dist_1001_2000;
+    if (filterDist.options[4]) filterDist.options[4].text = L.filter_dist_2001plus;
+  }
   
  // Les thèmes sont maintenant traduits automatiquement lors de populateThemeSelect()
 // On traduit l'option "Tous" ET on régénère les thèmes avec la bonne langue
@@ -4632,11 +4641,25 @@ function initGridCards() {
 
 // Mettre à jour les textes traduits du route builder
 function updateRouteBuilderTranslations() {
-  const lang = localStorage.getItem('lang') || 'fr';
+  // Même logique de détection que l'IIFE Auto-lang
+  const SUP = ["fr","en","it","es","pt","ar"];
+  let lang = new URLSearchParams(location.search).get('lang')
+           || localStorage.getItem('lang')
+           || (navigator.languages && navigator.languages[0]) || navigator.language || 'fr';
+  lang = (lang||'fr').slice(0,2).toLowerCase();
+  if(!SUP.includes(lang)) lang='fr';
+  
+  // Mettre à jour localStorage et sélecteur pour cohérence
+  localStorage.setItem('lang', lang);
+  const langSel = document.getElementById('langSel');
+  if (langSel) langSel.value = lang;
+  
   const L = T[lang] || T.fr;
   
   const setTextById = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
   
+  // Titres des 4 carrés (doivent être ici car l'IIFE utilise parfois la langue du navigateur)
+  setTextById('mapTitle', L.mapTitle);
   setTextById('buildTitle', L.buildTitle);
   setTextById('importTitle', L.importTitle);
   setTextById('creatorsTitle2', L.creatorsTitle);
@@ -4648,6 +4671,7 @@ function updateRouteBuilderTranslations() {
   setTextById('labelMaxKm', L.labelMaxKm);
   setTextById('labelDetour', L.labelDetour);
   setTextById('labelDuration', L.labelDuration);
+  setTextById('labelDays', L.labelDaysUnit);
   setTextById('generateBtnText', L.generateBtn);
   
   // Placeholders

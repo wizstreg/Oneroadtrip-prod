@@ -180,10 +180,6 @@ main{max-width:1400px;margin:18px auto 40px;padding:0 16px}
 .modal-group{margin-bottom:20px}
 .modal-group label{display:block;font-weight:600;margin-bottom:8px;color:var(--ink)}
 .modal-group input,.modal-group select{width:100%;padding:12px;border:1px solid var(--bd);border-radius:8px;font-size:15px}
-.budget-chips{display:flex;flex-wrap:wrap;gap:10px}
-.budget-chip{padding:10px 16px;border:2px solid var(--bd);border-radius:999px;background:#fff;color:var(--ink);cursor:pointer;font-weight:600;font-size:14px;transition:all .2s}
-.budget-chip:hover{border-color:var(--acc);background:#f0f9ff}
-.budget-chip.selected{background:var(--acc);color:#fff;border-color:var(--acc)}
 .modal-actions{display:flex;gap:12px;justify-content:flex-end;margin-top:24px}
 .modal-btn{padding:12px 24px;border-radius:8px;border:0;cursor:pointer;font-weight:700;font-size:15px}
 .modal-btn.primary{background:var(--acc);color:#fff}
@@ -412,10 +408,6 @@ main{max-width:1400px;margin:18px auto 40px;padding:0 16px}
       <label id="labelNbDays">Nombre de jours souhaités :</label>
       <input type="number" id="inputNbDays" min="1" max="90">
     </div>
-    <div class="modal-group">
-      <label id="labelBudget">Budget hôtel (€/jour/personne) :</label>
-      <div id="budgetChips" class="budget-chips"></div>
-    </div>
     <div class="modal-actions">
       <button class="modal-btn secondary" id="modalCancel">Annuler</button>
       <button class="modal-btn primary" id="modalConfirm">Valider</button>
@@ -467,14 +459,10 @@ const T = {
     rythmeNormal: "Normal",
     rythmeFast: "Rapide",
     labelMaxHotels: "Changements d'hôtel maximum :",
-    labelBudget: "Budget hôtel (€/jour/personne) :",
     modalCancel: "Annuler",
     modalConfirm: "Valider",
     mobilePreviewCancel: "Annuler",
     mobilePreviewConfirm: "Valider",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "500+",
     filterAllDays: "Toutes", filterAllThemes: "Tous",
     filter_days_1_3: "1-3 jours", filter_days_4_7: "4-7 jours",
     filter_days_8_14: "8-14 jours", filter_days_15plus: "15+ jours"
@@ -515,14 +503,10 @@ const T = {
     rythmeNormal: "Normal",
     rythmeFast: "Fast",
     labelMaxHotels: "Maximum hotel changes:",
-    labelBudget: "Hotel budget (€/day/person):",
     modalCancel: "Cancel",
     modalConfirm: "Validate",
     mobilePreviewCancel: "Cancel",
     mobilePreviewConfirm: "Validate",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "500+",
     filterAllDays: "All", filterAllThemes: "All",
     filter_days_1_3: "1-3 days", filter_days_4_7: "4-7 days",
     filter_days_8_14: "8-14 days", filter_days_15plus: "15+ days"
@@ -563,14 +547,10 @@ const T = {
     rythmeNormal: "Normale",
     rythmeFast: "Veloce",
     labelMaxHotels: "Cambi hotel massimi:",
-    labelBudget: "Budget hotel (€/giorno/persona):",
     modalCancel: "Annulla",
     modalConfirm: "Conferma",
     mobilePreviewCancel: "Annulla",
     mobilePreviewConfirm: "Conferma",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "oltre 500",
     filterAllDays: "Tutte", filterAllThemes: "Tutti",
     filter_days_1_3: "1-3 giorni", filter_days_4_7: "4-7 giorni",
     filter_days_8_14: "8-14 giorni", filter_days_15plus: "15+ giorni"
@@ -611,14 +591,10 @@ const T = {
     rythmeNormal: "Normal",
     rythmeFast: "Rápido",
     labelMaxHotels: "Cambios de hotel máximos:",
-    labelBudget: "Presupuesto hotel (€/día/persona):",
     modalCancel: "Cancelar",
     modalConfirm: "Validar",
     mobilePreviewCancel: "Cancelar",
     mobilePreviewConfirm: "Validar",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "más de 500",
     filterAllDays: "Todas", filterAllThemes: "Todos",
     filter_days_1_3: "1-3 días", filter_days_4_7: "4-7 días",
     filter_days_8_14: "8-14 días", filter_days_15plus: "15+ días"
@@ -659,14 +635,10 @@ const T = {
     rythmeNormal: "Normal",
     rythmeFast: "Rápido",
     labelMaxHotels: "Mudanças de hotel máximas:",
-    labelBudget: "Orçamento hotel (€/dia/pessoa):",
     modalCancel: "Cancelar",
     modalConfirm: "Validar",
     mobilePreviewCancel: "Cancelar",
     mobilePreviewConfirm: "Validar",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "mais de 500",
     filterAllDays: "Todas", filterAllThemes: "Todos",
     filter_days_1_3: "1-3 dias", filter_days_4_7: "4-7 dias",
     filter_days_8_14: "8-14 dias", filter_days_15plus: "15+ dias"
@@ -707,14 +679,10 @@ const T = {
     rythmeNormal: "عادي",
     rythmeFast: "سريع",
     labelMaxHotels: "الحد الأقصى لتغييرات الفندق:",
-    labelBudget: "ميزانية الفندق (€/يوم/شخص):",
     modalCancel: "إلغاء",
     modalConfirm: "تأكيد",
     mobilePreviewCancel: "إلغاء",
     mobilePreviewConfirm: "تأكيد",
-    budget_0_50: "0–50", budget_50_100: "50–100", budget_100_150: "100–150",
-    budget_150_200: "150–200", budget_200_250: "200–250", budget_250_300: "250–300",
-    budget_300_500: "300–500", budget_500plus: "أكثر من 500",
     filterAllDays: "الكل", filterAllThemes: "الكل",
     filter_days_1_3: "1-3 أيام", filter_days_4_7: "4-7 أيام",
     filter_days_8_14: "8-14 يوم", filter_days_15plus: "15+ يوم"
@@ -810,7 +778,6 @@ function applyTranslations() {
   document.getElementById('modalTitle').textContent = L_TEXT.modalTitle;
   document.getElementById('labelDepartDate').textContent = L_TEXT.labelDepartDate;
   document.getElementById('labelNbDays').textContent = L_TEXT.labelNbDays;
-  document.getElementById('labelBudget').textContent = L_TEXT.labelBudget;
   document.getElementById('modalCancel').textContent = L_TEXT.modalCancel;
   document.getElementById('modalConfirm').textContent = L_TEXT.modalConfirm;
 
@@ -969,43 +936,88 @@ async function loadItineraries() {
     }
   });
 
-  // CHARGEMENT PROGRESSIF INTELLIGENT
+  // CHARGEMENT PROGRESSIF DYNAMIQUE
   const loadedCountries = new Set();
-  let isLoadingBackground = false;
+  let totalExpectedItineraries = 0;
   
-  // Fonction pour déterminer quels pays sont visibles
-  function getVisibleCountries() {
-    if (!map) return [];
-    const zoom = map.getZoom();
-    
-    // Seuil zoom : charger seulement si zoom ≥ 4
-    if (zoom < 4) {
-      console.log(`Zoom ${zoom} < 4 : chargement différé`);
-      return [];
+  // Indicateur de chargement
+  function showLoadingProgress(loaded, total) {
+    let indicator = document.getElementById('loadingIndicator');
+    if (!indicator) {
+      indicator = document.createElement('div');
+      indicator.id = 'loadingIndicator';
+      indicator.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(17, 63, 122, 0.95);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        z-index: 9999;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      `;
+      document.body.appendChild(indicator);
     }
     
-    const bounds = map.getBounds();
-    const visible = [];
+    const percent = total > 0 ? Math.round((loaded / total) * 100) : 0;
+    const T_LOADING = {
+      fr: 'Chargement',
+      en: 'Loading',
+      es: 'Cargando',
+      it: 'Caricamento',
+      pt: 'Carregando',
+      ar: 'جاري التحميل'
+    };
+    const loadingText = T_LOADING[lang] || T_LOADING.fr;
     
-    countryList.forEach(obj => {
-      const cc = String(obj.cc || obj.code || obj).toUpperCase();
-      if (loadedCountries.has(cc)) return; // Déjà chargé
-      
-      // Approximation simple : vérifier si le pays a des coords dans bounds
-      // Pour l'instant, charger pays d'Europe + proche si zoom < 6
-      if (zoom < 6) {
-        // Europe centrale visible au départ
-        const europeanCountries = ['FR', 'ES', 'IT', 'DE', 'GB', 'CH', 'AT', 'NL', 'BE', 'PT'];
-        if (europeanCountries.includes(cc)) {
-          visible.push(obj);
-        }
-      } else {
-        // Zoom élevé : charger tous les pays visibles
-        visible.push(obj);
+    indicator.innerHTML = `
+      <div style="width: 20px; height: 20px; border: 2px solid rgba(255,255,255,0.3); border-top-color: white; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+      <span>${loadingText}: ${loaded} / ${total} (${percent}%)</span>
+    `;
+    
+    // Ajouter l'animation CSS si pas déjà fait
+    if (!document.getElementById('spinnerStyle')) {
+      const style = document.createElement('style');
+      style.id = 'spinnerStyle';
+      style.textContent = '@keyframes spin { to { transform: rotate(360deg); } }';
+      document.head.appendChild(style);
+    }
+    
+    // Cacher quand terminé
+    if (loaded >= total && total > 0) {
+      setTimeout(() => {
+        indicator.style.opacity = '0';
+        indicator.style.transition = 'opacity 0.5s';
+        setTimeout(() => indicator.remove(), 500);
+      }, 1000);
+    }
+  }
+
+  // Détecter le pays du client
+  async function detectUserCountry() {
+    try {
+      // API gratuite de géolocalisation IP
+      const res = await fetch('https://ipapi.co/json/', { timeout: 3000 });
+      if (res.ok) {
+        const data = await res.json();
+        const cc = (data.country_code || '').toUpperCase();
+        console.log(`🌍 Pays détecté: ${cc}`);
+        return cc;
       }
-    });
+    } catch (e) {
+      console.warn('Géolocalisation IP échouée:', e);
+    }
     
-    return visible;
+    // Fallback: langue du navigateur → pays probable
+    const browserLang = (navigator.language || 'fr').slice(0, 2).toLowerCase();
+    const langToCountry = { fr: 'FR', en: 'GB', es: 'ES', it: 'IT', pt: 'PT', de: 'DE', nl: 'NL', pl: 'PL', ar: 'MA' };
+    return langToCountry[browserLang] || 'FR';
   }
 
   // Fonction de chargement avec fallback langue
@@ -1115,85 +1127,73 @@ async function loadItineraries() {
       .flat();
   }
 
-  // ÉTAPE 1 : Charger pays visibles (Europe au démarrage)
-  const visibleCountries = getVisibleCountries();
+  // ÉTAPE 1 : Détecter le pays du client et le charger en priorité
+  const userCountry = await detectUserCountry();
+  const userCountryObj = countryList.find(c => (c.cc || c.code || '').toUpperCase() === userCountry);
   
-  // Charger les places SEULEMENT pour les pays visibles
-  await loadPlacesData(visibleCountries);
+  // Estimer le nombre total d'itinéraires (environ 7 par pays en moyenne)
+  totalExpectedItineraries = countryList.length * 7;
+  showLoadingProgress(0, totalExpectedItineraries);
   
-  const newItins = await loadCountryBatch(visibleCountries, 'pays visibles');
-  allItineraries = newItins.filter(i => i.__id);
+  // Charger le pays du client en priorité
+  if (userCountryObj) {
+    console.log(`🎯 Chargement prioritaire: ${userCountry}`);
+    await loadPlacesData([userCountryObj]);
+    const userItins = await loadCountryBatch([userCountryObj], `pays client (${userCountry})`);
+    allItineraries = userItins.filter(i => i.__id);
+    
+    // Afficher immédiatement le pays du client
+    displayMarkers(allItineraries);
+    updateFilterCount(allItineraries.length);
+    populateCountryJump();
+    showLoadingProgress(allItineraries.length, totalExpectedItineraries);
+  }
   
-  console.log(`=== CHARGEMENT INITIAL ===`);
-  console.log(`Pays chargés: ${loadedCountries.size}/${countryList.length}`);
-  console.log(`Itinéraires visibles: ${allItineraries.length}`);
+  // ÉTAPE 2 : Charger TOUS les autres pays en parallèle
+  const remainingCountries = countryList.filter(obj => {
+    const cc = String(obj.cc || obj.code || obj).toUpperCase();
+    return !loadedCountries.has(cc);
+  });
   
-  // Calculate threshold
+  console.log(`🔄 Chargement de ${remainingCountries.length} pays restants...`);
+  
+  // Charger par batches de 20 pays en parallèle (rapide)
+  const batchSize = 20;
+  for (let i = 0; i < remainingCountries.length; i += batchSize) {
+    const batch = remainingCountries.slice(i, i + batchSize);
+    
+    // Charger places + itinéraires en parallèle
+    await loadPlacesData(batch);
+    const batchItins = await loadCountryBatch(batch, `batch ${Math.floor(i/batchSize) + 1}/${Math.ceil(remainingCountries.length/batchSize)}`);
+    
+    allItineraries.push(...batchItins.filter(it => it.__id));
+    
+    // Rafraîchir l'affichage à chaque batch
+    displayMarkers(allItineraries);
+    updateFilterCount(allItineraries.length);
+    populateCountryJump();
+    showLoadingProgress(allItineraries.length, totalExpectedItineraries);
+    
+    // Micro-pause pour ne pas bloquer l'UI
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+  
+  // Mise à jour finale
+  totalExpectedItineraries = allItineraries.length;
+  showLoadingProgress(allItineraries.length, totalExpectedItineraries);
+  
+  // Calculate threshold pour les étoiles
   if (allItineraries.length > 0) {
     const sortedRatings = allItineraries.map(i => i.avgRating).sort((a, b) => b - a);
     const top20Index = Math.floor(sortedRatings.length * 0.2);
     topRatedThreshold = sortedRatings[top20Index] || 0;
   }
   
-  // Afficher immédiatement
   displayMarkers(allItineraries);
   updateFilterCount(allItineraries.length);
-  populateCountryJump();
   setTimeout(updateVisibleCount, 200);
   
-  // ÉTAPE 2 : Charger le reste en arrière-plan
-  setTimeout(async () => {
-    if (isLoadingBackground) return;
-    isLoadingBackground = true;
-    
-    console.log(`🔄 Chargement arrière-plan...`);
-    
-    const remainingCountries = countryList.filter(obj => {
-      const cc = String(obj.cc || obj.code || obj).toUpperCase();
-      return !loadedCountries.has(cc);
-    });
-    
-    // Batch de 10 pays
-    const batchSize = 10;
-    for (let i = 0; i < remainingCountries.length; i += batchSize) {
-      const batch = remainingCountries.slice(i, i + batchSize);
-      
-      // Charger les places pour ce batch AVANT de calculer les ratings
-      await loadPlacesData(batch);
-      
-      const batchItins = await loadCountryBatch(batch, `batch ${Math.floor(i/batchSize) + 1}`);
-      
-      allItineraries.push(...batchItins.filter(it => it.__id));
-      
-      // Rafraîchir tous les 2 batchs
-      if (i % (batchSize * 2) === 0) {
-        displayMarkers(allItineraries);
-        updateFilterCount(allItineraries.length);
-      }
-      
-      await new Promise(resolve => setTimeout(resolve, 500));
-    }
-    
-    displayMarkers(allItineraries);
-    updateFilterCount(allItineraries.length);
-    isLoadingBackground = false;
-    
-    console.log(`✅ Arrière-plan terminé: ${allItineraries.length} itinéraires`);
-  }, 2000);
-  
-  // ÉTAPE 3 : Charger à la demande au zoom/pan
-  map.on('moveend zoomend', async () => {
-    const newVisible = getVisibleCountries();
-    if (newVisible.length > 0 && !isLoadingBackground) {
-      // Charger les places pour les nouveaux pays visibles
-      await loadPlacesData(newVisible);
-      
-      const freshItins = await loadCountryBatch(newVisible, 'nouveaux visibles');
-      allItineraries.push(...freshItins.filter(i => i.__id));
-      displayMarkers(allItineraries);
-      updateFilterCount(allItineraries.length);
-    }
-  });
+  console.log(`✅ Chargement terminé: ${allItineraries.length} itinéraires dans ${loadedCountries.size} pays`);
 }
 
 function populateCountryJump() {
@@ -1908,38 +1908,10 @@ function setupValidation() {
   const modal = document.getElementById('configModal');
   const btnCancel = document.getElementById('modalCancel');
   const btnConfirm = document.getElementById('modalConfirm');
-  const chipsContainer = document.getElementById('budgetChips');
 
   // Set default date to today
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('inputDepartDate').value = today;
-
-  // Generate budget chips
-  const budgetRanges = ['0-50', '50-100', '100-150', '150-200', '200-250', '250-300', '300-500', '500+'];
-  const budgetLabels = {
-    '0-50': L_TEXT.budget_0_50, '50-100': L_TEXT.budget_50_100,
-    '100-150': L_TEXT.budget_100_150, '150-200': L_TEXT.budget_150_200,
-    '200-250': L_TEXT.budget_200_250, '250-300': L_TEXT.budget_250_300,
-    '300-500': L_TEXT.budget_300_500, '500+': L_TEXT.budget_500plus
-  };
-
-  let selectedBudgets = [];
-  budgetRanges.forEach(range => {
-    const chip = document.createElement('button');
-    chip.type = 'button';
-    chip.className = 'budget-chip';
-    chip.textContent = budgetLabels[range];
-    chip.dataset.value = range;
-    chip.addEventListener('click', () => {
-      chip.classList.toggle('selected');
-      if (chip.classList.contains('selected')) {
-        selectedBudgets.push(range);
-      } else {
-        selectedBudgets = selectedBudgets.filter(b => b !== range);
-      }
-    });
-    chipsContainer.appendChild(chip);
-  });
 
   btnCancel.addEventListener('click', () => {
     modal.classList.remove('show');
@@ -1954,7 +1926,6 @@ function setupValidation() {
     
     const departDate = document.getElementById('inputDepartDate').value;
     const nbDays = document.getElementById('inputNbDays').value;
-    const budget = selectedBudgets.join(',') || 'all';
 
     const id = selectedItinerary.itin_id;
     const cc = (id.split('::')[0] || '').toUpperCase();
@@ -1964,8 +1935,7 @@ function setupValidation() {
     url.searchParams.set('itin', id);
     url.searchParams.set('lang', lang);
     url.searchParams.set('mode', 'simple');
-    url.searchParams.set('budget', budget);
-    url.searchParams.set('depart', departDate);
+    url.searchParams.set('departDate', departDate);
     url.searchParams.set('days', nbDays);
 
     window.location.href = url.toString();

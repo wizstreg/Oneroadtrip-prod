@@ -252,7 +252,7 @@
     hdr.style.flexWrap = 'wrap';
     if(document.getElementById('ortDashRow')) return;
 
-    var lang = (localStorage.getItem('ORT_LANG') || document.documentElement.lang || 'fr').toLowerCase();
+    var lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').toLowerCase();
     var MSG = ({
       fr:'Vous devez être enregistré pour accéder au Dashboard.',
       en:'You must be signed in to access the Dashboard.',
@@ -659,20 +659,6 @@
     <div style="margin-bottom:14px">
       <label id="cfgNbDaysLabel" style="display:block;font-weight:600;margin-bottom:6px">Nombre de jours souhaités :</label>
       <input type="number" id="cfgNbDays" class="input" value="7" min="1" max="60" style="width:100%">
-    </div>
-    
-    <div style="margin-bottom:14px">
-      <label id="cfgBudgetLabel" style="display:block;font-weight:600;margin-bottom:6px">Budget hôtel (€/jour/personne) :</label>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="0-50"> 0–50</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="50-100" checked> 50–100</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="100-150"> 100–150</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="150-200"> 150–200</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="200-250"> 200–250</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="250-300"> 250–300</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="300-500"> 300–500</label>
-        <label style="cursor:pointer"><input type="checkbox" name="cfgBudget" value="500+"> 500+</label>
-      </div>
     </div>
     
     <div class="actions" style="margin-top:20px">
@@ -1907,7 +1893,6 @@ const I18N={
     cfgPaceStandard:"Normal",
     cfgPaceFast:"Rapide",
     cfgMaxHotels:"Changements d'hôtel maximum :",
-    cfgBudget:"Budget hôtel (€/jour/pers.) :",
     cfgBtnCancel:"Annuler",
     cfgBtnValidate:"Valider",
 
@@ -1987,7 +1972,6 @@ const I18N={
     cfgPaceStandard:"Normal",
     cfgPaceFast:"Fast",
     cfgMaxHotels:"Maximum hotel changes:",
-    cfgBudget:"Hotel budget (€/day/person):",
     cfgBtnCancel:"Cancel",
     cfgBtnValidate:"Validate",
 
@@ -2064,7 +2048,6 @@ const I18N={
     cfgPaceStandard:"Normale",
     cfgPaceFast:"Sostenuto",
     cfgMaxHotels:"Cambi hotel massimi:",
-    cfgBudget:"Budget hotel (€/giorno/persona):",
     cfgBtnCancel:"Annulla",
     cfgBtnValidate:"Convalida",
 
@@ -2141,7 +2124,6 @@ const I18N={
     cfgPaceStandard:"Normal",
     cfgPaceFast:"Intenso",
     cfgMaxHotels:"Cambios de hotel máximos:",
-    cfgBudget:"Presupuesto hotel (€/día/persona):",
     cfgBtnCancel:"Cancelar",
     cfgBtnValidate:"Validar",
 
@@ -2218,7 +2200,6 @@ const I18N={
     cfgPaceStandard:"Normal",
     cfgPaceFast:"Intenso",
     cfgMaxHotels:"Mudanças de hotel máximas:",
-    cfgBudget:"Orçamento hotel (€/dia/pessoa):",
     cfgBtnCancel:"Cancelar",
     cfgBtnValidate:"Validar",
 
@@ -2295,7 +2276,6 @@ const I18N={
     cfgPaceStandard:"عادي",
     cfgPaceFast:"سريع",
     cfgMaxHotels:"الحد الأقصى لتغيير الفنادق:",
-    cfgBudget:"ميزانية الفندق (€/يوم/شخص):",
     cfgBtnCancel:"إلغاء",
     cfgBtnValidate:"تأكيد",
 
@@ -2481,8 +2461,7 @@ function slugify(s){
 
 // Applique I18N
 function setLang(lang){
-  localStorage.setItem('ORT_LANG', lang);
-  localStorage.removeItem('lang'); // Nettoyer l'ancienne clé
+  localStorage.setItem('lang', lang);
   const t=I18N[lang]||I18N.fr;
   
   // Text content
@@ -2544,7 +2523,6 @@ function setLang(lang){
   const cfgPaceStandardOpt = $('#cfgPaceStandardOpt'); if(cfgPaceStandardOpt) cfgPaceStandardOpt.textContent = t.cfgPaceStandard || 'Normal';
   const cfgPaceFastOpt = $('#cfgPaceFastOpt'); if(cfgPaceFastOpt) cfgPaceFastOpt.textContent = t.cfgPaceFast || 'Soutenu';
   const cfgMaxHotelsLabel = $('#cfgMaxHotelsLabel'); if(cfgMaxHotelsLabel) cfgMaxHotelsLabel.textContent = t.cfgMaxHotels || 'Changements d\'hôtel maximum :';
-  const cfgBudgetLabel = $('#cfgBudgetLabel'); if(cfgBudgetLabel) cfgBudgetLabel.textContent = t.cfgBudget || 'Budget hôtel (€/jour/personne) :';
   const btnCancelConfig = $('#btnCancelConfig'); if(btnCancelConfig) btnCancelConfig.textContent = t.cfgBtnCancel || 'Annuler';
   const btnValidateConfig = $('#btnValidateConfig'); if(btnValidateConfig) btnValidateConfig.textContent = t.cfgBtnValidate || 'Valider';
 
@@ -2576,9 +2554,14 @@ function setLang(lang){
 
 // Init langue
 (function(){
+  const SUPPORTED_LANGS = ['fr', 'en', 'es', 'it', 'pt', 'ar'];
   const urlLang = new URLSearchParams(location.search).get('lang');
-  const saved   = localStorage.getItem('ORT_LANG') || localStorage.getItem('ORT_LANG');
-  const lang    = urlLang || saved || 'fr';
+  const saved   = localStorage.getItem('lang');
+  const navLang = ((navigator.languages && navigator.languages[0]) || navigator.language || 'fr').slice(0,2).toLowerCase();
+  let lang = urlLang || saved || navLang;
+  lang = (lang || 'fr').slice(0,2).toLowerCase();
+  if (!SUPPORTED_LANGS.includes(lang)) lang = 'fr';
+  localStorage.setItem('lang', lang); // Synchroniser
   $('#langSel').value = lang;
   setLang(lang);
   $('#langSel').addEventListener('change', (e)=>{
@@ -2662,7 +2645,7 @@ if(btnGen) {
 
   setTimeout(() => {
     const {cleaned, removed} = cleanSourceText(raw);
-    const lang = (document.documentElement.lang || localStorage.getItem('ORT_LANG') || 'en').toLowerCase();
+    const lang = (document.documentElement.lang || localStorage.getItem('lang') || 'en').toLowerCase();
     const head = getPromptTemplate(lang,{mode, seeds, modelSubMode, modelSeeds});
     $('#prompt').textContent = head + cleaned;
 
@@ -2985,13 +2968,8 @@ cleaned = cleaned
       const key = window.__pendingTripKey;
       if(!key) return;
       
-      const startDate = document.getElementById('cfgStartDate')?.value || '';
-      const nbDays = document.getElementById('cfgNbDays')?.value || '7';
-      
-      // Récupérer tous les budgets cochés (multichoix)
-      const budgetCheckboxes = document.querySelectorAll('input[name="cfgBudget"]:checked');
-      const budgets = Array.from(budgetCheckboxes).map(cb => cb.value);
-      const budget = budgets.length > 0 ? budgets.join(',') : '50-100';
+      const departDate = document.getElementById('cfgStartDate')?.value || '';
+      const days = document.getElementById('cfgNbDays')?.value || '7';
       
       // Récupérer l'itinéraire stocké pour vérifier les themes
       const pendingKey = window.__pendingTripKey;
@@ -3021,9 +2999,8 @@ cleaned = cleaned
           from: 'temp',
           rtKey: key,
           tripId: tripId,
-          startDate: startDate,
-          nbDays: nbDays,
-          budget: budget
+          departDate: departDate,
+          days: days
         });
         
         window.location.href = `./roadtrip_detail.html?${params.toString()}`;
@@ -3067,7 +3044,7 @@ cleaned = cleaned
   }
 
   function setHeaderLabel(user){
-    const lang = localStorage.getItem('ORT_LANG') || document.documentElement.lang || 'fr';
+    const lang = localStorage.getItem('lang') || document.documentElement.lang || 'fr';
     const LABELS = {
       fr:{signin:'Se connecter',  account:'Mon compte'},
       en:{signin:'Sign in',        account:'My account'},
