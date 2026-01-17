@@ -9287,10 +9287,14 @@ renderRows();
   }
 
   const qs  = new URLSearchParams(location.search);
-  const CC  = (qs.get('cc')||'XX').toUpperCase();
   const ui  = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
   
-  console.log('[COUNTRY] CC:', CC, 'UI:', ui);
+  // Récupérer CC dynamiquement (state > URL > fallback)
+  function getCC() {
+    return (window.state?.country || window.state?.cc || qs.get('cc') || 'XX').toUpperCase();
+  }
+  
+  console.log('[COUNTRY] Initial CC:', getCC(), 'UI:', ui);
   
   const I18N = {
     fr:{
@@ -9356,13 +9360,15 @@ renderRows();
   }
 
   async function openDrawer(){
-    console.log('[COUNTRY] openDrawer appelé');
+    const CC = getCC();
+    console.log('[COUNTRY] openDrawer appelé, CC:', CC);
     title.textContent = localizedCountryName(CC);
     wrap.classList.add('show');
-    if(!wrap.dataset.loaded){
+    // Recharger si le pays a changé
+    if(wrap.dataset.loadedCC !== CC){
       const raw = await loadGuide(CC);
       render(raw);
-      wrap.dataset.loaded='1';
+      wrap.dataset.loadedCC = CC;
     }
   }
   function closeDrawer(){ wrap.classList.remove('show'); }
@@ -9378,6 +9384,50 @@ renderRows();
 </script>
 
   <!-- [PATCH-TOOLS-POPUP] START -->
+<script>
+// === Fonctions modales de secours (si non définies ailleurs) ===
+if (typeof window.showSaveBeforeShareModal !== 'function') {
+  window.showSaveBeforeShareModal = function() {
+    const lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
+    const messages = {
+      fr: 'Veuillez d\'abord sauvegarder votre voyage avant de le partager.\n\nCliquez sur le bouton "Enregistrer" en haut de la page.',
+      en: 'Please save your trip first before sharing it.\n\nClick the "Save" button at the top of the page.',
+      es: 'Por favor, guarda tu viaje antes de compartirlo.\n\nHaz clic en el botón "Guardar" en la parte superior de la página.',
+      it: 'Per favore salva il tuo viaggio prima di condividerlo.\n\nClicca sul pulsante "Salva" in alto nella pagina.',
+      pt: 'Por favor, salve sua viagem antes de compartilhá-la.\n\nClique no botão "Salvar" no topo da página.',
+      ar: 'يرجى حفظ رحلتك أولاً قبل مشاركتها.\n\nانقر على زر "حفظ" في أعلى الصفحة.'
+    };
+    alert(messages[lang] || messages.fr);
+    // Highlight le bouton save
+    const saveBtn = document.getElementById('btnSave');
+    if (saveBtn) {
+      saveBtn.style.animation = 'pulse 0.5s ease 3';
+      setTimeout(() => saveBtn.style.animation = '', 1500);
+    }
+  };
+}
+
+if (typeof window.showLoginModalForSave !== 'function') {
+  window.showLoginModalForSave = function() {
+    // Essayer d'utiliser le système d'auth existant
+    if (typeof window.ORT_AUTH_GATE !== 'undefined' && window.ORT_AUTH_GATE.showLoginModal) {
+      window.ORT_AUTH_GATE.showLoginModal();
+      return;
+    }
+    const lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
+    const messages = {
+      fr: 'Veuillez vous connecter pour sauvegarder ou partager votre voyage.',
+      en: 'Please log in to save or share your trip.',
+      es: 'Por favor, inicia sesión para guardar o compartir tu viaje.',
+      it: 'Per favore accedi per salvare o condividere il tuo viaggio.',
+      pt: 'Por favor, faça login para salvar ou compartilhar sua viagem.',
+      ar: 'يرجى تسجيل الدخول لحفظ رحلتك أو مشاركتها.'
+    };
+    alert(messages[lang] || messages.fr);
+  };
+}
+</script>
+
 <script>
 // === Popup Outils - Handlers additionnels ===
 (function(){
