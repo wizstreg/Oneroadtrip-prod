@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -2209,21 +2210,7 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+15 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=US&itin=US%3A%3Akansas%3A%3Asunflower-heartland-odyssey&lang=ar&days=20" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2241,6 +2228,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Wamego_Windmill.JPG" alt="Wamego - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/609_Elm_Street_Wamego_Kansas.jpg" alt="Wamego - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/615_Elm_Street_Wamego_Kansas.jpg" alt="Wamego - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/OZ_Winery%2C_Wamego%2C_Kansas_2008.jpg" alt="Wamego - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 4</div>
@@ -2304,7 +2298,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">5</div>
@@ -2322,6 +2316,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Chinatown-manhattan-2004.jpg" alt="Manhattan - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Riley_%28Kansas%29_County_Courthouse_1.jpg" alt="Manhattan - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Manhattan_Kansas_Downtown_overhead.jpg" alt="Manhattan - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Lower_Manhattan_from_Staten_Island_Ferry_Jan_2006.jpg" alt="Manhattan - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Manhattan_Bridge_Construction_1909.jpg" alt="Manhattan - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Manhattan_1931.jpg" alt="Manhattan - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 5</div>
@@ -2395,7 +2396,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">6</div>
@@ -2413,6 +2414,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4613890%2Fpexels-photo-4613890.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Abilene - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35155472%2Fpexels-photo-35155472.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Abilene - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35127101%2Fpexels-photo-35127101.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Abilene - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cb/Abilene_from_the_Enterprise_Building.jpg" alt="Abilene - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 6</div>
@@ -2486,7 +2494,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">7</div>
@@ -2504,6 +2512,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Salina_Utah.jpg" alt="Salina - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/86/Salina%2C_Kansas_storm_damage_August_2009_1.JPG" alt="Salina - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 7</div>
@@ -2577,7 +2592,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">8</div>
@@ -2595,6 +2610,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Lindsborg_KS_Wild_Dala.jpg" alt="Lindsborg - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Old_Mill_-_Lindsborg_KS.jpg" alt="Lindsborg - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Old_mill_-_Lindsborg_KS_-_2.jpg" alt="Lindsborg - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cf/Bridge_over_Smoky_Hill_River_-_Lindsborg_KS.jpg" alt="Lindsborg - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 8</div>
@@ -2668,7 +2690,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">9</div>
@@ -2686,6 +2708,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Hutchinson_River_mouth_jeh.JPG" alt="Hutchinson - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Reno_County_Courthouse.jpg" alt="Hutchinson - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 9</div>
@@ -2759,7 +2788,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">10</div>
@@ -2777,6 +2806,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F351264%2Fpexels-photo-351264.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Great Bend - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1560102%2Fpexels-photo-1560102.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Great Bend - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F30792472%2Fpexels-photo-30792472.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Great Bend - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 10</div>
@@ -2850,7 +2886,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">11</div>
@@ -2868,6 +2904,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F27793707%2Fpexels-photo-27793707.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Wilson - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Wilson_Texas_2010.jpg" alt="Wilson - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Wilson_City_Hall.jpg" alt="Wilson - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/19990205_34_CSX_Wilson%2C_NC_%286620530809%29.jpg" alt="Wilson - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 11</div>
@@ -2936,7 +2979,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-12">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">12</div>
@@ -2954,6 +2997,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2d/Oakley_Kansas.jpg" alt="Oakley - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/City_Hall_Oakley_California.jpg" alt="Oakley - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Oakley%2C_Idaho_-_Main_Street_Buildings.JPG" alt="Oakley - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Road_Island_Diner_Oakley_Utah.jpeg" alt="Oakley - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(11)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(11)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(11, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(11, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(11, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(11, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 12</div>
@@ -3027,7 +3077,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-13">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">13</div>
@@ -3045,6 +3095,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Dodge_City_Center.jpg" alt="Dodge - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Dodge_City_Meat.jpg" alt="Dodge - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20006816%2Fpexels-photo-20006816.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Dodge - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F16433691%2Fpexels-photo-16433691.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Dodge - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(12)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(12)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(12, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(12, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(12, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(12, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 13</div>
@@ -3118,7 +3175,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-14">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">14</div>
@@ -3136,6 +3193,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/First_Baptist_Church%2C_Liberal%2C_KS_IMG_6003.JPG" alt="Liberal - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Adventure_Bay_Water_Park%2C_Liberal%2C_KS_IMG_5977.JPG" alt="Liberal - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Liberal%2C_KS%2C_Chamber_of_Commerce_IMG_5990.JPG" alt="Liberal - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Liberal_Alberta.png" alt="Liberal - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(13)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(13)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(13, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(13, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(13, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(13, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 14</div>
@@ -3209,7 +3273,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-15">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">15</div>
@@ -3227,6 +3291,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/MedicineLodgePeaceTreatyAmphitheater.png" alt="Medicine Lodge - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/In_the_Medicine_Lodge_-_Arikara.jpg" alt="Medicine Lodge - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Council_at_Medicine_Lodge_Creek.png" alt="Medicine Lodge - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(14)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(14)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(14, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(14, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(14, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 15</div>
@@ -3300,7 +3371,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-16">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">16</div>
@@ -3318,6 +3389,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14647530%2Fpexels-photo-14647530.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Wichita - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Wichita_Falls_Skyline.jpg" alt="Wichita - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/U.S._Courthouse%2C_Wichita%2C_KS.jpg" alt="Wichita - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(15)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(15)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(15, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(15, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(15, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 16</div>
@@ -3396,7 +3474,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-17">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">17</div>
@@ -3487,7 +3565,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-18">
+        </div><div class="day-card-enhanced" id="day-18">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">18</div>
@@ -3505,6 +3583,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Cherokee_County_Kansas_Incorporated_and_Unincorporated_areas_Galena_Highlighted.svg" alt="Galena - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/US20-IL84Galena.JPG" alt="Galena - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Kent_County_Maryland_Incorporated_and_Unincorporated_areas_Galena_Highlighted.svg" alt="Galena - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Galena_Il_Galena_River1.JPG" alt="Galena - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Galena_Il_Galena_Historic_District_Turner_Hall_and_FD1.JPG" alt="Galena - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Galena_Il_Galena_Historic_District_Downtown2.JPG" alt="Galena - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Galena_Illinois_skyline.JPG" alt="Galena - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Main_Street_westview_Galena_Illinois_P2140173_House_w_Pine_Tree.jpg" alt="Galena - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Galena_Il_Galena_Historic_District_Downtown1.JPG" alt="Galena - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Galena-183948.jpg" alt="Galena - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(17)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(17)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(17, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(17, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(17, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(17, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(17, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(17, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(17, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(17, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(17, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(17, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 18</div>
@@ -3856,6 +3941,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=US&itin=US%3A%3Akansas%3A%3Asunflower-heartland-odyssey&lang=ar&days=20" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

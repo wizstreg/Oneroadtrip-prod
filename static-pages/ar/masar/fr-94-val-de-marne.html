@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -2229,21 +2230,7 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+7 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A94%3A%3Aval-de-marne&lang=ar&days=10" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2261,6 +2248,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Mairie_de_Nogent_sur_Marne_-_panoramio.jpg" alt="Nogent Sur Marne - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Mairie_Nogent_Marne_3.jpg" alt="Nogent Sur Marne - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Mairie_Nogent_Marne_2.jpg" alt="Nogent Sur Marne - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Mairie_Nogent_Marne_4.jpg" alt="Nogent Sur Marne - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Mairie_Nogent_Marne_6.jpg" alt="Nogent Sur Marne - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/Mairie_Nogent_Marne_5.jpg" alt="Nogent Sur Marne - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 4</div>
@@ -2339,7 +2333,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">5</div>
@@ -2357,6 +2351,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/H%C3%B4tel_Ville_Joinville_Pont_3.jpg" alt="Joinville Le Pont - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/H%C3%B4tel_Ville_Joinville_Pont_1.jpg" alt="Joinville Le Pont - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 5</div>
@@ -2430,7 +2431,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">6</div>
@@ -2448,6 +2449,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Maisons_Alfort_France_eglise_Saint_Remi.JPG" alt="Maisons Alfort - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Mairie_de_Maisons_Alfort_France.JPG" alt="Maisons Alfort - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Mairie_de_Maisons-Alfort_automne_2009.JPG" alt="Maisons Alfort - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/%C3%89corch%C3%A9_cavalier_Fragonard_Alfort_1.jpg" alt="Maisons Alfort - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Maisons-Alfort_-_La_mairie_avec_un_polarisant.jpg" alt="Maisons Alfort - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 6</div>
@@ -2531,7 +2539,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">7</div>
@@ -2549,6 +2557,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F302588%2Fpexels-photo-302588.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="L Hay Les Roses - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F9815528%2Fpexels-photo-9815528.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="L Hay Les Roses - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 7</div>
@@ -2617,7 +2632,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">8</div>
@@ -2635,6 +2650,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/89/H%C3%B4tel_ville_Fresnes_Val_Marne_3.jpg" alt="Fresnes - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Parc_des_Aulnes_%282%29.jpg" alt="Fresnes - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Fresnes-Tilloloy%2C_Somme%2C_Fr%2C_Clocher_vue_de_la_rue_Principale%2C_direction_Abbeville.jpg" alt="Fresnes - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 8</div>
@@ -2708,7 +2730,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">9</div>
@@ -2804,7 +2826,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">10</div>
@@ -2822,6 +2844,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/32/%C3%89glise_Saint-Pierre%2C_Charenton-le-Pont_-_Front.jpg" alt="Charenton Le Pont - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Charenton-le-pont_place_dussault.JPG" alt="Charenton Le Pont - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Henri_Rousseau_-_The_Laundry_Boat_of_Pont_de_Charenton_%281895%29.jpg" alt="Charenton Le Pont - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Ch%C3%A2teau_de_Conflans_%28ancien%29_-_Chapelle%2C_fa%C3%A7ade_-_Charenton-le-Pont_-_M%C3%A9diath%C3%A8que_de_l%27architecture_et_du_patrimoine_-_APMH00015029.jpg" alt="Charenton Le Pont - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Ch%C3%A2teau_de_Conflans_%28ancien%29_-_Fa%C3%A7ade_sud_-_Charenton-le-Pont_-_M%C3%A9diath%C3%A8que_de_l%27architecture_et_du_patrimoine_-_APMH00015026.jpg" alt="Charenton Le Pont - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(9, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 10</div>
@@ -3178,6 +3207,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A94%3A%3Aval-de-marne&lang=ar&days=10" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

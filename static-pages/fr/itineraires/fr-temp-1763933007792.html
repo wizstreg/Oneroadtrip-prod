@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Sommaire</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Thorenc</a></li><li><a href="#day-2">2. Entrevaux</a></li><li><a href="#day-3">3. Annot</a></li><li><a href="#day-4">4. Castellane</a></li><li><a href="#day-6">5. La Palud Sur Verdon</a></li><li><a href="#day-7">6. Aiguines</a></li><li><a href="#day-9">7. Les Salles Sur Verdon</a></li><li><a href="#day-10">8. Moustiers Sainte Marie</a></li><li><a href="#day-13">9. Sainte Croix Du Verdon</a></li><li><a href="#day-15">10. Riez</a></li><li><a href="#day-17">11. Bauduen</a></li>
+            <li><a href="#day-1">1. Thorenc</a></li><li><a href="#day-2">2. Entrevaux</a></li><li><a href="#day-3">3. Annot</a></li><li><a href="#day-4">4. Castellane</a></li><li><a href="#day-5">5. La Palud Sur Verdon</a></li><li><a href="#day-6">6. Aiguines</a></li><li><a href="#day-7">7. Les Salles Sur Verdon</a></li><li><a href="#day-8">8. Moustiers Sainte Marie</a></li><li><a href="#day-9">9. Sainte Croix Du Verdon</a></li><li><a href="#day-10">10. Riez</a></li><li><a href="#day-11">11. Bauduen</a></li>
             <li><a href="#map-section">🗺️ Carte</a></li>
             <li><a href="#faq-section">❓ Questions fréquentes</a></li>
         </ul>
@@ -2141,25 +2142,11 @@ body {
                     
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Pour voir gratuitement la suite du parcours, le modifier, intégrer vos futures réservations, imprimer et conserver le guide de voyage, continuez sur la page suivante.</p>
-                    <p class="blur-note">Connexion ou inscription nécessaire</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+8 étapes supplémentaires</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3Atemp_1763933007792&lang=fr&days=11" class="btn-continue">Continuer →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Ou construisez votre itinéraire de A à Z</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4-5</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Castellane</h3>
@@ -2174,8 +2161,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Castellane_FR.JPG" alt="Castellane - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Castellane_du_rocher.JPG" alt="Castellane - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/France-002878_-_Castellane_%26_Bridge_%2816065159302%29.jpg" alt="Castellane - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/France-002879_-_Castellane_%2815879879799%29.jpg" alt="Castellane - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/France_PACA_04_Castellane_04.jpg" alt="Castellane - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 4-5</div>
+                            <div class="overlay-text">Jour 4</div>
                         </div>
                     </div>
                 </div>
@@ -2240,10 +2234,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6</div>
+                    <div class="day-number">5</div>
                     <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
@@ -2259,8 +2253,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/La_Palud-sur-Verdon.jpg" alt="La Palud Sur Verdon - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/La_Palud-sur-Verdon_Gorges_du_Verdon_01.jpg" alt="La Palud Sur Verdon - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/La_Palud-sur-Verdon_Gorges_du_Verdon_05.jpg" alt="La Palud Sur Verdon - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35052274%2Fpexels-photo-35052274.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="La Palud Sur Verdon - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35007902%2Fpexels-photo-35007902.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="La Palud Sur Verdon - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jour 6</div>
+                            <div class="overlay-text">Jour 5</div>
                         </div>
                     </div>
                 </div>
@@ -2315,11 +2316,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">7-8</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Aiguines</h3>
@@ -2334,8 +2335,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/Aiguines-Verdon-Provence.jpg" alt="Aiguines - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/132F_Lac_de_Sainte-Croix_%2815400449293%29.jpg" alt="Aiguines - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Aiguines_-_panoramio.jpg" alt="Aiguines - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Aiguines_-_panoramio_%282%29.jpg" alt="Aiguines - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Aiguines%2C_France_-_panoramio.jpg" alt="Aiguines - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 7-8</div>
+                            <div class="overlay-text">Jour 6</div>
                         </div>
                     </div>
                 </div>
@@ -2400,10 +2408,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">9</div>
+                    <div class="day-number">7</div>
                     <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
@@ -2419,8 +2427,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Memorial_1024.jpg" alt="Les Salles Sur Verdon - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/LS_Mairie.jpg" alt="Les Salles Sur Verdon - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/LS_071123_memorial_ancien_village_19.jpg" alt="Les Salles Sur Verdon - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Camping_des_Ruisses_-_panoramio.jpg" alt="Les Salles Sur Verdon - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Camping_des_Ruisses_-_panoramio_%281%29.jpg" alt="Les Salles Sur Verdon - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jour 9</div>
+                            <div class="overlay-text">Jour 7</div>
                         </div>
                     </div>
                 </div>
@@ -2480,11 +2495,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10-12</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">8</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Moustiers Sainte Marie</h3>
@@ -2499,8 +2514,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Moustiers_Sainte_Marie_1.jpg" alt="Moustiers Sainte Marie - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Moustiers_Sainte_Marie.jpg" alt="Moustiers Sainte Marie - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Mus%C3%A9eDeLaFa%C3%AFenceDeMoustiers-Entree.jpg" alt="Moustiers Sainte Marie - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Aerial_view_of_Moustiers-Sainte-Marie%2C_France_%2851695233528%29.jpg" alt="Moustiers Sainte Marie - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 10-12</div>
+                            <div class="overlay-text">Jour 8</div>
                         </div>
                     </div>
                 </div>
@@ -2565,11 +2587,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13-14</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">9</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Sainte Croix Du Verdon</h3>
@@ -2584,8 +2606,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Gorges_Verdon_Barrage_Sainte_Croix.jpg" alt="Sainte Croix Du Verdon - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Sainte_Croix_du_Verdon_depuis_le_lac.jpg" alt="Sainte Croix Du Verdon - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Lac_de_Sainte_Croix%2C_Sainte-Croix-du-Verdon_-_panoramio.jpg" alt="Sainte Croix Du Verdon - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/04500_Sainte-Croix-du-Verdon%2C_France_-_panoramio.jpg" alt="Sainte Croix Du Verdon - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/84/04500_Sainte-Croix-du-Verdon%2C_France_-_panoramio_%281%29.jpg" alt="Sainte Croix Du Verdon - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 13-14</div>
+                            <div class="overlay-text">Jour 9</div>
                         </div>
                     </div>
                 </div>
@@ -2645,11 +2674,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">15-16</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">10</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Riez</h3>
@@ -2664,8 +2693,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Alpes-de-Haute-Provence_-_Baptist%C3%A8re_de_Riez_-_04.jpg" alt="Riez - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Baptist%C3%A8re_de_Riez_Mieusement.jpg" alt="Riez - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Alpes-de-Haute-Provence_-_Baptist%C3%A8re_de_Riez_-_02.jpg" alt="Riez - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Alpes-de-Haute-Provence_-_Baptist%C3%A8re_de_Riez_-_03.jpg" alt="Riez - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Alpes-de-Haute-Provence_-_Baptist%C3%A8re_de_Riez_-_05.jpg" alt="Riez - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/92/Fouilles_baptist%C3%A8re_Riez_2.jpg" alt="Riez - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(9, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(9, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 15-16</div>
+                            <div class="overlay-text">Jour 10</div>
                         </div>
                     </div>
                 </div>
@@ -2730,11 +2766,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">17-18</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">11</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Bauduen</h3>
@@ -2749,8 +2785,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Bauduen_10.jpg" alt="Bauduen - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Bauduen.jpg" alt="Bauduen - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Bauduen_-_2002.jpg" alt="Bauduen - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Bauduen_Sainte-Croix.JPG" alt="Bauduen - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Lac_de_sainte-croix_bauduen.jpg" alt="Bauduen - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6f/Bauduen_Panorama_Provence.jpg" alt="Bauduen - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Bauduen_et_son_environnement.jpg" alt="Bauduen - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Sainte-Croix-du-Verdon_-_panoramio_%281%29.jpg" alt="Bauduen - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(10, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(10, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(10, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(10, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 17-18</div>
+                            <div class="overlay-text">Jour 11</div>
                         </div>
                     </div>
                 </div>
@@ -2851,8 +2894,8 @@ body {
                 <div class="nearby-card-content">
                     <h3 class="nearby-card-title">ENTRE MER ET MONTAGNES D'AZUR</h3>
                     <div class="nearby-card-meta">
-                        <span>📅 11 jours</span>
-                        <span>🛣️ 231.6 Km</span>
+                        <span>📅 15 jours</span>
+                        <span>🛣️ 254.2 Km</span>
                     </div>
                 </div>
             </a>
@@ -2913,7 +2956,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Thorenc","coords":[43.7776,6.8492],"label":"Jour 1"},{"name":"Entrevaux","coords":[43.9539,6.815],"label":"Jour 2"},{"name":"Annot","coords":[43.9597,6.6511],"label":"Jour 3"},{"name":"Castellane","coords":[43.8478,6.5142],"label":"Jours 4-5"},{"name":"La Palud Sur Verdon","coords":[43.7792,6.3439],"label":"Jour 6"},{"name":"Aiguines","coords":[43.778,6.247],"label":"Jours 7-8"},{"name":"Les Salles Sur Verdon","coords":[43.7754,6.2155],"label":"Jour 9"},{"name":"Moustiers Sainte Marie","coords":[43.8422,6.2216],"label":"Jours 10-12"},{"name":"Sainte Croix Du Verdon","coords":[43.7738,6.1594],"label":"Jours 13-14"},{"name":"Riez","coords":[43.8169,6.0931],"label":"Jours 15-16"},{"name":"Bauduen","coords":[43.7497,6.1717],"label":"Jours 17-18"}];
+    var coords = [{"name":"Thorenc","coords":[43.7776,6.8492],"label":"Jour 1"},{"name":"Entrevaux","coords":[43.9539,6.815],"label":"Jour 2"},{"name":"Annot","coords":[43.9597,6.6511],"label":"Jour 3"},{"name":"Castellane","coords":[43.8478,6.5142],"label":"Jour 4"},{"name":"La Palud Sur Verdon","coords":[43.7792,6.3439],"label":"Jour 5"},{"name":"Aiguines","coords":[43.778,6.247],"label":"Jour 6"},{"name":"Les Salles Sur Verdon","coords":[43.7754,6.2155],"label":"Jour 7"},{"name":"Moustiers Sainte Marie","coords":[43.8422,6.2216],"label":"Jour 8"},{"name":"Sainte Croix Du Verdon","coords":[43.7738,6.1594],"label":"Jour 9"},{"name":"Riez","coords":[43.8169,6.0931],"label":"Jour 10"},{"name":"Bauduen","coords":[43.7497,6.1717],"label":"Jour 11"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3104,6 +3147,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Prêt à vivre cette aventure ?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3Atemp_1763933007792&lang=fr&days=11" class="cta-sticky-btn cta-sticky-primary">Personnaliser cet itinéraire</a>
+            <a href="https://www.oneroadtrip.com/static-pages/fr/itineraires/index.html" class="cta-sticky-btn cta-sticky-secondary">Tous les itinéraires</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

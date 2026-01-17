@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 المحتويات</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Puerto Del Rosario</a></li><li><a href="#day-2">2. Corralejo</a></li><li><a href="#day-4">3. El Cotillo</a></li><li><a href="#day-5">4. Betancuria</a></li><li><a href="#day-6">5. Jandia</a></li>
+            <li><a href="#day-1">1. Puerto Del Rosario</a></li><li><a href="#day-2">2. Corralejo</a></li><li><a href="#day-3">3. El Cotillo</a></li><li><a href="#day-4">4. Betancuria</a></li><li><a href="#day-5">5. Jandia</a></li>
             <li><a href="#map-section">🗺️ خريطة</a></li>
             <li><a href="#faq-section">❓ الأسئلة الشائعة</a></li>
         </ul>
@@ -2021,8 +2022,8 @@ body {
         </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">2-3</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">2</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Corralejo</h3>
@@ -2045,7 +2046,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 2-3</div>
+                            <div class="overlay-text">يوم 2</div>
                         </div>
                     </div>
                 </div>
@@ -2121,10 +2122,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-4">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4</div>
+                    <div class="day-number">3</div>
                     <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
@@ -2148,7 +2149,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">يوم 4</div>
+                            <div class="overlay-text">يوم 3</div>
                         </div>
                     </div>
                 </div>
@@ -2224,24 +2225,10 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+2 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=ES&itin=ES%3A%3Afuerteventura%3A%3Adunes-et-lagons&lang=ar&days=5" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">5</div>
+                    <div class="day-number">4</div>
                     <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
@@ -2257,8 +2244,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5427498%2Fpexels-photo-5427498.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Betancuria - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18983342%2Fpexels-photo-18983342.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Betancuria - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Spilostethus_pandurus_-_Betancuria_-_Fuerteventura_-_Canary_islands_-_Spain_-_02.jpg" alt="Betancuria - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Spilostethus_pandurus_-_Betancuria_-_Fuerteventura_-_Canary_islands_-_Spain_-_01.jpg" alt="Betancuria - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Catedral_de_Santa_Maria_-_Betancuria_-_Fuerteventura_-_Canary_islands_-_Spain_-_09.jpg" alt="Betancuria - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Interior_convento_3.jpg" alt="Betancuria - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Escudo_de_Betancuria.svg" alt="Betancuria - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Convento_Cristo_December_2008-9.jpg" alt="Betancuria - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Convento_Cristo_December_2008-6a.jpg" alt="Betancuria - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(3, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(3, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(3, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">يوم 5</div>
+                            <div class="overlay-text">يوم 4</div>
                         </div>
                     </div>
                 </div>
@@ -2334,11 +2328,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6-7</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Jandia</h3>
@@ -2353,8 +2347,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20531431%2Fpexels-photo-20531431.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Jandia - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5841307%2Fpexels-photo-5841307.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Jandia - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F31455077%2Fpexels-photo-31455077.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Jandia - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Gran_Valle_-_Jandia_-_Fuerteventura_-_14.jpg" alt="Jandia - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Gran_Valle_-_Jandia_-_Fuerteventura_-_13.jpg" alt="Jandia - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Jandia_on_the_trail_to_the_Faro_3_%283299469999%29.jpg" alt="Jandia - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 6-7</div>
+                            <div class="overlay-text">يوم 5</div>
                         </div>
                     </div>
                 </div>
@@ -2506,7 +2507,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Puerto Del Rosario","coords":[28.5004,-13.8629],"label":"يوم 1"},{"name":"Corralejo","coords":[28.7306,-13.8674],"label":"يومs 2-3"},{"name":"El Cotillo","coords":[28.6825,-14.0092],"label":"يوم 4"},{"name":"Betancuria","coords":[28.4254,-14.0537],"label":"يوم 5"},{"name":"Jandia","coords":[28.0517,-14.3506],"label":"يومs 6-7"}];
+    var coords = [{"name":"Puerto Del Rosario","coords":[28.5004,-13.8629],"label":"يوم 1"},{"name":"Corralejo","coords":[28.7306,-13.8674],"label":"يوم 2"},{"name":"El Cotillo","coords":[28.6825,-14.0092],"label":"يوم 3"},{"name":"Betancuria","coords":[28.4254,-14.0537],"label":"يوم 4"},{"name":"Jandia","coords":[28.0517,-14.3506],"label":"يوم 5"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -2697,6 +2698,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=ES&itin=ES%3A%3Afuerteventura%3A%3Adunes-et-lagons&lang=ar&days=5" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

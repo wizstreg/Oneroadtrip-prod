@@ -554,6 +554,76 @@
   </div><!-- /section4Container -->
   </main>
 
+  <!-- === SECTION ADMIN: Visualisation et export des RT === -->
+  <section id="adminRTViewer" class="section-group" style="display:none;margin-top:40px;background:rgba(220,38,38,0.05)">
+    <div class="section-group-title" style="background:#dc2626;color:#fff">🔴 ADMIN — Visualiser / Exporter les itinéraires</div>
+    
+    <div class="card" style="margin-top:20px">
+      <h2>📂 Charger un fichier JSON d'itinéraires</h2>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <input type="file" id="adminRTFile" accept=".json" style="flex:1;min-width:200px">
+        <span style="color:#64748b;font-size:13px">ou</span>
+        <input type="text" id="adminRTUrl" placeholder="URL du fichier JSON (ex: ./data/itins/FR.json)" style="flex:2;min-width:250px;padding:8px 12px;border:1px solid #cbd5e1;border-radius:8px">
+        <button class="btn ghost" id="adminLoadUrl" type="button">Charger URL</button>
+      </div>
+      <div id="adminRTStatus" style="display:none;padding:8px;border-radius:6px;font-size:13px"></div>
+    </div>
+
+    <div class="card" id="adminRTNavCard" style="display:none">
+      <h2>🗺️ Navigation dans les itinéraires</h2>
+      <div style="display:flex;gap:12px;align-items:center;margin-bottom:16px">
+        <button class="btn ghost" id="adminPrevRT" type="button" style="font-size:20px;padding:8px 16px">◀</button>
+        <div style="flex:1;text-align:center">
+          <div id="adminRTCounter" style="font-size:14px;color:#64748b">0 / 0</div>
+          <div id="adminRTTitle" style="font-size:18px;font-weight:700;color:#113f7a;margin-top:4px">—</div>
+          <div id="adminRTMeta" style="font-size:13px;color:#64748b;margin-top:2px"></div>
+        </div>
+        <button class="btn ghost" id="adminNextRT" type="button" style="font-size:20px;padding:8px 16px">▶</button>
+      </div>
+      
+      <!-- Aperçu rapide -->
+      <div id="adminRTPreview" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;max-height:300px;overflow-y:auto;font-size:13px;margin-bottom:16px">
+        <em style="color:#94a3b8">Aucun itinéraire chargé</em>
+      </div>
+      
+      <!-- Actions -->
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn" id="adminExportPrompt" type="button">📝 Générer prompt de réécriture</button>
+        <button class="btn ghost" id="adminCopyJSON" type="button">📋 Copier JSON brut</button>
+        <button class="btn ghost" id="adminOpenRT" type="button">🔗 Ouvrir dans RT Detail</button>
+      </div>
+    </div>
+
+    <!-- Zone de prompt généré -->
+    <div class="card" id="adminPromptCard" style="display:none">
+      <h2>📝 Prompt de réécriture</h2>
+      <p style="font-size:13px;color:#64748b;margin-bottom:12px">Copiez ce prompt et collez-le à l'IA avec vos articles de remplacement. Le JSON retourné aura le même itin_id et pourra remplacer l'ancien via import.</p>
+      <textarea id="adminPromptOutput" style="height:400px;font-size:12px" readonly></textarea>
+      <div style="margin-top:10px;display:flex;gap:10px">
+        <button class="btn" id="adminCopyPrompt" type="button">📋 Copier le prompt</button>
+        <button class="btn ghost" id="adminClosePrompt" type="button">Fermer</button>
+      </div>
+    </div>
+
+    <!-- Option suppression autres langues -->
+    <div class="card" style="margin-top:14px">
+      <h2>🗑️ Gestion des autres langues</h2>
+      <p style="font-size:13px;color:#64748b;margin-bottom:12px">
+        Après réécriture du FR, supprimez les versions EN/ES/IT/PT/AR pour les régénérer proprement via traduction.
+      </p>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+          <input type="checkbox" id="adminDeleteOtherLangs" style="width:18px;height:18px">
+          <span style="font-weight:600;color:#dc2626">Supprimer les autres langues (EN, ES, IT, PT, AR)</span>
+        </label>
+      </div>
+      <button class="btn" id="adminDeleteLangsBtn" type="button" style="background:#dc2626;display:none">
+        🗑️ Supprimer maintenant les autres langues
+      </button>
+      <div id="adminDeleteStatus" style="display:none;margin-top:10px;padding:10px;border-radius:8px;font-size:13px"></div>
+    </div>
+  </section>
+
   <footer>
     <a href="mentions-legales.html">Mentions légales</a> ·
     <a href="politique-confidentialite.html">Confidentialité</a> ·
@@ -2487,6 +2557,7 @@ cleaned = cleaned
   function checkModelOptionVisibility(user){
     const adminOptionsGrid = document.getElementById('adminOptionsGrid');
     const userModeInfo = document.getElementById('userModeInfo');
+    const adminRTViewer = document.getElementById('adminRTViewer');
     
     console.log('[ORT] checkModelOptionVisibility called, user:', user ? user.email : 'null');
     
@@ -2495,12 +2566,16 @@ cleaned = cleaned
       // Activer le mode admin - afficher les 4 options
       if(adminOptionsGrid) adminOptionsGrid.style.display = '';
       if(userModeInfo) userModeInfo.style.display = 'none';
+      if(adminRTViewer) adminRTViewer.style.display = '';
       // Activer le script de gestion des options
       if(window.initAdminOptions) window.initAdminOptions();
+      // Initialiser le viewer RT
+      if(window.initAdminRTViewer) window.initAdminRTViewer();
     } else {
       // Mode utilisateur normal
       if(adminOptionsGrid) adminOptionsGrid.style.display = 'none';
       if(userModeInfo) userModeInfo.style.display = '';
+      if(adminRTViewer) adminRTViewer.style.display = 'none';
     }
   }
 
@@ -2577,6 +2652,315 @@ cleaned = cleaned
     }catch(e){ showAlert('err', e?.message || 'Erreur d’authentification.'); }
   });
 })();
+
+// === ADMIN RT VIEWER - Navigation et export des itinéraires ===
+window.initAdminRTViewer = function() {
+  console.log('[ADMIN RT] Initializing RT Viewer...');
+  
+  let allItins = [];
+  let currentIndex = 0;
+  let sourceFileName = '';
+  
+  const fileInput = document.getElementById('adminRTFile');
+  const urlInput = document.getElementById('adminRTUrl');
+  const loadUrlBtn = document.getElementById('adminLoadUrl');
+  const statusDiv = document.getElementById('adminRTStatus');
+  const navCard = document.getElementById('adminRTNavCard');
+  const prevBtn = document.getElementById('adminPrevRT');
+  const nextBtn = document.getElementById('adminNextRT');
+  const counterDiv = document.getElementById('adminRTCounter');
+  const titleDiv = document.getElementById('adminRTTitle');
+  const metaDiv = document.getElementById('adminRTMeta');
+  const previewDiv = document.getElementById('adminRTPreview');
+  const exportPromptBtn = document.getElementById('adminExportPrompt');
+  const copyJSONBtn = document.getElementById('adminCopyJSON');
+  const openRTBtn = document.getElementById('adminOpenRT');
+  const promptCard = document.getElementById('adminPromptCard');
+  const promptOutput = document.getElementById('adminPromptOutput');
+  const copyPromptBtn = document.getElementById('adminCopyPrompt');
+  const closePromptBtn = document.getElementById('adminClosePrompt');
+  
+  function showStatus(msg, type) {
+    statusDiv.style.display = 'block';
+    statusDiv.textContent = msg;
+    statusDiv.style.background = type === 'ok' ? '#f0fdf4' : type === 'err' ? '#fef2f2' : '#fef3c7';
+    statusDiv.style.color = type === 'ok' ? '#166534' : type === 'err' ? '#dc2626' : '#92400e';
+    statusDiv.style.border = `1px solid ${type === 'ok' ? '#bbf7d0' : type === 'err' ? '#fecaca' : '#fde047'}`;
+  }
+  
+  function loadItins(data, filename) {
+    try {
+      const parsed = typeof data === 'string' ? JSON.parse(data) : data;
+      
+      // Supporter différents formats de fichiers
+      if (parsed.itineraries && Array.isArray(parsed.itineraries)) {
+        allItins = parsed.itineraries;
+      } else if (parsed.itins && Array.isArray(parsed.itins)) {
+        allItins = parsed.itins;
+      } else if (parsed.modules && Array.isArray(parsed.modules)) {
+        allItins = parsed.modules;
+      } else if (Array.isArray(parsed)) {
+        allItins = parsed;
+      } else {
+        // Chercher la première clé qui contient un array
+        const keys = Object.keys(parsed);
+        for (const key of keys) {
+          if (Array.isArray(parsed[key]) && parsed[key].length > 0) {
+            allItins = parsed[key];
+            console.log('[ADMIN RT] Found array in key:', key);
+            break;
+          }
+        }
+      }
+      
+      sourceFileName = filename;
+      currentIndex = 0;
+      
+      if (!allItins || allItins.length === 0) {
+        showStatus('❌ Aucun itinéraire trouvé. Structure: ' + Object.keys(parsed).join(', '), 'err');
+        navCard.style.display = 'none';
+        return;
+      }
+      
+      showStatus(`✅ ${allItins.length} itinéraire(s) chargé(s) depuis ${filename}`, 'ok');
+      navCard.style.display = '';
+      renderCurrent();
+    } catch (e) {
+      showStatus('❌ Erreur de parsing JSON: ' + e.message, 'err');
+      navCard.style.display = 'none';
+    }
+  }
+  
+  function renderCurrent() {
+    if (allItins.length === 0) return;
+    
+    const itin = allItins[currentIndex];
+    counterDiv.textContent = `${currentIndex + 1} / ${allItins.length}`;
+    titleDiv.textContent = itin.title || itin.name || itin.itin_id || itin.module_id || '(sans titre)';
+    
+    // Supporter days_plan (itins) ou steps (modules) ou places
+    const daysData = itin.days_plan || itin.steps || itin.places || [];
+    const days = daysData.length || 0;
+    const totalVisits = daysData.reduce((sum, d) => sum + (d.visits?.length || 0), 0) || 0;
+    const totalActs = daysData.reduce((sum, d) => sum + (d.activities?.length || 0), 0) || 0;
+    const id = itin.itin_id || itin.module_id || itin.id || '?';
+    metaDiv.textContent = `${id} • ${days} jour(s)/étape(s) • ${totalVisits} visites • ${totalActs} activités`;
+    
+    // Aperçu des jours/étapes
+    let previewHTML = '';
+    if (daysData.length > 0) {
+      daysData.forEach((day, i) => {
+        const nightPlace = day.night?.place_id || day.place_id || day.name || '?';
+        const visitsCount = day.visits?.length || 0;
+        const actsCount = day.activities?.length || 0;
+        const dayNum = day.day || (i + 1);
+        const sugDays = day.suggested_days || day.nights || '?';
+        
+        previewHTML += `<div style="margin-bottom:8px;padding:8px;background:#fff;border-radius:6px;border-left:3px solid #113f7a">
+          <strong>Jour/Étape ${dayNum}</strong> — ${nightPlace} (${sugDays}j)
+          <div style="font-size:12px;color:#64748b;margin-top:4px">
+            ${visitsCount} visite(s): ${(day.visits || []).slice(0,2).map(v => (v.text || v.name || '').slice(0,50) + '...').join(' | ') || '—'}
+          </div>
+          <div style="font-size:12px;color:#64748b">
+            ${actsCount} activité(s): ${(day.activities || []).slice(0,2).map(a => (a.text || a.name || '').slice(0,50) + '...').join(' | ') || '—'}
+          </div>
+        </div>`;
+      });
+    } else {
+      previewHTML = '<em style="color:#94a3b8">Pas de days_plan/steps</em>';
+    }
+    previewDiv.innerHTML = previewHTML;
+    
+    // Activer/désactiver les boutons
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= allItins.length - 1;
+  }
+  
+  // Event listeners
+  fileInput?.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => loadItins(ev.target.result, file.name);
+    reader.onerror = () => showStatus('Erreur de lecture du fichier', 'err');
+    reader.readAsText(file);
+  });
+  
+  loadUrlBtn?.addEventListener('click', async () => {
+    const url = urlInput.value.trim();
+    if (!url) { showStatus('Entrez une URL', 'warn'); return; }
+    showStatus('Chargement...', 'warn');
+    try {
+      const resp = await fetch(url);
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      const data = await resp.json();
+      loadItins(data, url.split('/').pop());
+    } catch (e) {
+      showStatus('❌ Erreur: ' + e.message, 'err');
+    }
+  });
+  
+  prevBtn?.addEventListener('click', () => {
+    if (currentIndex > 0) { currentIndex--; renderCurrent(); }
+  });
+  
+  nextBtn?.addEventListener('click', () => {
+    if (currentIndex < allItins.length - 1) { currentIndex++; renderCurrent(); }
+  });
+  
+  copyJSONBtn?.addEventListener('click', () => {
+    if (allItins.length === 0) return;
+    const json = JSON.stringify({ itins: [allItins[currentIndex]] }, null, 2);
+    navigator.clipboard.writeText(json).then(() => {
+      copyJSONBtn.textContent = '✅ Copié !';
+      setTimeout(() => copyJSONBtn.textContent = '📋 Copier JSON brut', 1500);
+    });
+  });
+  
+  openRTBtn?.addEventListener('click', () => {
+    if (allItins.length === 0) return;
+    const itin = allItins[currentIndex];
+    const cc = itin.itin_id?.split('::')[0] || 'XX';
+    const itinId = itin.itin_id || '';
+    window.open(`./roadtrip_detail.html?cc=${cc}&itin=${encodeURIComponent(itinId)}`, '_blank');
+  });
+  
+  exportPromptBtn?.addEventListener('click', () => {
+    if (allItins.length === 0) return;
+    const itin = allItins[currentIndex];
+    
+    const prompt = generateRewritePrompt(itin);
+    promptOutput.value = prompt;
+    promptCard.style.display = '';
+  });
+  
+  copyPromptBtn?.addEventListener('click', () => {
+    navigator.clipboard.writeText(promptOutput.value).then(() => {
+      copyPromptBtn.textContent = '✅ Copié !';
+      setTimeout(() => copyPromptBtn.textContent = '📋 Copier le prompt', 1500);
+    });
+  });
+  
+  closePromptBtn?.addEventListener('click', () => {
+    promptCard.style.display = 'none';
+  });
+  
+  // === Gestion suppression autres langues ===
+  const deleteOtherLangsCheckbox = document.getElementById('adminDeleteOtherLangs');
+  const deleteLangsBtn = document.getElementById('adminDeleteLangsBtn');
+  const deleteStatus = document.getElementById('adminDeleteStatus');
+  
+  deleteOtherLangsCheckbox?.addEventListener('change', () => {
+    if (deleteLangsBtn) {
+      deleteLangsBtn.style.display = deleteOtherLangsCheckbox.checked ? '' : 'none';
+    }
+  });
+  
+  deleteLangsBtn?.addEventListener('click', async () => {
+    if (allItins.length === 0) {
+      showDeleteStatus('❌ Aucun itinéraire chargé', 'err');
+      return;
+    }
+    
+    const itin = allItins[currentIndex];
+    const itinId = itin.itin_id || itin.id;
+    const cc = itinId?.split('::')[0] || itin.country || 'XX';
+    
+    if (!itinId) {
+      showDeleteStatus('❌ Pas d\'itin_id trouvé', 'err');
+      return;
+    }
+    
+    const confirmMsg = `Supprimer les versions EN, ES, IT, PT, AR de:\n\n"${itin.title}"\n(${itinId})\n\nLa version FR sera conservée.`;
+    if (!confirm(confirmMsg)) return;
+    
+    deleteLangsBtn.disabled = true;
+    deleteLangsBtn.textContent = '⏳ Suppression...';
+    showDeleteStatus('⏳ Suppression en cours...', 'warn');
+    
+    try {
+      const resp = await fetch('http://localhost:8030/api/delete-itinerary', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          country: cc.toUpperCase(), 
+          itinId: itinId,
+          languages: ['en', 'es', 'it', 'pt', 'ar'],
+          confirmedBy: 'marcsorci@free.fr'
+        })
+      });
+      
+      const result = await resp.json();
+      
+      if (result.success) {
+        showDeleteStatus(`✅ Supprimé de: ${result.deletedFrom || 'fichiers autres langues'}`, 'ok');
+      } else {
+        showDeleteStatus(`❌ Erreur: ${result.error || 'Échec'}`, 'err');
+      }
+    } catch(err) {
+      showDeleteStatus(`❌ Serveur non accessible (localhost:8030): ${err.message}`, 'err');
+    } finally {
+      deleteLangsBtn.disabled = false;
+      deleteLangsBtn.textContent = '🗑️ Supprimer maintenant les autres langues';
+    }
+  });
+  
+  function showDeleteStatus(msg, type) {
+    if (!deleteStatus) return;
+    deleteStatus.style.display = 'block';
+    deleteStatus.textContent = msg;
+    deleteStatus.style.background = type === 'ok' ? '#f0fdf4' : type === 'err' ? '#fef2f2' : '#fef3c7';
+    deleteStatus.style.color = type === 'ok' ? '#166534' : type === 'err' ? '#dc2626' : '#92400e';
+    deleteStatus.style.border = `1px solid ${type === 'ok' ? '#bbf7d0' : type === 'err' ? '#fecaca' : '#fde047'}`;
+  }
+  
+  function generateRewritePrompt(itin) {
+    return `Tu es un réécrivain d'itinéraires de voyage. Je vais te fournir un JSON existant et des articles/sources pour améliorer le contenu.
+
+🎯 OBJECTIF : Réécrire les textes de visits[] et activities[] en gardant la STRUCTURE EXACTE du JSON.
+
+📋 JSON À RÉÉCRIRE (conserver itin_id, coords, place_id, structure days_plan) :
+\`\`\`json
+${JSON.stringify({ itins: [itin] }, null, 2)}
+\`\`\`
+
+✅ À CONSERVER TEL QUEL :
+- itin_id: "${itin.itin_id}"
+- title: "${itin.title}"
+- source_url: "${itin.source_url || ''}" (mettre l'URL des nouveaux articles)
+- dept_code, dept_name, region_code
+- Tous les coords et place_id
+- La structure days_plan avec les mêmes jours
+- to_next_leg (distances/durées)
+
+✍️ À RÉÉCRIRE COMPLÈTEMENT :
+- Tous les textes dans visits[].text → descriptions riches des lieux (monuments, temples, sites)
+- Tous les textes dans activities[].text → descriptions des activités (marchés, randos, kayak)
+- 5-8 visits + 3-6 activities par jour minimum
+- Varier le style : descriptif ("Le temple déploie..."), impératif ("Découvrez..."), narratif ("Les moines tissent...")
+
+🚫 NEUTRALISATION :
+- Pas de noms de commerces → "Les loueurs proposent..."
+- Pas de personnes nommées
+- Pas de prix
+- Pas de dates récentes
+- "à moto" → "par la route"
+
+📄 ARTICLES/SOURCES POUR RÉÉCRITURE :
+[COLLE ICI TES ARTICLES - le contenu servira à enrichir les visits et activities]
+
+🎯 RÉSULTAT ATTENDU :
+Produis UNIQUEMENT le JSON valide avec la même structure, sans texte autour, sans balises Markdown.
+Le JSON doit pouvoir remplacer directement l'ancien dans le fichier ${sourceFileName || 'itins'}.`;
+  }
+  
+  console.log('[ADMIN RT] ✅ RT Viewer initialized');
+};
+
+// Auto-init si admin déjà détecté
+if (document.getElementById('adminRTViewer')?.style.display !== 'none') {
+  window.initAdminRTViewer?.();
+}
 </script>
 </body>
 </html>

@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Contenido</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Opatija</a></li><li><a href="#day-3">2. Rijeka</a></li><li><a href="#day-4">3. Krk</a></li><li><a href="#day-6">4. Vrbnik</a></li><li><a href="#day-8">5. Baska</a></li><li><a href="#day-10">6. Cres</a></li><li><a href="#day-12">7. Mali Losinj</a></li><li><a href="#day-14">8. Veli Losinj</a></li><li><a href="#day-15">9. Rab</a></li><li><a href="#day-17">10. Lopar</a></li>
+            <li><a href="#day-1">1. Opatija</a></li><li><a href="#day-2">2. Rijeka</a></li><li><a href="#day-3">3. Krk</a></li><li><a href="#day-4">4. Vrbnik</a></li><li><a href="#day-5">5. Baska</a></li><li><a href="#day-6">6. Cres</a></li><li><a href="#day-7">7. Mali Losinj</a></li><li><a href="#day-8">8. Veli Losinj</a></li><li><a href="#day-9">9. Rab</a></li><li><a href="#day-10">10. Lopar</a></li>
             <li><a href="#map-section">🗺️ Mapa</a></li>
             <li><a href="#faq-section">❓ Preguntas frecuentes</a></li>
         </ul>
@@ -1918,8 +1919,8 @@ body {
         <div class="day-card-enhanced" id="day-1">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">1-2</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">1</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Opatija</h3>
@@ -1942,7 +1943,7 @@ body {
                         <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 1-2</div>
+                            <div class="overlay-text">Día 1</div>
                         </div>
                     </div>
                 </div>
@@ -2023,10 +2024,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-3">
+        </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">3</div>
+                    <div class="day-number">2</div>
                     <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
@@ -2050,7 +2051,7 @@ body {
                         <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Día 3</div>
+                            <div class="overlay-text">Día 2</div>
                         </div>
                     </div>
                 </div>
@@ -2131,11 +2132,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-4">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4-5</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">3</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Krk</h3>
@@ -2158,7 +2159,7 @@ body {
                         <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 4-5</div>
+                            <div class="overlay-text">Día 3</div>
                         </div>
                     </div>
                 </div>
@@ -2239,25 +2240,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Para ver gratis el resto de este recorrido, modificarlo, integrar tus futuras reservas, imprimir y guardar la guía de viaje, continúa en la página siguiente.</p>
-                    <p class="blur-note">Conexión o registro necesario</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+7 etapas más</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=HR&itin=HR%3A%3Akvarner%3A%3Aopatija-krk-losinj-rab&lang=es&days=11" class="btn-continue">Continuar →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">O crea tu itinerario desde cero</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6-7</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Vrbnik</h3>
@@ -2272,8 +2259,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Vrbnik_07.jpg" alt="Vrbnik - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Vrbnik_Krk_Croatia.jpg" alt="Vrbnik - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Vrbnik_Krk_Croatia_vh.jpg" alt="Vrbnik - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Vrbnik_-_wyspa_Krk.JPG" alt="Vrbnik - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Vrbnik_01.jpg" alt="Vrbnik - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Vrbnik_05.jpg" alt="Vrbnik - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Vrbnik_bell_tower.jpg" alt="Vrbnik - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Vrbnik_parish_church_04.jpg" alt="Vrbnik - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Vrbnik_parish_church_06.jpg" alt="Vrbnik - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Vrbnik_parish_church_05.jpg" alt="Vrbnik - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(3, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(3, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(3, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(3, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 6-7</div>
+                            <div class="overlay-text">Día 4</div>
                         </div>
                     </div>
                 </div>
@@ -2354,11 +2348,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">8-9</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Baska</h3>
@@ -2373,8 +2367,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Croatia_Baska_bay.jpg" alt="Baska - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Croatia_Baska_coast.jpg" alt="Baska - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/57/Glagoljica_spomenik_baska.jpg" alt="Baska - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/da/Baska_Voda-mountain.jpg" alt="Baska - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Kroatien_Baska_enge_Gasse_in_der_Altstadt.JPG" alt="Baska - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/BaskaKrkIsand.jpg" alt="Baska - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/First_czech_in_Baska_-_panoramio.jpg" alt="Baska - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Op%C4%87ina_Ba%C5%A1ka%2C_Croatia_-_panoramio.jpg" alt="Baska - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Ba%C5%A1ka%2C_Croatia_-_panoramio_-_Arek_N._%283%29.jpg" alt="Baska - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Ba%C5%A1ka%2C_Croatia_-_panoramio_-_Arek_N._%284%29.jpg" alt="Baska - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(4, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(4, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(4, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 8-9</div>
+                            <div class="overlay-text">Día 5</div>
                         </div>
                     </div>
                 </div>
@@ -2455,11 +2456,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10-11</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Cres</h3>
@@ -2474,8 +2475,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F33519304%2Fpexels-photo-33519304.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cres - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F12897943%2Fpexels-photo-12897943.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cres - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F24974792%2Fpexels-photo-24974792.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cres - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/CresShipPort.jpg" alt="Cres - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/33/Cres-Cres1.jpg" alt="Cres - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 10-11</div>
+                            <div class="overlay-text">Día 6</div>
                         </div>
                     </div>
                 </div>
@@ -2556,11 +2564,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">12-13</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">7</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Mali Losinj</h3>
@@ -2575,8 +2583,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e4/Mali_Lo%C5%A1inj_-_city_-_panoramio.jpg" alt="Mali Losinj - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Mali_Lo%C5%A1inj_croatia.jpg" alt="Mali Losinj - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Mali_Losinj%2C_Kosturnica_Tower_for_the_Nameless_Sailors%27_Bones_in_Sveti_Martin_Bay%2C_autor_Istriana.jpg" alt="Mali Losinj - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 12-13</div>
+                            <div class="overlay-text">Día 7</div>
                         </div>
                     </div>
                 </div>
@@ -2657,10 +2672,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">14</div>
+                    <div class="day-number">8</div>
                     <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
@@ -2677,7 +2692,7 @@ body {
                         </div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Día 14</div>
+                            <div class="overlay-text">Día 8</div>
                         </div>
                     </div>
                 </div>
@@ -2758,11 +2773,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">15-16</div>
-                    <div class="day-label">Días</div>
+                    <div class="day-number">9</div>
+                    <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Rab</h3>
@@ -2777,8 +2792,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F13125481%2Fpexels-photo-13125481.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rab - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/20140507_Rab_town_hall_balcony.jpg" alt="Rab - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/City_Rab_-_panoramio.jpg" alt="Rab - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/2014-12-08_09-34-56_11113.0_Croatia_Licko-Senjska_Lun_Dudici.jpg" alt="Rab - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Días 15-16</div>
+                            <div class="overlay-text">Día 9</div>
                         </div>
                     </div>
                 </div>
@@ -2859,10 +2881,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">17</div>
+                    <div class="day-number">10</div>
                     <div class="day-label">Día</div>
                 </div>
                 <div class="day-meta">
@@ -2879,7 +2901,7 @@ body {
                         </div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Día 17</div>
+                            <div class="overlay-text">Día 10</div>
                         </div>
                     </div>
                 </div>
@@ -3047,7 +3069,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Opatija","coords":[45.3378,14.3053],"label":"Días 1-2"},{"name":"Rijeka","coords":[45.3271,14.4422],"label":"Día 3"},{"name":"Krk","coords":[45.0267,14.5753],"label":"Días 4-5"},{"name":"Vrbnik","coords":[45.0761,14.675],"label":"Días 6-7"},{"name":"Baska","coords":[44.9686,14.7536],"label":"Días 8-9"},{"name":"Cres","coords":[44.9608,14.4072],"label":"Días 10-11"},{"name":"Mali Losinj","coords":[44.5306,14.4681],"label":"Días 12-13"},{"name":"Veli Losinj","coords":[44.5142,14.5056],"label":"Día 14"},{"name":"Rab","coords":[44.7561,14.7597],"label":"Días 15-16"},{"name":"Lopar","coords":[44.8308,14.7292],"label":"Día 17"}];
+    var coords = [{"name":"Opatija","coords":[45.3378,14.3053],"label":"Día 1"},{"name":"Rijeka","coords":[45.3271,14.4422],"label":"Día 2"},{"name":"Krk","coords":[45.0267,14.5753],"label":"Día 3"},{"name":"Vrbnik","coords":[45.0761,14.675],"label":"Día 4"},{"name":"Baska","coords":[44.9686,14.7536],"label":"Día 5"},{"name":"Cres","coords":[44.9608,14.4072],"label":"Día 6"},{"name":"Mali Losinj","coords":[44.5306,14.4681],"label":"Día 7"},{"name":"Veli Losinj","coords":[44.5142,14.5056],"label":"Día 8"},{"name":"Rab","coords":[44.7561,14.7597],"label":"Día 9"},{"name":"Lopar","coords":[44.8308,14.7292],"label":"Día 10"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3238,6 +3260,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ ¿Listo para esta aventura?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=HR&itin=HR%3A%3Akvarner%3A%3Aopatija-krk-losinj-rab&lang=es&days=11" class="cta-sticky-btn cta-sticky-primary">Personalizar este itinerario</a>
+            <a href="https://www.oneroadtrip.com/static-pages/es/rutas/index.html" class="cta-sticky-btn cta-sticky-secondary">Todos los itinerarios</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

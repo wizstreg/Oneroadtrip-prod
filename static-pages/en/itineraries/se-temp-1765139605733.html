@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Contents</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Skane</a></li><li><a href="#day-2">2. Gothenburg</a></li><li><a href="#day-3">3. Kosterhavet</a></li><li><a href="#day-4">4. Visby</a></li><li><a href="#day-5">5. Stockholm</a></li><li><a href="#day-8">6. Stockholm Archipelago</a></li><li><a href="#day-9">7. Sigtuna</a></li><li><a href="#day-10">8. Are</a></li><li><a href="#day-11">9. Jokkmokk</a></li><li><a href="#day-12">10. Abisko</a></li>
+            <li><a href="#day-1">1. Skane</a></li><li><a href="#day-2">2. Gothenburg</a></li><li><a href="#day-3">3. Kosterhavet</a></li><li><a href="#day-4">4. Visby</a></li><li><a href="#day-5">5. Stockholm</a></li><li><a href="#day-6">6. Stockholm Archipelago</a></li><li><a href="#day-7">7. Sigtuna</a></li><li><a href="#day-8">8. Are</a></li><li><a href="#day-9">9. Jokkmokk</a></li><li><a href="#day-10">10. Abisko</a></li>
             <li><a href="#map-section">🗺️ Map</a></li>
             <li><a href="#faq-section">❓ Frequently asked questions</a></li>
         </ul>
@@ -2186,21 +2187,7 @@ body {
                     
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">To see the rest of this itinerary for free, customize it, add your future bookings, print and save your travel guide, continue to the next page.</p>
-                    <p class="blur-note">Login or registration required</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+7 more steps</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=SE&itin=SE%3A%3Atemp_1765139605733&lang=en&days=10" class="btn-continue">Continue →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Or build your own itinerary from scratch</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2218,6 +2205,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Visby%2C_Gotland%2C_Sweden_%286126619340%29.jpg" alt="Visby - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Visby_medieval_city_wall%2C_Gotland%2C_Sweden_%288864459852%29.jpg" alt="Visby - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/The_medieval_city_wall_of_Visby%2C_Gotland%2C_Sweden_%288639942632%29.jpg" alt="Visby - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Day 4</div>
@@ -2285,11 +2279,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">5-7</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Stockholm</h3>
@@ -2304,8 +2298,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Stockholm_Konserthuset_2002.jpg" alt="Stockholm - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Nationalmuseum_stockholm_20050902_001.jpg" alt="Stockholm - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Stockholm_photochrom2.jpg" alt="Stockholm - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Stockholms_stadshus_september_2011.jpg" alt="Stockholm - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f8/Kungliga_Tekniska_H%C3%B6gskolan_KTH2.jpg" alt="Stockholm - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/Kungliga_Tekniska_H%C3%B6gskolan_KTH3.jpg" alt="Stockholm - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Kungliga_Tekniska_H%C3%B6gskolan_KTH1.JPG" alt="Stockholm - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Kungliga_Tekniska_H%C3%B6gskolan_KTH5.JPG" alt="Stockholm - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Kungliga_Tekniska_H%C3%B6gskolan_KTH6.JPG" alt="Stockholm - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/54/Kungliga_Tekniska_H%C3%B6gskolan_KTH4.jpg" alt="Stockholm - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(4, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(4, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(4, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 5-7</div>
+                            <div class="overlay-text">Day 5</div>
                         </div>
                     </div>
                 </div>
@@ -2370,10 +2371,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">8</div>
+                    <div class="day-number">6</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2389,8 +2390,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F33252391%2Fpexels-photo-33252391.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Stockholm Archipelago - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1166123%2Fpexels-photo-1166123.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Stockholm Archipelago - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F39378%2Fsunset-channel-water-evening-39378.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Stockholm Archipelago - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F399176%2Fpexels-photo-399176.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Stockholm Archipelago - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 8</div>
+                            <div class="overlay-text">Day 6</div>
                         </div>
                     </div>
                 </div>
@@ -2455,10 +2463,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">9</div>
+                    <div class="day-number">7</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2474,8 +2482,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Sigtuna_September_2013_03.jpg" alt="Sigtuna - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Sigtuna_old_city_hall_2015.JPG" alt="Sigtuna - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Bokkiosk_i_Sigtuna_sommaren_2016.jpg" alt="Sigtuna - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 9</div>
+                            <div class="overlay-text">Day 7</div>
                         </div>
                     </div>
                 </div>
@@ -2540,10 +2555,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10</div>
+                    <div class="day-number">8</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2559,8 +2574,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F7789476%2Fpexels-photo-7789476.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Are - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F185706%2Fpexels-photo-185706.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Are - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F17276771%2Fpexels-photo-17276771.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Are - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Stockholm_Altstadt_Insel_%28193365177%29.jpeg" alt="Are - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 10</div>
+                            <div class="overlay-text">Day 8</div>
                         </div>
                     </div>
                 </div>
@@ -2620,10 +2642,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11</div>
+                    <div class="day-number">9</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2639,8 +2661,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Jokkmokk_Municipality.png" alt="Jokkmokk - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Jokkmokk_vapen.svg" alt="Jokkmokk - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Jokkmokk_Municipality_in_Norrbotten_County.png" alt="Jokkmokk - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Kvikkjokk-mot-deltat.JPG" alt="Jokkmokk - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Njommelsaska_i_Lappland_by_Carl_Svantje_Hallbeck.jpg" alt="Jokkmokk - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Polarcirkelen_p%C3%A5_vej_45_syd_for_Jokkmokk_1972.jpg" alt="Jokkmokk - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Jokkmokk_church_01.jpg" alt="Jokkmokk - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Jokkmokk_church_1860.jpg" alt="Jokkmokk - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(8, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(8, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(8, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 11</div>
+                            <div class="overlay-text">Day 9</div>
                         </div>
                     </div>
                 </div>
@@ -2705,11 +2734,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">12-13</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">10</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Abisko</h3>
@@ -2724,8 +2753,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Abisko_%C3%96stra_over_view.jpg" alt="Abisko - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/View_to_Riehppecohkka%2C_Jalgesv%C3%A1rri_and_S%C3%B8rdalen_from_Abisko%2C_Norrbotten%2C_Sweden%2C_2015_April.jpg" alt="Abisko - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Abisko_-_KMB_-_16000300023822.jpg" alt="Abisko - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/Aurora_in_Abisko_near_Tornetr%C3%A4sk.jpg" alt="Abisko - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Abisko_mountains_in_the_golden_hour.jpg" alt="Abisko - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Abisko_nationalpark_%2820170906_151616%29.jpg" alt="Abisko - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Abisko_Naturreservat.jpg" alt="Abisko - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/93/Kungsleden_at_Abisko_National_Park.jpg" alt="Abisko - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Abisko_%C3%96stra_railway_station_in_Abisko%2C_Kiruna%2C_Norrbottens_l%C3%A4n%2C_Sweden%2C_2022_June.jpg" alt="Abisko - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(9, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(9, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(9, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(9, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(9, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 12-13</div>
+                            <div class="overlay-text">Day 10</div>
                         </div>
                     </div>
                 </div>
@@ -2893,7 +2929,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Skane","coords":[55.9903,13.5958],"label":"Day 1"},{"name":"Gothenburg","coords":[57.7089,11.9746],"label":"Day 2"},{"name":"Kosterhavet","coords":[58.8833,11.0167],"label":"Day 3"},{"name":"Visby","coords":[57.6389,18.2947],"label":"Day 4"},{"name":"Stockholm","coords":[59.3293,18.0686],"label":"Days 5-7"},{"name":"Stockholm Archipelago","coords":[59.4,18.75],"label":"Day 8"},{"name":"Sigtuna","coords":[59.6167,17.7167],"label":"Day 9"},{"name":"Are","coords":[63.3989,13.0817],"label":"Day 10"},{"name":"Jokkmokk","coords":[66.6078,19.8256],"label":"Day 11"},{"name":"Abisko","coords":[68.35,18.8167],"label":"Days 12-13"}];
+    var coords = [{"name":"Skane","coords":[55.9903,13.5958],"label":"Day 1"},{"name":"Gothenburg","coords":[57.7089,11.9746],"label":"Day 2"},{"name":"Kosterhavet","coords":[58.8833,11.0167],"label":"Day 3"},{"name":"Visby","coords":[57.6389,18.2947],"label":"Day 4"},{"name":"Stockholm","coords":[59.3293,18.0686],"label":"Day 5"},{"name":"Stockholm Archipelago","coords":[59.4,18.75],"label":"Day 6"},{"name":"Sigtuna","coords":[59.6167,17.7167],"label":"Day 7"},{"name":"Are","coords":[63.3989,13.0817],"label":"Day 8"},{"name":"Jokkmokk","coords":[66.6078,19.8256],"label":"Day 9"},{"name":"Abisko","coords":[68.35,18.8167],"label":"Day 10"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3084,6 +3120,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Ready for this adventure?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=SE&itin=SE%3A%3Atemp_1765139605733&lang=en&days=10" class="cta-sticky-btn cta-sticky-primary">Customize this itinerary</a>
+            <a href="https://www.oneroadtrip.com/static-pages/en/itineraries/index.html" class="cta-sticky-btn cta-sticky-secondary">All itineraries</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

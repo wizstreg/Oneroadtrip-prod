@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -2164,21 +2165,7 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+17 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A75%3A%3Aparis-3-jours-incontournables&lang=ar&days=20" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2196,6 +2183,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F13273096%2Fpexels-photo-13273096.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Arc De Triomphe - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Paris1944-improved.jpg" alt="Arc De Triomphe - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Arc_Triomphe.jpg" alt="Arc De Triomphe - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Arc_de_Triomphe_du_Carrousel_1890-1900.jpg" alt="Arc De Triomphe - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35019283%2Fpexels-photo-35019283.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Arc De Triomphe - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35007099%2Fpexels-photo-35007099.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Arc De Triomphe - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4101555%2Fpexels-photo-4101555.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Arc De Triomphe - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Arc_de_Triomphe_08_1997.jpg" alt="Arc De Triomphe - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Grand_Port-Arc_de_Triomphe_mg_6825.jpg" alt="Arc De Triomphe - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(3, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(3, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(3, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 4</div>
@@ -2254,7 +2248,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">5</div>
@@ -2272,6 +2266,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F705767%2Fpexels-photo-705767.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Champs Elysees - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8431135%2Fpexels-photo-8431135.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Champs Elysees - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3289479%2Fpexels-photo-3289479.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Champs Elysees - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Crowds_of_French_patriots_line_the_Champs_Elysees.jpg" alt="Champs Elysees - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Crowds_of_French_patriots_line_the_Champs_Elysees-edit2.jpg" alt="Champs Elysees - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Avenue_des_Champs-Elys%C3%A9es_from_top_of_Arc_de_triomphe_Paris.jpg" alt="Champs Elysees - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 5</div>
@@ -2330,7 +2331,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">6</div>
@@ -2348,6 +2349,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Le_Grand_Palais_depuis_le_pont_Alexandre_III_%C3%A0_Paris.jpg" alt="Pont Alexandre Iii - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Pont_Alexandre_III_Paris_07.jpg" alt="Pont Alexandre Iii - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Pont-Alexandre-III-et-Invalides.jpg" alt="Pont Alexandre Iii - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Pont_Alexandre_III_dsc06501.jpg" alt="Pont Alexandre Iii - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/50/Paris_Pont_Alexandre_III_04.jpg" alt="Pont Alexandre Iii - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 6</div>
@@ -2406,7 +2414,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">7</div>
@@ -2424,6 +2432,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Effet_d%27eau_fontaine_Concorde_Paris.jpg" alt="Place Concorde - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Place_de_la_Concorde%2C_Paris_11_September_2014.jpg" alt="Place Concorde - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6c/France-001687_-_Girondist_Column_%2815030358024%29.jpg" alt="Place Concorde - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/France-001690_-_Triumph_of_Agreements_%2815464484749%29.jpg" alt="Place Concorde - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/France-001696_-_Girondist_Column_-_East_Side_%2815627441306%29.jpg" alt="Place Concorde - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 7</div>
@@ -2482,7 +2497,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">8</div>
@@ -2500,6 +2515,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Grand_bassin_octogonal_Jardin_des_Tuileries_003.jpg" alt="Jardin Des Tuileries - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Paris_-_Jardin_des_Tuileries_-_S%C3%A9bastien_Slodtz_-_Hannibal_-_PA00085992_-_004.jpg" alt="Jardin Des Tuileries - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/16/Paris_-_Jardin_des_Tuileries_-_Jean_Raon_-_L%27Hiver_-_PA00085992_-_003.jpg" alt="Jardin Des Tuileries - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/72/Paris_-_Jardin_des_Tuileries_-_Lorenzo_Ottone_-_Le_Nil_-_PA00085992_-_001.jpg" alt="Jardin Des Tuileries - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Paris_-_Jardin_des_Tuileries_-_Pierre_Bourdict_-_Le_Tibre_-_PA00085992_-_002.jpg" alt="Jardin Des Tuileries - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Paris_-_Jardin_des_Tuileries_-_Arc_de_Triomphe_du_Carrousel_-_PA00085992_-_003.jpg" alt="Jardin Des Tuileries - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(7, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(7, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 8</div>
@@ -2558,7 +2580,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">9</div>
@@ -2576,6 +2598,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F548082%2Fpexels-photo-548082.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Opera Garnier - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F548085%2Fpexels-photo-548085.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Opera Garnier - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3651804%2Fpexels-photo-3651804.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Opera Garnier - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1662132%2Fpexels-photo-1662132.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Opera Garnier - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1850590%2Fpexels-photo-1850590.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Opera Garnier - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/18/Opera_Garnier_Grand_Escalier.jpg" alt="Opera Garnier - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(8, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 9</div>
@@ -2634,7 +2663,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">10</div>
@@ -2652,6 +2681,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2082103%2Fpexels-photo-2082103.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Tour Eiffel - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F532826%2Fpexels-photo-532826.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Tour Eiffel - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Tour_eiffel_at_sunrise_from_the_trocadero.jpg" alt="Tour Eiffel - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Eiffel_Tower%2C_full-view_looking_toward_the_Trocadero%2C_Exposition_Universal%2C_1900%2C_Paris%2C_France.jpg" alt="Tour Eiffel - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 10</div>
@@ -2710,7 +2746,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">11</div>
@@ -2728,6 +2764,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Invalides_2007_03_11.jpg" alt="Invalides - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Paris_-_Cath%C3%A9drale_Saint_Louis_des_Invalides_-_101.jpg" alt="Invalides - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/11/Paris_-_Cath%C3%A9drale_Saint_Louis_des_Invalides_-_103.jpg" alt="Invalides - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Paris_-_Cath%C3%A9drale_Saint_Louis_des_Invalides_-_108.jpg" alt="Invalides - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/Paris_-_Cath%C3%A9drale_Saint_Louis_des_Invalides_-_Gisant_-_102.jpg" alt="Invalides - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Paris_-_Cath%C3%A9drale_Saint_Louis_des_Invalides_-_Gisant_-_103.jpg" alt="Invalides - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(10, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(10, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 11</div>
@@ -2786,7 +2829,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-12">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">12</div>
@@ -2804,6 +2847,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Institut_de_France_and_Pont_des_Arts%2C_May_2009.jpg" alt="Pont Des Arts - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Pont_des_Arts%2C_Paris.jpg" alt="Pont Des Arts - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Paris_Pont_des_Arts.jpg" alt="Pont Des Arts - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Acad%C3%A9mie_fran%C3%A7aise_et_Pont_des_Arts.jpg" alt="Pont Des Arts - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Louvre_Pont_des_Arts.jpg" alt="Pont Des Arts - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Renomm%C3%A9e_des_Arts_Fr%C3%A9miet_Pont_Alexandre_III_Paris.jpg" alt="Pont Des Arts - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(11)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(11)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(11, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(11, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(11, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(11, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(11, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(11, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 12</div>
@@ -2862,7 +2912,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-13">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">13</div>
@@ -2880,6 +2930,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5671040%2Fpexels-photo-5671040.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Notre Dame - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8150901%2Fpexels-photo-8150901.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Notre Dame - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8868155%2Fpexels-photo-8868155.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Notre Dame - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Paris_Notre-Dame_cathedral_statue_Pieta_by_Nicolas_Coustou_zz.jpg" alt="Notre Dame - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(12)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(12)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(12, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(12, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(12, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(12, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 13</div>
@@ -2938,7 +2995,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-14">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">14</div>
@@ -2956,6 +3013,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/Pantheon_wider_centered.jpg" alt="Pantheon - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Champ_de_Mars_from_the_Eiffel_Tower_-_July_2006_edit.jpg" alt="Pantheon - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Eglise_de_Sainte-Genevi%C3%A8ve.JPG" alt="Pantheon - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Pantheon%2C_Paris.JPG" alt="Pantheon - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/80/Pantheon_of_Paris_007.JPG" alt="Pantheon - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/97/Panth%C3%A9on%2C_Paris_15_August_2011.jpg" alt="Pantheon - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(13)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(13)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(13, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(13, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(13, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(13, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(13, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(13, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 14</div>
@@ -3014,7 +3078,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-15">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">15</div>
@@ -3032,6 +3096,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19685876%2Fpexels-photo-19685876.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Palais Royal - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F33935402%2Fpexels-photo-33935402.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Palais Royal - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F30095285%2Fpexels-photo-30095285.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Palais Royal - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Pediment_COA_Palais-Royal_Pajou.jpg" alt="Palais Royal - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/28/Cour_Napol%C3%A9on_at_night_-_Louvre.jpg" alt="Palais Royal - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35037744%2Fpexels-photo-35037744.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Palais Royal - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35037746%2Fpexels-photo-35037746.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Palais Royal - Photo 7" class="carousel-slide" data-index="6" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(14)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(14)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(14, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(14, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(14, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(14, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(14, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(14, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(14, 6)" aria-label="Photo 7"></button>
+                        </div>
+                        <div class="carousel-counter">7 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 15</div>
@@ -3090,7 +3161,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-16">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">16</div>
@@ -3108,6 +3179,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F952590%2Fpexels-photo-952590.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Louvre - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2574634%2Fpexels-photo-2574634.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Louvre - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2574641%2Fpexels-photo-2574641.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Louvre - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1796725%2Fpexels-photo-1796725.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Louvre - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(15)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(15)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(15, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(15, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(15, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(15, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 16</div>
@@ -3166,7 +3244,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-17">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">17</div>
@@ -3184,6 +3262,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F860963%2Fpexels-photo-860963.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Centre Pompidou - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1928760%2Fpexels-photo-1928760.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Centre Pompidou - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3283101%2Fpexels-photo-3283101.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Centre Pompidou - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2574528%2Fpexels-photo-2574528.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Centre Pompidou - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Centre_Pompidou-Metz_chantier_6.png" alt="Centre Pompidou - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Centre_Pompidou_in_Metz_%28Frankreich%29_-_Innenansicht.JPG" alt="Centre Pompidou - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Centre-Pompidou-metz-esplanade.png" alt="Centre Pompidou - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Paris_Montmartre_Blick_aufs_Centre_Georges-Pompidou.jpg" alt="Centre Pompidou - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Centre_Pompidou-Metz_03.jpg" alt="Centre Pompidou - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Centre_Pompidou-Metz_02.jpg" alt="Centre Pompidou - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(16)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(16)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(16, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(16, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(16, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(16, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(16, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(16, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(16, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(16, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(16, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(16, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 17</div>
@@ -3242,7 +3327,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-18">
+        </div><div class="day-card-enhanced" id="day-18">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">18</div>
@@ -3260,6 +3345,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F29224001%2Fpexels-photo-29224001.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Place Des Vosges - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F29224003%2Fpexels-photo-29224003.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Place Des Vosges - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F11831579%2Fpexels-photo-11831579.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Place Des Vosges - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(17)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(17)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(17, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(17, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(17, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 18</div>
@@ -3318,7 +3410,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-19">
+        </div><div class="day-card-enhanced" id="day-19">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">19</div>
@@ -3336,6 +3428,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2570057%2Fpexels-photo-2570057.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rue Cremieux - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4917135%2Fpexels-photo-4917135.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rue Cremieux - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F32431783%2Fpexels-photo-32431783.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rue Cremieux - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F32649630%2Fpexels-photo-32649630.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rue Cremieux - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F30173090%2Fpexels-photo-30173090.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Rue Cremieux - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Rue_Cr%C3%A9mieux%2C_Paris_12.jpg" alt="Rue Cremieux - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(18)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(18)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(18, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(18, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(18, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(18, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(18, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(18, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 19</div>
@@ -3394,7 +3493,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-20">
+        </div><div class="day-card-enhanced" id="day-20">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">20</div>
@@ -3412,6 +3511,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/48/Paris_75005_Grande_Galerie_de_l%27Evolution_20070804.jpg" alt="Jardin Des Plantes - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Paris_-_Jardin_des_plantes_-_AL_Jussieu.jpg" alt="Jardin Des Plantes - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Pistacia_vera_L.1702.jpg" alt="Jardin Des Plantes - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Cleome%2C_Jardin_des_Plantes%2C_Paris.jpg" alt="Jardin Des Plantes - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(19)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(19)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(19, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(19, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(19, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(19, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 20</div>
@@ -3748,6 +3854,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A75%3A%3Aparis-3-jours-incontournables&lang=ar&days=20" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

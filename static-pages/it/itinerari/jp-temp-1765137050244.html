@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Sommario</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Tottori</a></li><li><a href="#day-2">2. Kurayoshi</a></li><li><a href="#day-3">3. Yasugi</a></li><li><a href="#day-4">4. Sakaiminato</a></li><li><a href="#day-5">5. Matsue</a></li><li><a href="#day-6">6. Izumo</a></li><li><a href="#day-7">7. Hamada</a></li><li><a href="#day-8">8. Okayama</a></li><li><a href="#day-9">9. Kurashiki</a></li><li><a href="#day-10">10. Takahashi</a></li><li><a href="#day-11">11. Hiroshima</a></li><li><a href="#day-13">12. Miyajima</a></li><li><a href="#day-15">13. Iwakuni</a></li><li><a href="#day-16">14. Yamaguchi</a></li><li><a href="#day-17">15. Nagato</a></li>
+            <li><a href="#day-1">1. Tottori</a></li><li><a href="#day-2">2. Kurayoshi</a></li><li><a href="#day-3">3. Yasugi</a></li><li><a href="#day-4">4. Sakaiminato</a></li><li><a href="#day-5">5. Matsue</a></li><li><a href="#day-6">6. Izumo</a></li><li><a href="#day-7">7. Hamada</a></li><li><a href="#day-8">8. Okayama</a></li><li><a href="#day-9">9. Kurashiki</a></li><li><a href="#day-10">10. Takahashi</a></li><li><a href="#day-11">11. Hiroshima</a></li><li><a href="#day-12">12. Miyajima</a></li><li><a href="#day-13">13. Iwakuni</a></li><li><a href="#day-14">14. Yamaguchi</a></li><li><a href="#day-15">15. Nagato</a></li>
             <li><a href="#map-section">🗺️ Mappa</a></li>
             <li><a href="#faq-section">❓ Domande frequenti</a></li>
         </ul>
@@ -2161,21 +2162,7 @@ body {
                     
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Per vedere gratuitamente il resto di questo percorso, modificarlo, integrare le tue future prenotazioni, stampare e conservare la guida di viaggio, continua alla pagina successiva.</p>
-                    <p class="blur-note">Accesso o registrazione necessari</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+12 tappe in più</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=JP&itin=JP%3A%3Atemp_1765137050244&lang=it&days=15" class="btn-continue">Continua →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Oppure crea il tuo itinerario da zero</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2193,6 +2180,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Dio_Sakaiminato_store.jpg" alt="Sakaiminato - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Toyota_Corolla_Sakaiminato_store.jpg" alt="Sakaiminato - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Geo_Sakaiminato_store.JPG" alt="Sakaiminato - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 4</div>
@@ -2250,7 +2244,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">5</div>
@@ -2268,6 +2262,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Matsue_Town_Store.JPG" alt="Matsue - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Matsue_Expressway_Kuchiwa_01.JPG" alt="Matsue - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/Matsue_Wset_back_ground.JPG" alt="Matsue - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 5</div>
@@ -2325,7 +2326,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">6</div>
@@ -2343,6 +2344,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/Japanese_Naval_vessel%2C_probably_HIJMS_IZUMO_in_Sydney_Harbour_%287218239364%29.jpg" alt="Izumo - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5746217%2Fpexels-photo-5746217.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Izumo - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3403098%2Fpexels-photo-3403098.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Izumo - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F35072452%2Fpexels-photo-35072452.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Izumo - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 6</div>
@@ -2400,7 +2408,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">7</div>
@@ -2418,6 +2426,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/Chaenomeles_japonica_%27Atsuya_Hamada%27_%284439858510%29.jpg" alt="Hamada - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a2/Hamada_Hirosuke.JPG" alt="Hamada - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Hamada_Deck.JPG" alt="Hamada - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 7</div>
@@ -2475,7 +2490,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">8</div>
@@ -2493,6 +2508,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Toddler_-_Statues_in_Okayama_City%2C_Japan_-_DSC01480.JPG" alt="Okayama - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Nishi-gawa_Greenway_Canal_-_Okayama_City%2C_Japan_-_DSC01390.JPG" alt="Okayama - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 8</div>
@@ -2555,7 +2577,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">9</div>
@@ -2573,6 +2595,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Kurashiki_City_Hall_%28Kenzo_Tange%29_3_-_panoramio.jpg" alt="Kurashiki - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F31367516%2Fpexels-photo-31367516.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Kurashiki - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Kurashiki_bikatiku_naka-bashi.JPG" alt="Kurashiki - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Main_building_of_Kurashiki_city_office.JPG" alt="Kurashiki - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 9</div>
@@ -2635,7 +2664,7 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">10</div>
@@ -2653,6 +2682,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Takahashi_Yoshitsugu.jpg" alt="Takahashi - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Takahashi_City_tourist_information_center_ac.jpg" alt="Takahashi - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Takahashi_City_Library_Starbucks_Coffee_ac_%282%29.jpg" alt="Takahashi - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">Giorno 10</div>
@@ -2710,11 +2746,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-12</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">11</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Hiroshima</h3>
@@ -2729,8 +2765,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4026905%2Fpexels-photo-4026905.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Hiroshima - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1829977%2Fpexels-photo-1829977.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Hiroshima - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4679138%2Fpexels-photo-4679138.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Hiroshima - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F33229953%2Fpexels-photo-33229953.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Hiroshima - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F29193248%2Fpexels-photo-29193248.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Hiroshima - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/51/A-Bomb_Dome.jpg" alt="Hiroshima - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Truman_on_Hiroshima.oga" alt="Hiroshima - Photo 7" class="carousel-slide" data-index="6" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(10, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(10, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(10, 6)" aria-label="Photo 7"></button>
+                        </div>
+                        <div class="carousel-counter">7 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 11-12</div>
+                            <div class="overlay-text">Giorno 11</div>
                         </div>
                     </div>
                 </div>
@@ -2790,11 +2833,11 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-12">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13-14</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">12</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Miyajima</h3>
@@ -2809,8 +2852,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18929392%2Fpexels-photo-18929392.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Miyajima - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F32853964%2Fpexels-photo-32853964.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Miyajima - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F31421497%2Fpexels-photo-31421497.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Miyajima - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/70/Miyajima_Island.jpg" alt="Miyajima - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/20100723_Miyajima_5117B.jpg" alt="Miyajima - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/20100723_Miyajima_Itsukushima_5189.jpg" alt="Miyajima - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(11)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(11)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(11, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(11, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(11, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(11, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(11, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(11, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 13-14</div>
+                            <div class="overlay-text">Giorno 12</div>
                         </div>
                     </div>
                 </div>
@@ -2865,10 +2915,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-13">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">15</div>
+                    <div class="day-number">13</div>
                     <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
@@ -2884,8 +2934,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Iwakuni_Digital_TV_Repeater.JPG" alt="Iwakuni - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Iwakuni_City_Hall_20140927.JPG" alt="Iwakuni - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Iwakuni_City_mayor_shows_appreciation_toward_air_station_service_members_150603-M-KE800-025.jpg" alt="Iwakuni - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(12)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(12)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(12, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(12, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(12, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorno 15</div>
+                            <div class="overlay-text">Giorno 13</div>
                         </div>
                     </div>
                 </div>
@@ -2940,10 +2997,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-14">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">16</div>
+                    <div class="day-number">14</div>
                     <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
@@ -2959,8 +3016,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Shunan_city_Cultural_hall_03.JPG" alt="Yamaguchi - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a3/Shimonoseki_15AUG2013_Yamaguchi_Japan.jpg" alt="Yamaguchi - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(13)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(13)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(13, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(13, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorno 16</div>
+                            <div class="overlay-text">Giorno 14</div>
                         </div>
                     </div>
                 </div>
@@ -3015,10 +3079,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-15">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">17</div>
+                    <div class="day-number">15</div>
                     <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
@@ -3034,8 +3098,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Nagato_Reefer_p2.JPG" alt="Nagato - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Nagato-motoyama.jpg" alt="Nagato - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(14)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(14)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(14, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(14, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorno 17</div>
+                            <div class="overlay-text">Giorno 15</div>
                         </div>
                     </div>
                 </div>
@@ -3193,7 +3264,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Tottori","coords":[35.5011,134.2351],"label":"Giorno 1"},{"name":"Kurayoshi","coords":[35.43,133.8256],"label":"Giorno 2"},{"name":"Yasugi","coords":[35.4311,133.2506],"label":"Giorno 3"},{"name":"Sakaiminato","coords":[35.5389,133.2317],"label":"Giorno 4"},{"name":"Matsue","coords":[35.4681,133.0486],"label":"Giorno 5"},{"name":"Izumo","coords":[35.4017,132.6856],"label":"Giorno 6"},{"name":"Hamada","coords":[34.8986,132.0794],"label":"Giorno 7"},{"name":"Okayama","coords":[34.6551,133.9195],"label":"Giorno 8"},{"name":"Kurashiki","coords":[34.585,133.7717],"label":"Giorno 9"},{"name":"Takahashi","coords":[34.7906,133.6172],"label":"Giorno 10"},{"name":"Hiroshima","coords":[34.3853,132.4553],"label":"Giornos 11-12"},{"name":"Miyajima","coords":[34.2961,132.3197],"label":"Giornos 13-14"},{"name":"Iwakuni","coords":[34.1672,132.2197],"label":"Giorno 15"},{"name":"Yamaguchi","coords":[34.1861,131.4706],"label":"Giorno 16"},{"name":"Nagato","coords":[34.3714,131.1822],"label":"Giorno 17"}];
+    var coords = [{"name":"Tottori","coords":[35.5011,134.2351],"label":"Giorno 1"},{"name":"Kurayoshi","coords":[35.43,133.8256],"label":"Giorno 2"},{"name":"Yasugi","coords":[35.4311,133.2506],"label":"Giorno 3"},{"name":"Sakaiminato","coords":[35.5389,133.2317],"label":"Giorno 4"},{"name":"Matsue","coords":[35.4681,133.0486],"label":"Giorno 5"},{"name":"Izumo","coords":[35.4017,132.6856],"label":"Giorno 6"},{"name":"Hamada","coords":[34.8986,132.0794],"label":"Giorno 7"},{"name":"Okayama","coords":[34.6551,133.9195],"label":"Giorno 8"},{"name":"Kurashiki","coords":[34.585,133.7717],"label":"Giorno 9"},{"name":"Takahashi","coords":[34.7906,133.6172],"label":"Giorno 10"},{"name":"Hiroshima","coords":[34.3853,132.4553],"label":"Giorno 11"},{"name":"Miyajima","coords":[34.2961,132.3197],"label":"Giorno 12"},{"name":"Iwakuni","coords":[34.1672,132.2197],"label":"Giorno 13"},{"name":"Yamaguchi","coords":[34.1861,131.4706],"label":"Giorno 14"},{"name":"Nagato","coords":[34.3714,131.1822],"label":"Giorno 15"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3384,6 +3455,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Pronto per questa avventura?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=JP&itin=JP%3A%3Atemp_1765137050244&lang=it&days=15" class="cta-sticky-btn cta-sticky-primary">Personalizza questo itinerario</a>
+            <a href="https://www.oneroadtrip.com/static-pages/it/itinerari/index.html" class="cta-sticky-btn cta-sticky-secondary">Tutti gli itinerari</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

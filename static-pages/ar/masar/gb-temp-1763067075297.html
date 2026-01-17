@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 المحتويات</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Cambridge</a></li><li><a href="#day-2">2. Thetford</a></li><li><a href="#day-4">3. Bury St Edmunds</a></li><li><a href="#day-7">4. Ipswich</a></li><li><a href="#day-9">5. Aldeburgh</a></li><li><a href="#day-11">6. Norwich</a></li><li><a href="#day-14">7. Great Yarmouth</a></li><li><a href="#day-15">8. Braintree</a></li>
+            <li><a href="#day-1">1. Cambridge</a></li><li><a href="#day-2">2. Thetford</a></li><li><a href="#day-3">3. Bury St Edmunds</a></li><li><a href="#day-4">4. Ipswich</a></li><li><a href="#day-5">5. Aldeburgh</a></li><li><a href="#day-6">6. Norwich</a></li><li><a href="#day-7">7. Great Yarmouth</a></li><li><a href="#day-8">8. Braintree</a></li>
             <li><a href="#map-section">🗺️ خريطة</a></li>
             <li><a href="#faq-section">❓ الأسئلة الشائعة</a></li>
         </ul>
@@ -2016,8 +2017,8 @@ body {
         </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">2-3</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">2</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Thetford</h3>
@@ -2040,7 +2041,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 2-3</div>
+                            <div class="overlay-text">يوم 2</div>
                         </div>
                     </div>
                 </div>
@@ -2116,11 +2117,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-4">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4-6</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">3</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Bury St Edmunds</h3>
@@ -2143,7 +2144,7 @@ body {
                         <div class="carousel-counter">7 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 4-6</div>
+                            <div class="overlay-text">يوم 3</div>
                         </div>
                     </div>
                 </div>
@@ -2214,25 +2215,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+5 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=GB&itin=GB%3A%3Atemp_1763067075297&lang=ar&days=9" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">7-8</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Ipswich</h3>
@@ -2247,8 +2234,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Ipswich_Museum.jpg" alt="Ipswich - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Cmglee_Ipswich_Museum_exterior.jpg" alt="Ipswich - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Ipswich_School.jpg" alt="Ipswich - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/aa/Ipswich_School_Library_Building.jpg" alt="Ipswich - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Ipswich_School_WWI_Memorial_Garden.jpg" alt="Ipswich - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/Ipswich_Montage.jpg" alt="Ipswich - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 7-8</div>
+                            <div class="overlay-text">يوم 4</div>
                         </div>
                     </div>
                 </div>
@@ -2319,11 +2313,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">9-10</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Aldeburgh</h3>
@@ -2338,8 +2332,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20546053%2Fpexels-photo-20546053.png%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Aldeburgh - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F28118075%2Fpexels-photo-28118075.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Aldeburgh - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a0/Aldeburgh_Festival_2011.jpg" alt="Aldeburgh - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Aldeburgh_Museum.JPG" alt="Aldeburgh - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/df/Mirga_Gra%C5%BEinyt%C4%97-Tyla_conducts_the_CBSO%2C_Aldeburgh_Voices_and_Aldeburgh_Music_Club_at_Aldeburgh_Festival.jpg" alt="Aldeburgh - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/Concert_by_Aldeburgh_Voices_at_Blythburgh_Church.jpg" alt="Aldeburgh - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/22/Slaughden_Martello_tower%2C_near_Aldeburgh_in_Suffolk%2C_England.jpg" alt="Aldeburgh - Photo 7" class="carousel-slide" data-index="6" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button>
+                        </div>
+                        <div class="carousel-counter">7 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 9-10</div>
+                            <div class="overlay-text">يوم 5</div>
                         </div>
                     </div>
                 </div>
@@ -2410,11 +2411,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-13</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Norwich</h3>
@@ -2429,8 +2430,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Catedral%2C_Norwich%2C_Inglaterra%2C_2022-11-19%2C_DD_49.jpg" alt="Norwich - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/67/Catedral%2C_Norwich%2C_Inglaterra%2C_2022-11-19%2C_DD_52.jpg" alt="Norwich - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a6/The_United_Reformed_Church_Prince_Street_Norwich_15_August_2013.jpg" alt="Norwich - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/eb/St_John_the_Baptist_Cathedral_Tower%2C_Norwich%2C_Norfolk%2C_UK_-_Diliff.jpg" alt="Norwich - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/Norwich%2C_United_Kingdom_%28Unsplash_fXnREZT0kEY%29.jpg" alt="Norwich - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Catedral%2C_Norwich%2C_Inglaterra%2C_2022-11-19%2C_DD_53.jpg" alt="Norwich - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(5, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 11-13</div>
+                            <div class="overlay-text">يوم 6</div>
                         </div>
                     </div>
                 </div>
@@ -2501,10 +2509,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">14</div>
+                    <div class="day-number">7</div>
                     <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
@@ -2520,8 +2528,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/9f/2007-05-27_Market_Place%2C_Great_Yarmouth.jpg" alt="Great Yarmouth - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/-2018-11-13_Great_Yarmouth_beach%2C_Norfolk.jpg" alt="Great Yarmouth - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5b/-2012-07-28_Saint_Nicholas_church%2C_Great_Yarmouth%2C_Norfolk.jpg" alt="Great Yarmouth - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/-2020-08-17_Anna_Sewell%E2%80%99s_House%2C_Church_Plain%2C_Great_Yarmouth%2C_Norfolk.jpg" alt="Great Yarmouth - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/-2012-05-23_Regent_Road%2C_Great_Yarmouth%2C_Norfolk.jpg" alt="Great Yarmouth - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f5/-2012-05-23_Market_Place%2C_Great_Yarmouth%2C_Norfolk.jpg" alt="Great Yarmouth - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(6, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">يوم 14</div>
+                            <div class="overlay-text">يوم 7</div>
                         </div>
                     </div>
                 </div>
@@ -2597,11 +2612,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">15-16</div>
-                    <div class="day-label">أيام</div>
+                    <div class="day-number">8</div>
+                    <div class="day-label">يوم</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Braintree</h3>
@@ -2616,8 +2631,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Braintree_Library.jpg" alt="Braintree - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/be/Braintree_Freeport_station_1.jpg" alt="Braintree - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Cuckoo_Wood_3.jpg" alt="Braintree - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Darracq_1903_Tonneau_at_Regent_Street_Motor_Show_2015.jpg" alt="Braintree - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">أيام 15-16</div>
+                            <div class="overlay-text">يوم 8</div>
                         </div>
                     </div>
                 </div>
@@ -2775,7 +2797,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Cambridge","coords":[52.2053,0.1218],"label":"يوم 1"},{"name":"Thetford","coords":[52.4153,0.7553],"label":"يومs 2-3"},{"name":"Bury St Edmunds","coords":[52.2463,0.7111],"label":"يومs 4-6"},{"name":"Ipswich","coords":[52.0579,1.1526],"label":"يومs 7-8"},{"name":"Aldeburgh","coords":[52.1526,1.6012],"label":"يومs 9-10"},{"name":"Norwich","coords":[52.6309,1.2974],"label":"يومs 11-13"},{"name":"Great Yarmouth","coords":[52.6082,1.731],"label":"يوم 14"},{"name":"Braintree","coords":[51.96061366407105,0.44563315703372025],"label":"يومs 15-16"}];
+    var coords = [{"name":"Cambridge","coords":[52.2053,0.1218],"label":"يوم 1"},{"name":"Thetford","coords":[52.4153,0.7553],"label":"يوم 2"},{"name":"Bury St Edmunds","coords":[52.2463,0.7111],"label":"يوم 3"},{"name":"Ipswich","coords":[52.0579,1.1526],"label":"يوم 4"},{"name":"Aldeburgh","coords":[52.1526,1.6012],"label":"يوم 5"},{"name":"Norwich","coords":[52.6309,1.2974],"label":"يوم 6"},{"name":"Great Yarmouth","coords":[52.6082,1.731],"label":"يوم 7"},{"name":"Braintree","coords":[51.96061366407105,0.44563315703372025],"label":"يوم 8"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -2966,6 +2988,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=GB&itin=GB%3A%3Atemp_1763067075297&lang=ar&days=9" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

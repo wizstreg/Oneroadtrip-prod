@@ -1658,6 +1658,8 @@ header{position:sticky;top:0;z-index:10;background:url("/assets/image_index.webp
     max-height: none;
     border-radius: 0;
     padding-bottom: 60px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
   .tools-pop-title {
     border-radius: 0;
@@ -2814,13 +2816,19 @@ toolsBtnRow.addEventListener('click', function(e){
   const isOpen = pop.classList.contains('show');
   pop.classList.toggle('show', !isOpen);
   
-  // Positionner le popup sous le bouton
+  // Positionner le popup sous le bouton avec gestion du débordement
   if(!isOpen){
     const rect = toolsBtnRow.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const menuTop = rect.bottom + 8;
+    const availableHeight = viewportHeight - menuTop - 20; // 20px de marge en bas
+    
     pop.style.position = 'fixed';
-    pop.style.top = (rect.bottom + 8) + 'px';
+    pop.style.top = menuTop + 'px';
     pop.style.left = Math.max(10, rect.left - 100) + 'px';
     pop.style.right = 'auto';
+    pop.style.maxHeight = Math.min(availableHeight, window.innerHeight * 0.8) + 'px';
+    pop.style.overflowY = 'auto';
   }
 });
 
@@ -5132,6 +5140,21 @@ async function initFromItin(it){
   // Stocker source_url, created_at et language originaux pour la sauvegarde
   state._originalSourceUrl = it.source_url || null;
   state._originalCreatedAt = it.created_at || null;
+  
+  // Stocker les métadonnées supplémentaires pour les préserver à la sauvegarde
+  state._originalSeo = it.seo || null;
+  state._originalMeta = it.meta || null;
+  state._originalSegments = it.segments || null;
+  state._originalVariants = it.variants || null;
+  state._originalRegions = it.regions || null;
+  state._originalNearbyItins = it.nearby_itins || null;
+  state._originalMergeSuggestions = it.merge_suggestions || null;
+  state._originalNotes = it.notes || null;
+  state._originalSpecialties = it.specialties || null;
+  state._originalDeptCode = it.dept_code || null;
+  state._originalDeptName = it.dept_name || null;
+  console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗');
+  
   // Priorité: langue de l'itinéraire > langue du fichier chargé
   if (it.language || it.__lang) {
     state._sourceLanguage = it.language || it.__lang;
@@ -8712,6 +8735,21 @@ window.initSaveSourceButton = function(){
       days_plan: days_plan
     };
     
+    // Ajouter les métadonnées si elles existent (préserver SEO, meta, etc.)
+    if (state._originalSeo) itinToSave.seo = state._originalSeo;
+    if (state._originalMeta) itinToSave.meta = state._originalMeta;
+    if (state._originalSegments) itinToSave.segments = state._originalSegments;
+    if (state._originalVariants) itinToSave.variants = state._originalVariants;
+    if (state._originalRegions) itinToSave.regions = state._originalRegions;
+    if (state._originalNearbyItins) itinToSave.nearby_itins = state._originalNearbyItins;
+    if (state._originalMergeSuggestions) itinToSave.merge_suggestions = state._originalMergeSuggestions;
+    if (state._originalNotes) itinToSave.notes = state._originalNotes;
+    if (state._originalSpecialties) itinToSave.specialties = state._originalSpecialties;
+    if (state._originalDeptCode) itinToSave.dept_code = state._originalDeptCode;
+    if (state._originalDeptName) itinToSave.dept_name = state._originalDeptName;
+    
+    console.log('[SAVE SOURCE] 📦 Métadonnées incluses:', itinToSave.seo ? 'SEO ✓' : 'SEO ✗');
+    
     // Confirmation avec message adapté
     const action = isTemp ? '🆕 AJOUTER' : '✏️ MODIFIER';
     const confirmMsg = `${action} l'itinéraire dans :\n${filePath}\n\nID: ${originalId}\nLangue: ${lang.toUpperCase()}\nTitre: ${state.title}\n${days_plan.length} étapes, ${totalNights} nuits → ${estimatedDays} jours\n\nBackup automatique créé.\n\nContinuer ?`;
@@ -8988,6 +9026,20 @@ if(itinsObj){
         if (toUse.created_at) {
           state._originalCreatedAt = toUse.created_at;
         }
+        
+        // Stocker les métadonnées pour les préserver à la sauvegarde
+        if (toUse.seo) state._originalSeo = toUse.seo;
+        if (toUse.meta) state._originalMeta = toUse.meta;
+        if (toUse.segments) state._originalSegments = toUse.segments;
+        if (toUse.variants) state._originalVariants = toUse.variants;
+        if (toUse.regions) state._originalRegions = toUse.regions;
+        if (toUse.nearby_itins) state._originalNearbyItins = toUse.nearby_itins;
+        if (toUse.merge_suggestions) state._originalMergeSuggestions = toUse.merge_suggestions;
+        if (toUse.notes) state._originalNotes = toUse.notes;
+        if (toUse.specialties) state._originalSpecialties = toUse.specialties;
+        if (toUse.dept_code) state._originalDeptCode = toUse.dept_code;
+        if (toUse.dept_name) state._originalDeptName = toUse.dept_name;
+        console.log('[IMPORT] 📦 Métadonnées stockées:', toUse.seo ? 'SEO ✓' : 'SEO ✗', toUse.meta ? 'meta ✓' : 'meta ✗');
         
 await initFromItin(toUse);
 

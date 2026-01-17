@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Sommario</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Trento</a></li><li><a href="#day-3">2. Verona</a></li><li><a href="#day-6">3. Vernazza</a></li><li><a href="#day-7">4. Firenze</a></li><li><a href="#day-11">5. Siena</a></li><li><a href="#day-14">6. Monticchiello</a></li><li><a href="#day-16">7. Roma</a></li><li><a href="#day-21">8. Amalfi</a></li>
+            <li><a href="#day-1">1. Trento</a></li><li><a href="#day-2">2. Verona</a></li><li><a href="#day-3">3. Vernazza</a></li><li><a href="#day-4">4. Firenze</a></li><li><a href="#day-5">5. Siena</a></li><li><a href="#day-6">6. Monticchiello</a></li><li><a href="#day-7">7. Roma</a></li><li><a href="#day-8">8. Amalfi</a></li>
             <li><a href="#map-section">🗺️ Mappa</a></li>
             <li><a href="#faq-section">❓ Domande frequenti</a></li>
         </ul>
@@ -1918,8 +1919,8 @@ body {
         <div class="day-card-enhanced" id="day-1">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">1-2</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">1</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Trento</h3>
@@ -1942,7 +1943,7 @@ body {
                         <div class="carousel-counter">3 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 1-2</div>
+                            <div class="overlay-text">Giorno 1</div>
                         </div>
                     </div>
                 </div>
@@ -2003,11 +2004,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-3">
+        </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">3-5</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">2</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Verona</h3>
@@ -2030,7 +2031,7 @@ body {
                         <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 3-5</div>
+                            <div class="overlay-text">Giorno 2</div>
                         </div>
                     </div>
                 </div>
@@ -2096,10 +2097,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-6">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6</div>
+                    <div class="day-number">3</div>
                     <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
@@ -2123,7 +2124,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorno 6</div>
+                            <div class="overlay-text">Giorno 3</div>
                         </div>
                     </div>
                 </div>
@@ -2184,25 +2185,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Per vedere gratuitamente il resto di questo percorso, modificarlo, integrare le tue future prenotazioni, stampare e conservare la guida di viaggio, continua alla pagina successiva.</p>
-                    <p class="blur-note">Accesso o registrazione necessari</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+5 tappe in più</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=IT&itin=IT%3A%3Anorth-south%3A%3Aitaly-roadtrip&lang=it&days=10" class="btn-continue">Continua →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Oppure crea il tuo itinerario da zero</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">7-10</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Firenze</h3>
@@ -2217,8 +2204,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/FlorenceSkyline.jpg" alt="Firenze - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Florence_-_Duomo_sunset.jpg" alt="Firenze - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c0/Florence_-_David_-_t%C3%AAte.jpg" alt="Firenze - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/77/Florence_Duomo_from_Michelangelo_hill.jpg" alt="Firenze - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Florence_Italy_Ponte-Vecchio-01.jpg" alt="Firenze - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Florence_Italy_Synagogue-of-Florence-01.jpg" alt="Firenze - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F34991756%2Fpexels-photo-34991756.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Firenze - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F764293%2Fpexels-photo-764293.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Firenze - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F981686%2Fpexels-photo-981686.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Firenze - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Firenze%2C_centro_commerciale_novoli_di_notte_-_2013.jpg" alt="Firenze - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(3, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(3, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(3, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(3, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 7-10</div>
+                            <div class="overlay-text">Giorno 4</div>
                         </div>
                     </div>
                 </div>
@@ -2289,11 +2283,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-13</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Siena</h3>
@@ -2308,8 +2302,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/73/PiazzadelCampoSiena.jpg" alt="Siena - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Duomo_di_Siena_Campanile_top.JPG" alt="Siena - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Gargoyles_and_Saints_-_Siena_Cathedral.jpg" alt="Siena - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Torre_del_Mangia_in_Siena%2C_Italy.jpg" alt="Siena - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Cathedral_%28Siena%29_-_Dome_interior.jpg" alt="Siena - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/The_midday._Siena%2C_Italy.jpg" alt="Siena - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 11-13</div>
+                            <div class="overlay-text">Giorno 5</div>
                         </div>
                     </div>
                 </div>
@@ -2375,11 +2376,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">14-15</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Monticchiello</h3>
@@ -2394,8 +2395,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/MonticchielloPanoramaSO.JPG" alt="Monticchiello - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/MonticchielloPanoramaSW1.JPG" alt="Monticchiello - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/25/MonticchielloPanoramaSW2.JPG" alt="Monticchiello - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/49/MonticchielloPanoramaSW3.JPG" alt="Monticchiello - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/MonticchielloPieveLeonardoCristoforoCompagniaSacramentoMuseo.JPG" alt="Monticchiello - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/MonticchielloTorreCasseroMura.JPG" alt="Monticchiello - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(5, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 14-15</div>
+                            <div class="overlay-text">Giorno 6</div>
                         </div>
                     </div>
                 </div>
@@ -2456,11 +2464,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">16-20</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">7</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Roma</h3>
@@ -2475,8 +2483,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/StAngelo_Bridge_Rome.jpg" alt="Roma - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ed/Rome_%28Italy%29%2C_Pharmacy_--_2013_--_3519.jpg" alt="Roma - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Saint_Peter%27s_Basilica%2C_Sant%27Angelo_bridge%2C_by_night%2C_Rome%2C_Italy.jpg" alt="Roma - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/74/Neque_Illic_Mortuus%2C_inside_of_Santa_Maria_del_Popolo%2C_Rome%2C_Italy.jpg" alt="Roma - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Rome_%28Italy%29%2C_Windows_--_2013_--_3492.jpg" alt="Roma - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18078816%2Fpexels-photo-18078816.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Roma - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/La_Mia_Roma_%28177120685%29.jpeg" alt="Roma - Photo 7" class="carousel-slide" data-index="6" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(6, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(6, 6)" aria-label="Photo 7"></button>
+                        </div>
+                        <div class="carousel-counter">7 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 16-20</div>
+                            <div class="overlay-text">Giorno 7</div>
                         </div>
                     </div>
                 </div>
@@ -2542,11 +2557,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-21">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">21-23</div>
-                    <div class="day-label">Giorni</div>
+                    <div class="day-number">8</div>
+                    <div class="day-label">Giorno</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Amalfi</h3>
@@ -2561,8 +2576,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F358223%2Fpexels-photo-358223.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F916467%2Fpexels-photo-916467.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1296200%2Fpexels-photo-1296200.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2998783%2Fpexels-photo-2998783.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3009069%2Fpexels-photo-3009069.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2998786%2Fpexels-photo-2998786.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Amalfi - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(7, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(7, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Giorni 21-23</div>
+                            <div class="overlay-text">Giorno 8</div>
                         </div>
                     </div>
                 </div>
@@ -2710,7 +2732,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Trento","coords":[46.0669,11.1211],"label":"Giornos 1-2"},{"name":"Verona","coords":[45.4384,10.9916],"label":"Giornos 3-5"},{"name":"Vernazza","coords":[44.1355,9.6835],"label":"Giorno 6"},{"name":"Firenze","coords":[43.7699,11.2556],"label":"Giornos 7-10"},{"name":"Siena","coords":[43.3188,11.3308],"label":"Giornos 11-13"},{"name":"Monticchiello","coords":[43.0613,11.7161],"label":"Giornos 14-15"},{"name":"Roma","coords":[41.9028,12.4964],"label":"Giornos 16-20"},{"name":"Amalfi","coords":[40.634,14.6029],"label":"Giornos 21-23"}];
+    var coords = [{"name":"Trento","coords":[46.0669,11.1211],"label":"Giorno 1"},{"name":"Verona","coords":[45.4384,10.9916],"label":"Giorno 2"},{"name":"Vernazza","coords":[44.1355,9.6835],"label":"Giorno 3"},{"name":"Firenze","coords":[43.7699,11.2556],"label":"Giorno 4"},{"name":"Siena","coords":[43.3188,11.3308],"label":"Giorno 5"},{"name":"Monticchiello","coords":[43.0613,11.7161],"label":"Giorno 6"},{"name":"Roma","coords":[41.9028,12.4964],"label":"Giorno 7"},{"name":"Amalfi","coords":[40.634,14.6029],"label":"Giorno 8"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -2901,6 +2923,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Pronto per questa avventura?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=IT&itin=IT%3A%3Anorth-south%3A%3Aitaly-roadtrip&lang=it&days=10" class="cta-sticky-btn cta-sticky-primary">Personalizza questo itinerario</a>
+            <a href="https://www.oneroadtrip.com/static-pages/it/itinerari/index.html" class="cta-sticky-btn cta-sticky-secondary">Tutti gli itinerari</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

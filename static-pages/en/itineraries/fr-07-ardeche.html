@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Contents</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Vallon Pont D Arc</a></li><li><a href="#day-2">2. Saint Martin D Ardeche</a></li><li><a href="#day-3">3. Barjac</a></li><li><a href="#day-5">4. Les Vans</a></li><li><a href="#day-6">5. Joyeuse</a></li><li><a href="#day-8">6. Aubenas</a></li><li><a href="#day-10">7. Antraigues Sur Volane</a></li><li><a href="#day-11">8. Thueyts</a></li><li><a href="#day-13">9. Balazuc</a></li>
+            <li><a href="#day-1">1. Vallon Pont D Arc</a></li><li><a href="#day-2">2. Saint Martin D Ardeche</a></li><li><a href="#day-3">3. Barjac</a></li><li><a href="#day-4">4. Les Vans</a></li><li><a href="#day-5">5. Joyeuse</a></li><li><a href="#day-6">6. Aubenas</a></li><li><a href="#day-7">7. Antraigues Sur Volane</a></li><li><a href="#day-8">8. Thueyts</a></li><li><a href="#day-9">9. Balazuc</a></li>
             <li><a href="#map-section">🗺️ Map</a></li>
             <li><a href="#faq-section">❓ Frequently asked questions</a></li>
         </ul>
@@ -2119,8 +2120,8 @@ body {
         </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">3-4</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">3</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Barjac</h3>
@@ -2143,7 +2144,7 @@ body {
                         <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 3-4</div>
+                            <div class="overlay-text">Day 3</div>
                         </div>
                     </div>
                 </div>
@@ -2219,24 +2220,10 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">To see the rest of this itinerary for free, customize it, add your future bookings, print and save your travel guide, continue to the next page.</p>
-                    <p class="blur-note">Login or registration required</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+6 more steps</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A07%3A%3Aardeche&lang=en&days=10" class="btn-continue">Continue →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Or build your own itinerary from scratch</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">5</div>
+                    <div class="day-number">4</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2252,8 +2239,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/France_-_Ard%C3%A8che_%2807%29_-_Naves%2C_Les_Vans_-_Eglise_St_Jacques.jpg" alt="Les Vans - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/39/Les-Vans01.jpg" alt="Les Vans - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/62/Les_Vans_08.JPG" alt="Les Vans - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 5</div>
+                            <div class="overlay-text">Day 4</div>
                         </div>
                     </div>
                 </div>
@@ -2324,11 +2318,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6-7</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Joyeuse</h3>
@@ -2343,8 +2337,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Joyeusevuegenerale.jpg" alt="Joyeuse - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/La_Joyeuse_%26_magnifique_Entr%C3%A9e_de_Monseigneur_Fran%C3%A7ois%2C_Fils_de_France%2C_et_Frere_Unique_du_Roy%2C...%2C_Duc_de_Brabant%2C_..._en_sa_tres-renomm%C3%A9_ville_d%27_Anvers_MET_DP153097.jpg" alt="Joyeuse - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 6-7</div>
+                            <div class="overlay-text">Day 5</div>
                         </div>
                     </div>
                 </div>
@@ -2420,11 +2421,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">8-9</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Aubenas</h3>
@@ -2439,8 +2440,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Aubenas_-_Vue_depuis_les_remparts.jpg" alt="Aubenas - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Aubenas_profil.JPG" alt="Aubenas - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Aubenas_%28Ard%C3%A8che%2C_Fr%29_%C3%A9glise_St.Laurent%2C_la_tour.JPG" alt="Aubenas - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Aubenas_%28Ard%C3%A8che%2C_Fr%29_%C3%A9glise%2C_fa%C3%A7ade.JPG" alt="Aubenas - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Aubenas_%28Ard%C3%A8che%2C_Fr%29_ruelle.JPG" alt="Aubenas - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 8-9</div>
+                            <div class="overlay-text">Day 6</div>
                         </div>
                     </div>
                 </div>
@@ -2516,10 +2524,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10</div>
+                    <div class="day-number">7</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2535,8 +2543,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1233281%2Fpexels-photo-1233281.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Antraigues Sur Volane - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/France_Rhone-Alpes_Ardeche_Antraigues-sur-Volane_01.jpg" alt="Antraigues Sur Volane - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Antraigues_sur_Volane-FR-07-mairie-a1.jpg" alt="Antraigues Sur Volane - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Antraigues_sur_Volane-FR-07-mairie-a2.jpg" alt="Antraigues Sur Volane - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F3816807%2Fpexels-photo-3816807.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Antraigues Sur Volane - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a1/Jean_Ferrat_et_le_village_d%27Antraigues.jpg" alt="Antraigues Sur Volane - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(6, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 10</div>
+                            <div class="overlay-text">Day 7</div>
                         </div>
                     </div>
                 </div>
@@ -2607,11 +2622,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-12</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">8</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Thueyts</h3>
@@ -2626,8 +2641,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20832057%2Fpexels-photo-20832057.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Thueyts - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/France_Ardeche_Thueyts_01.jpg" alt="Thueyts - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/26/France_Ardeche_Thueyts_02.jpg" alt="Thueyts - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/15/France_Ardeche_Thueyts_03.jpg" alt="Thueyts - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/95/France_Ardeche_Thueyts_05.jpg" alt="Thueyts - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/France_Ardeche_Thueyts_09.jpg" alt="Thueyts - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Les_orgues_basaltiques_Thueyts_2.jpg" alt="Thueyts - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d1/Thueyts-Ch%C3%A2teau_de_Blou.JPG" alt="Thueyts - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Ard%C3%A8che_%C3%A0_Thueyts.jpg" alt="Thueyts - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(7, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(7, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(7, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(7, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(7, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 11-12</div>
+                            <div class="overlay-text">Day 8</div>
                         </div>
                     </div>
                 </div>
@@ -2703,11 +2725,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13-14</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">9</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Balazuc</h3>
@@ -2722,8 +2744,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20815716%2Fpexels-photo-20815716.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Balazuc - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F20815714%2Fpexels-photo-20815714.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Balazuc - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5264068%2Fpexels-photo-5264068.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Balazuc - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Balazuc_panorama.JPG" alt="Balazuc - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/32/Balazuc-_vue_d%27ensemble.jpg" alt="Balazuc - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 13-14</div>
+                            <div class="overlay-text">Day 9</div>
                         </div>
                     </div>
                 </div>
@@ -2886,7 +2915,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Vallon Pont D Arc","coords":[44.4064,4.3958],"label":"Day 1"},{"name":"Saint Martin D Ardeche","coords":[44.3011,4.5631],"label":"Day 2"},{"name":"Barjac","coords":[44.3064,4.3467],"label":"Days 3-4"},{"name":"Les Vans","coords":[44.405,4.1311],"label":"Day 5"},{"name":"Joyeuse","coords":[44.4789,4.2397],"label":"Days 6-7"},{"name":"Aubenas","coords":[44.62,4.3903],"label":"Days 8-9"},{"name":"Antraigues Sur Volane","coords":[44.7228,4.3608],"label":"Day 10"},{"name":"Thueyts","coords":[44.6736,4.2208],"label":"Days 11-12"},{"name":"Balazuc","coords":[44.5267,4.3814],"label":"Days 13-14"}];
+    var coords = [{"name":"Vallon Pont D Arc","coords":[44.4064,4.3958],"label":"Day 1"},{"name":"Saint Martin D Ardeche","coords":[44.3011,4.5631],"label":"Day 2"},{"name":"Barjac","coords":[44.3064,4.3467],"label":"Day 3"},{"name":"Les Vans","coords":[44.405,4.1311],"label":"Day 4"},{"name":"Joyeuse","coords":[44.4789,4.2397],"label":"Day 5"},{"name":"Aubenas","coords":[44.62,4.3903],"label":"Day 6"},{"name":"Antraigues Sur Volane","coords":[44.7228,4.3608],"label":"Day 7"},{"name":"Thueyts","coords":[44.6736,4.2208],"label":"Day 8"},{"name":"Balazuc","coords":[44.5267,4.3814],"label":"Day 9"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3077,6 +3106,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Ready for this adventure?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A07%3A%3Aardeche&lang=en&days=10" class="cta-sticky-btn cta-sticky-primary">Customize this itinerary</a>
+            <a href="https://www.oneroadtrip.com/static-pages/en/itineraries/index.html" class="cta-sticky-btn cta-sticky-secondary">All itineraries</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

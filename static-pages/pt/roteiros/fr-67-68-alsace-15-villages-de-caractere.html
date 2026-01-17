@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Conteúdo</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Wissembourg</a></li><li><a href="#day-3">2. Hunspach</a></li><li><a href="#day-4">3. Obernai</a></li><li><a href="#day-6">4. Mittelbergheim</a></li><li><a href="#day-8">5. Bergheim</a></li><li><a href="#day-10">6. Ribeauville</a></li><li><a href="#day-11">7. Hunawihr</a></li><li><a href="#day-13">8. Zellenberg</a></li><li><a href="#day-14">9. Riquewihr</a></li><li><a href="#day-16">10. Kaysersberg</a></li><li><a href="#day-18">11. Turckheim</a></li><li><a href="#day-19">12. Munster</a></li><li><a href="#day-22">13. Eguisheim</a></li><li><a href="#day-24">14. Neuf Brisach</a></li><li><a href="#day-26">15. Ferrette</a></li>
+            <li><a href="#day-1">1. Wissembourg</a></li><li><a href="#day-2">2. Hunspach</a></li><li><a href="#day-3">3. Obernai</a></li><li><a href="#day-4">4. Mittelbergheim</a></li><li><a href="#day-5">5. Bergheim</a></li><li><a href="#day-6">6. Ribeauville</a></li><li><a href="#day-7">7. Hunawihr</a></li><li><a href="#day-8">8. Zellenberg</a></li><li><a href="#day-9">9. Riquewihr</a></li><li><a href="#day-10">10. Kaysersberg</a></li><li><a href="#day-11">11. Turckheim</a></li><li><a href="#day-12">12. Munster</a></li><li><a href="#day-13">13. Eguisheim</a></li><li><a href="#day-14">14. Neuf Brisach</a></li><li><a href="#day-15">15. Ferrette</a></li>
             <li><a href="#map-section">🗺️ Mapa</a></li>
             <li><a href="#faq-section">❓ Perguntas frequentes</a></li>
         </ul>
@@ -1918,8 +1919,8 @@ body {
         <div class="day-card-enhanced" id="day-1">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">1-2</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">1</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Wissembourg</h3>
@@ -1942,7 +1943,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 1-2</div>
+                            <div class="overlay-text">Dia 1</div>
                         </div>
                     </div>
                 </div>
@@ -2013,10 +2014,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-3">
+        </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">3</div>
+                    <div class="day-number">2</div>
                     <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
@@ -2040,7 +2041,7 @@ body {
                         <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Dia 3</div>
+                            <div class="overlay-text">Dia 2</div>
                         </div>
                     </div>
                 </div>
@@ -2111,11 +2112,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-4">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4-5</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">3</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Obernai</h3>
@@ -2138,7 +2139,7 @@ body {
                         <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 4-5</div>
+                            <div class="overlay-text">Dia 3</div>
                         </div>
                     </div>
                 </div>
@@ -2209,25 +2210,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Para ver gratuitamente o resto deste percurso, modificá-lo, integrar suas futuras reservas, imprimir e guardar o guia de viagem, continue na página seguinte.</p>
-                    <p class="blur-note">Conexão ou registro necessário</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+12 etapas a mais</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A67-68%3A%3Aalsace-15-villages-de-caractere&lang=pt&days=16" class="btn-continue">Continuar →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Ou construa seu itinerário do zero</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6-7</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Mittelbergheim</h3>
@@ -2242,8 +2229,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Mittelbergheim_030.JPG" alt="Mittelbergheim - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Mittelbergheim_059.JPG" alt="Mittelbergheim - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1a/Mittelbergheim_004.JPG" alt="Mittelbergheim - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Mittelbergheim_058.JPG" alt="Mittelbergheim - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bd/Mittelbergheim_008.JPG" alt="Mittelbergheim - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mittelbergheim_H%C3%B4telVille_07.JPG" alt="Mittelbergheim - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 6-7</div>
+                            <div class="overlay-text">Dia 4</div>
                         </div>
                     </div>
                 </div>
@@ -2314,11 +2308,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">8-9</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Bergheim</h3>
@@ -2333,8 +2327,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Bergheim_Porte_Haute.JPG" alt="Bergheim - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Bergheim_%C3%89glise2.JPG" alt="Bergheim - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F30535269%2Fpexels-photo-30535269.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Bergheim - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8472259%2Fpexels-photo-8472259.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Bergheim - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6479255%2Fpexels-photo-6479255.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Bergheim - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Bergheim-aerien.jpg" alt="Bergheim - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Bergheim_NotreDame54.JPG" alt="Bergheim - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/06/Bergheim_NotreDame55.JPG" alt="Bergheim - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(4, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 8-9</div>
+                            <div class="overlay-text">Dia 5</div>
                         </div>
                     </div>
                 </div>
@@ -2405,10 +2406,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10</div>
+                    <div class="day-number">6</div>
                     <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
@@ -2424,8 +2425,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1270423%2Fpexels-photo-1270423.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Ribeauville - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1270422%2Fpexels-photo-1270422.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Ribeauville - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F11750205%2Fpexels-photo-11750205.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Ribeauville - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Ribeauville-0081.jpg" alt="Ribeauville - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/07/Ribeauville-0006.jpg" alt="Ribeauville - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/40/Ribeauville-0004.jpg" alt="Ribeauville - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(5, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dia 10</div>
+                            <div class="overlay-text">Dia 6</div>
                         </div>
                     </div>
                 </div>
@@ -2496,11 +2504,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-12</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">7</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Hunawihr</h3>
@@ -2515,8 +2523,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/Hunawihr_092.JPG" alt="Hunawihr - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/2011-04-25-lepidoptera-hunawihr-6.jpg" alt="Hunawihr - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/Vignes_%28Hunawihr%29_%281%29.jpg" alt="Hunawihr - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/75/Vignes_%28Hunawihr%29_%282%29.jpg" alt="Hunawihr - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1c/Village_%28Hunawihr%29.jpg" alt="Hunawihr - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 11-12</div>
+                            <div class="overlay-text">Dia 7</div>
                         </div>
                     </div>
                 </div>
@@ -2587,10 +2602,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13</div>
+                    <div class="day-number">8</div>
                     <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
@@ -2606,8 +2621,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/5d/Zellenberg-aerien.jpg" alt="Zellenberg - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Zellenberg_115.JPG" alt="Zellenberg - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Zellenberg%2C_Alsace.jpg" alt="Zellenberg - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e3/Zellenberg_118.JPG" alt="Zellenberg - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Zellenberg_123.JPG" alt="Zellenberg - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/Zellenberg_144.JPG" alt="Zellenberg - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Zellenberg_154.JPG" alt="Zellenberg - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bc/Zellenberg_164.JPG" alt="Zellenberg - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Zellenberg_176.JPG" alt="Zellenberg - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(7, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(7, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(7, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(7, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(7, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dia 13</div>
+                            <div class="overlay-text">Dia 8</div>
                         </div>
                     </div>
                 </div>
@@ -2678,11 +2700,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">14-15</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">9</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Riquewihr</h3>
@@ -2697,8 +2719,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/Riquewihr%2C_France.jpg" alt="Riquewihr - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Riquewihr_%28France%29.jpg" alt="Riquewihr - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/26/68340_Riquewihr%2C_France_-_panoramio_%283%29.jpg" alt="Riquewihr - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/25/68340_Riquewihr%2C_France_-_panoramio_%284%29.jpg" alt="Riquewihr - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/19/0_3081_Riquewihr%2C_Frankreich_%28Elsass%29.jpg" alt="Riquewihr - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 14-15</div>
+                            <div class="overlay-text">Dia 9</div>
                         </div>
                     </div>
                 </div>
@@ -2769,11 +2798,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">16-17</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">10</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Kaysersberg</h3>
@@ -2788,8 +2817,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18354315%2Fpexels-photo-18354315.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Kaysersberg - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18568115%2Fpexels-photo-18568115.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Kaysersberg - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Kaysersberg_Vignoble_2011.jpg" alt="Kaysersberg - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Kaysersberg_Vignoble_b_2011.jpg" alt="Kaysersberg - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 16-17</div>
+                            <div class="overlay-text">Dia 10</div>
                         </div>
                     </div>
                 </div>
@@ -2860,10 +2896,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-18">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">18</div>
+                    <div class="day-number">11</div>
                     <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
@@ -2879,8 +2915,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/Turckheim_Untertor.jpg" alt="Turckheim - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Turkheim_-_Maison_-_2_Grand-Rue_%28fa%C3%A7ade_rue_du_Conseil%29_%283-2016%29_P1050607.jpg" alt="Turckheim - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Turkheim_-_Maison_-_2_Grand-Rue_%28et_angle_rue_du_Conseil%29_%281-2016%29_P1050604.jpg" alt="Turckheim - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/bf/BatallaTurckheim.jpg" alt="Turckheim - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Bernard-Fr%C3%A9d%C3%A9ric_de_Turckheim.jpg" alt="Turckheim - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Auberge_aux_Deux_Clefs_%C3%A0_Turckheim_%28Alsace%29%2C_vers_1925%2C_Georges-Louis_Arlaud.jpg" alt="Turckheim - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Turckheim_%28Alsace%29_vers_1925%2C_Georges-Louis_Arlaud.jpg" alt="Turckheim - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Turkheim_-_Maison_-_45_Grand-Rue_%28angle_rue_des_Forgerons%29_%28pas_dans_liste%29_%281-2016%29_P1050598.jpg" alt="Turckheim - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/21/Baronne_Bernard-Fr%C3%A9d%C3%A9ric_de_Turckheim-Christophe_Gu%C3%A9rin.jpg" alt="Turckheim - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(10, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(10, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(10, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(10, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(10, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dia 18</div>
+                            <div class="overlay-text">Dia 11</div>
                         </div>
                     </div>
                 </div>
@@ -2951,11 +2994,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-19">
+        </div><div class="day-card-enhanced" id="day-12">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">19-21</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">12</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Munster</h3>
@@ -2970,8 +3013,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14082155%2Fpexels-photo-14082155.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Munster - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14104582%2Fpexels-photo-14104582.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Munster - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/M%C3%BCnster%2C_WestLotto_--_2013_--_3296.jpg" alt="Munster - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/M%C3%BCnster%2C_LVM%2C_B%C3%BCrogeb%C3%A4ude_--_2013_--_5149-51.jpg" alt="Munster - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8c/M%C3%BCnster%2C_Westdeutsche_Lotterie_--_2013_--_5125.jpg" alt="Munster - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F221463%2Fpexels-photo-221463.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Munster - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F1110506%2Fpexels-photo-1110506.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Munster - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Mairie_2%27.JPG" alt="Munster - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(11)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(11)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(11, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(11, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(11, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(11, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(11, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(11, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(11, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(11, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 19-21</div>
+                            <div class="overlay-text">Dia 12</div>
                         </div>
                     </div>
                 </div>
@@ -3042,11 +3092,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-22">
+        </div><div class="day-card-enhanced" id="day-13">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">22-23</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">13</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Eguisheim</h3>
@@ -3061,8 +3111,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248848%2Fpexels-photo-18248848.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248853%2Fpexels-photo-18248853.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248809%2Fpexels-photo-18248809.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248810%2Fpexels-photo-18248810.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248811%2Fpexels-photo-18248811.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18248732%2Fpexels-photo-18248732.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Eguisheim - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(12)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(12)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(12, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(12, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(12, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(12, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(12, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(12, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 22-23</div>
+                            <div class="overlay-text">Dia 13</div>
                         </div>
                     </div>
                 </div>
@@ -3133,11 +3190,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-24">
+        </div><div class="day-card-enhanced" id="day-14">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">24-25</div>
-                    <div class="day-label">Dias</div>
+                    <div class="day-number">14</div>
+                    <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Neuf Brisach</h3>
@@ -3152,8 +3209,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2860061%2Fpexels-photo-2860061.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Neuf Brisach - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F34937480%2Fpexels-photo-34937480.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Neuf Brisach - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F11774060%2Fpexels-photo-11774060.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Neuf Brisach - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Neuf-Brisach_007_850.jpg" alt="Neuf Brisach - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(13)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(13)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(13, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(13, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(13, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(13, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dias 24-25</div>
+                            <div class="overlay-text">Dia 14</div>
                         </div>
                     </div>
                 </div>
@@ -3224,10 +3288,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-26">
+        </div><div class="day-card-enhanced" id="day-15">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">26</div>
+                    <div class="day-number">15</div>
                     <div class="day-label">Dia</div>
                 </div>
                 <div class="day-meta">
@@ -3243,8 +3307,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Ferrette_Chateau_2008.jpg" alt="Ferrette - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4d/Vieux_Ferrette_104.jpg" alt="Ferrette - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4c/Vieux-Ferrette%2C_Mairie.jpg" alt="Ferrette - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/Ruines_du_ch%C3%A2teau_de_Ferrette_%2810%29.jpg" alt="Ferrette - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/27/Ferrette%2C_Restaurant_Brasserie.jpg" alt="Ferrette - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(14)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(14)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(14, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(14, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(14, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(14, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(14, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Dia 26</div>
+                            <div class="overlay-text">Dia 15</div>
                         </div>
                     </div>
                 </div>
@@ -3402,7 +3473,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Wissembourg","coords":[49.036,7.946],"label":"Dias 1-2"},{"name":"Hunspach","coords":[48.944,7.933],"label":"Dia 3"},{"name":"Obernai","coords":[48.462,7.481],"label":"Dias 4-5"},{"name":"Mittelbergheim","coords":[48.405,7.445],"label":"Dias 6-7"},{"name":"Bergheim","coords":[48.205,7.362],"label":"Dias 8-9"},{"name":"Ribeauville","coords":[48.197,7.321],"label":"Dia 10"},{"name":"Hunawihr","coords":[48.184,7.317],"label":"Dias 11-12"},{"name":"Zellenberg","coords":[48.171,7.317],"label":"Dia 13"},{"name":"Riquewihr","coords":[48.166,7.299],"label":"Dias 14-15"},{"name":"Kaysersberg","coords":[48.138,7.264],"label":"Dias 16-17"},{"name":"Turckheim","coords":[48.081,7.277],"label":"Dia 18"},{"name":"Munster","coords":[48.04,7.138],"label":"Dias 19-21"},{"name":"Eguisheim","coords":[48.042,7.306],"label":"Dias 22-23"},{"name":"Neuf Brisach","coords":[48.017,7.529],"label":"Dias 24-25"},{"name":"Ferrette","coords":[47.494,7.314],"label":"Dia 26"}];
+    var coords = [{"name":"Wissembourg","coords":[49.036,7.946],"label":"Dia 1"},{"name":"Hunspach","coords":[48.944,7.933],"label":"Dia 2"},{"name":"Obernai","coords":[48.462,7.481],"label":"Dia 3"},{"name":"Mittelbergheim","coords":[48.405,7.445],"label":"Dia 4"},{"name":"Bergheim","coords":[48.205,7.362],"label":"Dia 5"},{"name":"Ribeauville","coords":[48.197,7.321],"label":"Dia 6"},{"name":"Hunawihr","coords":[48.184,7.317],"label":"Dia 7"},{"name":"Zellenberg","coords":[48.171,7.317],"label":"Dia 8"},{"name":"Riquewihr","coords":[48.166,7.299],"label":"Dia 9"},{"name":"Kaysersberg","coords":[48.138,7.264],"label":"Dia 10"},{"name":"Turckheim","coords":[48.081,7.277],"label":"Dia 11"},{"name":"Munster","coords":[48.04,7.138],"label":"Dia 12"},{"name":"Eguisheim","coords":[48.042,7.306],"label":"Dia 13"},{"name":"Neuf Brisach","coords":[48.017,7.529],"label":"Dia 14"},{"name":"Ferrette","coords":[47.494,7.314],"label":"Dia 15"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3593,6 +3664,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Pronto para esta aventura?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A67-68%3A%3Aalsace-15-villages-de-caractere&lang=pt&days=16" class="cta-sticky-btn cta-sticky-primary">Personalizar este itinerário</a>
+            <a href="https://www.oneroadtrip.com/static-pages/pt/roteiros/index.html" class="cta-sticky-btn cta-sticky-secondary">Todos os itinerários</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

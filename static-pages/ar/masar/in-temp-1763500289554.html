@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -2234,21 +2235,7 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">لرؤية بقية هذا المسار مجانًا، تعديله، إضافة حجوزاتك المستقبلية، طباعة وحفظ دليل السفر، تابع إلى الصفحة التالية.</p>
-                    <p class="blur-note">يلزم تسجيل الدخول أو التسجيل</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+15 محطات إضافية</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=IN&itin=IN%3A%3Atemp_1763500289554&lang=ar&days=21" class="btn-continue">متابعة →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">أو أنشئ مسارك الخاص من الصفر</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">4</div>
@@ -2266,6 +2253,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F29547310%2Fpexels-photo-29547310.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Puri - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F89566%2Fpexels-photo-89566.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Puri - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F33620791%2Fpexels-photo-33620791.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Puri - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F30386628%2Fpexels-photo-30386628.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Puri - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F5732287%2Fpexels-photo-5732287.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Puri - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Streetscape%2C_Puri.JPG" alt="Puri - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Puri_Ratha_Yatra.jpg" alt="Puri - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/PURI_JAGANATHA_TEMPLE%2C_PURI%2C_ORISSA%2C_INDIA%2C_ASIA.jpg" alt="Puri - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(3, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(3, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 4</div>
@@ -2349,7 +2343,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-5">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">5</div>
@@ -2367,6 +2361,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/b/b8/Konark_Sun_Temple_Front_view.jpg" alt="Konark - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/60/Konark_Temple_Panorama2.jpg" alt="Konark - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Artwork_at_Konark_Sun_Temple%2C_Odisha%2C_India_%282010%29.jpg" alt="Konark - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/13/WAP4_Konark_10092017.jpg" alt="Konark - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Stone_wheel_engraved_in_the_13th_century_built_Konark_Sun_Temple_in_Orissa%2C_India.jpg" alt="Konark - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/46/Sun_Temple_Main_Structure%2C_Konark%2C_Orissa.jpg" alt="Konark - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8b/Closeup_of_the_center_of_a_stone_wheel_-_Konark_Sun_Temple%2C_Orissa%2C_India.jpg" alt="Konark - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Sun_Temple%2C_Konark%2C_Odisha%2C_India_2.jpg" alt="Konark - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5a/Konark_Sun_Temple_%2C_Konark_%2C_Odisha_%2C_India.jpg" alt="Konark - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/Konark_Sun_Temple%2C_Odisha%2C_India_2.jpg" alt="Konark - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(4, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(4, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(4, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 5</div>
@@ -2450,7 +2451,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">6</div>
@@ -2468,6 +2469,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F10334361%2Fpexels-photo-10334361.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18276010%2Fpexels-photo-18276010.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F27829958%2Fpexels-photo-27829958.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F11100853%2Fpexels-photo-11100853.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18276015%2Fpexels-photo-18276015.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F18276042%2Fpexels-photo-18276042.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F27818964%2Fpexels-photo-27818964.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cuttack - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/ba/Cuttack_ring_road.jpg" alt="Cuttack - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(5, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(5, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(5, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 6</div>
@@ -2551,7 +2559,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">7</div>
@@ -2569,6 +2577,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/St.vincent%27s_convent_sr._sec._school_balasore_odisha.jpg" alt="Balasore - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/42/Balasore_Rail_Station.JPG" alt="Balasore - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2c/Balasore_Ganesh_chaturthi.jpg" alt="Balasore - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Nilgiri_rajabati%2C_Nilgiri%2C_Balasore_district%2C_Odisha%2C_India.jpeg" alt="Balasore - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Mission_Girls%27_High_School%2C_Balasore%2C_Odisha%2C_India.jpg" alt="Balasore - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 7</div>
@@ -2652,7 +2667,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">8</div>
@@ -2670,6 +2685,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/96/Chandipur_sea_beach_Baleswar.jpg" alt="Chandipur - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Sunset_at_Chandipur_Sea_Beach%2C_Odisha.jpg" alt="Chandipur - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/29/Chandipur%2C_Odisha_755009%2C_India_-_panoramio.jpg" alt="Chandipur - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Chandipur_on_Sea%2C_Balasore.jpg" alt="Chandipur - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(7, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 8</div>
@@ -2753,7 +2775,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">9</div>
@@ -2771,6 +2793,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/30/Jagannath_Temple_baripada_1.jpg" alt="Baripada - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Jagannath_Temple_baripada_3.jpg" alt="Baripada - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/Jagannath_Temple_baripada_2.jpg" alt="Baripada - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Jwalamukhi_Temple%2C_Baripada.jpg" alt="Baripada - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Baripada_ratha_yatra_02.jpg" alt="Baripada - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Baripada_ratha_yatra_03.jpg" alt="Baripada - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Baripada_ratha_yatra_01.jpg" alt="Baripada - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/Baruni_mela_%28Baripada%29_2.jpg" alt="Baripada - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Baruni_mela_%28Baripada%29_4.jpg" alt="Baripada - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(8, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(8, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(8, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(8, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 9</div>
@@ -2854,7 +2883,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">10</div>
@@ -2872,6 +2901,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6479585%2Fpexels-photo-6479585.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Barbil - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Bundesarchiv_Bild_102-06939%2C_Weimar%2C_Beisetzung_von_Admiral_Scheer.jpg" alt="Barbil - Photo 2" class="carousel-slide" data-index="1" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button>
+                        </div>
+                        <div class="carousel-counter">2 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 10</div>
@@ -2955,7 +2991,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">11</div>
@@ -2973,6 +3009,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29_5.jpg" alt="Rourkela - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/14/Rourkela_traffic_gate_clock.jpg" alt="Rourkela - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7f/Rourkela_Icons.jpg" alt="Rourkela - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f4/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29_2.jpg" alt="Rourkela - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29.jpg" alt="Rourkela - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29_1.jpg" alt="Rourkela - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29_3.jpg" alt="Rourkela - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e8/National_Institute_of_Technology_Campus%2C_Rourkela%2C_Sundargarh%2C_Odisha%2C_India_%282015%29_4.jpg" alt="Rourkela - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(10)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(10)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(10, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(10, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(10, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(10, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(10, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(10, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(10, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(10, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 11</div>
@@ -3056,7 +3099,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-12">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">12</div>
@@ -3074,6 +3117,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14690287%2Fpexels-photo-14690287.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14701162%2Fpexels-photo-14701162.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8479858%2Fpexels-photo-8479858.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14699775%2Fpexels-photo-14699775.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F17562114%2Fpexels-photo-17562114.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19063182%2Fpexels-photo-19063182.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Sambalpur - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Su-maingate.JPG" alt="Sambalpur - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/65/Sambapur.jpg" alt="Sambalpur - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(11)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(11)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(11, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(11, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(11, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(11, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(11, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(11, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(11, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(11, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 12</div>
@@ -3157,7 +3207,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-13">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">13</div>
@@ -3175,6 +3225,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c6/Orissa_school.JPG" alt="Balangir - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/94/Main_street_Kantabanji.JPG" alt="Balangir - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/38/Harishankar_Temple.jpg" alt="Balangir - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0c/Balangir_palace.jpg" alt="Balangir - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/KANTABANJI_MAIN_STREET.jpg" alt="Balangir - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/INFONIX_GADGET_STORE.jpg" alt="Balangir - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Kbj6.png" alt="Balangir - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Kbj3.png" alt="Balangir - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(12)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(12)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(12, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(12, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(12, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(12, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(12, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(12, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(12, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(12, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 13</div>
@@ -3258,7 +3315,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-14">
+        </div><div class="day-card-enhanced" id="day-14">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">14</div>
@@ -3276,6 +3333,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Jeypore_palace.jpg" alt="Jeypore - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1b/A_masterpiece_of_oriental_magnificence_-_palace_of_the_Maharaja_of_Jeypore%2C_India.jpg" alt="Jeypore - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Jeypore_multiplex.jpg" alt="Jeypore - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/The_Wind%27s_Palace%2C_Jeypore%2C_India_LCCN2002736674.jpg" alt="Jeypore - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(13)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(13)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(13, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(13, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(13, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(13, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 14</div>
@@ -3359,7 +3423,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-15">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">15</div>
@@ -3377,6 +3441,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Rayagada_Railway_Station.jpg" alt="Rayagada - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Girls%27_High_School%2C_Rayagada.JPG" alt="Rayagada - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/68/Greenary_Rayagada.jpg" alt="Rayagada - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Rayagada_Bus_Stand.jpg" alt="Rayagada - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6d/Nagbhushan_Patnaik.jpg" alt="Rayagada - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/17/GCD_High_School%2C_Rayagada.JPG" alt="Rayagada - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/76/District_Court%2C_Rayagada.JPG" alt="Rayagada - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e9/Rayagada_Autonomous_College%2C_Rayagada.jpg" alt="Rayagada - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Criminal_Court_at_Kashipur%2C_Rayagada.JPG" alt="Rayagada - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(14)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(14)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(14, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(14, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(14, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(14, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(14, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(14, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(14, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(14, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(14, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 15</div>
@@ -3460,7 +3531,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-16">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">16</div>
@@ -3478,6 +3549,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F29233284%2Fpexels-photo-29233284.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Daringbadi - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6040180%2Fpexels-photo-6040180.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Daringbadi - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b2/WATER_FALL_NEAR_DARINGBADI.JPG" alt="Daringbadi - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Lover%27s_point%2C_Daringbadi.jpg" alt="Daringbadi - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Dromaius_novaehollandiae_%28Emu%29%2C_Daringbadi.jpg" alt="Daringbadi - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/03/Silence_valley%2C_Daringbari.JPG" alt="Daringbadi - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Black_pepper_creepers%2C_Daringbari.jpg" alt="Daringbadi - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9d/Hill_view_park%2C_Daringbari%2C_Orissa.JPG" alt="Daringbadi - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Emu_farm_at_Daringbari.JPG" alt="Daringbadi - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(15)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(15)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(15, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(15, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(15, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(15, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(15, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(15, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(15, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(15, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(15, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 16</div>
@@ -3561,7 +3639,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-17">
+        </div><div class="day-card-enhanced" id="day-17">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">17</div>
@@ -3579,6 +3657,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/f2/Common_Kingfisher_%28%E0%AC%95%E0%AC%BF%E0%AC%99%E0%AD%8D%E0%AC%97%E0%AD%8D_%E0%AC%AB%E0%AC%BF%E0%AC%B8%E0%AC%B0%E0%AD%8D%29_003.jpg" alt="Berhampur - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/%E0%AC%AC%E0%AD%8D%E0%AC%B0%E0%AC%B9%E0%AD%8D%E0%AC%AE%E0%AC%AA%E0%AD%81%E0%AC%B0_%E0%AC%AC%E0%AD%81%E0%AC%A2%E0%AD%80_%E0%AC%A0%E0%AC%BE%E0%AC%95%E0%AD%81%E0%AC%B0%E0%AC%BE%E0%AC%A3%E0%AD%80_%E0%AC%AF%E0%AC%BE%E0%AC%A4%E0%AD%8D%E0%AC%B0%E0%AC%BE%2C_%E0%AC%B0%E0%AC%BE%E0%AC%9C%E0%AC%AC%E0%AC%BE%E0%AC%9F%E0%AD%80.jpg" alt="Berhampur - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/%E0%AC%AC%E0%AD%81%E0%AC%A2%E0%AC%BC%E0%AD%80_%E0%AC%A0%E0%AC%BE%E0%AC%95%E0%AD%81%E0%AC%B0%E0%AC%BE%E0%AC%A3%E0%AD%80%E0%AC%99%E0%AD%8D%E0%AC%95_%E0%AC%AA%E0%AC%BE%E0%AC%87%E0%AC%81_%E0%AC%9C%E0%AC%A3%E0%AD%87_%E0%AC%AD%E0%AC%95%E0%AD%8D%E0%AC%A4_%E0%AC%86%E0%AC%A3%E0%AC%BF%E0%AC%A5%E0%AC%BF%E0%AC%AC%E0%AC%BE_%E0%AC%AA%E0%AD%81%E0%AC%B7%E0%AD%8D%E0%AC%AA_%E0%AC%AE%E0%AD%81%E0%AC%95%E0%AD%81%E0%AC%9F.jpg" alt="Berhampur - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/%E0%AC%AC%E0%AD%8D%E0%AC%B0%E0%AC%B9%E0%AD%8D%E0%AC%AE%E0%AC%AA%E0%AD%81%E0%AC%B0_%E0%AC%AC%E0%AD%81%E0%AC%A2%E0%AC%BC%E0%AD%80_%E0%AC%A0%E0%AC%BE%E0%AC%95%E0%AD%81%E0%AC%B0%E0%AC%BE%E0%AC%A3%E0%AD%80_%E0%AC%AF%E0%AC%BE%E0%AC%A4%E0%AD%8D%E0%AC%B0%E0%AC%BE%E0%AC%B0%E0%AD%87_%E0%AC%AE%E0%AC%BE%27%E0%AC%99%E0%AD%8D%E0%AC%95_%E0%AC%85%E0%AC%B8%E0%AD%8D%E0%AC%A5%E0%AC%BE%E0%AD%9F%E0%AD%80_%E0%AC%AE%E0%AC%A3%E0%AD%8D%E0%AC%A1%E0%AC%AA_%E0%AC%86%E0%AC%97%E0%AC%B0%E0%AD%87_%E0%AC%A8%E0%AC%BF%E0%AC%B0%E0%AD%8D%E0%AC%AE%E0%AC%BF%E0%AC%A4_%E0%AC%9B%E0%AC%BE%E0%AC%AE%E0%AD%81%E0%AC%A3%E0%AD%8D%E0%AC%A1%E0%AC%BF%E0%AC%86.jpg" alt="Berhampur - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Tour_and_travels_02.jpg" alt="Berhampur - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Berhampur_orissa_-_panoramio.jpg" alt="Berhampur - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Berhampur_orissa_-_panoramio_%281%29.jpg" alt="Berhampur - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Berhampur_orissa_-_panoramio_%282%29.jpg" alt="Berhampur - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(16)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(16)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(16, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(16, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(16, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(16, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(16, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(16, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(16, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(16, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 17</div>
@@ -3662,7 +3747,7 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-18">
+        </div><div class="day-card-enhanced" id="day-18">
             <div class="day-header">
                 <div class="day-badge-advanced">
                     <div class="day-number">18</div>
@@ -3680,6 +3765,13 @@ body {
                         <div class="carousel-container">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Gopalpur_Beach_Panorama.jpg" alt="Gopalpur - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b9/Gopalpur_light_house.jpg" alt="Gopalpur - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f9/Gopalpur_%27s_beach%2C_the_ocean.JPG" alt="Gopalpur - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9b/Gopalpur_%27s_busy_beach.JPG" alt="Gopalpur - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/02/Gopalpur-on-sea_Beach.jpg" alt="Gopalpur - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Managobinda_Samal_Statue_At_Gopalpur_Medical.JPG" alt="Gopalpur - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/GopalpurH.jpg" alt="Gopalpur - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Gopalpur_Sea_Beach.jpg" alt="Gopalpur - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c4/Gopalpur_Port.jpg" alt="Gopalpur - Photo 9" class="carousel-slide" data-index="8" loading="lazy">
                         </div>
+                        
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(17)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(17)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(17, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(17, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(17, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(17, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(17, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(17, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(17, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(17, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(17, 8)" aria-label="Photo 9"></button>
+                        </div>
+                        <div class="carousel-counter">9 photos</div>
                         
                         <div class="image-overlay">
                             <div class="overlay-text">يوم 18</div>
@@ -4041,6 +4133,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ هل أنت مستعد لهذه المغامرة؟</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=IN&itin=IN%3A%3Atemp_1763500289554&lang=ar&days=21" class="cta-sticky-btn cta-sticky-primary">تخصيص هذا المسار</a>
+            <a href="https://www.oneroadtrip.com/static-pages/ar/masar/index.html" class="cta-sticky-btn cta-sticky-secondary">جميع المسارات</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

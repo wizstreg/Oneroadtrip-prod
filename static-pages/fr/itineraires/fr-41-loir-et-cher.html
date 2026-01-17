@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Sommaire</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Blois</a></li><li><a href="#day-3">2. Chambord</a></li><li><a href="#day-5">3. Cheverny</a></li><li><a href="#day-7">4. Chaumont Sur Loire</a></li><li><a href="#day-9">5. Romorantin Lanthenay</a></li><li><a href="#day-11">6. Bracieux</a></li><li><a href="#day-13">7. Vendome</a></li><li><a href="#day-15">8. Montoire Sur Le Loir</a></li><li><a href="#day-16">9. Troo</a></li>
+            <li><a href="#day-1">1. Blois</a></li><li><a href="#day-2">2. Chambord</a></li><li><a href="#day-3">3. Cheverny</a></li><li><a href="#day-4">4. Chaumont Sur Loire</a></li><li><a href="#day-5">5. Romorantin Lanthenay</a></li><li><a href="#day-6">6. Bracieux</a></li><li><a href="#day-7">7. Vendome</a></li><li><a href="#day-8">8. Montoire Sur Le Loir</a></li><li><a href="#day-9">9. Troo</a></li>
             <li><a href="#map-section">🗺️ Carte</a></li>
             <li><a href="#faq-section">❓ Questions fréquentes</a></li>
         </ul>
@@ -1918,8 +1919,8 @@ body {
         <div class="day-card-enhanced" id="day-1">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">1-2</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">1</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Blois</h3>
@@ -1942,7 +1943,7 @@ body {
                         <div class="carousel-counter">10 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 1-2</div>
+                            <div class="overlay-text">Jour 1</div>
                         </div>
                     </div>
                 </div>
@@ -2018,11 +2019,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-3">
+        </div><div class="day-card-enhanced" id="day-2">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">3-4</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">2</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Chambord</h3>
@@ -2045,7 +2046,7 @@ body {
                         <div class="carousel-counter">5 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 3-4</div>
+                            <div class="overlay-text">Jour 2</div>
                         </div>
                     </div>
                 </div>
@@ -2121,11 +2122,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced" id="day-5">
+        </div><div class="day-card-enhanced" id="day-3">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">5-6</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">3</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Cheverny</h3>
@@ -2148,7 +2149,7 @@ body {
                         <div class="carousel-counter">6 photos</div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 5-6</div>
+                            <div class="overlay-text">Jour 3</div>
                         </div>
                     </div>
                 </div>
@@ -2224,25 +2225,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">Pour voir gratuitement la suite du parcours, le modifier, intégrer vos futures réservations, imprimer et conserver le guide de voyage, continuez sur la page suivante.</p>
-                    <p class="blur-note">Connexion ou inscription nécessaire</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+6 étapes supplémentaires</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A41%3A%3Aloir-et-cher&lang=fr&days=10" class="btn-continue">Continuer →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Ou construisez votre itinéraire de A à Z</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">7-8</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Chaumont Sur Loire</h3>
@@ -2257,8 +2244,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F16628339%2Fpexels-photo-16628339.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Chaumont Sur Loire - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19136626%2Fpexels-photo-19136626.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Chaumont Sur Loire - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F27947456%2Fpexels-photo-27947456.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Chaumont Sur Loire - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19136625%2Fpexels-photo-19136625.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Chaumont Sur Loire - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19136591%2Fpexels-photo-19136591.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Chaumont Sur Loire - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f7/Chaumont_sur_Loire_chateau_05.jpg" alt="Chaumont Sur Loire - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 7-8</div>
+                            <div class="overlay-text">Jour 4</div>
                         </div>
                     </div>
                 </div>
@@ -2334,11 +2328,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-9">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">9-10</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">5</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Romorantin Lanthenay</h3>
@@ -2353,8 +2347,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/View_of_a_park%2C_Romorantin-Lanthenay%2C_Loir-et-Cher%2C_France_-_20090626.jpg" alt="Romorantin Lanthenay - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/f3/Romorantin-Lanthenay_-_bains-douches.jpg" alt="Romorantin Lanthenay - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/b/b0/Romorantin-Lanthenay_-_ch%C3%A2teau_%2802%29.jpg" alt="Romorantin Lanthenay - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/Romorantin-Lanthenay_-_ch%C3%A2teau_%2801%29.jpg" alt="Romorantin Lanthenay - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Romorantin-Lanthenay_-_tour_Jacquemard_%2801%29.jpg" alt="Romorantin Lanthenay - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Romorantin-Lanthenay_-_%C3%A9glise_Notre-Dame-et-Saint-%C3%89tienne_%2802%29.jpg" alt="Romorantin Lanthenay - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d3/Romorantin-Lanthenay_-_%C3%A9glise_Notre-Dame-et-Saint-%C3%89tienne_%2801%29.jpg" alt="Romorantin Lanthenay - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/5/59/Romorantin-Lanthenay_-_%C3%A9glise_Notre-Dame-et-Saint-%C3%89tienne_%2805%29.jpg" alt="Romorantin Lanthenay - Photo 8" class="carousel-slide" data-index="7" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(4, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(4, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(4, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(4, 7)" aria-label="Photo 8"></button>
+                        </div>
+                        <div class="carousel-counter">8 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 9-10</div>
+                            <div class="overlay-text">Jour 5</div>
                         </div>
                     </div>
                 </div>
@@ -2430,11 +2431,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11-12</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">6</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Bracieux</h3>
@@ -2449,8 +2450,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Bracieux_clocher.jpg" alt="Bracieux - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Bracieux_hotel_de_ville.jpg" alt="Bracieux - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Bracieux_halle.jpg" alt="Bracieux - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/04/LoireSeeBracieux.jpg" alt="Bracieux - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Beuvron_River_in_Bracieux.jpg" alt="Bracieux - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 11-12</div>
+                            <div class="overlay-text">Jour 6</div>
                         </div>
                     </div>
                 </div>
@@ -2526,11 +2534,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13-14</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">7</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Vendome</h3>
@@ -2545,8 +2553,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F19025316%2Fpexels-photo-19025316.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F32380296%2Fpexels-photo-32380296.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F548100%2Fpexels-photo-548100.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F9713055%2Fpexels-photo-9713055.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F14995886%2Fpexels-photo-14995886.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F10854955%2Fpexels-photo-10854955.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Vendome - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(6, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 13-14</div>
+                            <div class="overlay-text">Jour 7</div>
                         </div>
                     </div>
                 </div>
@@ -2627,10 +2642,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-15">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">15</div>
+                    <div class="day-number">8</div>
                     <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
@@ -2646,8 +2661,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/c8/France_Loir-et-Cher_Montoire-sur-le-Loir_01.JPG" alt="Montoire Sur Le Loir - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e2/France_Loir-et-Cher_Montoire-sur-le-Loir_02.JPG" alt="Montoire Sur Le Loir - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Montoire00.jpg" alt="Montoire Sur Le Loir - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jour 15</div>
+                            <div class="overlay-text">Jour 8</div>
                         </div>
                     </div>
                 </div>
@@ -2723,11 +2745,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-16">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">16-17</div>
-                    <div class="day-label">Jours</div>
+                    <div class="day-number">9</div>
+                    <div class="day-label">Jour</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Troo</h3>
@@ -2742,8 +2764,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/8/8a/Troglodyte_home_%28hobbit_hole%29_Troo_Loir_et_Cher.jpg" alt="Troo - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d4/Tr%C3%B4o_-_coll%C3%A9giale_Saint-Martin.jpg" alt="Troo - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/6/63/Vue_panoramique_depuis_la_butte_de_Tr%C3%B4o.jpg" alt="Troo - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Maladrerie_Sainte-Catherine_de_Troo.jpg" alt="Troo - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Puits_qui_parle_de_Troo.jpg" alt="Troo - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Fortifications_de_Troo.jpg" alt="Troo - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(8, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Jours 16-17</div>
+                            <div class="overlay-text">Jour 9</div>
                         </div>
                     </div>
                 </div>
@@ -2906,7 +2935,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Blois","coords":[47.5858,1.335],"label":"Jours 1-2"},{"name":"Chambord","coords":[47.6167,1.5167],"label":"Jours 3-4"},{"name":"Cheverny","coords":[47.5,1.4667],"label":"Jours 5-6"},{"name":"Chaumont Sur Loire","coords":[47.4808,1.1814],"label":"Jours 7-8"},{"name":"Romorantin Lanthenay","coords":[47.3572,1.7417],"label":"Jours 9-10"},{"name":"Bracieux","coords":[47.55,1.5333],"label":"Jours 11-12"},{"name":"Vendome","coords":[47.7933,1.0656],"label":"Jours 13-14"},{"name":"Montoire Sur Le Loir","coords":[47.755,0.865],"label":"Jour 15"},{"name":"Troo","coords":[47.7706,0.8022],"label":"Jours 16-17"}];
+    var coords = [{"name":"Blois","coords":[47.5858,1.335],"label":"Jour 1"},{"name":"Chambord","coords":[47.6167,1.5167],"label":"Jour 2"},{"name":"Cheverny","coords":[47.5,1.4667],"label":"Jour 3"},{"name":"Chaumont Sur Loire","coords":[47.4808,1.1814],"label":"Jour 4"},{"name":"Romorantin Lanthenay","coords":[47.3572,1.7417],"label":"Jour 5"},{"name":"Bracieux","coords":[47.55,1.5333],"label":"Jour 6"},{"name":"Vendome","coords":[47.7933,1.0656],"label":"Jour 7"},{"name":"Montoire Sur Le Loir","coords":[47.755,0.865],"label":"Jour 8"},{"name":"Troo","coords":[47.7706,0.8022],"label":"Jour 9"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3097,6 +3126,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Prêt à vivre cette aventure ?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=FR&itin=FR%3A%3A41%3A%3Aloir-et-cher&lang=fr&days=10" class="cta-sticky-btn cta-sticky-primary">Personnaliser cet itinéraire</a>
+            <a href="https://www.oneroadtrip.com/static-pages/fr/itineraires/index.html" class="cta-sticky-btn cta-sticky-secondary">Tous les itinéraires</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>

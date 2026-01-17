@@ -1723,109 +1723,110 @@ body {
     position: relative;
 }
 
-.day-card-blurred {
-    filter: blur(8px);
-    pointer-events: none;
-    user-select: none;
-    opacity: 0.6;
+/* Bandeau CTA sticky flottant */
+.cta-sticky-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    padding: 14px 20px;
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.25);
+    z-index: 1000;
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
 }
 
-.blur-overlay {
-    background: linear-gradient(to bottom, rgba(255,255,255,0.8) 0%, rgba(255,255,255,1) 30%);
-    padding: 40px 20px 60px;
-    margin-top: -80px;
-    position: relative;
-    z-index: 10;
+.cta-sticky-banner.visible {
+    transform: translateY(0);
 }
 
-.blur-overlay-content {
-    max-width: 500px;
+.cta-sticky-content {
+    max-width: 1200px;
     margin: 0 auto;
-    text-align: center;
-    background: white;
-    border-radius: var(--radius-xl);
-    padding: 30px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-    border: 3px solid var(--primary);
-}
-
-.blur-icon {
-    font-size: 3rem;
-    margin-bottom: 15px;
-}
-
-.blur-message {
-    color: var(--text);
-    font-size: 1rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
-}
-
-.blur-stats {
-    margin-bottom: 25px;
-}
-
-.blur-count {
-    background: var(--primary);
-    color: white;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-
-.blur-actions {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
+    gap: 20px;
     flex-wrap: wrap;
 }
 
-.blur-note {
-    color: var(--text-light);
-    font-size: 0.9rem;
-    font-style: italic;
-    margin-bottom: 15px;
-}
-
-.btn-continue {
-    display: inline-block;
-    padding: 14px 32px;
-    border-radius: 25px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: none;
-    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+.cta-sticky-text {
     color: white;
-    text-decoration: none;
-}
-
-.btn-continue:hover {
-    transform: scale(1.05);
-    box-shadow: var(--shadow-lg);
-}
-
-.blur-alt {
-    margin-top: 20px;
-    font-size: 0.95rem;
-}
-
-.blur-alt a {
-    color: var(--primary);
-    text-decoration: underline;
+    font-size: 1.05rem;
     font-weight: 500;
 }
 
-.blur-alt a:hover {
-    color: var(--accent-start);
+.cta-sticky-buttons {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 480px) {
-    .blur-actions {
+.cta-sticky-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.cta-sticky-primary {
+    background: linear-gradient(135deg, var(--accent-start), var(--accent-end));
+    color: white;
+}
+
+.cta-sticky-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.cta-sticky-secondary {
+    background: rgba(255,255,255,0.15);
+    color: white;
+    border: 2px solid rgba(255,255,255,0.4);
+}
+
+.cta-sticky-secondary:hover {
+    background: rgba(255,255,255,0.25);
+}
+
+.cta-sticky-close {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.7);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 5px 10px;
+    line-height: 1;
+}
+
+.cta-sticky-close:hover {
+    color: white;
+}
+
+@media (max-width: 640px) {
+    .cta-sticky-content {
         flex-direction: column;
+        text-align: center;
+        gap: 12px;
+    }
+    .cta-sticky-banner {
+        padding: 12px 40px 12px 15px;
+    }
+    .cta-sticky-text {
+        font-size: 0.95rem;
+    }
+    .cta-sticky-btn {
+        padding: 8px 16px;
+        font-size: 0.9rem;
     }
 }
 </style>
@@ -1903,7 +1904,7 @@ body {
     <details class="toc-details" open>
         <summary class="toc-summary">📋 Contents</summary>
         <ul class="toc-list">
-            <li><a href="#day-1">1. Mccarthy Kennicott</a></li><li><a href="#day-2">2. Valdez</a></li><li><a href="#day-3">3. Copper</a></li><li><a href="#day-4">4. Fairbanks</a></li><li><a href="#day-6">5. Denali</a></li><li><a href="#day-7">6. Talkeetna</a></li><li><a href="#day-8">7. Anchorage</a></li><li><a href="#day-10">8. Homer</a></li><li><a href="#day-11">9. Seward</a></li><li><a href="#day-12">10. Cooper Landing</a></li><li><a href="#day-13">11. Girdwood</a></li>
+            <li><a href="#day-1">1. Mccarthy Kennicott</a></li><li><a href="#day-2">2. Valdez</a></li><li><a href="#day-3">3. Copper</a></li><li><a href="#day-4">4. Fairbanks</a></li><li><a href="#day-5">5. Denali</a></li><li><a href="#day-6">6. Talkeetna</a></li><li><a href="#day-7">7. Anchorage</a></li><li><a href="#day-8">8. Homer</a></li><li><a href="#day-9">9. Seward</a></li><li><a href="#day-10">10. Cooper Landing</a></li><li><a href="#day-11">11. Girdwood</a></li>
             <li><a href="#map-section">🗺️ Map</a></li>
             <li><a href="#faq-section">❓ Frequently asked questions</a></li>
         </ul>
@@ -2227,25 +2228,11 @@ body {
             </div>
                 </div>
             </div>
-        </div>
-            <div class="blur-overlay" id="blur-overlay">
-                <div class="blur-overlay-content">
-                    <div class="blur-icon">🔓</div>
-                    <p class="blur-message">To see the rest of this itinerary for free, customize it, add your future bookings, print and save your travel guide, continue to the next page.</p>
-                    <p class="blur-note">Login or registration required</p>
-                    <div class="blur-stats">
-                        <span class="blur-count">+8 more steps</span>
-                    </div>
-                    <div class="blur-actions">
-                        <a href="/roadtrip_detail.html?cc=US&itin=US%3A%3Aalaska%3A%3Agrand-wilderness-circuit&lang=en&days=15" class="btn-continue">Continue →</a>
-                    </div>
-                    <p class="blur-alt"><a href="https://www.oneroadtrip.com/presentation.html">Or build your own itinerary from scratch</a></p>
-                </div>
-            </div><div class="day-card-enhanced day-card-blurred" id="day-4">
+        </div><div class="day-card-enhanced" id="day-4">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">4-5</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">4</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Fairbanks</h3>
@@ -2260,8 +2247,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/3/37/Fairbanks_AK_train_station.jpg" alt="Fairbanks - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/0f/Fairbanks_Oregon_school_2.jpg" alt="Fairbanks - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/0/00/Fairbanks_Oregon_school_1.jpg" alt="Fairbanks - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Fairbanks_quonset.jpg" alt="Fairbanks - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Fairbanks%2C_finally.jpg" alt="Fairbanks - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/Taxicabs_Lined_Up_in_Fairbanks_Alaska.jpg" alt="Fairbanks - Photo 6" class="carousel-slide" data-index="5" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(3)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(3)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(3, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(3, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(3, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(3, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(3, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(3, 5)" aria-label="Photo 6"></button>
+                        </div>
+                        <div class="carousel-counter">6 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 4-5</div>
+                            <div class="overlay-text">Day 4</div>
                         </div>
                     </div>
                 </div>
@@ -2342,10 +2336,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-6">
+        </div><div class="day-card-enhanced" id="day-5">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">6</div>
+                    <div class="day-number">5</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2361,8 +2355,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F204262%2Fpexels-photo-204262.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Denali - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F25928429%2Fpexels-photo-25928429.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Denali - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F11011922%2Fpexels-photo-11011922.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Denali - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F9559424%2Fpexels-photo-9559424.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Denali - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(4)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(4)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(4, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(4, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(4, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(4, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 6</div>
+                            <div class="overlay-text">Day 5</div>
                         </div>
                     </div>
                 </div>
@@ -2443,10 +2444,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-7">
+        </div><div class="day-card-enhanced" id="day-6">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">7</div>
+                    <div class="day-number">6</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2462,8 +2463,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/f/ff/Talkeetna_Alaska_3.jpg" alt="Talkeetna - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e6/Talkeetna_River.jpg" alt="Talkeetna - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/47/Wagon_mules%2C_Talkeetna%2C_Alaska.jpg" alt="Talkeetna - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/73/Private_barbecue_in_Talkeetna_%289004065094%29.jpg" alt="Talkeetna - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/31/Talkeetna_June_2015.JPG" alt="Talkeetna - Photo 5" class="carousel-slide" data-index="4" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(5)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(5)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(5, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(5, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(5, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(5, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(5, 4)" aria-label="Photo 5"></button>
+                        </div>
+                        <div class="carousel-counter">5 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 7</div>
+                            <div class="overlay-text">Day 6</div>
                         </div>
                     </div>
                 </div>
@@ -2529,11 +2537,11 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-8">
+        </div><div class="day-card-enhanced" id="day-7">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">8-9</div>
-                    <div class="day-label">Days</div>
+                    <div class="day-number">7</div>
+                    <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
                     <h3 class="day-title-evocative">Anchorage</h3>
@@ -2548,8 +2556,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F4027720%2Fpexels-photo-4027720.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Anchorage - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F32446595%2Fpexels-photo-32446595.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Anchorage - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/4/4a/Anchorage_on_an_April_evening.jpg" alt="Anchorage - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Seal_of_Anchorage%2C_Alaska.svg" alt="Anchorage - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/9e/Anchorage_Fed_Building.JPG" alt="Anchorage - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/cd/US_Navy_000907-N-8743M-018_USS_Anchorage_%28LSD_36%29.jpg" alt="Anchorage - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fb/US_Navy_030117-N-2069B-002_USS_Anchorage_%28LSD_36%29_departs_San_Diego_Bay.jpg" alt="Anchorage - Photo 7" class="carousel-slide" data-index="6" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/AK-Anchorage_1940_2_Ref.jpg" alt="Anchorage - Photo 8" class="carousel-slide" data-index="7" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Anchorage_1953_FWS.jpg" alt="Anchorage - Photo 9" class="carousel-slide" data-index="8" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Anchorage_International_Airport_-_US-AK.jpg" alt="Anchorage - Photo 10" class="carousel-slide" data-index="9" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(6)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(6)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(6, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(6, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(6, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(6, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(6, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(6, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(6, 6)" aria-label="Photo 7"></button><button class="carousel-dot" onclick="carouselGoTo(6, 7)" aria-label="Photo 8"></button><button class="carousel-dot" onclick="carouselGoTo(6, 8)" aria-label="Photo 9"></button><button class="carousel-dot" onclick="carouselGoTo(6, 9)" aria-label="Photo 10"></button>
+                        </div>
+                        <div class="carousel-counter">10 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Days 8-9</div>
+                            <div class="overlay-text">Day 7</div>
                         </div>
                     </div>
                 </div>
@@ -2614,10 +2629,10 @@ body {
                     
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-10">
+        </div><div class="day-card-enhanced" id="day-8">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">10</div>
+                    <div class="day-number">8</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2633,8 +2648,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Homer_City_Pennsylvania_Pharmacy.JPG" alt="Homer - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/2/2e/Homer_City_Pennsylvania_Historical_Society.JPG" alt="Homer - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Sleeping%2C_homeless_children_-_Jacob_Riis.jpg" alt="Homer - Photo 3" class="carousel-slide" data-index="2" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(7)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(7)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(7, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(7, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(7, 2)" aria-label="Photo 3"></button>
+                        </div>
+                        <div class="carousel-counter">3 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 10</div>
+                            <div class="overlay-text">Day 8</div>
                         </div>
                     </div>
                 </div>
@@ -2715,10 +2737,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-11">
+        </div><div class="day-card-enhanced" id="day-9">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">11</div>
+                    <div class="day-number">9</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2734,8 +2756,15 @@ body {
                             <img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Jones_House_Seward_NE.JPG" alt="Seward - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F15472798%2Fpexels-photo-15472798.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Seward - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F6144984%2Fpexels-photo-6144984.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Seward - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/3/36/USA_Seward_County%2C_Nebraska_age_pyramid.svg" alt="Seward - Photo 4" class="carousel-slide" data-index="3" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/9/91/Seward_County_Nebraska_Incorporated_and_Unincorporated_areas_Seward_Highlighted.svg" alt="Seward - Photo 5" class="carousel-slide" data-index="4" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Seward_County_Courthouse%2C_Seward.jpg" alt="Seward - Photo 6" class="carousel-slide" data-index="5" loading="lazy"><img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Seward_Pennsylvania_2012.jpg" alt="Seward - Photo 7" class="carousel-slide" data-index="6" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(8)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(8)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(8, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(8, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(8, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(8, 3)" aria-label="Photo 4"></button><button class="carousel-dot" onclick="carouselGoTo(8, 4)" aria-label="Photo 5"></button><button class="carousel-dot" onclick="carouselGoTo(8, 5)" aria-label="Photo 6"></button><button class="carousel-dot" onclick="carouselGoTo(8, 6)" aria-label="Photo 7"></button>
+                        </div>
+                        <div class="carousel-counter">7 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 11</div>
+                            <div class="overlay-text">Day 9</div>
                         </div>
                     </div>
                 </div>
@@ -2816,10 +2845,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-12">
+        </div><div class="day-card-enhanced" id="day-10">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">12</div>
+                    <div class="day-number">10</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2835,8 +2864,15 @@ body {
                             <img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F2539399%2Fpexels-photo-2539399.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cooper Landing - Photo 1" class="carousel-slide active" data-index="0" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8783144%2Fpexels-photo-8783144.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cooper Landing - Photo 2" class="carousel-slide" data-index="1" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8782662%2Fpexels-photo-8782662.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cooper Landing - Photo 3" class="carousel-slide" data-index="2" loading="lazy"><img src="https://wsrv.nl/?url=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F8783581%2Fpexels-photo-8783581.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D2%26h%3D650%26w%3D940&w=800&q=85&output=webp&fit=cover&n=-1" alt="Cooper Landing - Photo 4" class="carousel-slide" data-index="3" loading="lazy">
                         </div>
                         
+                        <button class="carousel-btn carousel-prev" onclick="carouselPrev(9)" aria-label="Photo précédente">‹</button>
+                        <button class="carousel-btn carousel-next" onclick="carouselNext(9)" aria-label="Photo suivante">›</button>
+                        <div class="carousel-dots">
+                            <button class="carousel-dot active" onclick="carouselGoTo(9, 0)" aria-label="Photo 1"></button><button class="carousel-dot" onclick="carouselGoTo(9, 1)" aria-label="Photo 2"></button><button class="carousel-dot" onclick="carouselGoTo(9, 2)" aria-label="Photo 3"></button><button class="carousel-dot" onclick="carouselGoTo(9, 3)" aria-label="Photo 4"></button>
+                        </div>
+                        <div class="carousel-counter">4 photos</div>
+                        
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 12</div>
+                            <div class="overlay-text">Day 10</div>
                         </div>
                     </div>
                 </div>
@@ -2917,10 +2953,10 @@ body {
             </div>
                 </div>
             </div>
-        </div><div class="day-card-enhanced day-card-blurred" id="day-13">
+        </div><div class="day-card-enhanced" id="day-11">
             <div class="day-header">
                 <div class="day-badge-advanced">
-                    <div class="day-number">13</div>
+                    <div class="day-number">11</div>
                     <div class="day-label">Day</div>
                 </div>
                 <div class="day-meta">
@@ -2937,7 +2973,7 @@ body {
                         </div>
                         
                         <div class="image-overlay">
-                            <div class="overlay-text">Day 13</div>
+                            <div class="overlay-text">Day 11</div>
                         </div>
                     </div>
                 </div>
@@ -3106,7 +3142,7 @@ function loadLeaflet() {
     document.body.appendChild(script);
 }
 function initMap() {
-    var coords = [{"name":"Mccarthy Kennicott","coords":[61.4375,-142.8864],"label":"Day 1"},{"name":"Valdez","coords":[61.1308,-146.3483],"label":"Day 2"},{"name":"Copper","coords":[61.9558,-145.3122],"label":"Day 3"},{"name":"Fairbanks","coords":[64.8401,-147.72],"label":"Days 4-5"},{"name":"Denali","coords":[63.733,-148.914],"label":"Day 6"},{"name":"Talkeetna","coords":[62.3209,-150.1066],"label":"Day 7"},{"name":"Anchorage","coords":[61.2181,-149.9003],"label":"Days 8-9"},{"name":"Homer","coords":[59.6425,-151.5483],"label":"Day 10"},{"name":"Seward","coords":[60.1042,-149.4422],"label":"Day 11"},{"name":"Cooper Landing","coords":[60.49,-149.8344],"label":"Day 12"},{"name":"Girdwood","coords":[60.9428,-149.1661],"label":"Day 13"}];
+    var coords = [{"name":"Mccarthy Kennicott","coords":[61.4375,-142.8864],"label":"Day 1"},{"name":"Valdez","coords":[61.1308,-146.3483],"label":"Day 2"},{"name":"Copper","coords":[61.9558,-145.3122],"label":"Day 3"},{"name":"Fairbanks","coords":[64.8401,-147.72],"label":"Day 4"},{"name":"Denali","coords":[63.733,-148.914],"label":"Day 5"},{"name":"Talkeetna","coords":[62.3209,-150.1066],"label":"Day 6"},{"name":"Anchorage","coords":[61.2181,-149.9003],"label":"Day 7"},{"name":"Homer","coords":[59.6425,-151.5483],"label":"Day 8"},{"name":"Seward","coords":[60.1042,-149.4422],"label":"Day 9"},{"name":"Cooper Landing","coords":[60.49,-149.8344],"label":"Day 10"},{"name":"Girdwood","coords":[60.9428,-149.1661],"label":"Day 11"}];
     if (coords.length && typeof L !== 'undefined') {
         var map = L.map('map', { scrollWheelZoom: false }).setView(coords[0].coords, 6);
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png').addTo(map);
@@ -3297,6 +3333,32 @@ window.addEventListener('load', function() {
         gtag('config', 'GT-WF83FMCX');
     };
 });
+</script>
+
+<!-- BANDEAU CTA STICKY -->
+<div class="cta-sticky-banner" id="cta-sticky">
+    <div class="cta-sticky-content">
+        <span class="cta-sticky-text">✨ Ready for this adventure?</span>
+        <div class="cta-sticky-buttons">
+            <a href="/roadtrip_detail.html?cc=US&itin=US%3A%3Aalaska%3A%3Agrand-wilderness-circuit&lang=en&days=15" class="cta-sticky-btn cta-sticky-primary">Customize this itinerary</a>
+            <a href="https://www.oneroadtrip.com/static-pages/en/itineraries/index.html" class="cta-sticky-btn cta-sticky-secondary">All itineraries</a>
+        </div>
+    </div>
+    <button class="cta-sticky-close" onclick="document.getElementById('cta-sticky').style.display='none'" aria-label="Fermer">×</button>
+</div>
+
+<script>
+// Afficher le bandeau après scroll de 800px (environ 3-4 cartes)
+(function() {
+    const banner = document.getElementById('cta-sticky');
+    let shown = false;
+    window.addEventListener('scroll', function() {
+        if (!shown && window.scrollY > 800) {
+            banner.classList.add('visible');
+            shown = true;
+        }
+    });
+})();
 </script>
 
 </body>
