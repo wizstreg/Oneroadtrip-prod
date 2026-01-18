@@ -2915,43 +2915,118 @@ window.initAdminRTViewer = function() {
   }
   
   function generateRewritePrompt(itin) {
-    return `Tu es un réécrivain d'itinéraires de voyage. Je vais te fournir un JSON existant et des articles/sources pour améliorer le contenu.
+    const hasPC = !!itin.practical_context;
+    const hasSeo = !!itin.seo;
+    
+    return `Tu es un expert en création d'itinéraires de voyage. Je vais te fournir un JSON existant et des articles/sources pour améliorer le contenu.
 
-🎯 OBJECTIF : Réécrire les textes de visits[] et activities[] en gardant la STRUCTURE EXACTE du JSON.
+🎯 OBJECTIF : Réécrire ET enrichir cet itinéraire au format professionnel.
 
-📋 JSON À RÉÉCRIRE (conserver itin_id, coords, place_id, structure days_plan) :
+📋 JSON À AMÉLIORER :
 \`\`\`json
 ${JSON.stringify({ itins: [itin] }, null, 2)}
 \`\`\`
 
-✅ À CONSERVER TEL QUEL :
+═══════════════════════════════════════════════════════════
+✅ À CONSERVER TEL QUEL
+═══════════════════════════════════════════════════════════
 - itin_id: "${itin.itin_id}"
-- title: "${itin.title}"
-- source_url: "${itin.source_url || ''}" (mettre l'URL des nouveaux articles)
-- dept_code, dept_name, region_code
 - Tous les coords et place_id
-- La structure days_plan avec les mêmes jours
-- to_next_leg (distances/durées)
+- La structure days_plan (mêmes jours, même ordre)
+- to_next_leg.distance_km et to_next_leg.drive_min
 
-✍️ À RÉÉCRIRE COMPLÈTEMENT :
-- Tous les textes dans visits[].text → descriptions riches des lieux (monuments, temples, sites)
-- Tous les textes dans activities[].text → descriptions des activités (marchés, randos, kayak)
-- 5-8 visits + 3-6 activities par jour minimum
-- Varier le style : descriptif ("Le temple déploie..."), impératif ("Découvrez..."), narratif ("Les moines tissent...")
+═══════════════════════════════════════════════════════════
+✍️ À RÉÉCRIRE / AMÉLIORER
+═══════════════════════════════════════════════════════════
 
-🚫 NEUTRALISATION :
+1️⃣ MÉTADONNÉES :
+- title: "${itin.title}" → Améliorer si nécessaire (< 60 car.)
+- subtitle: ${itin.subtitle ? `"${itin.subtitle}"` : '❌ MANQUANT → Ajouter (1 ligne accrocheuse)'} 
+- source_url: Mettre l'URL de tes articles sources
+
+2️⃣ CONTEXTE PRATIQUE ${hasPC ? '(existe, améliorer si besoin)' : '❌ MANQUANT → CRÉER'} :
+\`\`\`json
+"practical_context": {
+  "best_months": ["mois1", "mois2", ...],
+  "vehicle_type": "Type de véhicule recommandé",
+  "group_type": "Public cible (couple, famille...)",
+  "loop_type": "Boucle Ville ↔ Ville",
+  "total_km": XXXX,
+  "daily_average_km": XXX,
+  "highlights": [
+    "Point fort 1 (lieu emblématique)",
+    "Point fort 2 (expérience unique)",
+    "Point fort 3...",
+    "Point fort 4..."
+  ]
+}
+\`\`\`
+
+3️⃣ SEO ${hasSeo ? '(existe, vérifier)' : '❌ MANQUANT → CRÉER'} :
+\`\`\`json
+"seo": {
+  "h1_title": "Titre SEO optimisé",
+  "intro_paragraph": "2-3 phrases d'intro engageantes",
+  "seo_hook": "1 phrase d'accroche percutante",
+  "featured_list": ["Lieu : tagline", ...],
+  "places_taglines": { "CC::place-id": "tagline courte" }
+}
+\`\`\`
+
+4️⃣ VISITS (5-8 par jour) :
+- Textes de 2-3 phrases, style immersif et sensoriel
+- Varier : descriptif ("Le temple déploie..."), impératif ("Découvrez..."), narratif ("Les moines tissent...")
+
+5️⃣ ACTIVITIES (3-6 par jour) :
+- Textes de 2-3 phrases
+- AJOUTER practical_info sur les activités importantes :
+
+\`\`\`json
+// Exemple camping
+"practical_info": {
+  "camp_type": "NWR / Privé",
+  "facilities": "Sanitaires, piscine...",
+  "booking": "Site ou conseil réservation"
+}
+
+// Exemple randonnée
+"practical_info": {
+  "distance": "10 km",
+  "duration": "~4h",
+  "difficulty": "Modéré",
+  "water": "Emporter 2L minimum"
+}
+
+// Exemple safari
+"practical_info": {
+  "type": "Self-drive / Guidé",
+  "best_time": "Lever du soleil",
+  "wildlife": "Lions, éléphants..."
+}
+\`\`\`
+
+6️⃣ TO_NEXT_LEG :
+- Ajouter "road_type": "Goudron" / "Gravel" / "Piste" / "Goudron puis gravel"
+
+═══════════════════════════════════════════════════════════
+🚫 NEUTRALISATION
+═══════════════════════════════════════════════════════════
 - Pas de noms de commerces → "Les loueurs proposent..."
 - Pas de personnes nommées
 - Pas de prix
 - Pas de dates récentes
 - "à moto" → "par la route"
 
-📄 ARTICLES/SOURCES POUR RÉÉCRITURE :
-[COLLE ICI TES ARTICLES - le contenu servira à enrichir les visits et activities]
+═══════════════════════════════════════════════════════════
+📄 ARTICLES/SOURCES POUR ENRICHISSEMENT
+═══════════════════════════════════════════════════════════
+[COLLE ICI TES ARTICLES - le contenu servira à enrichir visits, activities et practical_info]
 
-🎯 RÉSULTAT ATTENDU :
-Produis UNIQUEMENT le JSON valide avec la même structure, sans texte autour, sans balises Markdown.
-Le JSON doit pouvoir remplacer directement l'ancien dans le fichier ${sourceFileName || 'itins'}.`;
+═══════════════════════════════════════════════════════════
+🎯 RÉSULTAT ATTENDU
+═══════════════════════════════════════════════════════════
+Produis UNIQUEMENT le JSON valide { "itins": [...] }, sans texte autour, sans balises Markdown.
+Le JSON doit pouvoir remplacer directement l'ancien dans ${sourceFileName || 'le fichier source'}.`;
   }
   
   console.log('[ADMIN RT] ✅ RT Viewer initialized');

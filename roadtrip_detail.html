@@ -5153,7 +5153,11 @@ async function initFromItin(it){
   state._originalSpecialties = it.specialties || null;
   state._originalDeptCode = it.dept_code || null;
   state._originalDeptName = it.dept_name || null;
-  console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗');
+  // Nouveaux champs format enrichi
+  state._originalSubtitle = it.subtitle || null;
+  state._originalSeoKeywords = it.seo_keywords || null;
+  state._originalPracticalContext = it.practical_context || null;
+  console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗', state._originalPracticalContext ? 'practical_context ✓' : '');
   
   // Priorité: langue de l'itinéraire > langue du fichier chargé
   if (it.language || it.__lang) {
@@ -8747,8 +8751,12 @@ window.initSaveSourceButton = function(){
     if (state._originalSpecialties) itinToSave.specialties = state._originalSpecialties;
     if (state._originalDeptCode) itinToSave.dept_code = state._originalDeptCode;
     if (state._originalDeptName) itinToSave.dept_name = state._originalDeptName;
+    // Nouveaux champs format enrichi
+    if (state._originalSubtitle) itinToSave.subtitle = state._originalSubtitle;
+    if (state._originalSeoKeywords) itinToSave.seo_keywords = state._originalSeoKeywords;
+    if (state._originalPracticalContext) itinToSave.practical_context = state._originalPracticalContext;
     
-    console.log('[SAVE SOURCE] 📦 Métadonnées incluses:', itinToSave.seo ? 'SEO ✓' : 'SEO ✗');
+    console.log('[SAVE SOURCE] 📦 Métadonnées incluses:', itinToSave.seo ? 'SEO ✓' : 'SEO ✗', itinToSave.practical_context ? 'practical_context ✓' : '');
     
     // Confirmation avec message adapté
     const action = isTemp ? '🆕 AJOUTER' : '✏️ MODIFIER';
@@ -9039,7 +9047,11 @@ if(itinsObj){
         if (toUse.specialties) state._originalSpecialties = toUse.specialties;
         if (toUse.dept_code) state._originalDeptCode = toUse.dept_code;
         if (toUse.dept_name) state._originalDeptName = toUse.dept_name;
-        console.log('[IMPORT] 📦 Métadonnées stockées:', toUse.seo ? 'SEO ✓' : 'SEO ✗', toUse.meta ? 'meta ✓' : 'meta ✗');
+        // Nouveaux champs format enrichi
+        if (toUse.subtitle) state._originalSubtitle = toUse.subtitle;
+        if (toUse.seo_keywords) state._originalSeoKeywords = toUse.seo_keywords;
+        if (toUse.practical_context) state._originalPracticalContext = toUse.practical_context;
+        console.log('[IMPORT] 📦 Métadonnées stockées:', toUse.seo ? 'SEO ✓' : 'SEO ✗', toUse.meta ? 'meta ✓' : 'meta ✗', toUse.practical_context ? 'practical_context ✓' : '');
         
 await initFromItin(toUse);
 
