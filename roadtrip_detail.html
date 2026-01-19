@@ -1825,6 +1825,111 @@ header{position:sticky;top:0;z-index:10;background:url("/assets/image_index.webp
 }
 
 /* === PANNEAU EXPANDABLE ACTIVITÉS === */
+/* === PRACTICAL CONTEXT (infos pratiques en haut) === */
+#practicalContextBox {
+  display: none;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border: 1px solid #7dd3fc;
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+#practicalContextBox.show { display: block; }
+.pc-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  margin-bottom: 10px;
+}
+.pc-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: #0c4a6e;
+}
+.pc-item .pc-icon { font-size: 1.1rem; }
+.pc-item .pc-label { color: #64748b; }
+.pc-item .pc-value { font-weight: 600; }
+.pc-highlights {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #bae6fd;
+}
+.pc-highlights.no-border {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+.pc-highlights-title {
+  font-size: 0.85rem;
+  color: #0369a1;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.pc-highlights-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pc-highlight-tag {
+  background: #fff;
+  border: 1px solid #7dd3fc;
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  color: #0c4a6e;
+}
+@media (max-width: 600px) {
+  .pc-grid { flex-direction: column; gap: 8px; }
+  .pc-highlights-list { flex-direction: column; }
+  .pc-highlight-tag { width: 100%; text-align: center; }
+}
+
+/* === PRACTICAL INFO (sous les activités) === */
+.practical-info-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-left: 3px solid #0ea5e9;
+  border-radius: 0 6px 6px 0;
+  padding: 8px 10px;
+  margin: 4px 0 8px 24px;
+  font-size: 0.8rem;
+  color: #475569;
+}
+.practical-info-box .pi-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.practical-info-box .pi-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.practical-info-box .pi-icon { opacity: 0.7; }
+.practical-info-box .pi-label { color: #64748b; }
+.practical-info-box .pi-value { font-weight: 600; color: #334155; }
+@media (max-width: 600px) {
+  .practical-info-box { margin-left: 0; padding: 6px 8px; }
+  .practical-info-box .pi-row { flex-direction: column; gap: 4px; }
+}
+
+/* === ROAD TYPE (badge type de route) === */
+.road-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-top: 2px;
+}
+.road-type-badge.paved { background: #dcfce7; color: #166534; }
+.road-type-badge.gravel { background: #fef3c7; color: #92400e; }
+.road-type-badge.track { background: #fee2e2; color: #991b1b; }
+.road-type-badge.mixed { background: #f3e8ff; color: #6b21a8; }
+
 .step-wrapper {
   margin-bottom: 10px;
 }
@@ -2857,6 +2962,10 @@ Object.assign(pdfBtnRow.style, {
 pdfBtnRow.addEventListener('click', () => {
   if (window.ORT_PDF && window.state) {
     const lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
+    // Inclure practical_context si présent dans _originalPracticalContext
+    if (state._originalPracticalContext && !state.practical_context) {
+      state.practical_context = state._originalPracticalContext;
+    }
     ORT_PDF.export(state, lang);
   } else {
     alert('Module PDF non chargé ou state non disponible');
@@ -3177,7 +3286,8 @@ hdr.appendChild(row);
 
 </div>
 
-
+<!-- Practical Context Box (infos pratiques itinéraire) -->
+<div id="practicalContextBox"></div>
 
   <div class="main">
     <section class="card">
@@ -5006,9 +5116,11 @@ async function initFromItin(it){
       steps.push({
         place_id:pid,name,lat,lon,nights:1,visits,activities,
         rating,
+        region_code: d.region_code || '',
         _suggestedDays: suggestedDays,
         _driveMinToNext: d.to_next_leg?.drive_min || 0,
         _distanceKmToNext: d.to_next_leg?.distance_km || 0,
+        _roadType: d.to_next_leg?.road_type || null,
         images:getPhotosForPlace(pid),
         description:visits.map(v=>v.text||v).join('. ')
       });
@@ -5159,6 +5271,9 @@ async function initFromItin(it){
   state._originalPracticalContext = it.practical_context || null;
   console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗', state._originalPracticalContext ? 'practical_context ✓' : '');
   
+  // Afficher le practical_context si présent
+  renderPracticalContext();
+  
   // Priorité: langue de l'itinéraire > langue du fichier chargé
   if (it.language || it.__lang) {
     state._sourceLanguage = it.language || it.__lang;
@@ -5169,6 +5284,54 @@ async function initFromItin(it){
   if(state._pendingNightsAdjustment && state._pendingNightsAdjustment.diff > 0){
     setTimeout(() => showNightsAdjustmentAlert(state._pendingNightsAdjustment), 600);
   }
+}
+
+// === PRACTICAL CONTEXT : Affichage des infos pratiques de l'itinéraire ===
+function renderPracticalContext() {
+  const box = document.getElementById('practicalContextBox');
+  if (!box) return;
+  
+  const pc = state._originalPracticalContext;
+  if (!pc) {
+    box.classList.remove('show');
+    return;
+  }
+  
+  // Ne rien afficher si aucune info pertinente
+  const hasBestMonths = pc.best_months && pc.best_months.length;
+  const hasHighlights = pc.highlights && pc.highlights.length;
+  if (!hasBestMonths && !hasHighlights) {
+    box.classList.remove('show');
+    return;
+  }
+  
+  // Utiliser le système I18N centralisé
+  const t = (key) => {
+    const lang = window.ORT_getLang ? window.ORT_getLang() : (localStorage.getItem('lang') || 'fr').slice(0,2);
+    return window.ORT_I18N?.[key]?.[lang] || window.ORT_I18N?.[key]?.fr || key;
+  };
+  
+  let html = '';
+  
+  // Best months (seule info "grid" conservée)
+  if (hasBestMonths) {
+    const months = Array.isArray(pc.best_months) ? pc.best_months.join(', ') : pc.best_months;
+    html += `<div class="pc-grid"><div class="pc-item"><span class="pc-icon">📅</span><span class="pc-label">${t('bestPeriod')}:</span><span class="pc-value">${months}</span></div></div>`;
+  }
+  
+  // Highlights
+  if (hasHighlights) {
+    html += `<div class="pc-highlights${hasBestMonths ? '' : ' no-border'}">
+      <div class="pc-highlights-title">${t('highlights')}</div>
+      <div class="pc-highlights-list">
+        ${pc.highlights.map(h => `<span class="pc-highlight-tag">• ${h}</span>`).join('')}
+      </div>
+    </div>`;
+  }
+  
+  box.innerHTML = html;
+  box.classList.add('show');
+  console.log('[PRACTICAL_CONTEXT] ✅ Affiché (best_months:', hasBestMonths, ', highlights:', hasHighlights, ')');
 }
 
 // === Alerte i18n : Nombre de nuits impossible à atteindre ===
@@ -5798,16 +5961,35 @@ nameLink.addEventListener('mouseenter', (e) => {
   distCell.innerHTML='<div data-dist="loading">' + t('calculating') + '</div>';
   row.appendChild(distCell);
   
+  // Helper pour badge road_type
+  const getRoadTypeBadge = (roadType) => {
+    if (!roadType) return '';
+    const rt = roadType.toLowerCase();
+    let cls = 'mixed', icon = '🛣️';
+    if (rt.includes('goudron') || rt.includes('tarmac') || rt.includes('paved') || rt.includes('asphalt')) {
+      cls = 'paved'; icon = '🛣️';
+    } else if (rt.includes('gravel') || rt.includes('piste') || rt.includes('gravier')) {
+      cls = 'gravel'; icon = '🪨';
+    } else if (rt.includes('4x4') || rt.includes('track') || rt.includes('sable') || rt.includes('sand')) {
+      cls = 'track'; icon = '🏜️';
+    } else if (rt.includes('puis') || rt.includes('then') || rt.includes('mixed')) {
+      cls = 'mixed'; icon = '🔀';
+    }
+    return `<div class="road-type-badge ${cls}">${icon} ${roadType}</div>`;
+  };
+  
   // Calculer distance en arrière-plan
   if(idx<state.steps.length-1){
     const nextStep=state.steps[idx+1];
+    const roadType = step._roadType || null;
     calculateDistance(step,nextStep).then(dist=>{
   const el=row.querySelector('[data-dist]');
   if(el&&dist){
     const isMi = state.distanceUnit==='mi';
     const val = isMi ? Math.round(dist.km*0.621371) : dist.km;
     const unit = isMi ? 'mi' : 'km';
-    el.innerHTML=`<div style="font-weight:600">${val} ${unit}</div><div style="font-size:.8rem">${dist.minutes} min</div>`;
+    const roadBadge = getRoadTypeBadge(roadType);
+    el.innerHTML=`<div style="font-weight:600">${val} ${unit}</div><div style="font-size:.8rem">${dist.minutes} min</div>${roadBadge}`;
   }else if(el){
     el.textContent='—';
   }
@@ -6079,12 +6261,58 @@ function createStepDetailsPanel(step, idx) {
     return `<ul class="step-details-list">
       ${items.map((item, i) => {
         const text = typeof item === 'string' ? item : (item.text || item.name || '');
+        const pi = (typeof item === 'object') ? item.practical_info : null;
+        let piHtml = '';
+        if (pi && type === 'activities') {
+          piHtml = renderPracticalInfo(pi);
+        }
         return `<li data-type="${type}" data-item-idx="${i}">
           <span class="item-text" contenteditable="true">${safe(text)}</span>
           <button class="item-del" title="✕">✕</button>
-        </li>`;
+        </li>${piHtml}`;
       }).join('')}
     </ul>`;
+  };
+  
+  // Rendu des infos pratiques d'une activité
+  const renderPracticalInfo = (pi) => {
+    if (!pi || typeof pi !== 'object') return '';
+    const entries = Object.entries(pi).filter(([k,v]) => v && v !== '');
+    if (!entries.length) return '';
+    
+    // Icônes par type de champ
+    const icons = {
+      distance: '📏', duration: '⏱️', difficulty: '💪', water: '💧',
+      camp_type: '⛺', facilities: '🚿', booking: '📅',
+      type: '🎯', best_time: '🌅', wildlife: '🦁',
+      price: '💰', tip: '💡', warning: '⚠️'
+    };
+    
+    // Mapping vers les clés I18N
+    const i18nKeys = {
+      distance: 'piDistance', duration: 'piDuration', difficulty: 'piDifficulty',
+      water: 'piWater', camp_type: 'piCampType', facilities: 'piFacilities',
+      booking: 'piBooking', type: 'piType', best_time: 'piBestTime',
+      wildlife: 'piWildlife', price: 'piPrice', tip: 'piTip', warning: 'piWarning'
+    };
+    
+    // Utiliser le système I18N centralisé
+    const lang = window.ORT_getLang ? window.ORT_getLang() : (localStorage.getItem('lang') || 'fr').slice(0,2);
+    const getLabel = (k) => {
+      const i18nKey = i18nKeys[k];
+      if (i18nKey && window.ORT_I18N?.[i18nKey]) {
+        return window.ORT_I18N[i18nKey][lang] || window.ORT_I18N[i18nKey].fr || k;
+      }
+      return k;
+    };
+    
+    const piItems = entries.map(([k, v]) => {
+      const icon = icons[k] || 'ℹ️';
+      const label = getLabel(k);
+      return `<span class="pi-item"><span class="pi-icon">${icon}</span><span class="pi-label">${label}:</span><span class="pi-value">${safe(String(v))}</span></span>`;
+    }).join('');
+    
+    return `<div class="practical-info-box"><div class="pi-row">${piItems}</div></div>`;
   };
   
   // Email pour proposer une photo
@@ -8705,13 +8933,25 @@ window.initSaveSourceButton = function(){
         coords: [s.lat, s.lon]
       },
       visits: (s.visits || []).map(v => typeof v === 'string' ? { text: v, visit_duration_min: 75 } : v),
-      activities: (s.activities || []).map(a => typeof a === 'string' ? { text: a, visit_duration_min: 60 } : a),
+      activities: (s.activities || []).map(a => {
+        if (typeof a === 'string') return { text: a, activity_duration_min: 60 };
+        // Préserver tous les champs de l'activité (v3.3)
+        const act = { 
+          text: a.text || a.name || '', 
+          activity_duration_min: a.activity_duration_min || a.visit_duration_min || 60 
+        };
+        if (a.place_id) act.place_id = a.place_id;
+        if (a.coords) act.coords = a.coords;
+        if (a.practical_info) act.practical_info = a.practical_info;
+        return act;
+      }),
       to_next_leg: {
         // Utiliser drive_min du JSON si disponible, sinon estimer depuis distance
         distance_km: s._distanceKmToNext || (s._distanceToNext ? Math.round(s._distanceToNext) : null),
         drive_min: s._driveMinToNext || (s._distanceToNext ? Math.round(s._distanceToNext * 1.2) : null),
         transport_mode: 'car',
-        method: s._driveMinToNext ? 'source' : 'heuristic'
+        method: s._driveMinToNext ? 'source' : 'heuristic',
+        road_type: s._roadType || null
       }
     }));
     
@@ -8755,8 +8995,11 @@ window.initSaveSourceButton = function(){
     if (state._originalSubtitle) itinToSave.subtitle = state._originalSubtitle;
     if (state._originalSeoKeywords) itinToSave.seo_keywords = state._originalSeoKeywords;
     if (state._originalPracticalContext) itinToSave.practical_context = state._originalPracticalContext;
+    // Champs enrichis supplémentaires (v3.3)
+    if (state._originalEssentialTips) itinToSave.essential_tips = state._originalEssentialTips;
+    if (state._originalSummary) itinToSave.summary = state._originalSummary;
     
-    console.log('[SAVE SOURCE] 📦 Métadonnées incluses:', itinToSave.seo ? 'SEO ✓' : 'SEO ✗', itinToSave.practical_context ? 'practical_context ✓' : '');
+    console.log('[SAVE SOURCE] 📦 Métadonnées incluses:', itinToSave.seo ? 'SEO ✓' : 'SEO ✗', itinToSave.practical_context ? 'practical_context ✓' : '', itinToSave.essential_tips ? 'essential_tips ✓' : '', itinToSave.summary ? 'summary ✓' : '');
     
     // Confirmation avec message adapté
     const action = isTemp ? '🆕 AJOUTER' : '✏️ MODIFIER';
@@ -9051,7 +9294,10 @@ if(itinsObj){
         if (toUse.subtitle) state._originalSubtitle = toUse.subtitle;
         if (toUse.seo_keywords) state._originalSeoKeywords = toUse.seo_keywords;
         if (toUse.practical_context) state._originalPracticalContext = toUse.practical_context;
-        console.log('[IMPORT] 📦 Métadonnées stockées:', toUse.seo ? 'SEO ✓' : 'SEO ✗', toUse.meta ? 'meta ✓' : 'meta ✗', toUse.practical_context ? 'practical_context ✓' : '');
+        // Champs enrichis supplémentaires (v3.3)
+        if (toUse.essential_tips) state._originalEssentialTips = toUse.essential_tips;
+        if (toUse.summary) state._originalSummary = toUse.summary;
+        console.log('[IMPORT] 📦 Métadonnées stockées:', toUse.seo ? 'SEO ✓' : 'SEO ✗', toUse.meta ? 'meta ✓' : 'meta ✗', toUse.practical_context ? 'practical_context ✓' : '', toUse.essential_tips ? 'essential_tips ✓' : '', toUse.summary ? 'summary ✓' : '');
         
 await initFromItin(toUse);
 
@@ -12763,6 +13009,7 @@ if (mapPopup) {
 
 <!-- Auth obligatoire -->
 <script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-auth-modal.js"></script>
 <script src="/js/ort-auth-gate.js"></script>
 </body>
 </html>

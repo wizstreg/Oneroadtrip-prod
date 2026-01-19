@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ORT Import v3.1 - Build 2025-01-15 - Prompt v7: indented JSON, estimated_days_base formula, regional codes, proper noun handling -->
+<!-- ORT Import v3.2 - Build 2025-01-18 - Prompt v8: enriched format (subtitle, practical_context, practical_info, road_type) -->
 <html lang="fr" data-page="import_ia">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -720,7 +720,7 @@
 
 const PROMPTS = {
   // ============================================
-  // FRANÇAIS v7
+  // FRANÇAIS v8 - Format enrichi
   // ============================================
   fr: ({mode, seeds, modelSubMode, modelSeeds}) => {
     const isAdmin = mode === 'model';
@@ -740,10 +740,20 @@ Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
     "dept_code": "LP",
     "dept_name": "Luang Prabang",
     "title": "Entre temples et karsts du Nord Laos",
+    "subtitle": "Des moines de Luang Prabang aux lagons turquoise de Vang Vieng",
     "estimated_days_base": 3,
     "pacing_rules": {
       "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
       "merge_threshold": 0.85
+    },
+    "practical_context": {
+      "best_months": ["novembre", "décembre", "janvier", "février"],
+      "highlights": [
+        "Procession des moines à l'aube (tak bat)",
+        "Temples dorés de Luang Prabang",
+        "Grottes et lagons turquoise de Vang Vieng",
+        "Navigation sur le Mékong"
+      ]
     },
     "days_plan": [
       {
@@ -764,14 +774,15 @@ Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
           {"text": "Flânez le long de la Nam Khan jusqu'au Vat Xieng Mouane où les moines tissent encore des textiles traditionnels."}
         ],
         "activities": [
-          {"text": "Levez-vous à l'aube pour observer le tak bat, procession silencieuse où les moines collectent leur nourriture."},
+          {"text": "Levez-vous à l'aube pour observer le tak bat, procession silencieuse où les moines collectent leur nourriture.", "practical_info": {"best_time": "5h30-6h30", "tip": "Restez discret, pas de flash"}},
           {"text": "Le marché de nuit envahit Sisavangvong Road dès 17h avec textiles et artisanat."},
-          {"text": "Initiez-vous à la cuisine lao dans une école locale : laap, tam mak houng, khao niaw."}
+          {"text": "Initiez-vous à la cuisine lao dans une école locale : laap, tam mak houng, khao niaw.", "practical_info": {"duration": "3h", "type": "Cours de cuisine"}}
         ],
         "to_next_leg": {
           "distance_km": 230,
           "drive_min": 270,
           "transport_mode": "car",
+          "road_type": "Goudron sinueux",
           "method": "heuristic"
         }
       },
@@ -792,7 +803,7 @@ Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
           {"text": "Aventurez-vous dans la grotte Tham Nam en bouée sur une rivière souterraine."}
         ],
         "activities": [
-          {"text": "Descendez la Nam Song en kayak entre les falaises calcaires."},
+          {"text": "Descendez la Nam Song en kayak entre les falaises calcaires.", "practical_info": {"duration": "2-3h", "difficulty": "Facile"}},
           {"text": "Les parois karstiques offrent des voies d'escalade pour tous niveaux."},
           {"text": "Louez un vélo pour relier les lagunes et grottes par les chemins de terre."}
         ]
@@ -817,6 +828,13 @@ Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
 12. slice = toujours 1
 13. source_url = URL de la SOURCE si disponible
 14. language = "fr" — TOUS les textes en français (traduire si source en autre langue, garder noms propres d'origine : Wat, Piazza, Playa...)
+
+📋 FORMAT ENRICHI (OBLIGATOIRE) :
+15. subtitle = 1 phrase d'accroche sous le titre (style "Des temples dorés aux plages de rêve")
+16. practical_context.best_months = tableau des meilleurs mois pour visiter (ex: ["mai", "juin", "septembre"])
+17. practical_context.highlights = 4-6 points forts de l'itinéraire
+18. practical_info = ajouter sur les activités importantes (randos, safaris, camping, locations...) avec duration, difficulty, tip, best_time selon contexte
+19. road_type = ajouter dans to_next_leg si pertinent (ex: "Goudron", "Piste", "Gravel", "Goudron puis piste")
 
 ✍️ STYLE D'ÉCRITURE — VARIER LES FORMES :
 - Descriptif : "Le temple déploie ses toits dorés..."
@@ -847,7 +865,7 @@ SOURCE :
   },
 
   // ============================================
-  // ENGLISH v7
+  // ENGLISH v8 - Enriched format
   // ============================================
   en: ({mode, seeds, modelSubMode, modelSeeds}) => {
     const isAdmin = mode === 'model';
@@ -867,10 +885,20 @@ Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
     "dept_code": "LP",
     "dept_name": "Luang Prabang",
     "title": "Temples and Karsts of Northern Laos",
+    "subtitle": "From the monks of Luang Prabang to the turquoise lagoons of Vang Vieng",
     "estimated_days_base": 3,
     "pacing_rules": {
       "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
       "merge_threshold": 0.85
+    },
+    "practical_context": {
+      "best_months": ["November", "December", "January", "February"],
+      "highlights": [
+        "Dawn alms giving ceremony (tak bat)",
+        "Golden temples of Luang Prabang",
+        "Caves and turquoise lagoons of Vang Vieng",
+        "Mekong river navigation"
+      ]
     },
     "days_plan": [
       {
@@ -891,14 +919,15 @@ Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
           {"text": "Walk along the Nam Khan to Wat Xieng Mouane where monks still weave traditional textiles."}
         ],
         "activities": [
-          {"text": "Rise at dawn to witness tak bat, the silent procession where monks collect their daily food."},
+          {"text": "Rise at dawn to witness tak bat, the silent procession where monks collect their daily food.", "practical_info": {"best_time": "5:30-6:30am", "tip": "Stay quiet, no flash photography"}},
           {"text": "The night market takes over Sisavangvong Road from 5pm with textiles and handicrafts."},
-          {"text": "Local cooking schools teach Lao classics: laap, tam mak houng, khao niaw."}
+          {"text": "Local cooking schools teach Lao classics: laap, tam mak houng, khao niaw.", "practical_info": {"duration": "3h", "type": "Cooking class"}}
         ],
         "to_next_leg": {
           "distance_km": 230,
           "drive_min": 270,
           "transport_mode": "car",
+          "road_type": "Winding tarmac",
           "method": "heuristic"
         }
       },
@@ -919,7 +948,7 @@ Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
           {"text": "Tham Nam cave is explored by tube on an underground river."}
         ],
         "activities": [
-          {"text": "Kayak down the Nam Song between limestone cliffs."},
+          {"text": "Kayak down the Nam Song between limestone cliffs.", "practical_info": {"duration": "2-3h", "difficulty": "Easy"}},
           {"text": "Climbing schools offer courses on the karst walls for all levels."},
           {"text": "Rent a bike to connect lagoons and caves via dirt tracks."}
         ]
@@ -943,6 +972,13 @@ Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
 11. dept_code = regional abbreviation (LP, 21, 84, PUG...)
 12. slice = always 1
 13. language = "en" — ALL texts in English (translate if source in other language, keep original proper nouns: Wat, Piazza, Playa...)
+
+📋 ENRICHED FORMAT (REQUIRED):
+14. subtitle = 1 catchy tagline below the title (e.g. "From golden temples to dream beaches")
+15. practical_context.best_months = array of best months to visit (e.g.: ["May", "June", "September"])
+16. practical_context.highlights = 4-6 itinerary highlights
+17. practical_info = add to important activities (hikes, safaris, camping, rentals...) with duration, difficulty, tip, best_time as relevant
+18. road_type = add in to_next_leg if relevant (e.g.: "Tarmac", "Gravel", "Track", "Tarmac then gravel")
 
 ✍️ WRITING STYLE — VARY THE FORMS:
 - Descriptive: "The temple spreads its golden roofs..."
@@ -1032,6 +1068,13 @@ Transforma el contenido SOURCE en JSON "itins" (UN SOLO objeto). Sigue este ejem
 8. region_code = CC-XX (código regional)
 9. language = "es" — TODOS los textos en español (traducir si fuente en otro idioma, mantener nombres propios: Wat, Piazza, Playa...)
 
+📋 FORMATO ENRIQUECIDO (OBLIGATORIO):
+10. subtitle = 1 frase gancho bajo el título (ej: "De los templos dorados a las playas de ensueño")
+11. practical_context.best_months = array de mejores meses (ej: ["mayo", "junio", "septiembre"])
+12. practical_context.highlights = 4-6 puntos destacados del itinerario
+13. practical_info = añadir en actividades importantes (senderismo, safari, camping...) con duration, difficulty, tip, best_time
+14. road_type = añadir en to_next_leg si relevante (ej: "Asfalto", "Grava", "Pista", "Asfalto y luego pista")
+
 ✍️ ESTILO — VARIAR LAS FORMAS:
 - Descriptivo: "El templo despliega sus techos dorados..."
 - Imperativo: "Descubre...", "Explora...", "Admira...", "Sube..."
@@ -1116,6 +1159,13 @@ Trasforma il contenuto SOURCE in JSON "itins" (UN SOLO oggetto). Segui questo es
 7. region_code = CC-XX (codice regionale)
 8. language = "it" — TUTTI i testi in italiano (tradurre se fonte in altra lingua, mantenere nomi propri: Wat, Piazza, Playa...)
 
+📋 FORMATO ARRICCHITO (OBBLIGATORIO):
+9. subtitle = 1 frase accattivante sotto il titolo (es: "Dai templi dorati alle spiagge da sogno")
+10. practical_context.best_months = array dei mesi migliori (es: ["maggio", "giugno", "settembre"])
+11. practical_context.highlights = 4-6 punti salienti dell'itinerario
+12. practical_info = aggiungere alle attività importanti (trekking, safari, campeggio...) con duration, difficulty, tip, best_time
+13. road_type = aggiungere in to_next_leg se rilevante (es: "Asfalto", "Sterrato", "Pista", "Asfalto poi sterrato")
+
 ✍️ STILE — VARIARE LE FORME:
 - Descrittivo: "Il tempio dispiega i suoi tetti dorati..."
 - Imperativo: "Scoprite...", "Esplorate...", "Ammirate...", "Salite..."
@@ -1197,6 +1247,13 @@ Transforma o conteúdo SOURCE em JSON "itins" (UM SÓ objeto). Segue este exempl
 7. region_code = CC-XX (código regional)
 8. language = "pt" — TODOS os textos em português (traduzir se fonte em outro idioma, manter nomes próprios: Wat, Piazza, Playa...)
 
+📋 FORMATO ENRIQUECIDO (OBRIGATÓRIO):
+9. subtitle = 1 frase de impacto sob o título (ex: "Dos templos dourados às praias de sonho")
+10. practical_context.best_months = array dos melhores meses (ex: ["maio", "junho", "setembro"])
+11. practical_context.highlights = 4-6 destaques do itinerário
+12. practical_info = adicionar nas atividades importantes (trilhas, safaris, campismo...) com duration, difficulty, tip, best_time
+13. road_type = adicionar em to_next_leg se relevante (ex: "Asfalto", "Terra batida", "Pista", "Asfalto depois terra")
+
 ✍️ ESTILO — VARIAR AS FORMAS:
 - Descritivo: "O templo estende os seus telhados dourados..."
 - Imperativo: "Descubra...", "Explore...", "Admire...", "Suba..."
@@ -1277,6 +1334,13 @@ SOURCE:
 6. to_next_leg في جميع الأيام ما عدا الأخير
 7. region_code = CC-XX (رمز إقليمي)
 8. language = "ar" — جميع النصوص بالعربية (ترجم إذا كان المصدر بلغة أخرى، احتفظ بالأسماء الأصلية: Wat, Piazza, Playa...)
+
+📋 التنسيق المُحسّن (إلزامي):
+9. subtitle = جملة جذابة تحت العنوان (مثال: "من المعابد الذهبية إلى الشواطئ الحالمة")
+10. practical_context.best_months = مصفوفة أفضل الأشهر (مثال: ["مايو", "يونيو", "سبتمبر"])
+11. practical_context.highlights = 4-6 أبرز معالم الرحلة
+12. practical_info = إضافة للأنشطة المهمة (المشي، السفاري، التخييم...) مع duration, difficulty, tip, best_time
+13. road_type = إضافة في to_next_leg إذا كان ذلك مناسباً (مثال: "طريق معبّد", "حصى", "مسار ترابي")
 
 ✍️ الأسلوب — تنويع الأشكال:
 - وصفي: "يمد المعبد أسطحه الذهبية..."
@@ -2243,8 +2307,7 @@ if(raw.includes('```')){
 }
 cleaned = cleaned
   .replace(/[""]/g, '"')
-  .replace(/['']/g, "'")
-  .replace(/[—–]/g, '-')
+  // Préserver typographie française : apostrophes et tirets conservés
   .replace(/\u00A0/g, ' ')
   .normalize('NFC');
       data = JSON.parse(cleaned);
@@ -2302,10 +2365,9 @@ cleaned = cleaned
 
     function cleanJSON(obj) {
       let str = JSON.stringify(obj);
+      // Normaliser uniquement les guillemets doubles pour JSON valide
       str = str.replace(/[""]/g, '"');
-      str = str.replace(/['']/g, "'");
-      str = str.replace(/œ/g, 'oe');
-      str = str.replace(/Œ/g, 'OE');
+      // Préserver typographie française : œ, ', – conservés
       str = str.normalize('NFC');
       return JSON.parse(str);
     }
