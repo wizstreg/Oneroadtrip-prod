@@ -4,7 +4,9 @@
 (function() {
   'use strict';
 
-  const AUTH_GATE_DELAY = 500; // Délai avant d'afficher la gate
+  // Délai de 30 secondes avant d'afficher la gate
+  // Permet aux visiteurs de voir le contenu des roadtrips avant de demander l'auth
+  const AUTH_GATE_DELAY = 30000; // 30 secondes
   let authModal = null;
 
   // Créer la modale bloquante
@@ -313,7 +315,14 @@
             // Revérifier après le délai
             if (!firebase.auth().currentUser && !document.getElementById('ort-auth-gate-overlay')) {
               console.log('[ORT-AUTH-GATE] ❌ Utilisateur non connecté (confirmé)');
-              createAuthGate();
+              // Attendre 30 secondes avant d'afficher la gate (pour laisser voir le contenu)
+              console.log('[ORT-AUTH-GATE] ⏳ Délai de 30s pour laisser voir le contenu...');
+              setTimeout(() => {
+                // Vérifier une dernière fois que l'utilisateur ne s'est pas connecté entre temps
+                if (!firebase.auth().currentUser && !document.getElementById('ort-auth-gate-overlay')) {
+                  createAuthGate();
+                }
+              }, 30000); // 30 secondes
             }
           }, 1000); // Attendre 1s pour la restauration de session
         }
@@ -324,7 +333,7 @@
     }
   }
 
-  // Démarrer après un court délai (laisser le temps à Firebase de s'initialiser)
+  // Démarrer la vérification auth
   function init() {
     // Vérifier si on est sur une page qui nécessite l'auth
     // Pages exclues : accueil, présentation, etc.
@@ -336,7 +345,9 @@
       return;
     }
 
-    setTimeout(checkAuth, AUTH_GATE_DELAY);
+    // Démarrer immédiatement la vérification
+    // Si l'utilisateur n'est pas connecté, la gate s'affichera après 30s
+    setTimeout(checkAuth, 500); // Court délai pour laisser Firebase s'initialiser
   }
 
   // Lancer au chargement
