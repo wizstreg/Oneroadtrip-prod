@@ -2306,6 +2306,9 @@ if (typeof t !== 'function') {
 })();
 </script>
 
+<!-- Share module - DOIT être chargé tôt pour checkSharedAccess et showModal -->
+<script src="./js/ort-share.js"></script>
+
 <!-- Stay22 Integration -->
 <script>
   (function (s, t, a, y, twenty, two) {
@@ -13003,13 +13006,11 @@ if (mapPopup) {
 <script src="ort-map-resize-fix.js"></script>
 <script src="/js/ort-pdf-export-v6.js"></script>
 <script src="/js/ort-calendar-export.js"></script>
-<script src="./js/ort-share.js"></script>
 <script src="./js/ort-modals.js"></script>
 <script src="/js/ort-footer.js"></script>
 
 <!-- Auth obligatoire -->
 <script src="/js/ort-i18n-auth.js"></script>
-<script src="/js/ort-auth-modal.js"></script>
 <script src="/js/ort-auth-gate.js"></script>
 </body>
 </html>

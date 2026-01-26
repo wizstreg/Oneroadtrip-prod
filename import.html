@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- ORT Import v3.2 - Build 2025-01-18 - Prompt v8: enriched format (subtitle, practical_context, practical_info, road_type) -->
+<!-- ORT Import v3.4 - Build 2025-01-25 - Prompt v10: style naturel anti-IA pompeux, exemple Creuse -->
 <html lang="fr" data-page="import_ia">
 <head>
 <!-- Google tag (gtag.js) -->
@@ -715,12 +715,12 @@
 </script>
 
 <script>
-// === PROMPT TEMPLATES v6 - Admin & User ===
+// === PROMPT TEMPLATES v10 - Admin & User - Style naturel anti-IA pompeux ===
 // User: mode "logic" par défaut | Admin: sous-modes follow/logic/seed/citytrip
 
 const PROMPTS = {
   // ============================================
-  // FRANÇAIS v8 - Format enrichi
+  // FRANÇAIS v10 - Style naturel anti-IA pompeux
   // ============================================
   fr: ({mode, seeds, modelSubMode, modelSeeds}) => {
     const isAdmin = mode === 'model';
@@ -729,84 +729,137 @@ const PROMPTS = {
     
     return `Tu es un extracteur de données structurées. Produis UNIQUEMENT du JSON valide, sans texte, sans balises Markdown.
 
-Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
+Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple de référence :
 
 {
   "itins": [{
-    "itin_id": "LA::nord::luang-prabang-vang-vieng",
+    "itin_id": "FR::23::creuse-vallee-peintres",
     "language": "fr",
     "created_at": "${new Date().toISOString().split('T')[0]}T12:00:00Z",
-    "source_url": "",
-    "dept_code": "LP",
-    "dept_name": "Luang Prabang",
-    "title": "Entre temples et karsts du Nord Laos",
-    "subtitle": "Des moines de Luang Prabang aux lagons turquoise de Vang Vieng",
-    "estimated_days_base": 3,
+    "source_url": "https://www.tourisme-creuse.com",
+    "dept_code": "23",
+    "dept_name": "Creuse",
+    "title": "Vallée des Peintres et tapisseries d'Aubusson",
+    "subtitle": "Sur les traces de Monet et des lissiers, une immersion dans la Creuse secrète",
+    "seo_keywords": ["vallée des peintres Creuse", "tapisserie Aubusson UNESCO", "Monet Fresselines", "château Boussac", "école de Crozant"],
+    "estimated_days_base": 9,
     "pacing_rules": {
       "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
       "merge_threshold": 0.85
     },
     "practical_context": {
-      "best_months": ["novembre", "décembre", "janvier", "février"],
+      "best_months": ["mai", "juin", "septembre", "octobre"],
+      "vehicle_type": "Voiture standard, routes départementales sinueuses mais en bon état",
+      "group_type": "Couples, familles, passionnés d'art et de nature",
+      "loop_type": "Boucle La Souterraine ↔ Guéret",
+      "total_km": 403,
+      "daily_average_km": 45,
       "highlights": [
-        "Procession des moines à l'aube (tak bat)",
-        "Temples dorés de Luang Prabang",
-        "Grottes et lagons turquoise de Vang Vieng",
-        "Navigation sur le Mékong"
+        "Cité internationale de la tapisserie d'Aubusson, patrimoine UNESCO",
+        "Vallée des Peintres où Monet peignit 23 toiles en 1889",
+        "Château de Boussac et la légende de la Dame à la Licorne",
+        "Forteresse médiévale de Crozant dominant le confluent",
+        "Parc animalier des Loups de Chabrières"
       ]
     },
     "days_plan": [
       {
         "day": 1,
         "slice": 1,
-        "region_code": "LA-LP",
+        "region_code": "FR-23",
         "suggested_days": 1.5,
         "night": {
-          "place_id": "LA::luang_prabang",
-          "coords": [19.8856, 102.1347]
+          "place_id": "FR::la-souterraine",
+          "coords": [46.2372, 1.4878]
         },
         "visits": [
-          {"text": "Le Vat Xieng Thong déploie ses toits superposés jusqu'au sol dans le plus pur style lao. Ses mosaïques de verre rouge racontent la vie du Bouddha."},
-          {"text": "Gravissez les 328 marches du mont Phousi pour dominer la péninsule au confluent du Mékong et de la Nam Khan."},
-          {"text": "Le Palais Royal abrite aujourd'hui le musée national. Découvrez le trône et le Phra Bang, bouddha d'or qui donna son nom à la ville."},
-          {"text": "Admirez le porche doré du Vat Mai, sculpté de scènes du Ramayana. Les fidèles y affluent lors du Nouvel An lao."},
-          {"text": "Le Vat Visoun, plus ancien temple de la ville (1513), conserve un grand Bouddha en bois et le That Makmo."},
-          {"text": "Flânez le long de la Nam Khan jusqu'au Vat Xieng Mouane où les moines tissent encore des textiles traditionnels."}
+          {
+            "text": "L'église Notre-Dame de La Souterraine possède le plus haut clocher de Creuse (60 mètres). Bâtie du XIe au XIIIe siècle par les moines de Saint-Martial de Limoges, elle mêle roman et gothique. Le portail polylobé d'influence mozarabe témoigne du passage des pèlerins de Compostelle sur la Via Lemovicensis.",
+            "place_id": "FR::la-souterraine::eglise-notre-dame",
+            "coords": [46.2372, 1.4878],
+            "visit_duration_min": 45
+          },
+          {
+            "text": "La crypte de La Souterraine, qui donna son nom à la ville (Subterranea en 1268), date de 1020. Construite sur une nécropole gallo-romaine, elle comprend trois chapelles sous des voûtes romanes renforcées d'ogives. L'Espace Patrimoine présente les trouvailles archéologiques du site antique de Bridiers. Entrée gratuite en été.",
+            "place_id": "FR::la-souterraine::crypte",
+            "coords": [46.2372, 1.4878],
+            "visit_duration_min": 40
+          },
+          {
+            "text": "La Porte Saint-Jean conserve ses tourelles en encorbellement, créneaux et mâchicoulis des XIIIe-XVe siècles. On distingue encore les encoches du pont-levis. Demandez la clé au café du Marché pour monter au sommet.",
+            "place_id": "FR::la-souterraine::porte-saint-jean",
+            "coords": [46.2375, 1.4880],
+            "visit_duration_min": 30
+          }
         ],
         "activities": [
-          {"text": "Levez-vous à l'aube pour observer le tak bat, procession silencieuse où les moines collectent leur nourriture.", "practical_info": {"best_time": "5h30-6h30", "tip": "Restez discret, pas de flash"}},
-          {"text": "Le marché de nuit envahit Sisavangvong Road dès 17h avec textiles et artisanat."},
-          {"text": "Initiez-vous à la cuisine lao dans une école locale : laap, tam mak houng, khao niaw.", "practical_info": {"duration": "3h", "type": "Cours de cuisine"}}
+          {
+            "text": "Le lac de Sagnat propose plage surveillée en été, sentiers ombragés et pontons de pêche. Une bonne option pour une pause après les visites patrimoniales.",
+            "place_id": "FR::la-souterraine::lac-sagnat",
+            "coords": [46.2500, 1.4600],
+            "activity_duration_min": 120,
+            "practical_info": {
+              "type": "Baignade / Détente",
+              "facilities": "Plage surveillée, aire de pique-nique, sentiers",
+              "best_season": "Juin à septembre"
+            }
+          }
         ],
         "to_next_leg": {
-          "distance_km": 230,
-          "drive_min": 270,
+          "distance_km": 35,
+          "drive_min": 45,
           "transport_mode": "car",
-          "road_type": "Goudron sinueux",
+          "road_type": "Goudron",
           "method": "heuristic"
         }
       },
       {
         "day": 2,
         "slice": 1,
-        "region_code": "LA-VT",
+        "region_code": "FR-23",
         "suggested_days": 1.0,
         "night": {
-          "place_id": "LA::vang_vieng",
-          "coords": [18.9220, 102.4476]
+          "place_id": "FR::fresselines",
+          "coords": [46.3811, 1.6481]
         },
         "visits": [
-          {"text": "La grotte Tham Chang s'ouvre dans la falaise face à la Nam Song. Un escalier mène à ses stalactites illuminées."},
-          {"text": "Plongez dans les eaux turquoise de la Blue Lagoon, nichée au pied des karsts."},
-          {"text": "Explorez la grotte Tham Phu Kham sur 500 mètres. Un bouddha couché veille dans la pénombre."},
-          {"text": "Le pont de bambou enjambe la Nam Song vers les rizières de la rive ouest."},
-          {"text": "Aventurez-vous dans la grotte Tham Nam en bouée sur une rivière souterraine."}
+          {
+            "text": "Claude Monet séjourna à Fresselines de mars à mai 1889 et y réalisa 23 toiles. Dix représentent le confluent des deux Creuse, surnommé « Les Eaux Semblantes ». C'est sa première vraie série sur un même motif sous différentes lumières, technique qu'il perfectionnera avec les Meules puis les Cathédrales.",
+            "place_id": "FR::fresselines",
+            "coords": [46.3811, 1.6481],
+            "visit_duration_min": 30
+          },
+          {
+            "text": "L'Espace Monet-Rollinat, ouvert en 2018, présente des reproductions des toiles creusoises de Monet et évoque Maurice Rollinat, poète des Névroses qui vécut ici vingt ans. Des expositions temporaires d'art contemporain complètent la visite.",
+            "place_id": "FR::fresselines::espace-monet-rollinat",
+            "coords": [46.3815, 1.6485],
+            "visit_duration_min": 75,
+            "practical_info": {
+              "hours": "Avril-novembre : mer-dim 10h30-12h30/14h-18h, juillet-août tous les jours",
+              "duration": "1h à 1h30"
+            }
+          }
         ],
         "activities": [
-          {"text": "Descendez la Nam Song en kayak entre les falaises calcaires.", "practical_info": {"duration": "2-3h", "difficulty": "Facile"}},
-          {"text": "Les parois karstiques offrent des voies d'escalade pour tous niveaux."},
-          {"text": "Louez un vélo pour relier les lagunes et grottes par les chemins de terre."}
-        ]
+          {
+            "text": "Le sentier des peintres (3 km) relie les points de vue immortalisés par Monet. Des reproductions de ses toiles sont installées aux emplacements exacts où il posa son chevalet.",
+            "place_id": "FR::fresselines::sentier-peintres",
+            "coords": [46.3800, 1.6500],
+            "activity_duration_min": 90,
+            "practical_info": {
+              "distance": "3 km",
+              "duration": "1h30",
+              "difficulty": "Facile"
+            }
+          }
+        ],
+        "to_next_leg": {
+          "distance_km": 8,
+          "drive_min": 15,
+          "transport_mode": "car",
+          "road_type": "Goudron",
+          "method": "heuristic"
+        }
       }
     ]
   }]
@@ -815,32 +868,68 @@ Transforme le contenu SOURCE en JSON "itins" (UN SEUL objet). Suis cet exemple :
 📋 RÈGLES CRITIQUES :
 
 1. ORDRE LOGIQUE — Réorganiser les étapes pour un itinéraire géographiquement cohérent. Éviter les aller-retours.
-2. visits[] = lieux (monuments, temples, musées, sites, grottes, chutes)
-3. activities[] = actions (marchés, randos, kayak, vélo, cours, balades)
+2. visits[] = lieux (monuments, temples, musées, sites, grottes, chutes, paysages)
+3. activities[] = actions (marchés, randos, kayak, vélo, cours, balades, camping, location)
 4. 5-8 visits + 3-6 activities par day minimum — enrichir si la source manque de contenu
 5. suggested_days : 0.5 | 1.0 | 1.5 — au-delà, éclater en plusieurs days avec même place_id
-6. estimated_days_base = CEIL(somme des suggested_days) — ex: 1.5 + 1.0 = 2.5 → 3
+6. estimated_days_base = CEIL(somme des suggested_days)
 7. to_next_leg sur tous les days SAUF le dernier
 8. coords = [lat, lon] du centre-ville — ne PAS inventer de coordonnées précises
-9. itin_id = CC::region::slug (CC = ISO2 : FR, LA, TH, HR, IT...)
-10. region_code = CC-XX (code régional usuel, ex: LA-LP, HR-21, FR-84, IT-PUG)
-11. dept_code = abréviation régionale usuelle (LP, 21, 84, PUG...)
-12. slice = toujours 1
-13. source_url = URL de la SOURCE si disponible
-14. language = "fr" — TOUS les textes en français (traduire si source en autre langue, garder noms propres d'origine : Wat, Piazza, Playa...)
+9. itin_id = CC::region::slug (CC = ISO2)
+10. slice = toujours 1
+11. language = "fr"
 
-📋 FORMAT ENRICHI (OBLIGATOIRE) :
-15. subtitle = 1 phrase d'accroche sous le titre (style "Des temples dorés aux plages de rêve")
-16. practical_context.best_months = tableau des meilleurs mois pour visiter (ex: ["mai", "juin", "septembre"])
-17. practical_context.highlights = 4-6 points forts de l'itinéraire
-18. practical_info = ajouter sur les activités importantes (randos, safaris, camping, locations...) avec duration, difficulty, tip, best_time selon contexte
-19. road_type = ajouter dans to_next_leg si pertinent (ex: "Goudron", "Piste", "Gravel", "Goudron puis piste")
+📋 FORMAT ENRICHI COMPLET (OBLIGATOIRE) :
 
-✍️ STYLE D'ÉCRITURE — VARIER LES FORMES :
-- Descriptif : "Le temple déploie ses toits dorés..."
-- Impératif : "Découvrez...", "Explorez...", "Admirez...", "Gravissez..."
-- Narratif : "Les moines tissent encore...", "Les fidèles y affluent..."
-ALTERNER ces 3 formes pour casser la monotonie. Ne pas enchaîner plus de 2 textes du même style.
+12. subtitle = 1 phrase d'accroche SOBRE (pas de superlatifs creux)
+13. seo_keywords = 5-7 mots-clés SEO pertinents
+14. practical_context COMPLET avec best_months, vehicle_type, group_type, loop_type, total_km, daily_average_km, highlights
+15. practical_info sur les activités importantes
+16. road_type OBLIGATOIRE dans to_next_leg
+
+═══════════════════════════════════════════════════════════
+🚫 STYLE INTERDIT - EXPRESSIONS IA POMPEUSES À BANNIR
+═══════════════════════════════════════════════════════════
+
+❌ VERBES CREUX ET CLICHÉS :
+- "déploie" (ses toits, ses ruelles, ses trésors...)
+- "s'impose" (par sa silhouette, sa majesté...)
+- "embrase" (l'horizon, le ciel...)
+- "se dresse" (majestueusement, fièrement...)
+- "invite" (au voyage, à la contemplation, à la flânerie...)
+- "révèle" (ses secrets, ses mystères...)
+- "dévoile" (ses charmes, ses beautés cachées...)
+- "offre" (un panorama époustouflant, une vue imprenable...)
+- "témoigne de" (la grandeur, la splendeur...)
+- "plonge le visiteur" (dans l'histoire, l'atmosphère...)
+
+❌ ADJECTIFS ET SUPERLATIFS CREUX :
+- "majestueux", "époustouflant", "somptueux", "grandiose"
+- "incontournable", "immanquable", "emblématique"
+- "pittoresque" (sauf si vraiment justifié)
+- "authentique" (galvaudé)
+- "unique en son genre", "sans pareil"
+
+❌ FORMULES TOUTES FAITES :
+- "Un véritable voyage dans le temps"
+- "Une immersion totale"
+- "Un havre de paix"
+- "Un écrin de verdure"
+- "La magie opère"
+- "Le temps semble s'être arrêté"
+
+✅ STYLE ATTENDU - FACTUEL ET DOCUMENTÉ :
+
+BON : "L'église Notre-Dame possède le plus haut clocher de Creuse (60 mètres). Bâtie du XIe au XIIIe siècle, elle mêle roman et gothique."
+MAUVAIS : "L'église Notre-Dame dresse majestueusement son clocher vers le ciel, invitant le visiteur à un voyage spirituel à travers les siècles."
+
+BON : "Monet séjourna ici de mars à mai 1889 et y réalisa 23 toiles représentant le confluent."
+MAUVAIS : "Ce village pittoresque révèle les secrets de l'âme impressionniste où Monet immortalisa la lumière magique du confluent."
+
+BON : "La forteresse date du XIIe siècle. Depuis les remparts, on voit le confluent des deux Creuse en contrebas."
+MAUVAIS : "La forteresse millénaire déploie ses remparts romantiques offrant un panorama époustouflant sur le confluent enchanteur."
+
+RÈGLE D'OR : Chaque phrase doit contenir une INFORMATION VÉRIFIABLE (date, dimension, nom propre, fait historique). Pas de remplissage lyrique.
 
 ${effectiveMode === 'seed' ? `
 🏠 MODE BASES + BOUCLES - BASES : ${effectiveSeeds || '[extraire du texte]'}
@@ -855,17 +944,15 @@ ${effectiveMode === 'follow' ? `
 ${isAdmin ? `
 🚫 NEUTRALISATION (MODE ADMIN) - Ces JSON seront diffusés publiquement.
 ✅ GARDER : Musées, monuments, temples, parcs, sites UNESCO, marchés publics
-❌ SUPPRIMER : Commerces nommés → "Les loueurs proposent..." | Personnes → supprimer | Prix → omettre | "à moto" → "par la route" | Dates récentes → supprimer | 1ère personne → reformuler
+❌ SUPPRIMER : Commerces nommés → "Les loueurs proposent..." | Personnes → supprimer | Prix exacts → approximer ou omettre | 1ère personne → reformuler
 ` : ''}
-
-🚫 INTERDIT : Phrases sans verbe ("Cathédrale gothique. Vitraux. Crypte.")
 
 SOURCE :
 `;
   },
 
   // ============================================
-  // ENGLISH v8 - Enriched format
+  // ENGLISH v10 - Natural style, anti-AI pompous
   // ============================================
   en: ({mode, seeds, modelSubMode, modelSeeds}) => {
     const isAdmin = mode === 'model';
@@ -874,84 +961,137 @@ SOURCE :
     
     return `You are a structured data extractor. Output ONLY valid JSON, no text, no Markdown.
 
-Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
+Transform SOURCE content into JSON "itins" (SINGLE object). Follow this reference example:
 
 {
   "itins": [{
-    "itin_id": "LA::north::luang-prabang-vang-vieng",
+    "itin_id": "FR::23::creuse-painters-valley",
     "language": "en",
     "created_at": "${new Date().toISOString().split('T')[0]}T12:00:00Z",
-    "source_url": "",
-    "dept_code": "LP",
-    "dept_name": "Luang Prabang",
-    "title": "Temples and Karsts of Northern Laos",
-    "subtitle": "From the monks of Luang Prabang to the turquoise lagoons of Vang Vieng",
-    "estimated_days_base": 3,
+    "source_url": "https://www.tourisme-creuse.com",
+    "dept_code": "23",
+    "dept_name": "Creuse",
+    "title": "Painters' Valley and Aubusson Tapestries",
+    "subtitle": "Following Monet and the weavers through secret Creuse",
+    "seo_keywords": ["Creuse painters valley", "Aubusson tapestry UNESCO", "Monet Fresselines", "Boussac castle", "Crozant school"],
+    "estimated_days_base": 9,
     "pacing_rules": {
       "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
       "merge_threshold": 0.85
     },
     "practical_context": {
-      "best_months": ["November", "December", "January", "February"],
+      "best_months": ["May", "June", "September", "October"],
+      "vehicle_type": "Standard car, winding but well-maintained departmental roads",
+      "group_type": "Couples, families, art and nature enthusiasts",
+      "loop_type": "Loop La Souterraine ↔ Guéret",
+      "total_km": 403,
+      "daily_average_km": 45,
       "highlights": [
-        "Dawn alms giving ceremony (tak bat)",
-        "Golden temples of Luang Prabang",
-        "Caves and turquoise lagoons of Vang Vieng",
-        "Mekong river navigation"
+        "International City of Tapestry in Aubusson, UNESCO heritage",
+        "Painters' Valley where Monet painted 23 canvases in 1889",
+        "Boussac Castle and the Lady and the Unicorn legend",
+        "Medieval fortress of Crozant overlooking the confluence",
+        "Wolf Wildlife Park at Chabrières"
       ]
     },
     "days_plan": [
       {
         "day": 1,
         "slice": 1,
-        "region_code": "LA-LP",
+        "region_code": "FR-23",
         "suggested_days": 1.5,
         "night": {
-          "place_id": "LA::luang_prabang",
-          "coords": [19.8856, 102.1347]
+          "place_id": "FR::la-souterraine",
+          "coords": [46.2372, 1.4878]
         },
         "visits": [
-          {"text": "Wat Xieng Thong spreads its sweeping roofs down to ground level in pure Lao style. Red glass mosaics depict the Buddha's life."},
-          {"text": "Climb the 328 steps of Mount Phousi to overlook the peninsula at the confluence of the Mekong and Nam Khan rivers."},
-          {"text": "The Royal Palace now houses the national museum with the throne and Phra Bang golden Buddha."},
-          {"text": "Wat Mai features a gilded porch carved with Ramayana scenes."},
-          {"text": "Wat Visoun, the oldest temple in town (1513), holds a large wooden Buddha."},
-          {"text": "Walk along the Nam Khan to Wat Xieng Mouane where monks still weave traditional textiles."}
+          {
+            "text": "Notre-Dame Church in La Souterraine has the tallest bell tower in Creuse (60 meters). Built from the 11th to 13th century by monks from Saint-Martial de Limoges, it combines Romanesque and Gothic styles. The polylobed portal with Mozarabic influence marks the passage of Compostela pilgrims on the Via Lemovicensis.",
+            "place_id": "FR::la-souterraine::eglise-notre-dame",
+            "coords": [46.2372, 1.4878],
+            "visit_duration_min": 45
+          },
+          {
+            "text": "The crypt of La Souterraine, which gave the town its name (Subterranea in 1268), dates from 1020. Built on a Gallo-Roman necropolis, it contains three chapels under Romanesque vaults reinforced with ribs. The Heritage Center displays archaeological finds from the ancient Bridiers site. Free entry in summer.",
+            "place_id": "FR::la-souterraine::crypte",
+            "coords": [46.2372, 1.4878],
+            "visit_duration_min": 40
+          },
+          {
+            "text": "Saint-Jean Gate retains its corbelled turrets, battlements and machicolations from the 13th-15th centuries. The drawbridge chain slots are still visible. Ask for the key at the Marché café to climb to the top.",
+            "place_id": "FR::la-souterraine::porte-saint-jean",
+            "coords": [46.2375, 1.4880],
+            "visit_duration_min": 30
+          }
         ],
         "activities": [
-          {"text": "Rise at dawn to witness tak bat, the silent procession where monks collect their daily food.", "practical_info": {"best_time": "5:30-6:30am", "tip": "Stay quiet, no flash photography"}},
-          {"text": "The night market takes over Sisavangvong Road from 5pm with textiles and handicrafts."},
-          {"text": "Local cooking schools teach Lao classics: laap, tam mak houng, khao niaw.", "practical_info": {"duration": "3h", "type": "Cooking class"}}
+          {
+            "text": "Lake Sagnat has a supervised beach in summer, shaded paths and fishing piers. A good option for a break after heritage visits.",
+            "place_id": "FR::la-souterraine::lac-sagnat",
+            "coords": [46.2500, 1.4600],
+            "activity_duration_min": 120,
+            "practical_info": {
+              "type": "Swimming / Relaxation",
+              "facilities": "Supervised beach, picnic area, trails",
+              "best_season": "June to September"
+            }
+          }
         ],
         "to_next_leg": {
-          "distance_km": 230,
-          "drive_min": 270,
+          "distance_km": 35,
+          "drive_min": 45,
           "transport_mode": "car",
-          "road_type": "Winding tarmac",
+          "road_type": "Tarmac",
           "method": "heuristic"
         }
       },
       {
         "day": 2,
         "slice": 1,
-        "region_code": "LA-VT",
+        "region_code": "FR-23",
         "suggested_days": 1.0,
         "night": {
-          "place_id": "LA::vang_vieng",
-          "coords": [18.9220, 102.4476]
+          "place_id": "FR::fresselines",
+          "coords": [46.3811, 1.6481]
         },
         "visits": [
-          {"text": "Tham Chang cave opens in the cliff facing the Nam Song with illuminated stalactites."},
-          {"text": "Blue Lagoon carves a turquoise pool at the foot of karst peaks."},
-          {"text": "Tham Phu Kham cave extends 500 meters with a reclining bronze Buddha."},
-          {"text": "The bamboo bridge crosses the Nam Song to rice paddies on the west bank."},
-          {"text": "Tham Nam cave is explored by tube on an underground river."}
+          {
+            "text": "Claude Monet stayed in Fresselines from March to May 1889 and painted 23 canvases there. Ten depict the confluence of the two Creuse rivers, nicknamed 'Les Eaux Semblantes'. This was his first true series on the same subject under different lights, a technique he later refined with the Haystacks and Cathedrals.",
+            "place_id": "FR::fresselines",
+            "coords": [46.3811, 1.6481],
+            "visit_duration_min": 30
+          },
+          {
+            "text": "The Monet-Rollinat Center, opened in 2018, displays reproductions of Monet's Creuse paintings and commemorates Maurice Rollinat, poet of Les Névroses who lived here for twenty years. Temporary contemporary art exhibitions complete the visit.",
+            "place_id": "FR::fresselines::espace-monet-rollinat",
+            "coords": [46.3815, 1.6485],
+            "visit_duration_min": 75,
+            "practical_info": {
+              "hours": "April-November: Wed-Sun 10:30am-12:30pm/2pm-6pm, July-August daily",
+              "duration": "1h to 1h30"
+            }
+          }
         ],
         "activities": [
-          {"text": "Kayak down the Nam Song between limestone cliffs.", "practical_info": {"duration": "2-3h", "difficulty": "Easy"}},
-          {"text": "Climbing schools offer courses on the karst walls for all levels."},
-          {"text": "Rent a bike to connect lagoons and caves via dirt tracks."}
-        ]
+          {
+            "text": "The Painters' Trail (3 km) connects viewpoints immortalized by Monet. Reproductions of his paintings are installed at the exact spots where he set up his easel.",
+            "place_id": "FR::fresselines::sentier-peintres",
+            "coords": [46.3800, 1.6500],
+            "activity_duration_min": 90,
+            "practical_info": {
+              "distance": "3 km",
+              "duration": "1h30",
+              "difficulty": "Easy"
+            }
+          }
+        ],
+        "to_next_leg": {
+          "distance_km": 8,
+          "drive_min": 15,
+          "transport_mode": "car",
+          "road_type": "Tarmac",
+          "method": "heuristic"
+        }
       }
     ]
   }]
@@ -960,38 +1100,76 @@ Transform SOURCE content into JSON "itins" (SINGLE object). Follow this example:
 📋 CRITICAL RULES:
 
 1. LOGICAL ORDER — Reorganize stops for a geographically coherent route. Avoid backtracking.
-2. visits[] = places (monuments, temples, museums, sites, caves, waterfalls)
-3. activities[] = actions (markets, hikes, kayaking, cycling, courses, walks)
+2. visits[] = places (monuments, temples, museums, sites, caves, waterfalls, landscapes)
+3. activities[] = actions (markets, hikes, kayaking, cycling, courses, walks, camping, rentals)
 4. 5-8 visits + 3-6 activities per day minimum
 5. suggested_days: 0.5 | 1.0 | 1.5 — beyond 1.5, split into multiple days
-6. estimated_days_base = CEIL(sum of suggested_days) — e.g.: 1.5 + 1.0 = 2.5 → 3
+6. estimated_days_base = CEIL(sum of suggested_days)
 7. to_next_leg on all days EXCEPT the last
-8. coords = [lat, lon] of city center
+8. coords = [lat, lon] of city center — do NOT invent precise coordinates
 9. itin_id = CC::region::slug (CC = ISO2)
-10. region_code = CC-XX (regional code, e.g.: LA-LP, HR-21, FR-84)
-11. dept_code = regional abbreviation (LP, 21, 84, PUG...)
-12. slice = always 1
-13. language = "en" — ALL texts in English (translate if source in other language, keep original proper nouns: Wat, Piazza, Playa...)
+10. slice = always 1
+11. language = "en"
 
-📋 ENRICHED FORMAT (REQUIRED):
-14. subtitle = 1 catchy tagline below the title (e.g. "From golden temples to dream beaches")
-15. practical_context.best_months = array of best months to visit (e.g.: ["May", "June", "September"])
-16. practical_context.highlights = 4-6 itinerary highlights
-17. practical_info = add to important activities (hikes, safaris, camping, rentals...) with duration, difficulty, tip, best_time as relevant
-18. road_type = add in to_next_leg if relevant (e.g.: "Tarmac", "Gravel", "Track", "Tarmac then gravel")
+📋 COMPLETE ENRICHED FORMAT (REQUIRED):
 
-✍️ WRITING STYLE — VARY THE FORMS:
-- Descriptive: "The temple spreads its golden roofs..."
-- Imperative: "Discover...", "Explore...", "Admire...", "Climb..."
-- Narrative: "Monks still weave...", "Devotees gather..."
-ALTERNATE these 3 forms to break monotony. Don't chain more than 2 texts of the same style.
+12. subtitle = 1 SOBER tagline (no empty superlatives)
+13. seo_keywords = 5-7 relevant SEO keywords
+14. COMPLETE practical_context with best_months, vehicle_type, group_type, loop_type, total_km, daily_average_km, highlights
+15. practical_info on important activities
+16. road_type REQUIRED in to_next_leg
 
-${effectiveMode === 'seed' ? `🏠 BASE + LOOPS MODE - BASES: ${effectiveSeeds || '[extract from text]'}` : ''}
-${effectiveMode === 'citytrip' ? `🏙️ CITY TRIP MODE - Each attraction = 1 distinct day.` : ''}
+═══════════════════════════════════════════════════════════
+🚫 FORBIDDEN STYLE - AI POMPOUS EXPRESSIONS TO BAN
+═══════════════════════════════════════════════════════════
+
+❌ EMPTY VERBS AND CLICHÉS:
+- "unfolds" (its roofs, its streets, its treasures...)
+- "stands proudly/majestically"
+- "sets ablaze" (the horizon, the sky...)
+- "rises majestically"
+- "invites" (to travel, to contemplation, to wandering...)
+- "reveals" (its secrets, its mysteries...)
+- "unveils" (its charms, its hidden beauties...)
+- "offers" (a breathtaking panorama, an unparalleled view...)
+- "bears witness to" (the grandeur, the splendor...)
+- "plunges the visitor" (into history, into atmosphere...)
+
+❌ EMPTY ADJECTIVES AND SUPERLATIVES:
+- "majestic", "breathtaking", "sumptuous", "grandiose"
+- "must-see", "unmissable", "iconic"
+- "picturesque" (unless truly justified)
+- "authentic" (overused)
+- "one of a kind", "unparalleled"
+
+❌ READY-MADE PHRASES:
+- "A true journey through time"
+- "A total immersion"
+- "A haven of peace"
+- "A green oasis"
+- "The magic happens"
+- "Time seems to have stopped"
+
+✅ EXPECTED STYLE - FACTUAL AND DOCUMENTED:
+
+GOOD: "Notre-Dame Church has the tallest bell tower in Creuse (60 meters). Built from the 11th to 13th century, it combines Romanesque and Gothic styles."
+BAD: "Notre-Dame Church majestically raises its bell tower to the heavens, inviting visitors on a spiritual journey through the centuries."
+
+GOOD: "Monet stayed here from March to May 1889 and painted 23 canvases depicting the confluence."
+BAD: "This picturesque village reveals the secrets of the Impressionist soul where Monet immortalized the magical light of the enchanting confluence."
+
+GOOD: "The fortress dates from the 12th century. From the ramparts, you can see the confluence of the two Creuse rivers below."
+BAD: "The millennium-old fortress unfolds its romantic ramparts offering a breathtaking panorama over the enchanting confluence."
+
+GOLDEN RULE: Every sentence must contain VERIFIABLE INFORMATION (date, dimension, proper name, historical fact). No lyrical filler.
+
+${effectiveMode === 'seed' ? `🏠 BASE + LOOPS MODE - BASES: ${effectiveSeeds || '[extract from text]'}
+Structure: BASE → excursions → return to BASE (every 3-5 days) → new BASE...` : ''}
+${effectiveMode === 'citytrip' ? `🏙️ CITY TRIP MODE - Each attraction = 1 distinct day. night.place_id = the attraction.` : ''}
 ${effectiveMode === 'follow' ? `📍 STRICT FOLLOW MODE - Keep exact order of source.` : ''}
-${isAdmin ? `🚫 NEUTRALIZATION (ADMIN): Remove named businesses, people, prices, recent dates, first person` : ''}
-
-🚫 FORBIDDEN: Verbless phrases ("Gothic cathedral. Stained glass. Crypt.")
+${isAdmin ? `🚫 NEUTRALIZATION (ADMIN MODE) - These JSONs will be publicly distributed.
+✅ KEEP: Museums, monuments, temples, parks, UNESCO sites, public markets
+❌ REMOVE: Named businesses → "Rental agencies offer..." | People → remove | Exact prices → approximate or omit | First person → rephrase` : ''}
 
 SOURCE:
 `;
@@ -2979,10 +3157,13 @@ window.initAdminRTViewer = function() {
   function generateRewritePrompt(itin) {
     const hasPC = !!itin.practical_context;
     const hasSeo = !!itin.seo;
+    const lang = itin.language || 'fr';
     
-    return `Tu es un expert en création d'itinéraires de voyage. Je vais te fournir un JSON existant et des articles/sources pour améliorer le contenu.
+    // Version française
+    if (lang === 'fr') {
+      return `Tu es un expert en création d'itinéraires de voyage. Je vais te fournir un JSON existant et des articles/sources pour améliorer le contenu.
 
-🎯 OBJECTIF : Réécrire ET enrichir cet itinéraire au format professionnel.
+🎯 OBJECTIF : Réécrire ET enrichir cet itinéraire au format professionnel style Namibie.
 
 📋 JSON À AMÉLIORER :
 \`\`\`json
@@ -3003,23 +3184,26 @@ ${JSON.stringify({ itins: [itin] }, null, 2)}
 
 1️⃣ MÉTADONNÉES :
 - title: "${itin.title}" → Améliorer si nécessaire (< 60 car.)
-- subtitle: ${itin.subtitle ? `"${itin.subtitle}"` : '❌ MANQUANT → Ajouter (1 ligne accrocheuse)'} 
+- subtitle: ${itin.subtitle ? `"${itin.subtitle}"` : '❌ MANQUANT → Ajouter (1 ligne accrocheuse immersive)'} 
+- seo_keywords: Ajouter 5-7 mots-clés SEO pertinents
 - source_url: Mettre l'URL de tes articles sources
 
 2️⃣ CONTEXTE PRATIQUE ${hasPC ? '(existe, améliorer si besoin)' : '❌ MANQUANT → CRÉER'} :
 \`\`\`json
 "practical_context": {
   "best_months": ["mois1", "mois2", ...],
-  "vehicle_type": "Type de véhicule recommandé",
-  "group_type": "Public cible (couple, famille...)",
-  "loop_type": "Boucle Ville ↔ Ville",
+  "vehicle_type": "Type de véhicule recommandé (si pertinent)",
+  "group_type": "Public cible (couple, famille, solo...)",
+  "loop_type": "Boucle Ville ↔ Ville" ou "Aller simple A → B",
   "total_km": XXXX,
   "daily_average_km": XXX,
   "highlights": [
     "Point fort 1 (lieu emblématique)",
     "Point fort 2 (expérience unique)",
     "Point fort 3...",
-    "Point fort 4..."
+    "Point fort 4...",
+    "Point fort 5...",
+    "Point fort 6..."
   ]
 }
 \`\`\`
@@ -3036,46 +3220,67 @@ ${JSON.stringify({ itins: [itin] }, null, 2)}
 \`\`\`
 
 4️⃣ VISITS (5-8 par jour) :
-- Textes de 2-3 phrases, style immersif et sensoriel
-- Varier : descriptif ("Le temple déploie..."), impératif ("Découvrez..."), narratif ("Les moines tissent...")
+- Textes de 2-3 PHRASES MINIMUM, style immersif et sensoriel
+- Varier : descriptif ("Big Daddy culmine à 325 mètres : c'est l'une des plus hautes dunes du monde. L'ascension par l'arête prend 90 minutes...")
+- Impératif ("Partez avant l'aube pour Big Daddy. La Desert Gate ouvre une heure avant le lever du soleil...")
+- Narratif ("Deadvlei surgit comme un tableau surréaliste. Des acacias pétrifiés depuis 900 ans dressent leurs silhouettes noires...")
 
 5️⃣ ACTIVITIES (3-6 par jour) :
-- Textes de 2-3 phrases
-- AJOUTER practical_info sur les activités importantes :
+- Textes de 2-3 PHRASES MINIMUM
+- AJOUTER practical_info sur TOUTES les activités importantes :
 
 \`\`\`json
-// Exemple camping
+// Camping
 "practical_info": {
-  "camp_type": "NWR / Privé",
-  "facilities": "Sanitaires, piscine...",
-  "booking": "Site ou conseil réservation"
+  "camp_type": "NWR / Privé / Sauvage",
+  "facilities": "Sanitaires, piscine, restaurant...",
+  "advantage": "Atout principal du camp",
+  "booking": "Conseil réservation"
 }
 
-// Exemple randonnée
+// Randonnée
 "practical_info": {
   "distance": "10 km",
   "duration": "~4h",
-  "difficulty": "Modéré",
-  "water": "Emporter 2L minimum"
+  "difficulty": "Facile / Modéré / Difficile",
+  "water": "Emporter 2L minimum",
+  "best_season": "Mai-Novembre"
 }
 
-// Exemple safari
+// Safari / Game drive
 "practical_info": {
   "type": "Self-drive / Guidé",
-  "best_time": "Lever du soleil",
-  "wildlife": "Lions, éléphants..."
+  "best_time": "Lever du soleil / Fin d'après-midi",
+  "wildlife": "Lions, éléphants, girafes...",
+  "duration": "~3h"
+}
+
+// Location véhicule
+"practical_info": {
+  "rental_agencies": "Réserver X mois à l'avance",
+  "vehicle": "Type de véhicule recommandé",
+  "equipment": "Équipement inclus",
+  "tip": "Conseil pratique"
+}
+
+// Entrée parc / Permis
+"practical_info": {
+  "fees": "Tarifs approximatifs",
+  "validity": "Durée validité",
+  "warning": "Point d'attention",
+  "documents": "Documents requis"
 }
 \`\`\`
 
 6️⃣ TO_NEXT_LEG :
-- Ajouter "road_type": "Goudron" / "Gravel" / "Piste" / "Goudron puis gravel"
+- Ajouter "road_type" OBLIGATOIRE : "Goudron" / "Gravel" / "Piste" / "Goudron puis gravel" / "Sable"
 
 ═══════════════════════════════════════════════════════════
 🚫 NEUTRALISATION
 ═══════════════════════════════════════════════════════════
-- Pas de noms de commerces → "Les loueurs proposent..."
+- Pas de noms de commerces → "Les loueurs proposent...", "Les agences de la ville..."
 - Pas de personnes nommées
-- Pas de prix
+- Pas de prix exacts → approximer ou omettre
 - Pas de dates récentes
 - "à moto" → "par la route"
 
@@ -3089,6 +3294,142 @@ ${JSON.stringify({ itins: [itin] }, null, 2)}
 ═══════════════════════════════════════════════════════════
 Produis UNIQUEMENT le JSON valide { "itins": [...] }, sans texte autour, sans balises Markdown.
 Le JSON doit pouvoir remplacer directement l'ancien dans ${sourceFileName || 'le fichier source'}.`;
+    }
+    
+    // Version anglaise
+    return `You are an expert in travel itinerary creation. I will provide an existing JSON and articles/sources to improve the content.
+
+🎯 OBJECTIVE: Rewrite AND enrich this itinerary to professional Namibia-style format.
+
+📋 JSON TO IMPROVE:
+\`\`\`json
+${JSON.stringify({ itins: [itin] }, null, 2)}
+\`\`\`
+
+═══════════════════════════════════════════════════════════
+✅ KEEP AS IS
+═══════════════════════════════════════════════════════════
+- itin_id: "${itin.itin_id}"
+- All coords and place_id
+- The days_plan structure (same days, same order)
+- to_next_leg.distance_km and to_next_leg.drive_min
+
+═══════════════════════════════════════════════════════════
+✍️ TO REWRITE / IMPROVE
+═══════════════════════════════════════════════════════════
+
+1️⃣ METADATA:
+- title: "${itin.title}" → Improve if needed (< 60 chars)
+- subtitle: ${itin.subtitle ? `"${itin.subtitle}"` : '❌ MISSING → Add (1 immersive catchy line)'} 
+- seo_keywords: Add 5-7 relevant SEO keywords
+- source_url: Add your source articles URL
+
+2️⃣ PRACTICAL CONTEXT ${hasPC ? '(exists, improve if needed)' : '❌ MISSING → CREATE'}:
+\`\`\`json
+"practical_context": {
+  "best_months": ["Month1", "Month2", ...],
+  "vehicle_type": "Recommended vehicle type (if relevant)",
+  "group_type": "Target audience (couple, family, solo...)",
+  "loop_type": "Loop City ↔ City" or "One-way A → B",
+  "total_km": XXXX,
+  "daily_average_km": XXX,
+  "highlights": [
+    "Highlight 1 (iconic place)",
+    "Highlight 2 (unique experience)",
+    "Highlight 3...",
+    "Highlight 4...",
+    "Highlight 5...",
+    "Highlight 6..."
+  ]
+}
+\`\`\`
+
+3️⃣ SEO ${hasSeo ? '(exists, verify)' : '❌ MISSING → CREATE'}:
+\`\`\`json
+"seo": {
+  "h1_title": "Optimized SEO title",
+  "intro_paragraph": "2-3 engaging intro sentences",
+  "seo_hook": "1 punchy hook sentence",
+  "featured_list": ["Place: tagline", ...],
+  "places_taglines": { "CC::place-id": "short tagline" }
+}
+\`\`\`
+
+4️⃣ VISITS (5-8 per day):
+- 2-3 SENTENCES MINIMUM, immersive and sensory style
+- Vary: Descriptive ("Big Daddy rises to 325 meters: one of the world's tallest dunes. The ascent along the ridge takes 90 minutes...")
+- Imperative ("Leave before dawn for Big Daddy. The Desert Gate opens one hour before sunrise...")
+- Narrative ("Deadvlei emerges like a surrealist painting. 900-year-old petrified acacias raise their black silhouettes...")
+
+5️⃣ ACTIVITIES (3-6 per day):
+- 2-3 SENTENCES MINIMUM
+- ADD practical_info on ALL important activities:
+
+\`\`\`json
+// Camping
+"practical_info": {
+  "camp_type": "NWR / Private / Wild",
+  "facilities": "Restrooms, pool, restaurant...",
+  "advantage": "Main camp advantage",
+  "booking": "Booking advice"
+}
+
+// Hiking
+"practical_info": {
+  "distance": "10 km",
+  "duration": "~4h",
+  "difficulty": "Easy / Moderate / Difficult",
+  "water": "Bring 2L minimum",
+  "best_season": "May-November"
+}
+
+// Safari / Game drive
+"practical_info": {
+  "type": "Self-drive / Guided",
+  "best_time": "Sunrise / Late afternoon",
+  "wildlife": "Lions, elephants, giraffes...",
+  "duration": "~3h"
+}
+
+// Vehicle rental
+"practical_info": {
+  "rental_agencies": "Book X months ahead",
+  "vehicle": "Recommended vehicle type",
+  "equipment": "Included equipment",
+  "tip": "Practical tip"
+}
+
+// Park entry / Permit
+"practical_info": {
+  "fees": "Approximate rates",
+  "validity": "Validity duration",
+  "warning": "Key point",
+  "documents": "Required documents"
+}
+\`\`\`
+
+6️⃣ TO_NEXT_LEG:
+- Add REQUIRED "road_type": "Tarmac" / "Gravel" / "Track" / "Tarmac then gravel" / "Sand"
+
+═══════════════════════════════════════════════════════════
+🚫 NEUTRALIZATION
+═══════════════════════════════════════════════════════════
+- No business names → "Rental agencies offer...", "City agencies..."
+- No named people
+- No exact prices → approximate or omit
+- No recent dates
+- "by motorcycle" → "by road"
+
+═══════════════════════════════════════════════════════════
+📄 ARTICLES/SOURCES FOR ENRICHMENT
+═══════════════════════════════════════════════════════════
+[PASTE YOUR ARTICLES HERE - content will enrich visits, activities and practical_info]
+
+═══════════════════════════════════════════════════════════
+🎯 EXPECTED RESULT
+═══════════════════════════════════════════════════════════
+Output ONLY valid JSON { "itins": [...] }, no surrounding text, no Markdown tags.
+The JSON must directly replace the old one in ${sourceFileName || 'the source file'}.`;
   }
   
   console.log('[ADMIN RT] ✅ RT Viewer initialized');
