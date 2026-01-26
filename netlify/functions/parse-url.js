@@ -40,116 +40,110 @@ const LANG_NAMES = {
   de: 'German'
 };
 
-const MONTH_NAMES = {
-  fr: ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'],
-  en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-  es: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'],
-  it: ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'],
-  pt: ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'],
-  ar: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'],
-  de: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
-};
-
-// ===== PROMPT (English base, output in user's language) =====
+// ===== PROMPT (Based on import.html, output in user's language) =====
 function buildPrompt(language) {
   const langName = LANG_NAMES[language] || 'English';
   const langCode = language || 'en';
   
-  return `You are a structured data extractor. Produce ONLY valid JSON, no text, no Markdown.
+  return `You are a structured data extractor. Output ONLY valid JSON, no text, no Markdown.
 
-🚨 CRITICAL: STRICT FIDELITY TO SOURCE
-The user chose this itinerary because they LIKE it. Your job is to STRUCTURE it, NOT to rewrite or improve it.
-
-⛔ ABSOLUTELY FORBIDDEN:
-- DO NOT invent places, visits, or activities not mentioned in the source
-- DO NOT add days or stops not in the original itinerary
-- DO NOT change the itinerary order unless geographically absurd
-
-✅ YOU MUST:
+🚨 SOURCE FIDELITY: The user chose this itinerary because they LIKE it.
 - Extract ONLY places/activities explicitly mentioned in the source
-- Preserve the original tone and writing style
-- Translate to target language while keeping the author's voice
-- Complete technical fields (coords, place_id, region_code) that the source cannot provide
+- Keep the SAME number of days and stops
+- Do NOT add places or activities not in the source
+- You CAN and SHOULD enrich descriptions with verifiable facts (dates, dimensions, historical details)
 
-✅ YOU CAN (and should):
-- Write a SHORT DESCRIPTIVE SENTENCE for each visit/activity, not just the place name
-- If source says "Lac Genin" → write "Le lac Genin, surnommé le petit Canada, offre un cadre paisible en pleine forêt."
-- Add FACTUAL descriptions based on your knowledge (what the place IS), this is NOT invention
-- Estimate total_km and daily_average_km based on the route
-- Suggest best_months based on your knowledge of the region's climate
-
-Transform the SOURCE content into JSON "itins" (ONE object). Follow this example:
+Transform SOURCE content into JSON "itins" (SINGLE object). Follow this reference example:
 
 {
   "itins": [{
-    "itin_id": "LA::north::luang-prabang-vang-vieng",
+    "itin_id": "FR::23::creuse-painters-valley",
     "language": "${langCode}",
     "created_at": "${new Date().toISOString().split('T')[0]}T12:00:00Z",
     "source_url": "",
-    "dept_code": "LP",
-    "dept_name": "Luang Prabang",
-    "title": "Temples and karsts of Northern Laos",
-    "subtitle": "From golden temples to turquoise lagoons",
+    "dept_code": "23",
+    "dept_name": "Creuse",
+    "title": "Painters' Valley and Aubusson Tapestries",
+    "subtitle": "Following Monet and the weavers through secret Creuse",
+    "seo_keywords": ["Creuse painters valley", "Aubusson tapestry UNESCO", "Monet Fresselines"],
     "estimated_days_base": 2,
+    "pacing_rules": {
+      "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
+      "merge_threshold": 0.85
+    },
     "practical_context": {
-      "best_months": ["May", "June", "September"],
-      "vehicle_type": "Car or scooter",
-      "group_type": "Couple, friends",
-      "loop_type": "Luang Prabang ↔ Vang Vieng",
-      "total_km": 460,
-      "daily_average_km": 230,
+      "best_months": ["May", "June", "September", "October"],
+      "vehicle_type": "Standard car, winding but well-maintained roads",
+      "group_type": "Couples, families, art and nature enthusiasts",
+      "loop_type": "Loop La Souterraine ↔ Guéret",
+      "total_km": 85,
+      "daily_average_km": 43,
       "highlights": [
-        "Tak bat monks procession at dawn",
-        "Kuang Si turquoise waterfalls",
-        "Karst landscapes and caves",
-        "Mekong river navigation"
+        "International City of Tapestry in Aubusson, UNESCO heritage",
+        "Painters' Valley where Monet painted 23 canvases in 1889",
+        "Medieval fortress of Crozant overlooking the confluence"
       ]
     },
     "ai_suggestions": {
       "nearby_gems": [
-        "Pak Ou Caves: Sacred caves with thousands of Buddha statues, 2h boat ride from Luang Prabang",
-        "Nong Khiaw: Stunning limestone cliffs and peaceful riverside village, worth a 3h detour north"
+        "Abbaye de La Prée : abbaye cistercienne du XIIe siècle à 20 min, cadre paisible.",
+        "Lac de Vassivière : plus grand lac artificiel du Limousin, baignade et art contemporain."
       ],
       "practical_tips": [
-        "Carry cash - ATMs are rare outside main towns and often empty",
-        "Book Kuang Si early morning to avoid tour groups arriving at 10am",
-        "Rent a scooter in Vang Vieng for flexibility between lagoons and caves"
+        "Privilégiez mai-juin pour les paysages verts sans la foule estivale.",
+        "L'Espace Monet-Rollinat ferme entre 12h30 et 14h."
       ],
       "warnings": [
-        "Rainy season (Jul-Sep): some dirt roads to caves become impassable"
+        "Routes sinueuses, attention aux virages serrés.",
+        "Peu de stations-service après Guéret."
       ]
-    },
-    "pacing_rules": {
-      "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
-      "merge_threshold": 0.85
     },
     "days_plan": [
       {
         "day": 1,
         "slice": 1,
-        "region_code": "LA-LP",
-        "suggested_days": 1.5,
+        "region_code": "FR-23",
+        "suggested_days": 1.0,
         "night": {
-          "place_id": "LA::luang_prabang",
-          "coords": [19.8856, 102.1347]
+          "place_id": "FR::fresselines",
+          "coords": [46.3811, 1.6481]
         },
         "visits": [
-          {"text": "Wat Xieng Thong spreads its sweeping roofs in pure Lao style."},
-          {"text": "Climb the 328 steps of Mount Phousi to overlook the peninsula."},
-          {"text": "The Royal Palace now houses the national museum with the Phra Bang."},
-          {"text": "Wat Mai features a gilded porch carved with Ramayana scenes."},
-          {"text": "Wat Visoun, the oldest temple (1513), holds a large wooden Buddha."}
+          {
+            "text": "Claude Monet stayed in Fresselines from March to May 1889 and painted 23 canvases there. Ten depict the confluence of the two Creuse rivers, nicknamed 'Les Eaux Semblantes'. This was his first true series on the same subject under different lights, a technique he later refined with the Haystacks and Cathedrals.",
+            "place_id": "FR::fresselines",
+            "coords": [46.3811, 1.6481],
+            "visit_duration_min": 30
+          },
+          {
+            "text": "The Monet-Rollinat Center, opened in 2018, displays reproductions of Monet's Creuse paintings and commemorates Maurice Rollinat, poet of Les Névroses who lived here for twenty years.",
+            "place_id": "FR::fresselines::espace-monet-rollinat",
+            "coords": [46.3815, 1.6485],
+            "visit_duration_min": 75,
+            "practical_info": {
+              "hours": "April-November: Wed-Sun 10:30am-12:30pm/2pm-6pm",
+              "duration": "1h to 1h30"
+            }
+          }
         ],
         "activities": [
-          {"text": "Rise at dawn to witness tak bat, the silent monks procession.", "practical_info": {"best_time": "5:30-6:30am", "tip": "Stay quiet, no flash"}},
-          {"text": "The night market takes over Sisavangvong Road from 5pm."},
-          {"text": "Local cooking schools teach Lao classics.", "practical_info": {"duration": "3h"}}
+          {
+            "text": "The Painters' Trail (3 km) connects viewpoints immortalized by Monet. Reproductions of his paintings are installed at the exact spots where he set up his easel.",
+            "place_id": "FR::fresselines::sentier-peintres",
+            "coords": [46.3800, 1.6500],
+            "activity_duration_min": 90,
+            "practical_info": {
+              "distance": "3 km",
+              "duration": "1h30",
+              "difficulty": "Easy"
+            }
+          }
         ],
         "to_next_leg": {
-          "distance_km": 230,
-          "drive_min": 270,
+          "distance_km": 35,
+          "drive_min": 45,
           "transport_mode": "car",
-          "road_type": "Winding tarmac",
+          "road_type": "Tarmac",
           "method": "heuristic"
         }
       }
@@ -157,101 +151,77 @@ Transform the SOURCE content into JSON "itins" (ONE object). Follow this example
   }]
 }
 
-📋 STRUCTURE RULES:
+📋 CRITICAL RULES:
 
-⚠️ CRITICAL - VISITS AND ACTIVITIES MUST BE COMPLETE SENTENCES:
-   
-1. visits[] = places mentioned in source — MUST BE A DESCRIPTIVE SENTENCE (1-2 lines)
-   ❌ WRONG: {"text": "Lac Genin à Charix"}
-   ❌ WRONG: {"text": "Cascade de Glandieu"}
-   ❌ WRONG: {"text": "Pérouges"}
-   ✅ CORRECT: {"text": "Le lac Genin, surnommé le petit Canada jurassien, déploie ses eaux émeraude au cœur d'une forêt de sapins centenaires."}
-   ✅ CORRECT: {"text": "La cascade de Glandieu dévale 60 mètres de falaise calcaire dans un cadre sauvage et préservé."}
-   ✅ CORRECT: {"text": "Pérouges, cité médiévale classée parmi les plus beaux villages de France, a conservé ses ruelles pavées et ses maisons à colombages du XVe siècle."}
-   
-2. activities[] = actions mentioned in source — MUST BE A DESCRIPTIVE SENTENCE
-   ❌ WRONG: {"text": "Randonnée"}
-   ❌ WRONG: {"text": "Randonnée de 4 à 6 heures aller/retour."}
-   ✅ CORRECT: {"text": "Une randonnée de 4 à 6 heures aller-retour mène au sommet du Crêt de la Neige (1720m), point culminant du Jura, offrant un panorama sur les Alpes et le Mont-Blanc."}
-
-3. Keep the EXACT number of days/stops from the source — do NOT add or remove
-4. suggested_days: 0.5 | 1.0 | 1.5 based on source's time indications
-5. estimated_days_base = number of days in the source itinerary
-6. to_next_leg on all days EXCEPT the last (estimate distance based on your geographic knowledge)
-7. coords = [lat, lon] — YOU provide this (lookup the real coordinates)
-8. itin_id = CC::region::slug (CC = ISO2 country code)
-9. region_code = CC-XX (regional code)
+1. SOURCE FIDELITY — Keep the exact places and structure from the source. Do NOT invent stops.
+2. visits[] = places (monuments, museums, sites, viewpoints, waterfalls, landscapes)
+3. activities[] = actions (hikes, kayaking, cycling, courses, walks, swimming)
+4. ENRICH each visit/activity with verifiable facts (dates, dimensions, historical details)
+5. suggested_days: 0.5 | 1.0 | 1.5 — beyond 1.5, split into multiple days
+6. estimated_days_base = CEIL(sum of suggested_days)
+7. to_next_leg on all days EXCEPT the last
+8. coords = [lat, lon] of location — YOU provide these based on your knowledge
+9. itin_id = CC::region::slug (CC = ISO2 country code)
 10. slice = always 1
 
-⚠️ MANDATORY CALCULATIONS:
-11. total_km = SUM of all to_next_leg.distance_km — MUST NOT be null
-12. daily_average_km = total_km / estimated_days_base — MUST NOT be null
-13. best_months = ARRAY of best months based on your knowledge of the region's climate — MUST NOT be empty
-    Example for Jura/Ain region: ["mai", "juin", "septembre", "octobre"]
+📋 COMPLETE ENRICHED FORMAT (REQUIRED):
 
-📋 OPTIONAL ENRICHMENT (only if source provides specific info):
-14. subtitle = extract or adapt from source intro (or write a catchy one-liner)
-15. practical_context.highlights = extract key points FROM the source text
-16. practical_info = add to activities IF source gives duration, difficulty, tips
-17. road_type = add in to_next_leg if source mentions road conditions
+11. subtitle = 1 SOBER tagline (no empty superlatives)
+12. seo_keywords = 5-7 relevant SEO keywords  
+13. COMPLETE practical_context: best_months, vehicle_type, group_type, loop_type, total_km, daily_average_km, highlights
+14. practical_info on important activities (duration, difficulty, hours)
+15. road_type REQUIRED in to_next_leg
 
-💡 AI SUGGESTIONS — YOUR ADDED VALUE (MUST BE IN ${langName.toUpperCase()}):
-Add an "ai_suggestions" object with YOUR recommendations based on your knowledge of the region.
+💡 AI SUGGESTIONS (YOUR added value — MUST BE IN ${langName.toUpperCase()}):
+
+"ai_suggestions": {
+  "nearby_gems": ["2-4 places NEAR the route, not in source, worth a detour — with brief description"],
+  "practical_tips": ["2-4 concrete useful tips based on your knowledge of the region"],
+  "warnings": ["0-2 important cautions if relevant (road conditions, closures, safety)"]
+}
 
 ⚠️ CRITICAL: ALL ai_suggestions content MUST be written in ${langName}, NOT in English!
 
-Example for French:
-"ai_suggestions": {
-  "nearby_gems": [
-    "Abbaye d'Ambronay : Impressionnante abbaye bénédictine avec une architecture remarquable, à quelques minutes de Meximieux.",
-    "Grottes du Cerdon : Grottes préhistoriques avec visites guidées et activités aventure, une expérience souterraine unique."
-  ],
-  "practical_tips": [
-    "Privilégiez les intersaisons (printemps, automne) pour éviter la foule et profiter d'une météo agréable.",
-    "Emportez des chaussures de randonnée confortables pour explorer les sites naturels.",
-    "Vérifiez les horaires d'ouverture à l'avance, notamment pour le Fort l'Écluse."
-  ],
-  "warnings": [
-    "Certaines routes de montagne sont étroites et sinueuses, prudence requise.",
-    "Les abords des cascades peuvent être glissants, surtout après la pluie."
-  ]
-}
+═══════════════════════════════════════════════════════════
+🚫 FORBIDDEN STYLE - AI POMPOUS EXPRESSIONS TO BAN
+═══════════════════════════════════════════════════════════
 
-Rules:
-- nearby_gems: 2-4 places NEAR the route, not in source, worth a detour — IN ${langName.toUpperCase()}
-- practical_tips: 2-4 concrete tips from your knowledge — IN ${langName.toUpperCase()}
-- warnings: 0-2 cautions if relevant — IN ${langName.toUpperCase()}
-- Keep each item to 1-2 sentences max
+❌ EMPTY VERBS AND CLICHÉS:
+- "unfolds" / "déploie" (its roofs, its streets, its treasures...)
+- "stands proudly/majestically" / "se dresse majestueusement"
+- "invites" / "invite" (to travel, to contemplation...)
+- "reveals" / "révèle" (its secrets, its mysteries...)
+- "unveils" / "dévoile" (its charms, its hidden beauties...)
+- "offers" / "offre" (a breathtaking panorama, an unparalleled view...)
+- "bears witness to" / "témoigne de" (the grandeur, the splendor...)
+- "plunges the visitor" / "plonge le visiteur"
 
-✍️ WRITING STYLE — MATCH THE SOURCE:
-- If source is enthusiastic, be enthusiastic
-- If source is factual and concise, stay factual and concise
-- If source uses "you/your", keep that personal tone
-- If source is descriptive, preserve that richness
-- Translate but PRESERVE the author's voice and style
+❌ EMPTY ADJECTIVES AND SUPERLATIVES:
+- "majestic", "breathtaking", "sumptuous", "grandiose"
+- "must-see", "unmissable", "iconic", "incontournable", "emblématique"
+- "picturesque", "authentic", "unique", "unparalleled"
+- "un véritable", "une immersion totale", "un havre de paix"
 
-🚫 NEUTRALIZATION (apply only these):
-- Remove specific business names → use generic terms
-- Remove specific people names (unless historical figures)
-- Remove prices (they change)
-- Remove recent dates
+✅ EXPECTED STYLE - FACTUAL AND DOCUMENTED:
 
-🚫 FORBIDDEN: 
-- Inventing content not in the source
-- Adding visits/activities to "fill" days
-- Changing the itinerary structure
+GOOD: "Notre-Dame Church has the tallest bell tower in Creuse (60 meters). Built from the 11th to 13th century, it combines Romanesque and Gothic styles."
+BAD: "Notre-Dame Church majestically raises its bell tower to the heavens, inviting visitors on a spiritual journey."
 
-🌍 OUTPUT LANGUAGE: ALL texts (title, subtitle, visits, activities, highlights, practical_context) MUST be written in ${langName}. Keep original proper nouns (Wat, Piazza, Playa...).
+GOOD: "Monet stayed here from March to May 1889 and painted 23 canvases depicting the confluence."
+BAD: "This picturesque village reveals the secrets of the Impressionist soul where Monet immortalized the magical light."
+
+GOOD: "The fortress dates from the 12th century. From the ramparts, you can see the confluence below."
+BAD: "The millennium-old fortress unfolds its romantic ramparts offering a breathtaking panorama."
+
+GOLDEN RULE: Every sentence must contain VERIFIABLE INFORMATION (date, dimension, proper name, historical fact). No lyrical filler.
+
+🚫 NEUTRALIZATION:
+✅ KEEP: Museums, monuments, temples, parks, UNESCO sites, public markets
+❌ REMOVE: Named businesses → "Rental agencies offer..." | People names → remove | Exact prices → omit
+
+🌍 OUTPUT LANGUAGE: ALL texts MUST be written in ${langName}.
 Set "language": "${langCode}" in the JSON.
-
-⚠️ FINAL CHECKLIST — VERIFY BEFORE OUTPUT:
-□ ALL visits have DESCRIPTIVE SENTENCES (not just place names)
-□ ALL activities have DESCRIPTIVE SENTENCES  
-□ best_months is NOT empty — suggest based on region climate
-□ total_km is calculated (sum of all distances)
-□ daily_average_km is calculated
-□ ai_suggestions is written in ${langName.toUpperCase()}, NOT English
-□ All text content is in ${langName}
+Keep original proper nouns (Wat, Piazza, Playa, Fort, Cascade...).
 
 SOURCE:
 `;
@@ -378,7 +348,7 @@ async function callGemini(content, language) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       contents: [{ parts: [{ text: prompt + '\n\n' + content }] }],
-      generationConfig: { temperature: 0.2, maxOutputTokens: 4096 }
+      generationConfig: { temperature: 0.2, maxOutputTokens: 8192 }
     })
   });
   
@@ -436,7 +406,7 @@ async function callOpenRouter(content, language) {
             { role: 'user', content: content }
           ],
           temperature: 0.2,
-          max_tokens: 4096
+          max_tokens: 8192
         })
       });
 
