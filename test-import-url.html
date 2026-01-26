@@ -164,11 +164,30 @@
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   
-  <!-- ORT Config -->
-  <script src="ort-config.js"></script>
+  <!-- Firebase Config (inline for testing) -->
+  <script>
+    const ORT_CONFIG = {
+      firebase: {
+        apiKey: "AIzaSyCcWgJVksquJO5KOuaWwvgWvpgHIvNy6Cs",
+        authDomain: "oneroadtrip-prod.firebaseapp.com",
+        projectId: "oneroadtrip-prod",
+        storageBucket: "oneroadtrip-prod.appspot.com",
+        messagingSenderId: "955822404036",
+        appId: "1:955822404036:web:889c1de0b0c23a8f8e43ad"
+      },
+      language: 'fr'
+    };
+  </script>
   
-  <!-- Import URL Component -->
-  <script src="js/ort-import-url-component.js"></script>
+  <!-- Import URL Component (inline for testing) -->
+  <script>
+    // Minimal stub for ORT_ImportUrl - the real component needs to be loaded separately
+    window.ORT_ImportUrl = {
+      open: function() { alert('Composant non chargé - utiliser le bouton Importer directement'); },
+      close: function() {},
+      closeFallback: function() {}
+    };
+  </script>
 
   <script>
     // ===== GLOBALS =====
@@ -195,11 +214,6 @@
     // ===== FIREBASE INIT =====
     async function initFirebase() {
       log('Initialisation Firebase...');
-      
-      // Wait for ORT_CONFIG
-      if (typeof ORT_CONFIG === 'undefined') {
-        await new Promise(r => setTimeout(r, 500));
-      }
       
       if (!firebase.apps.length) {
         firebase.initializeApp(ORT_CONFIG.firebase);
