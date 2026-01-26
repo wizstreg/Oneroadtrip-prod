@@ -1,822 +1,458 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ORT - Test Import URL</title>
-<style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: system-ui, -apple-system, sans-serif;
-    background: linear-gradient(135deg, #1e3a5f 0%, #113f7a 100%);
-    min-height: 100vh;
-    padding: 20px;
-  }
-  .container {
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-  }
-  h1 {
-    color: #fff;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  h2 {
-    color: #113f7a;
-    margin-bottom: 16px;
-    font-size: 18px;
-  }
-  .status-bar {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .status-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 14px;
-    background: #f1f5f9;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  .status-item.ok { background: #dcfce7; color: #166534; }
-  .status-item.error { background: #fee2e2; color: #dc2626; }
-  .status-item.pending { background: #fef3c7; color: #92400e; }
-  
-  .btn {
-    padding: 12px 20px;
-    border-radius: 10px;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .btn-primary {
-    background: #113f7a;
-    color: #fff;
-  }
-  .btn-primary:hover { background: #0d2f5e; }
-  .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
-  
-  .btn-outline {
-    background: #fff;
-    color: #113f7a;
-    border: 2px solid #113f7a;
-  }
-  .btn-outline:hover { background: #f0f4f8; }
-  
-  .btn-danger {
-    background: #dc2626;
-    color: #fff;
-  }
-  .btn-danger:hover { background: #b91c1c; }
-  
-  .test-section {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 1px solid #e2e8f0;
-  }
-  
-  .test-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-  
-  .log-box {
-    background: #1e293b;
-    color: #e2e8f0;
-    border-radius: 10px;
-    padding: 16px;
-    font-family: 'Consolas', monospace;
-    font-size: 13px;
-    max-height: 300px;
-    overflow-y: auto;
-  }
-  .log-box .log-entry {
-    margin-bottom: 6px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid #334155;
-  }
-  .log-box .log-entry:last-child { border-bottom: none; }
-  .log-box .time { color: #64748b; }
-  .log-box .success { color: #4ade80; }
-  .log-box .error { color: #f87171; }
-  .log-box .info { color: #60a5fa; }
-  
-  .user-info {
-    display: none;
-    padding: 12px;
-    background: #f0fdf4;
-    border: 1px solid #bbf7d0;
-    border-radius: 8px;
-    margin-bottom: 16px;
-  }
-  .user-info.visible { display: block; }
-  
-  .auth-buttons {
-    display: flex;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-  
-  .input-group {
-    margin-bottom: 12px;
-  }
-  .input-group label {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #334155;
-  }
-  .input-group input {
-    width: 100%;
-    padding: 10px 14px;
-    border: 2px solid #e2e8f0;
-    border-radius: 8px;
-    font-size: 14px;
-  }
-  .input-group input:focus {
-    outline: none;
-    border-color: #113f7a;
-  }
-
-  /* === MODAL STYLES === */
-  .ort-modal {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.6);
-    align-items: center;
-    justify-content: center;
-    z-index: 10000;
-    padding: 20px;
-  }
-  .ort-modal.active { display: flex; }
-
-  .ort-modal-card {
-    position: relative;
-    width: 100%;
-    max-width: 480px;
-    background: #fff;
-    border-radius: 16px;
-    padding: 28px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.25);
-    animation: ortSlideUp 0.3s ease;
-  }
-
-  @keyframes ortSlideUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .ort-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 32px;
-    height: 32px;
-    border: none;
-    background: #f1f5f9;
-    border-radius: 50%;
-    font-size: 20px;
-    color: #64748b;
-    cursor: pointer;
-  }
-  .ort-modal-close:hover {
-    background: #e2e8f0;
-    color: #334155;
-  }
-
-  .ort-modal-card h3 {
-    margin: 0 0 8px;
-    color: #113f7a;
-    font-size: 20px;
-  }
-
-  .ort-hint {
-    font-size: 14px;
-    color: #64748b;
-    margin-bottom: 16px;
-  }
-
-  .ort-input {
-    width: 100%;
-    padding: 14px 16px;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 15px;
-  }
-  .ort-input:focus {
-    outline: none;
-    border-color: #113f7a;
-  }
-
-  .ort-status {
-    display: none;
-    margin-top: 12px;
-    padding: 12px 14px;
-    border-radius: 10px;
-    font-size: 14px;
-  }
-  .ort-status.loading { display: block; background: #fef3c7; color: #92400e; }
-  .ort-status.error { display: block; background: #fee2e2; color: #dc2626; }
-  .ort-status.success { display: block; background: #dcfce7; color: #166534; }
-
-  .ort-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-end;
-    margin-top: 20px;
-  }
-
-  .ort-btn {
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    border: none;
-  }
-
-  .ort-btn.outline {
-    background: #fff;
-    color: #113f7a;
-    border: 2px solid #113f7a;
-  }
-  .ort-btn.outline:hover { background: #f0f4f8; }
-
-  .ort-btn.primary {
-    background: #113f7a;
-    color: #fff;
-    border: 2px solid #113f7a;
-  }
-  .ort-btn.primary:hover {
-    background: #0d2f5e;
-    border-color: #0d2f5e;
-  }
-  .ort-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
-  .ort-quota {
-    margin-top: 16px;
-    text-align: center;
-    font-size: 12px;
-    color: #94a3b8;
-  }
-
-  /* === FALLBACK MODAL === */
-  .ort-modal-card.fallback {
-    max-width: 520px;
-    text-align: center;
-  }
-
-  .fallback-icon {
-    font-size: 48px;
-    margin-bottom: 12px;
-  }
-
-  .ort-modal-card.fallback h3 {
-    color: #0369a1;
-    font-size: 22px;
-    margin-bottom: 16px;
-  }
-
-  .fallback-explain {
-    background: #f0f9ff;
-    border: 1px solid #bae6fd;
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 14px;
-    color: #0c4a6e;
-    margin-bottom: 20px;
-  }
-
-  .fallback-solution {
-    text-align: left;
-    background: #f8fafc;
-    border-radius: 10px;
-    padding: 16px 20px;
-    margin-bottom: 20px;
-  }
-
-  .fallback-solution h4 {
-    margin: 0 0 12px;
-    font-size: 15px;
-    color: #334155;
-  }
-
-  .fallback-solution ol {
-    margin: 0;
-    padding-left: 20px;
-  }
-
-  .fallback-solution li {
-    font-size: 14px;
-    color: #475569;
-    margin-bottom: 8px;
-  }
-
-  .fallback-solution kbd {
-    background: #e2e8f0;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-size: 12px;
-    font-family: monospace;
-  }
-
-  .fallback-actions {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .fallback-error {
-    margin-top: 16px;
-    font-size: 11px;
-    color: #94a3b8;
-    font-family: monospace;
-  }
-
-  @media (max-width: 540px) {
-    .ort-modal-card { padding: 20px; }
-    .ort-actions, .fallback-actions { flex-direction: column; }
-    .ort-btn { width: 100%; justify-content: center; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Import URL v2 - Background Jobs</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { color: #333; }
+    .card {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .status {
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .status.success { background: #d4edda; color: #155724; }
+    .status.error { background: #f8d7da; color: #721c24; }
+    .status.pending { background: #fff3cd; color: #856404; }
+    .status.info { background: #e3f2fd; color: #1565c0; }
+    input[type="email"], input[type="password"], input[type="url"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 14px;
+      margin-bottom: 12px;
+    }
+    input:focus { outline: none; border-color: #667eea; }
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .btn-secondary { background: #6c757d; color: white; }
+    .btn-success { background: #28a745; color: white; }
+    .btn-warning { background: #ffc107; color: #333; }
+    #logs {
+      background: #1a1a2e;
+      color: #00ff00;
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 12px;
+      padding: 16px;
+      border-radius: 8px;
+      height: 300px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+    .log-info { color: #00bfff; }
+    .log-success { color: #00ff00; }
+    .log-error { color: #ff6b6b; }
+    .log-warn { color: #ffd93d; }
+    #result {
+      background: #f8f9fa;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      padding: 16px;
+      max-height: 400px;
+      overflow: auto;
+      font-family: monospace;
+      font-size: 12px;
+      white-space: pre-wrap;
+    }
+    .progress-container {
+      margin: 16px 0;
+      display: none;
+    }
+    .progress-container.visible { display: block; }
+    .progress-bar {
+      height: 8px;
+      background: #e0e0e0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      width: 0%;
+      transition: width 0.5s;
+    }
+    .progress-text {
+      margin-top: 8px;
+      font-size: 14px;
+      color: #666;
+    }
+  </style>
 </head>
 <body>
+  <h1>🧪 Test Import URL v2</h1>
+  <p>Architecture Background Jobs avec polling Firestore</p>
 
-<div class="container">
-  <h1>🧪 Test Import URL - Preprod</h1>
-  
-  <!-- Auth Status -->
+  <!-- Auth -->
   <div class="card">
-    <h2>🔐 Authentification Firebase</h2>
-    
-    <div class="status-bar" id="authStatus">
-      <div class="status-item pending" id="firebaseStatus">⏳ Firebase...</div>
-      <div class="status-item pending" id="userStatus">⏳ User...</div>
+    <h3>🔐 Authentification</h3>
+    <div id="authStatus" class="status pending">Chargement...</div>
+    <div id="loginForm" style="display:none;">
+      <input type="email" id="loginEmail" placeholder="Email">
+      <input type="password" id="loginPassword" placeholder="Mot de passe">
+      <button class="btn-primary" onclick="login()">Se connecter</button>
     </div>
-    
-    <div class="user-info" id="userInfo">
-      <strong>Connecté :</strong> <span id="userEmail">-</span>
-    </div>
-    
-    <div class="auth-buttons" style="margin-top: 16px;">
-      <button class="btn btn-primary" id="btnLogin" disabled>📧 Connexion Email</button>
-      <button class="btn btn-danger" id="btnLogout" style="display:none">🚪 Déconnexion</button>
-    </div>
-    
-    <!-- Login Form (hidden by default) -->
-    <div id="loginForm" style="display:none; margin-top: 16px; padding-top: 16px; border-top: 1px solid #e2e8f0;">
-      <div class="input-group">
-        <label>Email</label>
-        <input type="email" id="loginEmail" placeholder="votre@email.com">
-      </div>
-      <div class="input-group">
-        <label>Mot de passe</label>
-        <input type="password" id="loginPassword" placeholder="••••••••">
-      </div>
-      <div style="display: flex; gap: 12px; margin-top: 12px;">
-        <button class="btn btn-primary" id="btnDoLogin">Se connecter</button>
-        <button class="btn btn-outline" id="btnCancelLogin">Annuler</button>
-      </div>
+    <div id="loggedIn" style="display:none;">
+      <button class="btn-secondary" onclick="logout()">Se déconnecter</button>
     </div>
   </div>
-  
-  <!-- Test Import URL -->
+
+  <!-- Import URL -->
   <div class="card">
-    <h2>🔗 Test Import URL</h2>
-    
-    <div class="test-buttons">
-      <button class="btn btn-primary" id="btnImportUrl" disabled>
-        🔗 Importer depuis une URL
-      </button>
-      <button class="btn btn-outline" id="btnTestFallback" disabled>
-        🧪 Tester Modal Fallback
-      </button>
+    <h3>🔗 Import URL</h3>
+    <input type="url" id="urlInput" placeholder="https://provencelovers.fr/10-jours-cote-azur-itineraire-road-trip/">
+    <div>
+      <button id="importBtn" class="btn-primary" onclick="startImport()" disabled>🔮 Importer</button>
+      <button class="btn-warning" onclick="testFallback()">🧪 Tester Fallback</button>
+      <button class="btn-secondary" onclick="ORT_ImportUrl.open()">📦 Ouvrir Composant</button>
     </div>
-    
-    <div class="test-section">
-      <h2>📋 Logs</h2>
-      <div class="log-box" id="logBox">
-        <div class="log-entry"><span class="time">[--:--:--]</span> En attente...</div>
+    <div id="progressContainer" class="progress-container">
+      <div class="progress-bar">
+        <div id="progressFill" class="progress-fill"></div>
       </div>
-      <button class="btn btn-outline" id="btnClearLogs" style="margin-top: 12px;">🗑️ Effacer logs</button>
+      <div id="progressText" class="progress-text">En attente...</div>
     </div>
   </div>
-  
-  <!-- Result Preview -->
-  <div class="card" id="resultCard" style="display: none;">
-    <h2>✅ Résultat</h2>
-    <pre id="resultJson" style="background: #f8fafc; padding: 16px; border-radius: 8px; overflow-x: auto; font-size: 12px; max-height: 400px;"></pre>
-    <div style="margin-top: 16px; display: flex; gap: 12px;">
-      <button class="btn btn-primary" id="btnGoDetail">📍 Ouvrir RT Detail</button>
-      <button class="btn btn-outline" id="btnGoEditor">📓 Ouvrir Carnet</button>
+
+  <!-- Logs -->
+  <div class="card">
+    <h3>📋 Logs <button class="btn-secondary" onclick="clearLogs()" style="float:right;padding:4px 12px;font-size:12px;">🗑️ Effacer</button></h3>
+    <div id="logs">[--:--:--] En attente...</div>
+  </div>
+
+  <!-- Result -->
+  <div class="card">
+    <h3>✅ Résultat</h3>
+    <div id="result">Aucun résultat</div>
+    <div style="margin-top:16px;">
+      <button class="btn-success" onclick="openRTDetail()" disabled id="btnDetail">Ouvrir RT Detail</button>
+      <button class="btn-success" onclick="openRTEditor()" disabled id="btnEditor">Ouvrir RT Editor</button>
     </div>
   </div>
-</div>
 
-<!-- ============================================
-     MODAL 1: Import URL
-     ============================================ -->
-<div id="importUrlModal" class="ort-modal">
-  <div class="ort-modal-card">
-    <button class="ort-modal-close" id="btnCloseUrlModal">×</button>
-    
-    <h3>🔗 Importer un itinéraire</h3>
-    <p class="ort-hint">Collez l'URL d'un article de voyage (blog, guide...)</p>
-    
-    <input type="url" id="importUrlInput" 
-           placeholder="https://www.exemple.com/road-trip-islande" 
-           class="ort-input">
-    
-    <div id="importUrlStatus" class="ort-status"></div>
-    
-    <div class="ort-actions">
-      <button id="btnCancelUrl" class="ort-btn outline">Annuler</button>
-      <button id="btnConfirmUrl" class="ort-btn primary">
-        <span class="btn-text">Importer</span>
-        <span class="btn-loader" style="display:none">⏳</span>
-      </button>
-    </div>
-    
-    <div id="urlQuotaInfo" class="ort-quota"></div>
-  </div>
-</div>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  
+  <!-- ORT Config -->
+  <script src="ort-config.js"></script>
+  
+  <!-- Import URL Component -->
+  <script src="js/ort-import-url-component.js"></script>
 
-<!-- ============================================
-     MODAL 2: Fallback
-     ============================================ -->
-<div id="importFallbackModal" class="ort-modal">
-  <div class="ort-modal-card fallback">
-    <button class="ort-modal-close" id="btnCloseFallback">×</button>
-    
-    <div class="fallback-icon">🤖💨</div>
-    <h3 id="fallbackTitle">Oups, l'IA a besoin d'une pause !</h3>
-    
-    <div class="fallback-explain" id="fallbackExplain">
-      OneRoadTrip est <strong>100% gratuit</strong> et utilise des services d'IA gratuits avec des limites d'utilisation.
-    </div>
-    
-    <div class="fallback-solution">
-      <h4 id="fallbackSolutionTitle">Pas de panique ! Import manuel en 3 clics :</h4>
-      <ol id="fallbackSteps">
-        <li>Ouvrez la page de l'article</li>
-        <li>Sélectionnez tout (<kbd>Ctrl</kbd>+<kbd>A</kbd>) et copiez (<kbd>Ctrl</kbd>+<kbd>C</kbd>)</li>
-        <li>Collez dans notre outil d'import gratuit</li>
-      </ol>
-    </div>
-    
-    <div class="fallback-actions">
-      <a id="fallbackOpenUrl" href="#" target="_blank" class="ort-btn outline">
-        🔗 Ouvrir l'article
-      </a>
-      <a href="./import.html" class="ort-btn primary" id="fallbackGoImport">
-        📋 Aller à l'import manuel
-      </a>
-    </div>
-    
-    <div class="fallback-error" id="fallbackErrorDetail"></div>
-  </div>
-</div>
+  <script>
+    // ===== GLOBALS =====
+    let currentUser = null;
+    let currentJobId = null;
+    let currentUid = null;
+    let unsubscribe = null;
+    let lastImportKey = null;
 
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    // ===== LOGGING =====
+    function log(msg, type = 'info') {
+      const logs = document.getElementById('logs');
+      const time = new Date().toLocaleTimeString('fr-FR');
+      const classes = { info: 'log-info', success: 'log-success', error: 'log-error', warn: 'log-warn' };
+      logs.innerHTML += `<span class="${classes[type] || ''}">[${time}] ${msg}</span>\n`;
+      logs.scrollTop = logs.scrollHeight;
+      console.log(`[${type.toUpperCase()}]`, msg);
+    }
 
-<!-- Config ORT - AJUSTER AVEC VOTRE CONFIG PREPROD -->
-<script src="./js/ort-config.js"></script>
-<script>
-// Fallback si ort-config.js n'est pas chargé
-if (!window.ORT_CONFIG) {
-  console.warn('⚠️ ort-config.js non trouvé, utiliser la config ci-dessous');
-  window.ORT_CONFIG = {
-    PREPROD: {
-      // REMPLACER PAR VOTRE CONFIG PREPROD
-      apiKey: "VOTRE_API_KEY",
-      authDomain: "oneroadtrip-preprod.firebaseapp.com",
-      projectId: "oneroadtrip-preprod",
-      storageBucket: "oneroadtrip-preprod.appspot.com",
-      messagingSenderId: "VOTRE_SENDER_ID",
-      appId: "VOTRE_APP_ID"
+    function clearLogs() {
+      document.getElementById('logs').innerHTML = '[--:--:--] Logs effacés\n';
     }
-  };
-}
-</script>
 
-<script>
-(function() {
-  'use strict';
-  
-  // === LOGS ===
-  const logBox = document.getElementById('logBox');
-  
-  function log(msg, type = 'info') {
-    const time = new Date().toLocaleTimeString('fr-FR');
-    const entry = document.createElement('div');
-    entry.className = 'log-entry';
-    entry.innerHTML = `<span class="time">[${time}]</span> <span class="${type}">${msg}</span>`;
-    logBox.appendChild(entry);
-    logBox.scrollTop = logBox.scrollHeight;
-    console.log(`[${type.toUpperCase()}]`, msg);
-  }
-  
-  document.getElementById('btnClearLogs').addEventListener('click', () => {
-    logBox.innerHTML = '<div class="log-entry"><span class="time">[--:--:--]</span> Logs effacés</div>';
-  });
-  
-  // === FIREBASE INIT ===
-  const firebaseStatus = document.getElementById('firebaseStatus');
-  const userStatus = document.getElementById('userStatus');
-  const userInfo = document.getElementById('userInfo');
-  const userEmail = document.getElementById('userEmail');
-  const btnLogin = document.getElementById('btnLogin');
-  const btnLogout = document.getElementById('btnLogout');
-  const btnImportUrl = document.getElementById('btnImportUrl');
-  const btnTestFallback = document.getElementById('btnTestFallback');
-  
-  log('Initialisation Firebase...', 'info');
-  
-  try {
-    // Essayer de charger la config depuis ort-config.js ou utiliser la config hardcodée
-    const config = window.ORT_CONFIG?.PREPROD || {};
-    
-    if (!config.apiKey) {
-      throw new Error('Config Firebase manquante');
-    }
-    
-    firebase.initializeApp(config);
-    firebaseStatus.textContent = '✅ Firebase OK';
-    firebaseStatus.className = 'status-item ok';
-    log('Firebase initialisé: ' + config.projectId, 'success');
-    
-    btnLogin.disabled = false;
-    
-  } catch (e) {
-    firebaseStatus.textContent = '❌ Firebase Error';
-    firebaseStatus.className = 'status-item error';
-    log('Erreur Firebase: ' + e.message, 'error');
-    return;
-  }
-  
-  // === AUTH STATE ===
-  firebase.auth().onAuthStateChanged((user) => {
-    if (user) {
-      userStatus.textContent = '✅ Connecté';
-      userStatus.className = 'status-item ok';
-      userInfo.classList.add('visible');
-      userEmail.textContent = user.email;
-      btnLogin.style.display = 'none';
-      btnLogout.style.display = '';
-      btnImportUrl.disabled = false;
-      btnTestFallback.disabled = false;
-      log('Utilisateur connecté: ' + user.email, 'success');
-    } else {
-      userStatus.textContent = '❌ Non connecté';
-      userStatus.className = 'status-item error';
-      userInfo.classList.remove('visible');
-      btnLogin.style.display = '';
-      btnLogout.style.display = 'none';
-      btnImportUrl.disabled = true;
-      btnTestFallback.disabled = true;
-      log('Utilisateur non connecté', 'info');
-    }
-  });
-  
-  // === LOGIN FORM ===
-  const loginForm = document.getElementById('loginForm');
-  
-  btnLogin.addEventListener('click', () => {
-    loginForm.style.display = 'block';
-    document.getElementById('loginEmail').focus();
-  });
-  
-  document.getElementById('btnCancelLogin').addEventListener('click', () => {
-    loginForm.style.display = 'none';
-  });
-  
-  document.getElementById('btnDoLogin').addEventListener('click', async () => {
-    const email = document.getElementById('loginEmail').value;
-    const password = document.getElementById('loginPassword').value;
-    
-    if (!email || !password) {
-      log('Email et mot de passe requis', 'error');
-      return;
-    }
-    
-    log('Tentative de connexion...', 'info');
-    
-    try {
-      await firebase.auth().signInWithEmailAndPassword(email, password);
-      loginForm.style.display = 'none';
-    } catch (e) {
-      log('Erreur connexion: ' + e.message, 'error');
-    }
-  });
-  
-  btnLogout.addEventListener('click', async () => {
-    await firebase.auth().signOut();
-    log('Déconnecté', 'info');
-  });
-  
-  // === IMPORT URL MODAL ===
-  const modal = document.getElementById('importUrlModal');
-  const fallbackModal = document.getElementById('importFallbackModal');
-  const input = document.getElementById('importUrlInput');
-  const status = document.getElementById('importUrlStatus');
-  const btnConfirm = document.getElementById('btnConfirmUrl');
-  const btnText = btnConfirm.querySelector('.btn-text');
-  const btnLoader = btnConfirm.querySelector('.btn-loader');
-  const quotaInfo = document.getElementById('urlQuotaInfo');
-  
-  let currentUrl = '';
-  let lastResult = null;
-  
-  function openModal(m) {
-    m.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  
-  function closeModal(m) {
-    m.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  
-  // Open modal
-  btnImportUrl.addEventListener('click', () => {
-    openModal(modal);
-    input.value = '';
-    status.className = 'ort-status';
-    status.textContent = '';
-    input.focus();
-    log('Modal Import URL ouverte', 'info');
-  });
-  
-  // Close modals
-  document.getElementById('btnCancelUrl').addEventListener('click', () => closeModal(modal));
-  document.getElementById('btnCloseUrlModal').addEventListener('click', () => closeModal(modal));
-  document.getElementById('btnCloseFallback').addEventListener('click', () => closeModal(fallbackModal));
-  
-  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(modal); });
-  fallbackModal.addEventListener('click', (e) => { if (e.target === fallbackModal) closeModal(fallbackModal); });
-  
-  // Test Fallback button
-  btnTestFallback.addEventListener('click', () => {
-    log('Test modal fallback', 'info');
-    openFallbackModal('Test erreur simulée', 'https://example.com/test-article');
-  });
-  
-  // Confirm import
-  btnConfirm.addEventListener('click', async () => {
-    const url = input.value.trim();
-    currentUrl = url;
-    
-    if (!url) {
-      status.textContent = 'Veuillez entrer une URL';
-      status.className = 'ort-status error';
-      return;
-    }
-    
-    if (!url.startsWith('http')) {
-      status.textContent = 'URL invalide';
-      status.className = 'ort-status error';
-      return;
-    }
-    
-    // Loading
-    btnConfirm.disabled = true;
-    btnText.style.display = 'none';
-    btnLoader.style.display = 'inline';
-    status.textContent = '⏳ Analyse de la page en cours...';
-    status.className = 'ort-status loading';
-    log('Appel API parse-url: ' + url, 'info');
-    
-    try {
-      const user = firebase.auth().currentUser;
-      const token = await user.getIdToken();
-      const lang = document.documentElement.lang || 'fr';
+    // ===== FIREBASE INIT =====
+    async function initFirebase() {
+      log('Initialisation Firebase...');
       
-      log('Token obtenu, appel Netlify function...', 'info');
+      // Wait for ORT_CONFIG
+      if (typeof ORT_CONFIG === 'undefined') {
+        await new Promise(r => setTimeout(r, 500));
+      }
       
-      const res = await fetch('/.netlify/functions/parse-url', {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ url, language: lang })
+      if (!firebase.apps.length) {
+        firebase.initializeApp(ORT_CONFIG.firebase);
+      }
+      
+      log(`Firebase initialisé: ${ORT_CONFIG.firebase.projectId}`, 'success');
+      
+      firebase.auth().onAuthStateChanged(user => {
+        currentUser = user;
+        updateAuthUI();
       });
+    }
+
+    function updateAuthUI() {
+      const status = document.getElementById('authStatus');
+      const loginForm = document.getElementById('loginForm');
+      const loggedIn = document.getElementById('loggedIn');
+      const importBtn = document.getElementById('importBtn');
       
-      log('Réponse reçue: ' + res.status, 'info');
+      if (currentUser) {
+        status.className = 'status success';
+        status.textContent = `✅ Connecté: ${currentUser.email}`;
+        loginForm.style.display = 'none';
+        loggedIn.style.display = 'block';
+        importBtn.disabled = false;
+        log(`Utilisateur connecté: ${currentUser.email}`, 'success');
+      } else {
+        status.className = 'status error';
+        status.textContent = '❌ Non connecté';
+        loginForm.style.display = 'block';
+        loggedIn.style.display = 'none';
+        importBtn.disabled = true;
+      }
+    }
+
+    async function login() {
+      const email = document.getElementById('loginEmail').value;
+      const password = document.getElementById('loginPassword').value;
       
-      const data = await res.json();
+      try {
+        await firebase.auth().signInWithEmailAndPassword(email, password);
+      } catch (e) {
+        log(`Erreur login: ${e.message}`, 'error');
+      }
+    }
+
+    function logout() {
+      firebase.auth().signOut();
+      log('Déconnexion', 'warn');
+    }
+
+    // ===== PROGRESS =====
+    function showProgress(visible = true) {
+      const container = document.getElementById('progressContainer');
+      container.classList.toggle('visible', visible);
+    }
+
+    function updateProgress(percent, text) {
+      document.getElementById('progressFill').style.width = percent + '%';
+      document.getElementById('progressText').textContent = text;
+    }
+
+    // ===== POLLING =====
+    function startPolling(uid, jobId) {
+      currentUid = uid;
+      currentJobId = jobId;
       
-      if (!data.success) {
-        throw new Error(data.error);
+      log(`📡 Démarrage polling Firestore pour job: ${jobId}`);
+      showProgress(true);
+      
+      const db = firebase.firestore();
+      const jobRef = db.collection('users').doc(uid).collection('url_parse_jobs').doc(jobId);
+      
+      unsubscribe = jobRef.onSnapshot((doc) => {
+        if (!doc.exists) {
+          log('Job document not found', 'warn');
+          return;
+        }
+        
+        const data = doc.data();
+        log(`📊 Status: ${data.status}`, 'info');
+        
+        // Update progress
+        const statusMap = {
+          'pending': { percent: 10, text: '⏳ Démarrage de l\'analyse...' },
+          'processing': { percent: 30, text: '🔄 Récupération de la page...' },
+          'analyzing': { percent: 60, text: '🤖 L\'IA analyse le contenu...' },
+          'completed': { percent: 100, text: '✅ Terminé !' },
+          'error': { percent: 0, text: '❌ Erreur: ' + (data.error || '') }
+        };
+        
+        const config = statusMap[data.status] || statusMap.pending;
+        updateProgress(config.percent, config.text);
+        
+        if (data.status === 'completed') {
+          stopPolling();
+          handleSuccess(data.result);
+        } else if (data.status === 'error') {
+          stopPolling();
+          handleError(data.error || 'Unknown error');
+        }
+      }, (error) => {
+        log(`Polling error: ${error.message}`, 'error');
+        stopPolling();
+        handleError(error.message);
+      });
+    }
+
+    function stopPolling() {
+      if (unsubscribe) {
+        unsubscribe();
+        unsubscribe = null;
+      }
+    }
+
+    // ===== IMPORT =====
+    async function startImport() {
+      const url = document.getElementById('urlInput').value.trim();
+      if (!url) {
+        log('URL vide', 'error');
+        return;
       }
       
-      lastResult = data;
+      const importBtn = document.getElementById('importBtn');
+      importBtn.disabled = true;
       
-      // Success
-      log('✅ Itinéraire extrait! ' + (data.data.itins[0]?.title || ''), 'success');
-      log('Modèle utilisé: ' + (data._meta?.model || 'unknown'), 'info');
-      log('Quota restant: ' + data.usage?.remaining, 'info');
+      log(`Appel API parse-url: ${url}`);
       
-      if (quotaInfo) {
-        quotaInfo.textContent = `${data.usage?.remaining} imports restants ce mois`;
+      try {
+        const token = await currentUser.getIdToken();
+        log('Token obtenu, appel Netlify function...');
+        
+        const response = await fetch('/.netlify/functions/parse-url', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            url: url,
+            language: 'fr'
+          })
+        });
+        
+        log(`Réponse reçue: ${response.status}`);
+        
+        const data = await response.json();
+        
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || 'Request failed');
+        }
+        
+        log(`✅ Job créé: ${data.jobId}`, 'success');
+        log(`Quota restant: ${data.usage?.remaining}`, 'info');
+        
+        // Start polling
+        startPolling(currentUser.uid, data.jobId);
+        
+      } catch (e) {
+        log(`❌ Erreur: ${e.message}`, 'error');
+        importBtn.disabled = false;
+        showProgress(false);
       }
+    }
+
+    function handleSuccess(result) {
+      log('✅ Import réussi!', 'success');
+      log(`Modèle utilisé: ${result.model}`, 'info');
       
-      status.textContent = '✅ Itinéraire extrait !';
-      status.className = 'ort-status success';
-      
-      // Show result
-      showResult(data);
+      // Display result
+      document.getElementById('result').textContent = JSON.stringify(result, null, 2);
       
       // Save to localStorage
-      const itin = data.data.itins[0];
-      const country = itin.itin_id?.split('::')[0] || 'XX';
-      const key = `${country}_${slugify(itin.title || 'trip')}_${Date.now()}`;
+      const itin = result.data?.itins?.[0];
+      if (itin) {
+        const cc = itin.itin_id?.split('::')[0] || 'XX';
+        const slug = (itin.title || 'trip').toLowerCase()
+          .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+          .replace(/[^a-z0-9]+/g, '-')
+          .substring(0, 40);
+        lastImportKey = `${cc}_${slug}_${Date.now()}`;
+        
+        const storageData = {
+          itins: result.data.itins,
+          places: result.places?.places || [],
+          _meta: {
+            importedAt: new Date().toISOString(),
+            source_url: document.getElementById('urlInput').value,
+            model: result.model
+          }
+        };
+        
+        localStorage.setItem(`ort_imported_${lastImportKey}`, JSON.stringify(storageData));
+        log(`💾 Sauvegardé: ${lastImportKey}`, 'success');
+        
+        document.getElementById('btnDetail').disabled = false;
+        document.getElementById('btnEditor').disabled = false;
+      }
       
-      localStorage.setItem(`ORT_TEMP_TRIP_${key}_itins`, JSON.stringify(data.data));
-      localStorage.setItem(`ORT_TEMP_TRIP_${key}_places`, JSON.stringify(data.places));
-      window._lastTripKey = key;
-      
-      log('Sauvegardé dans localStorage: ' + key, 'success');
-      
-      setTimeout(() => closeModal(modal), 1500);
-      
-    } catch (err) {
-      log('❌ Erreur: ' + err.message, 'error');
-      closeModal(modal);
-      openFallbackModal(err.message, currentUrl);
-    } finally {
-      btnConfirm.disabled = false;
-      btnText.style.display = 'inline';
-      btnLoader.style.display = 'none';
+      document.getElementById('importBtn').disabled = false;
     }
-  });
-  
-  function openFallbackModal(errorMsg, url) {
-    document.getElementById('fallbackOpenUrl').href = url;
-    document.getElementById('fallbackErrorDetail').textContent = 'Détail technique: ' + errorMsg;
-    openModal(fallbackModal);
-    log('Modal fallback ouverte', 'info');
-  }
-  
-  function showResult(data) {
-    const card = document.getElementById('resultCard');
-    const json = document.getElementById('resultJson');
-    card.style.display = 'block';
-    json.textContent = JSON.stringify(data.data, null, 2);
-  }
-  
-  function slugify(text) {
-    return text.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .substring(0, 50);
-  }
-  
-  // Redirect buttons
-  document.getElementById('btnGoDetail').addEventListener('click', () => {
-    if (window._lastTripKey) {
-      window.location.href = `./roadtrip_detail.html?from=temp&rtKey=${window._lastTripKey}`;
-    }
-  });
-  
-  document.getElementById('btnGoEditor').addEventListener('click', () => {
-    if (window._lastTripKey) {
-      window.location.href = `./roadtrip-editor.html?from=temp&rtKey=${window._lastTripKey}`;
-    }
-  });
-  
-  log('Page de test prête', 'success');
-  
-})();
-</script>
 
+    function handleError(errorMessage) {
+      log(`❌ Erreur: ${errorMessage}`, 'error');
+      document.getElementById('importBtn').disabled = false;
+      showProgress(false);
+      updateProgress(0, '❌ ' + errorMessage);
+    }
+
+    // ===== ACTIONS =====
+    function openRTDetail() {
+      if (lastImportKey) {
+        window.open(`roadtrip_detail.html?import=${lastImportKey}`, '_blank');
+      }
+    }
+
+    function openRTEditor() {
+      if (lastImportKey) {
+        window.open(`roadtrip-editor.html?import=${lastImportKey}`, '_blank');
+      }
+    }
+
+    function testFallback() {
+      log('Test fallback modal', 'warn');
+      if (typeof ORT_ImportUrl !== 'undefined') {
+        // Simulate error
+        document.getElementById('ort-fallback-overlay')?.remove();
+        ORT_ImportUrl.open();
+        setTimeout(() => {
+          document.getElementById('ort-import-overlay')?.classList.remove('active');
+          // Create fallback manually
+          const overlay = document.createElement('div');
+          overlay.id = 'ort-fallback-overlay';
+          overlay.className = 'ort-import-overlay active';
+          overlay.style.cssText = 'position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:10000;';
+          overlay.innerHTML = `
+            <div style="position:relative;background:white;border-radius:16px;padding:32px;max-width:500px;width:90%;">
+              <div style="font-size:64px;text-align:center;">🤖💨</div>
+              <div style="font-size:22px;font-weight:700;text-align:center;margin:16px 0;">Oups, l'IA a besoin d'une pause !</div>
+              <div style="text-align:center;color:#666;margin-bottom:24px;">Test du modal de fallback</div>
+              <button onclick="this.parentElement.parentElement.remove()" style="width:100%;padding:12px;background:#667eea;color:white;border:none;border-radius:8px;cursor:pointer;font-weight:600;">Fermer</button>
+            </div>
+          `;
+          document.body.appendChild(overlay);
+        }, 500);
+      }
+    }
+
+    // ===== INIT =====
+    document.addEventListener('DOMContentLoaded', async () => {
+      await initFirebase();
+      log('Page de test prête', 'success');
+    });
+  </script>
 </body>
 </html>
