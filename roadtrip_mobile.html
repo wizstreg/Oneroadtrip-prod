@@ -412,6 +412,7 @@ html, body {
   cursor: pointer;
 }
 
+
 .step-bookings-list {
   display: flex;
   flex-direction: column;
@@ -1878,6 +1879,7 @@ html, body {
         </div>
         <div class="gmap-filters">
           <button class="gmap-filter-btn active" data-filter="">📍 Lieu</button>
+          <button class="gmap-filter-btn" data-filter="visits">🗺️ Visites</button>
           <button class="gmap-filter-btn" data-filter="restaurants">🍽️ Restos</button>
           <button class="gmap-filter-btn" data-filter="monuments">🏛️ Monuments</button>
           <button class="gmap-filter-btn" data-filter="museums">🎨 Musées</button>
@@ -3571,7 +3573,8 @@ async function loadFromTemp(rtKey) {
       activities: activities,
       // Conserver les infos enrichies
       to_next_leg: s.to_next_leg || null,
-      suggested_days: s.suggested_days || null
+      suggested_days: s.suggested_days || null,
+      _mapKeywords: Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : []
     };
   });
   
@@ -3833,6 +3836,7 @@ async function applyTripDataToState(tripData) {
       placeId: s.placeId || s.place_id || null,
       visits: s.visits || s.pois || [],
       activities: s.activities || [],
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
     };
   });
   
@@ -3908,7 +3912,8 @@ async function loadBuilderResult() {
       distance_km: s.distance_km || s.to_next_leg?.distance_km || 0,
       placeId: s.place_id || null,
       visits: s.visits || [],
-      activities: s.activities || []
+      activities: s.activities || [],
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
     };
   });
   
@@ -4257,7 +4262,8 @@ async function loadItinerary_OLD(cc, itinId, lang) {
             placeId: day.place_id || day.placeId || placeId,
             place_id: day.place_id || day.placeId || placeId,
             visits: visits,
-            activities: activities
+            activities: activities,
+            _mapKeywords: Array.isArray(nightData.map_keywords) ? nightData.map_keywords : []
           });
         });
       } catch (e) {
@@ -4333,7 +4339,8 @@ async function loadItinerary_OLD(cc, itinId, lang) {
       placeId: day.place_id || day.placeId || placeId,
       place_id: day.place_id || day.placeId || placeId,
       visits: visits,
-      activities: activities
+      activities: activities,
+      _mapKeywords: Array.isArray(nightData.map_keywords) ? nightData.map_keywords : []
     });
   });
   
@@ -4391,7 +4398,8 @@ async function loadFromFirebase(rtKey) {
       placeId: s.placeId || s.place_id || null,
       place_id: s.place_id || s.placeId || null,
       visits: visits,
-      activities: activities
+      activities: activities,
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
     };
   });
 }
@@ -6480,7 +6488,18 @@ window.deleteActivity = deleteActivity;
     
     let mapUrl = '';
     
-    if (currentMapFilter) {
+    if (currentMapFilter === 'visits') {
+      // Afficher les lieux à visiter depuis map_keywords
+      const kws = step._mapKeywords || [];
+      if (kws.length > 0) {
+        const searchQuery = encodeURIComponent(kws.join(' | '));
+        mapUrl = `https://maps.google.com/maps?q=${searchQuery}&output=embed`;
+      } else if (lat && lng) {
+        // Fallback: attractions near step
+        const searchQuery = encodeURIComponent(`tourist attractions near ${step.name || ''}`);
+        mapUrl = `https://maps.google.com/maps?q=${searchQuery}&output=embed`;
+      }
+    } else if (currentMapFilter) {
       // Recherche par catégorie de POI près du lieu
       const searchQuery = encodeURIComponent(`${currentMapFilter} near ${step.name || ''}`);
       mapUrl = `https://maps.google.com/maps?q=${searchQuery}&output=embed`;
@@ -6663,6 +6682,7 @@ window.addEventListener('pageshow', async function(event) {
 
 <!-- Auth obligatoire -->
 <script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-auth-modal.js"></script>
 <script src="/js/ort-auth-gate.js"></script>
 
 </body>
