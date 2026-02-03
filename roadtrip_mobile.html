@@ -1222,69 +1222,27 @@ html, body {
 
 /* Content items inside modal */
 .content-item {
-  padding: 16px;
-  margin-bottom: 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px;
+  margin-bottom: 10px;
   background: #f8fafc;
   border-radius: 12px;
   border-left: 4px solid var(--ort-blue);
 }
 
-.content-item-title {
-  font-weight: 700;
-  color: var(--ort-blue);
-  font-size: 15px;
-  margin-bottom: 8px;
-}
-
 .content-item-text {
+  flex: 1;
   color: #475569;
   font-size: 14px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
-.content-empty {
-  text-align: center;
-  padding: 40px 20px;
-  color: #94a3b8;
-  font-size: 15px;
-}
-
-/* Bouton ajouter dans le header de modale */
-.content-add-btn {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border: none;
-  background: #16a34a;
-  color: white;
-  border-radius: 50%;
-  font-size: 24px;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(22, 163, 74, 0.4);
-}
-
-.content-add-btn:active {
-  transform: translateY(-50%) scale(0.95);
-}
-
-.content-modal-header {
-  position: relative;
-}
-
-/* Item éditable */
 .content-item-actions {
-  position: absolute;
-  top: 8px;
-  right: 8px;
   display: flex;
   gap: 6px;
+  flex-shrink: 0;
 }
 
 .content-item-btn {
@@ -1311,6 +1269,45 @@ html, body {
 
 .content-item-btn:active {
   transform: scale(0.95);
+}
+
+.content-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #94a3b8;
+  font-size: 15px;
+}
+
+/* Bouton ajouter EN BAS de la liste */
+.content-add-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: 2px dashed #cbd5e1;
+  background: transparent;
+  border-radius: 12px;
+  color: #64748b;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.content-add-bottom:active {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+/* Ancien bouton header - masqué */
+.content-add-btn {
+  display: none;
+}
+
+.content-modal-header {
+  position: relative;
 }
 
 /* Mode édition */
@@ -5266,20 +5263,21 @@ function openVisitsModal() {
   
   const body = $('visitsModalBody');
   if (currentStepVisits.length === 0) {
-    body.innerHTML = `<div class="content-empty">${i18n('noVisits')}<br><br><button class="content-item-save-btn" onclick="addVisit()">＋ Ajouter une visite</button></div>`;
+    body.innerHTML = `<div class="content-empty">${i18n('noVisits')}</div>
+      <button class="content-add-bottom" onclick="addVisit()">＋ Ajouter une visite</button>`;
   } else {
     body.innerHTML = currentStepVisits.map((v, idx) => {
       const text = typeof v === 'string' ? v : (v.text || v.description || v.name || '');
       return `
         <div class="content-item" id="visit-item-${idx}">
+          <div class="content-item-text">${text}</div>
           <div class="content-item-actions">
             <button class="content-item-btn edit-btn" onclick="editVisit(${idx})" title="Modifier">✏️</button>
             <button class="content-item-btn delete-btn" onclick="deleteVisit(${idx})" title="Supprimer">🗑️</button>
           </div>
-          <div class="content-item-text">${text}</div>
         </div>
       `;
-    }).join('');
+    }).join('') + `<button class="content-add-bottom" onclick="addVisit()">＋ Ajouter une visite</button>`;
   }
   
   $('visitsModal').classList.add('open');
@@ -5301,20 +5299,21 @@ function openActivitiesModal() {
   
   const body = $('activitiesModalBody');
   if (currentStepActivities.length === 0) {
-    body.innerHTML = `<div class="content-empty">${i18n('noActivities')}<br><br><button class="content-item-save-btn" onclick="addActivity()">＋ Ajouter une activité</button></div>`;
+    body.innerHTML = `<div class="content-empty">${i18n('noActivities')}</div>
+      <button class="content-add-bottom" onclick="addActivity()">＋ Ajouter une activité</button>`;
   } else {
     body.innerHTML = currentStepActivities.map((a, idx) => {
       const text = typeof a === 'string' ? a : (a.text || a.description || a.name || '');
       return `
         <div class="content-item" id="activity-item-${idx}">
+          <div class="content-item-text">${text}</div>
           <div class="content-item-actions">
             <button class="content-item-btn edit-btn" onclick="editActivity(${idx})" title="Modifier">✏️</button>
             <button class="content-item-btn delete-btn" onclick="deleteActivity(${idx})" title="Supprimer">🗑️</button>
           </div>
-          <div class="content-item-text">${text}</div>
         </div>
       `;
-    }).join('');
+    }).join('') + `<button class="content-add-bottom" onclick="addActivity()">＋ Ajouter une activité</button>`;
   }
   
   $('activitiesModal').classList.add('open');
