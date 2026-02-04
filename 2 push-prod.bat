@@ -6,7 +6,7 @@ echo.
 
 echo [1/3] Verification et scraping des hotels manquants...
 echo ----------------------------------------------------------------
-node "C:\OneRoadTrip\data\Roadtripsprefabriques\tools\script\check-and-scrape-hotels.js"
+node "C:\OneRoadTrip\data\Roadtripsprefabriques\tools\scripts\check-and-scrape-hotels.js"
 
 if errorlevel 1 (
     echo.
@@ -18,7 +18,7 @@ if errorlevel 1 (
 echo.
 echo [2/3] Decoupe des hotels par pays/initiale...
 echo ----------------------------------------------------------------
-node "C:\OneRoadTrip\data\Roadtripsprefabriques\tools\script\divide-hotels.js"
+node "C:\OneRoadTrip\data\Roadtripsprefabriques\tools\scripts\divide-hotels.js"
 
 if errorlevel 1 (
     echo.

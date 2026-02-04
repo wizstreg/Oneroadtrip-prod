@@ -14,20 +14,20 @@ class OrtAuthModal {
 
   // ===== INIT =====
   async init(firebaseConfig) {
-    // Attendre ORT_I18N_AUTH
-    for (let i = 0; i < 50; i++) {
+    // Attendre ORT_I18N_AUTH - 10 secondes max
+    for (let i = 0; i < 100; i++) {
       if (window.ORT_I18N_AUTH?.get) {
         this.lang = window.ORT_I18N_AUTH.detectLang();
         this.i18n = window.ORT_I18N_AUTH.get(this.lang);
-        console.log('[AUTH-MODAL] i18n chargé:', this.lang);
+        console.log('[AUTH-MODAL] ✅ i18n chargé:', this.lang);
         break;
       }
       await new Promise(r => setTimeout(r, 100));
     }
     
     if (!this.i18n || Object.keys(this.i18n).length === 0) {
-      console.error('[AUTH-MODAL] i18n non chargé après timeout');
-      // Fallback français
+      console.warn('[AUTH-MODAL] ⚠️ i18n non chargé, utilisation du fallback français');
+      // Fallback français COMPLET
       this.i18n = {
         loginTitle: 'Connexion',
         signupTitle: 'Créer un compte',
@@ -42,14 +42,24 @@ class OrtAuthModal {
         noAccountYet: 'Pas encore de compte ?',
         acceptCgu: "J'accepte les",
         cguLink: 'CGU',
-        errGeneric: 'Erreur',
+        errGeneric: 'Erreur lors de la connexion',
         errInvalidEmail: 'Email invalide',
         errWrongPassword: 'Mot de passe incorrect',
         errUserNotFound: 'Utilisateur introuvable',
-        errEmailInUse: 'Email déjà utilisé',
-        errWeakPassword: 'Mot de passe trop faible',
+        errEmailInUse: 'Cet email est déjà utilisé',
+        errWeakPassword: 'Mot de passe trop faible (minimum 6 caractères)',
         errPasswordMismatch: 'Les mots de passe ne correspondent pas',
-        errCguNotAccepted: 'Vous devez accepter les CGU'
+        errCguNotAccepted: 'Vous devez accepter les CGU',
+        errFillFields: 'Veuillez remplir tous les champs',
+        errPasswordTooShort: 'Le mot de passe doit contenir au moins 6 caractères',
+        errAcceptCgu: 'Vous devez accepter les CGU',
+        errTooManyRequests: 'Trop de tentatives. Réessayez plus tard.',
+        errNetworkError: 'Erreur réseau. Vérifiez votre connexion.',
+        errPopupBlocked: 'Pop-up bloquée par le navigateur',
+        msgVerificationSent: 'Email de vérification envoyé à {email}',
+        msgLoginSuccess: 'Connexion réussie !',
+        showPassword: 'Afficher',
+        hidePassword: 'Masquer'
       };
     }
     
@@ -97,19 +107,25 @@ class OrtAuthModal {
             <!-- Email -->
             <div>
               <label style="display:block;margin-bottom:6px;font-weight:500;color:#333;font-size:0.9rem;" id="labelEmail"></label>
-              <input type="email" id="authEmail" placeholder="user@example.com" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
+              <input type="email" id="authEmail" placeholder="user@example.com" autocomplete="email" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
             </div>
             
             <!-- Password -->
             <div>
               <label style="display:block;margin-bottom:6px;font-weight:500;color:#333;font-size:0.9rem;" id="labelPassword"></label>
-              <input type="password" id="authPassword" placeholder="••••••" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
+              <div style="position:relative;">
+                <input type="password" id="authPassword" placeholder="••••••" autocomplete="current-password" style="width:100%;padding:10px 40px 10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
+                <button type="button" id="togglePassword" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#666;cursor:pointer;font-size:0.85rem;padding:4px 8px;">👁️</button>
+              </div>
             </div>
             
             <!-- Confirm Password (signup only) -->
             <div id="confirmPasswordDiv" style="display:none;">
               <label style="display:block;margin-bottom:6px;font-weight:500;color:#333;font-size:0.9rem;" id="labelConfirmPassword"></label>
-              <input type="password" id="authConfirmPassword" placeholder="••••••" style="width:100%;padding:10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
+              <div style="position:relative;">
+                <input type="password" id="authConfirmPassword" placeholder="••••••" autocomplete="new-password" style="width:100%;padding:10px 40px 10px 12px;border:1px solid #ddd;border-radius:6px;font-size:1rem;box-sizing:border-box;">
+                <button type="button" id="toggleConfirmPassword" style="position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:none;color:#666;cursor:pointer;font-size:0.85rem;padding:4px 8px;">👁️</button>
+              </div>
             </div>
             
             <!-- CGU (signup only) -->
@@ -146,6 +162,8 @@ class OrtAuthModal {
     const closeBtn = document.getElementById('authModalClose');
     const toggleBtn = document.getElementById('authModeToggle');
     const overlayEl = document.getElementById('authModalOverlay');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+    const toggleConfirmPasswordBtn = document.getElementById('toggleConfirmPassword');
 
     if (!formEl || !closeBtn || !toggleBtn || !overlayEl) {
       console.error('[AUTH-MODAL] Éléments manquants:', { formEl: !!formEl, closeBtn: !!closeBtn, toggleBtn: !!toggleBtn, overlayEl: !!overlayEl });
@@ -158,6 +176,26 @@ class OrtAuthModal {
     overlayEl.addEventListener('click', (e) => {
       if (e.target === overlayEl) this.close();
     });
+
+    // Toggle password visibility
+    if (togglePasswordBtn) {
+      togglePasswordBtn.addEventListener('click', () => {
+        const pwdInput = document.getElementById('authPassword');
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        togglePasswordBtn.textContent = isPassword ? '🙈' : '👁️';
+      });
+    }
+
+    // Toggle confirm password visibility
+    if (toggleConfirmPasswordBtn) {
+      toggleConfirmPasswordBtn.addEventListener('click', () => {
+        const pwdInput = document.getElementById('authConfirmPassword');
+        const isPassword = pwdInput.type === 'password';
+        pwdInput.type = isPassword ? 'text' : 'password';
+        toggleConfirmPasswordBtn.textContent = isPassword ? '🙈' : '👁️';
+      });
+    }
 
     this.updateUI();
   }
@@ -195,6 +233,17 @@ class OrtAuthModal {
     // Clear form
     document.getElementById('authForm').reset();
     document.getElementById('authError').style.display = 'none';
+    
+    // Reset password visibility toggles
+    const pwdInput = document.getElementById('authPassword');
+    const confirmPwdInput = document.getElementById('authConfirmPassword');
+    const togglePwdBtn = document.getElementById('togglePassword');
+    const toggleConfirmPwdBtn = document.getElementById('toggleConfirmPassword');
+    
+    if (pwdInput) pwdInput.type = 'password';
+    if (confirmPwdInput) confirmPwdInput.type = 'password';
+    if (togglePwdBtn) togglePwdBtn.textContent = '👁️';
+    if (toggleConfirmPwdBtn) toggleConfirmPwdBtn.textContent = '👁️';
   }
 
   // ===== TOGGLE MODE =====
@@ -207,57 +256,58 @@ class OrtAuthModal {
   async handleSubmit(e) {
     e.preventDefault();
 
-    const email = document.getElementById('authEmail').value.trim();
+    const email = document.getElementById('authEmail').value.trim().toLowerCase();
     const password = document.getElementById('authPassword').value;
     const confirmPassword = document.getElementById('authConfirmPassword').value;
     const cguAccepted = document.getElementById('authCgu').checked;
-
     const t = this.i18n;
-    const errorDiv = document.getElementById('authError');
 
     // Validation
     if (!email || !password) {
-      this.showError(t.errFillFields);
+      this.showError('Veuillez remplir tous les champs');
       return;
     }
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      this.showError(t.errInvalidEmail);
+      this.showError('Email invalide');
       return;
     }
 
     if (password.length < 6) {
-      this.showError(t.errPasswordTooShort);
+      this.showError('Mot de passe trop court (minimum 6 caractères)');
       return;
     }
 
     if (this.mode === 'signup') {
       if (password !== confirmPassword) {
-        this.showError(t.errPasswordMismatch);
+        this.showError('Les mots de passe ne correspondent pas');
         return;
       }
       if (!cguAccepted) {
-        this.showError(t.errAcceptCgu);
+        this.showError('Vous devez accepter les CGU');
         return;
       }
     }
 
-    // Auth
+    // Firebase auth
     try {
-      const auth = this.firebase.auth();
-
       if (this.mode === 'signup') {
         await this.firebase.auth().createUserWithEmailAndPassword(email, password);
-        await auth.currentUser.sendEmailVerification();
-        this.showSuccess(t.msgVerificationSent.replace('{email}', email));
-        setTimeout(() => this.close(), 2000);
+        await this.firebase.auth().currentUser.sendEmailVerification();
+        this.showSuccess('Compte créé ! Email de vérification envoyé.');
+        setTimeout(() => this.close(), 1500);
       } else {
         await this.firebase.auth().signInWithEmailAndPassword(email, password);
-        this.showSuccess(t.msgLoginSuccess);
-        setTimeout(() => this.close(), 1000);
+        this.showSuccess('Connexion réussie !');
+        setTimeout(() => this.close(), 800);
       }
     } catch (err) {
-      this.showError(this.mapFirebaseError(err.code));
+      let msg = 'Erreur : ' + err.message;
+      if (err.code === 'auth/email-already-in-use') msg = 'Cet email est déjà utilisé';
+      if (err.code === 'auth/user-not-found') msg = 'Utilisateur introuvable';
+      if (err.code === 'auth/wrong-password') msg = 'Mot de passe incorrect';
+      if (err.code === 'auth/invalid-credential') msg = 'Email ou mot de passe incorrect';
+      this.showError(msg);
     }
   }
 
@@ -265,15 +315,18 @@ class OrtAuthModal {
   mapFirebaseError(code) {
     const t = this.i18n;
     const map = {
-      'auth/user-not-found': t.errUserNotFound,
-      'auth/wrong-password': t.errWrongPassword,
-      'auth/email-already-in-use': t.errEmailInUse,
-      'auth/weak-password': t.errWeakPassword,
-      'auth/too-many-requests': t.errTooManyRequests,
-      'auth/network-request-failed': t.errNetworkError,
-      'auth/popup-blocked': t.errPopupBlocked,
+      'auth/user-not-found': t.errUserNotFound || 'Utilisateur introuvable',
+      'auth/wrong-password': t.errWrongPassword || 'Mot de passe incorrect',
+      'auth/email-already-in-use': t.errEmailInUse || 'Cet email est déjà utilisé',
+      'auth/weak-password': t.errWeakPassword || 'Mot de passe trop faible (minimum 6 caractères)',
+      'auth/invalid-email': t.errInvalidEmail || 'Email invalide',
+      'auth/too-many-requests': t.errTooManyRequests || 'Trop de tentatives. Réessayez plus tard.',
+      'auth/network-request-failed': t.errNetworkError || 'Erreur réseau. Vérifiez votre connexion.',
+      'auth/popup-blocked': t.errPopupBlocked || 'Pop-up bloquée par le navigateur',
+      'auth/missing-password': 'Le mot de passe est requis',
+      'auth/invalid-credential': t.errWrongPassword || 'Email ou mot de passe incorrect'
     };
-    return map[code] || t.errGeneric;
+    return map[code] || `${t.errGeneric || 'Erreur'} (${code})`;
   }
 
   // ===== SHOW ERROR =====
@@ -305,13 +358,19 @@ class OrtAuthModal {
   // ===== CLOSE =====
   close() {
     const overlay = document.getElementById('authModalOverlay');
-    if (overlay) overlay.remove();
+    if (overlay) {
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 300);
+    }
   }
 
   // ===== SHOW =====
   show() {
     const overlay = document.getElementById('authModalOverlay');
-    if (overlay) overlay.style.display = 'flex';
+    if (overlay) {
+      overlay.style.display = 'flex';
+      overlay.style.opacity = '1';
+    }
   }
 }
 
