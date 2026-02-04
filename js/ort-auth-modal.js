@@ -14,6 +14,45 @@ class OrtAuthModal {
 
   // ===== INIT =====
   async init(firebaseConfig) {
+    // Attendre ORT_I18N_AUTH
+    for (let i = 0; i < 50; i++) {
+      if (window.ORT_I18N_AUTH?.get) {
+        this.lang = window.ORT_I18N_AUTH.detectLang();
+        this.i18n = window.ORT_I18N_AUTH.get(this.lang);
+        console.log('[AUTH-MODAL] i18n chargé:', this.lang);
+        break;
+      }
+      await new Promise(r => setTimeout(r, 100));
+    }
+    
+    if (!this.i18n || Object.keys(this.i18n).length === 0) {
+      console.error('[AUTH-MODAL] i18n non chargé après timeout');
+      // Fallback français
+      this.i18n = {
+        loginTitle: 'Connexion',
+        signupTitle: 'Créer un compte',
+        email: 'Email',
+        password: 'Mot de passe',
+        confirmPassword: 'Confirmer le mot de passe',
+        validate: 'Valider',
+        create: 'Créer mon compte',
+        login: 'Se connecter',
+        createAccount: 'Créer un compte',
+        alreadyHaveAccount: 'Déjà un compte ?',
+        noAccountYet: 'Pas encore de compte ?',
+        acceptCgu: "J'accepte les",
+        cguLink: 'CGU',
+        errGeneric: 'Erreur',
+        errInvalidEmail: 'Email invalide',
+        errWrongPassword: 'Mot de passe incorrect',
+        errUserNotFound: 'Utilisateur introuvable',
+        errEmailInUse: 'Email déjà utilisé',
+        errWeakPassword: 'Mot de passe trop faible',
+        errPasswordMismatch: 'Les mots de passe ne correspondent pas',
+        errCguNotAccepted: 'Vous devez accepter les CGU'
+      };
+    }
+    
     // Attendre Firebase
     for (let i = 0; i < 20; i++) {
       if (window.firebase?.apps?.length) {
@@ -24,7 +63,7 @@ class OrtAuthModal {
     }
 
     if (!this.firebase) {
-      console.error('Firebase non initialisé après timeout');
+      console.error('[AUTH-MODAL] Firebase non initialisé après timeout');
       return false;
     }
 

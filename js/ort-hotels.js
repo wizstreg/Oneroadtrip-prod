@@ -292,6 +292,14 @@
     // Gérer à la fois step.coords (hotels_scrape.json) et step.lat/lon (roadtrip)
     const coords = step?.coords || (step?.lat && step?.lon ? [step.lat, step.lon] : [0, 0]);
     
+    console.log('[ORT-HOTELS] openHotelsModal - step:', {
+      name: step?.name,
+      place_id: placeId,
+      coords: coords,
+      lat: step?.lat,
+      lon: step?.lon
+    });
+    
     const modalTitle = document.getElementById('hotelsModalTitle');
     const modalContainer = document.getElementById('hotelsModalContainer');
     const modalChooseBtn = document.getElementById('hotelsModalChooseMap');
