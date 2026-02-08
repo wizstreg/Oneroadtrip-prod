@@ -1,667 +1,786 @@
 /**
- * ORT - Import URL Component avec Fallback Modal
- * À intégrer dans les pages qui ont Firebase Auth
+ * ORT Import URL Component v2
+ * Background job version with Firestore polling
+ * 
+ * Usage:
+ *   ORT_ImportUrl.open();                    // Opens modal, goes to RT Detail
+ *   ORT_ImportUrl.open({destination:'editor'}); // Opens modal, goes to RT Editor
+ *   ORT_ImportUrl.close();                   // Closes modal
  */
 
-// ==========================================
-// HTML À AJOUTER DANS LA PAGE
-// ==========================================
-/*
-<!-- Bouton déclencheur -->
-<button id="btnImportUrl" class="btn">🔗 Importer depuis une URL</button>
-
-<!-- Modal Import URL -->
-<div id="importUrlModal" class="ort-modal">
-  <div class="ort-modal-card">
-    <button class="ort-modal-close" id="btnCloseUrlModal">×</button>
-    <h3>🔗 Importer un itinéraire</h3>
-    <p class="ort-hint">Collez l'URL d'un article de voyage (blog, guide...)</p>
-    
-    <input type="url" id="importUrlInput" 
-           placeholder="https://www.exemple.com/road-trip-islande" 
-           class="ort-input">
-    
-    <div id="importUrlStatus" class="ort-status"></div>
-    
-    <div class="ort-actions">
-      <button id="btnCancelUrl" class="ort-btn outline">Annuler</button>
-      <button id="btnConfirmUrl" class="ort-btn primary">
-        <span class="btn-text">Importer</span>
-        <span class="btn-loader" style="display:none">⏳</span>
-      </button>
-    </div>
-    
-    <div id="urlQuotaInfo" class="ort-quota"></div>
-  </div>
-</div>
-
-<!-- Modal Fallback (s'ouvre si l'IA plante) -->
-<div id="importFallbackModal" class="ort-modal">
-  <div class="ort-modal-card fallback">
-    <button class="ort-modal-close" id="btnCloseFallback">×</button>
-    
-    <div class="fallback-icon">🤖💨</div>
-    <h3 id="fallbackTitle">Oups, l'IA a besoin d'une pause !</h3>
-    
-    <div class="fallback-explain" id="fallbackExplain">
-      OneRoadTrip est <strong>100% gratuit</strong> et utilise des services d'IA gratuits avec des limites d'utilisation.
-    </div>
-    
-    <div class="fallback-solution">
-      <h4 id="fallbackSolutionTitle">Pas de panique ! Import manuel en 3 clics :</h4>
-      <ol id="fallbackSteps">
-        <li>Ouvrez la page de l'article</li>
-        <li>Sélectionnez tout (<kbd>Ctrl</kbd>+<kbd>A</kbd>) et copiez (<kbd>Ctrl</kbd>+<kbd>C</kbd>)</li>
-        <li>Collez dans notre outil d'import gratuit</li>
-      </ol>
-    </div>
-    
-    <div class="fallback-actions">
-      <a id="fallbackOpenUrl" href="#" target="_blank" class="ort-btn outline">
-        🔗 Ouvrir l'article
-      </a>
-      <a href="./import.html" class="ort-btn primary" id="fallbackGoImport">
-        📋 Aller à l'import manuel
-      </a>
-    </div>
-    
-    <div class="fallback-error" id="fallbackErrorDetail"></div>
-  </div>
-</div>
-*/
-
-// ==========================================
-// CSS À AJOUTER
-// ==========================================
-const ORT_IMPORT_URL_STYLES = `
-<style id="ortImportUrlStyles">
-/* Modal base */
-.ort-modal {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,.6);
-  align-items: center;
-  justify-content: center;
-  z-index: 10000;
-  padding: 20px;
-}
-.ort-modal.active { display: flex; }
-
-.ort-modal-card {
-  position: relative;
-  width: 100%;
-  max-width: 480px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 28px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.25);
-  animation: ortSlideUp 0.3s ease;
-}
-
-@keyframes ortSlideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.ort-modal-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 32px;
-  height: 32px;
-  border: none;
-  background: #f1f5f9;
-  border-radius: 50%;
-  font-size: 20px;
-  color: #64748b;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.ort-modal-close:hover {
-  background: #e2e8f0;
-  color: #334155;
-}
-
-.ort-modal-card h3 {
-  margin: 0 0 8px;
-  color: #113f7a;
-  font-size: 20px;
-}
-
-.ort-hint {
-  font-size: 14px;
-  color: #64748b;
-  margin-bottom: 16px;
-}
-
-.ort-input {
-  width: 100%;
-  padding: 14px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 15px;
-  transition: border-color 0.2s;
-}
-.ort-input:focus {
-  outline: none;
-  border-color: #113f7a;
-}
-
-.ort-status {
-  display: none;
-  margin-top: 12px;
-  padding: 12px 14px;
-  border-radius: 10px;
-  font-size: 14px;
-}
-.ort-status.loading { display: block; background: #fef3c7; color: #92400e; }
-.ort-status.error { display: block; background: #fee2e2; color: #dc2626; }
-.ort-status.success { display: block; background: #dcfce7; color: #166534; }
-
-.ort-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
-.ort-btn {
-  padding: 12px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.ort-btn.outline {
-  background: #fff;
-  color: #113f7a;
-  border: 2px solid #113f7a;
-}
-.ort-btn.outline:hover {
-  background: #f0f4f8;
-}
-
-.ort-btn.primary {
-  background: #113f7a;
-  color: #fff;
-  border: 2px solid #113f7a;
-}
-.ort-btn.primary:hover {
-  background: #0d2f5e;
-  border-color: #0d2f5e;
-}
-
-.ort-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.ort-quota {
-  margin-top: 16px;
-  text-align: center;
-  font-size: 12px;
-  color: #94a3b8;
-}
-
-/* === FALLBACK MODAL === */
-.ort-modal-card.fallback {
-  max-width: 520px;
-  text-align: center;
-}
-
-.fallback-icon {
-  font-size: 48px;
-  margin-bottom: 12px;
-}
-
-.ort-modal-card.fallback h3 {
-  color: #0369a1;
-  font-size: 22px;
-  margin-bottom: 16px;
-}
-
-.fallback-explain {
-  background: #f0f9ff;
-  border: 1px solid #bae6fd;
-  border-radius: 10px;
-  padding: 14px 16px;
-  font-size: 14px;
-  color: #0c4a6e;
-  margin-bottom: 20px;
-}
-
-.fallback-solution {
-  text-align: left;
-  background: #f8fafc;
-  border-radius: 10px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
-}
-
-.fallback-solution h4 {
-  margin: 0 0 12px;
-  font-size: 15px;
-  color: #334155;
-}
-
-.fallback-solution ol {
-  margin: 0;
-  padding-left: 20px;
-}
-
-.fallback-solution li {
-  font-size: 14px;
-  color: #475569;
-  margin-bottom: 8px;
-  line-height: 1.5;
-}
-
-.fallback-solution kbd {
-  background: #e2e8f0;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-size: 12px;
-  font-family: monospace;
-}
-
-.fallback-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.fallback-error {
-  margin-top: 16px;
-  font-size: 11px;
-  color: #94a3b8;
-  font-family: monospace;
-}
-
-/* Mobile */
-@media (max-width: 540px) {
-  .ort-modal-card {
-    padding: 20px;
-  }
-  .ort-modal-card h3 {
-    font-size: 18px;
-    padding-right: 30px;
-  }
-  .ort-actions, .fallback-actions {
-    flex-direction: column;
-  }
-  .ort-btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-</style>
-`;
-
-// ==========================================
-// I18N - Traductions
-// ==========================================
-const ORT_IMPORT_I18N = {
-  fr: {
-    // Modal principal
-    title: "Importer un itinéraire",
-    hint: "Collez l'URL d'un article de voyage (blog, guide...)",
-    placeholder: "https://www.exemple.com/road-trip-islande",
-    btnCancel: "Annuler",
-    btnImport: "Importer",
-    loading: "⏳ Analyse de la page en cours...",
-    success: "✅ Itinéraire extrait ! Redirection...",
-    quotaRemaining: "{n} imports restants ce mois",
-    
-    // Fallback modal
-    fallbackTitle: "Oups, l'IA a besoin d'une pause !",
-    fallbackExplain: "OneRoadTrip est <strong>100% gratuit</strong> et utilise des services d'IA gratuits avec des limites d'utilisation.",
-    fallbackSolutionTitle: "Pas de panique ! Import manuel en 3 clics :",
-    fallbackStep1: "Ouvrez la page de l'article",
-    fallbackStep2: "Sélectionnez tout et copiez",
-    fallbackStep3: "Collez dans notre outil d'import gratuit",
-    fallbackBtnOpen: "🔗 Ouvrir l'article",
-    fallbackBtnManual: "📋 Aller à l'import manuel",
-    fallbackErrorPrefix: "Détail technique :"
-  },
-  en: {
-    title: "Import an itinerary",
-    hint: "Paste the URL of a travel article (blog, guide...)",
-    placeholder: "https://www.example.com/iceland-road-trip",
-    btnCancel: "Cancel",
-    btnImport: "Import",
-    loading: "⏳ Analyzing page...",
-    success: "✅ Itinerary extracted! Redirecting...",
-    quotaRemaining: "{n} imports left this month",
-    
-    fallbackTitle: "Oops, the AI needs a break!",
-    fallbackExplain: "OneRoadTrip is <strong>100% free</strong> and uses free AI services with usage limits.",
-    fallbackSolutionTitle: "No worries! Manual import in 3 clicks:",
-    fallbackStep1: "Open the article page",
-    fallbackStep2: "Select all and copy",
-    fallbackStep3: "Paste into our free import tool",
-    fallbackBtnOpen: "🔗 Open article",
-    fallbackBtnManual: "📋 Go to manual import",
-    fallbackErrorPrefix: "Technical detail:"
-  },
-  es: {
-    title: "Importar un itinerario",
-    hint: "Pega la URL de un artículo de viaje (blog, guía...)",
-    placeholder: "https://www.ejemplo.com/road-trip-islandia",
-    btnCancel: "Cancelar",
-    btnImport: "Importar",
-    loading: "⏳ Analizando página...",
-    success: "✅ ¡Itinerario extraído! Redirigiendo...",
-    quotaRemaining: "{n} importaciones restantes este mes",
-    
-    fallbackTitle: "¡Ups, la IA necesita un descanso!",
-    fallbackExplain: "OneRoadTrip es <strong>100% gratuito</strong> y usa servicios de IA gratuitos con límites de uso.",
-    fallbackSolutionTitle: "¡Sin problema! Importación manual en 3 clics:",
-    fallbackStep1: "Abre la página del artículo",
-    fallbackStep2: "Selecciona todo y copia",
-    fallbackStep3: "Pega en nuestra herramienta de importación gratuita",
-    fallbackBtnOpen: "🔗 Abrir artículo",
-    fallbackBtnManual: "📋 Ir a importación manual",
-    fallbackErrorPrefix: "Detalle técnico:"
-  },
-  it: {
-    title: "Importa un itinerario",
-    hint: "Incolla l'URL di un articolo di viaggio (blog, guida...)",
-    placeholder: "https://www.esempio.com/road-trip-islanda",
-    btnCancel: "Annulla",
-    btnImport: "Importa",
-    loading: "⏳ Analisi della pagina...",
-    success: "✅ Itinerario estratto! Reindirizzamento...",
-    quotaRemaining: "{n} importazioni rimaste questo mese",
-    
-    fallbackTitle: "Ops, l'IA ha bisogno di una pausa!",
-    fallbackExplain: "OneRoadTrip è <strong>100% gratuito</strong> e utilizza servizi IA gratuiti con limiti di utilizzo.",
-    fallbackSolutionTitle: "Niente panico! Importazione manuale in 3 clic:",
-    fallbackStep1: "Apri la pagina dell'articolo",
-    fallbackStep2: "Seleziona tutto e copia",
-    fallbackStep3: "Incolla nel nostro strumento di importazione gratuito",
-    fallbackBtnOpen: "🔗 Apri articolo",
-    fallbackBtnManual: "📋 Vai all'importazione manuale",
-    fallbackErrorPrefix: "Dettaglio tecnico:"
-  },
-  pt: {
-    title: "Importar um itinerário",
-    hint: "Cole a URL de um artigo de viagem (blog, guia...)",
-    placeholder: "https://www.exemplo.com/road-trip-islandia",
-    btnCancel: "Cancelar",
-    btnImport: "Importar",
-    loading: "⏳ Analisando página...",
-    success: "✅ Itinerário extraído! Redirecionando...",
-    quotaRemaining: "{n} importações restantes este mês",
-    
-    fallbackTitle: "Ops, a IA precisa de uma pausa!",
-    fallbackExplain: "OneRoadTrip é <strong>100% gratuito</strong> e usa serviços de IA gratuitos com limites de uso.",
-    fallbackSolutionTitle: "Sem problema! Importação manual em 3 cliques:",
-    fallbackStep1: "Abra a página do artigo",
-    fallbackStep2: "Selecione tudo e copie",
-    fallbackStep3: "Cole em nossa ferramenta de importação gratuita",
-    fallbackBtnOpen: "🔗 Abrir artigo",
-    fallbackBtnManual: "📋 Ir para importação manual",
-    fallbackErrorPrefix: "Detalhe técnico:"
-  },
-  ar: {
-    title: "استيراد خط سير",
-    hint: "الصق رابط مقال السفر (مدونة، دليل...)",
-    placeholder: "https://www.exemple.com/road-trip",
-    btnCancel: "إلغاء",
-    btnImport: "استيراد",
-    loading: "⏳ جاري تحليل الصفحة...",
-    success: "✅ تم استخراج خط السير! جاري التحويل...",
-    quotaRemaining: "{n} استيراد متبقي هذا الشهر",
-    
-    fallbackTitle: "عفواً، الذكاء الاصطناعي يحتاج استراحة!",
-    fallbackExplain: "OneRoadTrip <strong>مجاني 100%</strong> ويستخدم خدمات ذكاء اصطناعي مجانية مع حدود استخدام.",
-    fallbackSolutionTitle: "لا تقلق! استيراد يدوي في 3 نقرات:",
-    fallbackStep1: "افتح صفحة المقال",
-    fallbackStep2: "حدد الكل وانسخ",
-    fallbackStep3: "الصق في أداة الاستيراد المجانية",
-    fallbackBtnOpen: "🔗 فتح المقال",
-    fallbackBtnManual: "📋 الذهاب للاستيراد اليدوي",
-    fallbackErrorPrefix: "تفاصيل تقنية:"
-  }
-};
-
-// ==========================================
-// JAVASCRIPT - Logique du composant
-// ==========================================
 (function() {
   'use strict';
-  
-  // Injecter les styles si pas déjà présents
-  if (!document.getElementById('ortImportUrlStyles')) {
-    document.head.insertAdjacentHTML('beforeend', ORT_IMPORT_URL_STYLES);
-  }
-  
-  // Attendre que le DOM soit prêt
-  function init() {
-    const modal = document.getElementById('importUrlModal');
-    const fallbackModal = document.getElementById('importFallbackModal');
+
+  // ===== I18N =====
+  const I18N = {
+    fr: {
+      title: "Importer depuis une URL",
+      subtitle: "Collez le lien d'un article de voyage pour le transformer en itinéraire",
+      placeholder: "https://www.routard.com/guide/...",
+      importBtn: "🔮 Importer cet itinéraire",
+      importing: "⏳ Analyse en cours...",
+      pending: "⏳ Démarrage de l'analyse...",
+      processing: "🔄 Récupération de la page...",
+      analyzing: "🤖 L'IA analyse le contenu...",
+      finalizing: "✨ Finalisation de l'itinéraire...",
+      waitMessage: "La création peut prendre 1 à 3 minutes selon la longueur de l'article. Vous pouvez garder cette fenêtre ouverte.",
+      success: "✅ Itinéraire créé !",
+      error: "❌ Erreur",
+      quotaInfo: "Quota restant : {remaining}/{limit} ce mois",
+      close: "Fermer",
+      // Fallback modal
+      fallbackTitle: "Oups, l'IA a besoin d'une pause !",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip est 100% gratuit et utilise des IA gratuites avec des limites d'utilisation. Pas de panique, vous pouvez importer manuellement !",
+      fallbackStep1: "1. Ouvrez l'article dans un nouvel onglet",
+      fallbackStep2: "2. Copiez le contenu qui vous intéresse",
+      fallbackStep3: "3. Collez-le dans notre outil d'import manuel",
+      fallbackOpenArticle: "🔗 Ouvrir l'article",
+      fallbackGoManual: "📋 Aller à l'import manuel",
+      fallbackErrorDetail: "Détail technique :"
+    },
+    en: {
+      title: "Import from URL",
+      subtitle: "Paste a travel article link to transform it into an itinerary",
+      placeholder: "https://www.lonelyplanet.com/...",
+      importBtn: "🔮 Import this itinerary",
+      importing: "⏳ Analyzing...",
+      pending: "⏳ Starting analysis...",
+      processing: "🔄 Fetching page...",
+      analyzing: "🤖 AI is analyzing content...",
+      finalizing: "✨ Finalizing itinerary...",
+      waitMessage: "Creation may take 1 to 3 minutes depending on article length. You can keep this window open.",
+      success: "✅ Itinerary created!",
+      error: "❌ Error",
+      quotaInfo: "Remaining quota: {remaining}/{limit} this month",
+      close: "Close",
+      fallbackTitle: "Oops, the AI needs a break!",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip is 100% free and uses free AI APIs with usage limits. No worries, you can import manually!",
+      fallbackStep1: "1. Open the article in a new tab",
+      fallbackStep2: "2. Copy the content you're interested in",
+      fallbackStep3: "3. Paste it in our manual import tool",
+      fallbackOpenArticle: "🔗 Open article",
+      fallbackGoManual: "📋 Go to manual import",
+      fallbackErrorDetail: "Technical detail:"
+    },
+    es: {
+      title: "Importar desde URL",
+      subtitle: "Pega el enlace de un artículo de viaje para transformarlo en itinerario",
+      placeholder: "https://www.lonelyplanet.es/...",
+      importBtn: "🔮 Importar este itinerario",
+      importing: "⏳ Analizando...",
+      pending: "⏳ Iniciando análisis...",
+      processing: "🔄 Obteniendo página...",
+      analyzing: "🤖 La IA está analizando...",
+      finalizing: "✨ Finalizando itinerario...",
+      waitMessage: "La creación puede tardar de 1 a 3 minutos según la longitud del artículo.",
+      success: "✅ ¡Itinerario creado!",
+      error: "❌ Error",
+      quotaInfo: "Cuota restante: {remaining}/{limit} este mes",
+      close: "Cerrar",
+      fallbackTitle: "¡Ups, la IA necesita un descanso!",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip es 100% gratuito y usa APIs de IA gratuitas con límites. ¡No te preocupes, puedes importar manualmente!",
+      fallbackStep1: "1. Abre el artículo en una nueva pestaña",
+      fallbackStep2: "2. Copia el contenido que te interesa",
+      fallbackStep3: "3. Pégalo en nuestra herramienta de importación manual",
+      fallbackOpenArticle: "🔗 Abrir artículo",
+      fallbackGoManual: "📋 Ir a importación manual",
+      fallbackErrorDetail: "Detalle técnico:"
+    },
+    it: {
+      title: "Importa da URL",
+      subtitle: "Incolla il link di un articolo di viaggio per trasformarlo in itinerario",
+      placeholder: "https://www.lonelyplanetitalia.it/...",
+      importBtn: "🔮 Importa questo itinerario",
+      importing: "⏳ Analisi in corso...",
+      pending: "⏳ Avvio analisi...",
+      processing: "🔄 Recupero pagina...",
+      analyzing: "🤖 L'IA sta analizzando...",
+      finalizing: "✨ Finalizzazione itinerario...",
+      waitMessage: "La creazione può richiedere da 1 a 3 minuti a seconda della lunghezza dell'articolo.",
+      success: "✅ Itinerario creato!",
+      error: "❌ Errore",
+      quotaInfo: "Quota rimanente: {remaining}/{limit} questo mese",
+      close: "Chiudi",
+      fallbackTitle: "Ops, l'IA ha bisogno di una pausa!",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip è 100% gratuito e usa API AI gratuite con limiti. Niente panico, puoi importare manualmente!",
+      fallbackStep1: "1. Apri l'articolo in una nuova scheda",
+      fallbackStep2: "2. Copia il contenuto che ti interessa",
+      fallbackStep3: "3. Incollalo nel nostro strumento di importazione manuale",
+      fallbackOpenArticle: "🔗 Apri articolo",
+      fallbackGoManual: "📋 Vai all'importazione manuale",
+      fallbackErrorDetail: "Dettaglio tecnico:"
+    },
+    pt: {
+      title: "Importar de URL",
+      subtitle: "Cole o link de um artigo de viagem para transformá-lo em roteiro",
+      placeholder: "https://www.lonelyplanet.com/...",
+      importBtn: "🔮 Importar este roteiro",
+      importing: "⏳ Analisando...",
+      pending: "⏳ Iniciando análise...",
+      processing: "🔄 Obtendo página...",
+      analyzing: "🤖 A IA está analisando...",
+      finalizing: "✨ Finalizando roteiro...",
+      waitMessage: "A criação pode levar de 1 a 3 minutos dependendo do tamanho do artigo.",
+      success: "✅ Roteiro criado!",
+      error: "❌ Erro",
+      quotaInfo: "Cota restante: {remaining}/{limit} este mês",
+      close: "Fechar",
+      fallbackTitle: "Ops, a IA precisa de uma pausa!",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip é 100% gratuito e usa APIs de IA gratuitas com limites. Não se preocupe, você pode importar manualmente!",
+      fallbackStep1: "1. Abra o artigo em uma nova aba",
+      fallbackStep2: "2. Copie o conteúdo que lhe interessa",
+      fallbackStep3: "3. Cole em nossa ferramenta de importação manual",
+      fallbackOpenArticle: "🔗 Abrir artigo",
+      fallbackGoManual: "📋 Ir para importação manual",
+      fallbackErrorDetail: "Detalhe técnico:"
+    },
+    ar: {
+      title: "استيراد من رابط",
+      subtitle: "الصق رابط مقال سفر لتحويله إلى مسار رحلة",
+      placeholder: "https://www.example.com/...",
+      importBtn: "🔮 استيراد هذا المسار",
+      importing: "⏳ جاري التحليل...",
+      pending: "⏳ بدء التحليل...",
+      processing: "🔄 جلب الصفحة...",
+      analyzing: "🤖 الذكاء الاصطناعي يحلل...",
+      finalizing: "✨ إنهاء المسار...",
+      waitMessage: "قد يستغرق الإنشاء من 1 إلى 3 دقائق حسب طول المقال.",
+      success: "✅ تم إنشاء المسار!",
+      error: "❌ خطأ",
+      quotaInfo: "الحصة المتبقية: {remaining}/{limit} هذا الشهر",
+      close: "إغلاق",
+      fallbackTitle: "عفواً، الذكاء الاصطناعي يحتاج استراحة!",
+      fallbackIcon: "🤖💨",
+      fallbackExplain: "OneRoadTrip مجاني 100% ويستخدم واجهات ذكاء اصطناعي مجانية مع حدود. لا تقلق، يمكنك الاستيراد يدوياً!",
+      fallbackStep1: "1. افتح المقال في تبويب جديد",
+      fallbackStep2: "2. انسخ المحتوى الذي يهمك",
+      fallbackStep3: "3. الصقه في أداة الاستيراد اليدوي",
+      fallbackOpenArticle: "🔗 فتح المقال",
+      fallbackGoManual: "📋 الذهاب للاستيراد اليدوي",
+      fallbackErrorDetail: "تفاصيل تقنية:"
+    }
+  };
+
+  // ===== CSS =====
+  const CSS = `
+    .ort-import-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s, visibility 0.3s;
+    }
+    .ort-import-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+    .ort-import-modal {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+    }
+    .ort-import-overlay.active .ort-import-modal {
+      transform: translateY(0);
+    }
+    .ort-import-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #1a1a2e;
+    }
+    .ort-import-subtitle {
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+    }
+    .ort-import-input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid #e0e0e0;
+      border-radius: 10px;
+      font-size: 15px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+    .ort-import-input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .ort-import-btn {
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .ort-import-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102,126,234,0.4);
+    }
+    .ort-import-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+    .ort-import-status {
+      margin-top: 16px;
+      padding: 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      display: none;
+    }
+    .ort-import-status.pending {
+      display: block;
+      background: #fff3cd;
+      color: #856404;
+    }
+    .ort-import-status.processing {
+      display: block;
+      background: #e3f2fd;
+      color: #1565c0;
+    }
+    .ort-import-status.success {
+      display: block;
+      background: #d4edda;
+      color: #155724;
+    }
+    .ort-import-status.error {
+      display: block;
+      background: #f8d7da;
+      color: #721c24;
+    }
+    .ort-import-wait {
+      margin-top: 12px;
+      padding: 12px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #666;
+      display: none;
+      text-align: center;
+    }
+    .ort-import-wait.visible {
+      display: block;
+    }
+    .ort-import-progress {
+      margin-top: 12px;
+      display: none;
+    }
+    .ort-import-progress.visible {
+      display: block;
+    }
+    .ort-import-progress-bar {
+      height: 4px;
+      background: #e0e0e0;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .ort-import-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      width: 0%;
+      transition: width 0.5s;
+      animation: ort-progress-pulse 2s ease-in-out infinite;
+    }
+    @keyframes ort-progress-pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .ort-import-quota {
+      margin-top: 16px;
+      font-size: 12px;
+      color: #888;
+      text-align: center;
+    }
+    .ort-import-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #999;
+      line-height: 1;
+    }
+    .ort-import-close:hover {
+      color: #333;
+    }
     
-    if (!modal || !fallbackModal) {
-      console.warn('[ORT Import URL] Modals not found in DOM');
+    /* Fallback modal */
+    .ort-fallback-icon {
+      font-size: 64px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .ort-fallback-title {
+      font-size: 22px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+      color: #1a1a2e;
+    }
+    .ort-fallback-explain {
+      text-align: center;
+      color: #666;
+      margin-bottom: 24px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .ort-fallback-steps {
+      background: #f8f9fa;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+    .ort-fallback-step {
+      margin-bottom: 12px;
+      font-size: 14px;
+      color: #333;
+    }
+    .ort-fallback-step:last-child {
+      margin-bottom: 0;
+    }
+    .ort-fallback-buttons {
+      display: flex;
+      gap: 12px;
+    }
+    .ort-fallback-btn {
+      flex: 1;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.2s;
+    }
+    .ort-fallback-btn:hover {
+      transform: translateY(-2px);
+    }
+    .ort-fallback-btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+    }
+    .ort-fallback-btn-secondary {
+      background: white;
+      color: #667eea;
+      border: 2px solid #667eea;
+    }
+    .ort-fallback-error {
+      margin-top: 16px;
+      font-size: 11px;
+      color: #999;
+      text-align: center;
+    }
+  `;
+
+  // ===== STATE =====
+  let currentUrl = '';
+  let currentJobId = null;
+  let currentUid = null;
+  let pollInterval = null;
+  let options = { destination: 'detail' };
+
+  // ===== HELPERS =====
+  function getLang() {
+    return (typeof ORT_CONFIG !== 'undefined' && ORT_CONFIG.language) ||
+           document.documentElement.lang?.substring(0, 2) ||
+           'en';
+  }
+
+  function t(key) {
+    const lang = getLang();
+    return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
+  }
+
+  function injectCSS() {
+    if (document.getElementById('ort-import-url-css')) return;
+    const style = document.createElement('style');
+    style.id = 'ort-import-url-css';
+    style.textContent = CSS;
+    document.head.appendChild(style);
+  }
+
+  // ===== FIREBASE =====
+  function getFirestore() {
+    if (typeof firebase !== 'undefined' && firebase.firestore) {
+      return firebase.firestore();
+    }
+    return null;
+  }
+
+  function getCurrentUser() {
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+      return firebase.auth().currentUser;
+    }
+    return null;
+  }
+
+  async function getIdToken() {
+    const user = getCurrentUser();
+    if (!user) throw new Error('Not authenticated');
+    return await user.getIdToken();
+  }
+
+  // ===== POLLING =====
+  function startPolling(uid, jobId) {
+    currentUid = uid;
+    currentJobId = jobId;
+    
+    const db = getFirestore();
+    if (!db) {
+      console.error('Firestore not available');
+      return;
+    }
+
+    // Listen to job document
+    const jobRef = db.collection('users').doc(uid).collection('url_parse_jobs').doc(jobId);
+    
+    pollInterval = jobRef.onSnapshot((doc) => {
+      if (!doc.exists) return;
+      
+      const data = doc.data();
+      console.log('📊 Job status:', data.status);
+      
+      updateStatusDisplay(data.status, data.error);
+      
+      if (data.status === 'completed') {
+        stopPolling();
+        handleSuccess(data.result);
+      } else if (data.status === 'error') {
+        stopPolling();
+        handleError(data.error || 'Unknown error');
+      }
+    }, (error) => {
+      console.error('Polling error:', error);
+      stopPolling();
+      handleError(error.message);
+    });
+  }
+
+  function stopPolling() {
+    if (pollInterval) {
+      pollInterval(); // Unsubscribe
+      pollInterval = null;
+    }
+    currentJobId = null;
+    currentUid = null;
+  }
+
+  function updateStatusDisplay(status, error) {
+    const statusEl = document.getElementById('ort-import-status');
+    const waitEl = document.getElementById('ort-import-wait');
+    const progressEl = document.getElementById('ort-import-progress');
+    const progressFill = document.getElementById('ort-import-progress-fill');
+    const btn = document.getElementById('ort-import-btn');
+    
+    if (!statusEl) return;
+    
+    // Reset classes
+    statusEl.className = 'ort-import-status';
+    
+    // Map status to display
+    const statusMap = {
+      'pending': { class: 'pending', text: t('pending'), progress: 10 },
+      'processing': { class: 'processing', text: t('processing'), progress: 30 },
+      'analyzing': { class: 'processing', text: t('analyzing'), progress: 60 },
+      'completed': { class: 'success', text: t('success'), progress: 100 },
+      'error': { class: 'error', text: t('error') + ': ' + (error || ''), progress: 0 }
+    };
+    
+    const config = statusMap[status] || statusMap.pending;
+    
+    statusEl.className = 'ort-import-status ' + config.class;
+    statusEl.textContent = config.text;
+    statusEl.style.display = 'block';
+    
+    // Show wait message and progress for non-terminal states
+    if (['pending', 'processing', 'analyzing'].includes(status)) {
+      waitEl.classList.add('visible');
+      progressEl.classList.add('visible');
+      progressFill.style.width = config.progress + '%';
+      btn.disabled = true;
+      btn.textContent = t('importing');
+    } else {
+      waitEl.classList.remove('visible');
+      progressEl.classList.remove('visible');
+    }
+  }
+
+  // ===== HANDLERS =====
+  async function handleImport() {
+    const input = document.getElementById('ort-import-url');
+    const btn = document.getElementById('ort-import-btn');
+    const statusEl = document.getElementById('ort-import-status');
+    
+    const url = input.value.trim();
+    if (!url) return;
+    
+    currentUrl = url;
+    
+    // Validate URL
+    try {
+      new URL(url);
+    } catch {
+      statusEl.className = 'ort-import-status error';
+      statusEl.textContent = t('error') + ': Invalid URL';
+      statusEl.style.display = 'block';
       return;
     }
     
-    const input = document.getElementById('importUrlInput');
-    const status = document.getElementById('importUrlStatus');
-    const btnOpen = document.getElementById('btnImportUrl');
-    const btnCancel = document.getElementById('btnCancelUrl');
-    const btnClose = document.getElementById('btnCloseUrlModal');
-    const btnConfirm = document.getElementById('btnConfirmUrl');
-    const btnText = btnConfirm?.querySelector('.btn-text');
-    const btnLoader = btnConfirm?.querySelector('.btn-loader');
-    const quotaInfo = document.getElementById('urlQuotaInfo');
+    btn.disabled = true;
+    btn.textContent = t('importing');
+    updateStatusDisplay('pending');
     
-    // Fallback elements
-    const btnCloseFallback = document.getElementById('btnCloseFallback');
-    const fallbackOpenUrl = document.getElementById('fallbackOpenUrl');
-    const fallbackErrorDetail = document.getElementById('fallbackErrorDetail');
-    
-    // Get language
-    const lang = document.documentElement.lang?.substring(0, 2) || 'fr';
-    const t = ORT_IMPORT_I18N[lang] || ORT_IMPORT_I18N.en;
-    
-    // URL stockée pour le fallback
-    let currentUrl = '';
-    
-    // === MODAL PRINCIPAL ===
-    
-    // Ouvrir
-    btnOpen?.addEventListener('click', () => {
-      openModal(modal);
-      input.value = '';
-      status.className = 'ort-status';
-      status.textContent = '';
-      input.focus();
-    });
-    
-    // Fermer
-    btnCancel?.addEventListener('click', () => closeModal(modal));
-    btnClose?.addEventListener('click', () => closeModal(modal));
-    modal?.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal(modal);
-    });
-    
-    // Importer
-    btnConfirm?.addEventListener('click', async () => {
-      const url = input.value.trim();
-      currentUrl = url;
+    try {
+      const token = await getIdToken();
+      const user = getCurrentUser();
       
-      if (!url) {
-        showStatus(status, 'Veuillez entrer une URL', 'error');
-        return;
+      const response = await fetch('/.netlify/functions/parse-url', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          url: url,
+          language: getLang()
+        })
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok || !data.success) {
+        throw new Error(data.error || 'Request failed');
       }
       
-      if (!url.startsWith('http')) {
-        showStatus(status, 'URL invalide (doit commencer par http)', 'error');
-        return;
-      }
+      // Start polling Firestore for job status
+      console.log('📋 Job created:', data.jobId);
+      startPolling(user.uid, data.jobId);
       
-      // État loading
-      setLoading(btnConfirm, btnText, btnLoader, true);
-      showStatus(status, t.loading, 'loading');
-      
-      try {
-        const result = await parseUrlToItinerary(url, lang);
-        
-        // Afficher quota restant
-        if (result.usage && quotaInfo) {
-          quotaInfo.textContent = t.quotaRemaining.replace('{n}', result.usage.remaining);
+      // Update quota display
+      if (data.usage) {
+        const quotaEl = document.getElementById('ort-import-quota');
+        if (quotaEl) {
+          quotaEl.textContent = t('quotaInfo')
+            .replace('{remaining}', data.usage.remaining)
+            .replace('{limit}', data.usage.limit);
         }
-        
-        showStatus(status, t.success, 'success');
-        
-        // Sauvegarder et rediriger
-        const itin = result.data.itins[0];
-        const country = itin.itin_id?.split('::')[0] || 'XX';
-        const key = `${country}_${slugify(itin.title || 'trip')}_${Date.now()}`;
-        
-        localStorage.setItem(`ORT_TEMP_TRIP_${key}_itins`, JSON.stringify(result.data));
-        localStorage.setItem(`ORT_TEMP_TRIP_${key}_places`, JSON.stringify(result.places));
-        
-        setTimeout(() => {
-          redirectAfterSuccess(key);
-        }, 800);
-        
-      } catch (err) {
-        // OUVRIR LA MODAL FALLBACK
-        closeModal(modal);
-        openFallbackModal(err.message, currentUrl, t);
-        setLoading(btnConfirm, btnText, btnLoader, false);
-      }
-    });
-    
-    // === MODAL FALLBACK ===
-    
-    function openFallbackModal(errorMsg, url, translations) {
-      // Mettre à jour les textes traduits
-      const titleEl = document.getElementById('fallbackTitle');
-      const explainEl = document.getElementById('fallbackExplain');
-      const solutionTitleEl = document.getElementById('fallbackSolutionTitle');
-      const stepsEl = document.getElementById('fallbackSteps');
-      const btnManualEl = document.getElementById('fallbackGoImport');
-      
-      if (titleEl) titleEl.textContent = translations.fallbackTitle;
-      if (explainEl) explainEl.innerHTML = translations.fallbackExplain;
-      if (solutionTitleEl) solutionTitleEl.textContent = translations.fallbackSolutionTitle;
-      if (stepsEl) {
-        stepsEl.innerHTML = `
-          <li>${translations.fallbackStep1}</li>
-          <li>${translations.fallbackStep2} (<kbd>Ctrl</kbd>+<kbd>A</kbd>, <kbd>Ctrl</kbd>+<kbd>C</kbd>)</li>
-          <li>${translations.fallbackStep3}</li>
-        `;
-      }
-      if (fallbackOpenUrl) {
-        fallbackOpenUrl.href = url;
-        fallbackOpenUrl.textContent = translations.fallbackBtnOpen;
-      }
-      if (btnManualEl) btnManualEl.textContent = translations.fallbackBtnManual;
-      if (fallbackErrorDetail) {
-        fallbackErrorDetail.textContent = `${translations.fallbackErrorPrefix} ${errorMsg}`;
       }
       
-      openModal(fallbackModal);
-    }
-    
-    btnCloseFallback?.addEventListener('click', () => closeModal(fallbackModal));
-    fallbackModal?.addEventListener('click', (e) => {
-      if (e.target === fallbackModal) closeModal(fallbackModal);
-    });
-  }
-  
-  // === HELPERS ===
-  
-  function openModal(modal) {
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
-  
-  function closeModal(modal) {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
-  
-  function showStatus(el, msg, type) {
-    el.textContent = msg;
-    el.className = `ort-status ${type}`;
-  }
-  
-  function setLoading(btn, textEl, loaderEl, loading) {
-    btn.disabled = loading;
-    if (textEl) textEl.style.display = loading ? 'none' : 'inline';
-    if (loaderEl) loaderEl.style.display = loading ? 'inline' : 'none';
-  }
-  
-  function slugify(text) {
-    return text.toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9]+/g, '-')
-      .substring(0, 50);
-  }
-  
-  // Redirection selon destination choisie
-  function redirectAfterSuccess(key) {
-    const dest = window._ortImportDestination || 'detail';
-    if (dest === 'editor') {
-      // Vers le carnet de voyage
-      window.location.href = `./roadtrip-editor.html?from=temp&rtKey=${key}`;
-    } else {
-      // Vers RT Detail (défaut)
-      window.location.href = `./roadtrip_detail.html?from=temp&rtKey=${key}`;
+    } catch (e) {
+      console.error('Import error:', e);
+      handleError(e.message);
     }
   }
-  
-  async function parseUrlToItinerary(url, language) {
-    const user = firebase.auth().currentUser;
-    if (!user) throw new Error('Connexion requise');
+
+  function handleSuccess(result) {
+    const statusEl = document.getElementById('ort-import-status');
+    statusEl.className = 'ort-import-status success';
+    statusEl.textContent = t('success');
     
-    const token = await user.getIdToken();
+    // Save to localStorage
+    const itin = result.data?.itins?.[0];
+    if (itin) {
+      const cc = itin.itin_id?.split('::')[0] || 'XX';
+      const slug = (itin.title || 'trip').toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .substring(0, 40);
+      const key = `${cc}_${slug}_${Date.now()}`;
+      
+      const storageData = {
+        itins: result.data.itins,
+        places: result.places?.places || [],
+        _meta: {
+          importedAt: new Date().toISOString(),
+          source_url: currentUrl,
+          model: result.model
+        }
+      };
+      
+      localStorage.setItem(`ort_imported_${key}`, JSON.stringify(storageData));
+      console.log('💾 Saved to localStorage:', key);
+      
+      // Redirect after short delay
+      setTimeout(() => {
+        close();
+        if (options.destination === 'editor') {
+          window.location.href = `roadtrip-editor.html?import=${key}`;
+        } else {
+          window.location.href = `roadtrip_detail.html?import=${key}`;
+        }
+      }, 1000);
+    }
+  }
+
+  function handleError(errorMessage) {
+    const btn = document.getElementById('ort-import-btn');
+    btn.disabled = false;
+    btn.textContent = t('importBtn');
     
-    const res = await fetch('/.netlify/functions/parse-url', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ url, language })
+    // Close main modal and open fallback
+    document.getElementById('ort-import-overlay')?.classList.remove('active');
+    openFallbackModal(errorMessage);
+  }
+
+  // ===== MODALS =====
+  function createModal() {
+    if (document.getElementById('ort-import-overlay')) return;
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'ort-import-overlay';
+    overlay.className = 'ort-import-overlay';
+    overlay.innerHTML = `
+      <div class="ort-import-modal" style="position:relative;">
+        <button class="ort-import-close" onclick="ORT_ImportUrl.close()">&times;</button>
+        <div class="ort-import-title">${t('title')}</div>
+        <div class="ort-import-subtitle">${t('subtitle')}</div>
+        <input type="url" id="ort-import-url" class="ort-import-input" placeholder="${t('placeholder')}">
+        <button id="ort-import-btn" class="ort-import-btn">${t('importBtn')}</button>
+        <div id="ort-import-status" class="ort-import-status"></div>
+        <div id="ort-import-wait" class="ort-import-wait">${t('waitMessage')}</div>
+        <div id="ort-import-progress" class="ort-import-progress">
+          <div class="ort-import-progress-bar">
+            <div id="ort-import-progress-fill" class="ort-import-progress-fill"></div>
+          </div>
+        </div>
+        <div id="ort-import-quota" class="ort-import-quota"></div>
+      </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    // Event listeners
+    document.getElementById('ort-import-btn').addEventListener('click', handleImport);
+    document.getElementById('ort-import-url').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') handleImport();
     });
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) close();
+    });
+  }
+
+  function createFallbackModal() {
+    if (document.getElementById('ort-fallback-overlay')) return;
     
-    const data = await res.json();
-    if (!data.success) throw new Error(data.error);
-    return data;
+    const overlay = document.createElement('div');
+    overlay.id = 'ort-fallback-overlay';
+    overlay.className = 'ort-import-overlay';
+    overlay.innerHTML = `
+      <div class="ort-import-modal" style="position:relative;">
+        <button class="ort-import-close" onclick="ORT_ImportUrl.closeFallback()">&times;</button>
+        <div class="ort-fallback-icon">${t('fallbackIcon')}</div>
+        <div class="ort-fallback-title">${t('fallbackTitle')}</div>
+        <div class="ort-fallback-explain">${t('fallbackExplain')}</div>
+        <div class="ort-fallback-steps">
+          <div class="ort-fallback-step">${t('fallbackStep1')}</div>
+          <div class="ort-fallback-step">${t('fallbackStep2')}</div>
+          <div class="ort-fallback-step">${t('fallbackStep3')}</div>
+        </div>
+        <div class="ort-fallback-buttons">
+          <a id="ort-fallback-open" href="#" target="_blank" class="ort-fallback-btn ort-fallback-btn-secondary">${t('fallbackOpenArticle')}</a>
+          <a href="import.html" class="ort-fallback-btn ort-fallback-btn-primary">${t('fallbackGoManual')}</a>
+        </div>
+        <div id="ort-fallback-error" class="ort-fallback-error"></div>
+      </div>
+    `;
+    
+    document.body.appendChild(overlay);
+    
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) closeFallback();
+    });
   }
-  
-  // Init quand DOM prêt
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+
+  function openFallbackModal(errorMessage) {
+    createFallbackModal();
+    
+    const overlay = document.getElementById('ort-fallback-overlay');
+    const openBtn = document.getElementById('ort-fallback-open');
+    const errorEl = document.getElementById('ort-fallback-error');
+    
+    if (currentUrl) {
+      openBtn.href = currentUrl;
+    }
+    
+    if (errorMessage) {
+      errorEl.textContent = t('fallbackErrorDetail') + ' ' + errorMessage;
+    }
+    
+    overlay.classList.add('active');
   }
-  
-  // Exposer pour usage externe
+
+  function closeFallback() {
+    const overlay = document.getElementById('ort-fallback-overlay');
+    if (overlay) overlay.classList.remove('active');
+  }
+
+  // ===== PUBLIC API =====
+  function open(opts = {}) {
+    options = { destination: 'detail', ...opts };
+    injectCSS();
+    createModal();
+    
+    // Reset state
+    stopPolling();
+    const input = document.getElementById('ort-import-url');
+    const btn = document.getElementById('ort-import-btn');
+    const statusEl = document.getElementById('ort-import-status');
+    const waitEl = document.getElementById('ort-import-wait');
+    const progressEl = document.getElementById('ort-import-progress');
+    
+    if (input) input.value = '';
+    if (btn) {
+      btn.disabled = false;
+      btn.textContent = t('importBtn');
+    }
+    if (statusEl) {
+      statusEl.className = 'ort-import-status';
+      statusEl.style.display = 'none';
+    }
+    if (waitEl) waitEl.classList.remove('visible');
+    if (progressEl) progressEl.classList.remove('visible');
+    
+    document.getElementById('ort-import-overlay').classList.add('active');
+    input?.focus();
+  }
+
+  function close() {
+    stopPolling();
+    document.getElementById('ort-import-overlay')?.classList.remove('active');
+  }
+
+  // ===== EXPORT =====
   window.ORT_ImportUrl = {
-    open: (options = {}) => {
-      // options.destination = 'detail' | 'editor' (défaut: 'detail')
-      window._ortImportDestination = options.destination || 'detail';
-      const modal = document.getElementById('importUrlModal');
-      if (modal) openModal(modal);
-    },
-    close: () => {
-      const modal = document.getElementById('importUrlModal');
-      if (modal) closeModal(modal);
-    }
+    open,
+    close,
+    closeFallback
   };
-  
 })();
