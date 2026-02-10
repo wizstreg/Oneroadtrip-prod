@@ -441,6 +441,57 @@
         console.log('  ✅ OK Travel Bookings:', Object.keys(data.travelBookings).length);
       }
       
+      // 📅 DATE DE DÉPART
+      if (window.state.startDateStr) {
+        data.startDateStr = window.state.startDateStr;
+        console.log('  ✅ OK Date de départ:', data.startDateStr);
+      }
+      
+      // 📦 MÉTADONNÉES ORIGINALES (SEO, practical_context, etc.)
+      if (window.state._originalPracticalContext) {
+        data.practical_context = window.state._originalPracticalContext;
+        console.log('  ✅ OK practical_context');
+      }
+      if (window.state.practical_context && !data.practical_context) {
+        data.practical_context = window.state.practical_context;
+        console.log('  ✅ OK practical_context (direct)');
+      }
+      
+      if (window.state._originalSeo) {
+        data.seo = window.state._originalSeo;
+        console.log('  ✅ OK seo');
+      }
+      if (window.state.seo && !data.seo) {
+        data.seo = window.state.seo;
+        console.log('  ✅ OK seo (direct)');
+      }
+      
+      if (window.state._originalMeta) {
+        data.meta = window.state._originalMeta;
+        console.log('  ✅ OK meta');
+      }
+      if (window.state.meta && !data.meta) {
+        data.meta = window.state.meta;
+        console.log('  ✅ OK meta (direct)');
+      }
+      
+      // 🔖 AUTRES MÉTADONNÉES ORIGINALES
+      if (window.state._originalSegments) data.segments = window.state._originalSegments;
+      if (window.state._originalVariants) data.variants = window.state._originalVariants;
+      if (window.state._originalRegions) data.regions = window.state._originalRegions;
+      if (window.state._originalNearbyItins) data.nearby_itins = window.state._originalNearbyItins;
+      if (window.state._originalMergeSuggestions) data.merge_suggestions = window.state._originalMergeSuggestions;
+      if (window.state._originalNotes) data.notes = window.state._originalNotes;
+      if (window.state._originalSpecialties) data.specialties = window.state._originalSpecialties;
+      if (window.state._originalDeptCode) data.dept_code = window.state._originalDeptCode;
+      if (window.state._originalDeptName) data.dept_name = window.state._originalDeptName;
+      if (window.state._originalSubtitle) data.subtitle = window.state._originalSubtitle;
+      if (window.state._originalSeoKeywords) data.seo_keywords = window.state._originalSeoKeywords;
+      
+      if (Object.keys(data).some(k => k.match(/segments|variants|regions|nearby_itins|merge_suggestions|notes|specialties|dept_|subtitle|seo_keywords/))) {
+        console.log('  ✅ OK Autres métadonnées sauvegardées');
+      }
+      
     } else {
       console.warn('[DETAIL] window.state non disponible!');
     }

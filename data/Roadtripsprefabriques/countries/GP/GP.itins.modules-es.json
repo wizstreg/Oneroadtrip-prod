@@ -1,20 +1,31 @@
 {
+  "version": "v1",
+  "country": "GP",
+  "language": "es",
   "itineraries": [
     {
       "itin_id": "GP::archipelago::guadeloupe-lagoons-and-volcano",
       "id": "GP::archipelago::guadeloupe-lagoons-and-volcano",
       "language": "es",
+      "created_at": "2025-10-25T15:45:40.000Z",
+      "source_url": "",
+      "dept_code": "GP",
+      "dept_name": "Guadalupe",
       "title": "Circuito Guadalupe: Cascadas del Carbet y Reserva Cousteau",
       "subtitle": "Descubre las maravillas naturales de Guadalupe, desde picos volcánicos hasta lagunas prístinas y jardines de coral",
-      "country": "GP",
+      "notes": "Un viaje en forma de mariposa desde las playas de Grande-Terre hasta la selva tropical de Basse-Terre, con excursiones de un día a Les Saintes, Marie-Galante y La Désirade.",
+      "specialties": [],
       "estimated_days_base": 11,
-      "source_url": null,
-      "created_at": "2025-10-25T15:45:40.000Z",
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -22,10 +33,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "GP::sainte-anne",
+          "region_code": "GP",
           "suggested_days": 0.5,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::sainte-anne",
             "coords": [
@@ -35,14 +45,29 @@
           },
           "visits": [
             {
+              "text": "Mercado de Pointe-à-Pitre — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El islote de Gosier flota a 500 metros de la orilla. Su faro rojo y blanco, construido en 1930, domina la isla. Iguanas de casi 2 metros todavía pueblan el lugar.",
               "place_id": "",
               "visit_duration_min": 120
             },
             {
+              "text": "Museo Schoelcher — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El mercado artesanal de Sainte-Anne ofrece joyas, pinturas, objetos de madera y textiles criollos en un ambiente cálido. Especialmente animado los jueves por la mañana y los fines de semana.",
               "place_id": "",
               "visit_duration_min": 60
+            },
+            {
+              "text": "Iglesia St-Pierre & St-Paul — Paisaje costero y punto de observación de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "La playa de Bois Jolan se extiende por 2 kilómetros. Su arena blanca y aguas turquesas poco profundas la convierten en un lugar familiar. Cocoteros y uveros proporcionan sombra natural.",
@@ -58,6 +83,7 @@
           "activities": [
             {
               "text": "Toma el ferry hacia el islote de Gosier desde la playa de Datcha. La travesía dura 15 minutos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "15 min",
@@ -66,6 +92,7 @@
             },
             {
               "text": "Explora la laguna de Bois Jolan con aletas, máscara y snorkel. Las aguas poco profundas albergan corales, peces tropicales y praderas marinas.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "best_time": "Por la mañana, agua más tranquila"
@@ -73,6 +100,7 @@
             },
             {
               "text": "Alquila un kayak transparente en Sainte-Anne para deslizarte sobre el agua cristalina y observar el fondo marino sin mojarte.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "1-2h"
@@ -83,17 +111,16 @@
             "distance_km": 57.8,
             "drive_min": 58,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "GP::pointe-a-pitre",
+          "region_code": "GP",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::pointe-a-pitre",
             "coords": [
@@ -103,14 +130,29 @@
           },
           "visits": [
             {
+              "text": "Islote de Gosier — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El mercado central, completamente metálico, fue inaugurado en 1874. Su estructura antisísmica y pilares de hierro fundido provienen de la fundición Denonvilliers.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
+              "text": "Mercado de artesanías de Sainte-Anne — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El museo Schoelcher expone objetos que pertenecieron a Victor Schoelcher, defensor de la abolición de la esclavitud. Instalado en un elegante edificio de estilo clásico.",
               "place_id": "",
               "visit_duration_min": 60
+            },
+            {
+              "text": "Arrecife marginal de Bois Jolan — Paisaje costero y punto de observación de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "La iglesia de San Pedro y San Pablo, apodada 'catedral de hierro', presenta una arquitectura metálica construida en 1874 que ha resistido huracanes durante más de un siglo.",
@@ -131,6 +173,7 @@
           "activities": [
             {
               "text": "Pasea por el mercado de especias desde temprano. Encontrarás vainilla, canela, cúrcuma, rones especiados y frutas tropicales.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "best_time": "6h-14h",
@@ -139,11 +182,13 @@
             },
             {
               "text": "Descubre murales de arte urbano en el barrio histórico alrededor del puerto. Retratos poderosos y colores vibrantes transforman las paredes en una galería al aire libre.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {}
             },
             {
               "text": "Prueba accras, bokit y jugos locales en los puestos del mercado. El ambiente animado refleja el espíritu criollo de la isla.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Prueba el jugo fresco de caña de azúcar"
@@ -154,17 +199,16 @@
             "distance_km": 44.1,
             "drive_min": 48,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "GP::deshaies",
+          "region_code": "GP",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::deshaies",
             "coords": [
@@ -174,14 +218,29 @@
           },
           "visits": [
             {
+              "text": "Fuerte Delgrès — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El Jardín Botánico de Deshaies se extiende sobre 7 hectáreas y alberga más de 1.000 especies tropicales. Antigua propiedad del comediante Coluche, transformada en un paraíso verde.",
               "place_id": "",
               "visit_duration_min": 120
             },
             {
+              "text": "Catedral de Basse-Terre — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La playa de Grande Anse se extiende al pie del pueblo de Deshaies. Arena dorada, aguas tranquilas y cocoteros la convierten en un lugar apacible.",
               "place_id": "",
               "visit_duration_min": 90
+            },
+            {
+              "text": "Arcadas del casco antiguo — Paisaje costero y punto de observación de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "La cala de Ferry revela sus aguas tranquilas rodeadas de exuberante vegetación. Este pequeño puerto natural albergaba barcos comerciales coloniales.",
@@ -197,6 +256,7 @@
           "activities": [
             {
               "text": "Camina por el jardín botánico temprano por la mañana. Flamencos, loros y tucanes despiertan con el amanecer.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "opening": "9h-16h30",
@@ -205,6 +265,7 @@
             },
             {
               "text": "Haz snorkel en las islas Pigeon en la Reserva Cousteau. El sendero submarino protegido revela corales, esponjas y peces tropicales.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "access": "Barco desde Malendure"
@@ -212,6 +273,7 @@
             },
             {
               "text": "Nada en la playa Perle protegida por la vegetación. Aguas claras y sombra bajo los árboles para una tarde relajante.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {}
             }
@@ -220,17 +282,16 @@
             "distance_km": 27.8,
             "drive_min": 37,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "GP::basse-terre",
+          "region_code": "GP",
           "suggested_days": 3,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::basse-terre",
             "coords": [
@@ -240,14 +301,29 @@
           },
           "visits": [
             {
+              "text": "Jardín Botánico de Deshaies — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "Las cascadas del Carbet caen desde las laderas del volcán Soufrière. La segunda cascada cae 110 metros en una piscina natural rodeada de selva tropical.",
               "place_id": "",
               "visit_duration_min": 120
             },
             {
+              "text": "Mirador de Grande Anse — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La Soufrière, el volcán más alto del Caribe con 1.467 metros, domina el Parque Nacional de Guadalupe. Las fumarolas emiten constantemente vapor sulfuroso.",
               "place_id": "",
               "visit_duration_min": 150
+            },
+            {
+              "text": "Mirador de la playa Pearl — Paisaje costero y punto de observación de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "El Fuerte Delgrès se alza sobre el Morne Houël con vistas a la bahía de Basse-Terre. Esta fortaleza militar del siglo XVII desempeñó un papel clave en la historia colonial francesa.",
@@ -268,6 +344,7 @@
           "activities": [
             {
               "text": "Camina hasta las cascadas del Carbet por el sendero señalizado. Calcula 30 minutos para llegar al mirador de la segunda cascada.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "30 min de subida",
@@ -277,6 +354,7 @@
             },
             {
               "text": "Sube a la cima de La Soufrière. El sendero cruza un paisaje lunar y ofrece vistas sobre todo el archipiélago en días despejados.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "3h ida y vuelta",
@@ -286,6 +364,7 @@
             },
             {
               "text": "Báñate en las fuentes termales de Acomat al pie de La Soufrière. Aguas termales naturales calentadas por actividad volcánica.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "temperature": "30-35°C"
@@ -296,17 +375,16 @@
             "distance_km": 71.5,
             "drive_min": 95,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "GP::terre-de-haut",
+          "region_code": "GP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::terre-de-haut",
             "coords": [
@@ -316,12 +394,27 @@
           },
           "visits": [
             {
+              "text": "Sede del Parque Nacional — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El Fuerte Napoleón se asienta en lo alto del Morne Mire a 114 metros de altitud. Construido entre 1844 y 1867, nunca vio combate pero ahora alberga un museo.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
+              "text": "Parada Saut de la Lézarde — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La playa Pain de Sucre muestra arena blanca bordeada de agua turquesa. Esta cala protegida ofrece baño tranquilo protegido de las olas del Atlántico.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
+              "text": "Maison du Cacao — Paisaje costero y punto de observación de los vientos alisios.",
               "place_id": "",
               "visit_duration_min": 75
             },
@@ -339,6 +432,7 @@
           "activities": [
             {
               "text": "Sube al Fuerte Napoleón por la mañana. El jardín botánico y el santuario de iguanas rodean las fortificaciones.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "opening": "9h-12h30",
@@ -347,6 +441,7 @@
             },
             {
               "text": "Alquila un scooter eléctrico para explorar la isla. El circuito de 8 kilómetros te lleva a playas y miradores.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "2-3h",
@@ -355,6 +450,7 @@
             },
             {
               "text": "Prueba el tourment d'amour, el pastel local relleno de mermelada de coco o guayaba. Las panaderías artesanales compiten por la mejor receta.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Mejor fresco por la mañana"
@@ -365,17 +461,16 @@
             "distance_km": 47.5,
             "drive_min": 82,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "GP::grand-bourg",
+          "region_code": "GP",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::grand-bourg",
             "coords": [
@@ -385,14 +480,29 @@
           },
           "visits": [
             {
+              "text": "Miradores de la Reserva Cousteau — Contexto histórico y vistas destacadas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "Gueule Grand Gouffre revela un arco natural de 50 metros tallado por el océano. Las olas del Atlántico se estrellan contra acantilados de piedra caliza en un espectáculo impresionante.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
+              "text": "Playa Malendure — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La Hacienda Murat se extiende sobre 16 hectáreas y alberga el Ecomuseo de Artes y Tradiciones Populares. La antigua finca azucarera muestra la vida colonial del siglo XVIII.",
               "place_id": "",
               "visit_duration_min": 90
+            },
+            {
+              "text": "Vista de los islotes Pigeon — Paisaje costero y punto de observación de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "La destilería Père Labat todavía produce ron agrícola usando métodos tradicionales. El molino de agua construido en 1866 sigue triturando caña de azúcar.",
@@ -413,6 +523,7 @@
           "activities": [
             {
               "text": "Camina hasta Gueule Grand Gouffre desde el estacionamiento. El sendero sigue la costa y toma unos 10 minutos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "10 min",
@@ -421,6 +532,7 @@
             },
             {
               "text": "Visita la destilería de ron Père Labat. La visita guiada explica los pasos de producción y termina con una degustación.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "45 min",
@@ -429,6 +541,7 @@
             },
             {
               "text": "Recorre la isla en bicicleta por la carretera costera. El terreno plano hace fácil un circuito de 60 kilómetros alrededor de Marie-Galante.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "Circuito de 60 km",
@@ -440,17 +553,16 @@
             "distance_km": 25.9,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "GP::grand-bourg",
+          "region_code": "GP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::grand-bourg",
             "coords": [
@@ -460,12 +572,27 @@
           },
           "visits": [
             {
+              "text": "Fuerte Napoléon — Contexto histórico y vistas excepcionales.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La playa Anse Canot se extiende con arena blanca y aguas turquesas. Esta playa remota ofrece tranquilidad lejos de las multitudes.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
+              "text": "Bahía Pain de Sucre — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La playa Moustique muestra agua turquesa y uveros. Aguas poco profundas la convierten en la favorita de las familias.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
+              "text": "Callejuelas del pueblo de Terre-de-Haut — Paisaje costero y mirador de los vientos alisios.",
               "place_id": "",
               "visit_duration_min": 75
             },
@@ -483,6 +610,7 @@
           "activities": [
             {
               "text": "Nada en Anse Canot donde las aguas tranquilas invitan a la relajación. Pocos turistas se aventuran a esta playa aislada.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "access": "Camino de tierra, 4x4 recomendado"
@@ -490,6 +618,7 @@
             },
             {
               "text": "Navega en kayak por la costa oeste desde Vieux-Fort. Playas y pequeñas calas ofrecen puntos de parada.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "Medio día"
@@ -497,6 +626,7 @@
             },
             {
               "text": "Prueba ouassous (cangrejos de río) en restaurantes locales. Esta especialidad de la isla se sirve a la parrilla o en court-bouillon.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Se encuentra en restaurantes tradicionales"
@@ -507,17 +637,16 @@
             "distance_km": 8.7,
             "drive_min": 17,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "GP::grand-bourg",
+          "region_code": "GP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::grand-bourg",
             "coords": [
@@ -527,14 +656,29 @@
           },
           "visits": [
             {
+              "text": "Habitation Roussel-Trianon — Contexto histórico y vistas excepcionales.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La playa Feuillère ofrece arena dorada y cocoteros. Aguas tranquilas y sombra natural bajo los árboles.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
+              "text": "Gueule Grand Gouffre — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La iglesia de Saint-Louis domina Grand-Bourg con su fachada neoclásica. Construida en el siglo XIX, alberga una pintura de la Virgen.",
               "place_id": "",
               "visit_duration_min": 45
+            },
+            {
+              "text": "Iglesia de Capesterre — Paisaje costero y mirador de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "La playa de Vieux-Fort se extiende en el extremo sur de la isla. Un lugar apacible con vistas a Dominica en el horizonte.",
@@ -550,6 +694,7 @@
           "activities": [
             {
               "text": "Camina desde Capesterre hasta Anse Canot por la costa. El sendero pasa por playas aisladas y acantilados marinos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "2h",
@@ -558,6 +703,7 @@
             },
             {
               "text": "Visita una plantación de caña de azúcar. Algunas fincas todavía cultivan caña para destilerías de ron.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "season": "Cosecha de enero a junio"
@@ -565,6 +711,7 @@
             },
             {
               "text": "Recorre las pequeñas carreteras de la isla en bicicleta. El paisaje plano y la brisa suave hacen el ciclismo agradable.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Aplicación Géovélo para rutas"
@@ -575,17 +722,16 @@
             "distance_km": 73.1,
             "drive_min": 73,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "GP::desirade",
+          "region_code": "GP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::desirade",
             "coords": [
@@ -595,14 +741,29 @@
           },
           "visits": [
             {
+              "text": "Faro de Pointe Doublé — Contexto histórico y vistas excepcionales.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "El faro de Pointe Doublé marca el extremo este de La Désirade. Desde sus 25 metros de altura, vigila el canal entre la isla y Petite-Terre.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
+              "text": "Senderos de la reserva natural — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "Los senderos de la reserva natural atraviesan una vegetación xerófila única. Cactáceas, agaves y acacias componen este paisaje árido preservado.",
               "place_id": "",
               "visit_duration_min": 90
+            },
+            {
+              "text": "Llanuras de arrecife de Baie-Mahault — Paisaje costero y mirador de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "Los arrecifes se extienden frente a Baie-Mahault. Estas formaciones coralinas poco profundas albergan langostas, caracoles y peces tropicales.",
@@ -618,6 +779,7 @@
           "activities": [
             {
               "text": "Recorre el sendero costero a pie. Los acantilados de piedra caliza ofrecen vistas espectaculares sobre el océano Atlántico.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "~8 km",
@@ -626,11 +788,13 @@
             },
             {
               "text": "Báñate en la playa de Fifi. Arena blanca, cocoteros y aguas tranquilas la convierten en el lugar familiar de la isla.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {}
             },
             {
               "text": "Alquila una bicicleta para explorar la isla de 11 kilómetros de largo. El relieve plano facilita los desplazamientos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "La isla se cruza en 1h en bicicleta"
@@ -641,17 +805,16 @@
             "distance_km": 35.5,
             "drive_min": 71,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "GP::saint-francois",
+          "region_code": "GP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "GP",
           "night": {
             "place_id": "GP::saint-francois",
             "coords": [
@@ -661,14 +824,29 @@
           },
           "visits": [
             {
+              "text": "Pointe des Châteaux — Contexto histórico y vistas excepcionales.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "La Pointe des Châteaux proyecta sus rocas esculpidas hacia el océano Atlántico. Una cruz domina el promontorio y ofrece vistas de Marie-Galante, La Désirade y Les Saintes.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
+              "text": "Marina de Saint‑François — Cultura local o botánica con señales interpretativas.",
+              "place_id": "",
+              "visit_duration_min": 75
+            },
+            {
               "text": "Las olas del Atlántico se estrellan contra los acantilados. El viento sopla fuerte sobre este cabo salvaje, extremo sureste de Grande-Terre.",
               "place_id": "",
               "visit_duration_min": 45
+            },
+            {
+              "text": "Paseo marítimo de Raisins Clairs — Paisaje costero y mirador de los vientos alisios.",
+              "place_id": "",
+              "visit_duration_min": 75
             },
             {
               "text": "El puerto deportivo de Saint-François acoge veleros y catamaranes. Punto de partida de excursiones hacia La Désirade, Petite-Terre y Marie-Galante.",
@@ -689,6 +867,7 @@
           "activities": [
             {
               "text": "Camina hasta la cruz de la Pointe des Châteaux. El sendero sube por el promontorio rocoso en 20 minutos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "duration": "20 min",
@@ -697,26 +876,69 @@
             },
             {
               "text": "Dirígete a la playa de Anse à la Gourde al pie de la Pointe des Châteaux. Spot de surf popular con buenas olas.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {}
             },
             {
               "text": "Degusta pescados a la parrilla y accras en los restaurantes del paseo marítimo en Saint-François. Vistas sobre el puerto y los barcos.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "best_time": "Atardecer"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        }
+      ],
+      "regions": [
+        "GP"
+      ],
+      "nearby_itins": [
+        "MQ::island::martinique-volcano-and-anse"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Mer & Côtes",
+          "Gastronomie & Vin"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Itinerario Guadalupe: Aventura Cascadas del Carbet y Reserva Cousteau",
         "intro_paragraph": "Experimenta la asombrosa diversidad de Guadalupe en este viaje de 10 días a través del archipiélago en forma de mariposa. Desde los picos volcánicos de Basse-Terre hasta las prístinas lagunas de Grande-Terre, descubre cascadas espectaculares, sitios de buceo de clase mundial y encantadores pueblos isleños que hacen de este destino caribeño algo inolvidable.",
@@ -740,58 +962,6 @@
           "GP::saint-francois": "Elegante ciudad turística y puerto deportivo puerta de entrada a las islas exteriores"
         }
       },
-      "meta": {
-        "themes": [
-          "Mer & Côtes",
-          "Gastronomie & Vin"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - Días 1-5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - Días 6-10",
-          "from_day": 6,
-          "to_day": 10
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Variante 5 días"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Variante 10 días"
-        }
-      ],
-      "regions": [
-        "GP"
-      ],
-      "nearby_itins": [
-        "MQ::island::martinique-volcano-and-anse"
-      ],
-      "merge_suggestions": [],
-      "notes": "Un viaje en forma de mariposa desde las playas de Grande-Terre hasta la selva tropical de Basse-Terre, con excursiones de un día a Les Saintes, Marie-Galante y La Désirade.",
-      "specialties": [],
-      "dept_code": "GP",
-      "dept_name": "Guadalupe",
       "seo_keywords": [
         "itinerario Guadalupe",
         "Cascadas del Carbet",
@@ -819,6 +989,5 @@
         ]
       }
     }
-  ],
-  "generated": "2026-02-03T08:06:54.258Z"
+  ]
 }
