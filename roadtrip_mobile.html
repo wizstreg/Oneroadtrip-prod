@@ -3442,6 +3442,8 @@ async function init() {
     debugLog('Appel initMap...');
     initMap();
     debugLog('✅ RENDU TERMINÉ - ' + state.title);
+    // Expose state for AI summary script
+    window._ortState = state;
     
   } catch (err) {
     debugLog('❌ ERREUR: ' + err.message);
