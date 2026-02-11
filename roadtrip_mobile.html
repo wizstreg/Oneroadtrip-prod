@@ -7122,6 +7122,7 @@ if ('serviceWorker' in navigator) {
 
     var catalogId = getCatalogId();
     var tripId = st.tripId;
+    console.log('[AI-SUMMARY] Generate — catalogId:', catalogId, '| tripId:', tripId, '| _originalItinId:', st._originalItinId);
     if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0)) { showAiError('aiSummaryErrorSave'); return; }
     if (!st.steps || !st.steps.length) return;
 

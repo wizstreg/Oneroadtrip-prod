@@ -13440,6 +13440,7 @@ if ('serviceWorker' in navigator) {
 
     var catalogId = getCatalogId();
     var tripId = window.state && window.state.tripId;
+    console.log('[AI-SUMMARY] Generate — catalogId:', catalogId, '| tripId:', tripId, '| _originalItinId:', window.state && window.state._originalItinId);
     if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0)) { showAiError('aiSummaryErrorSave'); return; }
     if (!window.state || !window.state.steps || !window.state.steps.length) return;
 
