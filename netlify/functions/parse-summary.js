@@ -2,11 +2,13 @@
  * ORT - Parse Summary (Netlify Function)
  * AI: Gemini Flash → fallback OpenRouter (free text models)
  * 
- * Cache cascade:
- *   1. catalog_summaries/{catalogId}  — shared, language-agnostic
- *   2. trip_summaries/{tripId}        — per-trip fallback
+ * Cache:
+ *   catalog_summaries/{sanitized_originalItinId} — PUBLIC read, shared
+ *   Example key: "LK__sri-lanka__triangle-culturel-plages"
  * 
- * Quota: users/{uid}/summary_usage/{month}
+ * Two modes:
+ *   POST cacheOnly=true  → public read, no auth needed
+ *   POST cacheOnly=false → auth + quota + generate
  */
 
 import admin from 'firebase-admin';
@@ -27,13 +29,22 @@ const MONTHLY_LIMIT = parseInt(process.env.SUMMARY_MONTHLY_LIMIT || '1', 10);
 const VIP = ['bWFyY3NvcmNpQGZyZWUuZnI='];
 
 // ===== HELPERS =====
-function stripLangSuffix(itin) {
-  if (!itin) return '';
-  return itin.replace(/-(fr|en|es|it|pt|ar)$/i, '');
+// "LK::sri-lanka::triangle-culturel-plages" → "LK__sri-lanka__triangle-culturel-plages"
+function sanitizeDocId(id) {
+  if (!id) return '';
+  return id.replace(/::/g, '__').replace(/[\/\\]/g, '_').substring(0, 200);
 }
 
-function sanitizeDocId(id) {
-  return id.replace(/[\/\\]/g, '_').substring(0, 200);
+// Strip language suffix: "triangle-culturel-plages-fr" → "triangle-culturel-plages"
+function stripLangSuffix(id) {
+  if (!id) return '';
+  return id.replace(/-(fr|en|es|it|pt|ar)$/i, '');
+}
+
+// Build the cache key from catalogId (the _originalItinId)
+function buildCacheKey(catalogId) {
+  if (!catalogId) return null;
+  return sanitizeDocId(stripLangSuffix(catalogId));
 }
 
 // ===== AUTH =====
@@ -61,39 +72,28 @@ async function checkQuota(uid, email) {
   return { allowed: true, count: data.count, limit: MONTHLY_LIMIT, remaining: MONTHLY_LIMIT - data.count };
 }
 
-// ===== CACHE CASCADE =====
-async function findCachedSummary(catalogId, tripId) {
-  if (catalogId) {
-    try {
-      const doc = await db.collection('catalog_summaries').doc(sanitizeDocId(catalogId)).get();
-      if (doc.exists && doc.data().review && doc.data().steps) {
-        console.log(`✅ Catalog cache hit: ${catalogId}`);
-        return doc.data();
-      }
-    } catch (e) { console.warn('Catalog cache read:', e.message); }
-  }
-  if (tripId) {
-    try {
-      const doc = await db.collection('trip_summaries').doc(sanitizeDocId(tripId)).get();
-      if (doc.exists && doc.data().review && doc.data().steps) {
-        console.log(`✅ Trip cache hit: ${tripId}`);
-        return doc.data();
-      }
-    } catch (e) { console.warn('Trip cache read:', e.message); }
-  }
+// ===== CACHE =====
+async function findCachedSummary(cacheKey) {
+  if (!cacheKey) return null;
+  try {
+    const doc = await db.collection('catalog_summaries').doc(cacheKey).get();
+    if (doc.exists && doc.data().review && doc.data().steps) {
+      console.log(`✅ Cache hit: ${cacheKey}`);
+      return doc.data();
+    }
+  } catch (e) { console.warn('Cache read:', e.message); }
   return null;
 }
 
-async function saveSummary(catalogId, tripId, data, language, model) {
-  const payload = { ...data, language, model, createdAt: admin.firestore.FieldValue.serverTimestamp() };
-  if (catalogId) {
-    try { await db.collection('catalog_summaries').doc(sanitizeDocId(catalogId)).set({ ...payload, catalogId }); }
-    catch (e) { console.warn('Catalog save:', e.message); }
-  }
-  if (tripId && tripId !== catalogId) {
-    try { await db.collection('trip_summaries').doc(sanitizeDocId(tripId)).set({ ...payload, tripId }); }
-    catch (e) { console.warn('Trip save:', e.message); }
-  }
+async function saveSummary(cacheKey, data, language, model) {
+  if (!cacheKey) return;
+  try {
+    await db.collection('catalog_summaries').doc(cacheKey).set({
+      ...data, cacheKey, language, model,
+      createdAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+    console.log(`💾 Saved: catalog_summaries/${cacheKey}`);
+  } catch (e) { console.warn('Cache save:', e.message); }
 }
 
 // ===== BUILD STEPS TEXT =====
@@ -122,29 +122,27 @@ Règles: review=3 chaînes, steps=étapes avec nuits>0, passages intégrés dans
     en: `You are a road trip expert. Respond ONLY with valid JSON (no text before/after, no backticks).
 Format: {"review":["Strengths: ...","Weaknesses: ...","Verdict: who, shorten/extend, tip"],"steps":[{"day":1,"city":"NAME","highlights":"1-2 sentences, key names IN CAPITALS","next":"direction + distance + time"}]}
 Rules: review=3 strings, steps=stops with nights>0, pass-throughs in previous next, next="" last step. Concise, enthusiastic.`,
-    es: `Experto en road trips. Responde SOLO con JSON válido (sin texto antes/después, sin backticks).
+    es: `Experto en road trips. Responde SOLO con JSON válido (sin texto antes/después).
 Formato: {"review":["Fuertes: ...","Débiles: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIUDAD","highlights":"1-2 frases, nombres EN MAYÚSCULAS","next":"dirección + distancia + tiempo"}]}
 review=3, steps=etapas noches>0, next="" última. Conciso, entusiasta.`,
-    it: `Esperto di road trip. Rispondi SOLO con JSON valido (nessun testo prima/dopo, nessun backtick).
+    it: `Esperto di road trip. Rispondi SOLO con JSON valido (nessun testo prima/dopo).
 Formato: {"review":["Forza: ...","Deboli: ...","Giudizio: ..."],"steps":[{"day":1,"city":"CITTÀ","highlights":"1-2 frasi, nomi IN MAIUSCOLO","next":"direzione + distanza + tempo"}]}
 review=3, steps=tappe notti>0, next="" ultima. Conciso, entusiasta.`,
-    pt: `Especialista em road trips. Responda APENAS com JSON válido (sem texto antes/depois, sem backticks).
+    pt: `Especialista em road trips. Responda APENAS com JSON válido (sem texto antes/depois).
 Formato: {"review":["Fortes: ...","Fracos: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIDADE","highlights":"1-2 frases, nomes EM MAIÚSCULAS","next":"direção + distância + tempo"}]}
 review=3, steps=etapas noites>0, next="" última. Conciso, entusiasta.`,
-    ar: `خبير رحلات. أجب فقط بـ JSON صالح (بدون نص قبل/بعد، بدون backticks).
+    ar: `خبير رحلات. أجب فقط بـ JSON صالح.
 {"review":["القوة: ...","الضعف: ...","الحكم: ..."],"steps":[{"day":1,"city":"المدينة","highlights":"جملة أو جملتين","next":"اتجاه + مسافة + وقت"}]}
 review=3, steps=مراحل بليالي>0, next="" الأخيرة.`
   };
   return `${instr[lang] || instr.en}\n\nItinéraire "${title}":\n${stepsText}`;
 }
 
-// ===== PARSE JSON RESPONSE =====
+// ===== PARSE AI JSON =====
 function parseAiJson(text) {
   const clean = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
   const parsed = JSON.parse(clean);
-  if (!Array.isArray(parsed.review) || !Array.isArray(parsed.steps)) {
-    throw new Error('Bad AI structure');
-  }
+  if (!Array.isArray(parsed.review) || !Array.isArray(parsed.steps)) throw new Error('Bad AI structure');
   return parsed;
 }
 
@@ -152,7 +150,6 @@ function parseAiJson(text) {
 async function callGemini(title, stepsText, language) {
   console.log('🤖 Trying Gemini Flash...');
   const prompt = buildPrompt(title, stepsText, language);
-
   for (let attempt = 0; attempt < 2; attempt++) {
     const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
       method: 'POST',
@@ -162,22 +159,15 @@ async function callGemini(title, stepsText, language) {
         generationConfig: { temperature: 0.6, maxOutputTokens: 3000, responseMimeType: 'application/json' }
       })
     });
-
     if (res.status === 429 || res.status >= 500) {
       console.warn(`⚠️ Gemini ${res.status} attempt ${attempt+1}`);
       if (attempt === 0) { await new Promise(r => setTimeout(r, 3000)); continue; }
       throw new Error(`Gemini ${res.status}`);
     }
-
-    if (!res.ok) {
-      const errBody = await res.json().catch(() => ({}));
-      throw new Error(errBody.error?.message || `Gemini HTTP ${res.status}`);
-    }
-
+    if (!res.ok) { const e = await res.json().catch(() => ({})); throw new Error(e.error?.message || `Gemini ${res.status}`); }
     const data = await res.json();
     const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
     if (!text) throw new Error('Empty Gemini response');
-
     return { ...parseAiJson(text), model: 'gemini-2.0-flash' };
   }
   throw new Error('Gemini failed after retry');
@@ -190,8 +180,6 @@ async function getOpenRouterTextModels() {
   });
   if (!res.ok) return [];
   const data = await res.json();
-
-  // Free text models that handle JSON well
   const preferred = [
     'meta-llama/llama-3.1-8b-instruct:free',
     'meta-llama/llama-3.2-3b-instruct:free',
@@ -199,97 +187,49 @@ async function getOpenRouterTextModels() {
     'google/gemma-2-9b-it:free',
     'qwen/qwen-2.5-7b-instruct:free'
   ];
-
-  // Check which are actually available
   const available = data.data?.map(m => m.id) || [];
   const found = preferred.filter(m => available.includes(m));
-
-  // If none of our preferred are available, grab any free model
   if (found.length === 0) {
-    const freeModels = data.data
-      ?.filter(m => m.id.includes(':free') && !m.id.includes('vision'))
-      ?.map(m => m.id)
-      ?.slice(0, 5) || [];
-    console.log('📋 Free models found:', freeModels);
-    return freeModels;
+    return data.data?.filter(m => m.id.includes(':free') && !m.id.includes('vision')).map(m => m.id).slice(0, 5) || [];
   }
-
-  console.log('📋 Preferred models available:', found);
   return found;
 }
 
 async function callOpenRouter(title, stepsText, language) {
   console.log('📸 Fallback OpenRouter Text...');
-
   const models = await getOpenRouterTextModels();
-  if (models.length === 0) throw new Error('Aucun modèle texte gratuit');
-
+  if (models.length === 0) throw new Error('No free text models');
   const prompt = buildPrompt(title, stepsText, language);
-
   for (const model of models) {
     try {
       console.log('  Essai:', model);
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${OPENROUTER_KEY}`,
-          'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://oneroadtrip.co'
-        },
-        body: JSON.stringify({
-          model,
-          messages: [{ role: 'user', content: prompt }],
-          temperature: 0.6,
-          max_tokens: 3000
-        })
+        headers: { 'Authorization': `Bearer ${OPENROUTER_KEY}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://oneroadtrip.co' },
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.6, max_tokens: 3000 })
       });
-
-      if (!res.ok) {
-        const errData = await res.json().catch(() => ({}));
-        console.warn(`  ❌ ${model}:`, JSON.stringify(errData).substring(0, 200));
-        continue;
-      }
-
+      if (!res.ok) { console.warn(`  ❌ ${model}: HTTP ${res.status}`); continue; }
       const data = await res.json();
       const text = data.choices?.[0]?.message?.content?.trim();
-      if (!text) { console.warn(`  ❌ ${model}: empty response`); continue; }
-
-      try {
-        const parsed = parseAiJson(text);
-        console.log(`  ✅ Succès avec ${model}`);
-        return { ...parsed, model };
-      } catch (parseErr) {
-        console.warn(`  ❌ ${model}: JSON parse failed:`, text.substring(0, 200));
-        continue;
-      }
-    } catch (e) {
-      console.warn(`  ❌ ${model}:`, e.message);
-    }
+      if (!text) continue;
+      try { return { ...parseAiJson(text), model }; }
+      catch { console.warn(`  ❌ ${model}: bad JSON`); continue; }
+    } catch (e) { console.warn(`  ❌ ${model}:`, e.message); }
   }
-  throw new Error('Tous les modèles texte ont échoué');
+  throw new Error('All text models failed');
 }
 
-// ===== MAIN AI CALL =====
+// ===== MAIN AI =====
 async function generateSummary(title, stepsText, language) {
-  // 1. Gemini
   if (GEMINI_KEY) {
-    try {
-      return await callGemini(title, stepsText, language);
-    } catch (e) {
-      console.warn('❌ Gemini échoué:', e.message);
-    }
+    try { return await callGemini(title, stepsText, language); }
+    catch (e) { console.warn('❌ Gemini:', e.message); }
   }
-
-  // 2. OpenRouter fallback
   if (OPENROUTER_KEY) {
-    try {
-      return await callOpenRouter(title, stepsText, language);
-    } catch (e) {
-      console.warn('❌ OpenRouter échoué:', e.message);
-    }
+    try { return await callOpenRouter(title, stepsText, language); }
+    catch (e) { console.warn('❌ OpenRouter:', e.message); }
   }
-
-  throw new Error('Aucune API IA disponible');
+  throw new Error('No AI available');
 }
 
 // ===== HANDLER =====
@@ -304,34 +244,41 @@ export default async (request, context) => {
   if (request.method !== 'POST') return new Response(JSON.stringify({ success: false, error: 'Method not allowed' }), { status: 405, headers });
 
   try {
-    const { tripId, catalogId: rawCatalogId, title, steps, language, cacheOnly } = await request.json();
+    const { catalogId, tripId, title, steps, language, cacheOnly } = await request.json();
 
-    // Build language-agnostic catalogId
-    let catalogId = null;
-    if (rawCatalogId) {
-      const parts = rawCatalogId.split('_');
-      if (parts.length >= 2) {
-        catalogId = parts[0] + '_' + stripLangSuffix(parts.slice(1).join('_'));
-      } else {
-        catalogId = stripLangSuffix(rawCatalogId);
+    // Build cache key from catalogId (_originalItinId like "LK::sri-lanka::triangle-culturel-plages")
+    const cacheKey = buildCacheKey(catalogId) || buildCacheKey(tripId);
+
+    // ===== CACHE-ONLY MODE (public, no auth required) =====
+    if (cacheOnly) {
+      if (!cacheKey) {
+        return new Response(JSON.stringify({ success: false, error: 'no_cache' }), { status: 200, headers });
       }
+      const cached = await findCachedSummary(cacheKey);
+      if (cached) {
+        return new Response(JSON.stringify({
+          success: true,
+          data: { review: cached.review, steps: cached.steps, fromCache: true }
+        }), { status: 200, headers });
+      }
+      return new Response(JSON.stringify({ success: false, error: 'no_cache' }), { status: 200, headers });
     }
 
-    if (!catalogId && !tripId) {
+    // ===== GENERATE MODE (auth required) =====
+    if (!cacheKey) {
       return new Response(JSON.stringify({ success: false, error: 'catalogId or tripId required' }), { status: 400, headers });
     }
     if (!steps || !Array.isArray(steps) || steps.length === 0) {
       return new Response(JSON.stringify({ success: false, error: 'steps required' }), { status: 400, headers });
     }
 
-    // Auth
     const user = await verifyToken(request.headers.get('authorization'));
     if (!user) {
       return new Response(JSON.stringify({ success: false, error: 'auth_required' }), { status: 401, headers });
     }
 
-    // 1) Cache cascade
-    const cached = await findCachedSummary(catalogId, tripId);
+    // Check cache first (avoid re-generating)
+    const cached = await findCachedSummary(cacheKey);
     if (cached) {
       return new Response(JSON.stringify({
         success: true,
@@ -339,40 +286,29 @@ export default async (request, context) => {
       }), { status: 200, headers });
     }
 
-    // 2) cacheOnly
-    if (cacheOnly) {
-      return new Response(JSON.stringify({ success: false, error: 'no_cache' }), { status: 200, headers });
-    }
-
-    // 3) Quota
+    // Quota
     const quota = await checkQuota(user.uid, user.email);
     if (!quota.allowed) {
       return new Response(JSON.stringify({ success: false, error: quota.error, usage: quota }), { status: 429, headers });
     }
 
-    // 4) Generate: Gemini → OpenRouter
+    // Generate
     const lang = language || 'fr';
     let aiResult;
     try {
       aiResult = await generateSummary(title || 'Road Trip', buildStepsText(steps), lang);
     } catch (aiErr) {
       console.error('❌ All AI failed:', aiErr.message);
-      return new Response(JSON.stringify({
-        success: false,
-        error: 'ai_overloaded',
-        message: aiErr.message,
-        usage: quota
-      }), { status: 503, headers });
+      return new Response(JSON.stringify({ success: false, error: 'ai_overloaded', message: aiErr.message, usage: quota }), { status: 503, headers });
     }
 
-    // 5) Save to both caches
-    await saveSummary(catalogId, tripId, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
+    // Save
+    await saveSummary(cacheKey, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
 
     return new Response(JSON.stringify({
       success: true,
       data: { review: aiResult.review, steps: aiResult.steps, fromCache: false },
-      model: aiResult.model,
-      usage: quota
+      model: aiResult.model, usage: quota
     }), { status: 200, headers });
 
   } catch (e) {

@@ -13378,23 +13378,25 @@ if ('serviceWorker' in navigator) {
 <!-- ═══ RÉSUMÉ IA - SCRIPT ═══ -->
 <script>
 (function(){
-  var AI_SUMMARY_API = '/.netlify/functions/parse-summary';
+  var AI_API = '/.netlify/functions/parse-summary';
 
   function tAi(key) {
     var lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
     if (window.ORT_I18N && window.ORT_I18N[key]) return window.ORT_I18N[key][lang] || window.ORT_I18N[key]['en'] || window.ORT_I18N[key]['fr'] || '';
     return '';
   }
-  function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
+  // The catalog key = state._originalItinId (e.g. "LK::sri-lanka::triangle-culturel-plages")
   function getCatalogId() {
-    var cc = (window.CC || '').toUpperCase();
-    var itin = window.ITIN_ID || (window.state && window.state._originalItinId) || '';
-    if (cc && itin) return cc + '_' + itin;
+    // 1. state._originalItinId (most reliable)
+    if (window.state && window.state._originalItinId) return window.state._originalItinId;
+    // 2. ITIN_ID global (from URL param ?itin=...)
+    if (window.ITIN_ID) return window.ITIN_ID;
+    // 3. URL params
     var p = new URLSearchParams(location.search);
-    cc = (p.get('cc') || '').toUpperCase();
-    itin = p.get('itin') || '';
-    if (cc && itin) return cc + '_' + itin;
+    var itin = p.get('itin');
+    if (itin) return itin;
     return null;
   }
 
@@ -13429,17 +13431,16 @@ if ('serviceWorker' in navigator) {
     if (p) { p.textContent = tAi(key); p.style.color = '#dc2626'; p.style.display = 'block'; }
   }
 
+  // ===== GENERATE (requires auth) =====
   window.generateAiSummary = async function() {
     var btn = document.getElementById('btnAiSummary');
     var placeholder = document.getElementById('aiSummaryPlaceholder');
     var user = (window.firebase && window.firebase.auth && window.firebase.auth().currentUser) || null;
     if (!user) { showAiError('aiSummaryErrorAuth'); return; }
 
-    var tripId = window.state && window.state.tripId;
     var catalogId = getCatalogId();
-    if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0 || tripId.indexOf('catalog::') === 0)) {
-      showAiError('aiSummaryErrorSave'); return;
-    }
+    var tripId = window.state && window.state.tripId;
+    if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0)) { showAiError('aiSummaryErrorSave'); return; }
     if (!window.state || !window.state.steps || !window.state.steps.length) return;
 
     btn.disabled = true; btn.textContent = tAi('aiSummaryLoading'); btn.style.opacity = '0.6';
@@ -13457,10 +13458,10 @@ if ('serviceWorker' in navigator) {
           description: s.description || ''
         };
       });
-      var res = await fetch(AI_SUMMARY_API, {
+      var res = await fetch(AI_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        body: JSON.stringify({ tripId: tripId || '', catalogId: catalogId || '', title: window.state.title || 'Road Trip', steps: stepsPayload, language: lang })
+        body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', title: window.state.title || 'Road Trip', steps: stepsPayload, language: lang })
       });
       var data = await res.json();
       if (!res.ok || !data.success) {
@@ -13481,11 +13482,12 @@ if ('serviceWorker' in navigator) {
     }
   };
 
+  // ===== RENDER =====
   function renderAiSummary(review, steps, fromCache) {
     var actions = document.getElementById('aiSummaryActions');
     var result = document.getElementById('aiSummaryResult');
     var placeholder = document.getElementById('aiSummaryPlaceholder');
-    var reviewContainer = document.getElementById('aiReviewContainer');
+    var reviewBox = document.getElementById('aiReviewContainer');
     var grid = document.getElementById('aiStepsGrid');
     var cacheTag = document.getElementById('aiSummaryCacheTag');
     var printBtn = document.getElementById('btnPrintAiSummary');
@@ -13495,24 +13497,28 @@ if ('serviceWorker' in navigator) {
     if (result) result.style.display = 'block';
     if (printBtn) printBtn.style.display = 'inline-block';
 
-    if (reviewContainer && Array.isArray(review)) {
-      var icons = ['\uD83D\uDCAA', '\u26A0\uFE0F', '\uD83D\uDCA1'];
-      reviewContainer.innerHTML = '<div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:14px;">' + tAi('aiSummaryReview') + '</div>' +
-        review.slice(0, 3).map(function(line, i) { return '<div class="ai-review-line">' + (icons[i] || '') + ' ' + escHtml(line) + '</div>'; }).join('');
-    }
+    // Auto-expand panel when summary loads
+    var content = document.getElementById('aiSummaryContent');
+    var chevron = document.getElementById('aiSummaryChevron');
+    if (content) content.style.display = 'block';
+    if (chevron) chevron.style.transform = 'rotate(90deg)';
 
+    if (reviewBox && Array.isArray(review)) {
+      var icons = ['\uD83D\uDCAA', '\u26A0\uFE0F', '\uD83D\uDCA1'];
+      reviewBox.innerHTML = '<div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:14px;">' + tAi('aiSummaryReview') + '</div>' +
+        review.slice(0, 3).map(function(line, i) { return '<div class="ai-review-line">' + (icons[i] || '') + ' ' + escH(line) + '</div>'; }).join('');
+    }
     if (grid && Array.isArray(steps)) {
       var dayLabel = tAi('day') || 'Jour';
       grid.innerHTML = steps.map(function(s) {
         return '<div class="ai-step-card">' +
           '<div class="ai-step-day">' + dayLabel + ' ' + (s.day || '?') + '</div>' +
-          '<div class="ai-step-city">' + escHtml(s.city || '') + '</div>' +
-          '<div class="ai-step-highlights">' + escHtml(s.highlights || '') + '</div>' +
-          (s.next ? '<div class="ai-step-next">\u2192 ' + escHtml(s.next) + '</div>' : '') +
+          '<div class="ai-step-city">' + escH(s.city || '') + '</div>' +
+          '<div class="ai-step-highlights">' + escH(s.highlights || '') + '</div>' +
+          (s.next ? '<div class="ai-step-next">\u2192 ' + escH(s.next) + '</div>' : '') +
         '</div>';
       }).join('');
     }
-
     if (cacheTag && fromCache) { cacheTag.style.display = 'inline'; cacheTag.textContent = tAi('aiSummaryCached'); }
   }
 
@@ -13534,28 +13540,30 @@ if ('serviceWorker' in navigator) {
   }
   waitAndInit();
 
-  // Auto-load shared cache (no quota burn)
+  // ===== AUTO-LOAD CACHE (NO AUTH — public read) =====
   (function() {
     var att = 0;
     var ck = setInterval(async function() {
-      att++; if (att > 40) { clearInterval(ck); return; }
-      var user = (window.firebase && window.firebase.auth && window.firebase.auth().currentUser) || null;
-      if (!user) return;
-      var catalogId = getCatalogId();
-      var tripId = window.state && window.state.tripId;
-      var key = catalogId || tripId;
-      if (!key) return;
+      att++; if (att > 50) { clearInterval(ck); return; }
+      // Wait for state to be ready (steps loaded)
       if (!window.state || !window.state.steps || !window.state.steps.length) return;
+      var catalogId = getCatalogId();
+      var tripId = window.state.tripId;
+      if (!catalogId && !tripId) return;
       clearInterval(ck);
+      console.log('[AI-SUMMARY] Cache check — catalogId:', catalogId, 'tripId:', tripId);
       try {
-        var token = await user.getIdToken();
-        var res = await fetch(AI_SUMMARY_API, {
+        // NO auth header → public cache read
+        var res = await fetch(AI_API, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
         });
         var data = await res.json();
-        if (data.success && data.data && data.data.fromCache) renderAiSummary(data.data.review, data.data.steps, true);
+        if (data.success && data.data && data.data.fromCache) {
+          console.log('[AI-SUMMARY] ✅ Public cache loaded!');
+          renderAiSummary(data.data.review, data.data.steps, true);
+        }
       } catch (e) { console.log('[AI-SUMMARY] Cache:', e.message); }
     }, 2000);
   })();

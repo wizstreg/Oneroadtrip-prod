@@ -2291,4 +2291,22 @@ window.ORT_I18N.aiSummaryCopied = {
   ar: '✅ تم النسخ!'
 };
 
+window.ORT_I18N.aiSummaryShare = {
+  fr: '📤 Partager',
+  en: '📤 Share',
+  es: '📤 Compartir',
+  it: '📤 Condividi',
+  pt: '📤 Partilhar',
+  ar: '📤 مشاركة'
+};
+
+window.ORT_I18N.aiSummaryShareSubject = {
+  fr: 'Résumé de mon road trip',
+  en: 'My road trip summary',
+  es: 'Resumen de mi road trip',
+  it: 'Riassunto del mio road trip',
+  pt: 'Resumo da minha viagem',
+  ar: 'ملخص رحلتي'
+};
+
 console.log('[ORT-I18N] ✅ Chargé -', Object.keys(window.ORT_I18N).length, 'clés');

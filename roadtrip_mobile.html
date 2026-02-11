@@ -1874,7 +1874,13 @@ html, body {
             <span id="aiSummaryCacheTag" style="display:none;font-size:10px;color:#94a3b8;font-style:italic;"></span>
           </div>
           <div id="aiStepsGrid" class="ai-steps-grid"></div>
-          <button id="btnCopyAiSummary" type="button" onclick="copyAiSummary()" style="margin-top:8px;padding:6px 12px;border-radius:8px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:11px;cursor:pointer;font-weight:600;">📋 Copier</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+            <button id="btnCopyAiSummary" type="button" onclick="copyAiSummary()" style="padding:8px 14px;border-radius:8px;border:1px solid #cbd5e1;background:#f8fafc;color:#475569;font-size:11px;cursor:pointer;font-weight:600;">📋 Copier</button>
+            <button id="btnShareAiWhatsapp" type="button" onclick="shareAiSummary('whatsapp')" style="padding:8px 14px;border-radius:8px;border:1px solid #25d366;background:#25d366;color:#fff;font-size:11px;cursor:pointer;font-weight:700;">💬 WhatsApp</button>
+            <button id="btnShareAiSms" type="button" onclick="shareAiSummary('sms')" style="padding:8px 14px;border-radius:8px;border:1px solid #3b82f6;background:#3b82f6;color:#fff;font-size:11px;cursor:pointer;font-weight:700;">💬 SMS</button>
+            <button id="btnShareAiEmail" type="button" onclick="shareAiSummary('email')" style="padding:8px 14px;border-radius:8px;border:1px solid #6366f1;background:#6366f1;color:#fff;font-size:11px;cursor:pointer;font-weight:700;">✉️ Email</button>
+            <button id="btnShareAiNative" type="button" onclick="shareAiSummary('native')" style="display:none;padding:8px 14px;border-radius:8px;border:1px solid #1e3a5f;background:#1e3a5f;color:#fff;font-size:11px;cursor:pointer;font-weight:700;" >📤 <span id="btnShareAiNativeLabel">Partager</span></button>
+          </div>
         </div>
       </div>
     </div>
@@ -7053,32 +7059,23 @@ if ('serviceWorker' in navigator) {
 <!-- ═══ RÉSUMÉ IA - SCRIPT ═══ -->
 <script>
 (function(){
-  var AI_SUMMARY_API = '/.netlify/functions/parse-summary';
+  var AI_API = '/.netlify/functions/parse-summary';
 
   function tAi(key) {
     var lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
     if (window.ORT_I18N && window.ORT_I18N[key]) return window.ORT_I18N[key][lang] || window.ORT_I18N[key]['en'] || window.ORT_I18N[key]['fr'] || '';
     return '';
   }
-  function escHtml(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+  function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
   function getCatalogId() {
-    // Mobile: CC and ITIN_ID may be globals or in URL
+    if (window.state && window.state._originalItinId) return window.state._originalItinId;
     var p = new URLSearchParams(location.search);
-    var cc = (window.CC || p.get('cc') || '').toUpperCase();
-    var itin = window.ITIN_ID || p.get('itin') || '';
-    // Also check state
-    if (!cc && window.state) cc = (window.state.cc || window.state.country || '').toUpperCase();
-    if (!itin && window.state) itin = window.state._originalItinId || '';
-    // Also check sessionStorage catalog source
-    if (!itin) {
-      var src = sessionStorage.getItem('ort_catalog_source') || '';
-      if (src.indexOf('catalog::') === 0) {
-        var parts = src.replace('catalog::', '').split('/');
-        if (parts.length >= 2) { cc = cc || parts[0].toUpperCase(); itin = itin || parts[1]; }
-      }
-    }
-    if (cc && itin) return cc + '_' + itin;
+    var itin = p.get('itin');
+    if (itin) return itin;
+    // sessionStorage fallback
+    var src = sessionStorage.getItem('ort_catalog_source') || '';
+    if (src.indexOf('catalog::') === 0) return src.replace('catalog::', '');
     return null;
   }
 
@@ -7089,6 +7086,9 @@ if ('serviceWorker' in navigator) {
     if ($('btnAiSummary'))            $('btnAiSummary').textContent = tAi('aiSummaryGenerate');
     if ($('aiSummaryItineraryTitle')) $('aiSummaryItineraryTitle').textContent = tAi('aiSummaryItinerary');
     if ($('btnCopyAiSummary'))        $('btnCopyAiSummary').textContent = tAi('aiSummaryCopy');
+    if ($('btnShareAiNativeLabel'))   $('btnShareAiNativeLabel').textContent = tAi('aiSummaryShare').replace('📤 ', '');
+    // Show native share button if Web Share API is available
+    if (navigator.share && $('btnShareAiNative')) $('btnShareAiNative').style.display = 'inline-block';
   }
 
   window.toggleAiSummary = function() {
@@ -7120,11 +7120,9 @@ if ('serviceWorker' in navigator) {
     var user = (window.firebase && window.firebase.auth && window.firebase.auth().currentUser) || null;
     if (!user) { showAiError('aiSummaryErrorAuth'); return; }
 
-    var tripId = st.tripId;
     var catalogId = getCatalogId();
-    if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0 || tripId.indexOf('catalog::') === 0)) {
-      showAiError('aiSummaryErrorSave'); return;
-    }
+    var tripId = st.tripId;
+    if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0)) { showAiError('aiSummaryErrorSave'); return; }
     if (!st.steps || !st.steps.length) return;
 
     btn.disabled = true; btn.textContent = tAi('aiSummaryLoading'); btn.style.opacity = '0.6';
@@ -7142,10 +7140,10 @@ if ('serviceWorker' in navigator) {
           description: s.description || ''
         };
       });
-      var res = await fetch(AI_SUMMARY_API, {
+      var res = await fetch(AI_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-        body: JSON.stringify({ tripId: tripId || '', catalogId: catalogId || '', title: st.title || 'Road Trip', steps: stepsPayload, language: lang })
+        body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', title: st.title || 'Road Trip', steps: stepsPayload, language: lang })
       });
       var data = await res.json();
       if (!res.ok || !data.success) {
@@ -7170,7 +7168,7 @@ if ('serviceWorker' in navigator) {
     var actions = document.getElementById('aiSummaryActions');
     var result = document.getElementById('aiSummaryResult');
     var placeholder = document.getElementById('aiSummaryPlaceholder');
-    var reviewContainer = document.getElementById('aiReviewContainer');
+    var reviewBox = document.getElementById('aiReviewContainer');
     var grid = document.getElementById('aiStepsGrid');
     var cacheTag = document.getElementById('aiSummaryCacheTag');
 
@@ -7178,24 +7176,27 @@ if ('serviceWorker' in navigator) {
     if (placeholder) placeholder.style.display = 'none';
     if (result) result.style.display = 'block';
 
-    if (reviewContainer && Array.isArray(review)) {
-      var icons = ['\uD83D\uDCAA', '\u26A0\uFE0F', '\uD83D\uDCA1'];
-      reviewContainer.innerHTML = '<div style="font-weight:700;color:#166534;margin-bottom:6px;font-size:13px;">' + tAi('aiSummaryReview') + '</div>' +
-        review.slice(0, 3).map(function(line, i) { return '<div class="ai-review-line">' + (icons[i] || '') + ' ' + escHtml(line) + '</div>'; }).join('');
-    }
+    var content = document.getElementById('aiSummaryContent');
+    var chevron = document.getElementById('aiSummaryChevron');
+    if (content) content.style.display = 'block';
+    if (chevron) chevron.style.transform = 'rotate(90deg)';
 
+    if (reviewBox && Array.isArray(review)) {
+      var icons = ['\uD83D\uDCAA', '\u26A0\uFE0F', '\uD83D\uDCA1'];
+      reviewBox.innerHTML = '<div style="font-weight:700;color:#166534;margin-bottom:6px;font-size:13px;">' + tAi('aiSummaryReview') + '</div>' +
+        review.slice(0, 3).map(function(line, i) { return '<div class="ai-review-line">' + (icons[i] || '') + ' ' + escH(line) + '</div>'; }).join('');
+    }
     if (grid && Array.isArray(steps)) {
       var dayLabel = tAi('day') || 'Jour';
       grid.innerHTML = steps.map(function(s) {
         return '<div class="ai-step-card">' +
           '<div class="ai-step-day">' + dayLabel + ' ' + (s.day || '?') + '</div>' +
-          '<div class="ai-step-city">' + escHtml(s.city || '') + '</div>' +
-          '<div class="ai-step-highlights">' + escHtml(s.highlights || '') + '</div>' +
-          (s.next ? '<div class="ai-step-next">\u2192 ' + escHtml(s.next) + '</div>' : '') +
+          '<div class="ai-step-city">' + escH(s.city || '') + '</div>' +
+          '<div class="ai-step-highlights">' + escH(s.highlights || '') + '</div>' +
+          (s.next ? '<div class="ai-step-next">\u2192 ' + escH(s.next) + '</div>' : '') +
         '</div>';
       }).join('');
     }
-
     if (cacheTag && fromCache) { cacheTag.style.display = 'inline'; cacheTag.textContent = tAi('aiSummaryCached'); }
   }
 
@@ -7209,35 +7210,58 @@ if ('serviceWorker' in navigator) {
     }).catch(function(){});
   };
 
+  function getShareText() {
+    var title = (window.state && window.state.title) || 'Road Trip';
+    var r = document.getElementById('aiReviewContainer');
+    var g = document.getElementById('aiStepsGrid');
+    var review = r ? r.innerText : '';
+    var steps = g ? g.innerText : '';
+    var url = location.href;
+    return { title: title, text: title + '\n\n' + review + '\n\n' + steps + '\n\n' + url, url: url };
+  }
+
+  window.shareAiSummary = function(mode) {
+    var d = getShareText();
+    var subject = tAi('aiSummaryShareSubject') || d.title;
+    var encoded = encodeURIComponent(d.text);
+
+    if (mode === 'whatsapp') {
+      window.open('https://wa.me/?text=' + encoded, '_blank');
+    } else if (mode === 'sms') {
+      window.open('sms:?body=' + encoded, '_blank');
+    } else if (mode === 'email') {
+      window.open('mailto:?subject=' + encodeURIComponent(subject) + '&body=' + encoded, '_blank');
+    } else if (mode === 'native' && navigator.share) {
+      navigator.share({ title: subject, text: d.text, url: d.url }).catch(function(){});
+    }
+  };
+
   function waitAndInit() {
     if (window.ORT_I18N && window.ORT_I18N.aiSummaryTitle) initAiLabels();
     else setTimeout(waitAndInit, 300);
   }
   waitAndInit();
 
-  // Auto-load shared cache — longer wait for mobile (auth slower)
+  // ===== AUTO-LOAD CACHE (NO AUTH) =====
   (function() {
     var att = 0;
     var ck = setInterval(async function() {
       att++; if (att > 50) { clearInterval(ck); return; }
-      var user = (window.firebase && window.firebase.auth && window.firebase.auth().currentUser) || null;
-      if (!user) return;
+      if (!window.state || !window.state.steps || !window.state.steps.length) return;
       var catalogId = getCatalogId();
-      var tripId = window.state && window.state.tripId;
-      var key = catalogId || tripId;
-      if (!key) return;
+      var tripId = window.state.tripId;
+      if (!catalogId && !tripId) return;
       clearInterval(ck);
-      console.log('[AI-SUMMARY] Cache check with key:', key);
+      console.log('[AI-SUMMARY] Cache check — catalogId:', catalogId, 'tripId:', tripId);
       try {
-        var token = await user.getIdToken();
-        var res = await fetch(AI_SUMMARY_API, {
+        var res = await fetch(AI_API, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
         });
         var data = await res.json();
         if (data.success && data.data && data.data.fromCache) {
-          console.log('[AI-SUMMARY] Cache loaded!');
+          console.log('[AI-SUMMARY] Public cache loaded!');
           renderAiSummary(data.data.review, data.data.steps, true);
         }
       } catch (e) { console.log('[AI-SUMMARY] Cache:', e.message); }
