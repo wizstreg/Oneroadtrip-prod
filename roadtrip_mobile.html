@@ -7091,6 +7091,11 @@ if ('serviceWorker' in navigator) {
           if (parsed && parsed.steps && parsed.steps.length > 0) {
             parsed.tripId = parsed.tripId || parsed.id || tripId;
             // Reconstruct _originalItinId if missing
+            console.log('[AI-SUMMARY] LS raw keys:', Object.keys(parsed).join(', '));
+            console.log('[AI-SUMMARY] LS _originalItinId:', parsed._originalItinId);
+            console.log('[AI-SUMMARY] LS itinId:', parsed.itinId);
+            console.log('[AI-SUMMARY] LS baseItinerary:', JSON.stringify(parsed.baseItinerary || null));
+            console.log('[AI-SUMMARY] LS _itinRef:', JSON.stringify(parsed._itinRef || null));
             if (!parsed._originalItinId) {
               if (parsed._itinRef) {
                 parsed._originalItinId = (typeof parsed._itinRef === 'string') ? parsed._itinRef : (parsed._itinRef.itin || null);
@@ -7099,7 +7104,7 @@ if ('serviceWorker' in navigator) {
                 parsed._originalItinId = (typeof parsed.baseItinerary === 'string') ? parsed.baseItinerary : (parsed.baseItinerary.itin || null);
               }
             }
-            console.log('[AI-SUMMARY] State from localStorage, steps:', parsed.steps.length, '_originalItinId:', parsed._originalItinId);
+            console.log('[AI-SUMMARY] LS FINAL _originalItinId:', parsed._originalItinId);
             return parsed;
           }
         }
