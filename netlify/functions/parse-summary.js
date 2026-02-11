@@ -154,6 +154,9 @@ function parseAiJson(text) {
   const clean = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
   const parsed = JSON.parse(clean);
   if (!Array.isArray(parsed.review) || !Array.isArray(parsed.steps)) throw new Error('Bad AI structure');
+  // Ensure alerts is always an array
+  if (!Array.isArray(parsed.alerts)) parsed.alerts = [];
+  console.log(`🤖 AI parsed: ${parsed.alerts.length} alerts, ${parsed.review.length} review, ${parsed.steps.length} steps`);
   return parsed;
 }
 

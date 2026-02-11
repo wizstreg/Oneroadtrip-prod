@@ -13477,6 +13477,7 @@ if ('serviceWorker' in navigator) {
         if (data.error === 'ai_overloaded') throw new Error('overloaded');
         throw new Error(data.error || 'unknown');
       }
+      console.log('[AI-SUMMARY] Generated! alerts:', JSON.stringify(data.data.alerts));
       renderAiSummary(data.data.review, data.data.steps, data.data.fromCache, data.data.alerts);
     } catch (e) {
       console.error('[AI-SUMMARY]', e);
@@ -13576,7 +13577,7 @@ if ('serviceWorker' in navigator) {
         });
         var data = await res.json();
         if (data.success && data.data && data.data.fromCache) {
-          console.log('[AI-SUMMARY] ✅ Public cache loaded!');
+          console.log('[AI-SUMMARY] ✅ Public cache loaded! alerts:', JSON.stringify(data.data.alerts), 'review:', data.data.review.length, 'steps:', data.data.steps.length);
           renderAiSummary(data.data.review, data.data.steps, true, data.data.alerts);
         }
       } catch (e) { console.log('[AI-SUMMARY] Cache:', e.message); }
