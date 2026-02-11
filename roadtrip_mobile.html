@@ -7068,8 +7068,39 @@ if ('serviceWorker' in navigator) {
   }
   function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
-  function getCatalogId() {
-    var st = window.state || {};
+  // Bridge: find the mobile state object
+  // The mobile script uses top-level "let state" which is NOT on window.
+  // We find it by looking at known exposures or DOM data.
+  function getMobileState() {
+    // 1. If someone exposed it
+    if (window._ortState) return window._ortState;
+    // 2. Try window.state (works in some engines with let)
+    if (window.state && window.state.steps && window.state.steps.length > 0) return window.state;
+    // 3. Read from ORT_TRIPID and localStorage
+    var tripId = null;
+    if (window.ORT_TRIPID && window.ORT_TRIPID.get) tripId = window.ORT_TRIPID.get();
+    if (!tripId) {
+      var p = new URLSearchParams(location.search);
+      tripId = p.get('tripId') || p.get('id') || null;
+    }
+    if (tripId) {
+      try {
+        var stored = localStorage.getItem('ort_trip_' + tripId);
+        if (stored) {
+          var parsed = JSON.parse(stored);
+          if (parsed && parsed.steps && parsed.steps.length > 0) {
+            parsed.tripId = parsed.tripId || parsed.id || tripId;
+            console.log('[AI-SUMMARY] State reconstructed from localStorage, steps:', parsed.steps.length);
+            return parsed;
+          }
+        }
+      } catch(e) { console.log('[AI-SUMMARY] localStorage parse error:', e.message); }
+    }
+    return null;
+  }
+
+  function getCatalogId(st) {
+    if (!st) return null;
     var id = st._originalItinId || st.itinId || st.originalItinId || null;
     if (id) { console.log('[AI-SUMMARY] getCatalogId from state:', id); return id; }
     var p = new URLSearchParams(location.search);
@@ -7081,21 +7112,18 @@ if ('serviceWorker' in navigator) {
       console.log('[AI-SUMMARY] getCatalogId from session:', id);
       return id;
     }
-    var tid = st.tripId || p.get('tripId') || '';
+    var tid = st.tripId || '';
     if (tid) {
       try {
         var stored = localStorage.getItem('ort_trip_' + tid);
         if (stored) {
           var parsed = JSON.parse(stored);
           id = parsed._originalItinId || parsed.itinId || parsed.baseItinerary || null;
-          if (id) { console.log('[AI-SUMMARY] getCatalogId from localStorage:', id); return id; }
+          if (id) { console.log('[AI-SUMMARY] getCatalogId from LS trip:', id); return id; }
         }
       } catch(e) {}
     }
-    if (tid.indexOf('::') >= 0) {
-      console.log('[AI-SUMMARY] getCatalogId from tripId:', tid);
-      return tid;
-    }
+    if (tid.indexOf('::') >= 0) { return tid; }
     console.log('[AI-SUMMARY] getCatalogId → null. _originalItinId:', st._originalItinId, '| tripId:', tid);
     return null;
   }
@@ -7109,7 +7137,7 @@ if ('serviceWorker' in navigator) {
     if (g('btnCopyAiSummary'))        g('btnCopyAiSummary').textContent = tAi('aiSummaryCopy');
     if (g('btnShareAiNativeLabel'))   g('btnShareAiNativeLabel').textContent = (tAi('aiSummaryShare') || '').replace(/\uD83D\uDCE4\s?/, '');
     if (navigator.share && g('btnShareAiNative')) g('btnShareAiNative').style.display = 'inline-block';
-    console.log('[AI-SUMMARY] Labels initialized');
+    console.log('[AI-SUMMARY] Labels init OK');
   }
 
   window.toggleAiSummary = function() {
@@ -7171,16 +7199,17 @@ if ('serviceWorker' in navigator) {
     console.log('[AI-SUMMARY] Rendered! fromCache:', fromCache);
   }
 
-  // ===== GENERATE (requires auth) — pure .then(), NO async/await =====
+  // ===== GENERATE =====
   window.generateAiSummary = function() {
     var btn = document.getElementById('btnAiSummary');
     var placeholder = document.getElementById('aiSummaryPlaceholder');
-    var st = window.state || {};
+    var st = getMobileState();
+    if (!st) { showAiError('aiSummaryErrorGeneric'); return; }
     var user = (window.firebase && window.firebase.auth && window.firebase.auth().currentUser) || null;
     if (!user) { showAiError('aiSummaryErrorAuth'); return; }
 
-    var catalogId = getCatalogId();
-    var tripId = st.tripId;
+    var catalogId = getCatalogId(st);
+    var tripId = st.tripId || '';
     console.log('[AI-SUMMARY] Generate — catalogId:', catalogId, '| tripId:', tripId);
     if (!catalogId && (!tripId || tripId.indexOf('temp_') === 0)) { showAiError('aiSummaryErrorSave'); return; }
     if (!st.steps || !st.steps.length) return;
@@ -7204,9 +7233,8 @@ if ('serviceWorker' in navigator) {
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', title: st.title || 'Road Trip', steps: stepsPayload, language: lang })
       });
-    }).then(function(res) {
-      return res.json();
-    }).then(function(data) {
+    }).then(function(res) { return res.json(); })
+    .then(function(data) {
       if (!data.success) {
         if (data.error === 'monthly_quota') throw new Error('quota');
         if (data.error === 'auth_required') throw new Error('auth');
@@ -7226,9 +7254,10 @@ if ('serviceWorker' in navigator) {
   };
 
   window.copyAiSummary = function() {
+    var st = getMobileState() || {};
     var r = document.getElementById('aiReviewContainer');
     var g = document.getElementById('aiStepsGrid');
-    var txt = (window.state && window.state.title || 'Road Trip') + '\n\n' + (r ? r.innerText : '') + '\n\n' + (g ? g.innerText : '');
+    var txt = (st.title || 'Road Trip') + '\n\n' + (r ? r.innerText : '') + '\n\n' + (g ? g.innerText : '');
     navigator.clipboard.writeText(txt).then(function() {
       var btn = document.getElementById('btnCopyAiSummary');
       if (btn) { var o = btn.textContent; btn.textContent = tAi('aiSummaryCopied'); setTimeout(function(){ btn.textContent = o; }, 1500); }
@@ -7236,7 +7265,8 @@ if ('serviceWorker' in navigator) {
   };
 
   function getShareText() {
-    var title = (window.state && window.state.title) || 'Road Trip';
+    var st = getMobileState() || {};
+    var title = st.title || 'Road Trip';
     var r = document.getElementById('aiReviewContainer');
     var g = document.getElementById('aiStepsGrid');
     return { title: title, text: title + '\n\n' + (r ? r.innerText : '') + '\n\n' + (g ? g.innerText : '') + '\n\n' + location.href, url: location.href };
@@ -7258,34 +7288,32 @@ if ('serviceWorker' in navigator) {
   }
   waitAndInit();
 
-  // ===== AUTO-LOAD CACHE (NO AUTH, pure .then()) =====
+  // ===== AUTO-LOAD CACHE (NO AUTH) =====
   (function() {
     var att = 0;
     var ck = setInterval(function() {
       att++;
       if (att > 60) { clearInterval(ck); console.log('[AI-SUMMARY] Gave up after 60 attempts'); return; }
-      var hasState = !!window.state;
-      var hasSteps = hasState && window.state.steps && window.state.steps.length > 0;
-      var tid = hasState ? window.state.tripId : null;
-      var oid = hasState ? window.state._originalItinId : null;
-      if (att <= 5 || att % 10 === 0) {
-        console.log('[AI-SUMMARY] tick #' + att + ' state:' + hasState + ' steps:' + (hasSteps ? window.state.steps.length : 0) + ' tripId:' + tid + ' _origItinId:' + oid);
+      var st = getMobileState();
+      if (!st || !st.steps || !st.steps.length) {
+        if (att <= 3) console.log('[AI-SUMMARY] tick #' + att + ' — waiting for state...');
+        return;
       }
-      if (!hasSteps) return;
-      var catalogId = getCatalogId();
-      // FALLBACK: if getCatalogId is null, use tripId directly as cache key
-      var tripId = tid || '';
-      if (!catalogId && !tripId) return;
+      var catalogId = getCatalogId(st);
+      var tripId = st.tripId || '';
+      if (!catalogId && !tripId) {
+        if (att <= 3) console.log('[AI-SUMMARY] tick #' + att + ' — no catalogId/tripId');
+        return;
+      }
       clearInterval(ck);
-      console.log('[AI-SUMMARY] Auto-load cache — catalogId:', catalogId, '| tripId:', tripId);
+      console.log('[AI-SUMMARY] Auto-load — catalogId:', catalogId, '| tripId:', tripId);
 
       fetch(AI_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
-      }).then(function(res) {
-        return res.json();
-      }).then(function(data) {
+      }).then(function(res) { return res.json(); })
+      .then(function(data) {
         console.log('[AI-SUMMARY] Cache response:', JSON.stringify(data).substring(0, 200));
         if (data.success && data.data && data.data.fromCache) {
           console.log('[AI-SUMMARY] Cache loaded!');
