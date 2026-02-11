@@ -7090,7 +7090,16 @@ if ('serviceWorker' in navigator) {
           var parsed = JSON.parse(stored);
           if (parsed && parsed.steps && parsed.steps.length > 0) {
             parsed.tripId = parsed.tripId || parsed.id || tripId;
-            console.log('[AI-SUMMARY] State reconstructed from localStorage, steps:', parsed.steps.length);
+            // Reconstruct _originalItinId if missing
+            if (!parsed._originalItinId) {
+              if (parsed._itinRef) {
+                parsed._originalItinId = (typeof parsed._itinRef === 'string') ? parsed._itinRef : (parsed._itinRef.itin || null);
+              }
+              if (!parsed._originalItinId && parsed.baseItinerary) {
+                parsed._originalItinId = (typeof parsed.baseItinerary === 'string') ? parsed.baseItinerary : (parsed.baseItinerary.itin || null);
+              }
+            }
+            console.log('[AI-SUMMARY] State from localStorage, steps:', parsed.steps.length, '_originalItinId:', parsed._originalItinId);
             return parsed;
           }
         }
@@ -7118,7 +7127,13 @@ if ('serviceWorker' in navigator) {
         var stored = localStorage.getItem('ort_trip_' + tid);
         if (stored) {
           var parsed = JSON.parse(stored);
-          id = parsed._originalItinId || parsed.itinId || parsed.baseItinerary || null;
+          id = parsed._originalItinId || parsed.itinId || null;
+          if (!id && parsed.baseItinerary) {
+            id = (typeof parsed.baseItinerary === 'string') ? parsed.baseItinerary : (parsed.baseItinerary.itin || null);
+          }
+          if (!id && parsed._itinRef) {
+            id = (typeof parsed._itinRef === 'string') ? parsed._itinRef : (parsed._itinRef.itin || null);
+          }
           if (id) { console.log('[AI-SUMMARY] getCatalogId from LS trip:', id); return id; }
         }
       } catch(e) {}

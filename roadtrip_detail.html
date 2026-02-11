@@ -13391,9 +13391,15 @@ if ('serviceWorker' in navigator) {
   function getCatalogId() {
     // 1. state._originalItinId (most reliable)
     if (window.state && window.state._originalItinId) return window.state._originalItinId;
-    // 2. ITIN_ID global (from URL param ?itin=...)
+    // 2. state._itinRef.itin (set from saved trips)
+    if (window.state && window.state._itinRef) {
+      var ref = window.state._itinRef;
+      var itin = (typeof ref === 'string') ? ref : (ref.itin || null);
+      if (itin) return itin;
+    }
+    // 3. ITIN_ID global (from URL param ?itin=...)
     if (window.ITIN_ID) return window.ITIN_ID;
-    // 3. URL params
+    // 4. URL params
     var p = new URLSearchParams(location.search);
     var itin = p.get('itin');
     if (itin) return itin;
