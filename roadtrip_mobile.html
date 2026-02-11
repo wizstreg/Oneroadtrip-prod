@@ -7069,13 +7069,28 @@ if ('serviceWorker' in navigator) {
   function escH(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
   function getCatalogId() {
-    if (window.state && window.state._originalItinId) return window.state._originalItinId;
+    var st = window.state || {};
+    // 1. Direct from state
+    var id = st._originalItinId || st.itinId || st.originalItinId || null;
+    if (id) { console.log('[AI-SUMMARY] getCatalogId from state:', id); return id; }
+    // 2. URL params
     var p = new URLSearchParams(location.search);
     var itin = p.get('itin');
-    if (itin) return itin;
-    // sessionStorage fallback
+    if (itin) { console.log('[AI-SUMMARY] getCatalogId from URL itin:', itin); return itin; }
+    // 3. sessionStorage catalog source
     var src = sessionStorage.getItem('ort_catalog_source') || '';
-    if (src.indexOf('catalog::') === 0) return src.replace('catalog::', '');
+    if (src && src.indexOf('catalog::') === 0) {
+      id = src.replace('catalog::', '');
+      console.log('[AI-SUMMARY] getCatalogId from sessionStorage:', id);
+      return id;
+    }
+    // 4. Try to extract from tripId if it contains ::
+    var tid = st.tripId || p.get('tripId') || '';
+    if (tid.indexOf('::') >= 0) {
+      console.log('[AI-SUMMARY] getCatalogId from tripId with "::":', tid);
+      return tid;
+    }
+    console.log('[AI-SUMMARY] getCatalogId → null. state keys:', Object.keys(st).filter(function(k){ return st[k]; }).join(', '));
     return null;
   }
 
@@ -7086,8 +7101,7 @@ if ('serviceWorker' in navigator) {
     if ($('btnAiSummary'))            $('btnAiSummary').textContent = tAi('aiSummaryGenerate');
     if ($('aiSummaryItineraryTitle')) $('aiSummaryItineraryTitle').textContent = tAi('aiSummaryItinerary');
     if ($('btnCopyAiSummary'))        $('btnCopyAiSummary').textContent = tAi('aiSummaryCopy');
-    if ($('btnShareAiNativeLabel'))   $('btnShareAiNativeLabel').textContent = tAi('aiSummaryShare').replace('📤 ', '');
-    // Show native share button if Web Share API is available
+    if ($('btnShareAiNativeLabel'))   $('btnShareAiNativeLabel').textContent = (tAi('aiSummaryShare') || '').replace(/📤\s?/, '');
     if (navigator.share && $('btnShareAiNative')) $('btnShareAiNative').style.display = 'inline-block';
   }
 
@@ -7225,7 +7239,6 @@ if ('serviceWorker' in navigator) {
     var d = getShareText();
     var subject = tAi('aiSummaryShareSubject') || d.title;
     var encoded = encodeURIComponent(d.text);
-
     if (mode === 'whatsapp') {
       window.open('https://wa.me/?text=' + encoded, '_blank');
     } else if (mode === 'sms') {
@@ -7243,17 +7256,17 @@ if ('serviceWorker' in navigator) {
   }
   waitAndInit();
 
-  // ===== AUTO-LOAD CACHE (NO AUTH) =====
+  // ===== AUTO-LOAD CACHE (NO AUTH — public read) =====
   (function() {
     var att = 0;
     var ck = setInterval(async function() {
-      att++; if (att > 50) { clearInterval(ck); return; }
+      att++; if (att > 60) { clearInterval(ck); console.log('[AI-SUMMARY] Gave up waiting after 60 attempts'); return; }
       if (!window.state || !window.state.steps || !window.state.steps.length) return;
       var catalogId = getCatalogId();
       var tripId = window.state.tripId;
       if (!catalogId && !tripId) return;
       clearInterval(ck);
-      console.log('[AI-SUMMARY] Cache check — catalogId:', catalogId, 'tripId:', tripId);
+      console.log('[AI-SUMMARY] Auto-load cache — catalogId:', catalogId, '| tripId:', tripId);
       try {
         var res = await fetch(AI_API, {
           method: 'POST',
@@ -7261,11 +7274,14 @@ if ('serviceWorker' in navigator) {
           body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
         });
         var data = await res.json();
+        console.log('[AI-SUMMARY] Cache response:', JSON.stringify(data).substring(0, 200));
         if (data.success && data.data && data.data.fromCache) {
-          console.log('[AI-SUMMARY] Public cache loaded!');
+          console.log('[AI-SUMMARY] Cache loaded OK!');
           renderAiSummary(data.data.review, data.data.steps, true);
+        } else {
+          console.log('[AI-SUMMARY] No cache found');
         }
-      } catch (e) { console.log('[AI-SUMMARY] Cache:', e.message); }
+      } catch (e) { console.log('[AI-SUMMARY] Cache error:', e.message); }
     }, 2000);
   })();
 })();
