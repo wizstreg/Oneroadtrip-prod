@@ -319,7 +319,6 @@ export default async (request, context) => {
 
     // Save
     // Save under both catalogId and tripId keys
-    const tripKey = tripId ? sanitizeDocId(tripId) : null;
     await saveSummary(cacheKey, tripKey, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
 
     return new Response(JSON.stringify({
