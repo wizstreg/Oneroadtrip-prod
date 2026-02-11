@@ -2300,6 +2300,15 @@ window.ORT_I18N.aiSummaryAlerts = {
   ar: '🔍 نقاط للتحقق'
 };
 
+window.ORT_I18N.aiSummaryNoAlerts = {
+  fr: '✅ Pas d\'alertes majeures sur cet itinéraire',
+  en: '✅ No major alerts on this itinerary',
+  es: '✅ Sin alertas importantes en este itinerario',
+  it: '✅ Nessuna allerta importante su questo itinerario',
+  pt: '✅ Sem alertas importantes neste itinerário',
+  ar: '✅ لا تنبيهات رئيسية على هذا المسار'
+};
+
 window.ORT_I18N.aiSummaryShare = {
   fr: '📤 Partager',
   en: '📤 Share',
