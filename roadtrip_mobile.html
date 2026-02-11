@@ -1868,7 +1868,7 @@ html, body {
           <button id="btnAiSummary" type="button" onclick="generateAiSummary()" style="width:100%;padding:10px;border-radius:10px;border:2px solid #2563eb;background:#2563eb;color:#fff;font-weight:700;font-size:13px;cursor:pointer;">✨ Générer le résumé IA</button>
         </div>
         <div id="aiSummaryResult" style="display:none;margin-top:14px;">
-          <div id="aiReviewContainer" class="ai-review-box"></div>
+          <div id="aiReviewContainer" class="ai-review-box" style="display:none"></div>
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
             <span id="aiSummaryItineraryTitle" style="font-weight:700;color:#1e3a5f;font-size:13px;">🗺️ Résumé</span>
             <span id="aiSummaryCacheTag" style="display:none;font-size:10px;color:#94a3b8;font-style:italic;"></span>
@@ -7197,14 +7197,15 @@ if ('serviceWorker' in navigator) {
     // Panel stays collapsed
 
     // Alerts
+    if (reviewBox) reviewBox.style.display = 'block';
     if (reviewBox && Array.isArray(alerts) && alerts.length > 0) {
       var alertsHtml = '<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:8px 12px;margin-bottom:10px;">' +
-        '<div style="font-weight:700;color:#92400e;margin-bottom:4px;font-size:12px;">' + tAi('aiSummaryAlerts') + '</div>' +
+        '<div style="font-weight:700;color:#92400e;margin-bottom:4px;font-size:12px;">' + (tAi('aiSummaryAlerts') || '\uD83D\uDD0D Points de vigilance') + '</div>' +
         alerts.map(function(a) { return '<div style="color:#78350f;font-size:11px;margin:2px 0;">' + escH(a) + '</div>'; }).join('') +
         '</div>';
       reviewBox.innerHTML = alertsHtml;
     } else if (reviewBox) {
-      reviewBox.innerHTML = '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:6px 12px;margin-bottom:10px;color:#166534;font-size:12px;font-weight:600;">' + tAi('aiSummaryNoAlerts') + '</div>';
+      reviewBox.innerHTML = '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:6px 12px;margin-bottom:10px;color:#166534;font-size:12px;font-weight:600;">' + (tAi('aiSummaryNoAlerts') || '\u2705 Pas d\u0027alertes majeures sur cet itin\u00e9raire') + '</div>';
     }
 
     // Review

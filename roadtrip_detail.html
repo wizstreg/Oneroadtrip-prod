@@ -3500,7 +3500,7 @@ hdr.appendChild(row);
     </div>
     <div id="aiSummaryPrintZone">
       <div id="aiSummaryResult" style="display:none;margin-top:16px;">
-        <div id="aiReviewContainer" class="ai-review-box"></div>
+        <div id="aiReviewContainer" class="ai-review-box" style="display:none"></div>
         <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
           <span id="aiSummaryItineraryTitle" style="font-weight:700;color:#1e3a5f;font-size:14px;">🗺️ Résumé</span>
           <span id="aiSummaryCacheTag" style="display:none;font-size:11px;color:#94a3b8;font-style:italic;"></span>
@@ -13508,6 +13508,7 @@ if ('serviceWorker' in navigator) {
     // Panel stays collapsed — user clicks to expand
 
     // Alerts (things to check)
+    if (reviewBox) reviewBox.style.display = 'block';
     if (reviewBox && Array.isArray(alerts) && alerts.length > 0) {
       var alertsHtml = '<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:12px;">' +
         '<div style="font-weight:700;color:#92400e;margin-bottom:6px;font-size:13px;">' + tAi('aiSummaryAlerts') + '</div>' +
@@ -13515,7 +13516,7 @@ if ('serviceWorker' in navigator) {
         '</div>';
       reviewBox.innerHTML = alertsHtml;
     } else if (reviewBox) {
-      reviewBox.innerHTML = '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:8px 14px;margin-bottom:12px;color:#166534;font-size:13px;font-weight:600;">' + tAi('aiSummaryNoAlerts') + '</div>';
+      reviewBox.innerHTML = '<div style="background:#f0fdf4;border:1px solid #86efac;border-radius:8px;padding:8px 14px;margin-bottom:12px;color:#166534;font-size:13px;font-weight:600;">' + (tAi('aiSummaryNoAlerts') || '\u2705 Pas d\'alertes majeures sur cet itin\u00e9raire') + '</div>';
     }
 
     // Review
