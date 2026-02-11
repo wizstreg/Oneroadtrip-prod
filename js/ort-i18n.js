@@ -2255,6 +2255,15 @@ window.ORT_I18N.aiSummaryErrorGeneric = {
   ar: '😕 عفواً، مشكلة تقنية بسيطة. حاول مرة أخرى بعد قليل!'
 };
 
+window.ORT_I18N.aiSummaryErrorOverloaded = {
+  fr: '🔄 Notre IA est très sollicitée en ce moment. Réessayez dans 1-2 minutes !',
+  en: '🔄 Our AI is very busy right now. Please try again in 1-2 minutes!',
+  es: '🔄 Nuestra IA está muy ocupada ahora. ¡Inténtelo de nuevo en 1-2 minutos!',
+  it: '🔄 La nostra IA è molto impegnata al momento. Riprova tra 1-2 minuti!',
+  pt: '🔄 Nossa IA está muito ocupada no momento. Tente novamente em 1-2 minutos!',
+  ar: '🔄 الذكاء الاصطناعي مشغول جداً حالياً. حاول مرة أخرى بعد دقيقة أو دقيقتين!'
+};
+
 window.ORT_I18N.aiSummaryCached = {
   fr: '(résumé enregistré)',
   en: '(saved summary)',
