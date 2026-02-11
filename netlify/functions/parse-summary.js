@@ -73,27 +73,36 @@ async function checkQuota(uid, email) {
 }
 
 // ===== CACHE =====
-async function findCachedSummary(cacheKey) {
-  if (!cacheKey) return null;
-  try {
-    const doc = await db.collection('catalog_summaries').doc(cacheKey).get();
-    if (doc.exists && doc.data().review && doc.data().steps) {
-      console.log(`✅ Cache hit: ${cacheKey}`);
-      return doc.data();
-    }
-  } catch (e) { console.warn('Cache read:', e.message); }
+async function findCachedSummary(cacheKey, tripKey) {
+  var keys = [cacheKey, tripKey].filter(Boolean);
+  for (var k of keys) {
+    try {
+      const doc = await db.collection('catalog_summaries').doc(k).get();
+      if (doc.exists && doc.data().review && doc.data().steps) {
+        console.log(`✅ Cache hit: ${k}`);
+        return doc.data();
+      }
+    } catch (e) { console.warn('Cache read:', e.message); }
+  }
   return null;
 }
 
-async function saveSummary(cacheKey, data, language, model) {
-  if (!cacheKey) return;
-  try {
-    await db.collection('catalog_summaries').doc(cacheKey).set({
-      ...data, cacheKey, language, model,
-      createdAt: admin.firestore.FieldValue.serverTimestamp()
-    });
-    console.log(`💾 Saved: catalog_summaries/${cacheKey}`);
-  } catch (e) { console.warn('Cache save:', e.message); }
+async function saveSummary(cacheKey, tripKey, data, language, model) {
+  var payload = { ...data, cacheKey, language, model, createdAt: admin.firestore.FieldValue.serverTimestamp() };
+  // Save under catalog key (primary)
+  if (cacheKey) {
+    try {
+      await db.collection('catalog_summaries').doc(cacheKey).set(payload);
+      console.log(`💾 Saved: catalog_summaries/${cacheKey}`);
+    } catch (e) { console.warn('Save catalog:', e.message); }
+  }
+  // Also save under tripId key (alias for mobile lookup)
+  if (tripKey && tripKey !== cacheKey) {
+    try {
+      await db.collection('catalog_summaries').doc(tripKey).set(payload);
+      console.log(`💾 Saved alias: catalog_summaries/${tripKey}`);
+    } catch (e) { console.warn('Save alias:', e.message); }
+  }
 }
 
 // ===== BUILD STEPS TEXT =====
@@ -246,16 +255,22 @@ export default async (request, context) => {
   try {
     const { catalogId, tripId, title, steps, language, cacheOnly } = await request.json();
 
-    // Build cache key from catalogId (_originalItinId like "LK::sri-lanka::triangle-culturel-plages")
-    const cacheKey = buildCacheKey(catalogId) || buildCacheKey(tripId);
+    // Build cache keys
+    const cacheKey = buildCacheKey(catalogId);
+    const tripKey = tripId ? sanitizeDocId(tripId) : null;
+    const primaryKey = cacheKey || tripKey;
 
     // ===== CACHE-ONLY MODE (public, no auth required) =====
     if (cacheOnly) {
-      if (!cacheKey) {
+      if (!primaryKey) {
         return new Response(JSON.stringify({ success: false, error: 'no_cache' }), { status: 200, headers });
       }
-      const cached = await findCachedSummary(cacheKey);
+      const cached = await findCachedSummary(cacheKey, tripKey);
       if (cached) {
+        // Auto-create alias: if found by catalogId but tripKey doesn't exist yet, save alias
+        if (tripKey && cacheKey && tripKey !== cacheKey) {
+          db.collection('catalog_summaries').doc(tripKey).set(cached).catch(function(){});
+        }
         return new Response(JSON.stringify({
           success: true,
           data: { review: cached.review, steps: cached.steps, fromCache: true }
@@ -265,7 +280,7 @@ export default async (request, context) => {
     }
 
     // ===== GENERATE MODE (auth required) =====
-    if (!cacheKey) {
+    if (!primaryKey) {
       return new Response(JSON.stringify({ success: false, error: 'catalogId or tripId required' }), { status: 400, headers });
     }
     if (!steps || !Array.isArray(steps) || steps.length === 0) {
@@ -278,7 +293,7 @@ export default async (request, context) => {
     }
 
     // Check cache first (avoid re-generating)
-    const cached = await findCachedSummary(cacheKey);
+    const cached = await findCachedSummary(cacheKey, tripKey);
     if (cached) {
       return new Response(JSON.stringify({
         success: true,
@@ -303,7 +318,9 @@ export default async (request, context) => {
     }
 
     // Save
-    await saveSummary(cacheKey, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
+    // Save under both catalogId and tripId keys
+    const tripKey = tripId ? sanitizeDocId(tripId) : null;
+    await saveSummary(cacheKey, tripKey, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
 
     return new Response(JSON.stringify({
       success: true,
