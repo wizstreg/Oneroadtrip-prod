@@ -126,23 +126,25 @@ function buildStepsText(steps) {
 function buildPrompt(title, stepsText, lang) {
   const instr = {
     fr: `Tu es un expert en road trips. Réponds UNIQUEMENT en JSON valide (pas de texte avant/après, pas de backticks).
-Format: {"review":["Points forts: ...","Points faibles: ...","Avis: pour qui, réduire/augmenter, conseil"],"steps":[{"day":1,"city":"NOM","highlights":"1-2 phrases, noms clés EN MAJUSCULES","next":"direction + distance + temps"}]}
-Règles: review=3 chaînes, steps=étapes avec nuits>0, passages intégrés dans next précédent, next="" dernière étape. Concis, enthousiaste.`,
+Format: {"alerts":["⚠️ alerte1","⚠️ alerte2"],"review":["Points forts: ...","Points faibles: ...","Avis: pour qui, réduire/augmenter, conseil"],"steps":[{"day":1,"city":"NOM","highlights":"1-2 phrases, noms clés EN MAJUSCULES","next":"direction + distance + temps"}]}
+alerts: liste COURTE (0-3) de choses à vérifier ou corriger sur ce parcours. Ex: étape trop longue en voiture, lieu fermé/saisonnier, détour inutile, étape manquante évidente, visa/permis nécessaire, meilleure saison. Si tout est OK, tableau vide [].
+review=3 chaînes, steps=étapes avec nuits>0, passages intégrés dans next précédent, next="" dernière étape. Concis, enthousiaste.`,
     en: `You are a road trip expert. Respond ONLY with valid JSON (no text before/after, no backticks).
-Format: {"review":["Strengths: ...","Weaknesses: ...","Verdict: who, shorten/extend, tip"],"steps":[{"day":1,"city":"NAME","highlights":"1-2 sentences, key names IN CAPITALS","next":"direction + distance + time"}]}
-Rules: review=3 strings, steps=stops with nights>0, pass-throughs in previous next, next="" last step. Concise, enthusiastic.`,
+Format: {"alerts":["⚠️ alert1","⚠️ alert2"],"review":["Strengths: ...","Weaknesses: ...","Verdict: who, shorten/extend, tip"],"steps":[{"day":1,"city":"NAME","highlights":"1-2 sentences, key names IN CAPITALS","next":"direction + distance + time"}]}
+alerts: SHORT list (0-3) of things to verify or fix. E.g.: overly long drive, seasonal closure, unnecessary detour, obvious missing stop, visa required, best season. If all OK, empty array [].
+review=3 strings, steps=stops with nights>0, pass-throughs in previous next, next="" last step. Concise, enthusiastic.`,
     es: `Experto en road trips. Responde SOLO con JSON válido (sin texto antes/después).
-Formato: {"review":["Fuertes: ...","Débiles: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIUDAD","highlights":"1-2 frases, nombres EN MAYÚSCULAS","next":"dirección + distancia + tiempo"}]}
-review=3, steps=etapas noches>0, next="" última. Conciso, entusiasta.`,
+Formato: {"alerts":["⚠️ ..."],"review":["Fuertes: ...","Débiles: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIUDAD","highlights":"1-2 frases, nombres EN MAYÚSCULAS","next":"dirección + distancia + tiempo"}]}
+alerts: 0-3 cosas a verificar. review=3, steps=etapas noches>0, next="" última. Conciso, entusiasta.`,
     it: `Esperto di road trip. Rispondi SOLO con JSON valido (nessun testo prima/dopo).
-Formato: {"review":["Forza: ...","Deboli: ...","Giudizio: ..."],"steps":[{"day":1,"city":"CITTÀ","highlights":"1-2 frasi, nomi IN MAIUSCOLO","next":"direzione + distanza + tempo"}]}
-review=3, steps=tappe notti>0, next="" ultima. Conciso, entusiasta.`,
+Formato: {"alerts":["⚠️ ..."],"review":["Forza: ...","Deboli: ...","Giudizio: ..."],"steps":[{"day":1,"city":"CITTÀ","highlights":"1-2 frasi, nomi IN MAIUSCOLO","next":"direzione + distanza + tempo"}]}
+alerts: 0-3 cose da verificare. review=3, steps=tappe notti>0, next="" ultima. Conciso, entusiasta.`,
     pt: `Especialista em road trips. Responda APENAS com JSON válido (sem texto antes/depois).
-Formato: {"review":["Fortes: ...","Fracos: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIDADE","highlights":"1-2 frases, nomes EM MAIÚSCULAS","next":"direção + distância + tempo"}]}
-review=3, steps=etapas noites>0, next="" última. Conciso, entusiasta.`,
+Formato: {"alerts":["⚠️ ..."],"review":["Fortes: ...","Fracos: ...","Veredicto: ..."],"steps":[{"day":1,"city":"CIDADE","highlights":"1-2 frases, nomes EM MAIÚSCULAS","next":"direção + distância + tempo"}]}
+alerts: 0-3 pontos a verificar. review=3, steps=etapas noites>0, next="" última. Conciso, entusiasta.`,
     ar: `خبير رحلات. أجب فقط بـ JSON صالح.
-{"review":["القوة: ...","الضعف: ...","الحكم: ..."],"steps":[{"day":1,"city":"المدينة","highlights":"جملة أو جملتين","next":"اتجاه + مسافة + وقت"}]}
-review=3, steps=مراحل بليالي>0, next="" الأخيرة.`
+{"alerts":["⚠️ ..."],"review":["القوة: ...","الضعف: ...","الحكم: ..."],"steps":[{"day":1,"city":"المدينة","highlights":"جملة أو جملتين","next":"اتجاه + مسافة + وقت"}]}
+alerts: 0-3 أشياء للتحقق. review=3, steps=مراحل بليالي>0, next="" الأخيرة.`
   };
   return `${instr[lang] || instr.en}\n\nItinéraire "${title}":\n${stepsText}`;
 }
@@ -273,7 +275,7 @@ export default async (request, context) => {
         }
         return new Response(JSON.stringify({
           success: true,
-          data: { review: cached.review, steps: cached.steps, fromCache: true }
+          data: { alerts: cached.alerts || [], review: cached.review, steps: cached.steps, fromCache: true }
         }), { status: 200, headers });
       }
       return new Response(JSON.stringify({ success: false, error: 'no_cache' }), { status: 200, headers });
@@ -297,7 +299,7 @@ export default async (request, context) => {
     if (cached) {
       return new Response(JSON.stringify({
         success: true,
-        data: { review: cached.review, steps: cached.steps, fromCache: true }
+        data: { alerts: cached.alerts || [], review: cached.review, steps: cached.steps, fromCache: true }
       }), { status: 200, headers });
     }
 
@@ -319,11 +321,11 @@ export default async (request, context) => {
 
     // Save
     // Save under both catalogId and tripId keys
-    await saveSummary(cacheKey, tripKey, { review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
+    await saveSummary(cacheKey, tripKey, { alerts: aiResult.alerts || [], review: aiResult.review, steps: aiResult.steps }, lang, aiResult.model);
 
     return new Response(JSON.stringify({
       success: true,
-      data: { review: aiResult.review, steps: aiResult.steps, fromCache: false },
+      data: { alerts: aiResult.alerts || [], review: aiResult.review, steps: aiResult.steps, fromCache: false },
       model: aiResult.model, usage: quota
     }), { status: 200, headers });
 

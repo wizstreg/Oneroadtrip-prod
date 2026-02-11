@@ -13477,7 +13477,7 @@ if ('serviceWorker' in navigator) {
         if (data.error === 'ai_overloaded') throw new Error('overloaded');
         throw new Error(data.error || 'unknown');
       }
-      renderAiSummary(data.data.review, data.data.steps, data.data.fromCache);
+      renderAiSummary(data.data.review, data.data.steps, data.data.fromCache, data.data.alerts);
     } catch (e) {
       console.error('[AI-SUMMARY]', e);
       if (e.message === 'quota') showAiError('aiSummaryErrorQuota');
@@ -13490,7 +13490,7 @@ if ('serviceWorker' in navigator) {
   };
 
   // ===== RENDER =====
-  function renderAiSummary(review, steps, fromCache) {
+  function renderAiSummary(review, steps, fromCache, alerts) {
     var actions = document.getElementById('aiSummaryActions');
     var result = document.getElementById('aiSummaryResult');
     var placeholder = document.getElementById('aiSummaryPlaceholder');
@@ -13504,15 +13504,23 @@ if ('serviceWorker' in navigator) {
     if (result) result.style.display = 'block';
     if (printBtn) printBtn.style.display = 'inline-block';
 
-    // Auto-expand panel when summary loads
-    var content = document.getElementById('aiSummaryContent');
-    var chevron = document.getElementById('aiSummaryChevron');
-    if (content) content.style.display = 'block';
-    if (chevron) chevron.style.transform = 'rotate(90deg)';
+    // Panel stays collapsed — user clicks to expand
 
+    // Alerts (things to check)
+    if (reviewBox && Array.isArray(alerts) && alerts.length > 0) {
+      var alertsHtml = '<div style="background:#fef3c7;border:1px solid #f59e0b;border-radius:8px;padding:10px 14px;margin-bottom:12px;">' +
+        '<div style="font-weight:700;color:#92400e;margin-bottom:6px;font-size:13px;">' + tAi('aiSummaryAlerts') + '</div>' +
+        alerts.map(function(a) { return '<div style="color:#78350f;font-size:12px;margin:3px 0;">' + escH(a) + '</div>'; }).join('') +
+        '</div>';
+      reviewBox.innerHTML = alertsHtml;
+    } else if (reviewBox) {
+      reviewBox.innerHTML = '';
+    }
+
+    // Review
     if (reviewBox && Array.isArray(review)) {
       var icons = ['\uD83D\uDCAA', '\u26A0\uFE0F', '\uD83D\uDCA1'];
-      reviewBox.innerHTML = '<div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:14px;">' + tAi('aiSummaryReview') + '</div>' +
+      reviewBox.innerHTML += '<div style="font-weight:700;color:#166534;margin-bottom:8px;font-size:14px;">' + tAi('aiSummaryReview') + '</div>' +
         review.slice(0, 3).map(function(line, i) { return '<div class="ai-review-line">' + (icons[i] || '') + ' ' + escH(line) + '</div>'; }).join('');
     }
     if (grid && Array.isArray(steps)) {
@@ -13569,7 +13577,7 @@ if ('serviceWorker' in navigator) {
         var data = await res.json();
         if (data.success && data.data && data.data.fromCache) {
           console.log('[AI-SUMMARY] ✅ Public cache loaded!');
-          renderAiSummary(data.data.review, data.data.steps, true);
+          renderAiSummary(data.data.review, data.data.steps, true, data.data.alerts);
         }
       } catch (e) { console.log('[AI-SUMMARY] Cache:', e.message); }
     }, 2000);

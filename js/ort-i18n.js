@@ -2291,6 +2291,15 @@ window.ORT_I18N.aiSummaryCopied = {
   ar: '✅ تم النسخ!'
 };
 
+window.ORT_I18N.aiSummaryAlerts = {
+  fr: '🔍 Points de vigilance',
+  en: '🔍 Things to check',
+  es: '🔍 Puntos a verificar',
+  it: '🔍 Punti da verificare',
+  pt: '🔍 Pontos a verificar',
+  ar: '🔍 نقاط للتحقق'
+};
+
 window.ORT_I18N.aiSummaryShare = {
   fr: '📤 Partager',
   en: '📤 Share',
