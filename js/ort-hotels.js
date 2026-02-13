@@ -125,16 +125,26 @@
   function buildBookingAffiliateUrl(originalUrl, lang, cc) {
     if (!originalUrl) return '#';
     
-    // Extraire pays et slug de l'URL Booking
-    const match = originalUrl.match(/https:\/\/www\.booking\.com\/hotel\/([a-z]{2})\/([^.?]+)/);
-    if (!match) return originalUrl;
+    // Nettoyer l'URL Booking : enlever les params existants (aid, label, etc.)
+    let cleanUrl = originalUrl.split('?')[0];
     
-    const hotelCountry = match[1];
-    const hotelSlug = match[2];
+    // S'assurer que l'URL a le bon format
+    if (!cleanUrl.startsWith('https://www.booking.com/hotel/')) {
+      return originalUrl;
+    }
+    
+    // Ajouter le suffixe de langue si pas déjà présent
     const langSuffix = getBookingLangSuffix();
+    if (!cleanUrl.includes('.html')) {
+      cleanUrl += `.${langSuffix}.html`;
+    } else if (!cleanUrl.includes(`.${langSuffix}.html`)) {
+      cleanUrl = cleanUrl.replace(/\.[a-z-]+\.html/, `.${langSuffix}.html`);
+    }
     
-    // URL propre avec affiliation Stay22
-    return `https://www.booking.com/hotel/${hotelCountry}/${hotelSlug}.${langSuffix}.html?aid=${CONFIG.stay22AID}&label=v3.ort-static-${cc.toLowerCase()}`;
+    // Construire le lien de redirection Stay22 - C'EST LE FORMAT QUI TRACKE !
+    const stay22RedirectUrl = `https://www.stay22.com/allez/booking?aid=${CONFIG.stay22AID}&url=${encodeURIComponent(cleanUrl)}`;
+    
+    return stay22RedirectUrl;
   }
 
   // === CHARGEMENT DES DONNÉES ===
