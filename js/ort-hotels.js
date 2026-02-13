@@ -12,7 +12,7 @@
     hotelsBaseUrl: '/hotels', // Base URL pour les fichiers JSON
     maxHotelsPerPlace: 5,     // Nombre max d'hôtels à afficher
     cacheTimeout: 3600000,    // 1 heure en ms
-    stay22AID: '1607597'      // AID Stay22 pour affiliation
+    stay22AID: 'oneroadtrip'  // AID Stay22 pour affiliation
   };
 
   // Cache en mémoire
@@ -125,26 +125,16 @@
   function buildBookingAffiliateUrl(originalUrl, lang, cc) {
     if (!originalUrl) return '#';
     
-    // Nettoyer l'URL Booking : enlever les params existants (aid, label, etc.)
-    let cleanUrl = originalUrl.split('?')[0];
+    // Extraire pays et slug de l'URL Booking
+    const match = originalUrl.match(/https:\/\/www\.booking\.com\/hotel\/([a-z]{2})\/([^.?]+)/);
+    if (!match) return originalUrl;
     
-    // S'assurer que l'URL a le bon format
-    if (!cleanUrl.startsWith('https://www.booking.com/hotel/')) {
-      return originalUrl;
-    }
-    
-    // Ajouter le suffixe de langue si pas déjà présent
+    const hotelCountry = match[1];
+    const hotelSlug = match[2];
     const langSuffix = getBookingLangSuffix();
-    if (!cleanUrl.includes('.html')) {
-      cleanUrl += `.${langSuffix}.html`;
-    } else if (!cleanUrl.includes(`.${langSuffix}.html`)) {
-      cleanUrl = cleanUrl.replace(/\.[a-z-]+\.html/, `.${langSuffix}.html`);
-    }
     
-    // Construire le lien de redirection Stay22 - C'EST LE FORMAT QUI TRACKE !
-    const stay22RedirectUrl = `https://www.stay22.com/allez/booking?aid=${CONFIG.stay22AID}&url=${encodeURIComponent(cleanUrl)}`;
-    
-    return stay22RedirectUrl;
+    // Lien Booking PROPRE sans aid - Le script LMA Stay22 va ajouter le tracking automatiquement
+    return `https://www.booking.com/hotel/${hotelCountry}/${hotelSlug}.${langSuffix}.html`;
   }
 
   // === CHARGEMENT DES DONNÉES ===
@@ -247,7 +237,7 @@
     const imgUrl = hotel.imageUrl ? hotel.imageUrl.replace('square240', 'square600') : '';
     
     return `
-      <a href="${hotelLink}" target="_blank" rel="noopener sponsored" class="hotel-mini-card" data-lma="ignore">
+      <a href="${hotelLink}" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
         <img src="${imgUrl}" alt="${hotel.name}" class="hotel-mini-img" loading="lazy">
         <div class="hotel-mini-info">
           <span class="hotel-mini-score">${hotel.score}</span>
@@ -338,7 +328,7 @@
         const imgUrl = h.imageUrl ? h.imageUrl.replace('square240', 'square600') : '';
         
         return `
-          <a href="${hotelLink}" target="_blank" rel="noopener sponsored" class="hotel-modal-card" data-lma="ignore">
+          <a href="${hotelLink}" target="_blank" rel="noopener sponsored" class="hotel-modal-card">
             <img src="${imgUrl}" alt="${h.name}" class="hotel-modal-img" loading="lazy">
             <div class="hotel-modal-info">
               <div class="hotel-modal-name">${h.name}</div>
