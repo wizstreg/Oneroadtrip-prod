@@ -6947,6 +6947,7 @@ window.deleteActivity = deleteActivity;
     }
     
     console.log('[VIZ] Google Map rendu pour étape', vizCurrentStep + 1, 'filtre:', currentMapFilter || 'aucun');
+    console.log('[VIZ] _mapKeywords pour cette étape:', JSON.stringify(step._mapKeywords || 'ABSENT'), 'night:', JSON.stringify(step.night?.map_keywords || 'ABSENT'));
     
     // Bandeau map_keywords
     updateMapKeywordsBanner(step);
@@ -6958,7 +6959,21 @@ window.deleteActivity = deleteActivity;
     const titleEl = document.getElementById('mkbTitle');
     if (!banner || !chipsEl) return;
     
-    const kws = step?._mapKeywords || [];
+    // Chercher map_keywords dans toutes les sources possibles
+    let kws = step?._mapKeywords || [];
+    if (kws.length === 0 && step?.night?.map_keywords) kws = step.night.map_keywords;
+    if (kws.length === 0 && step?.map_keywords) kws = step.map_keywords;
+    
+    // Fallback: chercher dans PLACES_INDEX
+    if (kws.length === 0) {
+      const pid = step?.place_id || step?.placeId;
+      if (pid && window.PLACES_INDEX && PLACES_INDEX[pid]?.map_keywords) {
+        kws = PLACES_INDEX[pid].map_keywords;
+      }
+    }
+    
+    console.log('[VIZ] MapKeywords bandeau:', kws.length, 'trouvés pour', step?.name);
+    
     if (kws.length === 0) {
       banner.style.display = 'none';
       return;
