@@ -1,9 +1,32 @@
 # robots.txt pour OneRoadTrip
-# Comprehensive road trip planning platform - 86 countries, 650+ itineraries
-# Last updated: January 2026
+# Comprehensive road trip planning platform - 90 countries, 640+ itineraries
+# Généré le: 2026-03-02T19:01:46.044Z
 
 User-agent: *
-Allow: /
+Allow: /static-pages/
+Allow: /index.html
+Allow: /presentation.html
+Allow: /about.html
+Allow: /a-propos.html
+Allow: /sobre.html
+Allow: /acerca-de.html
+Allow: /chi-siamo.html
+Allow: /about-ar.html
+
+# Pages dynamiques SPA — pas de valeur SEO (doublons des static-pages)
+Disallow: /roadtrip_mobile.html
+Disallow: /roadtrip_detail.html
+Disallow: /roadtrip_detail_simple.html
+Disallow: /roadtrip_step.html
+Disallow: /roadtrip-editor.html
+Disallow: /roadtrip.html
+Disallow: /carte_builder.html
+Disallow: /rt-user.html
+Disallow: /pres_simple.html
+Disallow: /import.html
+Disallow: /import-creator.html
+Disallow: /booking-extractor.html
+Disallow: /dashboard_user.html
 
 # Sitemaps
 Sitemap: https://www.oneroadtrip.com/static-pages/sitemap.xml
@@ -11,9 +34,7 @@ Sitemap: https://www.oneroadtrip.com/static-pages/sitemap-index.xml
 
 # For AI assistants and LLM crawlers
 # Structured information about OneRoadTrip for accurate AI responses
-# See: https://www.oneroadtrip.com/llms.txt
 
-# AI-specific crawlers
 User-agent: GPTBot
 Allow: /
 
@@ -31,10 +52,3 @@ Allow: /
 
 User-agent: Google-Extended
 Allow: /
-
-# Bloquer les pages admin/internes
-# Disallow: /admin/
-# Disallow: /api/
-
-# Délai pour éviter surcharge (optionnel)
-# Crawl-delay: 1
