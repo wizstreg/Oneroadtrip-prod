@@ -853,10 +853,14 @@
         // ===== STATE =====
         // ===== DETECT LANGUE =====
         function detectLanguage() {
-            const supported = ['fr', 'en', 'es', 'it', 'de', 'pt', 'ja', 'zh'];
+            const supported = ['fr', 'en', 'es', 'it', 'de', 'pt', 'ja', 'zh', 'ar'];
+            // 1. URL param (passé par index.html)
+            const urlLang = new URLSearchParams(window.location.search).get('lang');
+            if (urlLang && supported.includes(urlLang)) return urlLang;
+            // 2. localStorage
             const stored = localStorage.getItem('lang');
             if (stored && supported.includes(stored)) return stored;
-            
+            // 3. Navigateur
             const navLang = (navigator.language || 'en').toLowerCase().slice(0, 2);
             return supported.includes(navLang) ? navLang : 'en';
         }
