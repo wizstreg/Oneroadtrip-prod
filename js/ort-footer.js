@@ -305,6 +305,13 @@
     const lang = getLang();
     const rtl = isRTL();
 
+    // Masquer le footer sur les pages mobile avec header fixe (évite superposition)
+    const hasMobileHeader = !!document.querySelector('header.header') && window.innerWidth <= 1024;
+    if (hasMobileHeader) {
+      footer.style.display = 'none';
+      return;
+    }
+
     footer.style.cssText = `
       margin: 18px auto 20px;
       text-align: center;
@@ -315,6 +322,8 @@
       border: 1px solid rgba(195, 214, 182, 0.4);
       border-radius: 10px;
       backdrop-filter: blur(4px);
+      position: relative;
+      z-index: 1;
       direction: ${rtl ? 'rtl' : 'ltr'};
     `;
 
