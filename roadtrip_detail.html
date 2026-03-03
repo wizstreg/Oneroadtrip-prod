@@ -13688,10 +13688,11 @@ if ('serviceWorker' in navigator) {
       console.log('[AI-SUMMARY] Cache check — catalogId:', catalogId, 'tripId:', tripId);
       try {
         // NO auth header → public cache read
+        var lang = (localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0,2);
         var res = await fetch(AI_API, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
+          body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], language: lang, cacheOnly: true })
         });
         var data = await res.json();
         if (data.success && data.data && data.data.fromCache) {

@@ -7495,10 +7495,11 @@ if ('serviceWorker' in navigator) {
       clearInterval(ck);
       console.log('[AI-SUMMARY] Auto-load — catalogId:', catalogId, '| tripId:', tripId);
 
+      var lang = (localStorage.getItem('lang') || 'fr').slice(0,2);
       fetch(AI_API, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], cacheOnly: true })
+        body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], language: lang, cacheOnly: true })
       }).then(function(res) { return res.json(); })
       .then(function(data) {
         console.log('[AI-SUMMARY] Cache response:', JSON.stringify(data).substring(0, 200));

@@ -55,6 +55,8 @@
         i18n.envLoading = { fr: 'Chargement des scores...', en: 'Loading scores...', es: 'Cargando puntuaciones...', it: 'Caricamento punteggi...', pt: 'Carregando pontuações...', ar: 'تحميل النتائج...' };
         i18n.envNoNearby = { fr: 'Aucun itinéraire proche trouvé.', en: 'No nearby itineraries found.', es: 'No se encontraron itinerarios cercanos.', it: 'Nessun itinerario vicino trovato.', pt: 'Nenhum itinerário próximo encontrado.', ar: 'لم يتم العثور على مسارات قريبة.' };
         i18n.envNotCalculated = { fr: 'pas encore calculé', en: 'not yet calculated', es: 'aún no calculado', it: 'non ancora calcolato', pt: 'ainda não calculado', ar: 'لم يُحسب بعد' };
+        i18n.envNearbyTitle = { fr: 'Alternatives moins carbonées', en: 'Lower carbon alternatives', es: 'Alternativas menos carbonadas', it: 'Alternative meno inquinanti', pt: 'Alternativas menos carbonadas', ar: 'بدائل أقل كربوناً' };
+        i18n.envNearbyIntro = { fr: 'Itinéraires proches avec leur impact carbone :', en: 'Nearby itineraries with their carbon impact:', es: 'Itinerarios cercanos con su impacto de carbono:', it: 'Itinerari vicini con il loro impatto di carbonio:', pt: 'Itinerários próximos com seu impacto de carbono:', ar: 'مسارات قريبة مع تأثيرها الكربوني:' };
         i18n._envKeysAdded = true;
     }
     var t = window.t || function(k) { return k; };
@@ -100,6 +102,33 @@
     function sanitizeDocId(id) {
         if (!id) return '';
         return id.replace(/::/g, '__').replace(/[\/\\]/g, '_').substring(0, 200);
+    }
+
+    /** Hash simple des nuits par étape — change quand l'user modifie les nuits */
+    function nightsHash(steps) {
+        if (!steps || !Array.isArray(steps)) return '';
+        var sig = steps.map(function(s) { return (s.nights || 0); }).join(',');
+        // Simple hash numérique
+        var h = 0;
+        for (var i = 0; i < sig.length; i++) {
+            h = ((h << 5) - h + sig.charCodeAt(i)) | 0;
+        }
+        return (h >>> 0).toString(36);
+    }
+
+    /** Clé cache env-score : catalogId pour le catalogue, catalogId+hash pour les modifiés */
+    function getScoreCacheKey() {
+        var catalogId = getCatalogId();
+        if (!catalogId) return null;
+        var st = window.state || window._ortState || {};
+        // Si l'user a un tripId personnel (pas le catalogue brut), inclure le hash des nuits
+        var tripId = st.tripId || '';
+        var isPersonal = tripId && !tripId.startsWith('catalog::') && tripId.indexOf('::') === -1;
+        if (isPersonal) {
+            var hash = nightsHash(st.steps);
+            return sanitizeDocId(catalogId) + (hash ? '_u' + hash : '');
+        }
+        return sanitizeDocId(catalogId);
     }
 
     /** Récupérer le catalogId (itin_id d'origine) */
@@ -604,9 +633,9 @@
         overlay.innerHTML =
             '<div class="ort-env-nearby-panel">' +
                 '<button class="ort-env-nearby-close" id="ort-env-nearby-close">&times;</button>' +
-                '<h3>🌿 Alternatives moins carbonées</h3>' +
-                '<p class="ort-env-nearby-intro">Itinéraires proches avec leur impact carbone :</p>' +
-                '<div id="ort-env-nearby-list"><span class="ort-env-loading">Chargement...</span></div>' +
+                '<h3 id="ort-env-nearby-title">🌿 ' + t('envNearbyTitle') + '</h3>' +
+                '<p class="ort-env-nearby-intro" id="ort-env-nearby-intro">' + t('envNearbyIntro') + '</p>' +
+                '<div id="ort-env-nearby-list"><span class="ort-env-loading">' + t('envLoading') + '</span></div>' +
             '</div>';
         document.body.appendChild(overlay);
 
@@ -860,7 +889,8 @@
         }
 
         // 2. Chercher score en cache Firestore
-        var score = await getCachedScore(catalogId);
+        var scoreCacheKey = getScoreCacheKey() || sanitizeDocId(catalogId);
+        var score = await getCachedScore(scoreCacheKey);
 
         if (score && score.grade && score.cache_version === CACHE_VERSION) {
             console.log('[ENV] Score trouvé en cache v' + score.cache_version + ':', score.grade, score.co2_car_per_day, 'kg/j,', score.days_count, 'jours');
@@ -919,8 +949,15 @@
 
             console.log('[ENV] Calculé:', score.grade, score.co2_car_per_day, 'kg/j,', score.km_total, 'km,', score.api_calls, 'API calls,', score.cache_hits, 'cache hits');
 
-            // Sauver en cache
-            await setCachedScore(catalogId, score);
+            // Sauver en cache (clé personnalisée si modifié, sinon catalogue)
+            await setCachedScore(scoreCacheKey, score);
+            // Si c'est la clé catalogue (pas modifié), ne pas doubler
+            var catKey = sanitizeDocId(catalogId);
+            if (scoreCacheKey !== catKey) {
+                // Ne PAS écraser le cache catalogue — les modifications sont privées
+            } else {
+                // C'est le catalogue brut, pas de trip perso
+            }
         }
 
         // 3. Remplacer le sablier par les vrais badges
@@ -950,10 +987,12 @@
         // 5. Brancher le clic → panneau nearbies
         var carbonBtn = document.getElementById('ort-env-carbon-btn');
         if (carbonBtn) {
-            var data = extractItineraryData();
+            var currentGrade = score.grade;
             carbonBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                openNearbyPanel(data.nearbyItins, score.grade);
+                // Re-extraire les données au moment du clic (state peut avoir changé)
+                var freshData = extractItineraryData();
+                openNearbyPanel(freshData.nearbyItins, currentGrade);
             });
         }
 
