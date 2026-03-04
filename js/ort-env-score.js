@@ -672,9 +672,9 @@
 
     /** Charger les titres depuis le fichier modules d'un pays */
     async function loadItinTitles(cc) {
-        if (_itinTitlesCache['_loaded_' + cc]) return;
+        var lang = (window.ORT_getLang && window.ORT_getLang()) || 'fr';
+        if (_itinTitlesCache['_loaded_' + cc + '_' + lang]) return;
         try {
-            var lang = (window.ORT_getLang && window.ORT_getLang()) || 'fr';
             var url = './data/Roadtripsprefabriques/countries/' + cc.toLowerCase() + '/' + cc.toLowerCase() + '.itins.modules-' + lang + '.json';
             var resp = await fetch(url);
             if (!resp.ok) return;
@@ -686,7 +686,7 @@
                     if (id) _itinTitlesCache[id] = it.title || it.name || '';
                 }
             }
-            _itinTitlesCache['_loaded_' + cc] = true;
+            _itinTitlesCache['_loaded_' + cc + '_' + lang] = true;
         } catch (e) {
             console.warn('[ENV] Erreur chargement titres ' + cc + ':', e.message);
         }
@@ -705,12 +705,17 @@
             return;
         }
 
-        // Charger les titres pour chaque pays concerné
+        // Charger les titres pour chaque pays concerné (avec langue courante)
         var countries = {};
         for (var nId of nearbyItins) {
             var cc = nId.split('::')[0] || '';
             if (cc) countries[cc] = true;
         }
+        var lang = (window.ORT_getLang && window.ORT_getLang()) || 'fr';
+        // Invalider les entrées d'une autre langue avant rechargement
+        Object.keys(_itinTitlesCache).forEach(function(k) {
+            if (k.startsWith('_loaded_') && !k.endsWith('_' + lang)) delete _itinTitlesCache[k];
+        });
         await Promise.all(Object.keys(countries).map(loadItinTitles));
 
         var html = '';
