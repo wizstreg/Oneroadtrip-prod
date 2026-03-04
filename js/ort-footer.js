@@ -70,6 +70,7 @@
       privacyPolicy: 'Confidentialité',
       cookiePolicy: 'Cookies',
       about: 'À propos',
+      blog: 'Blog',
       manageCookies: 'Gérer mes cookies'
     },
     
@@ -102,6 +103,7 @@
       privacyPolicy: 'Privacy',
       cookiePolicy: 'Cookies',
       about: 'About',
+      blog: 'Blog',
       manageCookies: 'Manage cookies'
     },
     
@@ -134,6 +136,7 @@
       privacyPolicy: 'Privacidad',
       cookiePolicy: 'Cookies',
       about: 'Acerca de',
+      blog: 'Blog',
       manageCookies: 'Gestionar cookies'
     },
     
@@ -166,6 +169,7 @@
       privacyPolicy: 'Privacy',
       cookiePolicy: 'Cookie',
       about: 'Chi siamo',
+      blog: 'Blog',
       manageCookies: 'Gestisci cookie'
     },
     
@@ -198,6 +202,7 @@
       privacyPolicy: 'Privacidade',
       cookiePolicy: 'Cookies',
       about: 'Sobre',
+      blog: 'Blog',
       manageCookies: 'Gerir cookies'
     },
     
@@ -230,6 +235,7 @@
       privacyPolicy: 'الخصوصية',
       cookiePolicy: 'ملفات تعريف الارتباط',
       about: 'حول',
+      blog: 'المدونة',
       manageCookies: 'إدارة ملفات تعريف الارتباط'
     }
   };
@@ -340,7 +346,8 @@
       { href: urls.cgu, label: T.legalNotice },
       { href: urls.privacy, label: T.privacyPolicy },
       { href: urls.cookies, label: T.cookiePolicy },
-      { href: urls.about, label: T.about }
+      { href: urls.about, label: T.about },
+      { href: 'https://www.oneroadtrip.com/blog/', label: T.blog }
     ];
 
     footer.innerHTML = links.map((link, i) => {
