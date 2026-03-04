@@ -104,11 +104,13 @@
         return id.replace(/::/g, '__').replace(/[\/\\]/g, '_').substring(0, 200);
     }
 
-    /** Hash simple des nuits par étape — change quand l'user modifie les nuits */
+    /** Hash des étapes — change quand l'user modifie nuits ET/OU lieux */
     function nightsHash(steps) {
         if (!steps || !Array.isArray(steps)) return '';
-        var sig = steps.map(function(s) { return (s.nights || 0); }).join(',');
-        // Simple hash numérique
+        // Inclure place_id + nights pour détecter ajout/suppression/réordonnancement
+        var sig = steps.map(function(s) {
+            return (s.place_id || s.name || '') + ':' + (s.nights || 0);
+        }).join(',');
         var h = 0;
         for (var i = 0; i < sig.length; i++) {
             h = ((h << 5) - h + sig.charCodeAt(i)) | 0;
@@ -121,12 +123,28 @@
         var catalogId = getCatalogId();
         if (!catalogId) return null;
         var st = window.state || window._ortState || {};
-        // Si l'user a un tripId personnel (pas le catalogue brut), inclure le hash des nuits
-        var tripId = st.tripId || '';
-        var isPersonal = tripId && !tripId.startsWith('catalog::') && tripId.indexOf('::') === -1;
-        if (isPersonal) {
-            var hash = nightsHash(st.steps);
-            return sanitizeDocId(catalogId) + (hash ? '_u' + hash : '');
+        var steps = st.steps || [];
+        if (steps.length === 0) return sanitizeDocId(catalogId);
+
+        // Calculer le hash du trajet actuel
+        var currentHash = nightsHash(steps);
+
+        // Toujours vérifier si le trajet a été modifié par rapport au catalogue original
+        // même sans tripId (user en session non sauvegardée)
+        var originalSteps = st._originalSteps || st._catalogSteps || null;
+        var isModified = false;
+
+        if (originalSteps && originalSteps.length > 0) {
+            // Comparer avec les steps originaux du catalogue
+            isModified = (nightsHash(originalSteps) !== currentHash);
+        } else {
+            // Fallback : si tripId personnel, c'est modifié par définition
+            var tripId = st.tripId || '';
+            isModified = !!(tripId && !tripId.startsWith('catalog::') && tripId.indexOf('::') === -1);
+        }
+
+        if (isModified) {
+            return sanitizeDocId(catalogId) + '_u' + currentHash;
         }
         return sanitizeDocId(catalogId);
     }
@@ -857,6 +875,13 @@
         }
         console.log('[ENV] catalogId:', catalogId);
 
+        // Snapshot des steps catalogue (première init uniquement) pour détecter les modifs
+        var st = window.state || window._ortState || {};
+        if (!st._originalSteps && st.steps && st.steps.length > 0) {
+            st._originalSteps = st.steps.map(function(s) { return { place_id: s.place_id, name: s.name, nights: s.nights }; });
+            console.log('[ENV] 📸 Snapshot catalogue steps:', st._originalSteps.length, 'étapes');
+        }
+
         injectStyles();
         buildNearbyOverlay();
 
@@ -1106,10 +1131,10 @@
             var score = await calculateScore(data.daysPlan, data.placesMap);
             if (!score) return;
 
-            // Sauver le nouveau score (avec tripId pour différencier du catalogue)
-            var st = window.state || window._ortState || {};
-            var tripId = st.tripId || window.ORT_TRIPID?.get();
-            var cacheKey = tripId ? (catalogId + '__' + tripId) : catalogId;
+            // Sauver le nouveau score — utiliser la même clé que init() pour cohérence
+            // getScoreCacheKey() détecte si modifié vs catalogue et génère la bonne clé
+            var cacheKey = getScoreCacheKey() || sanitizeDocId(catalogId);
+            console.log('[ENV] 💾 Sauvegarde score recalculé sur clé:', cacheKey);
             await setCachedScore(cacheKey, score);
 
             // Rafraîchir l'affichage
