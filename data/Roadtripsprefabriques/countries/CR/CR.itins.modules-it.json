@@ -7,16 +7,31 @@
       "itin_id": "CR::10days-caribbean",
       "id": "CR::10days-caribbean",
       "language": "it",
-      "title": "Road Trip Costa Rica: Caraibi Selvaggi e Pacifico del Sud",
-      "country": "CR",
-      "estimated_days_base": 11,
-      "source_url": null,
       "created_at": "2025-10-24T07:14:36.000Z",
+      "source_url": "",
+      "dept_code": "CR",
+      "dept_name": "Costa Rica",
+      "title": "Road Trip Costa Rica: Caraibi Selvaggi e Pacifico del Sud",
+      "subtitle": "Canali di Tortuguero, spiagge afro-caraibiche di Puerto Viejo, parco Marino Ballena: due coste e due atmosfere radicalmente diverse in dieci giorni.",
+      "notes": "",
+      "specialties": [
+        "Rondón caraibico al latte di cocco",
+        "Rice & beans alla maniera di Limón",
+        "Caffè costaricense della Valle Centrale",
+        "Ceviche di pesce fresco del Pacifico",
+        "Patí giamaicani nei chioschi di Puerto Viejo"
+      ],
+      "estimated_days_base": 11,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -24,10 +39,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -57,6 +71,7 @@
           "activities": [
             {
               "text": "Arrivo nel pomeriggio. Prima serata nel villaggio: passeggiata lungo il viale principale, cena in uno dei piccoli ristoranti caraibici con rice & beans e pesce appena pescato. Non ci sono bancomat in loco: portare contanti sufficienti prima della partenza.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Portare contante sufficiente: non ci sono bancomat a Tortuguero"
@@ -67,17 +82,16 @@
             "distance_km": 80,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada SJ → La Pavona (~3h), poi barca La Pavona → Tortuguero (~1h30)"
+            "road_type": "Strada SJ → La Pavona (~3h), poi barca La Pavona → Tortuguero (~1h30)",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -96,19 +110,12 @@
             {
               "text": "Il parco nazionale di Tortuguero si estende per 76.937 ettari, di cui oltre 50.000 in mare. La sua rete di canali serpeggia attraverso una foresta tropicale umida soprannominata la piccola Amazzonia costaricense. I canali acquatici - Caño Chiquero (2,3 km), Caño Harold, Caño Palma (5,1 km) - sono navigabili in canoa o kayak senza motore per preservare il silenzio.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Parco aperto 6h-12h e 13h-16h. Guida obbligatoria per le escursioni in barca e i trekking terrestri."
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il sentiero terrestre El Jaguar (2,5 km, parallelo alla spiaggia) attraversa la foresta pluviale dal villaggio. Stivali impermeabili sono disponibili a noleggio all'ingresso - indispensabili con l'umidità.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "~2h",
-                "tip": "Noleggiare stivali impermeabili all'ingresso del sentiero"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Cerro Tortuguero è una piccola collina di 120 metri raggiungibile in barca e poi a piedi dal villaggio. La sua cima offre l'unico panorama a 360° della regione: mar dei Caraibi, rete di canali e foresta a perdita d'occhio.",
@@ -119,6 +126,7 @@
           "activities": [
             {
               "text": "Escursione mattutina in canoa o kayak sui canali, preferibilmente senza motore. L'imbarcazione scivola silenziosa sotto la volta verde: caimani immobili sulle rive, scimmie ragno e urlatrici tra gli alberi, martin pescatori verdi e blu in agguato. È al mattino che la fauna è più attiva.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "best_time": "6h-9h",
@@ -128,6 +136,7 @@
             },
             {
               "text": "Durante la stagione di nidificazione (luglio-ottobre), un'uscita notturna guidata sulla spiaggia permette di osservare le tartarughe verdi che depongono le uova sulla sabbia nera. L'accompagnamento di una guida accreditata è obbligatorio. Niente luci né flash consentiti.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "best_time": "20h-23h",
@@ -135,22 +144,14 @@
                 "tip": "Solo in stagione (luglio-ottobre). Rispettare rigorosamente le indicazioni della guida."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 3,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -180,6 +181,7 @@
           "activities": [
             {
               "text": "Prima serata a Puerto Viejo: esplorate il lungomare a piedi o in bicicletta. Il noleggio bici è il mezzo di trasporto locale per eccellenza - le distanze tra le spiagge sono brevi e la strada è pianeggiante.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Noleggio bici disponibile ovunque nel villaggio, mezzo di trasporto ideale per la zona"
@@ -190,17 +192,16 @@
             "distance_km": 220,
             "drive_min": 330,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Barca Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)"
+            "road_type": "Barca Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -224,17 +225,13 @@
             {
               "text": "Il sentiero costiero del parco (8 km da Kelly Creek a Puerto Vargas) costeggia la spiaggia alternando foresta pluviale e riva del mare. Bradipi, scimmie urlatrici, procioni, iguane e una moltitudine di uccelli vi si osservano facilmente. Il parco è gestito dalla comunità locale e funziona con donazione volontaria - ingresso libero.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "distance": "8 km andata",
-                "duration": "3h-4h",
-                "tip": "Andare con la bassa marea per poter attraversare il Rio Perezoso a metà percorso. Verificare le condizioni all'ingresso."
-              }
+              "visit_duration_min": 180
             }
           ],
           "activities": [
             {
               "text": "Uscita snorkeling con guida certificata sulla barriera di Cahuita, accessibile solo in barca con accompagnatore. Le guide locali propongono sessioni di 2h dalla spiaggia con tutta l'attrezzatura fornita.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "duration": "2h",
@@ -244,24 +241,17 @@
             },
             {
               "text": "Rientro a Puerto Viejo per un tardo pomeriggio libero a Playa Cocles, la spiaggia da surf più rinomata del settore. Onde adatte a tutti i livelli - i locali propongono corsi tutto l'anno.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -285,15 +275,13 @@
             {
               "text": "Il Refugio Gandoca-Manzanillo protegge 10 km di spiaggia, una foresta di 740 ettari, una barriera corallina e due paludi. È anche una zona di nidificazione di tartarughe marine, lamantini, coccodrilli e delfini. Sentieri segnalati attraversano la foresta dal villaggio di Manzanillo.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Prendere una guida locale per i sentieri forestali: la fauna è più facile da osservare con un accompagnatore"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Giornata in bici lungo la strada costiera Puerto Viejo - Manzanillo. I 13 km sono pianeggianti, ombreggiati e costellati di spiagge. È il miglior modo per esplorare la costa al ritmo locale.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "13 km",
@@ -303,6 +291,7 @@
             },
             {
               "text": "Snorkeling a Punta Uva o Manzanillo. Sono i due migliori spot per le immersioni in maschera della costa caraibica dopo Cahuita: barriere coralline, pesci tropicali, razze e talvolta tartarughe marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -310,17 +299,16 @@
             "distance_km": 210,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 1,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -345,6 +333,7 @@
           "activities": [
             {
               "text": "Arrivo in tarda mattinata. Pomeriggio libero in centro: Barrio Amón per le sue case vittoriane, Mercado Central per il pranzo, Plaza de la Cultura per un primo approccio urbano prima della discesa verso il Pacifico.",
+              "place_id": "",
               "activity_duration_min": 180
             }
           ],
@@ -352,17 +341,16 @@
             "distance_km": 175,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 2,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -381,11 +369,7 @@
             {
               "text": "Il parco nazionale Manuel Antonio è il più piccolo del Costa Rica (683 ettari terrestri) ma uno dei più ricchi in biodiversità. Il sentiero principale, pianeggiante e ben mantenuto, costeggia una mangrovia di 18 ettari prima di raggiungere Playa Manuel Antonio, considerata tra le spiagge più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "tip": "Aperto tutti i giorni tranne il martedì, dalle 7h alle 16h. Biglietto online obbligatorio con numero di passaporto.",
-                "booking": "Prenotazione online raccomandata"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "Punta Catedral è un'antica isola collegata al continente da un tombolo di sabbia che forma una penisola a forma di coda di balena. Il sentiero che la circonda offre vedute sulle due spiagge e sulle 12 isole del parco, santuari di uccelli marini.",
@@ -396,6 +380,7 @@
           "activities": [
             {
               "text": "Ingaggiate una guida naturalista certificata all'ingresso del parco. Equipaggiato con un telescopio terrestre, individua i bradipi a due dita, le scimmie cappuccine dalla testa bianca e le scimmie scoiattolo endemiche di Manuel Antonio - praticamente impossibili da trovare da soli nella vegetazione fitta.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "duration": "2h30-3h",
@@ -404,24 +389,17 @@
             },
             {
               "text": "Bagno a Playa Manuel Antonio dopo la passeggiata. Snorkeling possibile sui lati della spiaggia per osservare murene, pesci angelo e stelle marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -446,6 +424,7 @@
           "activities": [
             {
               "text": "Escursione in kayak nella mangrovia di Isla Damas. I canali dell'estuario del Río Damas ospitano coccodrilli, scimmie, aironi e sterne. Gli operatori locali forniscono l'attrezzatura e le guide.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h-4h",
@@ -455,6 +434,7 @@
             },
             {
               "text": "Pomeriggio libero a Manuel Antonio. Il porto turistico di Quepos propone pesca sportiva d'altura, tour costieri e noleggio kayak da mare.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -462,17 +442,16 @@
             "distance_km": 55,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "CR::uvita",
+          "region_code": "CR-UV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-UV",
           "night": {
             "place_id": "CR::uvita",
             "coords": [
@@ -491,26 +470,18 @@
             {
               "text": "Il parco nazionale Marino Ballena, primo parco marino del Costa Rica (1989), prende il nome dalle megattere che migrano ogni anno nelle sue acque. L'attrazione principale è il tombolo di Punta Uvita: con la bassa marea, una lingua di sabbia emerge dall'acqua assumendo dall'alto la forma esatta di una coda di balena. La passeggiata su questo banco di sabbia, con il mare su entrambi i lati, è una delle più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Verificare gli orari di bassa marea prima della visita: la coda di balena è accessibile solo con la bassa marea"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Le cascate di Nauyaca, accessibili da Dominical a circa 30 minuti da Uvita, sono tra le più spettacolari del Costa Rica. Il trekking di ~16 km andata e ritorno può essere fatto anche a cavallo. Il bagno è consentito nella piscina naturale inferiore.",
               "place_id": "",
-              "visit_duration_min": 300,
-              "practical_info": {
-                "distance": "~16 km andata e ritorno",
-                "duration": "~5h a piedi o ~3h a cavallo",
-                "difficulty": "Moderata",
-                "tip": "Opzione cavallo raccomandata se la giornata è intensa"
-              }
+              "visit_duration_min": 300
             }
           ],
           "activities": [
             {
               "text": "Escursione in barca per l'osservazione delle megattere. Due stagioni di migrazione: dicembre-aprile (balene dell'emisfero nord) e luglio-ottobre (balene dell'emisfero sud). I delfini maculati e i tursiopi sono presenti tutto l'anno. Anche le mante sono regolarmente osservate.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h-4h",
@@ -520,6 +491,7 @@
             },
             {
               "text": "Snorkeling con la bassa marea vicino al tombolo. Le barriere coralline attorno all'Isla Ballena (a 2 km dal tombolo) ospitano squali pinna bianca di barriera, aragoste e pesci scorpione.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -527,17 +499,16 @@
             "distance_km": 170,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 1,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -572,18 +543,67 @@
           "activities": [
             {
               "text": "Ultima mattinata a San José prima del volo. Passeggiata lungo l'Avenida Central tra Plaza de la Cultura e Parque Central. Sosta al Mercado Central per un ultimo caffè costaricense e gli acquisti di fine viaggio.",
+              "place_id": "",
               "activity_duration_min": 120
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        }
+      ],
+      "regions": [
+        "CR-TO",
+        "CR-PV",
+        "CR-SJ",
+        "CR-MA",
+        "CR-UV"
+      ],
+      "nearby_itins": [
+        "CR::10days-classic",
+        "CR::20days-complete",
+        "NI::national::fleuves-lagunes-deux-cotes"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Natura",
+          "Mare & Coste",
+          "Avventura"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Road Trip Costa Rica: Caraibi Selvaggi e Pacifico del Sud",
         "intro_paragraph": "Tortuguero e i suoi canali amazzonici, Puerto Viejo e la sua atmosfera afro-caraibica, la coda di balena di Uvita e il parco Manuel Antonio: questo circuito esplora i due volti del Costa Rica costiero, dal lato atlantico al Pacifico meridionale in dieci giorni.",
@@ -603,71 +623,6 @@
           "CR::uvita": "Dove le megattere danzano nelle acque e la terra disegna code di balena sulla sabbia"
         }
       },
-      "meta": {
-        "themes": [
-          "Natura",
-          "Mare & Coste",
-          "Avventura"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5: Costa Caraibica",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10: Pacifico del Sud",
-          "from_day": 6,
-          "to_day": 10
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g Caraibi"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Var 10g Due Coste"
-        }
-      ],
-      "regions": [
-        "CR-TO",
-        "CR-PV",
-        "CR-SJ",
-        "CR-MA",
-        "CR-UV"
-      ],
-      "nearby_itins": [
-        "CR::10days-classic",
-        "CR::20days-complete",
-        "NI::national::fleuves-lagunes-deux-cotes"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Rondón caraibico al latte di cocco",
-        "Rice & beans alla maniera di Limón",
-        "Caffè costaricense della Valle Centrale",
-        "Ceviche di pesce fresco del Pacifico",
-        "Patí giamaicani nei chioschi di Puerto Viejo"
-      ],
-      "dept_code": "CR",
-      "dept_name": "Costa Rica",
-      "subtitle": "Canali di Tortuguero, spiagge afro-caraibiche di Puerto Viejo, parco Marino Ballena: due coste e due atmosfere radicalmente diverse in dieci giorni.",
       "seo_keywords": [
         "road trip Costa Rica caraibi",
         "Tortuguero canali tartarughe",
@@ -701,16 +656,31 @@
       "itin_id": "CR::15days-triangle-caribbean",
       "id": "CR::15days-triangle-caribbean",
       "language": "it",
-      "title": "Road Trip Costa Rica: Triangolo Classico e Costa Caraibica",
-      "country": "CR",
-      "estimated_days_base": 15,
-      "source_url": null,
       "created_at": "2025-10-24T07:14:36.000Z",
+      "source_url": "",
+      "dept_code": "CR",
+      "dept_name": "Costa Rica",
+      "title": "Road Trip Costa Rica: Triangolo Classico e Costa Caraibica",
+      "subtitle": "Vulcano Arenal, foresta nebulare di Monteverde, parco Manuel Antonio e costa caraibica selvaggia da Tortuguero a Puerto Viejo: le quattro destinazioni di punta del Costa Rica in quindici giorni.",
+      "notes": "",
+      "specialties": [
+        "Gallo pinto (riso e fagioli neri fritti, piatto nazionale costaricense)",
+        "Casado (piatto completo con riso, fagioli, platano, insalata e carne o pesce)",
+        "Caffè costaricense di alta quota (tra i migliori al mondo)",
+        "Formaggio artigianale quacchero di Monteverde",
+        "Rice & beans caraibico al latte di cocco (costa caraibica)"
+      ],
+      "estimated_days_base": 15,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -718,10 +688,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 1,
           "rating": 7,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -751,10 +720,12 @@
           "activities": [
             {
               "text": "Prima serata a La Fortuna: passeggiata intorno al parco centrale, cena in uno dei ristoranti locali con vista sul vulcano.",
+              "place_id": "",
               "activity_duration_min": 90
             },
             {
               "text": "Sistematevi presto - domani si inizia con l'escursione all'Arenal 1968 all'alba, prima che le nuvole nascondano la vetta.",
+              "place_id": "",
               "activity_duration_min": 30,
               "practical_info": {
                 "tip": "Il vulcano è più visibile al mattino, le nuvole arrivano spesso nel primo pomeriggio"
@@ -765,17 +736,16 @@
             "distance_km": 135,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 3,
           "rating": 7,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -794,13 +764,7 @@
             {
               "text": "Il sentiero Arenal 1968 prende il nome dall'eruzione che, nel luglio di quell'anno, seppellì tre villaggi sotto la lava. Due percorsi a scelta: il Sendero Bosque (4,7 km attraverso la foresta) o il Sendero Colada (4 km, diretto verso i campi di lava). Il terreno nero e fratturato contrasta con la vegetazione che si riappropria lentamente del territorio.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "distance": "4-4,7 km",
-                "duration": "1h30-3h",
-                "difficulty": "Facile-moderato",
-                "tip": "Partire presto al mattino per vedere il vulcano prima delle nuvole"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Mirador El Silencio, accessibile dal sentiero 1968, offre uno degli angoli più diretti sul cono dell'Arenal. Quando il cielo è limpido, si vede anche il lago Arenal in basso.",
@@ -810,39 +774,27 @@
             {
               "text": "Il parco Mistico Hanging Bridges propone 3 km di sentieri punteggiati da 16 ponti, di cui 6 sospesi sopra la canopia. Le guide equipaggiate con cannocchiali individuano bradipi, tucani e scimmie urlatrici tra gli alberi.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "2h-3h",
-                "booking": "Prenotazione consigliata in alta stagione",
-                "tip": "Prendere una guida per massimizzare le osservazioni faunistiche"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "A fine giornata, raggiungete le sorgenti termali naturali ai piedi del vulcano. L'acqua, riscaldata dall'attività geotermica, oscilla tra 25 e 38°C. Un fiume termale gratuito si trova vicino alle Tabacon Hot Springs, accessibile seguendo il bordo strada.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "best_time": "17h-20h",
                 "tip": "Opzione gratuita: fiume naturale vicino alle Tabacon. I complessi alberghieri propongono anche vasche attrezzate."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 1,
           "rating": 7,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -861,28 +813,18 @@
             {
               "text": "La cascata di La Fortuna precipita da 70 metri in una pozza d'acqua color smeraldo. Bisogna scendere circa 500 gradini per raggiungerla dall'ingresso a pagamento, poi risalire al ritorno - lo sforzo è notevole con il caldo intenso.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "duration": "1h30-2h",
-                "difficulty": "Moderato (500 gradini andata e ritorno)",
-                "tip": "Portare il costume da bagno per fare il bagno ai piedi della cascata. Arrivare presto per evitare la folla."
-              }
+              "visit_duration_min": 90
             },
             {
               "text": "Il Cerro Chato è il vulcano spento vicino all'Arenal, accessibile dall'Observatory Lodge. Il suo cratere racchiude un lago dai riflessi blu dove è possibile fare il bagno. L'escursione è impegnativa e sconsigliata in caso di pioggia.",
               "place_id": "",
-              "visit_duration_min": 240,
-              "practical_info": {
-                "distance": "~8 km andata e ritorno",
-                "duration": "~4h",
-                "difficulty": "Difficile",
-                "tip": "Solo con bel tempo, il terreno diventa scivoloso con la pioggia"
-              }
+              "visit_duration_min": 240
             }
           ],
           "activities": [
             {
               "text": "Il Bogarin Trail è un sentiero privato ai margini di La Fortuna, conosciuto per le osservazioni di bradipi a due e tre dita. Le guide locali, equipaggiate con telescopi, indicano gli animali mimetizzati tra i rami.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "duration": "1h30-2h",
@@ -891,6 +833,7 @@
             },
             {
               "text": "Il lago Arenal, creato nel 1972, è il più grande del Costa Rica. La sua sponda nord offre punti panoramici sul vulcano dall'acqua. I fornitori locali propongono kayak, stand-up paddle ed escursioni in barca.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -898,17 +841,16 @@
             "distance_km": 34.7,
             "drive_min": 69,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada di montagna, parzialmente sterrata - 4x4 consigliato in stagione delle piogge"
+            "road_type": "Strada di montagna, parzialmente sterrata - 4x4 consigliato in stagione delle piogge",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 2,
           "rating": 5.7,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -937,16 +879,13 @@
             {
               "text": "La Riserva di Santa Elena, meno frequentata della vicina Monteverde, si estende su 310 ettari a 1.600 metri d'altitudine. Con tempo chiaro, il suo belvedere offre una vista sul vulcano Arenal e, a seconda delle condizioni, fino alle due coste.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "2h-3h",
-                "tip": "Atmosfera più selvaggia e meno turistica della riserva principale di Monteverde"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Serata a Santa Elena: passeggiate nel villaggio, assaggiate il formaggio locale - una specialità delle famiglie quacchere che si sono stabilite qui negli anni '50. I caseifici artigianali vendono direttamente al dettaglio.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -954,17 +893,16 @@
             "distance_km": 115,
             "drive_min": 240,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada di montagna, ultimi km su pista sterrata - 4x4 consigliato"
+            "road_type": "Strada di montagna, ultimi km su pista sterrata - 4x4 consigliato",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 1,
           "rating": 5.7,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -983,20 +921,12 @@
             {
               "text": "La Riserva biologica di Monteverde si estende su oltre 10.500 ettari di foresta nebulare a 1.400 metri d'altitudine. Gli alberi centenari scompaiono nella nebbia, le orchidee - oltre 500 specie - crescono sui loro tronchi. Nove sentieri segnalati attraversano questo ecosistema unico, tra cui il Sendero Bosque Nuboso, ideale per avvistare il quetzal splendente.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "duration": "3h-4h",
-                "tip": "Arrivare all'apertura (7h) con una guida naturalistica per massimizzare le possibilità di osservare il quetzal. Prevedere abiti caldi e impermeabile."
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "La riserva Curi-Cancha, a 3 km da Santa Elena, è meno frequentata di Monteverde ed altrettanto ricca. I suoi sette sentieri segnalati attraversano 76 ettari di foresta primaria. Scimmie ragno, cappuccini, coati e quetzal vi sono osservati regolarmente.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "2h",
-                "tip": "Buona alternativa o complemento a Monteverde, con meno gente"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Giardino delle farfalle di Monteverde presenta circa 490 specie in uno spazio coperto da rete. Le crisalidi in corso di schiusa sono particolarmente spettacolari. Bambini e adulti apprezzano le dimostrazioni del ciclo di vita.",
@@ -1007,6 +937,7 @@
           "activities": [
             {
               "text": "Il canopy tour di Monteverde è uno dei più rinomati del Costa Rica. Le zipline attraversano la canopia per diversi chilometri; alcuni cavi superano i 700 metri di lunghezza. Il circuito include anche ponti sospesi e, per i più coraggiosi, una liana alla Tarzan.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h circa (equipaggiamento, salita, percorso)",
@@ -1018,17 +949,16 @@
             "distance_km": 165.2,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -1053,6 +983,7 @@
           "activities": [
             {
               "text": "In serata, raggiungete Playa Espadilla Norte, la spiaggia pubblica fuori dal parco. È il posto classico per guardare il tramonto sul Pacifico. Palme, onde dolci, luce radente - l'immagine da cartolina del Costa Rica.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "best_time": "17h30-18h30"
@@ -1060,24 +991,17 @@
             },
             {
               "text": "Quepos si anima la sera. La città è conosciuta per i suoi ristoranti di pesce fresco e la sua atmosfera rilassata. Passeggiata sul lungomare prima di cena.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -1096,11 +1020,7 @@
             {
               "text": "Il parco nazionale Manuel Antonio è il più piccolo del Costa Rica (683 ettari terrestri) ma uno dei più ricchi. Il sentiero principale, pianeggiante e ben curato, costeggia la mangrovia di 18 ettari prima di raggiungere Playa Manuel Antonio, considerata tra le spiagge più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "tip": "Aperto tutti i giorni tranne il martedì, dalle 7h alle 16h. Arrivare all'apertura per vedere la fauna prima dell'afflusso.",
-                "booking": "Biglietto online obbligatorio, è richiesto il numero di passaporto"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "La Punta Catedral è un'antica isola collegata al continente da un tombolo di sabbia, formando una penisola a forma di coda di balena. Il sentiero che ne fa il giro offre viste sulle due spiagge e sulle 12 isole del parco, che servono da santuario per gli uccelli marini.",
@@ -1116,6 +1036,7 @@
           "activities": [
             {
               "text": "Ingaggiate una guida naturalistica certificata all'ingresso del parco. Equipaggiata con un cannocchiale, individua i bradipi a due dita aggrappati ai rami, le scimmie cappuccine dalla testa bianca e le scimmie scoiattolo, endemiche di Manuel Antonio. La differenza tra una visita in solitaria e una visita guidata è considerevole.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "duration": "2h30-3h",
@@ -1124,24 +1045,17 @@
             },
             {
               "text": "Dopo l'escursione, bagno a Playa Manuel Antonio. Le acque turchesi sono protette dalla foresta sovrastante. Snorkeling possibile sui lati della spiaggia per osservare murene, pesci angelo e stelle marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -1166,6 +1080,7 @@
           "activities": [
             {
               "text": "L'escursione in kayak nella mangrovia di Isla Damas scende l'estuario del Río Damas per mezza giornata. La rete di canali ospita coccodrilli, scimmie, uccelli costieri e sterne. I fornitori locali forniscono l'attrezzatura e le guide.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h-4h",
@@ -1175,6 +1090,7 @@
             },
             {
               "text": "Pomeriggio libero in spiaggia. Quepos dispone di un porto turistico attivo: pesca sportiva d'altura, noleggio kayak da mare e tour costieri partono da lì.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -1182,17 +1098,16 @@
             "distance_km": 165,
             "drive_min": 195,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada nazionale via Parrita, buona strada"
+            "road_type": "Strada nazionale via Parrita, buona strada",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 3,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -1217,6 +1132,7 @@
           "activities": [
             {
               "text": "Pomeriggio libero a San José: Barrio Amón, Mercado Central o Museo della Giada secondo i desideri. Preparare i bagagli per Tortuguero - prevedere contanti (nessun bancomat sul posto) e prenotare il battello da La Pavona se non è già fatto.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "tip": "Partenza SJ → La Pavona l'indomani alle 5h-6h per il primo battello delle 7h30. Prelevare contanti a SJ - nessun bancomat a Tortuguero."
@@ -1227,17 +1143,16 @@
             "distance_km": 120,
             "drive_min": 180,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada SJ → La Pavona (~3h), poi battello La Pavona → Tortuguero (~1h30)"
+            "road_type": "Strada SJ → La Pavona (~3h), poi battello La Pavona → Tortuguero (~1h30)",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -1267,27 +1182,20 @@
           "activities": [
             {
               "text": "Arrivo nel primo pomeriggio. Prima serata nel villaggio: passeggiata sul viale principale, cena in uno dei piccoli ristoranti caraibici con rice & beans e pesce fresco. Nessun bancomat sul posto - prevedere contanti prima della partenza.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Portare abbastanza contanti - nessun bancomat a Tortuguero"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -1306,19 +1214,12 @@
             {
               "text": "Il parco nazionale di Tortuguero copre 76.937 ettari, di cui oltre 50.000 in mare. La sua rete di canali serpeggia attraverso una foresta tropicale umida soprannominata la piccola Amazzonia costaricense. I sentieri acquatici - Caño Chiquero (2,3 km), Caño Harold, Caño Palma (5,1 km) - sono navigabili in canoa o kayak senza motore per preservare il silenzio.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Parco aperto 6h-12h e 13h-16h. Guida obbligatoria per le escursioni in barca e le randonnées terrestri."
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il sentiero terrestre El Jaguar (2,5 km, parallelo alla spiaggia) attraversa la foresta tropicale umida dal villaggio. Stivali impermeabili sono disponibili a noleggio all'ingresso - indispensabili con tempo umido.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "~2h",
-                "tip": "Noleggiare stivali impermeabili all'ingresso del sentiero"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Cerro Tortuguero è una piccola collina di 120 metri accessibile in barca poi a piedi dal villaggio. La sua cima offre l'unica vista panoramica della regione: mar dei Caraibi, rete di canali e foresta a perdita d'occhio.",
@@ -1329,6 +1230,7 @@
           "activities": [
             {
               "text": "Partite per un'escursione mattutina in canoa o kayak sui canali, preferibilmente senza motore. La barca scivola silenziosamente sotto la canopia: caimani sulle rive, scimmie ragno e urlatrici tra gli alberi, martin pescatori verdi e blu in agguato. È al mattino che la fauna è più attiva.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "best_time": "6h-9h",
@@ -1338,6 +1240,7 @@
             },
             {
               "text": "In stagione di deposizione (luglio-ottobre), un'uscita notturna guidata sulla spiaggia permette di osservare le tartarughe verdi che vengono a deporre le uova sulla sabbia nera. L'accompagnamento di una guida accreditata è obbligatorio. Nessuna luce né flash autorizzati.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "best_time": "20h-23h",
@@ -1350,17 +1253,16 @@
             "distance_km": 220,
             "drive_min": 330,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Battello Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)"
+            "road_type": "Battello Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)",
+            "method": "heuristic"
           }
         },
         {
           "day": 12,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1390,27 +1292,20 @@
           "activities": [
             {
               "text": "Prima serata a Puerto Viejo: esplorate il lungomare a piedi o in bicicletta. Il noleggio biciclette è il mezzo di trasporto locale per eccellenza - le distanze tra le spiagge sono brevi e la strada è pianeggiante.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Noleggio biciclette disponibile ovunque nel villaggio, mezzo di trasporto ideale per la regione"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 13,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1434,17 +1329,13 @@
             {
               "text": "Il sentiero costiero del parco (8 km da Kelly Creek a Puerto Vargas) costeggia la spiaggia passando alternativamente per la foresta tropicale umida e il bordo mare. Bradipi, scimmie urlatrici, procioni, iguane e una moltitudine di uccelli vi sono osservati. Il parco è gestito dalla comunità locale e funziona con donazione volontaria - ingresso libero.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "distance": "8 km andata",
-                "duration": "3h-4h",
-                "tip": "Andare con bassa marea per poter attraversare il Rio Perezoso a metà percorso. Verificare le condizioni all'ingresso."
-              }
+              "visit_duration_min": 180
             }
           ],
           "activities": [
             {
               "text": "Uscita snorkeling con una guida certificata sulla barriera di Cahuita, accessibile solo in barca con accompagnatore. Le guide locali propongono sessioni di 2h dalla spiaggia con tutta l'attrezzatura fornita.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "duration": "2h",
@@ -1454,24 +1345,17 @@
             },
             {
               "text": "Ritorno a Puerto Viejo per un fine pomeriggio libero a Playa Cocles, la spiaggia da surf più rinomata del settore. Onde adatte a tutti i livelli - i locali propongono corsi tutto l'anno.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 14,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1495,15 +1379,13 @@
             {
               "text": "Il Refugio Gandoca-Manzanillo protegge 10 km di spiaggia, una foresta di 740 ettari, una barriera corallina e due paludi. È anche una zona di nidificazione di tartarughe marine, lamantini, coccodrilli e delfini. Sentieri segnalati attraversano la foresta dal villaggio di Manzanillo.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Prendere una guida locale per i sentieri forestali - la fauna è più facile da osservare con un accompagnatore"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Giornata in bicicletta lungo la strada costiera Puerto Viejo - Manzanillo. I 13 km sono pianeggianti, ombreggiati e punteggiati di spiagge. È il modo migliore per esplorare la costa al ritmo locale.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "13 km",
@@ -1513,6 +1395,7 @@
             },
             {
               "text": "Snorkeling a Punta Uva o Manzanillo. Sono i due migliori spot di maschera e boccaglio della costa caraibica dopo Cahuita: barriere coralline, pesci tropicali, razze, e talvolta tartarughe marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -1520,17 +1403,16 @@
             "distance_km": 210,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 15,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 3,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -1555,18 +1437,85 @@
           "activities": [
             {
               "text": "Ultima mattinata a San José di ritorno dai Caraibi. Passeggiata sull'Avenida Central, sosta al Mercado Central per un ultimo caffè costaricense e gli acquisti di fine viaggio prima del trasferimento verso l'aeroporto.",
+              "place_id": "",
               "activity_duration_min": 180
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            15
+          ],
+          "label": "Segment 3 — J11–J15",
+          "from_day": 11,
+          "to_day": 15
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 15,
+          "label": "Var 15j"
+        }
+      ],
+      "regions": [
+        "CR-LA",
+        "CR-MV",
+        "CR-MA",
+        "CR-SJ",
+        "CR-TO",
+        "CR-PV"
+      ],
+      "nearby_itins": [
+        "CR::10days-classic",
+        "CR::10days-caribbean",
+        "CR::20days-complete"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Natura",
+          "Vulcani",
+          "Mare e Coste",
+          "Avventura",
+          "Fauna e Flora"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Road Trip Costa Rica 15 Giorni: Arenal, Monteverde, Manuel Antonio e Caraibi",
         "intro_paragraph": "Quindici giorni per coprire le quattro destinazioni di punta del Costa Rica: il vulcano Arenal e le sue sorgenti termali, la foresta nebulare di Monteverde, le scimmie e le spiagge di Manuel Antonio, poi il passaggio verso i Caraibi con i canali di Tortuguero e le spiagge afro-caraibiche di Puerto Viejo.",
@@ -1587,89 +1536,6 @@
           "CR::puerto-viejo": "Dove il ritmo reggae accompagna onde che lambiscono barriere coralline"
         }
       },
-      "meta": {
-        "themes": [
-          "Natura",
-          "Vulcani",
-          "Mare e Coste",
-          "Avventura",
-          "Fauna e Flora"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5: Highlands (Arenal e Monteverde)",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            9
-          ],
-          "label": "Segmento 2 - D6–D9: Pacifico centrale e perno SJ",
-          "from_day": 6,
-          "to_day": 9
-        },
-        {
-          "n": 3,
-          "range": [
-            10,
-            15
-          ],
-          "label": "Segmento 3 - D10–D15: Costa Caraibica",
-          "from_day": 10,
-          "to_day": 15
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 8,
-          "label": "Var 8gg Highlands + Pacifico"
-        },
-        {
-          "from_day": 9,
-          "to_day": 15,
-          "label": "Var 7gg SJ + Caraibi"
-        },
-        {
-          "from_day": 1,
-          "to_day": 15,
-          "label": "Var 15gg Triangolo + Caraibi"
-        }
-      ],
-      "regions": [
-        "CR-LA",
-        "CR-MV",
-        "CR-MA",
-        "CR-SJ",
-        "CR-TO",
-        "CR-PV"
-      ],
-      "nearby_itins": [
-        "CR::10days-classic",
-        "CR::10days-caribbean",
-        "CR::20days-complete"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Gallo pinto (riso e fagioli neri fritti, piatto nazionale costaricense)",
-        "Casado (piatto completo con riso, fagioli, platano, insalata e carne o pesce)",
-        "Caffè costaricense di alta quota (tra i migliori al mondo)",
-        "Formaggio artigianale quacchero di Monteverde",
-        "Rice & beans caraibico al latte di cocco (costa caraibica)"
-      ],
-      "dept_code": "CR",
-      "dept_name": "Costa Rica",
-      "subtitle": "Vulcano Arenal, foresta nebulare di Monteverde, parco Manuel Antonio e costa caraibica selvaggia da Tortuguero a Puerto Viejo: le quattro destinazioni di punta del Costa Rica in quindici giorni.",
       "seo_keywords": [
         "road trip Costa Rica 15 giorni",
         "Costa Rica Arenal Monteverde Manuel Antonio Caraibi",
@@ -1707,16 +1573,31 @@
       "itin_id": "CR::20days-complete",
       "id": "CR::20days-complete",
       "language": "it",
-      "title": "Gran Tour del Costa Rica: Caraibi, Vulcani, Foreste e Pacifico",
-      "country": "CR",
-      "estimated_days_base": 21,
-      "source_url": null,
       "created_at": "2025-10-24T07:14:36.000Z",
+      "source_url": "",
+      "dept_code": "CR",
+      "dept_name": "Costa Rica",
+      "title": "Gran Tour del Costa Rica: Caraibi, Vulcani, Foreste e Pacifico",
+      "subtitle": "Il circuito completo in venti giorni: canali di Tortuguero, costa caraibica, vulcano Arenal, foresta di nuvole di Monteverde, parco Manuel Antonio e coda di balena di Uvita.",
+      "notes": "",
+      "specialties": [
+        "Rice & beans al latte di cocco della costa caraibica",
+        "Caffè costaricano delle piantagioni della Valle Centrale",
+        "Pesce fresco e frutti di mare del Pacifico",
+        "Gallo pinto, piatto nazionale a base di riso e fagioli neri",
+        "Ceviche di corvina e platano fritto"
+      ],
+      "estimated_days_base": 21,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -1724,10 +1605,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -1757,6 +1637,7 @@
           "activities": [
             {
               "text": "Arrivo nel pomeriggio. Prima serata nel villaggio: passeggiata sul viale principale, cena in uno dei piccoli ristoranti caraibici con rice & beans e pesce fresco. Non ci sono bancomat: portare contanti da San José.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Portare contante sufficiente - nessun bancomat a Tortuguero"
@@ -1767,17 +1648,16 @@
             "distance_km": 80,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada SJ → La Pavona (~3h), poi barca La Pavona → Tortuguero (~1h30)"
+            "road_type": "Strada SJ → La Pavona (~3h), poi barca La Pavona → Tortuguero (~1h30)",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "CR::tortuguero",
+          "region_code": "CR-TO",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-TO",
           "night": {
             "place_id": "CR::tortuguero",
             "coords": [
@@ -1796,19 +1676,12 @@
             {
               "text": "Il Parco Nazionale di Tortuguero si estende su 76.937 ettari, di cui oltre 50.000 in mare. La sua rete di canali serpeggia attraverso una foresta tropicale umida soprannominata la piccola Amazzonia costaricana. I sentieri acquatici - Caño Chiquero (2,3 km), Caño Harold, Caño Palma (5,1 km) - sono navigabili in canoa o kayak senza motore.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Parco aperto 6h-12h e 13h-16h. Guida obbligatoria per le escursioni in barca e i sentieri terrestri."
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il sentiero terrestre El Jaguar (2,5 km) attraversa la foresta pluviale dal villaggio. Stivali impermeabili disponibili a noleggio all'ingresso - indispensabili quando il terreno è fangoso.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "~2h",
-                "tip": "Noleggiare stivali impermeabili all'ingresso del sentiero"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Cerro Tortuguero è una collina di 120 metri raggiungibile in barca e poi a piedi dal villaggio. Dalla cima si gode l'unico panorama della regione: Mar dei Caraibi, reticolo di canali e foresta a perdita d'occhio.",
@@ -1819,6 +1692,7 @@
           "activities": [
             {
               "text": "Escursione mattutina in canoa o kayak sui canali, preferibilmente senza motore. La barca scivola silenziosa sotto la canopia: caimani sulle sponde, scimmie ragno e urlatrici tra gli alberi, martin pescatori in agguato. È al mattino che la fauna è più attiva.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "best_time": "6h-9h",
@@ -1828,6 +1702,7 @@
             },
             {
               "text": "In stagione di deposizione delle uova (luglio-ottobre), uscita notturna guidata per osservare le tartarughe verdi sulla sabbia nera. Accompagnamento di una guida accreditata obbligatoria. Vietate luci e flash fotografici.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "best_time": "20h-23h",
@@ -1835,22 +1710,14 @@
                 "tip": "Solo in stagione (luglio-ottobre)."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 3,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1875,6 +1742,7 @@
           "activities": [
             {
               "text": "Prima serata a Puerto Viejo: esplorate il lungomare a piedi o in bicicletta. Il noleggio bici è il mezzo di trasporto locale per eccellenza - le distanze tra le spiagge sono brevi e la strada è pianeggiante.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Noleggio biciclette disponibile ovunque nel villaggio"
@@ -1885,17 +1753,16 @@
             "distance_km": 220,
             "drive_min": 330,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Barca Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)"
+            "road_type": "Barca Tortuguero → La Pavona (~1h30), poi strada La Pavona → Puerto Viejo via Limón (~4h)",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1914,17 +1781,13 @@
             {
               "text": "Il Parco Nazionale di Cahuita protegge una delle barriere coralline meglio conservate del Costa Rica: 35 specie di coralli, 123 specie di pesci, squali nutrice e mante. Il sentiero costiero (8 km da Kelly Creek a Puerto Vargas) costeggia alternativamente la spiaggia e la foresta pluviale. Bradipi, scimmie urlatrici, procioni e iguane vengono avvistati regolarmente.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "distance": "8 km solo andata",
-                "duration": "3h-4h",
-                "tip": "Andare con la bassa marea per attraversare il Rio Perezoso. Ingresso a donazione volontaria."
-              }
+              "visit_duration_min": 180
             }
           ],
           "activities": [
             {
               "text": "Uscita snorkeling con guida certificata sulla barriera di Cahuita, accessibile solo in barca. Sessioni di 2h con attrezzatura fornita.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "duration": "2h",
@@ -1933,24 +1796,17 @@
             },
             {
               "text": "Ritorno a Puerto Viejo per un tardo pomeriggio libero a Playa Cocles, spiaggia da surf rinomata - la Salsa Brava, onda che frange sulla barriera poco profonda, attira surfisti esperti da dicembre ad aprile.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "CR::puerto-viejo",
+          "region_code": "CR-PV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-PV",
           "night": {
             "place_id": "CR::puerto-viejo",
             "coords": [
@@ -1975,6 +1831,7 @@
           "activities": [
             {
               "text": "Giornata in bici Puerto Viejo - Manzanillo (13 km pianeggianti e ombreggiati) con soste alle spiagge. Snorkeling a Punta Uva o Manzanillo - tra i migliori spot di maschera e boccaglio della costa caraibica dopo Cahuita.",
+              "place_id": "",
               "activity_duration_min": 240,
               "practical_info": {
                 "distance": "13 km",
@@ -1986,17 +1843,16 @@
             "distance_km": 295,
             "drive_min": 360,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Puerto Viejo → San José (~4h30), poi San José → La Fortuna (~3h) - possibile in due tempi con notte a SJ"
+            "road_type": "Puerto Viejo → San José (~4h30), poi San José → La Fortuna (~3h) - possibile in due tempi con notte a SJ",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 1,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -2026,6 +1882,7 @@
           "activities": [
             {
               "text": "Arrivo a fine mattinata. Pranzo al Mercado Central, visita del Teatro Nacional nel primo pomeriggio, poi strada verso La Fortuna (~3h).",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -2033,17 +1890,16 @@
             "distance_km": 180,
             "drive_min": 195,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada nazionale via Ciudad Quesada, parzialmente tortuosa"
+            "road_type": "Strada nazionale via Ciudad Quesada, parzialmente tortuosa",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LF",
           "suggested_days": 2,
           "rating": 7,
-          "region_code": "CR-LF",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -2067,36 +1923,26 @@
             {
               "text": "La cascata La Fortuna, alimentata dalle piogge del versante nord del vulcano, precipita da 70 metri in una pozza turchese accessibile con 500-530 gradini. La discesa richiede 15-20 minuti, la salita più fatica - prevedere buone scarpe.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "500-530 gradini andata e ritorno. Balneazione consentita nella pozza."
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Serata alle sorgenti termali naturali riscaldate dall'attività vulcanica. Diversi complessi a vari budget: le sorgenti pubbliche di Tabacón sono le più note, le sorgenti gratuite del rio Chollin a valle sono accessibili in autonomia.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Le sorgenti gratuite si trovano circa 1 km a valle del complesso Tabacón"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LF",
           "suggested_days": 1,
           "rating": 7,
-          "region_code": "CR-LF",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -2115,26 +1961,18 @@
             {
               "text": "Il sentiero Arenal 1968 (4-4,7 km, 1h30-3h) attraversa le colate laviche solidificate dell'eruzione fondatrice. Due varianti: Sendero Bosque (foresta di ricrescita) e Sendero Colada (campo lavico a cielo aperto). Vista diretta sul cono del vulcano con tempo limpido.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "distance": "4-4,7 km",
-                "duration": "1h30-3h secondo variante",
-                "tip": "Andarci presto la mattina - il cono si vela rapidamente nelle nuvole dopo le 10h"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "I Ponti Sospesi di Mistico (3 km, 16 ponti di cui 6 sospesi) attraversano la foresta pluviale sulla canopia. Altezza di cammino tra 40 e 80 metri sopra il suolo - ideale per l'osservazione degli uccelli e delle scimmie dalle cime.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "distance": "3 km",
-                "bridges": "16 ponti di cui 6 sospesi"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Kayak o windsurf sul lago Arenal. Il lago artificiale (85 km²) è delimitato a est dal vulcano e a ovest da colline verdeggianti - il vento dominante ne fa uno dei migliori spot di windsurf dell'America centrale.",
+              "place_id": "",
               "activity_duration_min": 150
             }
           ],
@@ -2142,17 +1980,16 @@
             "distance_km": 70,
             "drive_min": 120,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada La Fortuna → Monteverde via traversata lago Arenal o strada di montagna - tratto ghiaia raccomandato 4x4"
+            "road_type": "Strada La Fortuna → Monteverde via traversata lago Arenal o strada di montagna - tratto ghiaia raccomandato 4x4",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 2,
           "rating": 5.7,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -2171,15 +2008,13 @@
             {
               "text": "La Riserva Biologica di Monteverde (10.500 ettari, altitudine ~1.400 m) è una delle foreste di nuvole più celebri al mondo. Arroccata sulla Cordillera de Tilarán, ospita oltre 400 specie di uccelli tra cui il Quetzal splendente, 100 specie di mammiferi e 500 specie di orchidee.",
               "place_id": "",
-              "visit_duration_min": 240,
-              "practical_info": {
-                "tip": "Ingresso contingentato - prenotare online. Prevedere impermeabile leggero anche in stagione secca."
-              }
+              "visit_duration_min": 240
             }
           ],
           "activities": [
             {
               "text": "Escursione guidata mattutina nella riserva alla ricerca del Quetzal splendente - le guide locali lo individuano dove un visitatore solitario passerebbe oltre. La foschia mattutina conferisce alla foresta un'atmosfera particolare.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "best_time": "7h-10h",
@@ -2187,22 +2022,14 @@
                 "tip": "Il Quetzal è osservabile da novembre a maggio, con un picco in marzo-aprile (stagione di nidificazione)"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 1,
           "rating": 5.7,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -2221,15 +2048,13 @@
             {
               "text": "La Riserva Curi-Cancha (76 ettari), meno frequentata di Monteverde, offre possibilità di osservazione simili in un contesto più tranquillo. La foresta di nuvole è altrettanto densa, con buone osservazioni di colibrì, scimmie urlatrici e bradipi.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "tip": "Alternativa ideale se Monteverde è al completo. Meno turisti, atmosfera più selvaggia."
-              }
+              "visit_duration_min": 180
             }
           ],
           "activities": [
             {
               "text": "Canopy e teleferiche sopra la foresta di nuvole. Monteverde è la culla del canopy in Costa Rica - diversi operatori propongono circuiti da 10 a 20 cavi con vista sul Golfo di Nicoya con tempo sgombro.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "booking": "Prenotazione consigliata in alta stagione"
@@ -2240,17 +2065,16 @@
             "distance_km": 165,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada di montagna Monteverde → San José (~3h30) poi San José → Manuel Antonio (~2h30) - tragitto lungo, considerare notte a SJ"
+            "road_type": "Strada di montagna Monteverde → San José (~3h30) poi San José → Manuel Antonio (~2h30) - tragitto lungo, considerare notte a SJ",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 1,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -2280,6 +2104,7 @@
           "activities": [
             {
               "text": "Arrivo in mattinata da Monteverde (~3h30). Pomeriggio musei o passeggiata nel Barrio Amón prima della discesa verso Manuel Antonio.",
+              "place_id": "",
               "activity_duration_min": 150
             }
           ],
@@ -2287,17 +2112,16 @@
             "distance_km": 175,
             "drive_min": 195,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada nazionale via Parrita, buona strada"
+            "road_type": "Strada nazionale via Parrita, buona strada",
+            "method": "heuristic"
           }
         },
         {
           "day": 12,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 2,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -2316,11 +2140,7 @@
             {
               "text": "Il Parco Nazionale Manuel Antonio è il più piccolo del Costa Rica (683 ettari terrestri) ma uno dei più ricchi di biodiversità. Il sentiero principale costeggia una mangrovia di 18 ettari prima di raggiungere Playa Manuel Antonio, considerata tra le spiagge più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "tip": "Aperto tutti i giorni tranne il martedì, dalle 7h alle 16h. Biglietto online obbligatorio con numero di passaporto.",
-                "booking": "Prenotazione online obbligatoria"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "La Punta Catedral è un'antica isola collegata al continente da un tombolo di sabbia che forma una penisola. Il sentiero che la circonda offre viste sulle due spiagge e sulle 12 isole del parco, santuari di uccelli marini.",
@@ -2331,6 +2151,7 @@
           "activities": [
             {
               "text": "Guida naturalistica certificata fin dall'ingresso del parco: equipaggiato con cannocchiale, individua i bradipi didattili, i cebi cappuccini dalla testa bianca e le scimmie scoiattolo endemiche di Manuel Antonio.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "duration": "2h30-3h",
@@ -2339,24 +2160,17 @@
             },
             {
               "text": "Balneazione a Playa Manuel Antonio. Snorkeling possibile sui lati della spiaggia per murene, pesci angelo e stelle marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 13,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 4.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -2381,6 +2195,7 @@
           "activities": [
             {
               "text": "Escursione kayak nella mangrovia di Isla Damas. I canali dell'estuario del Río Damas ospitano coccodrilli, scimmie, garzette e sterne. Partenza presto per la fauna più attiva.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h-4h",
@@ -2389,6 +2204,7 @@
             },
             {
               "text": "Pomeriggio libero. Il porto turistico di Quepos propone pesca sportiva, tour costieri e noleggio kayak da mare. Tramonto a Playa Espadilla Norte.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -2396,17 +2212,16 @@
             "distance_km": 55,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 14,
           "slice": 1,
-          "place_id": "CR::uvita",
+          "region_code": "CR-UV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-UV",
           "night": {
             "place_id": "CR::uvita",
             "coords": [
@@ -2425,26 +2240,18 @@
             {
               "text": "Il Parco Nazionale Marino Ballena, primo parco marino del Costa Rica (1989), è celebre per il suo tombolo di Punta Uvita: con la bassa marea, una lingua di sabbia emerge dall'acqua e assume dall'alto la forma di una coda di balena. La passeggiata su questo banco di sabbia, mare da entrambi i lati, è una delle più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "tip": "Verificare gli orari di bassa marea - la coda di balena è accessibile solo con la bassa marea (30-40 min a piedi dall'ingresso Uvita)"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Le cascate di Nauyaca, accessibili da Dominical (~30 min a nord di Uvita), contano tra le più spettacolari del Costa Rica. L'escursione (~16 km andata e ritorno) può farsi anche a cavallo. Balneazione consentita nella pozza inferiore.",
               "place_id": "",
-              "visit_duration_min": 300,
-              "practical_info": {
-                "distance": "~16 km andata e ritorno",
-                "duration": "~5h a piedi o ~3h a cavallo",
-                "difficulty": "Moderato",
-                "tip": "Opzione cavallo raccomandata se la giornata è carica"
-              }
+              "visit_duration_min": 300
             }
           ],
           "activities": [
             {
               "text": "Escursione in barca per l'osservazione delle balene megattera (due stagioni: dicembre-aprile e luglio-ottobre). Delfini maculati e mante presenti tutto l'anno.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "3h-4h",
@@ -2456,17 +2263,16 @@
             "distance_km": 60,
             "drive_min": 120,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada Uvita → Sierpe (~1h), poi barca Sierpe → Drake Bay (~1h)"
+            "road_type": "Strada Uvita → Sierpe (~1h), poi barca Sierpe → Drake Bay (~1h)",
+            "method": "heuristic"
           }
         },
         {
           "day": 15,
           "slice": 1,
-          "place_id": "CR::drake-bay",
+          "region_code": "CR-OS",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "CR-OS",
           "night": {
             "place_id": "CR::drake-bay",
             "coords": [
@@ -2485,33 +2291,23 @@
             {
               "text": "Drake Bay (Bahía Drake) è accessibile solo in barca da Sierpe (~1h) o in aereo da San José. L'auto rimane a Sierpe in un parcheggio custodito. Il villaggio di Drake Bay è un punto base per esplorare la penisola di Osa - una delle zone di biodiversità più dense del pianeta. Prevedere almeno 2 notti.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "tip": "Lasciare l'auto a Sierpe (parcheggio custodito) - nessun accesso stradale a Drake Bay. Barca da Sierpe: partenze solo la mattina."
-              }
+              "visit_duration_min": 90
             }
           ],
           "activities": [
             {
               "text": "Prima serata a Drake Bay. Passeggiata sulla spiaggia principale al tramonto. I lodge propongono circuiti guidati per la giornata successiva - Corcovado o Isla del Caño, da prenotare all'arrivo.",
+              "place_id": "",
               "activity_duration_min": 120
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 16,
           "slice": 1,
-          "place_id": "CR::drake-bay",
+          "region_code": "CR-OS",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-OS",
           "night": {
             "place_id": "CR::drake-bay",
             "coords": [
@@ -2530,45 +2326,31 @@
             {
               "text": "Il Parco Nazionale di Corcovado, descritto da National Geographic come la zona di biodiversità più intensa del pianeta, copre 41.788 ettari di foresta tropicale primaria. Vi si censiscono il 2,5% della biodiversità mondiale sullo 0,001% della superficie terrestre. Giaguari, tapiri di Baird, puma, ara macao e 4 specie di scimmie coabitano in questa foresta di bassa quota.",
               "place_id": "",
-              "visit_duration_min": 360,
-              "practical_info": {
-                "tip": "Guida obbligatoria per entrare nel parco. Prenotazione al SINAC obbligatoria. Accesso solo da Drake Bay o La Palma."
-              }
+              "visit_duration_min": 360
             },
             {
               "text": "L'Isla del Caño, riserva biologica a 20 km al largo di Drake Bay, è uno dei migliori spot di immersione e snorkeling del Costa Rica. Squali pinna bianca di scogliera, tartarughe marine, mante, delfini. Le sfere di pietra precolombiane disseminate sull'isola restano un enigma archeologico.",
               "place_id": "",
-              "visit_duration_min": 0,
-              "note": "Incompatibile con Corcovado in una giornata - scegliere l'una o l'altra. visit_duration_min messo a 0 per neutralizzare il pacing.",
-              "practical_info": {
-                "tip": "Escursione di una giornata da Drake Bay (~1h30 di barca). Prenotazione consigliata."
-              }
+              "visit_duration_min": 60
             }
           ],
           "activities": [
             {
               "text": "Corcovado o Isla del Caño - i due sono incompatibili in una giornata. Corcovado per gli appassionati di trekking e fauna terrestre (giaguari, tapiri, ara rosse). Isla del Caño per i subacquei e appassionati di vita marina.",
+              "place_id": "",
               "activity_duration_min": 360,
               "practical_info": {
                 "tip": "Scegliere secondo le priorità: fauna terrestre → Corcovado ; immersioni → Isla del Caño"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 17,
           "slice": 1,
-          "place_id": "CR::uvita",
+          "region_code": "CR-UV",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "CR-UV",
           "night": {
             "place_id": "CR::uvita",
             "coords": [
@@ -2593,24 +2375,17 @@
           "activities": [
             {
               "text": "Giornata di transizione e relax sulla costa. Spiaggia a Dominical (surf) o Playa Hermosa (balneazione calma), pranzo in uno dei piccoli ristoranti di Ojochal rinomati per la cucina internazionale, ritorno a Uvita per la notte.",
+              "place_id": "",
               "activity_duration_min": 240
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 18,
           "slice": 1,
-          "place_id": "CR::uvita",
+          "region_code": "CR-UV",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CR-UV",
           "night": {
             "place_id": "CR::uvita",
             "coords": [
@@ -2635,6 +2410,7 @@
           "activities": [
             {
               "text": "Ritorno al Parco Marino Ballena per il tramonto sulla coda di balena. L'ingresso è gratuito la sera dopo la chiusura ufficiale del parco. Vista mozzafiato sul Pacifico.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "tip": "L'ingresso è libero la sera, dopo le 16h. Tramonto spettacolare sulla coda di balena."
@@ -2642,6 +2418,7 @@
             },
             {
               "text": "Snorkeling con la bassa marea attorno al tombolo o escursione in kayak nelle mangrovie del rio Sierpe secondo i desideri.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -2649,17 +2426,16 @@
             "distance_km": 170,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada Interamericana Uvita → San José via Cerro de la Muerte (alt. 3.400 m)"
+            "road_type": "Strada Interamericana Uvita → San José via Cerro de la Muerte (alt. 3.400 m)",
+            "method": "heuristic"
           }
         },
         {
           "day": 19,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 2,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -2684,24 +2460,17 @@
           "activities": [
             {
               "text": "Ultima serata a San José. Cena nel Barrio Escalante, quartiere gastronomico della capitale, o nel Mercado Central per restare nell'autenticità locale. Preparazione dei bagagli per il volo del giorno dopo.",
+              "place_id": "",
               "activity_duration_min": 180
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 20,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 0.5,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -2726,21 +2495,105 @@
           "activities": [
             {
               "text": "Passeggiata finale sull'Avenida Central. Sosta al Mercado Central per un ultimo caffè costaricano e gli acquisti di fine viaggio prima del trasferimento verso l'aeroporto Juan Santamaría.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Prevedere 2h prima del volo internazionale per il trasferimento e le formalità aeroportuali"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            15
+          ],
+          "label": "Segment 3 — J11–J15",
+          "from_day": 11,
+          "to_day": 15
+        },
+        {
+          "n": 4,
+          "range": [
+            16,
+            20
+          ],
+          "label": "Segment 4 — J16–J20",
+          "from_day": 16,
+          "to_day": 20
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 15,
+          "label": "Var 15j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 20,
+          "label": "Var 20j"
+        }
+      ],
+      "regions": [
+        "CR-TO",
+        "CR-PV",
+        "CR-SJ",
+        "CR-LF",
+        "CR-MV",
+        "CR-MA",
+        "CR-UV",
+        "CR-OS"
+      ],
+      "nearby_itins": [
+        "CR::10days-classic",
+        "CR::10days-caribbean",
+        "PA::national::panama-nature-complet"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Natura",
+          "Vulcani",
+          "Mare e Coste",
+          "Avventura",
+          "Fauna e Flora"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Gran Tour Costa Rica 20 Giorni: Caraibi, Vulcani e Pacifico",
         "intro_paragraph": "Venti giorni per attraversare il Costa Rica in tutta la sua diversità: canali di Tortuguero, spiagge caraibiche di Cahuita, vulcano Arenal in attività, foresta di nuvole di Monteverde, parco Manuel Antonio, coda di balena di Uvita e giungla primaria di Corcovado.",
@@ -2765,101 +2618,6 @@
           "CR::drake-bay": "Porta della foresta primaria di Corcovado, ultima frontiera della natura selvaggia"
         }
       },
-      "meta": {
-        "themes": [
-          "Natura",
-          "Vulcani",
-          "Mare e Coste",
-          "Avventura",
-          "Fauna e Flora"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5: Costa Caraibica",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10: Highlands - Arenal e Monteverde",
-          "from_day": 6,
-          "to_day": 10
-        },
-        {
-          "n": 3,
-          "range": [
-            11,
-            16
-          ],
-          "label": "Segmento 3 - D11–D16: Pacifico centrale e penisola di Osa",
-          "from_day": 11,
-          "to_day": 16
-        },
-        {
-          "n": 4,
-          "range": [
-            17,
-            20
-          ],
-          "label": "Segmento 4 - D17–D20: Costa Ballena e ritorno a SJ",
-          "from_day": 17,
-          "to_day": 20
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Var 10gg Caraibi + Highlands"
-        },
-        {
-          "from_day": 6,
-          "to_day": 20,
-          "label": "Var 15gg Highlands + Pacifico"
-        },
-        {
-          "from_day": 1,
-          "to_day": 20,
-          "label": "Var 20gg Gran Tour Completo"
-        }
-      ],
-      "regions": [
-        "CR-TO",
-        "CR-PV",
-        "CR-SJ",
-        "CR-LF",
-        "CR-MV",
-        "CR-MA",
-        "CR-UV",
-        "CR-OS"
-      ],
-      "nearby_itins": [
-        "CR::10days-classic",
-        "CR::10days-caribbean",
-        "PA::national::panama-nature-complet"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Rice & beans al latte di cocco della costa caraibica",
-        "Caffè costaricano delle piantagioni della Valle Centrale",
-        "Pesce fresco e frutti di mare del Pacifico",
-        "Gallo pinto, piatto nazionale a base di riso e fagioli neri",
-        "Ceviche di corvina e platano fritto"
-      ],
-      "dept_code": "CR",
-      "dept_name": "Costa Rica",
-      "subtitle": "Il circuito completo in venti giorni: canali di Tortuguero, costa caraibica, vulcano Arenal, foresta di nuvole di Monteverde, parco Manuel Antonio e coda di balena di Uvita.",
       "seo_keywords": [
         "gran tour Costa Rica 20 giorni",
         "road trip Costa Rica completo",
@@ -2898,16 +2656,31 @@
       "itin_id": "CR::10days-classic",
       "id": "CR::10days-classic",
       "language": "it",
-      "title": "Road Trip Costa Rica: Vulcani, Foreste e Spiagge del Pacifico",
-      "country": "CR",
-      "estimated_days_base": 10,
-      "source_url": null,
       "created_at": "2025-10-24T07:14:36.000Z",
+      "source_url": "",
+      "dept_code": "CR",
+      "dept_name": "Costa Rica",
+      "title": "Road Trip Costa Rica: Vulcani, Foreste e Spiagge del Pacifico",
+      "subtitle": "Da San José al vulcano Arenal, dalle nebbie di Monteverde alle spiagge turchesi di Manuel Antonio: il triangolo classico del Costa Rica in dieci giorni.",
+      "notes": "",
+      "specialties": [
+        "Gallo pinto (riso e fagioli neri costaricani)",
+        "Casado (piatto tradizionale completo)",
+        "Caffè d'altura della Valle Centrale",
+        "Formaggio artigianale dei Quaccheri di Monteverde",
+        "Ceviche fresco del Pacifico"
+      ],
+      "estimated_days_base": 10,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -2915,10 +2688,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 1,
           "rating": 7.5,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -2948,10 +2720,12 @@
           "activities": [
             {
               "text": "Prima serata a La Fortuna: passeggiata intorno al parco centrale, cena in uno dei ristoranti locali con vista sul vulcano.",
+              "place_id": "",
               "activity_duration_min": 90
             },
             {
               "text": "Sistematevi presto: domani si parte all'alba con il sentiero Arenal 1968, prima che le nuvole nascondano la vetta.",
+              "place_id": "",
               "activity_duration_min": 30,
               "practical_info": {
                 "tip": "Il vulcano è più visibile al mattino, le nuvole arrivano spesso nel primo pomeriggio"
@@ -2962,17 +2736,16 @@
             "distance_km": 135,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 3,
           "rating": 7.5,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -2991,13 +2764,7 @@
             {
               "text": "Il sentiero Arenal 1968 prende il nome dall'eruzione che, nel luglio di quell'anno, seppellì tre villaggi sotto la lava. Due percorsi a scelta: il Sendero Bosque (4,7 km attraverso la foresta) o il Sendero Colada (4 km, diretto verso i campi di lava). Il terreno nero e fratturato contrasta con la vegetazione che si riprende i suoi spazi.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "distance": "da 4 a 4,7 km",
-                "duration": "da 1h30 a 3h",
-                "difficulty": "Facile o moderato",
-                "tip": "Partire presto al mattino per vedere il vulcano prima delle nuvole"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Mirador El Silencio, accessibile dal sentiero 1968, offre uno degli angoli più diretti sul cono dell'Arenal. Con il tempo sereno si vede anche il lago Arenal in basso.",
@@ -3007,39 +2774,27 @@
             {
               "text": "Il parco Mistico Hanging Bridges propone 3 km di sentieri costellati da 16 ponti, di cui 6 sospesi sopra la canopia. Le guide munite di cannocchiali individuano bradipi, tucani e scimmie urlatrici tra gli alberi.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "da 2h a 3h",
-                "booking": "Prenotazione consigliata in alta stagione",
-                "tip": "Prendere una guida per massimizzare le osservazioni faunistiche"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "A fine giornata, raggiungi le sorgenti termali naturali ai margini del vulcano. L'acqua, riscaldata dall'attività geotermica, oscilla tra 25 e 38°C. Un fiume termale gratuito si trova vicino alle Tabacon Hot Springs, accessibile seguendo il bordo della strada.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "best_time": "17h-20h",
                 "tip": "Opzione gratuita: fiume naturale vicino alle Tabacon. I complessi alberghieri propongono anche vasche attrezzate."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "CR::la-fortuna",
+          "region_code": "CR-LA",
           "suggested_days": 1,
           "rating": 7.5,
-          "region_code": "CR-LA",
           "night": {
             "place_id": "CR::la-fortuna",
             "coords": [
@@ -3058,28 +2813,18 @@
             {
               "text": "La cascata di La Fortuna precipita da 70 metri in una pozza d'acqua color smeraldo. Bisogna scendere circa 500 gradini per raggiungerla dall'ingresso a pagamento, poi risalirli al ritorno: lo sforzo è reale con il caldo intenso.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "duration": "da 1h30 a 2h",
-                "difficulty": "Moderato (500 gradini andata e ritorno)",
-                "tip": "Portare il costume per fare il bagno ai piedi della cascata. Arrivare presto per evitare la folla."
-              }
+              "visit_duration_min": 90
             },
             {
               "text": "Il Cerro Chato è il vulcano spento vicino all'Arenal, accessibile dall'Observatory Lodge. Il suo cratere custodisce un lago dai riflessi blu dove è possibile fare il bagno. L'escursione è impegnativa e sconsigliata in caso di pioggia.",
               "place_id": "",
-              "visit_duration_min": 240,
-              "practical_info": {
-                "distance": "~8 km andata e ritorno",
-                "duration": "~4h",
-                "difficulty": "Difficile",
-                "tip": "Solo con bel tempo, il terreno diventa scivoloso con la pioggia"
-              }
+              "visit_duration_min": 240
             }
           ],
           "activities": [
             {
               "text": "Il Bogarin Trail è un sentiero privato ai margini di La Fortuna, famoso per l'osservazione dei bradipi a due e tre dita. Le guide locali, munite di telescopi, individuano gli animali mimetizzati tra i rami.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "duration": "da 1h30 a 2h",
@@ -3088,6 +2833,7 @@
             },
             {
               "text": "Il lago Arenal, creato nel 1972, è il più grande del Costa Rica. La sua sponda nord offre punti panoramici sul vulcano dall'acqua. I fornitori locali propongono kayak, stand-up paddle ed escursioni in barca.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -3095,17 +2841,16 @@
             "distance_km": 34.7,
             "drive_min": 69,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada di montagna, parzialmente sterrata - 4x4 consigliato in stagione delle piogge"
+            "road_type": "Strada di montagna, parzialmente sterrata - 4x4 consigliato in stagione delle piogge",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 1,
           "rating": 6.1,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -3134,16 +2879,13 @@
             {
               "text": "La Riserva di Santa Elena, meno frequentata della vicina Monteverde, si estende su 310 ettari a 1.600 metri d'altitudine. Con il tempo sereno, il suo mirador offre una vista sul vulcano Arenal e, a seconda delle condizioni, fino a entrambe le coste.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "da 2h a 3h",
-                "tip": "Atmosfera più selvaggia e meno turistica della riserva principale di Monteverde"
-              }
+              "visit_duration_min": 120
             }
           ],
           "activities": [
             {
               "text": "Serata a Santa Elena: passeggiate nel villaggio, assaggiate il formaggio locale, una specialità delle famiglie quacchere che si sono stabilite qui negli anni Cinquanta. I caseifici artigianali vendono direttamente al dettaglio.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -3151,17 +2893,16 @@
             "distance_km": 115,
             "drive_min": 240,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Strada di montagna, ultimi km su pista di ghiaia - 4x4 consigliato"
+            "road_type": "Strada di montagna, ultimi km su pista di ghiaia - 4x4 consigliato",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "CR::monteverde",
+          "region_code": "CR-MV",
           "suggested_days": 1,
           "rating": 6.1,
-          "region_code": "CR-MV",
           "night": {
             "place_id": "CR::monteverde",
             "coords": [
@@ -3180,20 +2921,12 @@
             {
               "text": "La Riserva Biologica di Monteverde si estende su oltre 10.500 ettari di foresta nebulosa a 1.400 metri d'altitudine. Gli alberi centenari scompaiono nella nebbia, le orchidee - più di 500 specie - crescono sui loro tronchi. Nove sentieri segnalati attraversano questo ecosistema unico, tra cui il Sendero Bosque Nuboso, ideale per avvistare il quetzal splendente.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "duration": "da 3h a 4h",
-                "tip": "Arrivare all'apertura (7h) con una guida naturalistica per massimizzare le possibilità di osservare il quetzal. Prevedere vestiti caldi e impermeabile."
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "La riserva Curi-Cancha, a 3 km da Santa Elena, è meno frequentata di Monteverde e altrettanto ricca. I suoi sette sentieri segnalati attraversano 76 ettari di foresta primaria. Scimmie ragno, cappuccini, coati e quetzal vi vengono regolarmente osservati.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "duration": "2h",
-                "tip": "Buona alternativa o complemento a Monteverde, con meno gente"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Il Giardino delle farfalle di Monteverde presenta circa 490 specie in uno spazio recintato. Le crisalidi in corso di schiusa sono particolarmente spettacolari. Bambini e adulti apprezzano le dimostrazioni del ciclo di vita.",
@@ -3204,6 +2937,7 @@
           "activities": [
             {
               "text": "Il canopy tour di Monteverde è uno dei più rinomati del Costa Rica. Le zip-line attraversano la canopia per diversi chilometri; alcuni cavi superano i 700 metri di lunghezza. Il circuito include anche ponti sospesi e, per i più coraggiosi, una liana alla Tarzan.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "circa 3h (attrezzatura, salita, percorso)",
@@ -3215,17 +2949,16 @@
             "distance_km": 165.2,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -3250,6 +2983,7 @@
           "activities": [
             {
               "text": "In serata, raggiungete Playa Espadilla Norte, la spiaggia pubblica fuori dal parco. È il posto classico per guardare il tramonto sul Pacifico. Palme, onde dolci, luce radente: l'immagine iconica del Costa Rica.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "best_time": "17h30-18h30"
@@ -3257,6 +2991,7 @@
             },
             {
               "text": "Quepos si anima la sera. La città è conosciuta per i suoi ristoranti di pesce fresco e l'atmosfera rilassata. Passeggiata sul lungomare prima di cena.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -3264,17 +2999,16 @@
             "distance_km": 180,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 2,
           "rating": 6.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -3293,11 +3027,7 @@
             {
               "text": "Il Parco Nazionale Manuel Antonio è il più piccolo del Costa Rica (683 ettari terrestri) ma uno dei più ricchi. Il sentiero principale, pianeggiante e ben tenuto, costeggia la mangrovia di 18 ettari prima di raggiungere Playa Manuel Antonio, considerata tra le spiagge più belle del paese.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "tip": "Aperto tutti i giorni tranne il martedì, dalle 7h alle 16h. Arrivare all'apertura per vedere la fauna prima dell'affollamento.",
-                "booking": "Biglietto online obbligatorio, è richiesto il numero di passaporto"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "La Punta Catedral è un'antica isola collegata al continente da un tombolo di sabbia, che forma una penisola a forma di coda di balena. Il sentiero che ne fa il giro offre viste sulle due spiagge e sulle 12 isole del parco, che fungono da santuario per gli uccelli marini.",
@@ -3313,6 +3043,7 @@
           "activities": [
             {
               "text": "Ingaggiate una guida naturalistica certificata all'ingresso del parco. Munita di cannocchiale, individua i bradipi a due dita aggrappati ai rami, le scimmie cappuccine dalla testa bianca e le scimmie scoiattolo, endemiche di Manuel Antonio. La differenza tra una visita in autonomia e una guidata è considerevole.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "duration": "da 2h30 a 3h",
@@ -3321,24 +3052,17 @@
             },
             {
               "text": "Dopo la camminata, bagno a Playa Manuel Antonio. Le acque turchesi sono protette dalla foresta sovrastante. Snorkeling possibile ai lati della spiaggia per osservare murene, pesci angelo e stelle marine.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -3363,6 +3087,7 @@
           "activities": [
             {
               "text": "L'escursione in kayak nella mangrovia di Isla Damas scende l'estuario del Río Damas per mezza giornata. La rete di canali ospita coccodrilli, scimmie, uccelli costieri e sterne. I fornitori locali forniscono attrezzatura e guide.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "da 3h a 4h",
@@ -3372,24 +3097,17 @@
             },
             {
               "text": "Pomeriggio libero in spiaggia. Quepos dispone di un porto turistico attivo: pesca sportiva d'altura, noleggio kayak da mare e tour costieri partono da lì.",
+              "place_id": "",
               "activity_duration_min": 120
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "CR::manuel-antonio",
+          "region_code": "CR-MA",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "CR-MA",
           "night": {
             "place_id": "CR::manuel-antonio",
             "coords": [
@@ -3414,6 +3132,7 @@
           "activities": [
             {
               "text": "Imbarcatevi per un tour in catamarano sulla costa del Pacifico. Il percorso costeggia le isole del parco nazionale, con sosta snorkeling in acque ricche di fauna marina. I delfini costieri accompagnano regolarmente le barche; in stagione (luglio-novembre), le megattere passano nel settore.",
+              "place_id": "",
               "activity_duration_min": 240,
               "practical_info": {
                 "duration": "circa 4h",
@@ -3423,6 +3142,7 @@
             },
             {
               "text": "Ultima serata a Quepos: cena in riva al mare con pesce del giorno. La città è animata la sera, con diversi ristoranti sul lungomare.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -3430,17 +3150,16 @@
             "distance_km": 88.5,
             "drive_min": 89,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "CR::san-jose",
+          "region_code": "CR-SJ",
           "suggested_days": 3,
           "rating": 9.5,
-          "region_code": "CR-SJ",
           "night": {
             "place_id": "CR::san-jose",
             "coords": [
@@ -3486,10 +3205,12 @@
           "activities": [
             {
               "text": "Passeggiate sull'Avenida Central, la via pedonale che collega la Plaza de la Cultura al Parque Central. Edifici colorati, musica dal vivo e venditori di succo di canna da zucchero compongono il decor di un ultimo pomeriggio costaricano.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Il Parque Central di San José è il polmone verde del centro città. Famiglie di pappagalli verdi vi nidificano sugli alberi e si mostrano ogni giorno nel tardo pomeriggio: una bizzarria urbana tipicamente tico.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -3497,11 +3218,64 @@
             "distance_km": 165,
             "drive_min": 180,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        }
+      ],
+      "regions": [
+        "CR-LA",
+        "CR-MV",
+        "CR-MA",
+        "CR-SJ"
+      ],
+      "nearby_itins": [
+        "CR::central-highlands::costa-rica-classic",
+        "NI::national::fleuves-lagunes-deux-cotes",
+        "NI::national::route-eau-19j"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Natura",
+          "Mare e Coste"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Road Trip Costa Rica: Vulcani, Foreste e Spiagge del Pacifico",
         "intro_paragraph": "Partite da San José verso il vulcano Arenal, esplorate la foresta nebulosa di Monteverde e rilassatevi sulle spiagge di Manuel Antonio. In Costa Rica, la natura regna sovrana: scimmie, tucani e bradipi vi accompagnano a ogni tappa di questo triangolo classico.",
@@ -3518,93 +3292,8 @@
           "CR::monteverde": "Nebbie che si avvolgono agli alberi millenari, orchidee sospese e l'ombra del quetzal tra le fronde",
           "CR::manuel-antonio": "Un parco dove la giungla scende fino al mare e i bradipi pendono sopra spiagge color smeraldo",
           "CR::san-jose": "Teatro di marmo e oro precolombiano nel cuore di una capitale costruita sul caffè"
-        },
-        "segments": [
-          {
-            "n": 1,
-            "range": [
-              1,
-              5
-            ],
-            "label": "Segmento 1 - D1–D5",
-            "from_day": 1,
-            "to_day": 5
-          },
-          {
-            "n": 2,
-            "range": [
-              6,
-              10
-            ],
-            "label": "Segmento 2 - D6–D10",
-            "from_day": 6,
-            "to_day": 10
-          }
-        ]
-      },
-      "meta": {
-        "themes": [
-          "Natura",
-          "Mare e Coste"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10",
-          "from_day": 6,
-          "to_day": 10
         }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Var 10g"
-        }
-      ],
-      "regions": [
-        "CR-LA",
-        "CR-MV",
-        "CR-MA",
-        "CR-SJ"
-      ],
-      "nearby_itins": [
-        "CR::central-highlands::costa-rica-classic",
-        "NI::national::fleuves-lagunes-deux-cotes",
-        "NI::national::route-eau-19j"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Gallo pinto (riso e fagioli neri costaricani)",
-        "Casado (piatto tradizionale completo)",
-        "Caffè d'altura della Valle Centrale",
-        "Formaggio artigianale dei Quaccheri di Monteverde",
-        "Ceviche fresco del Pacifico"
-      ],
-      "dept_code": "CR",
-      "dept_name": "Costa Rica",
-      "subtitle": "Da San José al vulcano Arenal, dalle nebbie di Monteverde alle spiagge turchesi di Manuel Antonio: il triangolo classico del Costa Rica in dieci giorni.",
+      },
       "seo_keywords": [
         "road trip Costa Rica",
         "vulcano Arenal",
@@ -3632,6 +3321,5 @@
         ]
       }
     }
-  ],
-  "generated": "2026-03-05T18:00:42.763Z"
+  ]
 }

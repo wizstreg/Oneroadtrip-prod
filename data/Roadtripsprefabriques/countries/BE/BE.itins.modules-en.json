@@ -8,7 +8,7 @@
       "id": "BE::vwv::gand-bruges-damme-ypres",
       "language": "en",
       "created_at": "2025-10-25T15:45:40.000Z",
-      "source_url": null,
+      "source_url": "",
       "dept_code": "BE-VWV",
       "dept_name": "West Flanders",
       "title": "Flanders Circuit: Ghent, Bruges, Damme & Ypres",
@@ -28,16 +28,20 @@
           "standard": 1,
           "fast": 0.75
         },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
+        },
         "merge_threshold": 0.85
       },
       "days_plan": [
         {
           "day": 1,
           "slice": 1,
-          "place_id": "BE::gent",
+          "region_code": "GENT",
           "suggested_days": 2,
           "rating": 7.4,
-          "region_code": "GENT",
           "night": {
             "place_id": "BE::gent",
             "coords": [
@@ -83,28 +87,22 @@
           "activities": [
             {
               "text": "Walk along the Graslei and Korenlei, twin quays that once flanked the medieval river port. Guild houses from the 12th to 17th centuries line both sides, their stepped gables reflected in the still waters of the Lys.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Wander through the Patershol district, a former tanners' quarter where cobbled lanes wind past medieval houses. By evening, the neighborhood transforms into one of Ghent's liveliest dining quarters, its intimate scale contrasting with the monumental architecture downtown.",
+              "place_id": "",
               "activity_duration_min": 45
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "BE::gent",
+          "region_code": "GENT",
           "suggested_days": 2,
           "rating": 7.4,
-          "region_code": "GENT",
           "night": {
             "place_id": "BE::gent",
             "coords": [
@@ -140,6 +138,7 @@
           "activities": [
             {
               "text": "Take a guided canal cruise from the Graslei embarkation points. Boatmen navigate the interior waterways, revealing medieval facades and historic bridge arches from perspectives impossible to reach on foot.",
+              "place_id": "",
               "activity_duration_min": 50,
               "practical_info": {
                 "tip": "Commentary typically in English and Dutch. Frequent departures April through October."
@@ -147,6 +146,7 @@
             },
             {
               "text": "Explore the cobbled lanes around Huis van Alijn, where vintage shops, secondhand clothing stores, and traditional brown cafés occupy stepped-gable houses in what feels like a village within the city.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -154,17 +154,16 @@
             "distance_km": 50,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "BE::brugge",
+          "region_code": "BRUGGE",
           "suggested_days": 1,
           "rating": 8.7,
-          "region_code": "BRUGGE",
           "night": {
             "place_id": "BE::brugge",
             "coords": [
@@ -210,6 +209,7 @@
           "activities": [
             {
               "text": "Board a canal boat for a cruise through medieval Bruges. In half an hour, boatmen navigate the network of waterways, passing beneath a succession of low brick bridges that have spanned these canals for centuries.",
+              "place_id": "",
               "activity_duration_min": 35,
               "practical_info": {
                 "tip": "Multiple departure points around the Dijver. Frequent sailings April through November."
@@ -217,24 +217,17 @@
             },
             {
               "text": "Capture sunset reflections along the canals. The Rozenhoedkaai, steps from the Belfry, offers the classic view of Bruges' rooftops mirrored in calm water—the city's most photographed vantage point.",
+              "place_id": "",
               "activity_duration_min": 45
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "BE::damme",
+          "region_code": "DAMME",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DAMME",
           "night": {
             "place_id": "BE::damme",
             "coords": [
@@ -280,6 +273,7 @@
           "activities": [
             {
               "text": "Cycle from Bruges to Damme along the Damse Vaart canal. The towpath follows 7 kilometers of ruler-straight waterway beneath centuries-old poplars. Flat, family-friendly, car-free.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "~7 km",
@@ -290,6 +284,7 @@
             },
             {
               "text": "Take the paddle steamer between Bruges and Damme. The approximately 35-minute journey aboard the boat Lamme Goedzak travels up the canal with views across the Flemish countryside and polders.",
+              "place_id": "",
               "activity_duration_min": 40,
               "practical_info": {
                 "tip": "Seasonal availability. One-way or round-trip options."
@@ -300,17 +295,16 @@
             "distance_km": 25,
             "drive_min": 30,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "BE::diksmuide",
+          "region_code": "KUST",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "KUST",
           "night": {
             "place_id": "BE::diksmuide",
             "coords": [
@@ -345,6 +339,7 @@
           "activities": [
             {
               "text": "Drive the coastal front route between Ostend and Diksmuide. This journey across former battlefields follows the coast, passes through Nieuwpoort's dunes, and reaches the flooded polders of Ypres. Stop for photos at monuments and military cemeteries dotting the route.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -352,17 +347,16 @@
             "distance_km": 30,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "BE::ieper",
+          "region_code": "IEPER",
           "suggested_days": 1,
           "rating": 9.7,
-          "region_code": "IEPER",
           "night": {
             "place_id": "BE::ieper",
             "coords": [
@@ -408,6 +402,7 @@
           "activities": [
             {
               "text": "Attend the Last Post ceremony at the Menin Gate at 8 p.m. Every evening since 1928, buglers sound beneath the arch in tribute to the missing. Representatives from associations, schools, or families lay wreaths. Arrive 20 minutes early to secure a spot.",
+              "place_id": "",
               "activity_duration_min": 30,
               "practical_info": {
                 "best_time": "7:40 p.m.",
@@ -416,6 +411,7 @@
             },
             {
               "text": "Drive or cycle a memory loop around the Salient: Essex Farm → Langemark (German cemetery, 44,000 soldiers) → Tyne Cot → Passchendaele → return to Ypres. The flat polder landscape contrasts starkly with the density of memorials.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "~35 km",
@@ -423,14 +419,7 @@
                 "tip": "Site maps available at Ypres tourist office."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
       "segments": [
@@ -440,7 +429,7 @@
             1,
             5
           ],
-          "label": "Segment 1 - D1–D5",
+          "label": "Segment 1 — J1–J5",
           "from_day": 1,
           "to_day": 5
         },
@@ -450,7 +439,7 @@
             6,
             6
           ],
-          "label": "Segment 2 - D6",
+          "label": "Segment 2 — J6–J6",
           "from_day": 6,
           "to_day": 6
         }
@@ -459,12 +448,12 @@
         {
           "from_day": 1,
           "to_day": 5,
-          "label": "5-day variant"
+          "label": "Var 5j"
         },
         {
           "from_day": 1,
           "to_day": 6,
-          "label": "6-day variant"
+          "label": "Var 6j"
         }
       ],
       "regions": [
@@ -509,17 +498,7 @@
           "BE::brugge": "A UNESCO-listed medieval dream of canals, belfries, and Flemish Primitives frozen in amber since the Golden Age",
           "BE::ieper": "Rebuilt from total ruin, now the world's heart of Great War remembrance where bugles sound nightly for the missing",
           "BE::damme": "Once Bruges' outer harbor, now a serene village where windmills rise above poplar-lined canals and endless polders"
-        },
-        "segments": [
-          {
-            "n": 1,
-            "label": "D1–D5"
-          },
-          {
-            "n": 2,
-            "label": "D6"
-          }
-        ]
+        }
       },
       "seo_keywords": [
         "west flanders circuit itinerary",
@@ -554,16 +533,31 @@
       "itin_id": "BE::lux::han-laroche-bastogne-bouillon-semois",
       "id": "BE::lux::han-laroche-bastogne-bouillon-semois",
       "language": "en",
-      "title": "Deep Ardennes - Caves, War & Semois",
-      "country": "BE",
-      "estimated_days_base": 5,
-      "source_url": null,
       "created_at": "2026-03-05T12:00:00.000Z",
+      "source_url": "",
+      "dept_code": "BE-WLX",
+      "dept_name": "Province of Luxembourg",
+      "title": "Deep Ardennes - Caves, War & Semois",
+      "subtitle": "Han-sur-Lesse, La Roche-en-Ardenne, Bastogne, Bouillon and the legendary Semois meanders - five days in the heart of Ardennes nature and history.",
+      "notes": "",
+      "specialties": [
+        "Ardennes game (wild boar, venison)",
+        "Pâté gaumais (traditional meat pie)",
+        "Bouillon ham",
+        "Local artisanal beers",
+        "Smoked trout from the Semois"
+      ],
+      "estimated_days_base": 5,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -571,10 +565,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "BE::han-sur-lesse",
+          "region_code": "FAMENNE",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "FAMENNE",
           "night": {
             "place_id": "BE::han-sur-lesse",
             "coords": [
@@ -604,6 +597,7 @@
           "activities": [
             {
               "text": "Evening stroll through the village of Han-sur-Lesse along the Lesse riverbank. The site is part of the UNESCO-labeled Famenne-Ardenne Geopark, whose visitor center presents the region's karst geology. Option to dine at one of the village restaurants specializing in Ardennes cuisine.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "PassHan (cave + park): approx. €30 adult, €21 child 4-11 years. Cave temperature constant at 13°C - bring a jacket. Booking recommended July-August. Tramway included in ticket."
@@ -614,17 +608,16 @@
             "distance_km": 42,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "BE::la-roche-en-ardenne",
+          "region_code": "OURTHE",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "OURTHE",
           "night": {
             "place_id": "BE::la-roche-en-ardenne",
             "coords": [
@@ -654,6 +647,7 @@
           "activities": [
             {
               "text": "Kayak down the Ourthe from Maboge to La Roche-en-Ardenne: 10 km of Ardennes river between forested cliffs and meanders, with the spectacular finale of arriving face-to-face with the castle ruins. Route accessible to all levels, duration 1h30 to 2h depending on flow. The long route from Nisramont (25 km, full day) crosses the Nisramont dam lake, one of the Ardennes' most beautiful bodies of water.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "tip": "Ardenne Aventures or Axion Outdoor - return transport included. Available April-October. Easy level from Maboge. Combine castle visit in the morning + kayak in the afternoon."
@@ -664,17 +658,16 @@
             "distance_km": 28,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "BE::bastogne",
+          "region_code": "BASTOGNE",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "BASTOGNE",
           "night": {
             "place_id": "BE::bastogne",
             "coords": [
@@ -704,6 +697,7 @@
           "activities": [
             {
               "text": "McAuliffe Square in the heart of Bastogne is adorned with an M4A1 Sherman tank and the inscription 'Nuts!' The Bastogne War Rooms, in the barracks where McAuliffe established his emergency HQ, house an interpretation center and a restoration workshop for period military vehicles. Saint-Pierre church, survivor of the bombardments, preserves its original stained glass windows.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "War Museum open 9:30am-6pm (5pm off-season). Audio guide included. 'Nuts!' weekend each December for the anniversary. Mardasson: open access 24/7, free entry."
@@ -714,17 +708,16 @@
             "distance_km": 55,
             "drive_min": 60,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "BE::bouillon",
+          "region_code": "SEMOIS",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "SEMOIS",
           "night": {
             "place_id": "BE::bouillon",
             "coords": [
@@ -754,6 +747,7 @@
           "activities": [
             {
               "text": "Kayak down the Semois from Bouillon: the river winds in deep meanders between Ardennes wooded slopes, offering a unique perspective on the castle from the water. Routes from 7 to 25 km depending on operator and available time, as far as Alle-sur-Semois or Vresse, crossing increasingly wild landscapes. The Bouillon Medieval Experience, in a former convent, offers an audiovisual immersion in 7 rooms on the First Crusade.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "tip": "City Pass castle + falconry + ducal museum + Medieval Experience + Odyssée de Lumières available. Kayak: Semois Kayaks or L'Ami Pierre (Alle). Best flow spring and autumn. Castle open year-round."
@@ -764,17 +758,16 @@
             "distance_km": 15,
             "drive_min": 20,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "BE::bouillon",
+          "region_code": "SEMOIS",
           "suggested_days": 2,
           "rating": 0,
-          "region_code": "SEMOIS",
           "night": {
             "place_id": "BE::bouillon",
             "coords": [
@@ -804,39 +797,43 @@
           "activities": [
             {
               "text": "Vresse-sur-Semois is the emblematic village of the lower Ardennes Semois, known since the 19th century for its artist-painters who took up residence in the valley. The village of Alle-sur-Semois, which depends on it, has a kayak base and a riverside beach. The road following the Semois from Bouillon to Vresse is one of the Ardennes' most beautiful. Option: ruins of Herbeumont castle perched on a spur above the river.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Botassart viewpoint: free parking Rue de Châteaumont 53 - open access year-round. High view highly recommended at sunrise or in autumn for colors. Émile Bernard Museum at Vresse (Post-Impressionist painter)."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
-      "seo": {
-        "h1_title": "Deep Ardennes - Caves, War & Semois",
-        "intro_paragraph": "Five-day circuit through the Belgian Ardennes: Han caves sculpted by the Lesse, feudal castle of La Roche-en-Ardenne, Battle of the Bulge at Bastogne, Godfrey of Bouillon's castle and legendary panoramas of the Semois valley.",
-        "places_taglines": {
-          "BE::han-sur-lesse": "Where an underground river carved Europe's cathedral beneath the limestone",
-          "BE::la-roche-en-ardenne": "Medieval ramparts rising from the Ourthe's bend, where British liberators arrived in January snow",
-          "BE::bastogne": "The crossroads where McAuliffe's single word defied the Wehrmacht",
-          "BE::bouillon": "Where Godfrey sold his ancestral fortress to win Jerusalem"
-        },
-        "seo_hook": "In the valleys carved by the Lesse, Ourthe and Semois, the Belgian Ardennes layer half a million years of karst geology, a thousand years of feudal castles and the still-visible scars of winter 1944. Five days to descend from Han's illuminated caverns to the legendary meanders of the Semois by way of Bastogne's foxholes and Godfrey of Bouillon's impregnable fortress.",
-        "featured_list": [
-          "Han-sur-Lesse: 3 km of caves, Salle du Dôme at 67 m high and Wildlife Park with Europe's Big Five",
-          "La Roche-en-Ardenne: Vauban castle and kayaking the Ourthe",
-          "Bastogne: immersive War Museum and star-shaped Mardasson Memorial for 76,890 American soldiers",
-          "Bouillon: Godfrey of Bouillon's castle on 3 rocky spurs above the Semois",
-          "Tombeau du Géant at Botassart and Rochehaut panorama - Exceptional Heritage of Wallonia"
-        ]
-      },
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        }
+      ],
+      "regions": [
+        "BE-WLX",
+        "FAMENNE",
+        "OURTHE",
+        "BASTOGNE",
+        "SEMOIS"
+      ],
+      "nearby_itins": [],
+      "merge_suggestions": [],
       "meta": {
         "themes": [
           "Nature & Landscapes",
@@ -850,49 +847,24 @@
           "Active Travelers"
         ]
       },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segment 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
+      "seo": {
+        "h1_title": "Deep Ardennes - Caves, War & Semois",
+        "intro_paragraph": "Five-day circuit through the Belgian Ardennes: Han caves sculpted by the Lesse, feudal castle of La Roche-en-Ardenne, Battle of the Bulge at Bastogne, Godfrey of Bouillon's castle and legendary panoramas of the Semois valley.",
+        "seo_hook": "In the valleys carved by the Lesse, Ourthe and Semois, the Belgian Ardennes layer half a million years of karst geology, a thousand years of feudal castles and the still-visible scars of winter 1944. Five days to descend from Han's illuminated caverns to the legendary meanders of the Semois by way of Bastogne's foxholes and Godfrey of Bouillon's impregnable fortress.",
+        "featured_list": [
+          "Han-sur-Lesse: 3 km of caves, Salle du Dôme at 67 m high and Wildlife Park with Europe's Big Five",
+          "La Roche-en-Ardenne: Vauban castle and kayaking the Ourthe",
+          "Bastogne: immersive War Museum and star-shaped Mardasson Memorial for 76,890 American soldiers",
+          "Bouillon: Godfrey of Bouillon's castle on 3 rocky spurs above the Semois",
+          "Tombeau du Géant at Botassart and Rochehaut panorama - Exceptional Heritage of Wallonia"
+        ],
+        "places_taglines": {
+          "BE::han-sur-lesse": "Where an underground river carved Europe's cathedral beneath the limestone",
+          "BE::la-roche-en-ardenne": "Medieval ramparts rising from the Ourthe's bend, where British liberators arrived in January snow",
+          "BE::bastogne": "The crossroads where McAuliffe's single word defied the Wehrmacht",
+          "BE::bouillon": "Where Godfrey sold his ancestral fortress to win Jerusalem"
         }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Complete 5-day circuit"
-        },
-        {
-          "from_day": 3,
-          "to_day": 5,
-          "label": "3-day Bastogne-Bouillon-Semois variant"
-        }
-      ],
-      "regions": [
-        "BE-WLX",
-        "FAMENNE",
-        "OURTHE",
-        "BASTOGNE",
-        "SEMOIS"
-      ],
-      "nearby_itins": [],
-      "merge_suggestions": [],
-      "specialties": [
-        "Ardennes game (wild boar, venison)",
-        "Pâté gaumais (traditional meat pie)",
-        "Bouillon ham",
-        "Local artisanal beers",
-        "Smoked trout from the Semois"
-      ],
-      "dept_code": "BE-WLX",
-      "dept_name": "Province of Luxembourg",
-      "subtitle": "Han-sur-Lesse, La Roche-en-Ardenne, Bastogne, Bouillon and the legendary Semois meanders - five days in the heart of Ardennes nature and history.",
+      },
       "seo_keywords": [
         "Belgian Ardennes 5-day itinerary",
         "Han-sur-Lesse caves",
@@ -928,16 +900,31 @@
       "itin_id": "BE::hai::mons-tournai-binche-lessines",
       "id": "BE::hai::mons-tournai-binche-lessines",
       "language": "en",
-      "title": "Urban Hainaut - Mons, Tournai, Binche & Lessines",
-      "country": "BE",
-      "estimated_days_base": 5,
-      "source_url": null,
       "created_at": "2026-03-05T12:00:00.000Z",
+      "source_url": "",
+      "dept_code": "BE-WHT",
+      "dept_name": "Hainaut",
+      "title": "Urban Hainaut - Mons, Tournai, Binche & Lessines",
+      "subtitle": "UNESCO in Hainaut: baroque belfry, five-towered Romanesque cathedral, age-old carnival, and a medieval self-sufficient hospital founded in 1242.",
+      "notes": "",
+      "specialties": [
+        "Tarte al djote (Nivelles-style chard tart)",
+        "Flamiche au Maroilles (cheese tart)",
+        "Gaufres de Mons (Mons waffles)",
+        "Pâté gaumais (regional meat pie)",
+        "Binche's ostrich-feather carnival costumes"
+      ],
+      "estimated_days_base": 5,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -945,10 +932,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "BE::mons",
+          "region_code": "MONS",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "MONS",
           "night": {
             "place_id": "BE::mons",
             "coords": [
@@ -983,6 +969,7 @@
           "activities": [
             {
               "text": "Take an excursion to the Neolithic flint mines of Spiennes (5 km south of Mons), one of Europe's oldest and most extensive flint extraction sites, inscribed on UNESCO's World Heritage List in 2000. The Silex's interpretation center reveals the sophisticated techniques used by Neolithic people over 5,000 years ago. In the evening, wander Mons' Grand-Place—entirely cobbled and lined with facades spanning the 15th to 19th centuries—for an atmospheric glimpse of the city's architectural heritage.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Silex's: Avenue Paul Pastur 55, Spiennes. Belfry tickets available at the UNESCO House, Rue des Clercs. The upper section of the belfry is accessible by guided tour only."
@@ -993,17 +980,16 @@
             "distance_km": 30,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "BE::tournai",
+          "region_code": "TOURNAI",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "TOURNAI",
           "night": {
             "place_id": "BE::tournai",
             "coords": [
@@ -1038,6 +1024,7 @@
           "activities": [
             {
               "text": "Tournai's triangular Grand-Place, surrounded by Flemish facades including the 17th-century Cloth Hall, has been the city's historic heart since the Middle Ages. A few minutes' walk away, the Pont des Trous (13th century)—last vestige of medieval fortifications spanning the Scheldt—ranks among Belgium's most picturesque fortified bridges. The riverside promenade along the Scheldt connects both landmarks in a pleasant stroll.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Cathedral guided tours July-Sept, Sundays and holidays: FR 4:30pm, NL 2:30pm, EN 3:30pm. Belfry: reservation recommended. The cathedral is currently undergoing partial restoration but remains accessible."
@@ -1048,17 +1035,16 @@
             "distance_km": 42,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "BE::binche",
+          "region_code": "BINCHE",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "BINCHE",
           "night": {
             "place_id": "BE::binche",
             "coords": [
@@ -1088,6 +1074,7 @@
           "activities": [
             {
               "text": "The Collegiate Church of Saint-Ursmer, built between the 12th and 15th centuries in a blend of Romanesque and Gothic styles, serves as both starting point and finale for carnival processions. The belfry integrated into the town hall completes the monumental ensemble on the Grand-Place. For a taste of local flavor, visit Brasserie La Binchoise, housed in a 19th-century former malthouse.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "MUMASK: tel. 065 60 59 01, closed Mondays. A film about the carnival screens at the end of the visit. The carnival takes place during the three days before Shrove Tuesday (Feb–Mar)—an absolute must-see if you're passing through during this period."
@@ -1098,17 +1085,16 @@
             "distance_km": 35,
             "drive_min": 40,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "BE::lessines",
+          "region_code": "LESSINES",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "LESSINES",
           "night": {
             "place_id": "BE::lessines",
             "coords": [
@@ -1138,47 +1124,15 @@
           "activities": [
             {
               "text": "Lessines is the world's leading producer of porphyry, the purplish volcanic rock used to pave the streets of Brussels, Paris, and Amsterdam. A viewpoint offers a plunging view into the gigantic quarries still in operation today. Combined guided tours of the hospital and quarries are available as part of the 'Day in Lessines' program. Lessines is also the birthplace of René Magritte (1898), whose childhood home is open to visitors.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "tip": "Hospital: Place Alix de Rosoit 1. Open Tue–Fri 9am–6pm, Sat–Sun 9:30am–6:30pm. Guided tours highly recommended. On-site restaurant. Info: +32 68 33 24 03."
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
-      "seo": {
-        "h1_title": "Urban Hainaut - Mons, Tournai, Binche & Lessines",
-        "intro_paragraph": "A 4-day circuit through Belgian Hainaut discovering UNESCO World Heritage sites: Mons' baroque belfry, Tournai's five-towered cathedral, Binche's legendary carnival, and Lessines' medieval hospital—the best-preserved in Western Europe.",
-        "places_taglines": {
-          "BE::mons": "Where a baroque belfry watches over the Doudou carnival and Neolithic flint mines whisper tales of 5,000 years",
-          "BE::tournai": "Belgium's oldest city crowned by five Gothic spires and a cathedral born of Roman stone and Gothic dreams",
-          "BE::binche": "Where medieval ramparts still embrace the cobbled streets and feathered Gilles dance in a carnival frozen in mystery",
-          "BE::lessines": "Birthplace of Magritte and guardian of a medieval hospital that healed the poor for 740 unbroken years"
-        },
-        "seo_hook": "Hainaut packs four UNESCO treasures into a single region: Mons' unique baroque belfry, Tournai's five-towered Romanesque-Gothic cathedral, Binche's enigmatic carnival of ostrich-plumed Gilles, and Lessines' medieval hospital that cared for the sick for 740 years without interruption.",
-        "featured_list": [
-          "Mons: UNESCO baroque belfry, Sainte-Waudru Collegiate Church, and the Doudou carnival",
-          "Tournai: Five-towered cathedral UNESCO site, Belgium's oldest city",
-          "Binche: Intact medieval ramparts and Gilles carnival (UNESCO Intangible Cultural Heritage)",
-          "Lessines: Hospital of Notre-Dame à la Rose (1242–1980), major Walloon heritage site",
-          "Spiennes: UNESCO Neolithic flint mines just 5 km from Mons"
-        ]
-      },
-      "meta": {
-        "themes": [
-          "Cities & History",
-          "Culture",
-          "UNESCO Heritage"
-        ],
-        "audience": []
-      },
       "segments": [
         {
           "n": 1,
@@ -1186,7 +1140,7 @@
             1,
             4
           ],
-          "label": "Segment 1 - D1–D4",
+          "label": "Segment 1 — J1–J4",
           "from_day": 1,
           "to_day": 4
         }
@@ -1195,12 +1149,7 @@
         {
           "from_day": 1,
           "to_day": 4,
-          "label": "Full 4-day circuit"
-        },
-        {
-          "from_day": 1,
-          "to_day": 3,
-          "label": "3-day variant without Lessines"
+          "label": "Var 4j"
         }
       ],
       "regions": [
@@ -1212,16 +1161,32 @@
       ],
       "nearby_itins": [],
       "merge_suggestions": [],
-      "specialties": [
-        "Tarte al djote (Nivelles-style chard tart)",
-        "Flamiche au Maroilles (cheese tart)",
-        "Gaufres de Mons (Mons waffles)",
-        "Pâté gaumais (regional meat pie)",
-        "Binche's ostrich-feather carnival costumes"
-      ],
-      "dept_code": "BE-WHT",
-      "dept_name": "Hainaut",
-      "subtitle": "UNESCO in Hainaut: baroque belfry, five-towered Romanesque cathedral, age-old carnival, and a medieval self-sufficient hospital founded in 1242.",
+      "meta": {
+        "themes": [
+          "Cities & History",
+          "Culture",
+          "UNESCO Heritage"
+        ],
+        "audience": []
+      },
+      "seo": {
+        "h1_title": "Urban Hainaut - Mons, Tournai, Binche & Lessines",
+        "intro_paragraph": "A 4-day circuit through Belgian Hainaut discovering UNESCO World Heritage sites: Mons' baroque belfry, Tournai's five-towered cathedral, Binche's legendary carnival, and Lessines' medieval hospital—the best-preserved in Western Europe.",
+        "seo_hook": "Hainaut packs four UNESCO treasures into a single region: Mons' unique baroque belfry, Tournai's five-towered Romanesque-Gothic cathedral, Binche's enigmatic carnival of ostrich-plumed Gilles, and Lessines' medieval hospital that cared for the sick for 740 years without interruption.",
+        "featured_list": [
+          "Mons: UNESCO baroque belfry, Sainte-Waudru Collegiate Church, and the Doudou carnival",
+          "Tournai: Five-towered cathedral UNESCO site, Belgium's oldest city",
+          "Binche: Intact medieval ramparts and Gilles carnival (UNESCO Intangible Cultural Heritage)",
+          "Lessines: Hospital of Notre-Dame à la Rose (1242–1980), major Walloon heritage site",
+          "Spiennes: UNESCO Neolithic flint mines just 5 km from Mons"
+        ],
+        "places_taglines": {
+          "BE::mons": "Where a baroque belfry watches over the Doudou carnival and Neolithic flint mines whisper tales of 5,000 years",
+          "BE::tournai": "Belgium's oldest city crowned by five Gothic spires and a cathedral born of Roman stone and Gothic dreams",
+          "BE::binche": "Where medieval ramparts still embrace the cobbled streets and feathered Gilles dance in a carnival frozen in mystery",
+          "BE::lessines": "Birthplace of Magritte and guardian of a medieval hospital that healed the poor for 740 unbroken years"
+        }
+      },
       "seo_keywords": [
         "Hainaut UNESCO Belgium",
         "Mons baroque belfry",
@@ -1255,16 +1220,31 @@
       "itin_id": "BE::belgique::road-trip-classiques",
       "id": "BE::belgique::road-trip-classiques",
       "language": "en",
-      "title": "Belgium Road Trip: Art Cities, Citadels & the Ardennes",
-      "country": "BE",
-      "estimated_days_base": 11,
-      "source_url": null,
       "created_at": "2025-10-30T19:07:08.000Z",
+      "source_url": "",
+      "dept_code": "BE",
+      "dept_name": "Belgium",
+      "title": "Belgium Road Trip: Art Cities, Citadels & the Ardennes",
+      "subtitle": "From Brussels to the Hautes Fagnes, via Bruges, Ghent, Antwerp, Leuven, and the Meuse Valley—eleven days through all of Belgium's heritage.",
+      "notes": "",
+      "specialties": [
+        "Belgian pralines and artisan chocolates",
+        "Trappist beers and lambic gueuze",
+        "Flemish stew (stoofvlees) and Liège waffles",
+        "Mosan glasswork and lace",
+        "Dinant couques (honey biscuits)"
+      ],
+      "estimated_days_base": 11,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -1272,10 +1252,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "BE::bruxelles",
+          "region_code": "BRU",
           "suggested_days": 2,
           "rating": 10,
-          "region_code": "BRU",
           "night": {
             "place_id": "BE::bruxelles",
             "coords": [
@@ -1321,28 +1300,22 @@
           "activities": [
             {
               "text": "The Atomium, a relic of the 1958 World's Fair, represents an iron crystal magnified 165 billion times. Its nine 18-meter-diameter spheres rise to 102 meters. The permanent exhibition traces the adventure of Expo 58, and the panorama from the top sphere takes in all of Brussels.",
+              "place_id": "",
               "activity_duration_min": 75
             },
             {
               "text": "Stroll through the Galeries Saint-Hubert, Europe's first covered shopping arcade (1847). The cast-iron glass roof and shop windows of artisan chocolatiers create a timeless setting.",
+              "place_id": "",
               "activity_duration_min": 45
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "BE::bruxelles",
+          "region_code": "BRU",
           "suggested_days": 2,
           "rating": 10,
-          "region_code": "BRU",
           "night": {
             "place_id": "BE::bruxelles",
             "coords": [
@@ -1383,10 +1356,12 @@
           "activities": [
             {
               "text": "Belgian chocolate tasting in one of the artisan workshops of the Sablon quarter. Master chocolatiers explain cocoa origins, tempering techniques, and the peculiarities of the Brussels praline invented in the late 19th century.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Introduction to Belgian beer styles in a specialized café in the center. Trappists, gueuzes, saisons, and lambics form a brewing heritage recognized by UNESCO in 2016.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -1394,17 +1369,16 @@
             "distance_km": 97,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "BE::gent",
+          "region_code": "VLG",
           "suggested_days": 1,
           "rating": 7.4,
-          "region_code": "VLG",
           "night": {
             "place_id": "BE::gent",
             "coords": [
@@ -1450,10 +1424,12 @@
           "activities": [
             {
               "text": "Walk along the Graslei and Korenlei, the two quays that bordered the medieval river port's warehouse. The gabled facades of 12th- to 17th-century guild houses reflect in the waters of the Leie.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Wander through the Patershol quarter, the former tanners' district with cobbled lanes, now lively in the evening. The atmosphere contrasts with the architectural rigor of the historic center.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -1461,17 +1437,16 @@
             "distance_km": 50,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "BE::brugge",
+          "region_code": "VLG",
           "suggested_days": 1,
           "rating": 8.7,
-          "region_code": "VLG",
           "night": {
             "place_id": "BE::brugge",
             "coords": [
@@ -1517,6 +1492,7 @@
           "activities": [
             {
               "text": "Board a cruise on the canals of Bruges. In half an hour, the boatmen trace the network of waterways that made the medieval city's fortune and pass under a series of low bridges of centuries-old brick.",
+              "place_id": "",
               "activity_duration_min": 35,
               "practical_info": {
                 "tip": "Several piers around the Dijver. Frequent departures from April to November."
@@ -1524,24 +1500,17 @@
             },
             {
               "text": "Photo walk at sunset along the canals. The Rozenhoedkaai, steps from the Belfry, offers the classic reflection of Bruges rooftops in the waters of the Dijver.",
+              "place_id": "",
               "activity_duration_min": 45
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "BE::brugge",
+          "region_code": "VLG",
           "suggested_days": 2,
           "rating": 8.7,
-          "region_code": "VLG",
           "night": {
             "place_id": "BE::brugge",
             "coords": [
@@ -1577,10 +1546,12 @@
           "activities": [
             {
               "text": "Free stroll through the UNESCO historic center: follow the canals of the Dijver to the Rozenhoedkaai, the city's most photographed viewpoint with the Belfry in the background.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Tasting at one of the artisan breweries in the center. Bruges is an active brewing city; several workshops offer tours of the fermentation tanks before the tasting.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -1588,17 +1559,16 @@
             "distance_km": 60,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "BE::anvers",
+          "region_code": "VLG",
           "suggested_days": 1,
           "rating": 8.6,
-          "region_code": "VLG",
           "night": {
             "place_id": "BE::anvers",
             "coords": [
@@ -1644,10 +1614,12 @@
           "activities": [
             {
               "text": "From the quays of the Eilandje—the converted former docks quarter north of the center—observe the Port House designed by architect Zaha Hadid. Inaugurated in 2016, this extension of the Port Authority headquarters places a diamond-shaped glass penthouse on the shell of a former fire station.",
+              "place_id": "",
               "activity_duration_min": 30
             },
             {
               "text": "Stroll through the diamond quarter around the central station. Antwerp still handles about 80% of the world's rough diamonds. The workshop shop windows and the diversity of the international community make this a world unto itself.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -1655,17 +1627,16 @@
             "distance_km": 60,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "BE::leuven",
+          "region_code": "VLG",
           "suggested_days": 1,
           "rating": 6.3,
-          "region_code": "VLG",
           "night": {
             "place_id": "BE::leuven",
             "coords": [
@@ -1711,10 +1682,12 @@
           "activities": [
             {
               "text": "Architectural stroll on the Oude Markt, a long square surrounded by 16th- to 19th-century facades. In the evening, the terraces come alive, and students call this square \"the longest bar in the world.\"",
+              "place_id": "",
               "activity_duration_min": 45
             },
             {
               "text": "Park Abbey, founded in 1129, is the best-preserved in Belgium. Three kilometers from the center, its unspoiled estate brings together the abbey church, cloisters, a stucco-ceilinged library, a watermill, and a kitchen garden. Park entry is free.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -1722,17 +1695,16 @@
             "distance_km": 62,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "BE::namur",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 3.9,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::namur",
             "coords": [
@@ -1761,11 +1733,7 @@
             {
               "text": "The Terra Nova underground galleries offer an immersive 90-minute guided tour through the restored passages. Sounds, lights, and 3D reconstructions trace two thousand years of fortifications superimposed on this same rock.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "duration": "~1h30",
-                "tip": "Booking recommended in high season"
-              }
+              "visit_duration_min": 90
             },
             {
               "text": "The Meuse quay promenade runs along the river between the two bridges of the center. The terraces overlook the confluence, and the silhouette of the citadel stands out on the wooded hill.",
@@ -1776,6 +1744,7 @@
           "activities": [
             {
               "text": "Take the cable car up to the citadel from the city center. In eight minutes, the cabin climbs 100 meters and offers an aerial view of the Meuse-Sambre confluence. Open seasonally.",
+              "place_id": "",
               "activity_duration_min": 25,
               "practical_info": {
                 "tip": "Check seasonal opening times"
@@ -1786,17 +1755,16 @@
             "distance_km": 30,
             "drive_min": 30,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "BE::dinant",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 3.6,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::dinant",
             "coords": [
@@ -1841,6 +1809,7 @@
           "activities": [
             {
               "text": "Narrated Meuse cruise departing from the landing stage opposite the collegiate church. The ride follows the limestone cliffs and perched medieval castles dotting the valley. Available April to October.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "tip": "Available April to October"
@@ -1851,17 +1820,16 @@
             "distance_km": 65,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "BE::liege",
+          "region_code": "WAL",
           "suggested_days": 2,
           "rating": 9.3,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::liege",
             "coords": [
@@ -1907,10 +1875,12 @@
           "activities": [
             {
               "text": "Urban walk along the Meuse and its pedestrian footbridges. The quays have been entirely redesigned; on the Outremeuse side, you discover the working-class quarter of the Liège dialect, attached to its traditions and its August 15 festival.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "The Batte market, one of the oldest and largest markets in Europe, takes place every Sunday morning on the Meuse quays. Fish, cheeses, antiques, and crafts spread over several kilometers.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "best_time": "Sunday morning",
@@ -1922,17 +1892,16 @@
             "distance_km": 55,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "BE::liege",
+          "region_code": "WAL",
           "suggested_days": 1.5,
           "rating": 9.3,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::liege",
             "coords": [
@@ -1972,6 +1941,7 @@
           "activities": [
             {
               "text": "Hike the Botrange-Fagne Wallonne loop (about 8 km, 2h30). The trail follows wooden walkways above the peat bog, runs along pine forests planted around 1850, and passes the Cascade du Bayehon before returning to the Signal.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "distance": "~8 km",
@@ -1982,6 +1952,7 @@
             },
             {
               "text": "Naturalist observation of wetland wildlife: black woodpeckers, migrating common cranes, black grouse depending on the season. Guides from the Nature Center organize accompanied outings that allow entry into zone C, normally closed to the public.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "tip": "Guided tours to be booked with the Botrange Nature Center"
@@ -1992,11 +1963,84 @@
             "distance_km": 95,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            11
+          ],
+          "label": "Segment 3 — J11–J11",
+          "from_day": 11,
+          "to_day": 11
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 11,
+          "label": "Var 11j"
+        }
+      ],
+      "regions": [
+        "BRU",
+        "VLG",
+        "WAL"
+      ],
+      "nearby_itins": [
+        "NL::pays-bas::route-des-tulipes",
+        "FR::HDF::hauts-de-france-villages-cote-opale-et-terres",
+        "BE::vwv::gand-bruges-damme-ypres",
+        "FR::08::ardennes",
+        "DE::nord::road-trip-nord-allemagne",
+        "FR::59::nord",
+        "NL::holland::plus-beaux-endroits",
+        "NL::randstad::hollande-4j-amsterdam-utrecht-kennemer-zaanse"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "City & History",
+          "Culture",
+          "Nature"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Belgium Road Trip: Art Cities, Citadels & the Ardennes",
         "intro_paragraph": "Brussels and its UNESCO Grand-Place, Ghent and Van Eyck's Ghent Altarpiece, Bruges and its medieval canals, Antwerp and Rubens, Leuven and its beguinage—then Wallonia: Namur the citadel, Dinant on the Meuse, Liège the ardent city, and the peat bogs of the Hautes Fagnes. Eleven days to cross all of Belgium.",
@@ -2024,74 +2068,6 @@
           "BE::hautes-fagnes": "Boardwalks float over ancient peat where Belgium touches the sky at 694 meters"
         }
       },
-      "meta": {
-        "themes": [
-          "City & History",
-          "Culture",
-          "Nature"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segment 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            11
-          ],
-          "label": "Segment 2 - D6–D11",
-          "from_day": 6,
-          "to_day": 11
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "5-day variant"
-        },
-        {
-          "from_day": 1,
-          "to_day": 11,
-          "label": "11-day variant"
-        }
-      ],
-      "regions": [
-        "BRU",
-        "VLG",
-        "WAL"
-      ],
-      "nearby_itins": [
-        "NL::pays-bas::route-des-tulipes",
-        "FR::HDF::hauts-de-france-villages-cote-opale-et-terres",
-        "BE::vwv::gand-bruges-damme-ypres",
-        "FR::08::ardennes",
-        "DE::nord::road-trip-nord-allemagne",
-        "FR::59::nord",
-        "NL::holland::plus-beaux-endroits",
-        "NL::randstad::hollande-4j-amsterdam-utrecht-kennemer-zaanse"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Belgian pralines and artisan chocolates",
-        "Trappist beers and lambic gueuze",
-        "Flemish stew (stoofvlees) and Liège waffles",
-        "Mosan glasswork and lace",
-        "Dinant couques (honey biscuits)"
-      ],
-      "dept_code": "BE",
-      "dept_name": "Belgium",
-      "subtitle": "From Brussels to the Hautes Fagnes, via Bruges, Ghent, Antwerp, Leuven, and the Meuse Valley—eleven days through all of Belgium's heritage.",
       "seo_keywords": [
         "Belgium road trip",
         "Belgium art cities tour",
@@ -2126,7 +2102,7 @@
       "id": "BE::temp_1763149880408",
       "language": "en",
       "created_at": "2025-11-15T09:29:48.000Z",
-      "source_url": null,
+      "source_url": "",
       "dept_code": "BE",
       "dept_name": "Belgium",
       "title": "Wallonia's Most Beautiful Villages: The Complete Circuit",
@@ -2146,16 +2122,20 @@
           "standard": 1,
           "fast": 0.75
         },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
+        },
         "merge_threshold": 0.85
       },
       "days_plan": [
         {
           "day": 1,
           "slice": 1,
-          "place_id": "BE::sohier",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 10,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::sohier",
             "coords": [
@@ -2201,6 +2181,7 @@
           "activities": [
             {
               "text": "Walk through the Mirwart Provincial Domain. This 1,350-hectare estate, freely accessible, shelters 35 fish ponds renowned for brown trout, an educational apiary, two rivers, and scattered forest heritage: a 16th-century blast furnace, a 19th-century ice house, and old stone bridges.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distance": "4 to 12 km depending on route",
@@ -2210,6 +2191,7 @@
             },
             {
               "text": "Take the 2 km interpretive circuit in Sohier. Educational panels highlight over 30 points of heritage, landscape, and botanical interest. The route passes limestone farmhouses, the castle, and offers open views across the Calestienne pastures.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -2217,17 +2199,16 @@
             "distance_km": 54.5,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "BE::gros-fays",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 6.7,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::gros-fays",
             "coords": [
@@ -2268,6 +2249,7 @@
           "activities": [
             {
               "text": "Hike from Gros-Fays down to the Semois valley. Marked trails descend through dense Ardennes forest to the Gros-Fays stream, a Natura 2000 site with alluvial forests. A picnic area with barbecue, overlooking the valley and the rugged Ardennes relief, marks the circuit's low point.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "distance": "~8 km",
@@ -2278,6 +2260,7 @@
             },
             {
               "text": "Kayak down the Semois from Alle-sur-Semois, accessible 5 km from Gros-Fays. Several routes of 7 to 25 km follow the steep meanders and forests that made the valley famous. Rental companies provide return shuttles.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "7 to 25 km depending on package",
@@ -2290,17 +2273,16 @@
             "distance_km": 88.3,
             "drive_min": 88,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "BE::our",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 6.8,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::our",
             "coords": [
@@ -2340,6 +2322,7 @@
           "activities": [
             {
               "text": "Walk to the Our-Lesse confluence. The trail follows the Our River for about 3 km from the village, passes the restored mill and the Minguet rock before reaching the Horse Rock on the Lesse. Return via the wooded ridges with valley views.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distance": "~6 km",
@@ -2349,6 +2332,7 @@
             },
             {
               "text": "La Table de Maxime, the village's award-winning gastronomic restaurant. After a morning discovering the heritage, break for lunch here before continuing to Celles.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "tip": "Reservations recommended. Closing varies by season."
@@ -2359,17 +2343,16 @@
             "distance_km": 52.7,
             "drive_min": 53,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "BE::celles",
+          "region_code": "WAL",
           "suggested_days": 1,
           "rating": 9.2,
-          "region_code": "WAL",
           "night": {
             "place_id": "BE::celles",
             "coords": [
@@ -2414,10 +2397,12 @@
           "activities": [
             {
               "text": "Take the 2 km interpretive circuit from Celles square. Educational panels mark the discovery of limestone houses, the castle hidden in its greenery, the fountain, and the Saint-Hadelin stream crossing the valley. The circuit provides the thread for a day's exploration.",
+              "place_id": "",
               "activity_duration_min": 45
             },
             {
               "text": "Walk to Vêves castle from the village (2.5 km on foot). The path crosses Condroz meadows before emerging at the castle's rocky spur. Interior visits possible—the medieval rooms and collections of the lords of Liedekerke-Beaufort are accessible.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "tip": "Check castle opening hours by season."
@@ -2428,8 +2413,8 @@
             "distance_km": 52.7,
             "drive_min": 53,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         }
       ],
@@ -2440,7 +2425,7 @@
             1,
             4
           ],
-          "label": "Segment 1 - D1–D4",
+          "label": "Segment 1 — J1–J4",
           "from_day": 1,
           "to_day": 4
         }
@@ -2449,7 +2434,7 @@
         {
           "from_day": 1,
           "to_day": 4,
-          "label": "4-day variant"
+          "label": "Var 4j"
         }
       ],
       "regions": [
@@ -2517,6 +2502,5 @@
         ]
       }
     }
-  ],
-  "generated": "2026-03-05T18:38:13.081Z"
+  ]
 }
