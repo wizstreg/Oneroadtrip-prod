@@ -2803,37 +2803,7 @@ body {
                 
                 <div class="day-content-section">
                     
-                    <div class="hotels-mini-section">
-                <div class="hotels-mini-header">Melhores hotéis</div>
-                <div class="hotels-mini-carousel"><a href="https://www.booking.com/hotel/fr/chambres-des-coteaux.pt-pt.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/614167611.webp?k=86d1945dac91e272ff82af702642222744244ebe0944f1375b2fddc0bb7d4a4e&o=" alt="Gîtes et Chambres des Coteaux" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.2</span>
-                        <span class="hotel-mini-name">Gîtes et Chambres des Coteaux</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/fr/gite-des-coteaux-pmr.pt-pt.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/726925096.webp?k=6bbf5ca2be65283a1f27abc05fe3e6bfc7872f9754a715692c5a9d130c31eda6&o=" alt="Gite des Coteaux Pmr" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9</span>
-                        <span class="hotel-mini-name">Gite des Coteaux Pmr</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/fr/gite-de-campagne-avec-piscine-chauffee.pt-pt.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/513559896.webp?k=95012118e179e90464f1265d94bdf5a075452b72054abe14f10a6d85a5052374&o=" alt="Gîte Les Raudières 3 étoiles - Piscine et Spa" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.2</span>
-                        <span class="hotel-mini-name">Gîte Les Raudières 3 étoiles - Piscine et Spa</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/fr/maisonfrancolatine-sainte-maure-de-touraine.pt-pt.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/808574013.webp?k=6b7867d0e79f783ae98b7d390769fe97be6ca4747fcc1cafd6354d3a372f0962&o=" alt="Maison Francolatine" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.1</span>
-                        <span class="hotel-mini-name">Maison Francolatine</span>
-                    </div>
-                </a></div>
-            </div>
+                    
                     <div class="discover-section">
                 <div class="section-header">
                     <span class="section-icon">🔍</span>
@@ -4140,10 +4110,25 @@ gtag('config', 'GT-WF83FMCX');
 
     document.getElementById('ort-sn').addEventListener('click',function(){
       var txt=document.getElementById('ort-st').value.trim();
-      console.log('[ORT-SURVEY]',{rateItin:ratings.itin,rateErgo:ratings.ergo,feature:feat,text:txt,lang:'pt',page:location.pathname});
       document.getElementById('ort-sb').innerHTML='<div class="oth">'+T.thanks+'</div>';
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
       setTimeout(function(){if(ov)ov.remove();},2000);
+      var payload={fields:{
+        rateItin:{integerValue:ratings.itin},
+        rateErgo:{integerValue:ratings.ergo},
+        feature:{stringValue:feat||''},
+        comment:{stringValue:txt},
+        lang:{stringValue:'pt'},
+        slug:{stringValue:'fr-37-indre-et-loire'},
+        page:{stringValue:location.pathname},
+        ts:{stringValue:new Date().toISOString()},
+        ua:{stringValue:navigator.userAgent.substring(0,100)}
+      }};
+      fetch('https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/surveys',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      }).catch(function(){});
     });
 
     document.getElementById('ort-sk').addEventListener('click',function(){

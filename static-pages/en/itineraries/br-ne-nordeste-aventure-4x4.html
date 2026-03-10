@@ -2645,37 +2645,7 @@ body {
                 
                 <div class="day-content-section">
                     
-                    <div class="hotels-mini-section">
-                <div class="hotels-mini-header">Top hotels</div>
-                <div class="hotels-mini-carousel"><a href="https://www.booking.com/hotel/br/pousada-lua-de-charme.en-gb.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/309494677.webp?k=743a4bf0153546f223a400edbb75952dae7b256f8a02cdd031edcc5c91d285c9&o=" alt="Pousada Lua de Charme" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.4</span>
-                        <span class="hotel-mini-name">Pousada Lua de Charme</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/br/pousada-jardim-dos-orixa-s.en-gb.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/281947381.webp?k=0a57a618892b07f0bbb562aba321098c132b17a7d0bac955520de7c4340390d1&o=" alt="Jardim dos Orixás" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.2</span>
-                        <span class="hotel-mini-name">Jardim dos Orixás</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/br/pousada-tranquilandia-village.en-gb.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/658784877.webp?k=64b2fb49f72ee0d6bc528eec766db688cd958c53152dfaf24096c8f08f73a3c2&o=" alt="Pousada Tranquilandia Village" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.1</span>
-                        <span class="hotel-mini-name">Pousada Tranquilandia Village</span>
-                    </div>
-                </a>
-                <a href="https://www.booking.com/hotel/br/pousada-alternativa.en-gb.html" target="_blank" rel="noopener sponsored" class="hotel-mini-card">
-                    <img src="https://cf.bstatic.com/xdata/images/hotel/square600/692322873.webp?k=00e658bb899ada36dd4798adae9d6f81c8276512e6bb009c4c81af7c8f1f7e05&o=" alt="Pousada Alternativa" class="hotel-mini-img" loading="lazy">
-                    <div class="hotel-mini-info">
-                        <span class="hotel-mini-score">9.5</span>
-                        <span class="hotel-mini-name">Pousada Alternativa</span>
-                    </div>
-                </a></div>
-            </div>
+                    
                     <div class="discover-section">
                 <div class="section-header">
                     <span class="section-icon">🔍</span>
@@ -4093,10 +4063,25 @@ gtag('config', 'GT-WF83FMCX');
 
     document.getElementById('ort-sn').addEventListener('click',function(){
       var txt=document.getElementById('ort-st').value.trim();
-      console.log('[ORT-SURVEY]',{rateItin:ratings.itin,rateErgo:ratings.ergo,feature:feat,text:txt,lang:'en',page:location.pathname});
       document.getElementById('ort-sb').innerHTML='<div class="oth">'+T.thanks+'</div>';
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
       setTimeout(function(){if(ov)ov.remove();},2000);
+      var payload={fields:{
+        rateItin:{integerValue:ratings.itin},
+        rateErgo:{integerValue:ratings.ergo},
+        feature:{stringValue:feat||''},
+        comment:{stringValue:txt},
+        lang:{stringValue:'en'},
+        slug:{stringValue:'br-ne-nordeste-aventure-4x4'},
+        page:{stringValue:location.pathname},
+        ts:{stringValue:new Date().toISOString()},
+        ua:{stringValue:navigator.userAgent.substring(0,100)}
+      }};
+      fetch('https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/surveys',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      }).catch(function(){});
     });
 
     document.getElementById('ort-sk').addEventListener('click',function(){

@@ -3967,10 +3967,25 @@ gtag('config', 'GT-WF83FMCX');
 
     document.getElementById('ort-sn').addEventListener('click',function(){
       var txt=document.getElementById('ort-st').value.trim();
-      console.log('[ORT-SURVEY]',{rateItin:ratings.itin,rateErgo:ratings.ergo,feature:feat,text:txt,lang:'fr',page:location.pathname});
       document.getElementById('ort-sb').innerHTML='<div class="oth">'+T.thanks+'</div>';
       localStorage.setItem(STORAGE_KEY, Date.now().toString());
       setTimeout(function(){if(ov)ov.remove();},2000);
+      var payload={fields:{
+        rateItin:{integerValue:ratings.itin},
+        rateErgo:{integerValue:ratings.ergo},
+        feature:{stringValue:feat||''},
+        comment:{stringValue:txt},
+        lang:{stringValue:'fr'},
+        slug:{stringValue:'fr-30-gard'},
+        page:{stringValue:location.pathname},
+        ts:{stringValue:new Date().toISOString()},
+        ua:{stringValue:navigator.userAgent.substring(0,100)}
+      }};
+      fetch('https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/surveys',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify(payload)
+      }).catch(function(){});
     });
 
     document.getElementById('ort-sk').addEventListener('click',function(){
