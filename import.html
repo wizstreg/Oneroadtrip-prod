@@ -1,11 +1,7 @@
 <!doctype html>
-<!-- ORT Import v3.2 - Build 2025-01-18 - Prompt v8: enriched format (subtitle, practical_context, practical_info, road_type) -->
+<!-- ORT Import v3.3 - Build 2026-03-14 - Prompt v9: map_keywords array + real examples (Villa d'Este), doublon gtag fix -->
 <html lang="fr" data-page="import_ia">
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-JK3QGQGDDL"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JK3QGQGDDL');gtag('config','GT-WF83FMCX');</script>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-JK3QGQGDDL"></script>
 <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-JK3QGQGDDL');gtag('config','GT-WF83FMCX');</script>
@@ -803,6 +799,7 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
           "distance_km": 50,
           "drive_min": 45,
           "transport_mode": "car",
+          "road_type": "mountain_pass",
           "method": "heuristic"
         }
       }
@@ -834,7 +831,7 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 
 5. estimated_days_base = CEIL(sum of all suggested_days)
 
-6. to_next_leg on ALL days EXCEPT the last. Include road_type ONLY if not standard tarmac.
+6. to_next_leg on ALL days EXCEPT the last. Include road_type ONLY if the leg is NOT a standard tarmac drive. Values: "flight", "gravel", "mountain_pass", "ferry", "train", "dirt_road", "4x4_track". This field flags special transport or road conditions that should stand out visually in the frontend.
 
 7. coords = [lat, lon] of city center — do NOT invent precise POI coordinates
 
@@ -860,9 +857,10 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 **practical_info** = add on important activities with duration, difficulty, tip, best_time, booking, season as relevant
 
 **map_keywords** = MANDATORY in night{} for each day
-  - Array of Google Maps search terms: "Exact Place Name + City"
-  - Include ALL visits of the day in logical visiting order
+  - JSON array of strings — "Exact Place Name + City" for every visit of the day, in logical visiting order
   - Must be searchable on Google Maps
+  - ✅ CORRECT: \`"map_keywords": ["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]\`
+  - ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
 
 ═══════════════════════════════════════════════════════════
 ✍️ WRITING STYLE — THIS IS THE MOST IMPORTANT SECTION
@@ -902,6 +900,47 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE who loves history and has real stories to
 - Sentences without verbs ("Gothic cathedral. Stained glass. Crypt.")
 - Empty adjectives without facts ("magnificent", "breathtaking", "stunning")
 - Filler phrases ("it is worth noting that", "one cannot help but notice")
+
+**✅ REFERENCE EXAMPLE — target quality for a day entry:**
+\`\`\`json
+{
+  "night": {
+    "place_id": "IT::tivoli",
+    "coords": [41.9634, 12.7981],
+    "map_keywords": [
+      "Villa d'Este Tivoli",
+      "Villa Adriana Tivoli",
+      "Villa Gregoriana Tivoli",
+      "Tempio di Vesta Tivoli",
+      "Ponte Gregoriano Tivoli"
+    ]
+  },
+  "visits": [
+    {
+      "text": "Villa d'Este — Inscrite au patrimoine mondial de l'UNESCO en 2001, cette villa fut commandée par le cardinal Hippolyte II d'Este, nommé gouverneur de Tivoli en 1550. Frustré de ne pas avoir été élu pape, il chargea l'architecte Pirro Ligorio de transformer un ancien couvent bénédictin en résidence de prestige. Les jardins en terrasses de 4,5 hectares abritent plus de 500 fontaines, 300 gerbes d'eau et une soixantaine de cascades — le tout alimenté uniquement par la gravité, sans aucune pompe, grâce au captage des eaux de l'Aniene par un conduit souterrain creusé en 1564-1565. La Fontana dell'Organo (1568), un orgue hydraulique construit par les Français Luc Leclerc et Claude Venard, joue encore des mélodies toutes les deux heures."
+    }
+  ],
+  "activities": [
+    {
+      "text": "Promenade sur l'acropole de Tibur — Depuis l'esplanade des temples de Vesta et de la Sibylle, le panorama embrasse toute la vallée des cascades et les gorges boisées de l'Aniene. En contrebas, le Ponte Gregoriano et les ruines de villas romaines complètent le tableau.",
+      "practical_info": {"duration": "45 min", "tip": "Gratuit, accessible depuis la Piazza Rivarola"}
+    }
+  ]
+}
+\`\`\`
+
+**✅ REFERENCE EXAMPLE — practical_context:**
+\`\`\`json
+"practical_context": {
+  "best_months": ["April", "May", "June", "September", "October"],
+  "highlights": [
+    "Villa d'Este : 500 fontaines alimentées uniquement par gravité, UNESCO",
+    "Villa Adriana : 120 hectares de résidence impériale, UNESCO",
+    "Civita di Bagnoregio : moins de 10 résidents permanents, accès par pont piétonnier de 300 m",
+    "Tarquinia : 200 tombes peintes du VIIe au IIIe siècle av. J.-C., UNESCO"
+  ]
+}
+\`\`\`
 
 ═══════════════════════════════════════════════════════════
 🔍 RESEARCH & VERIFICATION — MANDATORY
@@ -2850,11 +2889,26 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE with real stories and verified facts.
 }
 \`\`\`
 
-**TO_NEXT_LEG:** add "road_type" ONLY if NOT standard tarmac
+**TO_NEXT_LEG:** add "road_type" when the leg is NOT a standard tarmac drive. Values: "flight" | "gravel" | "mountain_pass" | "ferry" | "train" | "dirt_road" | "4x4_track". This flags special transport or difficult roads so they stand out in the UI.
 
 **MAP_KEYWORDS ⚠️ MANDATORY in night{} for each day:**
-- Format: "Exact Place Name + City" — all visits in logical order
+- Format: JSON array of strings — "Exact Place Name + City" — all visits in logical order
 - Must be searchable on Google Maps
+- ✅ CORRECT example:
+\`\`\`json
+"night": {
+  "place_id": "IT::tivoli",
+  "coords": [41.9634, 12.7981],
+  "map_keywords": [
+    "Villa d'Este Tivoli",
+    "Villa Adriana Tivoli",
+    "Villa Gregoriana Tivoli",
+    "Tempio di Vesta Tivoli",
+    "Ponte Gregoriano Tivoli"
+  ]
+}
+\`\`\`
+- ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
 
 🚨 SUBTITLE CHECK:
 ${itin.subtitle ? `Current: "${itin.subtitle}"
