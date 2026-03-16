@@ -811,7 +811,10 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 📋 CRITICAL RULES
 ═══════════════════════════════════════════════════════════
 
-1. LOGICAL ORDER — Reorganize stops for a geographically coherent route. No backtracking.
+1. LOGICAL ORDER — Reorganize stops for a geographically coherent route. No backtracking. No zigzags.
+   - The itinerary MUST start from a city with an airport or train station, and end at a city with an airport or train station.
+   - When a journey between two stops involves a FLIGHT, TRAIN or FERRY, set transport_mode accordingly ("flight", "train", "ferry") — do NOT leave it as "car".
+   - Flag any route logic issues before writing.
 
 2. ⚠️ VISITS vs ACTIVITIES — STRICT DISTINCTION:
    **visits[] = PLACES to see** (monuments, temples, museums, archaeological sites, caves, castles, churches, viewpoints, historic quarters)
@@ -856,11 +859,21 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 
 **practical_info** = add on important activities with duration, difficulty, tip, best_time, booking, season as relevant
 
+**meta.themes** = EXACTLY 2 themes, in French, chosen ONLY from this list:
+  "Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente", "Détente", "Testé & approuvé ORT", "Les plus beaux villages"
+  - ❌ WRONG: 3+ themes, themes in English, themes not in the list above
+  - ✅ CORRECT: \`"themes": ["Nature", "Aventure & Outdoor"]\`
+
 **map_keywords** = MANDATORY in night{} for each day
   - JSON array of strings — "Exact Place Name + City" for every visit of the day, in logical visiting order
   - Must be searchable on Google Maps
   - ✅ CORRECT: \`"map_keywords": ["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]\`
   - ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
+
+**place_id** = REAL city or village name ONLY
+  - ❌ WRONG: "FR::paris-montmartre", "IT::rome-airport", "TH::bangkok-centre", "ES::sevilla-old-town"
+  - ✅ CORRECT: "FR::paris", "IT::rome", "TH::bangkok", "ES::sevilla"
+  - The place_id represents WHERE YOU SLEEP, not what you visit during the day
 
 ═══════════════════════════════════════════════════════════
 ✍️ WRITING STYLE — THIS IS THE MOST IMPORTANT SECTION
@@ -891,10 +904,12 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE who loves history and has real stories to
 **VARY sentence openings — alternate between:**
 - Informative: "The cathedral was built in 1234 by..."
 - Imperative: "Push open the door of...", "Climb the 200 steps to..."
+- Action/temporal: "In the morning, take the cable car to...", "After lunch, walk along..."
 - Narrative: "The monks still weave...", "Every November the village celebrates..."
 - Invitation: "Come at dawn to see..."
 - Contextual: "At the corner of rue X, notice the..."
 → NEVER chain more than 2 texts with the same opening style
+→ At least 30% of texts should use action/temporal openings
 
 **FORBIDDEN:**
 - Sentences without verbs ("Gothic cathedral. Stained glass. Crypt.")
@@ -2784,6 +2799,29 @@ ${JSON.stringify({ itins: [itin] }, null, 2)}
 \`\`\`
 
 ═══════════════════════════════════════════════════════════
+🧭 ITINERARY LOGIC — REVIEW BEFORE WRITING
+═══════════════════════════════════════════════════════════
+Before rewriting, ANALYZE the itinerary structure and flag any issues.
+
+🚨 STOP AND ASK BEFORE CONTINUING — If you find ANY of the following issues, report them clearly and WAIT FOR USER CONFIRMATION before proceeding with the rewrite:
+- Route logic problems (zigzags, backtracking, incoherent geography)
+- Missing or wrong transport modes (ferry, flight, train marked as "car")
+- Itinerary ending in a village with no airport or train station
+- Misleading or incorrect title/subtitle (e.g. city in title that doesn't appear in the itinerary)
+- Suspicious place_ids (French names instead of standard identifiers, invented subdivisions)
+
+Format your findings as a numbered list under **"⚠️ ITINERARY AUDIT"**, then ask: *"Shall I proceed with these corrections, or do you want to adjust the structure first?"*
+
+Only if there are NO issues, write "✅ No issues found" and proceed immediately with the rewrite.
+
+1️⃣ **Route logic**: Does the itinerary follow a coherent geographical path (no unnecessary zigzags, no backtracking)?
+2️⃣ **Missing stops**: Are there important places along the route that are missing?
+3️⃣ **Airports/stations**: The itinerary MUST start from a city with an airport or train station, and end at a city with an airport or train station. NOT at a remote village with no transport out.
+4️⃣ **Transport modes**: When the journey between two stops involves a FLIGHT, TRAIN, FERRY or any non-road transport, it MUST be flagged in to_next_leg with the correct transport_mode ("flight", "train", "ferry") AND road_type. Do NOT put transport_mode: "car" when the leg includes a flight.
+5️⃣ **Writing rhythm**: Mix informative sentences with occasional action or transition phrases. Aim for a natural travel blog tone — not a Wikipedia article, not a tour guide barking instructions.
+6️⃣ **No fantasy places**: night.place_id values must be REAL cities or villages — never "Bogota-centre", "Carthagene-airport", "Salento-cocora" or any invented subdivision. Use the actual city name only (e.g. CO::bogota, CO::carthagene, CO::salento).
+
+═══════════════════════════════════════════════════════════
 📦 SEGMENT-BY-SEGMENT APPROACH
 ═══════════════════════════════════════════════════════════
 This itinerary will be processed in ${workingSegments.length} segments:
@@ -2825,13 +2863,13 @@ If you lack information for a location → write "⚠️ INSUFFICIENT INFO for [
 - itin_id: "${itin.itin_id}"
 - All coords and place_id values
 - The days_plan structure (same days, same order)
-- to_next_leg.distance_km and to_next_leg.drive_min
+- to_next_leg.distance_km and to_next_leg.drive_min (UNLESS transport_mode needs correction — e.g. a flight marked as "car")
 
 ═══════════════════════════════════════════════════════════
 ✍️ WRITING STYLE — THE MOST IMPORTANT SECTION
 ═══════════════════════════════════════════════════════════
 
-Write like a KNOWLEDGEABLE LOCAL GUIDE with real stories and verified facts.
+Write like a knowledgeable friend who knows the place well — part travel blog, part local guide. Include real facts and anecdotes, but keep the tone natural and readable. Not a Wikipedia article, not a brochure.
 
 **EACH visit text MUST include:**
 - WHAT makes this place worth visiting (not just "it's beautiful")
@@ -2839,33 +2877,48 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE with real stories and verified facts.
 - ANECDOTES: who built it, what happened there, surprising facts, local legends
 - WHY it matters: historical significance, uniqueness
 
-**GOOD examples (the level of detail expected):**
-- "The primatiale Saint-Jean-Baptiste, built between 1175 and 1480, blends Romanesque and Gothic over 80 meters. Its 14th-century astronomical clock — one of Europe's oldest — calculates positions of the sun, moon and stars. Henry IV married Marie de Medici here in 1600."
-- "The silk workers lived in workshop-apartments with 4-meter ceilings to house the Jacquard looms. Their 1831 revolt — one of the first workers' revolts in history — carried the motto: 'Live working or die fighting.'"
-- "The Condrieu vineyard, AOC since 1940, nearly vanished: after phylloxera, wars and industrialization, only ten hectares remained by the 1950s. Passionate winemakers saved it by replanting abandoned slopes in the 1980s."
+**GOOD examples (the level of detail and tone expected):**
+- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner — les fresques intérieures illustrent directement ses opéras. Le roi n'y a passé que 172 nuits avant d'en être chassé par le gouvernement pour 'folie', puis d'être retrouvé mort dans un lac trois jours après."
+- "Le Plönlein, c'est une jonction en Y encadrée par deux tours du XIVe siècle. La maison à colombages jaune et rouge qui trône entre les deux aurait inspiré le village de Pinocchio chez Disney. Arrivez avant 8h — après 9h les cars débarquent."
+- "Le Tierfreigelände de Neuschönau couvre 250 hectares où 45 espèces vivent dans des conditions proches du sauvage : loups, ours bruns, lynx, bisons, loutres. Un sentier de 7 km traverse l'ensemble. Prenez des jumelles — certains animaux restent à distance."
 
 **BAD examples (FORBIDDEN — typical AI writing):**
 - ❌ "This iconic site offers an unforgettable experience"
-- ❌ "The towers blaze against the sunset sky"
 - ❌ "A must-see" / "An absolute gem" / "A testament to human ingenuity"
 - ❌ "Immerse yourself in the vibrant atmosphere"
 - ❌ "Where history meets modernity"
-- ❌ Any unfounded superlative, any vague praise without concrete facts
+- ❌ Any vague praise without concrete facts behind it
 
-**VARY sentence openings — alternate between:**
-- Informative: "The cathedral was built in 1234..."
-- Imperative: "Push open the door of...", "Climb the steps to..."
-- Narrative: "The monks still weave...", "Every November..."
-- Invitation: "Come at dawn to see..."
-→ NEVER chain more than 2 texts with the same style
+**SENTENCE VARIETY — write like a travel blog, not an encyclopedia:**
+Each day must flow like a narrative, not a list of Wikipedia entries. Alternate naturally between:
+- Informative: "La cathédrale a été construite entre 1175 et 1480..."
+- Transition/action: "Continuez par...", "Montez ensuite au pont pour...", "Traversez la place vers...", "Rejoignez..."
+- Practical: "Arrivez tôt — la foule débarque après 9h", "Réservez à l'avance en été"
+- Narrative: "En 1631, le général Tilly promit d'épargner la ville si...", "Le roi n'y a passé que 16 jours avant de..."
+
+Target: roughly **half** the visits should open with or contain a transition, action, or narrative phrase — not just a factual statement. A day where every visit starts with "La/Le/En [date]..." is wrong.
+
+✅ Good rhythm example:
+- Visit 1: "La Résidence de Wurtzbourg, construite entre 1720 et 1744, est le palais baroque le plus homogène d'Europe selon l'UNESCO..."
+- Visit 2: "Poussez la porte de la Hofkirche, nichée dans l'aile sud-ouest. Malgré ses dimensions modestes, elle abrite..."
+- Visit 3: "L'Alte Mainbrücke relie la ville à la forteresse depuis le XVe siècle. En fin de journée, les habitants s'y retrouvent pour boire un verre de Silvaner..."
+- Visit 4: "Montez au Käppele par les 247 marches du chemin de croix — la vue sur la ville depuis le sommet vaut l'effort."
+
+❌ Wrong (every visit identical style):
+- "La cathédrale a été construite en..."
+- "Le musée présente une collection de..."
+- "La place date du..."
+- "Le château abrite..."
 
 ═══════════════════════════════════════════════════════════
 📋 FORMAT RULES
 ═══════════════════════════════════════════════════════════
 
-**BE EXHAUSTIVE** — List EVERYTHING worth seeing and doing. A rich city can have 10+ visits per day. A small village may have 3-4. Do NOT cap at a fixed number.
+**BE EXHAUSTIVE** — List everything worth seeing and doing for each location. A major city merits many visits; a small village may have 3-4. Do NOT cap at a fixed number. Try to be as complete as possible.
 
-**SPLIT RICH LOCATIONS** — If a city deserves more than 1.5 days, split into multiple day entries with the same night.place_id, each covering a different area or theme.
+**SPLIT RICH LOCATIONS** — If a city deserves more than 1 day, split its content across multiple day entries sharing the same night.place_id, each covering a different area or theme. Each day entry = 1 night object. Do NOT compress multiple days into a single entry.
+
+**visit_duration_min** — Set a realistic duration for each visit based on the actual site (e.g. 20 min for a viewpoint, 90 min for a major museum). Do NOT use a fixed default value for all visits.
 
 ⚠️ **VISITS vs ACTIVITIES — STRICT DISTINCTION:**
 - **visits[] = PLACES to see**: monuments, museums, churches, viewpoints, historic quarters
@@ -2889,6 +2942,11 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE with real stories and verified facts.
 }
 \`\`\`
 
+**META.THEMES** = EXACTLY 2 themes, in French, chosen ONLY from this list:
+"Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente", "Détente", "Testé & approuvé ORT", "Les plus beaux villages"
+- ❌ WRONG: 3+ themes, themes in English, themes not in the list above
+- ✅ CORRECT: \`"themes": ["Nature", "Aventure & Outdoor"]\`
+
 **TO_NEXT_LEG:** add "road_type" when the leg is NOT a standard tarmac drive. Values: "flight" | "gravel" | "mountain_pass" | "ferry" | "train" | "dirt_road" | "4x4_track". This flags special transport or difficult roads so they stand out in the UI.
 
 **MAP_KEYWORDS ⚠️ MANDATORY in night{} for each day:**
@@ -2909,6 +2967,12 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE with real stories and verified facts.
 }
 \`\`\`
 - ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
+
+**PLACE_ID ⚠️ STRICT RULES:**
+- night.place_id must be a REAL city or village name — never an airport, a neighborhood, a region or an invented subdivision
+- ❌ WRONG: "FR::paris-montmartre", "IT::rome-airport", "TH::bangkok-centre", "ES::sevilla-old-town"
+- ✅ CORRECT: "FR::paris", "IT::rome", "TH::bangkok", "ES::sevilla"
+- The place_id represents WHERE YOU SLEEP, not what you visit during the day
 
 🚨 SUBTITLE CHECK:
 ${itin.subtitle ? `Current: "${itin.subtitle}"
