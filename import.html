@@ -826,25 +826,33 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
    ❌ NEVER put a museum, monument or place in activities
    ❌ NEVER repeat the same content in both visits and activities
 
-3. ⚠️ BE EXHAUSTIVE — List EVERYTHING worth seeing and doing at each stop. A rich city can have 10+ visits per day. A small village may have 3-4. Do NOT limit yourself to a fixed number. Cover all notable monuments, viewpoints, museums, historic quarters, churches, markets.
+3. ⚠️ FILL EVERY DAY — Each day must feel like a REAL full day of travel, from morning to evening:
+   - Big city: several visits (monuments, museums, quarters) + activities (food tour, market, evening stroll)
+   - Nature/beach: morning activity (hike, boat, snorkeling) + afternoon beach/relaxation + evening visit (sunset viewpoint, old town)
+   - Small village: visit the village + nearby villages/sites + local activity (wine tasting, scenic drive, market)
+   - Transit day: stops along the route + evening exploration at destination
+   🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, fill with nearby beaches, viewpoints, scenic drives, local food specialties, relaxation suggestions.
+   🚫 NEVER DUPLICATE: each visit/activity appears ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content.
 
-4. ⚠️ SPLIT RICH LOCATIONS INTO MULTIPLE DAYS — If a city has enough content for more than 1.5 days, split it across multiple days with the same night.place_id. Each day should cover a different area or theme.
+4. ⚠️ BE EXHAUSTIVE — List EVERYTHING worth seeing and doing at each stop. A rich city can have 10+ visits per day. A small village may have 3-4. Do NOT limit yourself to a fixed number. Cover all notable monuments, viewpoints, museums, historic quarters, churches, markets.
+
+5. ⚠️ SPLIT RICH LOCATIONS INTO MULTIPLE DAYS — If a city has enough content for more than 1.5 days, split it across multiple days with the same night.place_id. Each day should cover a different area or theme.
    Examples: Lyon = 3-4 days (Vieux Lyon, Fourvière, Presqu'île, Croix-Rousse), Paris = 5-7 days, a small village = 0.5 day.
    suggested_days per day entry: 0.5 | 0.75 | 1.0 | 1.5 max
 
-5. estimated_days_base = CEIL(sum of all suggested_days)
+6. estimated_days_base = CEIL(sum of all suggested_days)
 
-6. to_next_leg on ALL days EXCEPT the last. Include road_type ONLY if the leg is NOT a standard tarmac drive. Values: "flight", "gravel", "mountain_pass", "ferry", "train", "dirt_road", "4x4_track". This field flags special transport or road conditions that should stand out visually in the frontend.
+7. to_next_leg on ALL days EXCEPT the last. Include road_type ONLY if the leg is NOT a standard tarmac drive. Values: "flight", "gravel", "mountain_pass", "ferry", "train", "dirt_road", "4x4_track". This field flags special transport or road conditions that should stand out visually in the frontend.
 
-7. coords = [lat, lon] of city center — do NOT invent precise POI coordinates
+8. coords = [lat, lon] of city center — do NOT invent precise POI coordinates
 
-8. itin_id = CC::region::slug (CC = ISO 3166-1 alpha-2)
+9. itin_id = CC::region::slug (CC = ISO 3166-1 alpha-2)
 
-9. region_code = CC-XX (standard regional code)
+10. region_code = CC-XX (standard regional code)
 
-10. slice = always 1
+11. slice = always 1
 
-11. source_url = SOURCE URL if available
+12. source_url = SOURCE URL if available
 
 ═══════════════════════════════════════════════════════════
 📋 ENRICHED FORMAT (MANDATORY)
@@ -879,18 +887,28 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 ✍️ WRITING STYLE — THIS IS THE MOST IMPORTANT SECTION
 ═══════════════════════════════════════════════════════════
 
-Write like a KNOWLEDGEABLE LOCAL GUIDE who loves history and has real stories to tell.
+🚨 CRITICAL: Apply these rules FROM THE FIRST SENTENCE you write. Do NOT write in encyclopedia mode and fix later — write in blog mode from the start. Every single visit/activity text must sound like a travel blog, not Wikipedia. If you catch yourself writing "X is located in..." or "X was built in..." without addressing the reader, STOP and rephrase immediately.
 
-**EACH visit text MUST include:**
-- WHAT makes this place worth visiting (not just "it's beautiful")
-- CONCRETE details: construction dates, dimensions, historical events, architectural style
-- ANECDOTES: who built it, what happened there, surprising facts, local legends
-- WHY it matters: historical significance, uniqueness, what you won't see elsewhere
+Write like a TRAVEL BLOG that addresses the reader directly (use "vous").
+You are NOT an encyclopedia. You are a friend who has been there and shares tips, feelings, and real facts.
+The tone is warm, lively, concrete. You give real advice, you warn about pitfalls, you make the reader WANT to go.
 
-**GOOD examples (the level of detail expected):**
-- "The primatiale Saint-Jean-Baptiste, built between 1175 and 1480, blends Romanesque and Gothic styles over 80 meters. Its 14th-century astronomical clock — one of the oldest in Europe — calculates the positions of the sun, moon and stars above Lyon. Henry IV married Marie de Medici here in 1600."
-- "The silk workers lived in workshop-apartments with 4-meter ceilings, necessary to house the Jacquard looms. Their 1831 revolt — one of the first workers' revolts in history — had the motto: 'Live working or die fighting.'"
-- "The Condrieu vineyard, AOC since 1940, nearly vanished in the 20th century: after phylloxera, wars and industrialization, only ten hectares remained in the 1950s. Passionate winemakers saved it by replanting abandoned hillsides in the 1980s."
+**THE GOLDEN RULE:** Each visit/activity text must combine:
+- CONCRETE FACTS (dates, dimensions, history, who built it, what happened)
+- PRACTICAL ADVICE (when to go, what to avoid, tips)
+- A HUMAN TOUCH (anecdotes, comparisons, sensory details, humor when appropriate)
+
+⚠️ MANDATORY — EVERY SINGLE visit and activity text must contain AT LEAST ONE of these:
+- A sentence addressing the reader: "vous trouverez...", "si vous y êtes...", "ne manquez pas...", "méfiez-vous de..."
+- A practical tip or warning: "arrivez tôt...", "prévoyez de...", "comptez environ...", "réservez à l'avance..."
+- An invitation to act: "montez au sommet pour...", "poussez la porte de...", "faites le détour jusqu'à..."
+A text that only describes a place without EVER talking to the reader is WRONG. Fix it before moving to the next text.
+
+**GOOD examples (THIS is the tone and level of detail expected):**
+- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée : La Pelosa. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Le lieu est victime de son succès — arrivez tôt le matin. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour et il faut réserver en ligne."
+- "À Castelsardo, les façades peintes de couleurs vives s'accrochent aux rochers qui bordent le littoral — un spectacle qui rappelle les Cinque Terre. Si vous y êtes en soirée, la teinte orangée de la ville au coucher de soleil est somptueuse. Il y a même une petite plage en contrebas pour savourer le spectacle les pieds dans l'eau."
+- "Prenez le ferry vers l'archipel de la Maddalena — il y en a toutes les 30 minutes et le service est bien rodé. Prévoyez d'y aller tôt (premier bateau à 8h15) pour éviter la foule, surtout si vous traversez avec une voiture. Une fois sur l'île principale, vous serez entourés d'eaux bleu turquoise. Astuce : utilisez la vue satellite de Google Maps pour repérer les eaux les plus claires et trouver les meilleurs spots de baignade."
+- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner — les fresques intérieures illustrent directement ses opéras. Le roi n'y a passé que 172 nuits avant d'en être chassé pour 'folie', puis retrouvé mort dans un lac trois jours après. Arrivez avant 9h — après, les bus de touristes débarquent."
 
 **BAD examples (FORBIDDEN — typical AI writing):**
 - ❌ "This iconic site offers an unforgettable experience"
@@ -899,47 +917,60 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE who loves history and has real stories to
 - ❌ "Immerse yourself in the vibrant atmosphere"
 - ❌ "A testament to human ingenuity"
 - ❌ "Where history meets modernity"
-- ❌ Any unfounded superlative, any vague praise without facts
+- ❌ Any sentence that could come from a Wikipedia article copy-paste
+- ❌ Any vague praise without concrete facts behind it
+- ❌ Pure encyclopedia style without addressing the reader
 
-**VARY sentence openings — alternate between:**
-- Informative: "The cathedral was built in 1234 by..."
-- Imperative: "Push open the door of...", "Climb the 200 steps to..."
-- Action/temporal: "In the morning, take the cable car to...", "After lunch, walk along..."
-- Narrative: "The monks still weave...", "Every November the village celebrates..."
-- Invitation: "Come at dawn to see..."
-- Contextual: "At the corner of rue X, notice the..."
+**BEFORE/AFTER — see the difference:**
+❌ WRONG (encyclopedia, no reader): "Le Monumento a los Héroes de la Restauración domine Santiago depuis une colline à 175 mètres d'altitude. Cette tour de 67 mètres a été commandée en 1944 par le dictateur Trujillo. À l'intérieur, 365 marches mènent au sommet. La vue panoramique sur Santiago est remarquable."
+✅ CORRECT (blog, talks to reader): "Vous verrez le Monumento a los Héroes de la Restauración de loin — cette tour de 67 mètres domine Santiago depuis une colline à 175 m d'altitude. Son histoire vaut le détour : commandée en 1944 par le dictateur Trujillo pour se glorifier, elle fut rebaptisée après son assassinat en 1961. Montez les 365 marches jusqu'au sommet — la vue sur la ville et la Cordillère Centrale est la meilleure de Santiago. Allez-y en fin de journée pour la lumière."
+
+**VARY sentence openings — alternate NATURALLY between:**
+- Direct address: "Vous trouverez ici...", "Ne manquez pas...", "Si vous y êtes en soirée..."
+- Practical/tip: "Arrivez tôt — la foule débarque après 9h", "Prévoyez de réserver en été"
+- Action/transition: "Continuez vers...", "Après avoir profité de la plage, reprenez la route vers...", "Poussez la porte de..."
+- Informative with life: "Construit en 1869 pour...", "Classé UNESCO depuis..."
+- Narrative/anecdote: "En 1631, le général Tilly promit de...", "Le roi n'y a passé que 16 jours avant..."
+- Sensory: "L'eau y est translucide...", "La vue depuis le sommet embrasse toute la vallée..."
 → NEVER chain more than 2 texts with the same opening style
-→ At least 30% of texts should use action/temporal openings
+→ EVERY text must address the reader at least once (see MANDATORY rule above)
 
 **FORBIDDEN:**
 - Sentences without verbs ("Gothic cathedral. Stained glass. Crypt.")
 - Empty adjectives without facts ("magnificent", "breathtaking", "stunning")
 - Filler phrases ("it is worth noting that", "one cannot help but notice")
+- Pure Wikipedia tone without any human touch or reader address
+- Starting every visit with "Le/La/Les [noun] est/sont..."
 
-**✅ REFERENCE EXAMPLE — target quality for a day entry:**
+═══════════════════════════════════════════════════════════
+📅 FILL EVERY DAY — NO EMPTY DAYS
+═══════════════════════════════════════════════════════════
+
+⚠️ Each day in the itinerary must feel like a REAL full day of travel. Think about what a traveler actually does from morning to evening.
+
+- A big city day: several visits (monuments, museums, quarters) + activities (food tour, market, evening stroll)
+- A nature/beach day: a morning activity (hike, snorkeling, boat trip) + afternoon beach/relaxation + maybe an evening visit (sunset viewpoint, old town walk)
+- A small village day: visit the village + nearby villages or sites + a local activity (wine tasting, craft workshop, scenic drive)
+- A transit day: stops and visits along the route + arrival at destination with evening exploration
+
+🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, FILL the day with:
+- Nearby beaches, viewpoints, scenic drives
+- Local activities: markets, food specialties to try, boat trips
+- Relaxation: recommend a beach, a terrace, a walk along the coast/river
+- Combine 2-3 small villages into one day
+
+🚫 NEVER DUPLICATE: Each visit or activity must appear ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content. No visit text should describe the same monument/site/beach twice.
+
+**✅ REFERENCE EXAMPLE — a well-filled coastal day:**
 \`\`\`json
 {
-  "night": {
-    "place_id": "IT::tivoli",
-    "coords": [41.9634, 12.7981],
-    "map_keywords": [
-      "Villa d'Este Tivoli",
-      "Villa Adriana Tivoli",
-      "Villa Gregoriana Tivoli",
-      "Tempio di Vesta Tivoli",
-      "Ponte Gregoriano Tivoli"
-    ]
-  },
   "visits": [
-    {
-      "text": "Villa d'Este — Inscrite au patrimoine mondial de l'UNESCO en 2001, cette villa fut commandée par le cardinal Hippolyte II d'Este, nommé gouverneur de Tivoli en 1550. Frustré de ne pas avoir été élu pape, il chargea l'architecte Pirro Ligorio de transformer un ancien couvent bénédictin en résidence de prestige. Les jardins en terrasses de 4,5 hectares abritent plus de 500 fontaines, 300 gerbes d'eau et une soixantaine de cascades — le tout alimenté uniquement par la gravité, sans aucune pompe, grâce au captage des eaux de l'Aniene par un conduit souterrain creusé en 1564-1565. La Fontana dell'Organo (1568), un orgue hydraulique construit par les Français Luc Leclerc et Claude Venard, joue encore des mélodies toutes les deux heures."
-    }
+    {"text": "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de Méditerranée : La Pelosa. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes/jour — réservez en ligne. Arrivez tôt le matin pour en profiter avant la foule.", "visit_duration_min": 180},
+    {"text": "La Torre della Pelosa, petite tour aragonaise du XVIe siècle, se dresse sur un îlot juste en face de la plage. Construite pour surveiller les incursions barbaresques, elle est devenue le symbole de Stintino — vous la verrez sur toutes les cartes postales.", "visit_duration_min": 15}
   ],
   "activities": [
-    {
-      "text": "Promenade sur l'acropole de Tibur — Depuis l'esplanade des temples de Vesta et de la Sibylle, le panorama embrasse toute la vallée des cascades et les gorges boisées de l'Aniene. En contrebas, le Ponte Gregoriano et les ruines de villas romaines complètent le tableau.",
-      "practical_info": {"duration": "45 min", "tip": "Gratuit, accessible depuis la Piazza Rivarola"}
-    }
+    {"text": "Après la plage, embarquez pour une excursion en bateau dans le golfe de l'Asinara. Vous longerez des criques inaccessibles par la route et pourrez vous baigner dans des eaux d'un bleu irréel. L'île de l'Asinara, ancienne colonie pénale fermée en 1997, abrite des ânes albinos qu'on ne trouve nulle part ailleurs en Méditerranée.", "practical_info": {"duration": "3-4h", "booking": "Réservation recommandée en été"}},
+    {"text": "Si vous n'êtes pas trop fatigués en fin d'après-midi, prenez la route côtière vers Castelsardo (environ 1h). Sinon, profitez du coucher de soleil depuis le port de Stintino — les terrasses face à l'Asinara sont parfaites pour un apéritif de fin de journée.", "practical_info": {"duration": "1h-2h"}}
   ]
 }
 \`\`\`
@@ -970,13 +1001,11 @@ Write like a KNOWLEDGEABLE LOCAL GUIDE who loves history and has real stories to
 DO NOT invent or guess any historical fact, date or anecdote.
 If you cannot verify a fact, DO NOT include it.
 
-After writing the full JSON, REREAD every visit and activity text:
-✅ Check: Is every date accurate? Every dimension correct? Every historical claim verifiable?
-✅ Check: Does each visit explain WHY this place is worth visiting?
-✅ Check: Are there enough concrete details (not vague praise)?
-✅ Check: Is the visits/activities distinction respected?
-✅ Check: Are map_keywords present and correct for every day?
-✅ Fix any issue found before outputting.
+After writing the full JSON, do a QUICK FINAL CHECK:
+✅ Are all dates, dimensions, distances factually correct?
+✅ Are map_keywords present for every day?
+✅ Is the visits/activities distinction respected?
+✅ Fix any factual error before outputting.
 
 ${effectiveMode === 'seed' ? `
 🏠 BASES + LOOPS MODE - BASES: ${effectiveSeeds || '[extract from text]'}
@@ -2869,42 +2898,60 @@ If you lack information for a location → write "⚠️ INSUFFICIENT INFO for [
 ✍️ WRITING STYLE — THE MOST IMPORTANT SECTION
 ═══════════════════════════════════════════════════════════
 
-Write like a knowledgeable friend who knows the place well — part travel blog, part local guide. Include real facts and anecdotes, but keep the tone natural and readable. Not a Wikipedia article, not a brochure.
+🚨 CRITICAL: Apply these rules FROM THE FIRST SENTENCE you write. Do NOT write in encyclopedia mode and fix later — write in blog mode from the start. Every single visit/activity text must sound like a travel blog, not Wikipedia. If you catch yourself writing "X is located in..." or "X was built in..." without addressing the reader, STOP and rephrase immediately.
 
-**EACH visit text MUST include:**
-- WHAT makes this place worth visiting (not just "it's beautiful")
-- CONCRETE details: construction dates, dimensions, historical events, architectural style
-- ANECDOTES: who built it, what happened there, surprising facts, local legends
-- WHY it matters: historical significance, uniqueness
+Write like a TRAVEL BLOG that addresses the reader directly (use "vous").
+You are NOT an encyclopedia. You are a friend who has been there and shares tips, feelings, and real facts.
+The tone is warm, lively, concrete. You give real advice, you warn about pitfalls, you make the reader WANT to go.
 
-**GOOD examples (the level of detail and tone expected):**
-- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner — les fresques intérieures illustrent directement ses opéras. Le roi n'y a passé que 172 nuits avant d'en être chassé par le gouvernement pour 'folie', puis d'être retrouvé mort dans un lac trois jours après."
+**THE GOLDEN RULE:** Each visit/activity text must combine:
+- CONCRETE FACTS (dates, dimensions, history, who built it, what happened)
+- PRACTICAL ADVICE (when to go, what to avoid, tips)
+- A HUMAN TOUCH (anecdotes, comparisons, sensory details, humor when appropriate)
+
+⚠️ MANDATORY — EVERY SINGLE visit and activity text must contain AT LEAST ONE of these:
+- A sentence addressing the reader: "vous trouverez...", "si vous y êtes...", "ne manquez pas...", "méfiez-vous de..."
+- A practical tip or warning: "arrivez tôt...", "prévoyez de...", "comptez environ...", "réservez à l'avance..."
+- An invitation to act: "montez au sommet pour...", "poussez la porte de...", "faites le détour jusqu'à..."
+A text that only describes a place without EVER talking to the reader is WRONG. Fix it before moving to the next text.
+
+**GOOD examples (THIS is the tone and level of detail expected):**
+- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée : La Pelosa. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Le lieu est victime de son succès — arrivez tôt le matin. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour et il faut réserver en ligne."
+- "À Castelsardo, les façades peintes de couleurs vives s'accrochent aux rochers qui bordent le littoral — un spectacle qui rappelle les Cinque Terre. Si vous y êtes en soirée, la teinte orangée de la ville au coucher de soleil est somptueuse. Il y a même une petite plage en contrebas pour savourer le spectacle les pieds dans l'eau."
 - "Le Plönlein, c'est une jonction en Y encadrée par deux tours du XIVe siècle. La maison à colombages jaune et rouge qui trône entre les deux aurait inspiré le village de Pinocchio chez Disney. Arrivez avant 8h — après 9h les cars débarquent."
-- "Le Tierfreigelände de Neuschönau couvre 250 hectares où 45 espèces vivent dans des conditions proches du sauvage : loups, ours bruns, lynx, bisons, loutres. Un sentier de 7 km traverse l'ensemble. Prenez des jumelles — certains animaux restent à distance."
+- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner — les fresques intérieures illustrent directement ses opéras. Le roi n'y a passé que 172 nuits avant d'en être chassé pour 'folie', puis retrouvé mort dans un lac trois jours après."
 
 **BAD examples (FORBIDDEN — typical AI writing):**
 - ❌ "This iconic site offers an unforgettable experience"
 - ❌ "A must-see" / "An absolute gem" / "A testament to human ingenuity"
 - ❌ "Immerse yourself in the vibrant atmosphere"
 - ❌ "Where history meets modernity"
+- ❌ Any sentence that could come from a Wikipedia copy-paste
 - ❌ Any vague praise without concrete facts behind it
+- ❌ Pure encyclopedia style without addressing the reader
+
+**BEFORE/AFTER — see the difference:**
+❌ WRONG (encyclopedia, no reader): "Le Monumento domine Santiago depuis une colline à 175 mètres d'altitude. Cette tour de 67 mètres a été commandée en 1944 par le dictateur Trujillo. À l'intérieur, 365 marches mènent au sommet. La vue panoramique sur Santiago est remarquable."
+✅ CORRECT (blog, talks to reader): "Vous verrez le Monumento de loin — cette tour de 67 mètres domine Santiago depuis une colline à 175 m. Son histoire vaut le détour : commandée en 1944 par Trujillo pour se glorifier, elle fut rebaptisée après son assassinat en 1961. Montez les 365 marches — la vue sur la ville et la Cordillère est la meilleure de Santiago. Allez-y en fin de journée pour la lumière."
 
 **SENTENCE VARIETY — write like a travel blog, not an encyclopedia:**
 Each day must flow like a narrative, not a list of Wikipedia entries. Alternate naturally between:
-- Informative: "La cathédrale a été construite entre 1175 et 1480..."
-- Transition/action: "Continuez par...", "Montez ensuite au pont pour...", "Traversez la place vers...", "Rejoignez..."
-- Practical: "Arrivez tôt — la foule débarque après 9h", "Réservez à l'avance en été"
-- Narrative: "En 1631, le général Tilly promit d'épargner la ville si...", "Le roi n'y a passé que 16 jours avant de..."
+- Direct address: "Vous trouverez ici...", "Ne manquez pas...", "Si vous y êtes en soirée..."
+- Practical/tip: "Arrivez tôt — la foule débarque après 9h", "Prévoyez de réserver en été"
+- Transition/action: "Continuez par...", "Après avoir profité de la plage, reprenez la route vers...", "Poussez la porte de..."
+- Informative with life: "Construit en 1869 pour...", "Classé UNESCO depuis..."
+- Narrative/anecdote: "En 1631, le général Tilly promit d'épargner la ville si...", "Le roi n'y a passé que 16 jours avant de..."
+- Sensory: "L'eau y est translucide...", "La vue depuis le sommet embrasse toute la vallée..."
 
-Target: roughly **half** the visits should open with or contain a transition, action, or narrative phrase — not just a factual statement. A day where every visit starts with "La/Le/En [date]..." is wrong.
+EVERY text must address the reader at least once (see MANDATORY rule above). A day where every visit starts with "La/Le/En [date]..." is WRONG.
 
 ✅ Good rhythm example:
-- Visit 1: "La Résidence de Wurtzbourg, construite entre 1720 et 1744, est le palais baroque le plus homogène d'Europe selon l'UNESCO..."
+- Visit 1: "La Résidence de Wurtzbourg, construite entre 1720 et 1744, abrite le plus grand plafond peint au monde — 600 m² réalisés par Tiepolo. Comptez au moins 1h30 pour en faire le tour."
 - Visit 2: "Poussez la porte de la Hofkirche, nichée dans l'aile sud-ouest. Malgré ses dimensions modestes, elle abrite..."
-- Visit 3: "L'Alte Mainbrücke relie la ville à la forteresse depuis le XVe siècle. En fin de journée, les habitants s'y retrouvent pour boire un verre de Silvaner..."
-- Visit 4: "Montez au Käppele par les 247 marches du chemin de croix — la vue sur la ville depuis le sommet vaut l'effort."
+- Visit 3: "En fin de journée, rejoignez l'Alte Mainbrücke. Les habitants s'y retrouvent pour boire un verre de Silvaner face à la forteresse — c'est l'un des meilleurs spots apéritif de la ville."
+- Visit 4: "Si vous avez de l'énergie, montez au Käppele par les 247 marches du chemin de croix — la vue sur la ville depuis le sommet vaut l'effort."
 
-❌ Wrong (every visit identical style):
+❌ Wrong (every visit identical encyclopedia style):
 - "La cathédrale a été construite en..."
 - "Le musée présente une collection de..."
 - "La place date du..."
@@ -2913,6 +2960,15 @@ Target: roughly **half** the visits should open with or contain a transition, ac
 ═══════════════════════════════════════════════════════════
 📋 FORMAT RULES
 ═══════════════════════════════════════════════════════════
+
+⚠️ **FILL EVERY DAY** — Each day must feel like a REAL full day of travel, from morning to evening:
+- Big city: several visits (monuments, museums, quarters) + activities (food tour, market, evening stroll)
+- Nature/beach: morning activity (hike, boat, snorkeling) + afternoon beach/relaxation + evening visit (sunset viewpoint, old town)
+- Small village: visit the village + nearby villages/sites + local activity (wine tasting, scenic drive, market)
+- Transit day: stops along the route + evening exploration at destination
+🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, fill with nearby beaches, viewpoints, scenic drives, local food specialties, relaxation suggestions.
+
+🚫 **NO DUPLICATES** — Each visit/activity appears ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content. No monument, site, or beach should be described twice.
 
 **BE EXHAUSTIVE** — List everything worth seeing and doing for each location. A major city merits many visits; a small village may have 3-4. Do NOT cap at a fixed number. Try to be as complete as possible.
 
@@ -2997,19 +3053,15 @@ Rules: complete descriptive sentence, 6-12 words, factual and evocative.
 - "by motorbike" → "by road"
 
 ═══════════════════════════════════════════════════════════
-✅ MANDATORY PROOFREADING BEFORE OUTPUT
+✅ QUICK FINAL CHECK BEFORE OUTPUT
 ═══════════════════════════════════════════════════════════
-Before producing the final JSON, REREAD THE ENTIRE OUTPUT and check:
-✅ Every historical date is accurate and sourced
-✅ Every dimension, altitude, distance is correct
-✅ Every anecdote is verifiable (not invented)
-✅ Each visit explains WHY this place is worth visiting (no vague praise)
-✅ No AI-style phrases ("iconic", "unforgettable", "testament to", "where X meets Y")
-✅ visits/activities distinction is respected throughout
-✅ map_keywords present and correct for every day
-✅ places_taglines are complete sentences, not keyword lists
+Before producing the final JSON, do a quick scan:
+✅ All dates, dimensions, distances are factually correct
+✅ No AI-style phrases slipped in ("iconic", "unforgettable", "testament to", "where X meets Y")
+✅ map_keywords present for every day
+✅ places_taglines are complete sentences
 ✅ All texts are in language "${lang}"
-FIX any issue found. DO NOT output until proofreading is complete.
+Fix any factual error. DO NOT rewrite the entire output — if you followed the rules above, the tone and content are already correct.
 
 ═══════════════════════════════════════════════════════════
 🎯 EXPECTED OUTPUT
