@@ -4019,16 +4019,31 @@
       "itin_id": "DE::bayern-badenwurtemberg-roadtrip",
       "id": "DE::bayern-badenwurtemberg-roadtrip",
       "language": "it",
-      "title": "Tour della Germania del Sud: Castelli, Foreste e Città Medievali",
-      "country": "DE",
-      "estimated_days_base": 8,
-      "source_url": "https://fr.wikipedia.org/wiki/Rothenburg_ob_der_Tauber, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Neuschwanstein, https://www.nationalpark-bayerischer-wald.bayern.de, https://www.munich.travel/fr/pois/montagnes-et-lacs/garmisch-partenkirchen, https://fr.wikipedia.org/wiki/Garmisch-Partenkirchen, https://www.rollingtrippers.com/allemagne/une-journee-a-triberg-im-schwarzwald-au-coeur-de-la-foret-noire/, https://friedrichsbad.fr, https://caracalla.fr, https://whc.unesco.org/fr/list/367/, https://fr.wikipedia.org/wiki/Porta_Nigra, https://fr.wikipedia.org/wiki/Tr%C3%A8ves_(Allemagne)",
       "created_at": "2026-03-16T17:57:59.310Z",
+      "source_url": "https://fr.wikipedia.org/wiki/Rothenburg_ob_der_Tauber, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Neuschwanstein, https://www.nationalpark-bayerischer-wald.bayern.de, https://www.munich.travel/fr/pois/montagnes-et-lacs/garmisch-partenkirchen, https://fr.wikipedia.org/wiki/Garmisch-Partenkirchen, https://www.rollingtrippers.com/allemagne/une-journee-a-triberg-im-schwarzwald-au-coeur-de-la-foret-noire/, https://friedrichsbad.fr, https://caracalla.fr, https://whc.unesco.org/fr/list/367/, https://fr.wikipedia.org/wiki/Porta_Nigra, https://fr.wikipedia.org/wiki/Tr%C3%A8ves_(Allemagne)",
+      "dept_code": "BY-BW",
+      "dept_name": "Baviera e Baden-Württemberg",
+      "title": "Tour della Germania del Sud: Castelli, Foreste e Città Medievali",
+      "subtitle": "Dalla Strada Romantica alle Alpi bavaresi, dalla Foresta Nera alle terme romane di Treviri: sette giorni attraverso i paesaggi e la storia del sud della Germania.",
+      "notes": "",
+      "specialties": [
+        "Lebkuchen di Norimberga e Schneeballen di Rothenburg",
+        "Weißwurst bavarese con senape dolce e pretzel",
+        "Riesling della valle della Mosella",
+        "Schwarzwälder Kirschtorte (torta della Foresta Nera)",
+        "Cucù della Foresta Nera, artigianato orologiero tradizionale"
+      ],
+      "estimated_days_base": 8,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -4036,10 +4051,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::rothenburg-ob-der-tauber",
+          "region_code": "BY",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "BY",
           "night": {
             "place_id": "DE::rothenburg-ob-der-tauber",
             "coords": [
@@ -4090,6 +4104,7 @@
           "activities": [
             {
               "text": "Rothenburg si visita a piedi sulla sua superficie compatta di circa 1 km². Una visita guidata notturna con partenza dalla Marktplatz insieme al Guardiano Notturno in costume medievale viene proposta ogni sera: un modo diverso di scoprire la città quando i gruppi diurni se ne sono andati.",
+              "place_id": "",
               "activity_duration_min": 75
             }
           ],
@@ -4097,17 +4112,16 @@
             "distance_km": 160,
             "drive_min": 110,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::fuessen",
+          "region_code": "BY",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "BY",
           "night": {
             "place_id": "DE::fussen",
             "coords": [
@@ -4148,6 +4162,7 @@
           "activities": [
             {
               "text": "Il lago Alpsee, direttamente ai piedi dei due castelli, si presta a una breve passeggiata lungo le sue rive. Lo stesso Luigi II passeggiaVa lungo le sue sponde. In estate sono disponibili barche a noleggio.",
+              "place_id": "",
               "activity_duration_min": 45,
               "practical_info": {
                 "distance": "2 km",
@@ -4160,17 +4175,16 @@
             "distance_km": 220,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::riedlhuette",
+          "region_code": "BY",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "BY",
           "night": {
             "place_id": "DE::riedlhuette",
             "coords": [
@@ -4195,22 +4209,12 @@
             {
               "text": "Cominciate dal Tierfreigelände di Neuschönau, un recinto naturale di 250 ettari dove 45 specie animali vivono in condizioni vicine al loro habitat selvatico: lupi, orsi bruni, linci, bisonti europei, lontre, castori, cervi e grandi rapaci. Un sentiero di 7 km attraversa l'intero complesso: calcolate 3-4 ore. Portate il binocolo, alcuni animali si tengono a distanza. L'accesso è gratuito.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "distance": "7 km (o 3 km in versione breve)",
-                "duration": "3-4h",
-                "difficulty": "Facile, passeggini ammessi"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "Dirigetevi poi verso il Rachelsee, un lago di montagna a 1.071 metri di altitudine, circondato da faggi e abeti centenari. La leggenda locale gli attribuisce un nome derivato dalla nonna del diavolo, e racconta che una donna malvagia fu l'ultima a navigare sulle sue acque, la sua bara accompagnata da uno stormo di corvi neri. Il sentiero da Spiegelau è ben segnalato.",
               "place_id": "",
-              "visit_duration_min": 120,
-              "practical_info": {
-                "distance": "~8 km andata e ritorno",
-                "duration": "~3h",
-                "difficulty": "Moderato"
-              }
+              "visit_duration_min": 120
             },
             {
               "text": "Fermatevi al centro visitatori Hans-Eisenmann-Haus a Neuschönau, che presenta la storia e la fauna del parco nazionale. È anche il punto di partenza del Baumwipfelpfad, un sentiero aereo di 1.300 metri che cammina all'altezza delle cime degli alberi.",
@@ -4221,6 +4225,7 @@
           "activities": [
             {
               "text": "Partite in escursione sui sentieri segnalati del parco da Riedlhütte o Neuschönau. Oltre 500 km di sentieri attraversano il parco, alcuni dei quali attraversano zone di «foresta primaria» dove nessun intervento umano è autorizzato da decenni. Le aree intorno al Lusen e al Großer Rachel sono le più selvagge.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "Variabile",
@@ -4233,17 +4238,16 @@
             "distance_km": 260,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::garmisch-partenkirchen",
+          "region_code": "BY",
           "suggested_days": 1,
           "rating": 9.8,
-          "region_code": "BY",
           "night": {
             "place_id": "DE::garmisch-partenkirchen",
             "coords": [
@@ -4273,16 +4277,13 @@
             {
               "text": "Dedicate il pomeriggio alla Zugspitze, punto più alto della Germania a 2.962 metri, al confine austriaco. Con tempo limpido il panorama si estende fino all'Italia. Un trenino a cremagliera vecchio di 90 anni collega Garmisch al plateau glaciale a 2.600 metri, da dove una funivia di 1.000 metri sale alla vetta. La risalita in funivia dal lago Eibsee (inaugurata nel 2017) detiene tre primati mondiali: torre di pilone più alta, maggior dislivello e portata libera più lunga.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "duration": "Mezza giornata",
-                "booking": "Prenotazione consigliata in stagione"
-              }
+              "visit_duration_min": 180
             }
           ],
           "activities": [
             {
               "text": "Passeggiate intorno al lago Eibsee, dalle acque turchesi circondato da rocce calcaree e foreste di pini, ai piedi della Zugspitze. Il giro completo del lago fa circa 7 km. In estate si possono noleggiare barche sul posto.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "distance": "7 km",
@@ -4295,17 +4296,16 @@
             "distance_km": 300,
             "drive_min": 210,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "mountain_pass"
+            "road_type": "mountain_pass",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::triberg",
+          "region_code": "BW",
           "suggested_days": 1,
           "rating": 8.6,
-          "region_code": "BW",
           "night": {
             "place_id": "DE::triberg",
             "coords": [
@@ -4340,6 +4340,7 @@
           "activities": [
             {
               "text": "Partite in escursione su uno dei tre sentieri segnalati intorno alle cascate: il Kaskadenweg (45 min), il Kulturweg (1h) o il Naturweg (1h30). Tutti offrono prospettive diverse sulle cascate e sulla foresta circostante. Dopo la salita, continuate sui sentieri forestali sopra le cascate per raggiungere il piccolo lago Bergsee.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distance": "3-6 km secondo il sentiero",
@@ -4352,17 +4353,16 @@
             "distance_km": 100,
             "drive_min": 110,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::baden-baden",
+          "region_code": "BW",
           "suggested_days": 1,
           "rating": 8.4,
-          "region_code": "BW",
           "night": {
             "place_id": "DE::baden-baden",
             "coords": [
@@ -4392,11 +4392,7 @@
             {
               "text": "Prenotate poi una sessione al Friedrichsbad, costruito tra il 1869 e il 1877 dall'architetto Karl Dernfeld. Ispirato alle terme romane e ai bagni irlandesi, propone 17 stazioni termali sotto una cupola di 17,5 metri. Mark Twain vi soggiornò e scrisse: «Dopo 10 minuti, dimenticate il tempo; dopo 20 minuti, il mondo». La tradizione dei bagni vi è mista e senza costume.",
               "place_id": "",
-              "visit_duration_min": 180,
-              "practical_info": {
-                "duration": "Minimo 2h",
-                "booking": "Prenotazione consigliata"
-              }
+              "visit_duration_min": 180
             },
             {
               "text": "Terminate la giornata con una passeggiata sulla Lichtentaler Allee, che costeggia il fiume Oos per 2,3 km tra il centro città e l'abbazia cistercense di Lichtenthal fondata nel 1245. Questo viale bordato di alberi centenari era nel XIX secolo il salotto all'aperto dell'Europa: Napoleone III, la regina Vittoria, Dostoevskij e Brahms vi hanno tutti soggiornato.",
@@ -4407,6 +4403,7 @@
           "activities": [
             {
               "text": "Le terme Caracalla moderne, inaugurate nel 1985 su 5.000 m², permettono di godere delle acque termali con il costume da bagno. Diverse piscine a temperature tra 18 e 38 gradi, piscina esterna aperta tutto l'anno, saune e bagni di vapore. Più accessibile del Friedrichsbad, con o senza prenotazione.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "duration": "Minimo 2h",
@@ -4418,17 +4415,16 @@
             "distance_km": 282,
             "drive_min": 155,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::trier",
+          "region_code": "RP",
           "suggested_days": 1,
           "rating": 9.6,
-          "region_code": "RP",
           "night": {
             "place_id": "DE::trier",
             "coords": [
@@ -4479,6 +4475,7 @@
           "activities": [
             {
               "text": "La valle della Mosella intorno a Treviri è una delle regioni vinicole più rinomate della Germania, specializzata nel Riesling coltivato su ripidi pendii ardesiaci. Diverse tenute propongono degustazioni nei villaggi circostanti.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -4486,11 +4483,64 @@
             "distance_km": 50,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "train"
+            "road_type": "train",
+            "method": "heuristic"
           }
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            7
+          ],
+          "label": "Segment 2 — J6–J7",
+          "from_day": 6,
+          "to_day": 7
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 7,
+          "label": "Var 7j"
+        }
+      ],
+      "regions": [
+        "Bavaria",
+        "Baden-Württemberg",
+        "Rhineland-Palatinate"
+      ],
+      "nearby_itins": [
+        "FR::alsace::best-christmas-markets",
+        "FR::67-68::alsace-15-villages-de-caractere",
+        "FR::GE::grand-est-20-plus-beaux-villages-grande-boucle",
+        "FR::67::bas-rhin"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Nature"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Tour della Germania del Sud: Castelli, Foreste e Città Medievali",
         "intro_paragraph": "Rothenburg ob der Tauber e i suoi bastioni intatti, Neuschwanstein arroccato sul suo sperone roccioso, la Foresta Bavarese e i suoi lupi, le gole glaciali di Garmisch, le cascate di Triberg, le terme romane di Baden-Baden e Treviri, la città più antica della Germania. Sette giorni nel profondo sud.",
@@ -4511,74 +4561,6 @@
           "DE::trier": "La città che fu capitale dell'Impero quando Roma vacillava"
         }
       },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Nature"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            6
-          ],
-          "label": "Segmento 1 - D1–D6",
-          "from_day": 1,
-          "to_day": 6
-        },
-        {
-          "n": 2,
-          "range": [
-            7,
-            7
-          ],
-          "label": "Segmento 2 - D7",
-          "from_day": 7,
-          "to_day": 7
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5gg"
-        },
-        {
-          "from_day": 1,
-          "to_day": 6,
-          "label": "Var 6gg"
-        },
-        {
-          "from_day": 1,
-          "to_day": 7,
-          "label": "Var 7gg"
-        }
-      ],
-      "regions": [
-        "Bavaria",
-        "Baden-Württemberg",
-        "Rhineland-Palatinate"
-      ],
-      "nearby_itins": [
-        "FR::alsace::best-christmas-markets",
-        "FR::67-68::alsace-15-villages-de-caractere",
-        "FR::GE::grand-est-20-plus-beaux-villages-grande-boucle",
-        "FR::67::bas-rhin"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Lebkuchen di Norimberga e Schneeballen di Rothenburg",
-        "Weißwurst bavarese con senape dolce e pretzel",
-        "Riesling della valle della Mosella",
-        "Schwarzwälder Kirschtorte (torta della Foresta Nera)",
-        "Cucù della Foresta Nera, artigianato orologiero tradizionale"
-      ],
-      "dept_code": "BY-BW",
-      "dept_name": "Baviera e Baden-Württemberg",
-      "subtitle": "Dalla Strada Romantica alle Alpi bavaresi, dalla Foresta Nera alle terme romane di Treviri: sette giorni attraverso i paesaggi e la storia del sud della Germania.",
       "seo_keywords": [
         "tour Germania del sud",
         "castelli Baviera",
@@ -4609,16 +4591,31 @@
       "itin_id": "DE::romantische-strasse::contes-chateaux-7n",
       "id": "DE::romantische-strasse::contes-chateaux-7n",
       "language": "it",
-      "title": "Tour della Germania: Castelli, Borghi Medievali e Alpi",
-      "country": "DE",
-      "estimated_days_base": 14,
-      "source_url": "https://reichsburg-cochem.de/le-chateau/?lang=fr, https://burg-eltz.de/fr/chateau, https://fr.wikipedia.org/wiki/Rothenburg_ob_der_Tauber, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Hohenzollern, https://www.neuschwanstein.de/franz/idee/index.htm, https://fr.wikipedia.org/wiki/Antiquarium_(R%C3%A9sidence_de_Munich), https://www.germany.travel/fr/chateaux-et-palais/chateau-de-hohenzollern.html",
       "created_at": "2026-03-16T18:30:00.000Z",
+      "source_url": "https://reichsburg-cochem.de/le-chateau/?lang=fr, https://burg-eltz.de/fr/chateau, https://fr.wikipedia.org/wiki/Rothenburg_ob_der_Tauber, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Hohenzollern, https://www.neuschwanstein.de/franz/idee/index.htm, https://fr.wikipedia.org/wiki/Antiquarium_(R%C3%A9sidence_de_Munich), https://www.germany.travel/fr/chateaux-et-palais/chateau-de-hohenzollern.html",
+      "dept_code": "DE",
+      "dept_name": "Germania del Sud (Renania-Palatinato, Assia, Baviera, Baden-Württemberg)",
+      "title": "Tour della Germania: Castelli, Borghi Medievali e Alpi",
+      "subtitle": "Da Francoforte ai castelli reali di Baviera, la Strada Romantica al suo meglio: valle del Reno, Mosella, città medievali fortificate e Alpi.",
+      "notes": "",
+      "specialties": [
+        "Apfelwein (sidro di mele) di Francoforte, servito in brocche di gres blu",
+        "Riesling della valle del Reno e della Mosella, in terrazzamenti patrimonio UNESCO",
+        "Schneeballen (palle di neve) di Rothenburg, dolci fritti ricoperti di zucchero a velo",
+        "Lebkuchen (pan di zenzero) e Bratwurst (salsicce) della Franconia",
+        "Weißwurst (salsiccia bianca) e Brezn (pretzel) bavaresi a Monaco"
+      ],
+      "estimated_days_base": 14,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -4626,10 +4623,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "DE-HE",
           "suggested_days": 2,
           "rating": 9.1,
-          "region_code": "DE-HE",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -4675,28 +4671,22 @@
           "activities": [
             {
               "text": "Passeggiata a piedi nell'Altstadt: circuito Römerberg → Kaiserdom → Paulskirche → Casa di Goethe (Großer Hirschgraben 23). La casa natale dello scrittore, distrutta durante la guerra, è stata integralmente ricostruita com'era in origine con mobili e oggetti d'epoca. Si può visitare lo studio dove Goethe scrisse I dolori del giovane Werther all'età di 23 anni.",
+              "place_id": "",
               "activity_duration_min": 120
             },
             {
               "text": "Crociera panoramica di un'ora sul Meno partendo dagli imbarcaderi del Museumsufer. Il percorso passa davanti ai 39 musei della riva, sotto l'Eiserner Steg, e offre una lettura completa della città dal fiume.",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "DE-HE",
           "suggested_days": 2,
           "rating": 9.1,
-          "region_code": "DE-HE",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -4736,6 +4726,7 @@
           "activities": [
             {
               "text": "Degustazione di Apfelwein in una taverna tradizionale di Sachsenhausen. Il sidro di mele locale viene servito in brocche di gres dentro un bicchiere chiamato Geripptes (scanalato). La tradizione delle taverne del sidro in questo quartiere risale al XVIII secolo.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -4743,17 +4734,16 @@
             "distance_km": 85,
             "drive_min": 70,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::bacharach",
+          "region_code": "DE-RP",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-RP",
           "night": {
             "place_id": "DE::bacharach",
             "coords": [
@@ -4799,10 +4789,12 @@
           "activities": [
             {
               "text": "Degustazione di Riesling in una delle cantine del borgo. Bacharach produce vini dall'epoca romana. La leggenda vuole che papa Pio II lo facesse spedire in carri fino a Roma.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Crociera breve sul Reno dall'imbarcadero di Bacharach verso Kaub, per vedere dall'acqua il castello fortificato di Pfalzgrafenstein posato su un'isola in mezzo al fiume – antico posto doganale medievale ancora intatto. Durata andata e ritorno circa 1h15.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "duration": "~1h15",
@@ -4814,17 +4806,16 @@
             "distance_km": 112,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::cochem",
+          "region_code": "DE-RP",
           "suggested_days": 1,
           "rating": 7.3,
-          "region_code": "DE-RP",
           "night": {
             "place_id": "DE::cochem",
             "coords": [
@@ -4864,28 +4855,22 @@
           "activities": [
             {
               "text": "Crociera panoramica di un'ora sulla Mosella dal porto turistico di Cochem. Il circuito risale il fiume verso i borghi vinicoli di Beilstein o Ediger-Eller, costeggiando vigneti terrazzati scoscesi e rovine di castelli medievali.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Passeggiata fotografica sul ponte della Mosella a Cochem a fine giornata: dal ponte, l'asse visivo allinea le banchine, i campanili e la sagoma del castello – l'inquadratura classica della città, particolarmente suggestiva nella luce dorata della sera.",
+              "place_id": "",
               "activity_duration_min": 30
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::cochem",
+          "region_code": "DE-RP",
           "suggested_days": 2,
           "rating": 7.3,
-          "region_code": "DE-RP",
           "night": {
             "place_id": "DE::cochem",
             "coords": [
@@ -4913,6 +4898,7 @@
           "activities": [
             {
               "text": "Escursione d'avvicinamento dal villaggio di Moselkern (sul bordo della Mosella) fino al castello di Eltz: sentiero forestale di 2,5 km (35 minuti) lungo l'Elzbach, progressivamente incassato nella valle boscosa. Il castello appare bruscamente alla curva dell'ultimo meandro. Questo sentiero è il modo migliore per arrivare – e per evitare le code del parcheggio.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "distance": "2,5 km (andata)",
@@ -4925,17 +4911,16 @@
             "distance_km": 195,
             "drive_min": 140,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::wuerzburg",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::wurzburg",
             "coords": [
@@ -4976,6 +4961,7 @@
           "activities": [
             {
               "text": "Degustazione di vino in una Weinstube ai bordi dell'Alte Mainbrücke. Würzburg produce Silvaner e Riesling nei vigneti del Würzburger Stein, la più grande proprietà viticola in pendenza ripida d'Europa. Il vino viene servito nella caratteristica bottiglia bocksbeutel, appiattita e rotonda.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -4983,17 +4969,16 @@
             "distance_km": 116,
             "drive_min": 70,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::rothenburg-ob-der-tauber",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::rothenburg-ob-der-tauber",
             "coords": [
@@ -5033,24 +5018,17 @@
           "activities": [
             {
               "text": "Percorso fotografico nei vicoli all'alba (prima delle 8h): Herrngasse, Schmiedgasse, Plönlein. La luce mattutina radente è ideale e i vicoli sono vuoti. Dopo le 9h, i pullman turistici si accumulano.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::rothenburg-ob-der-tauber",
+          "region_code": "DE-BY",
           "suggested_days": 2,
           "rating": 6.2,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::rothenburg-ob-der-tauber",
             "coords": [
@@ -5089,6 +5067,7 @@
           "activities": [
             {
               "text": "Discesa a piedi nella valle della Tauber per uno dei sentieri oltre la porta Kobolzeller Tor. In basso, il fiume scorre tra prati e resti di mulini. La vista risalente sulle mura e le torri di Rothenburg dal fondo della valle è molto diversa da quella del camminamento di ronda.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -5096,17 +5075,16 @@
             "distance_km": 40,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::dinkelsbuehl",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::dinkelsbuehl",
             "coords": [
@@ -5141,6 +5119,7 @@
           "activities": [
             {
               "text": "Ronda del guardiano notturno (Nachtwächter): ogni sera, una guida in costume medievale, lanterna in mano, trascina i visitatori nella città vecchia illuminata per raccontare la storia di Dinkelsbühl.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "duration": "~1h15",
@@ -5152,17 +5131,16 @@
             "distance_km": 75,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "DE::augsburg",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::augsburg",
             "coords": [
@@ -5203,6 +5181,7 @@
           "activities": [
             {
               "text": "Visita dello Schaezlerpalais, palazzo barocco costruito nel 1770, che ospita una sala da ballo rococò affrescata in stile tiepolesco e la Staatsgalerie – collezione di dipinti del Rinascimento e del Medioevo includendo il ritratto di Jacob Fugger il Ricco di Dürer.",
+              "place_id": "",
               "activity_duration_min": 75
             }
           ],
@@ -5210,17 +5189,16 @@
             "distance_km": 120,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "DE::sonnenbuehl",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 6.9,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::sonnenbuehl",
             "coords": [
@@ -5248,6 +5226,7 @@
           "activities": [
             {
               "text": "Punto panoramico crepuscolare dai belvedere ai piedi del parcheggio del castello di Hohenzollern. La sagoma della fortezza che si staglia al tramonto sulle colline sveve è uno dei panorami più fotografati del Baden-Württemberg.",
+              "place_id": "",
               "activity_duration_min": 30
             }
           ],
@@ -5255,17 +5234,16 @@
             "distance_km": 100,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 12,
           "slice": 1,
-          "place_id": "DE::hohenschwangau",
+          "region_code": "DE-BY",
           "suggested_days": 2,
           "rating": 8.1,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::hohenschwangau",
             "coords": [
@@ -5299,6 +5277,7 @@
           "activities": [
             {
               "text": "Ricognizione a fine pomeriggio dei sentieri che portano a Neuschwanstein e al ponte Marienbrücke. La salita dal Ticket Center richiede 30-40 minuti a piedi. Identificare il percorso il giorno prima permette di partire all'apertura senza esitazioni.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -5306,17 +5285,16 @@
             "distance_km": 115,
             "drive_min": 100,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "mountain_pass"
+            "road_type": "mountain_pass",
+            "method": "heuristic"
           }
         },
         {
           "day": 13,
           "slice": 1,
-          "place_id": "DE::munich",
+          "region_code": "DE-BY",
           "suggested_days": 2,
           "rating": 9.4,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::munich",
             "coords": [
@@ -5350,28 +5328,21 @@
           "activities": [
             {
               "text": "Salita a piedi dal Ticket Center fino al castello (30-40 min) per la fascia oraria d'apertura mattutina, prima dell'arrivo dei pullman turistici. La frequentazione supera le 6.000 persone al giorno in estate – le prime fasce orarie sono decisamente meno affollate.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "booking": "Prenotazione obbligatoria online, fascia oraria da scegliere in anticipo",
                 "duration": "Visita guidata ~35 min"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 14,
           "slice": 1,
-          "place_id": "DE::munich",
+          "region_code": "DE-BY",
           "suggested_days": 2,
           "rating": 9.4,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::munich",
             "coords": [
@@ -5418,18 +5389,82 @@
           "activities": [
             {
               "text": "Passeggiata a piedi nell'Innenstadt: Odeonsplatz → Feldherrnhalle → Theatinerkirche (facciata barocca gialla, costruita a partire dal 1663 come ex voto per la nascita di un erede) → Hofgarten → ritorno verso Marienplatz.",
+              "place_id": "",
               "activity_duration_min": 75
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            14
+          ],
+          "label": "Segment 3 — J11–J14",
+          "from_day": 11,
+          "to_day": 14
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 14,
+          "label": "Var 14j"
+        }
+      ],
+      "regions": [
+        "DE-HE",
+        "DE-RP",
+        "DE-BY",
+        "DE-BW"
+      ],
+      "nearby_itins": [
+        "AT::autriche::two-weeks-explorers",
+        "AT::autriche::roadtrip-famille-nature-et-culture",
+        "DE::south-germany::fairytale-roadtrip",
+        "DE::by-romantische-strasse",
+        "DE::bavaria::romantic-road"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Route & Exploration"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Tour della Germania: Castelli, Borghi Medievali e Alpi",
         "intro_paragraph": "Da Francoforte sulle rive del Meno ai castelli reali di Baviera, questo itinerario segue la Strada Romantica nella sua interezza: valle del Reno e le sue fortezze medievali, vigneti della Mosella e castello di Cochem, città fortificate di Rothenburg e Dinkelsbühl, poi Neuschwanstein nelle Alpi. La Germania delle fiabe esiste davvero.",
@@ -5451,120 +5486,8 @@
           "DE::sonnenbuehl": "Giura svevo dei castelli romantici, dove re e conti sognarono il Medioevo perduto",
           "DE::hohenschwangau": "Valle alpina dei castelli reali, dove Luigi II guardò il futuro Neuschwanstein dalla finestra",
           "DE::muenchen": "Capitale bavarese dove la Residenza imperiale dialoga con l'onda urbana dell'Eisbach"
-        },
-        "segments": [
-          {
-            "n": 1,
-            "range": [
-              1,
-              5
-            ],
-            "label": "Segmento 1 - D1–D5",
-            "from_day": 1,
-            "to_day": 5
-          },
-          {
-            "n": 2,
-            "range": [
-              6,
-              10
-            ],
-            "label": "Segmento 2 - D6–D10",
-            "from_day": 6,
-            "to_day": 10
-          },
-          {
-            "n": 3,
-            "range": [
-              11,
-              14
-            ],
-            "label": "Segmento 3 - D11–D14",
-            "from_day": 11,
-            "to_day": 14
-          }
-        ]
-      },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Route & Exploration"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10",
-          "from_day": 6,
-          "to_day": 10
-        },
-        {
-          "n": 3,
-          "range": [
-            11,
-            14
-          ],
-          "label": "Segmento 3 - D11–D14",
-          "from_day": 11,
-          "to_day": 14
         }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g (Reno + Mosella)"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Var 10g (Strada Romantica completa)"
-        },
-        {
-          "from_day": 1,
-          "to_day": 14,
-          "label": "Var 14g (Integrale)"
-        }
-      ],
-      "regions": [
-        "DE-HE",
-        "DE-RP",
-        "DE-BY",
-        "DE-BW"
-      ],
-      "nearby_itins": [
-        "AT::autriche::two-weeks-explorers",
-        "AT::autriche::roadtrip-famille-nature-et-culture",
-        "DE::south-germany::fairytale-roadtrip",
-        "DE::by-romantische-strasse",
-        "DE::bavaria::romantic-road"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Apfelwein (sidro di mele) di Francoforte, servito in brocche di gres blu",
-        "Riesling della valle del Reno e della Mosella, in terrazzamenti patrimonio UNESCO",
-        "Schneeballen (palle di neve) di Rothenburg, dolci fritti ricoperti di zucchero a velo",
-        "Lebkuchen (pan di zenzero) e Bratwurst (salsicce) della Franconia",
-        "Weißwurst (salsiccia bianca) e Brezn (pretzel) bavaresi a Monaco"
-      ],
-      "dept_code": "DE",
-      "dept_name": "Germania del Sud (Renania-Palatinato, Assia, Baviera, Baden-Württemberg)",
-      "subtitle": "Da Francoforte ai castelli reali di Baviera, la Strada Romantica al suo meglio: valle del Reno, Mosella, città medievali fortificate e Alpi.",
+      },
       "seo_keywords": [
         "Strada Romantica Germania",
         "castelli Baviera",
@@ -5595,16 +5518,30 @@
       "itin_id": "DE::de-dresden-seiffen-17j",
       "id": "DE::de-dresden-seiffen-17j",
       "language": "it",
-      "title": "Itinerario in Sassonia: Dresda, Lipsia e Svizzera Sassone",
-      "country": "DE",
-      "estimated_days_base": 18,
-      "source_url": null,
       "created_at": "2026-03-16T17:45:00.000Z",
+      "source_url": "",
+      "dept_code": "DE",
+      "dept_name": "",
+      "title": "Itinerario in Sassonia: Dresda, Lipsia e Svizzera Sassone",
+      "subtitle": "Dalla Dresda barocca alle falesie del Bastei, passando per la porcellana di Meissen e i giocattoli di Seiffen",
+      "notes": "",
+      "specialties": [
+        "Porcellana di Meissen",
+        "Stollen di Dresda",
+        "Schiaccianoci e piramidi natalizie di Seiffen",
+        "Vini di Sassonia (Riesling, Goldriesling)"
+      ],
+      "estimated_days_base": 18,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -5612,10 +5549,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::dresden",
+          "region_code": "",
           "suggested_days": 3,
           "rating": 8.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::dresden",
             "coords": [
@@ -5654,28 +5590,22 @@
           "activities": [
             {
               "text": "Passeggiata a piedi o in monopattino elettrico lungo l'Elba per ammirare lo skyline ricostruito di Dresda",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Piattaforma panoramica della Frauenkirche per la vista sulla città",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::dresden",
+          "region_code": "",
           "suggested_days": 3,
           "rating": 8.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::dresden",
             "coords": [
@@ -5710,27 +5640,20 @@
           "activities": [
             {
               "text": "Salita alla galleria panoramica della Frauenkirche per una vista a 360 gradi sui tetti di Dresda, l'Elba e le colline circostanti. L'accesso avviene tramite una scala interna fino alla lanterna della cupola, a 67 metri da terra.",
+              "place_id": "",
               "activity_duration_min": 45,
               "practical_info": {
                 "booking": "Biglietto separato, prenotazione consigliata in alta stagione"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::dresden",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 8.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::dresden",
             "coords": [
@@ -5765,28 +5688,22 @@
           "activities": [
             {
               "text": "Passeggiata a piedi o in monopattino elettrico lungo l'Elba per ammirare lo skyline ricostruito di Dresda",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Piattaforma panoramica della Frauenkirche per la vista sulla città",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::moritzburg",
+          "region_code": "",
           "suggested_days": 0.5,
           "rating": 6.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::moritzburg",
             "coords": [
@@ -5815,6 +5732,7 @@
           "activities": [
             {
               "text": "Giro dello stagno a piedi per vedere il castello da tutte le angolazioni. La passeggiata intorno al lago è di circa 3 km e richiede 45 minuti. È dalla riva opposta che la vista sul castello è più impressionante.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -5822,17 +5740,16 @@
             "distance_km": 13.5,
             "drive_min": 25,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::meissen",
+          "region_code": "",
           "suggested_days": 0.5,
           "rating": 5.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::meissen",
             "coords": [
@@ -5867,6 +5784,7 @@
           "activities": [
             {
               "text": "Laboratorio di pittura su porcellana alla manifattura di Meissen. I laboratori propongono sessioni di scoperta in cui i visitatori dipingono personalmente un motivo su un pezzo di porcellana guidati da un artista della manifattura.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "booking": "Prenotazione obbligatoria sul sito della manifattura"
@@ -5877,17 +5795,16 @@
             "distance_km": 18,
             "drive_min": 30,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::radebeul",
+          "region_code": "",
           "suggested_days": 0.5,
           "rating": 0,
-          "region_code": "",
           "night": {
             "place_id": "DE::radebeul",
             "coords": [
@@ -5917,6 +5834,7 @@
           "activities": [
             {
               "text": "Escursione nei vigneti di Radebeul con vista sulla valle dell'Elba. Sentieri segnalati attraversano le terrazze vitate fino alla Bismarckturm sulla cima della collina. Prevedere circa 2 ore per un circuito completo con vista su Dresda in lontananza.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "distance": "~6 km",
@@ -5925,6 +5843,7 @@
             },
             {
               "text": "Degustazione di vini di Sassonia presso un vignaiolo di Radebeul. I vignaioli locali propongono degustazioni commentate in cantina o su terrazza con vista sulle vigne: riesling, pinot bianco e goldriesling sono i vini di punta della regione.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -5932,17 +5851,16 @@
             "distance_km": 12,
             "drive_min": 20,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::pillnitz",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 8.3,
-          "region_code": "",
           "night": {
             "place_id": "DE::pillnitz",
             "coords": [
@@ -5972,6 +5890,7 @@
           "activities": [
             {
               "text": "Passeggiata nel parco di Pillnitz tra i tre palazzi, i giardini alla francese, il giardino all'inglese e le serre. Si può anche costeggiare l'Elba sulle rive sistemate sotto il Wasserpalais.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -5979,17 +5898,16 @@
             "distance_km": 9.3,
             "drive_min": 19,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::pirna",
+          "region_code": "",
           "suggested_days": 0.5,
           "rating": 7.3,
-          "region_code": "",
           "night": {
             "place_id": "DE::pirna",
             "coords": [
@@ -6026,17 +5944,16 @@
             "distance_km": 11.4,
             "drive_min": 23,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::bastei",
+          "region_code": "",
           "suggested_days": 0.5,
           "rating": 7.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::bastei",
             "coords": [
@@ -6066,6 +5983,7 @@
           "activities": [
             {
               "text": "Escursione dal villaggio di Rathen fino al ponte del Bastei e alle rocce circostanti. La partenza è dalla riva destra dell'Elba dopo la traversata in traghetto (pochi minuti), poi salita di circa 40 minuti attraverso il bosco. Diversi sentieri permettono di variare il ritorno.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "distance": "~5 km",
@@ -6078,17 +5996,16 @@
             "distance_km": 6.2,
             "drive_min": 12,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "DE::konigstein",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 9,
-          "region_code": "",
           "night": {
             "place_id": "DE::konigstein",
             "coords": [
@@ -6112,6 +6029,7 @@
           "activities": [
             {
               "text": "Giro del cammino di ronda della fortezza (1,7 km) con viste panoramiche sulla valle dell'Elba, il parco nazionale della Svizzera Sassone e la Boemia. Un ascensore panoramico permette di accedere all'altopiano dal basso.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -6119,17 +6037,16 @@
             "distance_km": 49.7,
             "drive_min": 60,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "DE::bautzen",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 5.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::bautzen",
             "coords": [
@@ -6164,6 +6081,7 @@
           "activities": [
             {
               "text": "Passeggiata sui bastioni della città vecchia sopra la Sprea. Il sentiero costeggia diverse delle torri medievali e offre viste sul fiume e i giardini sottostanti.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -6171,17 +6089,16 @@
             "distance_km": 51.2,
             "drive_min": 51,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 12,
           "slice": 1,
-          "place_id": "DE::gorlitz",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 5.2,
-          "region_code": "",
           "night": {
             "place_id": "DE::gorlitz",
             "coords": [
@@ -6221,6 +6138,7 @@
           "activities": [
             {
               "text": "Attraversamento del ponte della Città Vecchia (Altstadtbrücke) verso Zgorzelec, lato polacco. Il ponte pedonale ricostruito nel 2004 porta una targa dell'Unione Europea al suo centro. Si può passeggiare qualche minuto sul lato di Zgorzelec — i due consigli comunali gestiscono congiuntamente numerose strutture dalla riunificazione simbolica delle due rive.",
+              "place_id": "",
               "activity_duration_min": 30
             }
           ],
@@ -6228,17 +6146,16 @@
             "distance_km": 118.5,
             "drive_min": 100,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 13,
           "slice": 1,
-          "place_id": "DE::leipzig",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 8.4,
-          "region_code": "",
           "night": {
             "place_id": "DE::leipzig",
             "coords": [
@@ -6278,6 +6195,7 @@
           "activities": [
             {
               "text": "Visita dello stabilimento BMW",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -6285,17 +6203,16 @@
             "distance_km": 89.2,
             "drive_min": 89,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 14,
           "slice": 1,
-          "place_id": "DE::leipzig",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 8.4,
-          "region_code": "",
           "night": {
             "place_id": "DE::leipzig",
             "coords": [
@@ -6324,27 +6241,20 @@
           "activities": [
             {
               "text": "Concerto o mottetto alla Thomaskirche. I mottetti del venerdì sera e del sabato pomeriggio con i Thomaner sono gratuiti e aperti a tutti — è una delle esperienze musicali più autentiche della Germania.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "booking": "Ingresso libero, arrivare 30 min prima"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 15,
           "slice": 1,
-          "place_id": "DE::chemnitz",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 6.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::chemnitz",
             "coords": [
@@ -6380,17 +6290,16 @@
             "distance_km": 54.8,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 16,
           "slice": 1,
-          "place_id": "DE::seiffen",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 5.2,
-          "region_code": "",
           "night": {
             "place_id": "DE::seiffen",
             "coords": [
@@ -6419,6 +6328,7 @@
           "activities": [
             {
               "text": "Escursione nei Monti Metalliferi con partenza dal villaggio. Sentieri segnalati attraversano le foreste di conifere e le creste con vista sul confine ceco. In inverno, la rete di piste da sci di fondo è una delle più dense della Germania.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "distance": "~6 km",
@@ -6427,6 +6337,7 @@
             },
             {
               "text": "Viaggio in treno a vapore storico sulla rete Fichtelbergbahn, la linea a scartamento ridotto che collega Cranzahl a Oberwiesenthal dal 1897. Le locomotive a vapore d'epoca attraversano i villaggi e le foreste dei Monti Metalliferi.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "booking": "Orari sul sito della Erzgebirgsbahn"
@@ -6437,17 +6348,16 @@
             "distance_km": 75,
             "drive_min": 70,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 17,
           "slice": 1,
-          "place_id": "DE::gera",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "",
           "night": {
             "place_id": "DE::gera",
             "coords": [
@@ -6484,17 +6394,16 @@
             "distance_km": 80,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 18,
           "slice": 1,
-          "place_id": "DE::erfurt",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 8.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::erfurt",
             "coords": [
@@ -6529,18 +6438,91 @@
           "activities": [
             {
               "text": "Visitate il tesoro ebraico di Erfurt nella cantina della sinagoga con l'arte gotica di oreficeria e argenteria",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            15
+          ],
+          "label": "Segment 3 — J11–J15",
+          "from_day": 11,
+          "to_day": 15
+        },
+        {
+          "n": 4,
+          "range": [
+            16,
+            18
+          ],
+          "label": "Segment 4 — J16–J18",
+          "from_day": 16,
+          "to_day": 18
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 15,
+          "label": "Var 15j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 18,
+          "label": "Var 18j"
+        }
+      ],
+      "regions": [],
+      "nearby_itins": [
+        "CZ::cz-prague-mikulov-16j",
+        "CZ::moravie-sud::route-des-chateaux-et-prague",
+        "DE::nord::road-trip-nord-allemagne",
+        "DE::de-eisenach-uhlstadt-kirchhasel-12j"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Culture"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Itinerario in Sassonia: Dresda, Lipsia e Svizzera Sassone",
         "intro_paragraph": "Dresda e i suoi palazzi, le falesie del Bastei, Görlitz al confine polacco, la porcellana di Meissen, Lipsia e i giocattoli in legno di Seiffen.",
@@ -6569,83 +6551,6 @@
           "DE::erfurt": "Capitale della Turingia, centro storico medievale con cattedrale e ponte abitato"
         }
       },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Culture"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            6
-          ],
-          "label": "Segmento 1 - D1–D6",
-          "from_day": 1,
-          "to_day": 6
-        },
-        {
-          "n": 2,
-          "range": [
-            7,
-            12
-          ],
-          "label": "Segmento 2 - D7–D12",
-          "from_day": 7,
-          "to_day": 12
-        },
-        {
-          "n": 3,
-          "range": [
-            13,
-            18
-          ],
-          "label": "Segmento 3 - D13–D18",
-          "from_day": 13,
-          "to_day": 18
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Var 10g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 15,
-          "label": "Var 15g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 18,
-          "label": "Var 18g"
-        }
-      ],
-      "regions": [],
-      "nearby_itins": [
-        "CZ::cz-prague-mikulov-16j",
-        "CZ::moravie-sud::route-des-chateaux-et-prague",
-        "DE::nord::road-trip-nord-allemagne",
-        "DE::de-eisenach-uhlstadt-kirchhasel-12j"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Porcellana di Meissen",
-        "Stollen di Dresda",
-        "Schiaccianoci e piramidi natalizie di Seiffen",
-        "Vini di Sassonia (Riesling, Goldriesling)"
-      ],
-      "dept_code": "DE",
-      "subtitle": "Dalla Dresda barocca alle falesie del Bastei, passando per la porcellana di Meissen e i giocattoli di Seiffen",
       "seo_keywords": [
         "itinerario Sassonia",
         "Dresda barocca",
@@ -6676,16 +6581,31 @@
       "itin_id": "DE::de-eisenach-uhlstadt-kirchhasel-12j",
       "id": "DE::de-eisenach-uhlstadt-kirchhasel-12j",
       "language": "it",
-      "title": "Tour della Turingia: Città Storiche e Natura Incontaminata",
-      "country": "DE",
-      "estimated_days_base": 12,
-      "source_url": "https://en.wikipedia.org/wiki/Wartburg, https://whc.unesco.org/en/list/897/, https://www.nationalpark-hainich.de/en/places-to-go/treetop-path.html, https://fr.wikipedia.org/wiki/Bad_Langensalza, https://fr.wikipedia.org/wiki/Synagogue_d%27Erfurt, https://whc.unesco.org/fr/list/1656/, https://fr.wikipedia.org/wiki/Biblioth%C3%A8que_Anna_Amalia, https://whc.unesco.org/fr/list/846/, https://fr.wikipedia.org/wiki/Bauhaus, https://en.wikipedia.org/wiki/Zeiss-Planetarium_Jena, https://en.wikipedia.org/wiki/Saalfeld_Fairy_Grottoes, https://www.uhlstaedt-kirchhasel.de/sehenswuerdigkeiten/das-schloss-kochberg.html, https://www.klassik-stiftung.de/schloss-und-park-kochberg/",
       "created_at": "2026-03-16T17:57:59.400Z",
+      "source_url": "https://en.wikipedia.org/wiki/Wartburg, https://whc.unesco.org/en/list/897/, https://www.nationalpark-hainich.de/en/places-to-go/treetop-path.html, https://fr.wikipedia.org/wiki/Bad_Langensalza, https://fr.wikipedia.org/wiki/Synagogue_d%27Erfurt, https://whc.unesco.org/fr/list/1656/, https://fr.wikipedia.org/wiki/Biblioth%C3%A8que_Anna_Amalia, https://whc.unesco.org/fr/list/846/, https://fr.wikipedia.org/wiki/Bauhaus, https://en.wikipedia.org/wiki/Zeiss-Planetarium_Jena, https://en.wikipedia.org/wiki/Saalfeld_Fairy_Grottoes, https://www.uhlstaedt-kirchhasel.de/sehenswuerdigkeiten/das-schloss-kochberg.html, https://www.klassik-stiftung.de/schloss-und-park-kochberg/",
+      "dept_code": "DE",
+      "dept_name": "",
+      "title": "Tour della Turingia: Città Storiche e Natura Incontaminata",
+      "subtitle": "Dalla Wartburg di Lutero alla porcellana di Saalfeld, passando per la foresta primordiale di Hainich, Erfurt, Weimar e Jena: la Turingia riunisce tre siti UNESCO e mille anni di storia culturale tedesca.",
+      "notes": "",
+      "specialties": [
+        "Thüringer Bratwurst - salsiccia di maiale arrosto, emblema della gastronomia turingia",
+        "Thüringer Klöße - gnocchi di patate crude e cotte, specialità locale servita con arrosti",
+        "Rostbratwurst vom Grill - bratwurst alla griglia secondo la tradizione secolare di Erfurt",
+        "Baumkuchen - dolce a forma di albero cotto su uno spiedo rotante, tipico della Turingia",
+        "Porcellana di Kahla - ceramica bianca e colorata prodotta dal XVIII secolo nella valle della Saale"
+      ],
+      "estimated_days_base": 12,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -6693,10 +6613,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::eisenach",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 9.4,
-          "region_code": "",
           "night": {
             "place_id": "DE::eisenach",
             "coords": [
@@ -6725,6 +6644,7 @@
           "activities": [
             {
               "text": "Vista panoramica sulla Foresta di Turingia dai bastioni della Wartburg. Nelle giornate limpide, lo sguardo si spinge fino al Rennsteig - la linea di cresta che un tempo separava la Sassonia dalla Franconia, e durante la Guerra Fredda le due Germanie.",
+              "place_id": "",
               "activity_duration_min": 30
             }
           ],
@@ -6732,17 +6652,16 @@
             "distance_km": 23.6,
             "drive_min": 47,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::hainich",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 6.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::hainich",
             "coords": [
@@ -6776,6 +6695,7 @@
           "activities": [
             {
               "text": "Escursione sul sentiero del patrimonio mondiale, un circuito di 9,5 km attraverso la foresta primaria di faggi. Il percorso costeggia zone di legno morto, aggira stagni forestali e attraversa radure dove il picchio nero - il più grande picchio d'Europa - scava le sue tane nei vecchi tronchi.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "distance": "9,5 km",
@@ -6788,17 +6708,16 @@
             "distance_km": 12.9,
             "drive_min": 26,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::bad-langensalza",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 3.5,
-          "region_code": "",
           "night": {
             "place_id": "DE::bad-langensalza",
             "coords": [
@@ -6838,6 +6757,7 @@
           "activities": [
             {
               "text": "Relax alle Friederiken Therme, stabilimento termale alimentato dalle sorgenti sulfuree e saline di Bad Langensalza. Il complesso dispone di piscine interne ed esterne e di diverse saune a tema.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "booking": "Consigliato nei weekend e in estate"
@@ -6848,17 +6768,16 @@
             "distance_km": 39.9,
             "drive_min": 80,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::erfurt",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 8.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::erfurt",
             "coords": [
@@ -6898,6 +6817,7 @@
           "activities": [
             {
               "text": "Visita del tesoro ebraico medievale di Erfurt nella cantina dell'antica sinagoga. Percorrendo l'oreficeria gotica - spille tempestate di pietre preziose, anelli d'oro, vasellame d'apparato - si comprende cosa fu la comunità ebraica di Erfurt al suo apogeo, prima del suo annientamento nel 1349.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "durée visite": "60-90 min",
@@ -6909,17 +6829,16 @@
             "distance_km": 26.5,
             "drive_min": 53,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::weimar",
+          "region_code": "",
           "suggested_days": 2,
           "rating": 9.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::weimar",
             "coords": [
@@ -6943,24 +6862,17 @@
           "activities": [
             {
               "text": "Passeggiata nel parco paesaggistico all'inglese di Tiefurt lungo il fiume Ilm. Prati aperti, alberi centenari e piccoli monumenti punteggiano il viale principale: una grotta artificiale, un tempio delle muse, un ponte di legno giapponeggiante. Il parco fu concepito nello spirito dei giardini inglesi «naturali» del XVIII secolo.",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::weimar",
+          "region_code": "",
           "suggested_days": 1.5,
           "rating": 9.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::weimar",
             "coords": [
@@ -7005,6 +6917,7 @@
           "activities": [
             {
               "text": "Passeggiata Bauhaus nelle vie di Weimar per scoprire gli edifici legati alla scuola: la Casa am Horn (1923), prototipo di abitazione Bauhaus realizzato per un'esposizione, e gli edifici Henry van de Velde dove la scuola ebbe i suoi primi laboratori. Guide specializzate propongono circuiti commentati.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "durée": "1h30",
@@ -7016,17 +6929,16 @@
             "distance_km": 25.1,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::jena",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 7.5,
-          "region_code": "",
           "night": {
             "place_id": "DE::jena",
             "coords": [
@@ -7066,6 +6978,7 @@
           "activities": [
             {
               "text": "Escursione su un tratto della SaaleHorizontale, sentiero di 91 km che segue le creste calcaree dominanti il fiume Saale intorno a Jena. Le falesie a picco sul fiume offrono viste mozzafiato sulla valle e la città. Diverse partenze possibili dal centro.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "difficulté": "Moderata",
@@ -7077,17 +6990,16 @@
             "distance_km": 22.8,
             "drive_min": 46,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::seitenroda",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 5.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::seitenroda",
             "coords": [
@@ -7120,6 +7032,7 @@
           "activities": [
             {
               "text": "Vista panoramica dal mastio della Leuchtenburg: nelle giornate limpide, lo sguardo si spinge fino allo Harz a nord e alla Foresta di Turingia a sud. La salita si effettua tramite un sentiero o scale dai parcheggi sottostanti.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -7127,17 +7040,16 @@
             "distance_km": 20.9,
             "drive_min": 42,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::hohenwarte",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 4.8,
-          "region_code": "",
           "night": {
             "place_id": "DE::hohenwarte",
             "coords": [
@@ -7154,6 +7066,7 @@
           "activities": [
             {
               "text": "Escursione su una sezione del sentiero del bacino di Hohenwarte, un circuito di 74,4 km che costeggia il lago artificiale di Hohenwarte attraverso la foresta densa dei Monti Scistosi della Turingia. I sentieri sovrastano in alcuni punti i meandri incassati della Saale da falesie rocciose, creando un paesaggio che evoca i fiordi norvegesi - da cui il soprannome di «mare della Turingia» per questa regione.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "difficulté": "Moderata a difficile su certi tratti",
@@ -7162,6 +7075,7 @@
             },
             {
               "text": "Passeggiata nel Naturpark Thüringer Schiefergebirge/Obere Saale, che copre i Monti Scistosi della Turingia e il corso superiore della Saale. Il parco naturale protegge paesaggi di lande, foreste di conifere e valli profonde tipiche del massiccio scistoso.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -7169,17 +7083,16 @@
             "distance_km": 7.3,
             "drive_min": 15,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "DE::saalfeld",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 5.9,
-          "region_code": "",
           "night": {
             "place_id": "DE::saalfeld",
             "coords": [
@@ -7213,6 +7126,7 @@
           "activities": [
             {
               "text": "Sentiero avventura forestale nei dintorni delle Feengrotten di Saalfeld, con percorsi adatti alle famiglie attraverso i boschi che sovrastano le grotte.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -7220,17 +7134,16 @@
             "distance_km": 7.3,
             "drive_min": 15,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "DE::uhlstadt-kirchhasel",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 6.1,
-          "region_code": "",
           "night": {
             "place_id": "DE::uhlstadt-kirchhasel",
             "coords": [
@@ -7264,22 +7177,80 @@
           "activities": [
             {
               "text": "Rappresentazione al Liebhabertheater di Kochberg: opera barocca o concerto da camera in questo teatro da 75 posti, nell'atmosfera autentica del XVIII secolo. Le produzioni sono concepite appositamente per questo spazio e fanno appello a pratiche interpretative storiche.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "période": "maggio a ottobre, fine settimana",
                 "booking": "Prenotazione consigliata"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            11
+          ],
+          "label": "Segment 3 — J11–J11",
+          "from_day": 11,
+          "to_day": 11
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 11,
+          "label": "Var 11j"
+        }
+      ],
+      "regions": [],
+      "nearby_itins": [
+        "DE::de-frankfurt-11j",
+        "DE::lower-saxony::heritage-and-nature",
+        "DE::de-dresden-seiffen-17j",
+        "CZ::cz-prague-mikulov-16j"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Nature"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Itinerario in Turingia: Patrimonio UNESCO e Foreste Primordiali",
         "intro_paragraph": "Dalla Wartburg di Lutero iscritta all'UNESCO alla foresta primordiale di Hainich, da Erfurt con il suo tesoro ebraico medievale a Weimar capitale del Classicismo e del Bauhaus, fino alle grotte di Saalfeld e al castello di Kochberg dove Goethe faceva visita a Charlotte von Stein. La Turingia concentra in dodici giorni una densità straordinaria di patrimonio culturale e naturale.",
@@ -7303,79 +7274,6 @@
           "DE::uhlstadt-kirchhasel": "Villaggio che custodisce il castello di Kochberg e il suo teatro privato da 75 posti legato a Goethe"
         }
       },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Nature"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10",
-          "from_day": 6,
-          "to_day": 10
-        },
-        {
-          "n": 3,
-          "range": [
-            11,
-            11
-          ],
-          "label": "Segmento 3 - D11–D11",
-          "from_day": 11,
-          "to_day": 11
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Variante 5 giorni"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Variante 10 giorni"
-        },
-        {
-          "from_day": 1,
-          "to_day": 11,
-          "label": "Variante 11 giorni"
-        }
-      ],
-      "regions": [],
-      "nearby_itins": [
-        "DE::de-frankfurt-11j",
-        "DE::lower-saxony::heritage-and-nature",
-        "DE::de-dresden-seiffen-17j",
-        "CZ::cz-prague-mikulov-16j"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Thüringer Bratwurst - salsiccia di maiale arrosto, emblema della gastronomia turingia",
-        "Thüringer Klöße - gnocchi di patate crude e cotte, specialità locale servita con arrosti",
-        "Rostbratwurst vom Grill - bratwurst alla griglia secondo la tradizione secolare di Erfurt",
-        "Baumkuchen - dolce a forma di albero cotto su uno spiedo rotante, tipico della Turingia",
-        "Porcellana di Kahla - ceramica bianca e colorata prodotta dal XVIII secolo nella valle della Saale"
-      ],
-      "dept_code": "DE",
-      "subtitle": "Dalla Wartburg di Lutero alla porcellana di Saalfeld, passando per la foresta primordiale di Hainich, Erfurt, Weimar e Jena: la Turingia riunisce tre siti UNESCO e mille anni di storia culturale tedesca.",
       "seo_keywords": [
         "tour Turingia Germania",
         "Wartburg castello UNESCO",
@@ -7406,16 +7304,31 @@
       "itin_id": "DE::de-frankfurt-11j",
       "id": "DE::de-frankfurt-11j",
       "language": "it",
-      "title": "Tour dell'Assia in Germania: Città e Parchi Naturali",
-      "country": "DE",
-      "estimated_days_base": 11,
-      "source_url": "https://fr.wikipedia.org/wiki/R%C3%B6merberg_(Francfort), https://en.wikipedia.org/wiki/Frankfurt_Cathedral, https://fr.wikipedia.org/wiki/Mus%C3%A9e_St%C3%A4del, https://fr.wikipedia.org/wiki/Saalburg, https://loiclagarde.com/fr/le-limes-de-germanie-a-bad-homburg/, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Wiesbaden, https://fr.wikipedia.org/wiki/Vignoble_du_Rheingau, https://fr.wikipedia.org/wiki/Mathildenh%C3%B6he, https://whc.unesco.org/en/list/1614/, https://en.wikipedia.org/wiki/Messel_pit, https://fr.wikipedia.org/wiki/Abbaye_de_Lorsch, https://whc.unesco.org/fr/list/515/, https://nationale-naturlandschaften.de/gebiete/naturpark-vulkanregion-vogelsberg, https://fr.wikipedia.org/wiki/Parc_national_de_Kellerwald-Edersee, https://en.wikipedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he, https://whc.unesco.org/en/list/1413/, https://fr.wikipedia.org/wiki/Bad_Hersfeld, https://en.wikipedia.org/wiki/Hersfeld_Abbey",
       "created_at": "2026-03-16T17:58:00.000Z",
+      "source_url": "https://fr.wikipedia.org/wiki/R%C3%B6merberg_(Francfort), https://en.wikipedia.org/wiki/Frankfurt_Cathedral, https://fr.wikipedia.org/wiki/Mus%C3%A9e_St%C3%A4del, https://fr.wikipedia.org/wiki/Saalburg, https://loiclagarde.com/fr/le-limes-de-germanie-a-bad-homburg/, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Wiesbaden, https://fr.wikipedia.org/wiki/Vignoble_du_Rheingau, https://fr.wikipedia.org/wiki/Mathildenh%C3%B6he, https://whc.unesco.org/en/list/1614/, https://en.wikipedia.org/wiki/Messel_pit, https://fr.wikipedia.org/wiki/Abbaye_de_Lorsch, https://whc.unesco.org/fr/list/515/, https://nationale-naturlandschaften.de/gebiete/naturpark-vulkanregion-vogelsberg, https://fr.wikipedia.org/wiki/Parc_national_de_Kellerwald-Edersee, https://en.wikipedia.org/wiki/Bergpark_Wilhelmsh%C3%B6he, https://whc.unesco.org/en/list/1413/, https://fr.wikipedia.org/wiki/Bad_Hersfeld, https://en.wikipedia.org/wiki/Hersfeld_Abbey",
+      "dept_code": "DE",
+      "dept_name": "",
+      "title": "Tour dell'Assia in Germania: Città e Parchi Naturali",
+      "subtitle": "Da Francoforte a Kassel, un itinerario attraverso l'Assia: città Art Nouveau e termali, foreste di faggi patrimonio UNESCO, vulcani del Vogelsberg e siti carolingi.",
+      "notes": "",
+      "specialties": [
+        "Riesling del Rheingau",
+        "Apfelwein (sidro di mele) di Francoforte",
+        "Grüne Soße (salsa verde alle sette erbe)",
+        "Handkäse mit Musik (formaggio con cipolle marinate)",
+        "Bethmännchen (dolcetti natalizi di marzapane)"
+      ],
+      "estimated_days_base": 11,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -7423,10 +7336,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 9.1,
-          "region_code": "",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -7467,10 +7379,12 @@
           "activities": [
             {
               "text": "Passeggiata lungo il Meno e panorama sullo skyline di Francoforte dal ponte Eiserner Steg o dalla riva nord del fiume. Il contrasto tra il campanile del Kaiserdom e le torri di vetro della Deutsche Bank o della Commerzbank - che ha valso alla città il soprannome di «Mainhattan» - è particolarmente suggestivo a fine giornata.",
+              "place_id": "",
               "activity_duration_min": 45
             },
             {
               "text": "La Fiera internazionale del libro di Francoforte (Frankfurter Buchmesse) si tiene ogni anno a ottobre nel parco esposizioni Messe Frankfurt. Nata nel Medioevo sulla Römerberg e istituzionalizzata nel XV secolo, è oggi la più grande fiera del libro al mondo, con oltre 4.000 espositori. L'accesso al grande pubblico è possibile negli ultimi due giorni.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "periodo": "ottobre",
@@ -7479,6 +7393,7 @@
             },
             {
               "text": "Il Museumsuferfest è il più grande festival di musei all'aperto della Germania, organizzato ogni anno a fine agosto lungo il Meno. Per tre giorni, i musei del Museumsufer aprono le porte a tariffa ridotta e palchi di musica dal vivo vengono allestiti sulle due rive del fiume.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "periodo": "fine agosto, 3 giorni"
@@ -7486,6 +7401,7 @@
             },
             {
               "text": "La Dippemess è la tradizionale fiera popolare di Francoforte, organizzata due volte l'anno (primavera e autunno). Riunisce giostre, stand di tiro a segno e specialità culinarie locali.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "periodo": "primavera e autunno"
@@ -7493,6 +7409,7 @@
             },
             {
               "text": "Il Wäldchestag è una festa popolare tipica di Francoforte, organizzata il martedì di Pentecoste nello Stadtwald, la grande foresta urbana a sud-ovest della città. Dal XIX secolo, gli abitanti si ritrovano qui per fare picnic e ascoltare musica - è uno dei rari giorni festivi locali che sopravvivono in Germania.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "periodo": "martedì di Pentecoste"
@@ -7503,17 +7420,16 @@
             "distance_km": 17.8,
             "drive_min": 36,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::bad-homburg",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 8.7,
-          "region_code": "",
           "night": {
             "place_id": "DE::bad-homburg",
             "coords": [
@@ -7554,10 +7470,12 @@
           "activities": [
             {
               "text": "Soggiorno alle Taunus Therme di Bad Homburg, un complesso che dispone di oltre 1.400 m² di piscine e otto saune a tema. Le sorgenti di Bad Homburg sono sfruttate a fini terapeutici dal XVII secolo.",
+              "place_id": "",
               "activity_duration_min": 120
             },
             {
               "text": "Visita del museo all'aperto Hessenpark a Neu-Anspach, a una decina di chilometri da Bad Homburg. Oltre 100 edifici antichi - case a graticcio, granai, mulini, laboratori - sono stati smontati e rimontati su 70 ettari. Il sito offre un'immagine concreta dell'architettura rurale dell'Assia dal XVI al XIX secolo.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "durata": "2-3h",
@@ -7566,6 +7484,7 @@
             },
             {
               "text": "Escursione sul sentiero del limes dalla Saalburg: una parte delle fortificazioni (fossato e palizzata ricostruiti) è ancora visibile nel paesaggio del Taunus. Un sentiero circolare di 2,4 km attorno al forte permette di costeggiare tratti conservati e individuare le basi di antiche torri di guardia.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distanza": "2,4 km",
@@ -7577,17 +7496,16 @@
             "distance_km": 40.4,
             "drive_min": 81,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::wiesbaden",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 7.2,
-          "region_code": "",
           "night": {
             "place_id": "DE::wiesbaden",
             "coords": [
@@ -7638,10 +7556,12 @@
           "activities": [
             {
               "text": "Degustazione di vini del Rheingau in una delle vinoteche del centro di Wiesbaden - la città stessa è nell'area denominazione. Il Riesling rappresenta l'80% della produzione; lo Spätburgunder (Pinot nero) occupa la maggior parte delle altre parcelle.",
+              "place_id": "",
               "activity_duration_min": 90
             },
             {
               "text": "La Rheingauer Weinwoche (settimana del vino del Rheingau) si tiene ogni anno all'inizio di agosto sulla Schlossplatz di Wiesbaden. Oltre 100 viticoltori presentano i loro vini sul sagrato del castello. È uno dei più antichi e frequentati festival vinicoli dell'Assia.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "periodo": "inizio agosto"
@@ -7652,17 +7572,16 @@
             "distance_km": 47.7,
             "drive_min": 95,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::darmstadt",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 9.9,
-          "region_code": "",
           "night": {
             "place_id": "DE::darmstadt",
             "coords": [
@@ -7708,6 +7627,7 @@
           "activities": [
             {
               "text": "Visita guidata nella fossa di Messel: la discesa nella cava permette di osservare gli strati di scisto bituminoso nei quali i fossili vengono ancora prelevati. Sono visibili copie di preparazione in condizioni reali. La visita dura circa due ore.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "prenotazione": "Prenotazione obbligatoria",
@@ -7716,6 +7636,7 @@
             },
             {
               "text": "Esplorazione del quartiere scientifico di Darmstadt, soprannominata «Science City»: l'Università tecnica, il GSI (centro di ricerca sugli ioni pesanti), l'ESA/ESOC (Centro europeo delle operazioni spaziali) e l'EUMETSAT vi sono installati. La facciata del centro di controllo dell'ESOC - da cui sono pilotati i satelliti dell'Agenzia spaziale europea - è visibile dalla strada.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -7723,17 +7644,16 @@
             "distance_km": 33.3,
             "drive_min": 67,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::lorsch",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 8.5,
-          "region_code": "",
           "night": {
             "place_id": "DE::lorsch",
             "coords": [
@@ -7757,6 +7677,7 @@
           "activities": [
             {
               "text": "Passeggiata sul sito abbaziale di Lorsch: le impronte a terra degli edifici scomparsi (basilica, chiostro, edifici conventuali) sono state materializzate nei prati durante il rinnovamento del 2017 dallo studio Topotek1. Il giardino delle erbe medicinali dietro il granaio delle decime è piantato secondo le specie citate nel Farmacopeo di Lorsch.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -7764,17 +7685,16 @@
             "distance_km": 133.1,
             "drive_min": 133,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::schotten-vogelsberg",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 3.9,
-          "region_code": "",
           "night": {
             "place_id": "DE::schotten-vogelsberg",
             "coords": [
@@ -7809,6 +7729,7 @@
           "activities": [
             {
               "text": "Escursione su un tratto del sentiero Vulkanring Vogelsberg, sentiero circolare di grande escursionismo che attraversa il massiccio costeggiando le formazioni geologiche più notevoli: colate di basalto, organi vulcanici, falesie di «Bilstein». Guide naturalistiche propongono escursioni guidate con partenza dall'Hoherodskopf.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "difficoltà": "Moderata",
@@ -7817,6 +7738,7 @@
             },
             {
               "text": "Percorso in bicicletta o in e-bike nel Vogelsberg sulla rete di piste segnalate. I dislivelli restano moderati sull'altopiano. Le biciclette possono essere noleggiate in diversi villaggi del parco.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "difficoltà": "Facile a moderata"
@@ -7827,17 +7749,16 @@
             "distance_km": 96.4,
             "drive_min": 96,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::kellerwald-edersee",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 7.3,
-          "region_code": "",
           "night": {
             "place_id": "DE::kellerwald-edersee",
             "coords": [
@@ -7872,6 +7793,7 @@
           "activities": [
             {
               "text": "Escursione nelle foreste di faggi classificate sull'Urwaldsteig Edersee, sentiero di 68 km che fa il giro del lago in 4-5 tappe. Le sezioni del lato nord, nel cuore del parco nazionale, sono le più selvagge. Il sentiero è perfettamente segnalato «U-E» in bianco su sfondo blu.",
+              "place_id": "",
               "activity_duration_min": 210,
               "practical_info": {
                 "distanza tappa": "12-15 km per una tappa",
@@ -7880,6 +7802,7 @@
             },
             {
               "text": "Giro in battello o attività nautiche sull'Edersee: vela, windsurf, kayak e balneazione sulle spiagge attrezzate. Battelli da diporto fanno il giro del lago dall'imbarcadero di Waldeck.",
+              "place_id": "",
               "activity_duration_min": 120
             }
           ],
@@ -7887,17 +7810,16 @@
             "distance_km": 46.9,
             "drive_min": 94,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::kassel",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 9.3,
-          "region_code": "",
           "night": {
             "place_id": "DE::kassel",
             "coords": [
@@ -7937,10 +7859,12 @@
           "activities": [
             {
               "text": "Percorso attraverso i luoghi emblematici della documenta in città: il Fridericianum sulla Friedrichsplatz, la Documenta-Halle e le opere in situ disseminate negli spazi pubblici di Kassel. Anche fuori periodo espositivo, installazioni permanenti sono visibili.",
+              "place_id": "",
               "activity_duration_min": 90
             },
             {
               "text": "Serata Bergparkleuchten: diverse volte all'anno, il Bergpark e i suoi monumenti sono illuminati da installazioni luminose colorate. I getti d'acqua e le cascate sono illuminati al calar della notte, producendo uno spettacolo particolarmente impressionante sui pendii del Karlsberg.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "periodo": "date variabili, informarsi sul sito ufficiale"
@@ -7951,17 +7875,16 @@
             "distance_km": 67.1,
             "drive_min": 67,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::bad-hersfeld",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 5.6,
-          "region_code": "",
           "night": {
             "place_id": "DE::bad-hersfeld",
             "coords": [
@@ -7990,6 +7913,7 @@
           "activities": [
             {
               "text": "Partecipazione ai Bad Hersfelder Festspiele, festival teatrale annuale organizzato ogni estate nelle rovine della Stiftsruine dal 1951. Il palcoscenico all'aperto, addossato ai muri romanici vecchi di nove secoli, ospita produzioni di grande portata (Shakespeare, Schiller, musical) con fino a 1.500 spettatori per sera.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "periodo": "giugno ad agosto",
@@ -8001,17 +7925,16 @@
             "distance_km": 144.4,
             "drive_min": 144,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "",
           "suggested_days": 1,
           "rating": 9.1,
-          "region_code": "",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -8035,18 +7958,63 @@
           "activities": [
             {
               "text": "Passeggiata finale lungo il Meno o visita di un museo del Museumsufer non ancora percorso - il Liebieghaus (sculture dall'Antichità al barocco), il Deutsches Filmmuseum o il Museum für Kommunikation secondo gli interessi. Il quartiere di Sachsenhausen, sulla riva sud, propone numerose Apfelwein-Lokale (osterie del sidro) per un ultimo pasto francofortese.",
+              "place_id": "",
               "activity_duration_min": 120
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        }
+      ],
+      "regions": [],
+      "nearby_itins": [
+        "DE::south-germany::fairytale-roadtrip",
+        "DE::de-eisenach-uhlstadt-kirchhasel-12j",
+        "DE::by-romantische-strasse",
+        "DE::bavaria::romantic-road",
+        "DE::lower-saxony::heritage-and-nature",
+        "DE::ni::hanovre-excursions-1-2h"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Nature"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Tour dell'Assia in Germania: Città e Parchi Naturali",
         "intro_paragraph": "Francoforte e la sua Römerberg medievale, le terme di Bad Homburg e Wiesbaden, l'Art Nouveau UNESCO di Darmstadt, i vulcani del Vogelsberg, la foresta primaria del Kellerwald, Kassel e i suoi giardini barocchi: l'Assia concentra in 10 giorni una densità di patrimonio mondiale poco comune.",
@@ -8069,66 +8037,6 @@
           "DE::bad-hersfeld": "Le rovine romaniche più vaste d'Europa che rinascono ogni estate a teatro"
         }
       },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Nature"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            10
-          ],
-          "label": "Segmento 2 - D6–D10",
-          "from_day": 6,
-          "to_day": 10
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Variante 5g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 10,
-          "label": "Variante 10g"
-        }
-      ],
-      "regions": [],
-      "nearby_itins": [
-        "DE::south-germany::fairytale-roadtrip",
-        "DE::de-eisenach-uhlstadt-kirchhasel-12j",
-        "DE::by-romantische-strasse",
-        "DE::bavaria::romantic-road",
-        "DE::lower-saxony::heritage-and-nature",
-        "DE::ni::hanovre-excursions-1-2h"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Riesling del Rheingau",
-        "Apfelwein (sidro di mele) di Francoforte",
-        "Grüne Soße (salsa verde alle sette erbe)",
-        "Handkäse mit Musik (formaggio con cipolle marinate)",
-        "Bethmännchen (dolcetti natalizi di marzapane)"
-      ],
-      "dept_code": "DE",
-      "subtitle": "Da Francoforte a Kassel, un itinerario attraverso l'Assia: città Art Nouveau e termali, foreste di faggi patrimonio UNESCO, vulcani del Vogelsberg e siti carolingi.",
       "seo_keywords": [
         "tour Assia Germania",
         "patrimonio UNESCO Germania",
@@ -8159,16 +8067,31 @@
       "itin_id": "DE::south-germany::fairytale-roadtrip",
       "id": "DE::south-germany::fairytale-roadtrip",
       "language": "it",
-      "title": "On the Road nella Germania del Sud: Castelli, Foresta Nera e Laghi",
-      "country": "DE",
-      "estimated_days_base": 11,
-      "source_url": "https://fr.wikipedia.org/wiki/Blautopf, https://fr.wikipedia.org/wiki/Hohle_Fels, https://fr.wikipedia.org/wiki/V%C3%A9nus_de_Hohle_Fels, https://tourismus.ulm.de/fr/decouvrir/ulm-et-neu-ulm/attractions-touristiques/sites-historiques/muenster-ulm, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Nymphenburg, https://fr.wikipedia.org/wiki/Abbaye_Saint-Magne_de_F%C3%BCssen, https://fr.wikipedia.org/wiki/Lindau, https://fr.wikipedia.org/wiki/Mus%C3%A9e_des_palafittes_d'Unteruhldingen, https://fr.wikipedia.org/wiki/Fribourg-en-Brisgau",
       "created_at": "2026-03-16T17:57:59.367Z",
+      "source_url": "https://fr.wikipedia.org/wiki/Blautopf, https://fr.wikipedia.org/wiki/Hohle_Fels, https://fr.wikipedia.org/wiki/V%C3%A9nus_de_Hohle_Fels, https://tourismus.ulm.de/fr/decouvrir/ulm-et-neu-ulm/attractions-touristiques/sites-historiques/muenster-ulm, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Nymphenburg, https://fr.wikipedia.org/wiki/Abbaye_Saint-Magne_de_F%C3%BCssen, https://fr.wikipedia.org/wiki/Lindau, https://fr.wikipedia.org/wiki/Mus%C3%A9e_des_palafittes_d'Unteruhldingen, https://fr.wikipedia.org/wiki/Fribourg-en-Brisgau",
+      "dept_code": "DE-BW/BY",
+      "dept_name": "Baden-Württemberg e Baviera",
+      "title": "On the Road nella Germania del Sud: Castelli, Foresta Nera e Laghi",
+      "subtitle": "Da Francoforte a Heidelberg passando per il Giura Svevo, i castelli di Baviera, il lago di Costanza e la Foresta Nera - un anello di undici giorni attraverso il sud della Germania.",
+      "notes": "",
+      "specialties": [
+        "Apfelwein (sidro di mele) di Francoforte servito nelle tradizionali taverne di Sachsenhausen",
+        "Silvaner e Riesling della Franconia in bottiglie bocksbeutel tipiche di Würzburg",
+        "Orologi a cucù della Foresta Nera artigianali di Triberg",
+        "Spätzle bavaresi e stinco di maiale (Schweinshaxe) con birra Mass",
+        "Spätburgunder (pinot nero) del Brisgau, tra i migliori vini rossi tedeschi"
+      ],
+      "estimated_days_base": 11,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -8176,10 +8099,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "DE-HE",
           "suggested_days": 1,
           "rating": 9.1,
-          "region_code": "DE-HE",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -8220,6 +8142,7 @@
           "activities": [
             {
               "text": "Degustazione di Apfelwein in una taverna tradizionale di Sachsenhausen. La tradizione delle taverne del sidro risale al XVIII secolo in questo quartiere; il sidro di mele viene servito in brocche di gres azzurro nei bicchieri chiamati Geripptes.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -8227,17 +8150,16 @@
             "distance_km": 120,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::wurzburg",
+          "region_code": "DE-BY",
           "suggested_days": 2,
           "rating": 9.4,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::wurzburg",
             "coords": [
@@ -8271,6 +8193,7 @@
           "activities": [
             {
               "text": "Passeggiata nei vigneti che circondano la fortezza di Marienberg, sui pendii del Würzburger Stein - la più grande proprietà vinicola in pendenza ripida d'Europa. Il vino prodotto qui, principalmente Silvaner e Riesling, viene servito nella bottiglia bocksbeutel appiattita e tonda, riconosciuta come marchio dei vini della Franconia.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -8278,17 +8201,16 @@
             "distance_km": 230,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::blaubeuren",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::blaubeuren",
             "coords": [
@@ -8322,6 +8244,7 @@
           "activities": [
             {
               "text": "Visita guidata della grotta di Hohle Fels a Schelklingen (a 7 km da Blaubeuren). La grotta è aperta alle visite guidate da mercoledì a domenica da maggio a ottobre. Il sito si trova a 616 metri d'altitudine nel Giura Svevo; gli scavi iniziati nel 1870 hanno portato alla luce manufatti del Paleolitico superiore su diversi metri di sedimenti.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "booking": "Solo visite guidate, maggio-ottobre, mer-dom",
@@ -8333,17 +8256,16 @@
             "distance_km": 20,
             "drive_min": 20,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::munich",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 9.4,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::munich",
             "coords": [
@@ -8377,6 +8299,7 @@
           "activities": [
             {
               "text": "Tragitto panoramico da Ulma a Monaco (~90 minuti di autostrada). Ulma segna la congiunzione tra il Baden-Württemberg e la Baviera, sulle rive del Danubio.",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -8384,17 +8307,16 @@
             "distance_km": 155,
             "drive_min": 95,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::munich",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 9.4,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::munich",
             "coords": [
@@ -8429,10 +8351,12 @@
           "activities": [
             {
               "text": "Visita del Viktualienmarkt, mercato permanente all'aperto fondato nel 1807, che vende specialità bavaresi, salumi, formaggi, birre e Brezeln alla birreria centrale. È il mercato alimentare più antico e vivace di Monaco.",
+              "place_id": "",
               "activity_duration_min": 45
             },
             {
               "text": "Serata in una birreria tradizionale monacense: la birra bavarese viene servita al litro (Mass) in boccali di gres, accompagnata da piatti tipici come l'Obatzda (formaggio alle erbe) o lo Schweinshaxe (stinco di maiale arrosto).",
+              "place_id": "",
               "activity_duration_min": 90
             }
           ],
@@ -8440,17 +8364,16 @@
             "distance_km": 130,
             "drive_min": 120,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::fussen",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::fussen",
             "coords": [
@@ -8470,11 +8393,7 @@
             {
               "text": "Neuschwanstein è posato su uno sperone roccioso a 970 metri d'altitudine, dominando la valle di 200 metri. Luigi II lo fece costruire a partire dal 1869 come un 'tempio degno dell'amico divino' - cioè Richard Wagner, le cui opere hanno ispirato tutti gli affreschi interni: Tannhäuser nella sala dei cantori, Lohengrin nelle camere, Parsifal nella sala del trono. Il castello non fu mai terminato. Luigi II vi trascorse solo 172 notti della sua vita. Nel giugno 1886, medici incaricati dal governo lo fecero dichiarare pazzo e internare; tre giorni dopo, fu ritrovato morto nel lago di Starnberg. Le sale incompiute furono aperte ai visitatori solo sette settimane dopo la sua morte - per ripagare i suoi debiti. Prenotate imperativamente in anticipo.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "booking": "Prenotazione obbligatoria online, fascia oraria da scegliere in anticipo",
-                "duration": "Visita guidata ~35 min"
-              }
+              "visit_duration_min": 90
             },
             {
               "text": "Il Marienbrücke sovrasta di 92 metri il fondo della gola del Pöllat e attraversa una cascata di 45 metri. Costruito nel 1866, porta il nome di Maria di Prussia, madre di Luigi II. È da questo ponte che la vista frontale su Neuschwanstein è la più celebre - e la più attesa. In alta stagione, code si formano; arrivate fin dall'apertura mattutina.",
@@ -8495,10 +8414,12 @@
           "activities": [
             {
               "text": "Salita a piedi dal Ticket Center fino a Neuschwanstein (30-40 minuti) per la fascia oraria di apertura mattutina. L'affluenza supera le 6.000 persone al giorno in estate - le prime fasce orarie sono molto meno affollate.",
+              "place_id": "",
               "activity_duration_min": 45
             },
             {
               "text": "Passeggiata in riva all'Alpsee, lago glaciale dalle acque trasparenti ai piedi dei due castelli. Il sentiero del giro completo fa circa 3,5 km. Con tempo limpido, i riflessi delle Alpi nell'acqua sono impressionanti.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -8506,17 +8427,16 @@
             "distance_km": 60,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::lindau",
+          "region_code": "DE-BY",
           "suggested_days": 1,
           "rating": 7.7,
-          "region_code": "DE-BY",
           "night": {
             "place_id": "DE::lindau",
             "coords": [
@@ -8547,6 +8467,7 @@
           "activities": [
             {
               "text": "Gita in battello sul lago di Costanza dall'imbarcadero di Lindau, verso le rive austriache o verso Bregenz. Il lago si estende su 536 km²; con tempo limpido, le vette alpine si riflettono nell'acqua.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "booking": "Consultare gli orari dei battelli secondo stagione"
@@ -8557,17 +8478,16 @@
             "distance_km": 50,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::triberg",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 8.6,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::triberg",
             "coords": [
@@ -8601,6 +8521,7 @@
           "activities": [
             {
               "text": "Escursione su uno dei sentieri segnalati attorno alle cascate di Triberg. Il sentiero delle cascate (Kaskadenweg, ~45 min) costeggia i gradoni successivi dal basso fino alla cima. Scoiattoli e specie di uccelli forestali poco comuni sono frequentemente osservati sul percorso.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "2 km andata e ritorno",
@@ -8613,17 +8534,16 @@
             "distance_km": 55,
             "drive_min": 50,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "mountain_pass"
+            "road_type": "mountain_pass",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::freiburg",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 7.6,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::freiburg",
             "coords": [
@@ -8659,6 +8579,7 @@
           "activities": [
             {
               "text": "Degustazione di vini del Brisgau al mercato della Münsterplatz o in una cantina del centro storico. La regione di Friburgo beneficia del microclima più soleggiato della Germania e produce Spätburgunder (pinot nero) e Gutedel rinomati.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -8666,17 +8587,16 @@
             "distance_km": 130,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "DE-BW",
           "suggested_days": 1,
           "rating": 9.1,
-          "region_code": "DE-BW",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -8706,6 +8626,7 @@
           "activities": [
             {
               "text": "Passeggiata sul Philosophenweg (sentiero dei Filosofi), sentiero di 1,5 km che costeggia la riva nord del Neckar offrendo una vista panoramica sul centro storico, il castello e la valle. Professori dell'università - fondata nel 1386, la più antica della Germania - lo percorrevano un tempo per riflettere.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "1,5 km",
@@ -8718,17 +8639,16 @@
             "distance_km": 80,
             "drive_min": 55,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "DE::frankfurt",
+          "region_code": "DE-HE",
           "suggested_days": 1,
           "rating": 9.1,
-          "region_code": "DE-HE",
           "night": {
             "place_id": "DE::frankfurt",
             "coords": [
@@ -8751,18 +8671,85 @@
           "activities": [
             {
               "text": "Ultima degustazione di Apfelwein a Sachsenhausen prima della partenza. L'aeroporto di Francoforte è a 15 minuti in S-Bahn dalla stazione centrale.",
+              "place_id": "",
               "activity_duration_min": 45
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            11
+          ],
+          "label": "Segment 3 — J11–J11",
+          "from_day": 11,
+          "to_day": 11
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 11,
+          "label": "Var 11j"
+        }
+      ],
+      "regions": [
+        "DE-HE",
+        "DE-BY",
+        "DE-BW"
+      ],
+      "nearby_itins": [
+        "FR::alsace::best-christmas-markets",
+        "AT::autriche::two-weeks-explorers",
+        "FR::67-68::alsace-15-villages-de-caractere",
+        "AT::autriche::roadtrip-famille-nature-et-culture",
+        "CH::switzerland::10d-summer-classics",
+        "DE::by-romantische-strasse",
+        "DE::romantische-strasse::contes-chateaux-7n",
+        "DE::de-frankfurt-11j",
+        "DE::bavaria::romantic-road"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Route & Exploration",
+          "Nature"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "On the Road nella Germania del Sud: Castelli, Foresta Nera e Laghi",
         "intro_paragraph": "Da Francoforte ai castelli di Ludwig II passando per le grotte preistoriche del Giura Svevo, l'isola di Lindau sul lago di Costanza e le cascate di Triberg nella Foresta Nera - questo itinerario ad anello di undici giorni attraversa i paesaggi più vari del sud della Germania.",
@@ -8784,79 +8771,6 @@
           "DE::freiburg": "Città universitaria medievale con la cattedrale gotica e i canali in pietra secolari"
         }
       },
-      "meta": {
-        "themes": [
-          "Route & Exploration",
-          "Nature"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            11
-          ],
-          "label": "Segmento 2 - D6–D11",
-          "from_day": 6,
-          "to_day": 11
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5gg (Frankfurt-Würzburg-Ulm-Monaco)"
-        },
-        {
-          "from_day": 1,
-          "to_day": 8,
-          "label": "Var 8gg (senza Friburgo né Heidelberg)"
-        },
-        {
-          "from_day": 1,
-          "to_day": 11,
-          "label": "Var 11gg (anello completo)"
-        }
-      ],
-      "regions": [
-        "DE-HE",
-        "DE-BY",
-        "DE-BW"
-      ],
-      "nearby_itins": [
-        "FR::alsace::best-christmas-markets",
-        "AT::autriche::two-weeks-explorers",
-        "FR::67-68::alsace-15-villages-de-caractere",
-        "AT::autriche::roadtrip-famille-nature-et-culture",
-        "CH::switzerland::10d-summer-classics",
-        "DE::by-romantische-strasse",
-        "DE::romantische-strasse::contes-chateaux-7n",
-        "DE::de-frankfurt-11j",
-        "DE::bavaria::romantic-road"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Apfelwein (sidro di mele) di Francoforte servito nelle tradizionali taverne di Sachsenhausen",
-        "Silvaner e Riesling della Franconia in bottiglie bocksbeutel tipiche di Würzburg",
-        "Orologi a cucù della Foresta Nera artigianali di Triberg",
-        "Spätzle bavaresi e stinco di maiale (Schweinshaxe) con birra Mass",
-        "Spätburgunder (pinot nero) del Brisgau, tra i migliori vini rossi tedeschi"
-      ],
-      "dept_code": "DE-BW/BY",
-      "dept_name": "Baden-Württemberg e Baviera",
-      "subtitle": "Da Francoforte a Heidelberg passando per il Giura Svevo, i castelli di Baviera, il lago di Costanza e la Foresta Nera - un anello di undici giorni attraverso il sud della Germania.",
       "seo_keywords": [
         "road trip Germania del Sud",
         "castelli Baviera Ludwig II",
@@ -8887,16 +8801,31 @@
       "itin_id": "DE::ni::hanovre-excursions-1-2h",
       "id": "DE::ni::hanovre-excursions-1-2h",
       "language": "it",
-      "title": "Tour nei dintorni di Hannover: i tesori della Bassa Sassonia",
-      "country": "DE",
-      "estimated_days_base": 10,
-      "source_url": "https://www.germany.travel/fr/villes-et-culture/celle.html, https://fr.wikipedia.org/wiki/Celle_(Allemagne), https://simskultur.eu/fr/schloss-celle-eines-der-schoensten-schloesser-norddeutschlands/, https://fr.wikipedia.org/wiki/Eglise_Saint-Michel_de_Hildesheim, https://whc.unesco.org/fr/list/187/, https://welterbedeutschland.de/hildesheim/, https://fr.wikipedia.org/wiki/Wolfsburg, https://www.volkswagen.be/fr/tout-sur-volkswagen/magazine/autostadt.html, https://fr.wikipedia.org/wiki/Usine_Fagus, https://whc.unesco.org/en/list/1368/, https://whc.unesco.org/fr/list/535/, https://fr.wikipedia.org/wiki/Quedlinbourg, https://www.germany.travel/fr/villes-et-culture/hamelin.html, https://fr.wikipedia.org/wiki/Le_Joueur_de_fl%C3%BBte_de_Hamelin, https://fr.wikipedia.org/wiki/Philharmonie_de_l_Elbe, https://www.darchitectures.com/magazine/projets/critiques/2868-lelbphilharmonie-de-hambourg.html, https://fr.wikipedia.org/wiki/Kunsthalle_de_Hambourg, https://fr.wikipedia.org/wiki/Cathedrale_Saint-Pierre_de_Breme, https://magazine.culturius.com/breme-une-cite-hanseatique, https://fr.wikipedia.org/wiki/Gottingen, https://en.wikipedia.org/wiki/University_of_Gottingen, https://fr.wikipedia.org/wiki/Porte_de_Brandebourg, https://www.visitberlin.de/fr/porte-de-brandebourg, https://www.berlin-welcomecard.de/fr/reichstag",
       "created_at": "2026-03-16T17:57:59.332Z",
+      "source_url": "https://www.germany.travel/fr/villes-et-culture/celle.html, https://fr.wikipedia.org/wiki/Celle_(Allemagne), https://simskultur.eu/fr/schloss-celle-eines-der-schoensten-schloesser-norddeutschlands/, https://fr.wikipedia.org/wiki/Eglise_Saint-Michel_de_Hildesheim, https://whc.unesco.org/fr/list/187/, https://welterbedeutschland.de/hildesheim/, https://fr.wikipedia.org/wiki/Wolfsburg, https://www.volkswagen.be/fr/tout-sur-volkswagen/magazine/autostadt.html, https://fr.wikipedia.org/wiki/Usine_Fagus, https://whc.unesco.org/en/list/1368/, https://whc.unesco.org/fr/list/535/, https://fr.wikipedia.org/wiki/Quedlinbourg, https://www.germany.travel/fr/villes-et-culture/hamelin.html, https://fr.wikipedia.org/wiki/Le_Joueur_de_fl%C3%BBte_de_Hamelin, https://fr.wikipedia.org/wiki/Philharmonie_de_l_Elbe, https://www.darchitectures.com/magazine/projets/critiques/2868-lelbphilharmonie-de-hambourg.html, https://fr.wikipedia.org/wiki/Kunsthalle_de_Hambourg, https://fr.wikipedia.org/wiki/Cathedrale_Saint-Pierre_de_Breme, https://magazine.culturius.com/breme-une-cite-hanseatique, https://fr.wikipedia.org/wiki/Gottingen, https://en.wikipedia.org/wiki/University_of_Gottingen, https://fr.wikipedia.org/wiki/Porte_de_Brandebourg, https://www.visitberlin.de/fr/porte-de-brandebourg, https://www.berlin-welcomecard.de/fr/reichstag",
+      "dept_code": "NI",
+      "dept_name": "Bassa Sassonia (Niedersachsen)",
+      "title": "Tour nei dintorni di Hannover: i tesori della Bassa Sassonia",
+      "subtitle": "Da Celle a Berlino passando per Hildesheim, Wolfsburg, Hameln e Amburgo: i gioielli storici, industriali e medievali della Germania settentrionale a portata di strada.",
+      "notes": "",
+      "specialties": [
+        "Asparagi bianchi di Celle (Spargel)",
+        "Grünkohl (cavolo riccio con salsiccia Pinkel) - Brema",
+        "Labskaus (piatto marinaro di manzo, barbabietola e aringa) - Amburgo",
+        "Printen (biscotti speziati) - Hildesheim",
+        "Currywurst (salsiccia al curry) - Berlino"
+      ],
+      "estimated_days_base": 10,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -8904,10 +8833,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::celle",
+          "region_code": "DE-NI",
           "suggested_days": 1,
           "rating": 4.4,
-          "region_code": "DE-NI",
           "night": {
             "place_id": "DE::celle",
             "coords": [
@@ -8960,6 +8888,7 @@
           "activities": [
             {
               "text": "Passeggiata ad anello lungo l'Aller e i ponti storici - la migliore angolazione per vedere il castello riflesso nell'acqua.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -8967,17 +8896,16 @@
             "distance_km": 45,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::wolfsburg",
+          "region_code": "DE-NI",
           "suggested_days": 1,
           "rating": 5,
-          "region_code": "DE-NI",
           "night": {
             "place_id": "DE::wolfsburg",
             "coords": [
@@ -9012,6 +8940,7 @@
           "activities": [
             {
               "text": "Passeggiata lungo il Mittellandkanal e vista d'insieme sugli impianti Volkswagen: le ciminiere della fabbrica fondata nel 1938 e le due torri di consegna vetrate formano uno skyline industriale inconfondibile.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -9019,17 +8948,16 @@
             "distance_km": 87,
             "drive_min": 60,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::hildesheim",
+          "region_code": "DE-NI",
           "suggested_days": 1,
           "rating": 8,
-          "region_code": "DE-NI",
           "night": {
             "place_id": "DE::hildesheim",
             "coords": [
@@ -9070,6 +8998,7 @@
           "activities": [
             {
               "text": "Percorso urbano tra Michaelisplatz e il Domhof - i due siti UNESCO collegati a piedi in una ventina di minuti attraverso i vicoli medievali.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "1,5 km",
@@ -9082,17 +9011,16 @@
             "distance_km": 55,
             "drive_min": 45,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::hameln",
+          "region_code": "DE-NI",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-NI",
           "night": {
             "place_id": "DE::hameln",
             "coords": [
@@ -9139,6 +9067,7 @@
           "activities": [
             {
               "text": "Passeggiata lungo il Weser dal centro storico - il fiume costeggia il centro antico su tutto il suo fianco occidentale.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -9146,17 +9075,16 @@
             "distance_km": 160,
             "drive_min": 120,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::bremen",
+          "region_code": "DE-HB",
           "suggested_days": 1,
           "rating": 8.4,
-          "region_code": "DE-HB",
           "night": {
             "place_id": "DE::bremen",
             "coords": [
@@ -9204,6 +9132,7 @@
           "activities": [
             {
               "text": "Passeggiata sullo Schlachte, il lungofiume sul Weser che costeggia tutto il centro storico. Terrazze e barche ormeggiate - molto animato le sere d'estate.",
+              "place_id": "",
               "activity_duration_min": 45
             }
           ],
@@ -9211,17 +9140,16 @@
             "distance_km": 120,
             "drive_min": 80,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::hamburg",
+          "region_code": "DE-HH",
           "suggested_days": 1,
           "rating": 9.8,
-          "region_code": "DE-HH",
           "night": {
             "place_id": "DE::hamburg",
             "coords": [
@@ -9263,6 +9191,7 @@
           "activities": [
             {
               "text": "Passeggiata sulle banchine dell'Elba dalle Landungsbrücken - i pontili di imbarco storici costruiti tra il 1907 e il 1909 offrono la migliore angolazione sullo skyline industriale e l'Elbphilharmonie.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -9270,17 +9199,16 @@
             "distance_km": 150,
             "drive_min": 100,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::goettingen",
+          "region_code": "DE-NI",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "DE-NI",
           "night": {
             "place_id": "DE::goettingen",
             "coords": [
@@ -9321,6 +9249,7 @@
           "activities": [
             {
               "text": "Passeggiata ad anello sullo Stadtwall, l'anello verde che segue il tracciato degli antichi bastioni medievali intorno al centro di Göttingen - circa 4 km, percorso pianeggiante e ombreggiato.",
+              "place_id": "",
               "activity_duration_min": 75,
               "practical_info": {
                 "distance": "4 km",
@@ -9333,17 +9262,16 @@
             "distance_km": 250,
             "drive_min": 160,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::quedlinburg",
+          "region_code": "DE-ST",
           "suggested_days": 1,
           "rating": 8.3,
-          "region_code": "DE-ST",
           "night": {
             "place_id": "DE::quedlinburg",
             "coords": [
@@ -9385,6 +9313,7 @@
           "activities": [
             {
               "text": "Salita allo Schlossberg per la vista sui tetti di Quedlinburg e sulla pianura dello Harz, poi discesa per i vicoli lastricati. Circa 15 minuti dalla piazza del mercato.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "1 km",
@@ -9397,17 +9326,16 @@
             "distance_km": 200,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::berlin",
+          "region_code": "DE-BE",
           "suggested_days": 1,
           "rating": 10,
-          "region_code": "DE-BE",
           "night": {
             "place_id": "DE::berlin",
             "coords": [
@@ -9455,6 +9383,7 @@
           "activities": [
             {
               "text": "Percorso storico a piedi tra il Reichstag, la Porta di Brandeburgo, il Memoriale dell'Olocausto, Unter den Linden e la Museumsinsel - circa 4 km su un asse quasi lineare.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distance": "4 km",
@@ -9467,11 +9396,65 @@
             "distance_km": 290,
             "drive_min": 180,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            9
+          ],
+          "label": "Segment 2 — J6–J9",
+          "from_day": 6,
+          "to_day": 9
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 9,
+          "label": "Var 9j"
+        }
+      ],
+      "regions": [
+        "DE-NI",
+        "DE-ST",
+        "DE-HH",
+        "DE-HB",
+        "DE-BE"
+      ],
+      "nearby_itins": [
+        "DE::lower-saxony::heritage-and-nature",
+        "DE::nord::road-trip-nord-allemagne",
+        "DE::de-frankfurt-11j"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Culture"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Tour nei dintorni di Hannover: i tesori della Bassa Sassonia",
         "intro_paragraph": "Da Hannover, questo tour attraversa nove destinazioni straordinarie della Germania settentrionale: città medievali a graticcio, patrimoni UNESCO, capitale industriale dell'automobile e due grandi metropoli. Ogni tappa si raggiunge in una o tre ore di strada.",
@@ -9495,94 +9478,8 @@
           "DE::hamburg": "Porto mondiale dove un'onda di vetro ha trasformato un magazzino di cacao in tempio della musica",
           "DE::goettingen": "Città universitaria dove 47 premi Nobel hanno studiato e ogni dottore bacia la Gänseliesel",
           "DE::berlin": "Capitale dove ogni pietra racconta le ferite del Novecento e la cupola di Foster illumina il futuro"
-        },
-        "segments": [
-          {
-            "n": 1,
-            "range": [
-              1,
-              5
-            ],
-            "label": "Segmento 1 - D1–D5",
-            "from_day": 1,
-            "to_day": 5
-          },
-          {
-            "n": 2,
-            "range": [
-              6,
-              9
-            ],
-            "label": "Segmento 2 - D6–D9",
-            "from_day": 6,
-            "to_day": 9
-          }
-        ]
-      },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Culture"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1–D5",
-          "from_day": 1,
-          "to_day": 5
-        },
-        {
-          "n": 2,
-          "range": [
-            6,
-            9
-          ],
-          "label": "Segmento 2 - D6–D9",
-          "from_day": 6,
-          "to_day": 9
         }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g"
-        },
-        {
-          "from_day": 1,
-          "to_day": 9,
-          "label": "Var 9g"
-        }
-      ],
-      "regions": [
-        "DE-NI",
-        "DE-ST",
-        "DE-HH",
-        "DE-HB",
-        "DE-BE"
-      ],
-      "nearby_itins": [
-        "DE::lower-saxony::heritage-and-nature",
-        "DE::nord::road-trip-nord-allemagne",
-        "DE::de-frankfurt-11j"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Asparagi bianchi di Celle (Spargel)",
-        "Grünkohl (cavolo riccio con salsiccia Pinkel) - Brema",
-        "Labskaus (piatto marinaro di manzo, barbabietola e aringa) - Amburgo",
-        "Printen (biscotti speziati) - Hildesheim",
-        "Currywurst (salsiccia al curry) - Berlino"
-      ],
-      "dept_code": "NI",
-      "dept_name": "Bassa Sassonia (Niedersachsen)",
-      "subtitle": "Da Celle a Berlino passando per Hildesheim, Wolfsburg, Hameln e Amburgo: i gioielli storici, industriali e medievali della Germania settentrionale a portata di strada.",
+      },
       "seo_keywords": [
         "tour Germania settentrionale",
         "patrimonio UNESCO Germania",
@@ -9612,16 +9509,31 @@
       "itin_id": "DE::by::deutsche-alpenstrasse-lindau-königssee-5j",
       "id": "DE::by::deutsche-alpenstrasse-lindau-königssee-5j",
       "language": "it",
-      "title": "Strada delle Alpi Tedesche: dal Lago di Costanza al Königssee",
-      "country": "DE",
-      "estimated_days_base": 6,
-      "source_url": "https://fr.wikipedia.org/wiki/Lindau, https://www.routard.com/fr/guide/europe/allemagne/baviere/route-allemande-des-alpes/fussen, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Neuschwanstein, https://www.munich.travel/fr/pois/montagnes-et-lacs/garmisch-partenkirchen, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Herrenchiemsee, https://www.berchtesgaden.de/koenigssee, https://de.wikipedia.org/wiki/Oberjochpass",
       "created_at": "2026-03-16T18:42:25.108Z",
+      "source_url": "https://fr.wikipedia.org/wiki/Lindau, https://www.routard.com/fr/guide/europe/allemagne/baviere/route-allemande-des-alpes/fussen, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Neuschwanstein, https://www.munich.travel/fr/pois/montagnes-et-lacs/garmisch-partenkirchen, https://fr.wikipedia.org/wiki/Ch%C3%A2teau_de_Herrenchiemsee, https://www.berchtesgaden.de/koenigssee, https://de.wikipedia.org/wiki/Oberjochpass",
+      "dept_code": "DE-BY",
+      "dept_name": "Baviera",
+      "title": "Strada delle Alpi Tedesche: dal Lago di Costanza al Königssee",
+      "subtitle": "Cinque giorni lungo la Deutsche Alpenstraße, dall'isola di Lindau sul Bodensee alle acque smeraldo del Königssee, passando per Neuschwanstein, la Zugspitze e il palazzo di Herrenchiemsee.",
+      "notes": "",
+      "specialties": [
+        "Spätzle bavaresi con formaggio fuso",
+        "Weisswurst con pretzel e senape dolce",
+        "Strudel di mele delle valli alpine",
+        "Formaggi d'alpeggio del Chiemgau",
+        "Birre artigianali delle birrerie di montagna"
+      ],
+      "estimated_days_base": 6,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -9629,10 +9541,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::fussen",
+          "region_code": "allgaeu",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "allgaeu",
           "night": {
             "place_id": "DE::fussen",
             "coords": [
@@ -9673,10 +9584,12 @@
           "activities": [
             {
               "text": "Prendete il traghetto dal porto di Lindau per costeggiare le sponde del Bodensee in direzione di Bregenz (Austria) o Friedrichshafen. Dall'acqua, la silhouette del centro storico insulare con i suoi due fari e le sue facciate colorate assume tutta la sua dimensione - è dal largo che Lindau si rivela davvero.",
+              "place_id": "",
               "activity_duration_min": 60
             },
             {
               "text": "Passeggiata libera all'Aussichtspunkt Kanzel sull'Oberjochpass, con un breve sentiero dal parcheggio che conduce al belvedere in 2 minuti. Con bel tempo, il panorama si estende fino alle catene austriache.",
+              "place_id": "",
               "activity_duration_min": 30
             }
           ],
@@ -9684,17 +9597,16 @@
             "distance_km": 115,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": "Passo di montagna"
+            "road_type": "Passo di montagna",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::garmisch-partenkirchen",
+          "region_code": "allgaeu",
           "suggested_days": 2,
           "rating": 9.8,
-          "region_code": "allgaeu",
           "night": {
             "place_id": "DE::garmisch-partenkirchen",
             "coords": [
@@ -9740,6 +9652,7 @@
           "activities": [
             {
               "text": "Passeggiata intorno all'Alpsee, il lago direttamente ai piedi dei due castelli. Un sentiero pianeggiante costeggia le rive per circa 4 km. Luigi II stesso vi passeggiava regolarmente. In estate, sono disponibili barche a noleggio.",
+              "place_id": "",
               "activity_duration_min": 60,
               "practical_info": {
                 "distance": "4 km",
@@ -9752,17 +9665,16 @@
             "distance_km": 60,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::prien-am-chiemsee",
+          "region_code": "zugspitz-region",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "zugspitz-region",
           "night": {
             "place_id": "DE::prien-am-chiemsee",
             "coords": [
@@ -9792,6 +9704,7 @@
           "activities": [
             {
               "text": "Salite alla Zugspitze, vetta più alta della Germania a 2.962 metri, al confine austriaco. Il trenino a cremagliera di 90 anni collega Garmisch all'altopiano glaciale a 2.600 metri, da dove una seconda funivia sale alla cima. Con tempo sereno, il panorama si estende fino alle Dolomiti e alle Alpi svizzere. Prevedete mezza giornata e prenotate in stagione.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "Mezza giornata",
@@ -9803,17 +9716,16 @@
             "distance_km": 130,
             "drive_min": 100,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::schoenau-am-koenigssee",
+          "region_code": "chiemgau",
           "suggested_days": 1.5,
           "rating": 7.4,
-          "region_code": "chiemgau",
           "night": {
             "place_id": "DE::schoenau-am-koenigssee",
             "coords": [
@@ -9848,6 +9760,7 @@
           "activities": [
             {
               "text": "A fine giornata da Schönau am Königssee, passeggiate sulle rive del Chiemsee (Priener Uferweg) o lungo i bordi del lago da Prien. Tramonto con le Alpi sullo sfondo.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -9855,17 +9768,16 @@
             "distance_km": 65,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::schoenau-am-koenigssee",
+          "region_code": "berchtesgadener-land",
           "suggested_days": 1,
           "rating": 7.4,
-          "region_code": "berchtesgadener-land",
           "night": {
             "place_id": "DE::schoenau-am-koenigssee",
             "coords": [
@@ -9894,26 +9806,18 @@
             {
               "text": "Proseguite in battello fino a Salet per raggiungere a piedi l'Obersee - 15 minuti di camminata pianeggiante dall'imbarcadero. Questo lago più piccolo, senza alcuna imbarcazione, mostra un'acqua di trasparenza assoluta e riflessi perfetti delle pareti rocciose circostanti. Dalla dissoluzione della pesca commerciale nel 1978, il lago è tornato allo stato selvaggio.",
               "place_id": "",
-              "visit_duration_min": 60,
-              "practical_info": {
-                "distance": "1,5 km andata e ritorno",
-                "duration": "30 min a piedi",
-                "difficulty": "Facile (terreno roccioso, scarpe buone consigliate)"
-              }
+              "visit_duration_min": 60
             },
             {
               "text": "Salite poi alla Jennerbahn per raggiungere la vetta del Jenner a 1.800 metri. La vista abbraccia il lago Königssee per intero, la parete est del Watzmann e le Alpi di Berchtesgaden lato austriaco. Salisburgo dista 30 km - è da qui che termina naturalmente questo circuito per chi riconsegna l'auto in Austria.",
               "place_id": "",
-              "visit_duration_min": 90,
-              "practical_info": {
-                "duration": "Mezza giornata",
-                "booking": "Prenotazione non necessaria fuori estate"
-              }
+              "visit_duration_min": 90
             }
           ],
           "activities": [
             {
               "text": "Escursione sul Malerwinkel-Rundweg, un sentiero panoramico nel bosco sopra il Königssee che offre il punto di vista classico sul lago dall'alto. Nel 2015, questo sito era classificato 12ª attrazione turistica della Germania. Contate da 1 a 2 ore secondo il ritmo.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "distance": "3-5 km",
@@ -9921,16 +9825,49 @@
                 "difficulty": "Facile a Moderato"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        }
+      ],
+      "regions": [
+        "allgaeu",
+        "zugspitz-region",
+        "chiemgau",
+        "berchtesgadener-land"
+      ],
+      "nearby_itins": [
+        "AT::autriche::two-weeks-explorers",
+        "AT::autriche::roadtrip-famille-nature-et-culture",
+        "AT::carinthia::lakes-mountains-alpine-roads",
+        "AT::eastern-alps::lacs-et-montagnes-7j",
+        "AT::austria-family-roadtrip"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Nature",
+          "Route & Exploration"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Strada delle Alpi Tedesche: dal Lago di Costanza al Königssee",
         "intro_paragraph": "L'isola medievale di Lindau sul Bodensee, i 106 tornanti dell'Oberjochpass, Neuschwanstein arroccato sul suo sperone roccioso, la Zugspitze e i suoi ghiacciai, il palazzo di Herrenchiemsee - più grande di Versailles - e il Königssee incastonato tra le sue pareti calcaree. Cinque giorni sulla Deutsche Alpenstraße, la strada turistica più antica della Germania.",
@@ -9949,56 +9886,6 @@
           "DE::schoenau-am-koenigssee": "Dove le acque smeraldo riflettono pareti verticali di 1.800 metri"
         }
       },
-      "meta": {
-        "themes": [
-          "Nature",
-          "Route & Exploration"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            5
-          ],
-          "label": "Segmento 1 - D1-D5",
-          "from_day": 1,
-          "to_day": 5
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 5,
-          "label": "Var 5g"
-        }
-      ],
-      "regions": [
-        "allgaeu",
-        "zugspitz-region",
-        "chiemgau",
-        "berchtesgadener-land"
-      ],
-      "nearby_itins": [
-        "AT::autriche::two-weeks-explorers",
-        "AT::autriche::roadtrip-famille-nature-et-culture",
-        "AT::carinthia::lakes-mountains-alpine-roads",
-        "AT::eastern-alps::lacs-et-montagnes-7j",
-        "AT::austria-family-roadtrip"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Spätzle bavaresi con formaggio fuso",
-        "Weisswurst con pretzel e senape dolce",
-        "Strudel di mele delle valli alpine",
-        "Formaggi d'alpeggio del Chiemgau",
-        "Birre artigianali delle birrerie di montagna"
-      ],
-      "dept_code": "DE-BY",
-      "dept_name": "Baviera",
-      "subtitle": "Cinque giorni lungo la Deutsche Alpenstraße, dall'isola di Lindau sul Bodensee alle acque smeraldo del Königssee, passando per Neuschwanstein, la Zugspitze e il palazzo di Herrenchiemsee.",
       "seo_keywords": [
         "strada alpi tedesche",
         "itinerario baviera",
@@ -10029,16 +9916,31 @@
       "itin_id": "DE::nord::road-trip-nord-allemagne",
       "id": "DE::nord::road-trip-nord-allemagne",
       "language": "it",
-      "title": "On the Road nella Germania del Nord: da Dresda al Baltico",
-      "country": "DE",
-      "estimated_days_base": 10,
-      "source_url": "https://fr.wikipedia.org/wiki/%C3%89glise_Notre-Dame_de_Dresde, https://www.frauenkirche-dresden.de/statistical-data, https://fr.wikipedia.org/wiki/Zwinger, https://www.clio.fr/bibliotheque/unesco/allemagne_le_zwinger_de_dresde.php, https://fr.wikipedia.org/wiki/Stralsund, https://structurae.net/fr/ouvrages/hotel-de-ville-de-stralsund, https://fr.wikipedia.org/wiki/%C3%89glise_Saint-Nicolas_de_Stralsund, https://www.routard.com/fr/guide/europe/allemagne/cote-baltique/stralsund, https://fr.wikipedia.org/wiki/Parc_national_de_Jasmund, https://www.germany.travel/fr/nature-et-outdoor/parc-national-de-jasmund.html, https://fr.wikipedia.org/wiki/Speicherstadt, https://whc.unesco.org/en/list/1467/, https://fr.wikipedia.org/wiki/Hôtel_de_ville_de_Hambourg, https://whc.unesco.org/fr/list/1087/, https://fr.wikipedia.org/wiki/Statue_de_Roland, https://fr.wikipedia.org/wiki/Cath%C3%A9drale_de_Cologne, https://destinationallemagne.fr/visiter-stralsund/, https://fr.wikipedia.org/wiki/Karl_Friedrich_Schinkel",
       "created_at": "2026-03-16T18:42:25.117Z",
+      "source_url": "https://fr.wikipedia.org/wiki/%C3%89glise_Notre-Dame_de_Dresde, https://www.frauenkirche-dresden.de/statistical-data, https://fr.wikipedia.org/wiki/Zwinger, https://www.clio.fr/bibliotheque/unesco/allemagne_le_zwinger_de_dresde.php, https://fr.wikipedia.org/wiki/Stralsund, https://structurae.net/fr/ouvrages/hotel-de-ville-de-stralsund, https://fr.wikipedia.org/wiki/%C3%89glise_Saint-Nicolas_de_Stralsund, https://www.routard.com/fr/guide/europe/allemagne/cote-baltique/stralsund, https://fr.wikipedia.org/wiki/Parc_national_de_Jasmund, https://www.germany.travel/fr/nature-et-outdoor/parc-national-de-jasmund.html, https://fr.wikipedia.org/wiki/Speicherstadt, https://whc.unesco.org/en/list/1467/, https://fr.wikipedia.org/wiki/Hôtel_de_ville_de_Hambourg, https://whc.unesco.org/fr/list/1087/, https://fr.wikipedia.org/wiki/Statue_de_Roland, https://fr.wikipedia.org/wiki/Cath%C3%A9drale_de_Cologne, https://destinationallemagne.fr/visiter-stralsund/, https://fr.wikipedia.org/wiki/Karl_Friedrich_Schinkel",
+      "dept_code": "DE-NORD",
+      "dept_name": "Germania del Nord",
+      "title": "On the Road nella Germania del Nord: da Dresda al Baltico",
+      "subtitle": "Da Dresda barocca a Rügen con le sue scogliere di gesso, passando per Berlino, Stralsund, Amburgo e Brema, fino ai borghi dell'Eifel e alla cattedrale di Colonia.",
+      "notes": "",
+      "specialties": [
+        "Aringa affumicata di Rügen",
+        "Altbier di Düsseldorf",
+        "Porcellana di Meissen",
+        "Senape di Colonia",
+        "Marzapane di Lubecca"
+      ],
+      "estimated_days_base": 10,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -10046,10 +9948,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "DE::dresden",
+          "region_code": "SN",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "SN",
           "night": {
             "place_id": "DE::dresden",
             "coords": [
@@ -10089,6 +9990,7 @@
           "activities": [
             {
               "text": "Passeggiata lungo le rive dell'Elba dalla Brühlsche Terrasse verso nord: la pista ciclabile costeggia il fiume per diversi chilometri e permette di osservare lo skyline storico di Dresda dalle sponde. In estate, le terrazze si affacciano sull'acqua.",
+              "place_id": "",
               "activity_duration_min": 75
             }
           ],
@@ -10096,17 +9998,16 @@
             "distance_km": 195,
             "drive_min": 190,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "DE::berlin",
+          "region_code": "BE",
           "suggested_days": 1,
           "rating": 10,
-          "region_code": "BE",
           "night": {
             "place_id": "DE::berlin",
             "coords": [
@@ -10146,6 +10047,7 @@
           "activities": [
             {
               "text": "Giro in bicicletta nel Tiergarten, 210 ettari di antica riserva di caccia reale convertita in parco pubblico nel XIX secolo. Dal parco, proseguite verso il Reichstag e i suoi dintorni: la cupola di vetro di Norman Foster, aggiunta dopo il 1990, è aperta gratuitamente al pubblico su prenotazione.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "note": "Cupola del Reichstag: prenotazione obbligatoria online"
@@ -10156,17 +10058,16 @@
             "distance_km": 230,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "DE::stralsund",
+          "region_code": "MV",
           "suggested_days": 1,
           "rating": 7.5,
-          "region_code": "MV",
           "night": {
             "place_id": "DE::stralsund",
             "coords": [
@@ -10201,6 +10102,7 @@
           "activities": [
             {
               "text": "Passeggiata nel porto di Stralsund di sera: le banchine si affacciano sullo Strelasund, braccio del Baltico che separa la città dall'isola di Rügen. La vista sull'acqua con i campanili gotici sullo sfondo è tipica dell'atmosfera marittima della Pomerania. In estate, crociere brevi verso Rügen o Hiddensee partono dal porto.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -10208,17 +10110,16 @@
             "distance_km": 35,
             "drive_min": 40,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "DE::sassnitz",
+          "region_code": "MV",
           "suggested_days": 1,
           "rating": 7.8,
-          "region_code": "MV",
           "night": {
             "place_id": "DE::sassnitz",
             "coords": [
@@ -10248,6 +10149,7 @@
           "activities": [
             {
               "text": "Escursione da Sassnitz fino al Königsstuhl lungo l'Hochuferweg costiero: circa 10 km andata e ritorno attraverso la foresta di faggi e i belvedere sulla scogliera. Il sentiero alterna tratti nella foresta profonda e finestre aperte sul mare. Contate 3-4 ore. Il parco è anche accessibile in autobus da Sassnitz fino al centro visitatori del Königsstuhl.",
+              "place_id": "",
               "activity_duration_min": 210,
               "practical_info": {
                 "distance": "10 km andata e ritorno",
@@ -10257,6 +10159,7 @@
             },
             {
               "text": "Il porto di Sassnitz, ex porto traghetti per la Svezia e la Polonia, ospita oggi pescherecci e barche da diporto. Percorrete le banchine nel tardo pomeriggio per osservare i pescatori che rientrano e le halle del pesce. Diverse terrazze servono aringa appena affumicata, specialità locale.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -10264,17 +10167,16 @@
             "distance_km": 295,
             "drive_min": 200,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "DE::hamburg",
+          "region_code": "HH",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "HH",
           "night": {
             "place_id": "DE::hamburg",
             "coords": [
@@ -10309,10 +10211,12 @@
           "activities": [
             {
               "text": "Passeggiata nel MedienHafen, l'antico porto industriale riconvertito dagli anni '90 in quartiere creativo. La riconversione fu condotta edificio per edificio, ogni architetto dovendo iscriversi nella storia portuale del luogo. Il risultato è un museo di architettura a cielo aperto: il Neuer Zollhof di Frank Gehry (1998), con i suoi tre edifici dalle facciate di intonaco bianco, acciaio spazzolato e mattoni rossi; il Colorium di Will Alsop (2001), torre di 17 piani rivestita di 2.200 pannelli di vetro colorato; e la Stadttor di Ingenhoven.",
+              "place_id": "",
               "activity_duration_min": 75
             },
             {
               "text": "Crociera nel porto: Amburgo possiede il terzo porto più grande d'Europa, e i tour in barca dal bacino della Speicherstadt permettono di comprendere le dimensioni colossali dei terminal container e delle navi da crociera. Le partenze sono regolari dalle Landungsbrücken.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "duration": "circa 1 ora",
@@ -10324,17 +10228,16 @@
             "distance_km": 125,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "DE::bremen",
+          "region_code": "HB",
           "suggested_days": 1,
           "rating": 7.5,
-          "region_code": "HB",
           "night": {
             "place_id": "DE::bremen",
             "coords": [
@@ -10369,6 +10272,7 @@
           "activities": [
             {
               "text": "Passeggiata lungo le rive del Weser, fiume che attraversa Brema prima di raggiungere il Mare del Nord 60 km più a nord. Lo Schlachte, banchina storica sulla riva destra, ospita in estate terrazze e bar galleggianti. Prendendo i battelli escursionistici, è possibile scendere il Weser fino a Bremerhaven.",
+              "place_id": "",
               "activity_duration_min": 75
             }
           ],
@@ -10376,17 +10280,16 @@
             "distance_km": 290,
             "drive_min": 180,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "DE::dusseldorf",
+          "region_code": "NW",
           "suggested_days": 1,
           "rating": 7.8,
-          "region_code": "NW",
           "night": {
             "place_id": "DE::dusseldorf",
             "coords": [
@@ -10421,6 +10324,7 @@
           "activities": [
             {
               "text": "Passeggiata sulla Rheinuferpromenade, 1,5 km di banchine sistemate tra la Burgplatz e il MedienHafen. La promenade costeggia il Reno con vista su Oberkassel e le sue facciate Art Nouveau sulla riva opposta. Nel tardo pomeriggio, i locali vi si ritrovano per l'Altbier, la birra scura amara tipica di Düsseldorf.",
+              "place_id": "",
               "activity_duration_min": 75
             }
           ],
@@ -10428,17 +10332,16 @@
             "distance_km": 90,
             "drive_min": 80,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "DE::monschau",
+          "region_code": "NW",
           "suggested_days": 1,
           "rating": 6.5,
-          "region_code": "NW",
           "night": {
             "place_id": "DE::monschau",
             "coords": [
@@ -10468,6 +10371,7 @@
           "activities": [
             {
               "text": "Escursione nella valle della Rur intorno a Monschau: diversi sentieri segnalati costeggiano il fiume, attraversano i prati e salgono verso le colline boscose dell'Eifel. Il sentiero dell'Eifelsteig passa per Monschau e propone anelli adatti a tutti i livelli. In primavera, le valli sono coperte di milioni di narcisi selvatici, un fenomeno naturale spettacolare della regione.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "distance": "5-15 km secondo l'anello scelto",
@@ -10479,17 +10383,16 @@
             "distance_km": 90,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "DE::cologne",
+          "region_code": "NW",
           "suggested_days": 1,
           "rating": 9,
-          "region_code": "NW",
           "night": {
             "place_id": "DE::cologne",
             "coords": [
@@ -10524,69 +10427,12 @@
           "activities": [
             {
               "text": "Passeggiata nel centro storico di Colonia — l'Altstadt — tra la cattedrale e le 12 grandi chiese romaniche che punteggiano il centro storico. Colonia possiede la più alta concentrazione di chiese romaniche in Germania: Groß Sankt Martin, Sankt Gereon con la sua rotonda del IV secolo, Sankt Maria im Kapitol costruita su un tempio romano, e molte altre formano un percorso architettonico unico.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
-      "seo": {
-        "h1_title": "On the Road nella Germania del Nord: da Dresda al Baltico",
-        "intro_paragraph": "Dresda con il suo Zwinger barocco, Berlino tra memoria e riunificazione, Stralsund anseatica patrimonio UNESCO, le scogliere di gesso di Rügen, Amburgo e la sua Speicherstadt, Brema con il suo Rolando medievale, Düsseldorf tra Altstadt e MedienHafen, il borgo a graticcio di Monschau nell'Eifel, e la cattedrale di Colonia completata dopo 632 anni di cantiere.",
-        "seo_hook": "Le scogliere di gesso precipitano nel Baltico, i magazzini di mattoni rossi si specchiano nei canali, le cattedrali gotiche squarciano il cielo. La Germania del Nord srotola sette secoli di storia tra mare, fiume e foresta.",
-        "featured_list": [
-          "Dresda: la Firenze dell'Elba ricostruita",
-          "Rügen: le scogliere di gesso di Jasmund",
-          "Amburgo: la Speicherstadt patrimonio UNESCO",
-          "Colonia: 632 anni di cantiere gotico"
-        ],
-        "places_taglines": {
-          "DE::dresden": "Dove l'architettura barocca sassone rinacque dalle ceneri del 1945",
-          "DE::berlin": "La capitale che porta nei suoi muri la memoria della divisione e della rinascita",
-          "DE::stralsund": "Porto anseatico sul Baltico dove il tempo si è fermato al Medioevo",
-          "DE::sassnitz": "Dove il bianco delle scogliere di gesso si tuffa nell'azzurro del Baltico",
-          "DE::hamburg": "Città d'acqua e mattoni, dove il porto ha plasmato ogni vicolo",
-          "DE::bremen": "Dove il paladino di Carlomagno veglia sulla libertà dei mercanti",
-          "DE::dusseldorf": "Metropoli del Reno dove il porto industriale è diventato museo d'architettura",
-          "DE::monschau": "Un borgo di graticcio e fiume incastonato nelle valli dell'Eifel",
-          "DE::cologne": "Dove due guglie gotiche svettano da 632 anni di storia e fede"
-        },
-        "segments": [
-          {
-            "n": 1,
-            "range": [
-              1,
-              5
-            ],
-            "label": "Segmento 1 - D1-D5",
-            "from_day": 1,
-            "to_day": 5
-          },
-          {
-            "n": 2,
-            "range": [
-              6,
-              9
-            ],
-            "label": "Segmento 2 - D6-D9",
-            "from_day": 6,
-            "to_day": 9
-          }
-        ]
-      },
-      "meta": {
-        "themes": [
-          "Ville & Histoire",
-          "Mer & Côtes"
-        ],
-        "audience": []
-      },
       "segments": [
         {
           "n": 1,
@@ -10594,7 +10440,7 @@
             1,
             5
           ],
-          "label": "Segmento 1 - D1-D5",
+          "label": "Segment 1 — J1–J5",
           "from_day": 1,
           "to_day": 5
         },
@@ -10604,7 +10450,7 @@
             6,
             9
           ],
-          "label": "Segmento 2 - D6-D9",
+          "label": "Segment 2 — J6–J9",
           "from_day": 6,
           "to_day": 9
         }
@@ -10613,17 +10459,12 @@
         {
           "from_day": 1,
           "to_day": 5,
-          "label": "Variante 5 giorni"
-        },
-        {
-          "from_day": 1,
-          "to_day": 7,
-          "label": "Variante 7 giorni"
+          "label": "Var 5j"
         },
         {
           "from_day": 1,
           "to_day": 9,
-          "label": "Variante 9 giorni"
+          "label": "Var 9j"
         }
       ],
       "regions": [
@@ -10644,16 +10485,35 @@
         "PL::pomerania::family-adventure"
       ],
       "merge_suggestions": [],
-      "specialties": [
-        "Aringa affumicata di Rügen",
-        "Altbier di Düsseldorf",
-        "Porcellana di Meissen",
-        "Senape di Colonia",
-        "Marzapane di Lubecca"
-      ],
-      "dept_code": "DE-NORD",
-      "dept_name": "Germania del Nord",
-      "subtitle": "Da Dresda barocca a Rügen con le sue scogliere di gesso, passando per Berlino, Stralsund, Amburgo e Brema, fino ai borghi dell'Eifel e alla cattedrale di Colonia.",
+      "meta": {
+        "themes": [
+          "Ville & Histoire",
+          "Mer & Côtes"
+        ],
+        "audience": []
+      },
+      "seo": {
+        "h1_title": "On the Road nella Germania del Nord: da Dresda al Baltico",
+        "intro_paragraph": "Dresda con il suo Zwinger barocco, Berlino tra memoria e riunificazione, Stralsund anseatica patrimonio UNESCO, le scogliere di gesso di Rügen, Amburgo e la sua Speicherstadt, Brema con il suo Rolando medievale, Düsseldorf tra Altstadt e MedienHafen, il borgo a graticcio di Monschau nell'Eifel, e la cattedrale di Colonia completata dopo 632 anni di cantiere.",
+        "seo_hook": "Le scogliere di gesso precipitano nel Baltico, i magazzini di mattoni rossi si specchiano nei canali, le cattedrali gotiche squarciano il cielo. La Germania del Nord srotola sette secoli di storia tra mare, fiume e foresta.",
+        "featured_list": [
+          "Dresda: la Firenze dell'Elba ricostruita",
+          "Rügen: le scogliere di gesso di Jasmund",
+          "Amburgo: la Speicherstadt patrimonio UNESCO",
+          "Colonia: 632 anni di cantiere gotico"
+        ],
+        "places_taglines": {
+          "DE::dresden": "Dove l'architettura barocca sassone rinacque dalle ceneri del 1945",
+          "DE::berlin": "La capitale che porta nei suoi muri la memoria della divisione e della rinascita",
+          "DE::stralsund": "Porto anseatico sul Baltico dove il tempo si è fermato al Medioevo",
+          "DE::sassnitz": "Dove il bianco delle scogliere di gesso si tuffa nell'azzurro del Baltico",
+          "DE::hamburg": "Città d'acqua e mattoni, dove il porto ha plasmato ogni vicolo",
+          "DE::bremen": "Dove il paladino di Carlomagno veglia sulla libertà dei mercanti",
+          "DE::dusseldorf": "Metropoli del Reno dove il porto industriale è diventato museo d'architettura",
+          "DE::monschau": "Un borgo di graticcio e fiume incastonato nelle valli dell'Eifel",
+          "DE::cologne": "Dove due guglie gotiche svettano da 632 anni di storia e fede"
+        }
+      },
       "seo_keywords": [
         "road trip Germania del Nord",
         "scogliere di gesso Rügen",
@@ -10680,6 +10540,5 @@
         ]
       }
     }
-  ],
-  "generated": "2026-03-16T19:13:07.328Z"
+  ]
 }

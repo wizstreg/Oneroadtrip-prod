@@ -753,47 +753,61 @@ const PROMPTS = {
     return `You are a structured data extractor. Output ONLY valid JSON, no text, no Markdown fences.
 
 🌐 OUTPUT LANGUAGE: "${targetLang}"
-ALL text fields (title, subtitle, visits, activities, highlights, best_months...) MUST be written in "${targetLang}".
+ALL text fields (title, subtitle, visits, activities, highlights, best_months, seo fields...) MUST be written in "${targetLang}".
 Keep original proper nouns as-is (Wat, Piazza, Playa, Château, Medina...).
 The field "language" in the JSON MUST be "${targetLang}".
 
-Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). Follow this structure:
+Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). Follow this EXACT structure — every field is mandatory:
 
 {
   "itins": [{
     "itin_id": "CC::region::slug",
+    "id": "CC::region::slug",
     "language": "${targetLang}",
     "created_at": "${new Date().toISOString().split('T')[0]}T12:00:00Z",
-    "source_url": "",
-    "dept_code": "XX",
+    "source_url": "https://..., https://...",
+    "dept_code": "CC-XX",
     "dept_name": "Region Name",
     "title": "...",
-    "subtitle": "...",
-    "estimated_days_base": 3,
+    "subtitle": "One complete descriptive sentence with a verb.",
+    "notes": "",
+    "specialties": ["theme1", "theme2"],
+    "estimated_days_base": 5,
     "pacing_rules": {
       "factors": {"slow": 1.25, "standard": 1.0, "fast": 0.75},
+      "day_budgets_min": {"soft": 300, "standard": 420, "fast": 540},
       "merge_threshold": 0.85
     },
     "practical_context": {
-      "best_months": ["..."],
-      "highlights": ["..."]
+      "best_months": ["mai", "juin", "septembre"],
+      "highlights": ["Highlight 1 with fact", "Highlight 2 with fact", "Highlight 3 with fact", "Highlight 4 with fact"]
     },
     "days_plan": [
       {
         "day": 1,
         "slice": 1,
         "region_code": "CC-XX",
-        "suggested_days": 1.0,
+        "suggested_days": 1,
+        "rating": 0,
         "night": {
-          "place_id": "CC::city_slug",
+          "place_id": "CC::city-slug",
           "coords": [lat, lon],
-          "map_keywords": ["Place Name City", "Place Name City"]
+          "map_keywords": ["Place Name City", "Place Name City", "Place Name City"]
         },
         "visits": [
-          {"text": "Detailed description with history, dates, dimensions, anecdotes..."}
+          {
+            "text": "Detailed description addressing the reader, with history, dates, dimensions, anecdotes...",
+            "place_id": "",
+            "visit_duration_min": 90
+          }
         ],
         "activities": [
-          {"text": "What you DO here...", "practical_info": {"duration": "2h", "tip": "..."}}
+          {
+            "text": "What you DO here — experience, sport, tasting, market...",
+            "place_id": "",
+            "activity_duration_min": 60,
+            "practical_info": {"duration": "2h", "tip": "..."}
+          }
         ],
         "to_next_leg": {
           "distance_km": 50,
@@ -803,225 +817,198 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
           "method": "heuristic"
         }
       }
-    ]
+    ],
+    "segments": [
+      {"n": 1, "range": [1, 5], "label": "Segment 1 — J1–J5", "from_day": 1, "to_day": 5}
+    ],
+    "variants": [
+      {"from_day": 1, "to_day": 5, "label": "Var 5j"}
+    ],
+    "regions": ["CC-XX"],
+    "nearby_itins": [],
+    "merge_suggestions": [],
+    "meta": {
+      "themes": ["Ville & Histoire", "Culture"],
+      "audience": ["couples", "familles", "solo"]
+    },
+    "seo": {
+      "h1_title": "Same as title",
+      "intro_paragraph": "2-3 sentences that sell the itinerary. Concrete, factual, no AI clichés.",
+      "seo_hook": "1 punchy sentence with the 3-4 key selling points.",
+      "featured_list": [
+        "City : key highlight with fact",
+        "City : key highlight with fact",
+        "City : key highlight with fact",
+        "City : key highlight with fact"
+      ],
+      "places_taglines": {
+        "CC::city-slug": "Complete descriptive sentence, 6-12 words, factual and evocative."
+      }
+    },
+    "seo_keywords": ["keyword1", "keyword2", "keyword3", "keyword4", "keyword5", "keyword6", "keyword7", "keyword8"]
   }]
 }
 
 ═══════════════════════════════════════════════════════════
-📋 CRITICAL RULES
+📋 FIELD RULES — READ CAREFULLY
+═══════════════════════════════════════════════════════════
+
+**itin_id / id** = same value = CC::region::slug (CC = ISO 3166-1 alpha-2 lowercase, e.g. "fr", "gr", "it")
+
+**dept_code** = standard regional code, e.g. "GR-M", "FR-06", "IT-RM". NEVER "CC", "XX", "M" alone.
+
+**notes** = practical editorial notes (access restrictions, ferry needed, best season warning...). Empty string "" if nothing.
+
+**specialties** = 2-4 specific themes in the output language, e.g. ["archéologie", "randonnée", "gastronomie"]
+
+**suggested_days** = integer 1 per day entry (NOT a float like 1.0)
+
+**estimated_days_base** = total number of days = number of entries in days_plan
+
+**best_months** = all lowercase, e.g. ["avril", "mai", "juin", "septembre", "octobre"]
+
+**regions** = array of standard region codes matching the region_code values used in days_plan, e.g. ["GR-M"] or ["GR-AT", "GR-PEL"]. Deduplicated.
+
+**nearby_itins** = leave as empty array []. Will be filled manually later.
+
+**meta.audience** = 2-4 values from: "couples", "solo", "familles", "seniors", "culture", "nature", "histoire", "aventure", "gastronomie"
+
+**segments** = one entry per logical segment. If all days form one segment: [{"n":1,"range":[1,N],"label":"Segment 1 — J1–JN","from_day":1,"to_day":N}]
+
+**variants** = one entry per trip variant. Minimum: [{"from_day":1,"to_day":N,"label":"Var Nj"}]. Add shorter variants if relevant.
+
+**seo.places_taglines** = one entry per unique night.place_id in the trip. Complete descriptive sentence, 6-12 words, factual.
+  ❌ "red peppers harvest" → ✅ "Basque village famous for its AOC Espelette peppers"
+  ❌ "fishing port charm" → ✅ "Traditional fishing port with preserved Basque architecture"
+
+**seo_keywords** = 8-20 keywords relevant for SEO, lowercase, in the output language.
+
+**rating** = always 0 (default, filled later)
+
+**place_id** in visits and activities = always "" (empty string). Only night.place_id gets a value.
+
+═══════════════════════════════════════════════════════════
+📋 DAYS_PLAN RULES
 ═══════════════════════════════════════════════════════════
 
 1. LOGICAL ORDER — Reorganize stops for a geographically coherent route. No backtracking. No zigzags.
-   - The itinerary MUST start from a city with an airport or train station, and end at a city with an airport or train station.
-   - When a journey between two stops involves a FLIGHT, TRAIN or FERRY, set transport_mode accordingly ("flight", "train", "ferry") — do NOT leave it as "car".
-   - Flag any route logic issues before writing.
+   Start from a city with an airport or train station. End at a city with an airport or train station.
+   When a leg involves FLIGHT, TRAIN or FERRY, set transport_mode accordingly — NOT "car".
 
-2. ⚠️ VISITS vs ACTIVITIES — STRICT DISTINCTION:
-   **visits[] = PLACES to see** (monuments, temples, museums, archaeological sites, caves, castles, churches, viewpoints, historic quarters)
-   → Describes WHAT YOU SEE: architecture, history, collections, what makes it unique
-   
-   **activities[] = ACTIONS to do** (hikes, kayaking, cycling, diving, cooking classes, markets, cruises, wine tasting, festivals)
-   → Describes WHAT YOU DO: experiences, sports, cultural/gastronomic activities
-   
-   ❌ NEVER put a museum, monument or place in activities
+2. VISITS vs ACTIVITIES — STRICT DISTINCTION:
+   visits[] = PLACES to see (monuments, museums, archaeological sites, castles, churches, viewpoints, historic quarters)
+   → WHAT YOU SEE: architecture, history, collections, what makes it unique
+   activities[] = ACTIONS to do (hikes, kayaking, diving, cooking classes, markets, wine tasting, festivals, boat trips)
+   → WHAT YOU DO: experiences, sports, cultural/gastronomic activities
+   ❌ NEVER put a museum, monument or viewpoint in activities
    ❌ NEVER repeat the same content in both visits and activities
 
-3. ⚠️ FILL EVERY DAY — Each day must feel like a REAL full day of travel, from morning to evening:
-   - Big city: several visits (monuments, museums, quarters) + activities (food tour, market, evening stroll)
-   - Nature/beach: morning activity (hike, boat, snorkeling) + afternoon beach/relaxation + evening visit (sunset viewpoint, old town)
-   - Small village: visit the village + nearby villages/sites + local activity (wine tasting, scenic drive, market)
-   - Transit day: stops along the route + evening exploration at destination
-   🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, fill with nearby beaches, viewpoints, scenic drives, local food specialties, relaxation suggestions.
-   🚫 NEVER DUPLICATE: each visit/activity appears ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content.
+3. FILL EVERY DAY — Each day must feel like a REAL full day from morning to evening.
+   - Big city: several visits + activities (food tour, market, evening stroll)
+   - Nature/beach: morning activity + afternoon beach + evening visit
+   - Small village: visit the village + nearby sites + local activity
+   - Transit day: stops along route + arrival exploration
+   🚫 NEVER leave a day with just 1 visit. If a place has limited sights, add nearby beaches, viewpoints, scenic drives, local food.
+   🚫 NEVER DUPLICATE: each visit/activity appears ONLY ONCE in the entire itinerary.
 
-4. ⚠️ BE EXHAUSTIVE — List EVERYTHING worth seeing and doing at each stop. A rich city can have 10+ visits per day. A small village may have 3-4. Do NOT limit yourself to a fixed number. Cover all notable monuments, viewpoints, museums, historic quarters, churches, markets.
+4. BE EXHAUSTIVE — list everything worth seeing. Rich city: 6-10+ visits per day. Small village: 3-4.
 
-5. ⚠️ SPLIT RICH LOCATIONS INTO MULTIPLE DAYS — If a city has enough content for more than 1.5 days, split it across multiple days with the same night.place_id. Each day should cover a different area or theme.
-   Examples: Lyon = 3-4 days (Vieux Lyon, Fourvière, Presqu'île, Croix-Rousse), Paris = 5-7 days, a small village = 0.5 day.
-   suggested_days per day entry: 0.5 | 0.75 | 1.0 | 1.5 max
+5. SPLIT RICH LOCATIONS — If a city deserves 2+ days, use multiple day entries with the same night.place_id, each covering a different area or theme.
 
-6. estimated_days_base = CEIL(sum of all suggested_days)
+6. visit_duration_min / activity_duration_min — realistic per item (20 min viewpoint, 90 min major museum).
 
-7. to_next_leg on ALL days EXCEPT the last. Include road_type ONLY if the leg is NOT a standard tarmac drive. Values: "flight", "gravel", "mountain_pass", "ferry", "train", "dirt_road", "4x4_track". This field flags special transport or road conditions that should stand out visually in the frontend.
+7. to_next_leg RULES:
+   - MANDATORY on ALL days EXCEPT the last.
+   - Last day: omit to_next_leg entirely OR set to {}.
+   - If two consecutive days share the SAME night.place_id: use {"distance_km": 0, "drive_min": 0, "transport_mode": "car", "method": "heuristic"}
+   - road_type: add ONLY when NOT a standard tarmac drive: "flight" | "ferry" | "train" | "mountain_pass" | "gravel" | "dirt_road" | "4x4_track"
 
-8. coords = [lat, lon] of city center — do NOT invent precise POI coordinates
+8. coords = [lat, lon] of city center. Do NOT invent precise POI coordinates.
 
-9. itin_id = CC::region::slug (CC = ISO 3166-1 alpha-2)
+9. region_code = standard regional code consistent across all days in the same region (e.g. "GR-M", "FR-84", "IT-RM").
 
-10. region_code = CC-XX (standard regional code)
-
-11. slice = always 1
-
-12. source_url = SOURCE URL if available
+10. slice = always 1
 
 ═══════════════════════════════════════════════════════════
-📋 ENRICHED FORMAT (MANDATORY)
+✍️ WRITING STYLE — MOST IMPORTANT SECTION
 ═══════════════════════════════════════════════════════════
 
-**subtitle** = 1 descriptive sentence under the title
-  ❌ FORBIDDEN: juxtaposed keywords ("red peppers autumn harvest")
-  ✅ REQUIRED: complete readable sentence ("Famous for its peppers harvested in autumn")
+🚨 Write in TRAVEL BLOG mode FROM THE FIRST SENTENCE. NOT encyclopedia style.
+Address the reader directly (use "vous" in French). Be the friend who has been there.
+Tone: warm, lively, concrete. Real advice, real warnings, make the reader WANT to go.
 
-**practical_context.best_months** = array of best months to visit
-**practical_context.highlights** = 4-6 trip highlights
-
-**practical_info** = add on important activities with duration, difficulty, tip, best_time, booking, season as relevant
-
-**meta.themes** = EXACTLY 2 themes, in French, chosen ONLY from this list:
-  "Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente", "Détente", "Testé & approuvé ORT", "Les plus beaux villages"
-  - ❌ WRONG: 3+ themes, themes in English, themes not in the list above
-  - ✅ CORRECT: \`"themes": ["Nature", "Aventure & Outdoor"]\`
-
-**map_keywords** = MANDATORY in night{} for each day
-  - JSON array of strings — "Exact Place Name + City" for every visit of the day, in logical visiting order
-  - Must be searchable on Google Maps
-  - ✅ CORRECT: \`"map_keywords": ["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]\`
-  - ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
-
-**place_id** = REAL city or village name ONLY
-  - ❌ WRONG: "FR::paris-montmartre", "IT::rome-airport", "TH::bangkok-centre", "ES::sevilla-old-town"
-  - ✅ CORRECT: "FR::paris", "IT::rome", "TH::bangkok", "ES::sevilla"
-  - The place_id represents WHERE YOU SLEEP, not what you visit during the day
-
-═══════════════════════════════════════════════════════════
-✍️ WRITING STYLE — THIS IS THE MOST IMPORTANT SECTION
-═══════════════════════════════════════════════════════════
-
-🚨 CRITICAL: Apply these rules FROM THE FIRST SENTENCE you write. Do NOT write in encyclopedia mode and fix later — write in blog mode from the start. Every single visit/activity text must sound like a travel blog, not Wikipedia. If you catch yourself writing "X is located in..." or "X was built in..." without addressing the reader, STOP and rephrase immediately.
-
-Write like a TRAVEL BLOG that addresses the reader directly (use "vous").
-You are NOT an encyclopedia. You are a friend who has been there and shares tips, feelings, and real facts.
-The tone is warm, lively, concrete. You give real advice, you warn about pitfalls, you make the reader WANT to go.
-
-**THE GOLDEN RULE:** Each visit/activity text must combine:
+GOLDEN RULE — every text must combine:
 - CONCRETE FACTS (dates, dimensions, history, who built it, what happened)
-- PRACTICAL ADVICE (when to go, what to avoid, tips)
-- A HUMAN TOUCH (anecdotes, comparisons, sensory details, humor when appropriate)
+- PRACTICAL ADVICE (when to go, what to avoid, how long, tips)
+- A HUMAN TOUCH (anecdotes, comparisons, sensory details)
 
-⚠️ MANDATORY — EVERY SINGLE visit and activity text must contain AT LEAST ONE of these:
-- A sentence addressing the reader: "vous trouverez...", "si vous y êtes...", "ne manquez pas...", "méfiez-vous de..."
-- A practical tip or warning: "arrivez tôt...", "prévoyez de...", "comptez environ...", "réservez à l'avance..."
-- An invitation to act: "montez au sommet pour...", "poussez la porte de...", "faites le détour jusqu'à..."
-A text that only describes a place without EVER talking to the reader is WRONG. Fix it before moving to the next text.
+MANDATORY — every visit and activity text must contain AT LEAST ONE of:
+- Addressing the reader: "vous trouverez...", "ne manquez pas...", "si vous y êtes..."
+- A practical tip: "arrivez tôt...", "prévoyez de...", "comptez environ..."
+- An invitation to act: "montez au sommet pour...", "poussez la porte de..."
 
-**GOOD examples (THIS is the tone and level of detail expected):**
-- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée : La Pelosa. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Le lieu est victime de son succès — arrivez tôt le matin. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour et il faut réserver en ligne."
-- "À Castelsardo, les façades peintes de couleurs vives s'accrochent aux rochers qui bordent le littoral — un spectacle qui rappelle les Cinque Terre. Si vous y êtes en soirée, la teinte orangée de la ville au coucher de soleil est somptueuse. Il y a même une petite plage en contrebas pour savourer le spectacle les pieds dans l'eau."
-- "Prenez le ferry vers l'archipel de la Maddalena — il y en a toutes les 30 minutes et le service est bien rodé. Prévoyez d'y aller tôt (premier bateau à 8h15) pour éviter la foule, surtout si vous traversez avec une voiture. Une fois sur l'île principale, vous serez entourés d'eaux bleu turquoise. Astuce : utilisez la vue satellite de Google Maps pour repérer les eaux les plus claires et trouver les meilleurs spots de baignade."
-- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner — les fresques intérieures illustrent directement ses opéras. Le roi n'y a passé que 172 nuits avant d'en être chassé pour 'folie', puis retrouvé mort dans un lac trois jours après. Arrivez avant 9h — après, les bus de touristes débarquent."
+GOOD examples:
+- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour — réservez en ligne. Arrivez tôt pour en profiter avant la foule."
+- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à son ami Richard Wagner. Le roi n'y a passé que 172 nuits avant d'en être chassé pour 'folie', puis retrouvé mort dans un lac trois jours après. Arrivez avant 9h — après, les bus de touristes débarquent."
 
-**BAD examples (FORBIDDEN — typical AI writing):**
+BAD examples — FORBIDDEN:
 - ❌ "This iconic site offers an unforgettable experience"
-- ❌ "The towers blaze against the sunset sky"
-- ❌ "A must-see destination" / "An absolute gem"
+- ❌ "A must-see" / "An absolute gem" / "A testament to human ingenuity"
 - ❌ "Immerse yourself in the vibrant atmosphere"
-- ❌ "A testament to human ingenuity"
 - ❌ "Where history meets modernity"
-- ❌ Any sentence that could come from a Wikipedia article copy-paste
-- ❌ Any vague praise without concrete facts behind it
 - ❌ Pure encyclopedia style without addressing the reader
 
-**BEFORE/AFTER — see the difference:**
-❌ WRONG (encyclopedia, no reader): "Le Monumento a los Héroes de la Restauración domine Santiago depuis une colline à 175 mètres d'altitude. Cette tour de 67 mètres a été commandée en 1944 par le dictateur Trujillo. À l'intérieur, 365 marches mènent au sommet. La vue panoramique sur Santiago est remarquable."
-✅ CORRECT (blog, talks to reader): "Vous verrez le Monumento a los Héroes de la Restauración de loin — cette tour de 67 mètres domine Santiago depuis une colline à 175 m d'altitude. Son histoire vaut le détour : commandée en 1944 par le dictateur Trujillo pour se glorifier, elle fut rebaptisée après son assassinat en 1961. Montez les 365 marches jusqu'au sommet — la vue sur la ville et la Cordillère Centrale est la meilleure de Santiago. Allez-y en fin de journée pour la lumière."
-
-**VARY sentence openings — alternate NATURALLY between:**
-- Direct address: "Vous trouverez ici...", "Ne manquez pas...", "Si vous y êtes en soirée..."
-- Practical/tip: "Arrivez tôt — la foule débarque après 9h", "Prévoyez de réserver en été"
-- Action/transition: "Continuez vers...", "Après avoir profité de la plage, reprenez la route vers...", "Poussez la porte de..."
+VARY sentence openings — alternate naturally between:
+- Direct address: "Vous trouverez ici...", "Ne manquez pas..."
+- Practical/tip: "Arrivez tôt — la foule débarque après 9h"
+- Action/transition: "Continuez vers...", "Poussez la porte de..."
 - Informative with life: "Construit en 1869 pour...", "Classé UNESCO depuis..."
-- Narrative/anecdote: "En 1631, le général Tilly promit de...", "Le roi n'y a passé que 16 jours avant..."
-- Sensory: "L'eau y est translucide...", "La vue depuis le sommet embrasse toute la vallée..."
+- Narrative/anecdote: "En 1631, le général Tilly promit de..."
+- Sensory: "L'eau y est translucide...", "La vue depuis le sommet embrasse..."
 → NEVER chain more than 2 texts with the same opening style
-→ EVERY text must address the reader at least once (see MANDATORY rule above)
 
-**FORBIDDEN:**
-- Sentences without verbs ("Gothic cathedral. Stained glass. Crypt.")
-- Empty adjectives without facts ("magnificent", "breathtaking", "stunning")
-- Filler phrases ("it is worth noting that", "one cannot help but notice")
-- Pure Wikipedia tone without any human touch or reader address
-- Starting every visit with "Le/La/Les [noun] est/sont..."
+META.THEMES = EXACTLY 2 themes in French from:
+"Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente", "Détente", "Testé & approuvé ORT", "Les plus beaux villages"
 
-═══════════════════════════════════════════════════════════
-📅 FILL EVERY DAY — NO EMPTY DAYS
-═══════════════════════════════════════════════════════════
-
-⚠️ Each day in the itinerary must feel like a REAL full day of travel. Think about what a traveler actually does from morning to evening.
-
-- A big city day: several visits (monuments, museums, quarters) + activities (food tour, market, evening stroll)
-- A nature/beach day: a morning activity (hike, snorkeling, boat trip) + afternoon beach/relaxation + maybe an evening visit (sunset viewpoint, old town walk)
-- A small village day: visit the village + nearby villages or sites + a local activity (wine tasting, craft workshop, scenic drive)
-- A transit day: stops and visits along the route + arrival at destination with evening exploration
-
-🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, FILL the day with:
-- Nearby beaches, viewpoints, scenic drives
-- Local activities: markets, food specialties to try, boat trips
-- Relaxation: recommend a beach, a terrace, a walk along the coast/river
-- Combine 2-3 small villages into one day
-
-🚫 NEVER DUPLICATE: Each visit or activity must appear ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content. No visit text should describe the same monument/site/beach twice.
-
-**✅ REFERENCE EXAMPLE — a well-filled coastal day:**
-\`\`\`json
-{
-  "visits": [
-    {"text": "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de Méditerranée : La Pelosa. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes/jour — réservez en ligne. Arrivez tôt le matin pour en profiter avant la foule.", "visit_duration_min": 180},
-    {"text": "La Torre della Pelosa, petite tour aragonaise du XVIe siècle, se dresse sur un îlot juste en face de la plage. Construite pour surveiller les incursions barbaresques, elle est devenue le symbole de Stintino — vous la verrez sur toutes les cartes postales.", "visit_duration_min": 15}
-  ],
-  "activities": [
-    {"text": "Après la plage, embarquez pour une excursion en bateau dans le golfe de l'Asinara. Vous longerez des criques inaccessibles par la route et pourrez vous baigner dans des eaux d'un bleu irréel. L'île de l'Asinara, ancienne colonie pénale fermée en 1997, abrite des ânes albinos qu'on ne trouve nulle part ailleurs en Méditerranée.", "practical_info": {"duration": "3-4h", "booking": "Réservation recommandée en été"}},
-    {"text": "Si vous n'êtes pas trop fatigués en fin d'après-midi, prenez la route côtière vers Castelsardo (environ 1h). Sinon, profitez du coucher de soleil depuis le port de Stintino — les terrasses face à l'Asinara sont parfaites pour un apéritif de fin de journée.", "practical_info": {"duration": "1h-2h"}}
-  ]
-}
-\`\`\`
-
-**✅ REFERENCE EXAMPLE — practical_context:**
-\`\`\`json
-"practical_context": {
-  "best_months": ["April", "May", "June", "September", "October"],
-  "highlights": [
-    "Villa d'Este : 500 fontaines alimentées uniquement par gravité, UNESCO",
-    "Villa Adriana : 120 hectares de résidence impériale, UNESCO",
-    "Civita di Bagnoregio : moins de 10 résidents permanents, accès par pont piétonnier de 300 m",
-    "Tarquinia : 200 tombes peintes du VIIe au IIIe siècle av. J.-C., UNESCO"
-  ]
-}
-\`\`\`
+MAP_KEYWORDS — JSON array of strings, "Exact Place Name + City", all visits in logical order, searchable on Google Maps.
+✅ CORRECT: ["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]
+❌ WRONG: "Villa d'Este Tivoli, Villa Adriana Tivoli" (string, not array)
 
 ═══════════════════════════════════════════════════════════
-🔍 RESEARCH & VERIFICATION — MANDATORY
+🔍 RESEARCH — MANDATORY
 ═══════════════════════════════════════════════════════════
 
-⚠️ Before writing, SEARCH THE WEB for each location to get:
-- Accurate historical dates and facts
-- Correct dimensions, distances, altitudes
-- Notable anecdotes and events
-- Current practical information
+Before writing, SEARCH THE WEB for each location: accurate dates, dimensions, facts, anecdotes.
+DO NOT invent or guess any historical fact, date or measurement. If unverifiable, do NOT include it.
 
-DO NOT invent or guess any historical fact, date or anecdote.
-If you cannot verify a fact, DO NOT include it.
-
-After writing the full JSON, do a QUICK FINAL CHECK:
-✅ Are all dates, dimensions, distances factually correct?
-✅ Are map_keywords present for every day?
-✅ Is the visits/activities distinction respected?
-✅ Fix any factual error before outputting.
-
-${effectiveMode === 'seed' ? `
-🏠 BASES + LOOPS MODE - BASES: ${effectiveSeeds || '[extract from text]'}
-Structure: BASE → day trips → return BASE (every 3-5 days) → new BASE...
-` : ''}
-${effectiveMode === 'citytrip' ? `
-🏙️ CITY TRIP MODE - Each attraction/area = 1 distinct day. night.place_id = the main location.
-` : ''}
-${effectiveMode === 'follow' ? `
-📍 STRICT FOLLOW MODE - Keep exact order of stops from source.
-` : ''}
+═══════════════════════════════════════════════════════════
+🚫 NEUTRALIZATION
+═══════════════════════════════════════════════════════════
+- No named businesses → "Des prestataires proposent..." / "Des loueurs proposent..."
+- No prices
+- No recent dates
+- "by motorbike" → "by road"
 ${isAdmin ? `
-🚫 NEUTRALIZATION (ADMIN MODE) - These JSONs will be publicly distributed.
-✅ KEEP: Museums, monuments, temples, parks, UNESCO sites, public markets
-❌ REMOVE: Named businesses → "Rental companies offer..." | Named people → remove | Prices → omit | "by motorbike" → "by road" | Recent dates → remove | 1st person → rephrase
+🔴 ADMIN MODE — These JSONs will be publicly distributed:
+✅ KEEP: museums, monuments, UNESCO sites, public markets, parks, temples
+❌ REMOVE: named businesses → generic | named individuals → remove | prices → omit | "by motorbike" → "by road" | recent dates → remove | 1st person → rephrase
 ` : ''}
+
+═══════════════════════════════════════════════════════════
+✅ FINAL CHECK BEFORE OUTPUT
+═══════════════════════════════════════════════════════════
+✅ ALL mandatory fields present: itin_id, id, notes, specialties, segments, variants, regions, nearby_itins, meta.audience, seo (all sub-fields: h1_title, intro_paragraph, seo_hook, featured_list, places_taglines), seo_keywords
+✅ estimated_days_base = number of days in days_plan
+✅ suggested_days = integer 1 (not float 1.0) on every day entry
+✅ best_months all lowercase
+✅ dept_code = real code like "GR-M", "FR-06" — not "CC", "XX", "M"
+✅ to_next_leg present on all days except last (last = omitted or {})
+✅ Same night.place_id on consecutive days → to_next_leg with distance_km:0
+✅ map_keywords = JSON array (not string) on every day
+✅ places_taglines = one entry per unique night.place_id
+✅ No AI clichés ("iconic", "unforgettable", "testament to", "where X meets Y")
+✅ All dates, distances, dimensions factually verified
+✅ Every visit/activity text addresses the reader at least once
 
 SOURCE:
 `;
@@ -2889,10 +2876,12 @@ If you lack information for a location → write "⚠️ INSUFFICIENT INFO for [
 ═══════════════════════════════════════════════════════════
 ✅ KEEP AS-IS (do not modify)
 ═══════════════════════════════════════════════════════════
-- itin_id: "${itin.itin_id}"
-- All coords and place_id values
+- itin_id AND id: both must equal "${itin.itin_id}"
+- All coords and place_id values in night{}
 - The days_plan structure (same days, same order)
 - to_next_leg.distance_km and to_next_leg.drive_min (UNLESS transport_mode needs correction — e.g. a flight marked as "car")
+- nearby_itins: keep as-is, do not modify
+- segments and variants: keep as-is unless structurally wrong
 
 ═══════════════════════════════════════════════════════════
 ✍️ WRITING STYLE — THE MOST IMPORTANT SECTION
@@ -2968,21 +2957,20 @@ EVERY text must address the reader at least once (see MANDATORY rule above). A d
 - Transit day: stops along the route + evening exploration at destination
 🚫 NEVER leave a day with just 1 visit and nothing else. If a place has limited sights, fill with nearby beaches, viewpoints, scenic drives, local food specialties, relaxation suggestions.
 
-🚫 **NO DUPLICATES** — Each visit/activity appears ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content. No monument, site, or beach should be described twice.
+🚫 **NO DUPLICATES** — Each visit/activity appears ONLY ONCE in the entire itinerary. If a place is split across multiple days, each day covers DIFFERENT content.
 
-**BE EXHAUSTIVE** — List everything worth seeing and doing for each location. A major city merits many visits; a small village may have 3-4. Do NOT cap at a fixed number. Try to be as complete as possible.
+**BE EXHAUSTIVE** — List everything worth seeing and doing. A major city: many visits. A small village: 3-4. Do NOT cap at a fixed number.
 
-**SPLIT RICH LOCATIONS** — If a city deserves more than 1 day, split its content across multiple day entries sharing the same night.place_id, each covering a different area or theme. Each day entry = 1 night object. Do NOT compress multiple days into a single entry.
+**SPLIT RICH LOCATIONS** — If a city deserves more than 1 day, split across multiple day entries sharing the same night.place_id, each covering a different area or theme.
 
-**visit_duration_min** — Set a realistic duration for each visit based on the actual site (e.g. 20 min for a viewpoint, 90 min for a major museum). Do NOT use a fixed default value for all visits.
+**visit_duration_min / activity_duration_min** — Realistic per item (20 min viewpoint, 90 min major museum). Add activity_duration_min on every activity entry.
 
 ⚠️ **VISITS vs ACTIVITIES — STRICT DISTINCTION:**
-- **visits[] = PLACES to see**: monuments, museums, churches, viewpoints, historic quarters
-  → Describes WHAT YOU SEE (architecture, history, collections)
-- **activities[] = ACTIONS to do**: hikes, kayak, wine tasting, cooking classes, markets, festivals
-  → Describes WHAT YOU DO (experiences, sports, cultural/gastronomic activities)
+- **visits[] = PLACES to see**: monuments, museums, churches, viewpoints, historic quarters → WHAT YOU SEE
+- **activities[] = ACTIONS to do**: hikes, kayak, wine tasting, cooking classes, markets, festivals → WHAT YOU DO
 - ❌ NEVER put a museum, monument or place in activities
 - ❌ NEVER repeat the same content in visits and activities
+- **place_id in visits and activities** = always "" (empty string). Only night.place_id gets a value.
 
 **PRACTICAL_INFO** on important activities:
 \`\`\`json
@@ -2990,63 +2978,67 @@ EVERY text must address the reader at least once (see MANDATORY rule above). A d
 "practical_info": {"duration": "2h", "booking": "Reservation recommended"}
 \`\`\`
 
-**PRACTICAL_CONTEXT ${hasPC ? '(exists, improve if needed)' : '❌ MISSING → CREATE'}:**
+**PRACTICAL_CONTEXT ${hasPC ? '(exists — improve highlights if weak)' : '❌ MISSING → CREATE'}:**
 \`\`\`json
 "practical_context": {
-  "best_months": ["May", "June", "September"],
-  "highlights": ["Highlight 1", "Highlight 2", "Highlight 3", "Highlight 4"]
+  "best_months": ["mai", "juin", "septembre"],
+  "highlights": ["Highlight 1 with fact", "Highlight 2 with fact", "Highlight 3 with fact", "Highlight 4 with fact"]
 }
 \`\`\`
+best_months must be ALL LOWERCASE (e.g. "avril", "mai" — NOT "Avril", "Mai").
 
-**META.THEMES** = EXACTLY 2 themes, in French, chosen ONLY from this list:
+**suggested_days** = integer 1 on every day entry — NOT a float like 1.0.
+
+**rating** = always 0 on every day entry.
+
+**META.THEMES** = EXACTLY 2 themes, in French, from:
 "Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente", "Détente", "Testé & approuvé ORT", "Les plus beaux villages"
-- ❌ WRONG: 3+ themes, themes in English, themes not in the list above
-- ✅ CORRECT: \`"themes": ["Nature", "Aventure & Outdoor"]\`
 
-**TO_NEXT_LEG:** add "road_type" when the leg is NOT a standard tarmac drive. Values: "flight" | "gravel" | "mountain_pass" | "ferry" | "train" | "dirt_road" | "4x4_track". This flags special transport or difficult roads so they stand out in the UI.
+**META.AUDIENCE** ${itin.meta && itin.meta.audience && itin.meta.audience.length > 0 ? '(exists — keep or improve)' : '❌ MISSING → CREATE'}: 2-4 values from: "couples", "solo", "familles", "seniors", "culture", "nature", "histoire", "aventure", "gastronomie"
+
+**NOTES** ${itin.notes ? '(exists — keep or improve)' : '(empty — fill if there are access restrictions, ferry requirements, seasonal warnings, or leave as "")'}: practical editorial note for editors.
+
+**SPECIALTIES** ${itin.specialties && itin.specialties.length > 0 ? '(exists — keep or improve)' : '❌ MISSING → CREATE'}: 2-4 specific themes in the output language, e.g. ["archéologie", "randonnée", "gastronomie"].
+
+**TO_NEXT_LEG rules:**
+- MANDATORY on all days EXCEPT the last (last day = omit or {})
+- Two consecutive days with the SAME night.place_id → use {"distance_km": 0, "drive_min": 0, "transport_mode": "car", "method": "heuristic"}
+- Add road_type ONLY when NOT standard tarmac: "flight" | "ferry" | "train" | "mountain_pass" | "gravel" | "dirt_road" | "4x4_track"
 
 **MAP_KEYWORDS ⚠️ MANDATORY in night{} for each day:**
-- Format: JSON array of strings — "Exact Place Name + City" — all visits in logical order
-- Must be searchable on Google Maps
-- ✅ CORRECT example:
-\`\`\`json
-"night": {
-  "place_id": "IT::tivoli",
-  "coords": [41.9634, 12.7981],
-  "map_keywords": [
-    "Villa d'Este Tivoli",
-    "Villa Adriana Tivoli",
-    "Villa Gregoriana Tivoli",
-    "Tempio di Vesta Tivoli",
-    "Ponte Gregoriano Tivoli"
-  ]
-}
-\`\`\`
-- ❌ WRONG: \`"map_keywords": "Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
+- JSON array of strings — "Exact Place Name + City" — all visits in logical order, searchable on Google Maps
+- ✅ CORRECT: \`["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]\`
+- ❌ WRONG: \`"Villa d'Este Tivoli, Villa Adriana Tivoli"\` (string, not array)
 
-**PLACE_ID ⚠️ STRICT RULES:**
-- night.place_id must be a REAL city or village name — never an airport, a neighborhood, a region or an invented subdivision
-- ❌ WRONG: "FR::paris-montmartre", "IT::rome-airport", "TH::bangkok-centre", "ES::sevilla-old-town"
-- ✅ CORRECT: "FR::paris", "IT::rome", "TH::bangkok", "ES::sevilla"
-- The place_id represents WHERE YOU SLEEP, not what you visit during the day
+**PLACE_ID ⚠️:** night.place_id = REAL city or village only
+- ❌ WRONG: "FR::paris-montmartre", "IT::rome-airport"
+- ✅ CORRECT: "FR::paris", "IT::rome"
 
 🚨 SUBTITLE CHECK:
 ${itin.subtitle ? `Current: "${itin.subtitle}"
 If this is bad (juxtaposed keywords, no verb), REPLACE with a clear descriptive sentence.` : `⚠️ MISSING — CREATE a clear descriptive sentence.`}
 
 ═══════════════════════════════════════════════════════════
-🏷️ SEO FIELDS (seo.places_taglines) — MANDATORY
+🏷️ SEO FIELDS — ALL MANDATORY
 ═══════════════════════════════════════════════════════════
-${hasPlacesTaglines ? 'Verify and fix existing taglines if they are bad (juxtaposed keywords, no verb).' : 'NO existing taglines → CREATE for each place_id.'}
 
-Rules: complete descriptive sentence, 6-12 words, factual and evocative.
-❌ "red peppers autumn harvest" → ✅ "Basque village famous for its AOC Espelette peppers"
-❌ "fishing port charm" → ✅ "Traditional fishing port with preserved Basque character"
+**seo.places_taglines** ${hasPlacesTaglines ? '(exists — verify and fix if bad)' : '❌ MISSING → CREATE for each unique night.place_id'}: complete descriptive sentence, 6-12 words, factual.
+❌ "red peppers harvest" → ✅ "Basque village famous for its AOC Espelette peppers"
+
+**seo.h1_title** ${itin.seo && itin.seo.h1_title ? '(exists — keep)' : '❌ MISSING → CREATE: same as title'}: same value as title.
+
+**seo.intro_paragraph** ${itin.seo && itin.seo.intro_paragraph ? '(exists — keep or improve)' : '❌ MISSING → CREATE'}: 2-3 sentences that sell the itinerary. Concrete, factual, no AI clichés.
+
+**seo.seo_hook** ${itin.seo && itin.seo.seo_hook ? '(exists — keep or improve)' : '❌ MISSING → CREATE'}: 1 punchy sentence with the 3-4 key selling points.
+
+**seo.featured_list** ${itin.seo && itin.seo.featured_list && itin.seo.featured_list.length > 0 ? '(exists — keep or improve)' : '❌ MISSING → CREATE'}: 4 entries "City : key highlight with fact".
+
+**seo_keywords** ${itin.seo_keywords && itin.seo_keywords.length > 0 ? '(exists — keep as-is, do NOT modify)' : '❌ MISSING → CREATE: 8-20 keywords, lowercase, in the output language, relevant for SEO'}.
 
 ═══════════════════════════════════════════════════════════
 🚫 NEUTRALIZATION
 ═══════════════════════════════════════════════════════════
-- No named businesses → "Rental companies offer..."
+- No named businesses → "Des prestataires proposent..." / "Des loueurs proposent..."
 - No named individuals
 - No prices
 - No recent dates
@@ -3055,13 +3047,22 @@ Rules: complete descriptive sentence, 6-12 words, factual and evocative.
 ═══════════════════════════════════════════════════════════
 ✅ QUICK FINAL CHECK BEFORE OUTPUT
 ═══════════════════════════════════════════════════════════
-Before producing the final JSON, do a quick scan:
-✅ All dates, dimensions, distances are factually correct
-✅ No AI-style phrases slipped in ("iconic", "unforgettable", "testament to", "where X meets Y")
-✅ map_keywords present for every day
-✅ places_taglines are complete sentences
-✅ All texts are in language "${lang}"
-Fix any factual error. DO NOT rewrite the entire output — if you followed the rules above, the tone and content are already correct.
+Before producing the final JSON, verify:
+✅ All dates, dimensions, distances factually correct
+✅ No AI-style phrases ("iconic", "unforgettable", "testament to", "where X meets Y")
+✅ map_keywords = JSON array on every day
+✅ places_taglines = complete sentences, one per unique night.place_id
+✅ seo_keywords: kept as-is if existed, created if missing
+✅ meta.audience present
+✅ specialties present
+✅ notes present (even if empty string "")
+✅ suggested_days = integer 1 (not float)
+✅ best_months all lowercase
+✅ rating = 0 on every day
+✅ to_next_leg on all days except last; same-night days use distance_km:0
+✅ place_id = "" in all visits and activities
+✅ All texts in language "${lang}"
+Fix any factual error before outputting.
 
 ═══════════════════════════════════════════════════════════
 🎯 EXPECTED OUTPUT

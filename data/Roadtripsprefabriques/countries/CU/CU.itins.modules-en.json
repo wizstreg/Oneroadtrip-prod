@@ -1511,16 +1511,31 @@
       "itin_id": "CU::cuba::cuba-2-semaines-culture-plage",
       "id": "CU::cuba::cuba-2-semaines-culture-plage",
       "language": "en",
-      "title": "Cuba: Culture & Beach — Eco-Villages, Cenotes, Secret Cayos & Colonial Towns",
-      "country": "CU",
-      "estimated_days_base": 14,
-      "source_url": "https://whc.unesco.org/fr/list/204/, https://fr.wikipedia.org/wiki/Las_Terrazas_(Cuba), https://whc.unesco.org/fr/list/840/, https://www.tourisme-cuba.fr/cayo-levisa-visiter-paradis-cubain/, https://www.tourisme-cuba.fr/baie-des-cochons-tourisme/, https://whc.unesco.org/fr/list/1202/, https://fr.wikipedia.org/wiki/Vall%C3%A9e_de_Los_Ingenios, https://fr.wikipedia.org/wiki/Remedios_(Cuba)",
       "created_at": "2026-03-16T12:23:57.416Z",
+      "source_url": "https://whc.unesco.org/fr/list/204/, https://fr.wikipedia.org/wiki/Las_Terrazas_(Cuba), https://whc.unesco.org/fr/list/840/, https://www.tourisme-cuba.fr/cayo-levisa-visiter-paradis-cubain/, https://www.tourisme-cuba.fr/baie-des-cochons-tourisme/, https://whc.unesco.org/fr/list/1202/, https://fr.wikipedia.org/wiki/Vall%C3%A9e_de_Los_Ingenios, https://fr.wikipedia.org/wiki/Remedios_(Cuba)",
+      "dept_code": "CU",
+      "dept_name": "Cuba",
+      "title": "Cuba: Culture & Beach — Eco-Villages, Cenotes, Secret Cayos & Colonial Towns",
+      "subtitle": "Two weeks swapping colonial backstreets for secret beaches — from the Las Terrazas eco-village to the dunes of Playa Pilar, with a stop at the Bay of Pigs cenotes along the way.",
+      "notes": "",
+      "specialties": [
+        "Hand-rolled Cuban cigars (Pinar del Río)",
+        "Rum and mojitos (Havana distilleries)",
+        "Ropa vieja and congrí (slow-cooked creole cuisine)",
+        "Papier-mâché and wood-carved Che figurines (Trinidad craft markets)",
+        "Guarapo (fresh sugar cane juice, sold at roadside stands)"
+      ],
+      "estimated_days_base": 14,
       "pacing_rules": {
         "factors": {
           "slow": 1.25,
           "standard": 1,
           "fast": 0.75
+        },
+        "day_budgets_min": {
+          "soft": 300,
+          "standard": 420,
+          "fast": 540
         },
         "merge_threshold": 0.85
       },
@@ -1528,10 +1543,9 @@
         {
           "day": 1,
           "slice": 1,
-          "place_id": "CU::la-havane-vieja",
+          "region_code": "CU-HAV",
           "suggested_days": 2,
           "rating": 9.5,
-          "region_code": "CU-HAV",
           "night": {
             "place_id": "CU::la-havane-vieja",
             "coords": [
@@ -1560,6 +1574,7 @@
           "activities": [
             {
               "text": "Arrival and transfer from the airport area (about 30 minutes). As the day winds down, head straight to the Malecón for your first taste of Havana: a 8-km sea-front promenade built between 1901 and 1958, nicknamed 'the world's longest sofa.' At 9 pm, don't miss the cañonazo — a cannon fired nightly from the La Cabaña fortress across the bay.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -1567,17 +1582,16 @@
             "distance_km": 80,
             "drive_min": 90,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 2,
           "slice": 1,
-          "place_id": "CU::las-terrazas",
+          "region_code": "CU-ART",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CU-ART",
           "night": {
             "place_id": "CU::las-terrazas",
             "coords": [
@@ -1611,6 +1625,7 @@
           "activities": [
             {
               "text": "Swim in the Baños del Río San Juan — a series of natural pools and small waterfalls deep in the tropical forest, 3 km from Las Terrazas. Cool, clear freshwater flows between moss-covered rocks.",
+              "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
                 "duration": "~1h30"
@@ -1618,6 +1633,7 @@
             },
             {
               "text": "Guided hike through the Sierra del Rosario: over 120 bird species live here, including the tocororo — Cuba's national bird, wearing the red, white and blue of the Cuban flag — and the tiny, jewel-bright Cuban tody, a red-and-green endemic found nowhere else on earth.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "distance": "3 to 7 km depending on trail",
@@ -1631,17 +1647,16 @@
             "distance_km": 100,
             "drive_min": 120,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 3,
           "slice": 1,
-          "place_id": "CU::vinales",
+          "region_code": "CU-PIN",
           "suggested_days": 2,
           "rating": 7.8,
-          "region_code": "CU-PIN",
           "night": {
             "place_id": "CU::vinales",
             "coords": [
@@ -1670,28 +1685,21 @@
           "activities": [
             {
               "text": "Horseback ride through the Valle del Silencio, passing between mogotes, tobacco fields and cassava plantations. In season (January–March), pickers work the rows by hand. A local farmer will brew you fresh coffee and roll a cigar in front of you — the real thing.",
+              "place_id": "",
               "activity_duration_min": 120,
               "practical_info": {
                 "duration": "~2h",
                 "difficulty": "Easy"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 4,
           "slice": 1,
-          "place_id": "CU::vinales",
+          "region_code": "CU-PIN",
           "suggested_days": 1,
           "rating": 7.8,
-          "region_code": "CU-PIN",
           "night": {
             "place_id": "CU::vinales",
             "coords": [
@@ -1713,6 +1721,7 @@
           "activities": [
             {
               "text": "Full-day trip to Cayo Levisa: take the 10am ferry, spend the day swimming and snorkelling, and return on the 5pm boat. The island's dive centre offers excursions to 23 different dive sites. Kayaks and snorkelling gear are available to rent on the beach.",
+              "place_id": "",
               "activity_duration_min": 360,
               "practical_info": {
                 "duration": "Full day (ferry 10am → return 5pm)",
@@ -1724,17 +1733,16 @@
             "distance_km": 300,
             "drive_min": 330,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 5,
           "slice": 1,
-          "place_id": "CU::playa-giron",
+          "region_code": "CU-MTZ",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CU-MTZ",
           "night": {
             "place_id": "CU::playa-giron",
             "coords": [
@@ -1762,24 +1770,17 @@
           "activities": [
             {
               "text": "Late-afternoon swim in the turquoise waters of the Bay of Pigs. Underwater visibility here ranges from 20 to 40 metres, with water temperatures between 22°C and 29°C depending on the season.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 6,
           "slice": 1,
-          "place_id": "CU::cienfuegos",
+          "region_code": "CU-CFG",
           "suggested_days": 1,
           "rating": 6.2,
-          "region_code": "CU-CFG",
           "night": {
             "place_id": "CU::cienfuegos",
             "coords": [
@@ -1808,6 +1809,7 @@
           "activities": [
             {
               "text": "Evening stroll along the Cienfuegos Malecón overlooking one of the world's largest natural bays, then watch the sunset from the rooftop terrace of the Palacio de Valle.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -1815,17 +1817,16 @@
             "distance_km": 80,
             "drive_min": 75,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 7,
           "slice": 1,
-          "place_id": "CU::trinidad",
+          "region_code": "CU-SSP",
           "suggested_days": 1,
           "rating": 8.4,
-          "region_code": "CU-SSP",
           "night": {
             "place_id": "CU::trinidad",
             "coords": [
@@ -1848,24 +1849,17 @@
           "activities": [
             {
               "text": "Wander the cobblestone streets lined with pastel-coloured houses. Trinidad looks much as it did in the 19th century: no traffic lights, horse-drawn carts, and interior courtyards glimpsed through open doorways. At night, the bars around Plaza Mayor spill salsa out onto the street — the Casa de la Música, perched at the top of a monumental staircase, is the place to be.",
+              "place_id": "",
               "activity_duration_min": 90
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 8,
           "slice": 1,
-          "place_id": "CU::trinidad",
+          "region_code": "CU-SSP",
           "suggested_days": 2,
           "rating": 8.4,
-          "region_code": "CU-SSP",
           "night": {
             "place_id": "CU::trinidad",
             "coords": [
@@ -1887,28 +1881,21 @@
           "activities": [
             {
               "text": "Excursion through the valley by tourist train or car, with stops at the Torre Manaca Iznaga and the Casa Guachinango, an 18th-century cattle hacienda now serving as a riverside restaurant on the Ay river — swimming possible.",
+              "place_id": "",
               "activity_duration_min": 180,
               "practical_info": {
                 "duration": "~3h",
                 "distance": "15 km from Trinidad"
               }
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 9,
           "slice": 1,
-          "place_id": "CU::trinidad",
+          "region_code": "CU-SSP",
           "suggested_days": 1,
           "rating": 8.4,
-          "region_code": "CU-SSP",
           "night": {
             "place_id": "CU::trinidad",
             "coords": [
@@ -1936,6 +1923,7 @@
           "activities": [
             {
               "text": "Morning hike down to the Salto del Caburní, followed by a swim in the natural rock pools at its base. The return is by the same trail — the climb back up is steep.",
+              "place_id": "",
               "activity_duration_min": 150,
               "practical_info": {
                 "distance": "~6 km round trip",
@@ -1945,6 +1933,7 @@
             },
             {
               "text": "Afternoon on the beach at Playa Ancón. Boat trips out to the reef are available on site.",
+              "place_id": "",
               "activity_duration_min": 150
             }
           ],
@@ -1952,17 +1941,16 @@
             "distance_km": 280,
             "drive_min": 270,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 10,
           "slice": 1,
-          "place_id": "CU::cayo-guillermo",
+          "region_code": "CU-VCL-NORD",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CU-VCL-NORD",
           "night": {
             "place_id": "CU::cayo-guillermo",
             "coords": [
@@ -1984,24 +1972,17 @@
           "activities": [
             {
               "text": "Arrive in the early afternoon, settle in, then head straight to Playa Pilar — the beach many Cubans call the most beautiful in the country: blinding white sand, dunes up to 15 metres high (the tallest in the Caribbean), and shallow turquoise water. The beach stays quiet because it sits at the far western tip of the island.",
+              "place_id": "",
               "activity_duration_min": 180
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         },
         {
           "day": 11,
           "slice": 1,
-          "place_id": "CU::cayo-guillermo",
+          "region_code": "CU-VCL-NORD",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CU-VCL-NORD",
           "night": {
             "place_id": "CU::cayo-guillermo",
             "coords": [
@@ -2023,6 +2004,7 @@
           "activities": [
             {
               "text": "Snorkelling on the coral reef off Cayo Guillermo, reached by organised boat excursion (reefs lie 200–500 m offshore). There is also the option to swim with dolphins at a natural dolphinarium.",
+              "place_id": "",
               "activity_duration_min": 240
             }
           ],
@@ -2030,17 +2012,16 @@
             "distance_km": 180,
             "drive_min": 150,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 12,
           "slice": 1,
-          "place_id": "CU::remedios",
+          "region_code": "CU-VCL",
           "suggested_days": 1,
           "rating": 0,
-          "region_code": "CU-VCL",
           "night": {
             "place_id": "CU::remedios",
             "coords": [
@@ -2068,6 +2049,7 @@
           "activities": [
             {
               "text": "Wander through Remedios, a town that mass tourism has barely touched. Low pastel-coloured houses, flower-filled courtyards, rocking chairs on front porches. The atmosphere of Trinidad, without the crowds.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -2075,17 +2057,16 @@
             "distance_km": 270,
             "drive_min": 240,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 13,
           "slice": 1,
-          "place_id": "CU::la-havane-vedado",
+          "region_code": "CU-HAV",
           "suggested_days": 2,
           "rating": 9,
-          "region_code": "CU-HAV",
           "night": {
             "place_id": "CU::la-havane-vedado",
             "coords": [
@@ -2113,6 +2094,7 @@
           "activities": [
             {
               "text": "Last evening in Havana: walk through the Vedado neighbourhood, a showcase of 1930s–1950s Art Deco and modernist architecture, and catch one final sunset over the Malecón.",
+              "place_id": "",
               "activity_duration_min": 60
             }
           ],
@@ -2120,17 +2102,16 @@
             "distance_km": 20,
             "drive_min": 35,
             "transport_mode": "car",
-            "method": "source",
-            "road_type": null
+            "road_type": "",
+            "method": "heuristic"
           }
         },
         {
           "day": 14,
           "slice": 1,
-          "place_id": "CU::jose-marti",
+          "region_code": "CU-HAV",
           "suggested_days": 0.3,
           "rating": 6.7,
-          "region_code": "CU-HAV",
           "night": {
             "place_id": "CU::jose-marti",
             "coords": [
@@ -2142,18 +2123,83 @@
           "activities": [
             {
               "text": "Transfer to the airport area and departure formalities. Allow 30 minutes from central Havana.",
+              "place_id": "",
               "activity_duration_min": 60
             }
-          ],
-          "to_next_leg": {
-            "distance_km": null,
-            "drive_min": null,
-            "transport_mode": "car",
-            "method": "heuristic",
-            "road_type": null
-          }
+          ]
         }
       ],
+      "segments": [
+        {
+          "n": 1,
+          "range": [
+            1,
+            5
+          ],
+          "label": "Segment 1 — J1–J5",
+          "from_day": 1,
+          "to_day": 5
+        },
+        {
+          "n": 2,
+          "range": [
+            6,
+            10
+          ],
+          "label": "Segment 2 — J6–J10",
+          "from_day": 6,
+          "to_day": 10
+        },
+        {
+          "n": 3,
+          "range": [
+            11,
+            14
+          ],
+          "label": "Segment 3 — J11–J14",
+          "from_day": 11,
+          "to_day": 14
+        }
+      ],
+      "variants": [
+        {
+          "from_day": 1,
+          "to_day": 5,
+          "label": "Var 5j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 10,
+          "label": "Var 10j"
+        },
+        {
+          "from_day": 1,
+          "to_day": 14,
+          "label": "Var 14j"
+        }
+      ],
+      "regions": [
+        "CU-HAV",
+        "CU-ART",
+        "CU-PIN",
+        "CU-MTZ",
+        "CU-CFG",
+        "CU-SSP",
+        "CU-VCL",
+        "CU-VCL-NORD"
+      ],
+      "nearby_itins": [
+        "CU::cuba::cuba-3-semaines-classiques"
+      ],
+      "merge_suggestions": [],
+      "meta": {
+        "themes": [
+          "Plage",
+          "Nature",
+          "Ville & Histoire"
+        ],
+        "audience": []
+      },
       "seo": {
         "h1_title": "Cuba: Culture & Beach — Eco-Villages, Cenotes, Secret Cayos & Colonial Towns",
         "intro_paragraph": "Two weeks moving between colonial backstreets and off-the-map beaches: the Las Terrazas eco-village deep in the forest, the deserted island of Cayo Levisa, the cenotes of the Bay of Pigs, the sand dunes of Playa Pilar and the forgotten town of Remedios.",
@@ -2180,97 +2226,6 @@
           "CU::jose-marti": "Gateway to the world from José Martí International Airport"
         }
       },
-      "meta": {
-        "themes": [
-          "Plage",
-          "Nature",
-          "Ville & Histoire"
-        ],
-        "audience": []
-      },
-      "segments": [
-        {
-          "n": 1,
-          "range": [
-            1,
-            4
-          ],
-          "label": "Segment 1 – D1–D4: Havana, Las Terrazas, Viñales & Cayo Levisa",
-          "from_day": 1,
-          "to_day": 4
-        },
-        {
-          "n": 2,
-          "range": [
-            5,
-            9
-          ],
-          "label": "Segment 2 – D5–D9: Bay of Pigs, Cienfuegos & Trinidad",
-          "from_day": 5,
-          "to_day": 9
-        },
-        {
-          "n": 3,
-          "range": [
-            10,
-            12
-          ],
-          "label": "Segment 3 – D10–D12: Cayos & Remedios",
-          "from_day": 10,
-          "to_day": 12
-        },
-        {
-          "n": 4,
-          "range": [
-            13,
-            14
-          ],
-          "label": "Segment 4 – D13–D14: Havana & Departure",
-          "from_day": 13,
-          "to_day": 14
-        }
-      ],
-      "variants": [
-        {
-          "from_day": 1,
-          "to_day": 4,
-          "label": "4-day"
-        },
-        {
-          "from_day": 1,
-          "to_day": 9,
-          "label": "9-day"
-        },
-        {
-          "from_day": 1,
-          "to_day": 14,
-          "label": "14-day"
-        }
-      ],
-      "regions": [
-        "CU-HAV",
-        "CU-ART",
-        "CU-PIN",
-        "CU-MTZ",
-        "CU-CFG",
-        "CU-SSP",
-        "CU-VCL",
-        "CU-VCL-NORD"
-      ],
-      "nearby_itins": [
-        "CU::cuba::cuba-3-semaines-classiques"
-      ],
-      "merge_suggestions": [],
-      "specialties": [
-        "Hand-rolled Cuban cigars (Pinar del Río)",
-        "Rum and mojitos (Havana distilleries)",
-        "Ropa vieja and congrí (slow-cooked creole cuisine)",
-        "Papier-mâché and wood-carved Che figurines (Trinidad craft markets)",
-        "Guarapo (fresh sugar cane juice, sold at roadside stands)"
-      ],
-      "dept_code": "CU",
-      "dept_name": "Cuba",
-      "subtitle": "Two weeks swapping colonial backstreets for secret beaches — from the Las Terrazas eco-village to the dunes of Playa Pilar, with a stop at the Bay of Pigs cenotes along the way.",
       "seo_keywords": [
         "cuba 2 week itinerary",
         "cuba culture and beach",
@@ -2299,6 +2254,5 @@
         ]
       }
     }
-  ],
-  "generated": "2026-03-16T15:09:39.122Z"
+  ]
 }
