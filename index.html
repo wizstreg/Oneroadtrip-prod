@@ -57,12 +57,12 @@
     .metrics{ display:flex; gap:16px; align-items:baseline; flex-wrap:wrap; margin:4px 0 8px 0 }
     .metric{ display:flex; gap:8px; align-items:baseline }
     .metric .num{ font-weight:900; line-height:1; min-width:3.5ch; text-align:right }
-    .metric.rt .num{ font-size:clamp(26px, 4.2vw, 38px) }
+    .metric.rt .num{ font-size:clamp(30px, 5vw, 46px) }
     .metric.cty .num,
-    .metric.plc .num{ font-size:clamp(20px, 3.5vw, 32px) }
+    .metric.plc .num{ font-size:clamp(24px, 4vw, 38px) }
     .metric.vis .num,
-    .metric.act .num{ font-size:clamp(18px, 3vw, 28px) }
-    .metric.users .num{ font-size:clamp(18px, 3vw, 28px) }
+    .metric.act .num{ font-size:clamp(22px, 3.5vw, 34px) }
+
 
     /* Subtitle apparition */
     @keyframes subtitleFadeIn{
@@ -502,8 +502,8 @@
         margin:2px 0 4px;
       }
       .metric{ gap:3px; justify-content:center }
-      .metric .num{ font-size:clamp(14px, 3.5vw, 19px) !important; min-width:auto }
-      .metric .lbl{ font-size:clamp(9px, 2.2vw, 11px) }
+      .metric .num{ font-size:clamp(16px, 4vw, 22px) !important; min-width:auto }
+      .metric .lbl{ font-size:clamp(10px, 2.4vw, 12px) }
       .features{ display:none }
     }
       .features li{ margin:8px 0 }
@@ -570,8 +570,8 @@
       .metrics{
         gap:2px 6px;
       }
-      .metric .num{ font-size:clamp(13px, 3.2vw, 17px) !important }
-      .metric .lbl{ font-size:clamp(8px, 2vw, 10px) }
+      .metric .num{ font-size:clamp(14px, 3.5vw, 19px) !important }
+      .metric .lbl{ font-size:clamp(9px, 2.2vw, 11px) }
     }
     /* Mode paysage sur mobile */
     @media (max-width: 768px) and (orientation: landscape) {
@@ -1286,10 +1286,7 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
                 <div class="num" id="nActivities" aria-label="Nombre d'activités">0</div>
                 <div class="lbl">${t.lbl_act}</div>
               </div>
-              <div class="metric users" style="opacity:0.9">
-                <div class="num" id="nUsers" aria-label="Nombre de voyageurs" style="color:#fbbf24">...</div>
-                <div class="lbl">${t.lbl_users}</div>
-              </div>
+
             </div>
 
             <!-- 4 carrés d'action -->
@@ -1372,22 +1369,7 @@ console.log('[ORT-I18N-MODES] ✅ Chargé inline');
       const targets = [stats.itineraries, stats.countries, stats.places, stats.visits, stats.activities];
       animateCounters(nodes, targets, 4000);
 
-      // Compteur voyageurs
-      const nUsersEl = document.getElementById('nUsers');
-      if (nUsersEl) {
-        animateCounters([nUsersEl], [3670], 4000);
-        (async function() {
-          try {
-            const already = sessionStorage.getItem('ort_vc');
-            const res = await fetch('/.netlify/functions/visitor-count' + (already ? '' : '?i=1'));
-            if (res.ok) {
-              const data = await res.json();
-              if (data.count) nUsersEl.textContent = data.count.toLocaleString();
-              if (!already) sessionStorage.setItem('ort_vc', '1');
-            }
-          } catch(e) {}
-        })();
-      }
+
 
 
       // ============================================

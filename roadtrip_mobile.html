@@ -2788,6 +2788,20 @@ const PLACEHOLDER_IMG = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlna
 if (!window.PHOTOS_CACHE) window.PHOTOS_CACHE = {};
 var PHOTOS_CACHE = window.PHOTOS_CACHE;
 
+// Optimiser les URLs de photos pour réduire la bande passante
+window.optimizePhotoUrl = function(url, maxWidth) {
+  if (!url || typeof url !== 'string') return url;
+  maxWidth = maxWidth || 600;
+  if (url.includes('images.pexels.com') && !url.includes('&w=')) {
+    return url + '&w=' + maxWidth + '&h=' + Math.round(maxWidth * 0.67) + '&fit=crop';
+  }
+  return url;
+};
+window.optimizePhotoUrls = function(urls, maxWidth) {
+  if (!Array.isArray(urls)) return urls;
+  return urls.map(u => window.optimizePhotoUrl(u, maxWidth));
+};
+
 // toSlug() → fourni par ort-utils.js
 // findPhotosForPlace(), getPhotosForPlace(), loadPhotosCache() → fournis par ort-data-loader.js
 
@@ -5002,7 +5016,7 @@ function getAllStepPhotos(step) {
   const found = findPhotosForPlace(step.name, state.cc);
   found.forEach(p => { if (!photos.includes(p)) photos.push(p); });
   
-  return photos;
+  return optimizePhotoUrls(photos);
 }
 
 // Choisir la meilleure photo pour une étape (évite les doublons)
@@ -5195,7 +5209,7 @@ function renderList() {
           // Remplacer l'icône par une vraie image
           const img = document.createElement('img');
           img.className = 'step-card-hotel-thumb';
-          img.src = imgUrl;
+          img.src = imgUrl.replace('square240', 'square60');
           img.alt = '';
           img.dataset.hotelAction = 'open';
           img.style.cursor = 'pointer';
@@ -5497,7 +5511,8 @@ function openStepSheet(idx) {
         if (!data || !data.hotels || !data.hotels.length) return;
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
-        btnHotel.innerHTML = `<img src="${imgUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='🏨 '"> Hôtel`;
+        const thumbUrl = imgUrl.replace('square240', 'square60');
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='🏨 '"> Hôtel`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {
@@ -5800,7 +5815,8 @@ function adjustNights(delta) {
         if (!data || !data.hotels || !data.hotels.length) return;
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
-        btnHotel.innerHTML = `<img src="${imgUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='🏨 '"> Hôtel`;
+        const thumbUrl = imgUrl.replace('square240', 'square60');
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='🏨 '"> Hôtel`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {

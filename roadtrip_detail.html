@@ -709,6 +709,7 @@ body.view-map-only {
 }
 body.view-map-only .main{display:block}
 body.view-map-only .main>section{display:none !important}
+body.view-map-only footer{display:none !important}
 body.view-map-only .main>aside{
   width:100% !important;
   position: fixed;
@@ -2461,7 +2462,7 @@ if (typeof t !== 'function') {
 
 <header>
     <a class="brandlink" id="homeLink" href="#">
-    <img src="../assets/symbol.webp" alt="Logo"><div class="brand">OneRoadTrip</div>
+    <img src="../assets/symbol.webp" alt="Logo" width="80" height="80"><div class="brand">OneRoadTrip</div>
   </a>
   <div class="spacer"></div>
 
@@ -3491,8 +3492,7 @@ hdr.appendChild(row);
 
   <div class="main">
     <section class="card">
-     <div style="display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:12px">
-  <div class="small" data-i18n="dragToReorder">Glissez pour réordonner</div>
+     <div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;margin-bottom:12px">
   <div style="display:flex;gap:6px;">
     <button id="btnListFull" class="iconbtn" type="button" data-i18n-title="fullscreenList" title="Plein écran liste (2 colonnes)" style="font-size:16px;padding:4px 8px;background:#f1f5f9;border:1px solid #cbd5e1;border-radius:4px;cursor:pointer;">⤢</button>
   </div>
@@ -4686,6 +4686,21 @@ console.log('[LOG-CONTROLE][RT-DETAIL] RT_KEY:', RT_KEY);
 if (!window.PHOTOS_CACHE) window.PHOTOS_CACHE = {};
 var PHOTOS_CACHE = window.PHOTOS_CACHE;
 
+// Optimiser les URLs de photos pour réduire la bande passante
+// Pexels: ajouter &w=600 pour limiter la taille (au lieu de l'original 3000+px)
+window.optimizePhotoUrl = function(url, maxWidth) {
+  if (!url || typeof url !== 'string') return url;
+  maxWidth = maxWidth || 600;
+  if (url.includes('images.pexels.com') && !url.includes('&w=')) {
+    return url + '&w=' + maxWidth + '&h=' + Math.round(maxWidth * 0.67) + '&fit=crop';
+  }
+  return url;
+};
+window.optimizePhotoUrls = function(urls, maxWidth) {
+  if (!Array.isArray(urls)) return urls;
+  return urls.map(u => window.optimizePhotoUrl(u, maxWidth));
+};
+
 const state={
   title:'Roadtrip', country:'XX', targetNights:0, steps:[],
   _rawItinsObj:null, _rawPlacesObj:null, distanceUnit:'km',
@@ -5202,7 +5217,7 @@ window.applyListView = applyListView;
 
 async function loadPhotosJSON(){
   try{
-    const r=await fetch('./data/photos-json/photos_lieux.json',{cache:'no-store'});
+    const r=await fetch('./data/photos-json/photos_lieux.json');
     if(r.ok) {
       const data = await r.json() || {};
       Object.assign(window.PHOTOS_CACHE, data);
@@ -5220,7 +5235,7 @@ function getPhotosForStep(stepIndex, pid) {
     const userPhotos = ORT_TRIP_DATA.getStepPhotos(stepIndex);
     if (userPhotos && userPhotos.length > 0) {
       // Combiner: userPhotos d'abord, puis compléter avec photos catalogue
-      const catalogPhotos = getPhotosForPlace(pid) || [];
+      const catalogPhotos = optimizePhotoUrls(getPhotosForPlace(pid) || []);
       const combined = [...userPhotos];
       // Ajouter les photos catalogue qui ne sont pas déjà présentes
       catalogPhotos.forEach(p => {
@@ -5230,7 +5245,7 @@ function getPhotosForStep(stepIndex, pid) {
     }
   }
   // 2. Fallback: photos du catalogue
-  return getPhotosForPlace(pid) || [];
+  return optimizePhotoUrls(getPhotosForPlace(pid) || []);
 }
 
 // toSlug() → fourni par ort-utils.js
@@ -5487,7 +5502,7 @@ async function initFromItin(it){
         _distanceKmToNext: d.to_next_leg?.distance_km || 0,
         _roadType: d.to_next_leg?.road_type || null,
         _mapKeywords: Array.isArray(d.night?.map_keywords) ? d.night.map_keywords : [],
-        images:getPhotosForPlace(pid),
+        images:optimizePhotoUrls(getPhotosForPlace(pid)),
         description:visits.map(v=>v.text||v).join('. ')
       });
     }
@@ -5507,7 +5522,7 @@ async function initFromItin(it){
         _suggestedDays: suggestedDays,
         visits:p.visits||[],
         activities:p.activities||[],
-        images:getPhotosForPlace(pid),
+        images:optimizePhotoUrls(getPhotosForPlace(pid)),
         description:''
       };
     });
@@ -6511,7 +6526,8 @@ dateCell.style.textAlign='left';
           if (!data || !data.hotels || !data.hotels.length) return;
           const imgUrl = data.hotels[0].imageUrl;
           if (!imgUrl) return;
-          hotel.innerHTML = `<img class="hotel-thumb-lg" src="${imgUrl}" alt="${_esc(data.hotels[0].name || '')}" title="${_esc(data.hotels[0].name || t('chooseHotel'))}" onerror="this.style.display='none'">`;
+          const thumbUrl = imgUrl.replace('square240', 'square60');
+          hotel.innerHTML = `<img class="hotel-thumb-lg" src="${thumbUrl}" alt="${_esc(data.hotels[0].name || '')}" title="${_esc(data.hotels[0].name || t('chooseHotel'))}" onerror="this.style.display='none'">`;
           // Re-attacher le click sur l'image
           const img = hotel.querySelector('.hotel-thumb-lg');
           if (img) {
@@ -6881,6 +6897,14 @@ function createStepDetailsPanel(step, idx) {
           step.activities.splice(itemIdx, 1);
         }
         renderRows();
+        // Ré-ouvrir le panneau après re-render
+        setTimeout(() => {
+          const wrapper = document.querySelector(`.step-wrapper[data-step-idx="${idx}"]`);
+          const newPanel = wrapper?.querySelector('.step-details-panel');
+          const toggle = wrapper?.querySelector('.step-expand-toggle');
+          if(newPanel) newPanel.classList.add('open');
+          if(toggle) toggle.classList.add('open');
+        }, 50);
         if(typeof scheduleAutosave === 'function') scheduleAutosave();
       });
     });
@@ -7426,7 +7450,7 @@ map=L.map('map', {
             nights: 1,
             visits: [],
             activities: [],
-            images: getPhotosForPlace(place.place_id)
+            images: optimizePhotoUrls(getPhotosForPlace(place.place_id))
           };
           // __sid unique dès la création (évite fusion/sélection double)
           newStep.__sid = (typeof ensureSid === 'function')
@@ -7851,7 +7875,7 @@ function openOtherPlaceDetails(p){
           nights: 1,
           visits: Array.isArray(p.visits)? p.visits : [],
           activities: Array.isArray(p.activities)? p.activities : [],
-          images: getPhotosForPlace(p.pid),
+          images: optimizePhotoUrls(getPhotosForPlace(p.pid)),
           description: (p.visits||[]).map(v=>v.text||v).join('. ')
         };
         // __sid unique dès la création
@@ -8179,7 +8203,7 @@ Object.entries(grouped).forEach(([key, indices]) => {
             lon: place.lon,
             place_id: place.place_id,
             name: place.name,
-            images: getPhotosForPlace(place.place_id)
+            images: optimizePhotoUrls(getPhotosForPlace(place.place_id))
           });
           renderRows();
           toast(`✅ ${place.name}`);
@@ -8639,7 +8663,7 @@ const pid = `${item.countryCode}::${slugVar}`;
     nights: 1,
     visits: [],
     activities: [],
-    images: getPhotosForPlace(pid)
+    images: optimizePhotoUrls(getPhotosForPlace(pid))
   };
   newStep.__sid = (typeof ensureSid === 'function') ? ensureSid(newStep) : (crypto?.randomUUID?.() || ('S'+Date.now()+Math.random().toString(36).slice(2)));
   state.steps.push(newStep);
