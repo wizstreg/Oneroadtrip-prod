@@ -383,6 +383,7 @@ body.layout-stack .main>section{order:1}
 .step-row[draggable="true"]{cursor:grab}
 .step-row.dragging{opacity:.6;border-style:dashed}
 .cell{padding:4px}
+.hotel-thumb-lg{width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)}
 .step-num{
   display:inline-flex;align-items:center;justify-content:center;
   width:24px;height:24px;border-radius:50%;
@@ -1907,12 +1908,34 @@ header{position:sticky;top:0;z-index:10;background:url("/assets/image_index.webp
   font-size: 0.85rem;
   color: #0369a1;
   font-weight: 600;
-  margin-bottom: 6px;
+  margin-bottom: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  user-select: none;
+}
+.pc-highlights-title:hover { opacity: 0.8; }
+.pc-highlights-title .pc-chevron {
+  display: inline-block;
+  transition: transform 0.2s;
+  font-size: 0.7rem;
+}
+.pc-highlights.open .pc-chevron {
+  transform: rotate(90deg);
 }
 .pc-highlights-list {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, margin-top 0.3s ease;
+  margin-top: 0;
+}
+.pc-highlights.open .pc-highlights-list {
+  max-height: 500px;
+  margin-top: 6px;
 }
 .pc-highlight-tag {
   background: #fff;
@@ -5665,7 +5688,7 @@ function renderPracticalContext() {
   // Highlights
   if (hasHighlights) {
     html += `<div class="pc-highlights${hasBestMonths ? '' : ' no-border'}">
-      <div class="pc-highlights-title">${t('highlights')}</div>
+      <div class="pc-highlights-title" onclick="this.parentElement.classList.toggle('open')"><span class="pc-chevron">▶</span> ${t('highlights')}</div>
       <div class="pc-highlights-list">
         ${pc.highlights.map(h => `<span class="pc-highlight-tag">• ${h}</span>`).join('')}
       </div>
@@ -6431,6 +6454,7 @@ dateCell.style.textAlign='left';
 
 // === Colonne "Hôtel" toujours présente (aligne les colonnes)
 //    → Si hôtel réservé : afficher le nom. Sinon : bouton "Choisir"
+//    → Photo du premier hôtel du JSON scrapé si disponible
 {
   const hotel = document.createElement('div');
   hotel.className = 'cell hotel-cell';
@@ -6456,21 +6480,23 @@ dateCell.style.textAlign='left';
     if (b) bookedHotel = b;
   }
   
+  const _esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  
   if (Number(step.nights||0) > 0) {
     if (bookedHotel) {
       // ✅ Hôtel réservé → afficher son nom
       const hotelName = bookedHotel.name || bookedHotel.title || '🏨 Réservé';
-      const _esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
       const shortName = hotelName.length > 25 ? hotelName.substring(0, 23) + '…' : hotelName;
       hotel.innerHTML = `
-        <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer" title="${_esc(hotelName)}">
+        <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center" title="${_esc(hotelName)}">
           🏨 ${_esc(shortName)}
         </div>`;
-      // Clic → ouvrir la modale réservations de l'étape
       hotel.addEventListener('click', () => {
         if (typeof openStepBookingsModal === 'function') openStepBookingsModal(idx);
       });
     } else if (step.lat && step.lon) {
+      // Pas de résa → photo hôtel cliquable ou bouton "Voir"
+      // D'abord afficher le bouton "Voir" par défaut
       hotel.innerHTML = `
         <button class="btn-hotel-choose" data-step-idx="${idx}" 
           title="${t('chooseHotel')}"
@@ -6478,7 +6504,28 @@ dateCell.style.textAlign='left';
           🏨 ${t('chooseHotel').split(' ')[0]}
         </button>`;
       
-      // Handler pour ouvrir la modale hôtels
+      // Essayer de charger la photo hôtel du JSON → remplace le bouton
+      const pid = step.placeId || step.place_id;
+      if (pid && window.ORT_HOTELS && ORT_HOTELS.loadHotelsForPlace) {
+        ORT_HOTELS.loadHotelsForPlace(pid).then(data => {
+          if (!data || !data.hotels || !data.hotels.length) return;
+          const imgUrl = data.hotels[0].imageUrl;
+          if (!imgUrl) return;
+          hotel.innerHTML = `<img class="hotel-thumb-lg" src="${imgUrl}" alt="${_esc(data.hotels[0].name || '')}" title="${_esc(data.hotels[0].name || t('chooseHotel'))}" onerror="this.style.display='none'">`;
+          // Re-attacher le click sur l'image
+          const img = hotel.querySelector('.hotel-thumb-lg');
+          if (img) {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', (e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof openHotelsModal === 'function') openHotelsModal(step, idx);
+            });
+          }
+        }).catch(() => {});
+      }
+      
+      // Handler sur le bouton "Voir" (visible tant que la photo n'a pas chargé)
       setTimeout(() => {
         const btn = hotel.querySelector('.btn-hotel-choose');
         if (btn) {
@@ -6487,8 +6534,6 @@ dateCell.style.textAlign='left';
             e.stopPropagation();
             if (typeof openHotelsModal === 'function') {
               openHotelsModal(step, idx);
-            } else {
-              console.warn('[HOTELS] openHotelsModal non disponible');
             }
           });
         }
