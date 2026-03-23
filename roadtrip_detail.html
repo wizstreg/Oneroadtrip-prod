@@ -3784,9 +3784,15 @@ hdr.appendChild(row);
       
       const u=new URL(location.href); u.searchParams.set('lang',code); location.replace(u.toString()); 
     }); }
-    const home=document.getElementById('homeLink'); if(home){ home.addEventListener('click',e=>{ e.preventDefault(); const u=new URL('presentation.html', location.href); u.searchParams.set('lang', lang); location.href=u.toString(); }); }
-    /* Libellés du bouton selon langue - seulement si pas encore connecté */
-    if(openAuth && !window.firebase?.auth?.()?.currentUser) openAuth.textContent = L().login;
+const home=document.getElementById('homeLink'); 
+if(home){ 
+  home.addEventListener('click',e=>{ 
+    e.preventDefault(); 
+    const u=new URL('index.html', location.href); 
+    u.searchParams.set('lang', lang); 
+    location.href=u.toString(); 
+  }); 
+}
   })();
 })();
 </script>
@@ -9184,8 +9190,8 @@ window.initSaveSourceButton = function(){
     const country = baseRef.country?.toUpperCase() || 'XX';
     const countryLower = country.toLowerCase();
     
-    // Détecter si c'est un ID temporaire
-    const isTemp = !originalId || originalId.includes('temp_') || originalId.includes('::temp_');
+    // Détecter si c'est un ID temporaire (on garde les temp_ comme existants)
+    const isTemp = !originalId;
     
     if (isTemp) {
       // Proposer de créer un nouvel ID
