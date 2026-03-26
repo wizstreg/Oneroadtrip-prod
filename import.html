@@ -593,7 +593,7 @@
       </div>
       
       <!-- Aperçu rapide -->
-      <div id="adminRTPreview" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;max-height:300px;overflow-y:auto;font-size:13px;margin-bottom:16px">
+      <div id="adminRTPreview" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:12px;max-height:600px;overflow-y:auto;font-size:13px;margin-bottom:16px">
         <em style="color:#94a3b8">Aucun itinéraire chargé</em>
       </div>
       
@@ -2602,14 +2602,16 @@ window.initAdminRTViewer = function() {
         const dayNum = day.day || (i + 1);
         const sugDays = day.suggested_days || day.nights || '?';
         
+        const firstVisit = (day.visits || [])[0];
+        const firstVisitText = firstVisit ? (firstVisit.text || firstVisit.name || '') : '';
+        const moreVisits = visitsCount > 1 ? `<span style="color:#94a3b8;font-style:italic"> (+${visitsCount - 1} autre(s))</span>` : '';
+
         previewHTML += `<div style="margin-bottom:8px;padding:8px;background:#fff;border-radius:6px;border-left:3px solid #113f7a">
           <strong>Jour/Étape ${dayNum}</strong> — ${nightPlace} (${sugDays}j)
-          <div style="font-size:12px;color:#64748b;margin-top:4px">
-            ${visitsCount} visite(s): ${(day.visits || []).slice(0,2).map(v => (v.text || v.name || '').slice(0,50) + '...').join(' | ') || '—'}
+          <div style="font-size:12px;color:#374151;margin-top:4px;line-height:1.5">
+            <span style="color:#113f7a;font-weight:600">${visitsCount} visite(s)</span>${moreVisits} : ${firstVisitText || '—'}
           </div>
-          <div style="font-size:12px;color:#64748b">
-            ${actsCount} activité(s): ${(day.activities || []).slice(0,2).map(a => (a.text || a.name || '').slice(0,50) + '...').join(' | ') || '—'}
-          </div>
+          <div style="font-size:11px;color:#94a3b8;margin-top:2px">${actsCount} activité(s)</div>
         </div>`;
       });
     } else {
