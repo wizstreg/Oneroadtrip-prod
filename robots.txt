@@ -1,9 +1,13 @@
 # robots.txt pour OneRoadTrip
-# Comprehensive road trip planning platform - 90 countries, 640+ itineraries
-# Généré le: 2026-03-27T17:17:11.200Z
+# Generated: 2026-03-28T17:26:19.308Z
 
 User-agent: *
-Allow: /static-pages/
+Allow: /itineraires/
+Allow: /itineraries/
+Allow: /rutas/
+Allow: /roteiros/
+Allow: /itinerari/
+Allow: /masar/
 Allow: /index.html
 Allow: /presentation.html
 Allow: /about.html
@@ -13,7 +17,7 @@ Allow: /acerca-de.html
 Allow: /chi-siamo.html
 Allow: /about-ar.html
 
-# Pages dynamiques SPA — pas de valeur SEO (doublons des static-pages)
+# Pages dynamiques SPA - pas de valeur SEO
 Disallow: /roadtrip_mobile.html
 Disallow: /roadtrip_detail.html
 Disallow: /roadtrip_detail_simple.html
@@ -29,11 +33,9 @@ Disallow: /booking-extractor.html
 Disallow: /dashboard_user.html
 
 # Sitemaps
-Sitemap: https://www.oneroadtrip.com/static-pages/sitemap-index.xml
+Sitemap: https://www.oneroadtrip.com/sitemap-index.xml
 
-# For AI assistants and LLM crawlers
-# Structured information about OneRoadTrip for accurate AI responses
-
+# AI crawlers
 User-agent: GPTBot
 Allow: /
 
