@@ -1681,14 +1681,16 @@ function showPreview(itin) {
   `;
   
   // Photo : 1 seule pour chargement rapide
+  // Accepte les 2 formats : ancien (string) et nouveau (objet {url,caption,keyword})
   let firstPhoto = null;
   if (placesPhotosIndex) {
     const placeKeys = getPlaceKeysFromItin(itin);
     for (const k of placeKeys) {
       const arr = placesPhotosIndex[k]?.photos;
       if (Array.isArray(arr) && arr[0]) {
-        firstPhoto = arr[0];
-        break;
+        const p0 = arr[0];
+        firstPhoto = (typeof p0 === 'string') ? p0 : (p0 && p0.url) ? p0.url : null;
+        if (firstPhoto) break;
       }
     }
   }

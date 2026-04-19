@@ -1605,7 +1605,16 @@ async function loadPhotosJSON() {
 }
 
 function getPhotosForPlace(pid) {
-  return (PHOTOS_CACHE[pid] || {}).photos || [];
+  // Accepte les 2 formats : ancien (strings) et nouveau R2 (objets {url,caption,keyword})
+  // Renvoie toujours un tableau d'URLs strings
+  var raw = (PHOTOS_CACHE[pid] || {}).photos || [];
+  var out = [];
+  for (var i = 0; i < raw.length; i++) {
+    var p = raw[i];
+    if (typeof p === 'string') out.push(p);
+    else if (p && p.url) out.push(p.url);
+  }
+  return out;
 }
 
 // Optimiser les URLs d'images pour compression et performance
