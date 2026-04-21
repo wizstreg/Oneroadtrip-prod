@@ -616,6 +616,60 @@ footer a{color:#c3d6b6;text-decoration:none}
   50% { transform: rotate(5deg); }
 }
 
+/* [STACKED-MARKERS] Empilement de plusieurs étapes au même endroit.
+   Le 1er marqueur du groupe affiche un rond central avec le total de nuits
+   et les numéros d'étape disposés en cercle autour, sans rond. */
+
+.step-marker.stack-marker {
+  /* Le rond central reste de taille normale, les satellites débordent autour */
+  overflow: visible;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.step-marker.stack-marker .stack-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #113f7a;
+  color: #fff;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.4);
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 22px;
+  text-align: center;
+  box-sizing: border-box;
+}
+.step-marker.stack-marker .stack-sat {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* Le translate exact est calculé en inline (angle propre à chaque satellite) */
+  font-size: 11px;
+  font-weight: bold;
+  color: #113f7a;
+  text-shadow: 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff, 0 0 3px #fff;
+  white-space: nowrap;
+  pointer-events: none; /* les chiffres satellites n'interceptent pas le clic */
+}
+
+/* Marqueurs individuels masqués (conservent drag/hover/popup) */
+.step-marker.stack-hidden-marker {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+.step-marker.stack-hidden-marker .stack-hidden {
+  width: 24px;
+  height: 24px;
+  /* invisible mais cliquable */
+}
+
 /* === OVERRIDES LAYOUT — prend le dessus sur #map par !important === */
 
 /* Empilement : carte en haut, iti en bas, pleine largeur */
@@ -8393,9 +8447,28 @@ pts.forEach((p, idx) => {
 Object.entries(grouped).forEach(([key, indices]) => {
   const [gLat, gLon] = key.split(',').map(Number);
 
-  // 1) Marqueurs pile sur leur coord (aucun offset)
-  indices.forEach((i) => {
+  // [STACKED-MARKERS] Si plusieurs étapes partagent la même coord :
+  // - le 1er marqueur affiche un rond central avec le total de nuits cumulées
+  //   et les numéros d'étape disposés autour (en petit, sans rond).
+  // - les marqueurs suivants restent présents (drag/hover/popup individuel)
+  //   mais sont invisibles à l'écran.
+  const groupSize = indices.length;
+  const isStacked = groupSize > 1;
+
+  // Calcul du nombre total de nuits cumulées sur ce point (pour le rond central)
+  let totalNights = 0;
+  if (isStacked) {
+    indices.forEach(idx => {
+      const s = pts[idx];
+      const n = (typeof s.nights === 'number') ? s.nights : 0;
+      totalNights += n;
+    });
+  }
+
+  indices.forEach((i, orderInGroup) => {
     const step = pts[i];
+    const isFirstOfGroup = isStacked && orderInGroup === 0;
+    const isHiddenStackMember = isStacked && orderInGroup > 0;
     
     // Récupérer rating pour couleur
     let stepRating = step.rating || 0;
@@ -8409,7 +8482,35 @@ Object.entries(grouped).forEach(([key, indices]) => {
     const flagHtml = isHub ? '<span class="hub-flag">🚩</span>' : '';
     
     const iconHtml = `<div class="marker-num">${(i + 1)}${flagHtml}</div>`;
-    const icon = L.divIcon({ html: iconHtml, className: 'step-marker', iconSize: [24, 24] });
+
+    // [STACKED-MARKERS] Construction de l'icône
+    let finalHtml, finalClassName, finalIconSize;
+    if (isFirstOfGroup) {
+      // Rond central avec total nuits + chiffres satellites disposés en cercle
+      const SAT_RADIUS_PX = 22; // distance des chiffres satellites au centre
+      const satellitesHtml = indices.map((memberIdx, k) => {
+        const angle = (2 * Math.PI * k) / groupSize - Math.PI / 2; // démarre en haut
+        const dx = Math.round(SAT_RADIUS_PX * Math.cos(angle));
+        const dy = Math.round(SAT_RADIUS_PX * Math.sin(angle));
+        return `<span class="stack-sat" style="transform: translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px))">${memberIdx + 1}</span>`;
+      }).join('');
+      const centerLabel = totalNights > 0 ? totalNights : groupSize;
+      finalHtml = `<div class="stack-center">${centerLabel}</div>${satellitesHtml}`;
+      finalClassName = 'step-marker stack-marker';
+      finalIconSize = [24, 24];
+    } else if (isHiddenStackMember) {
+      // Marqueur invisible mais cliquable (conserve drag/hover/popup individuel)
+      finalHtml = '<div class="stack-hidden"></div>';
+      finalClassName = 'step-marker stack-hidden-marker';
+      finalIconSize = [24, 24];
+    } else {
+      // Étape seule à cet endroit : apparence inchangée
+      finalHtml = iconHtml;
+      finalClassName = 'step-marker';
+      finalIconSize = [24, 24];
+    }
+
+    const icon = L.divIcon({ html: finalHtml, className: finalClassName, iconSize: finalIconSize });
         const m = L.marker([step.lat, step.lon], {
       draggable: true,
       icon,

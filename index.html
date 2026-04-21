@@ -75,6 +75,12 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);li
 /* Validate buttons */
 .validate-btn,.mobile-validate-btn{width:100%;padding:10px 20px;background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none;border-radius:25px;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;margin-top:6px}
 .validate-btn:hover,.mobile-validate-btn:hover{transform:translateY(-1px);box-shadow:0 3px 10px rgba(34,197,94,0.4)}
+.quick-themes{display:flex;justify-content:space-around;gap:8px;margin-top:10px}
+.quick-theme{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:8px 4px;background:rgba(255,255,255,0.92);border:2px solid rgba(255,255,255,0.3);border-radius:12px;cursor:pointer;transition:all .2s;text-decoration:none;color:inherit;font-size:11px;font-weight:600;text-align:center;line-height:1.1}
+.quick-theme:hover{background:#fff;border-color:var(--s);transform:translateY(-1px);box-shadow:0 3px 8px rgba(0,0,0,0.1)}
+.quick-theme.active{background:var(--s);color:#fff;border-color:var(--s)}
+.quick-theme .qt-ico{font-size:22px;line-height:1}
+.quick-theme .qt-lbl{font-size:11px}
 
 /* 3-column trio zone (desktop) */
 .trio-zone{display:grid;grid-template-columns:1fr 1.2fr 1fr;gap:12px;max-width:1200px;margin:10px auto;padding:0 16px}
@@ -238,6 +244,11 @@ footer p{opacity:.5;font-size:.8rem}
   <select class="filter-select" id="themeFilterMobile"></select>
   <div class="results-count" id="resultsCountMobile"></div>
   <button class="mobile-validate-btn" id="mobileValidateBtn">✓ Valider</button>
+  <div class="quick-themes" id="quickThemesMobile">
+    <a class="quick-theme" data-qtheme="best-seller"><span class="qt-ico">⭐</span><span class="qt-lbl" data-qt-lbl="best-seller">Bestseller</span></a>
+    <a class="quick-theme" data-qtheme="tested-ort"><span class="qt-ico">✅</span><span class="qt-lbl" data-qt-lbl="tested-ort">Testé ORT</span></a>
+    <a class="quick-theme" data-qtheme="creators"><span class="qt-ico">🎬</span><span class="qt-lbl" data-qt-lbl="creators">Créateurs</span></a>
+  </div>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -282,6 +293,11 @@ footer p{opacity:.5;font-size:.8rem}
       <select class="filter-select" id="themeFilter"></select>
       <div class="results-count" id="resultsCount"></div>
       <button class="validate-btn" id="desktopValidateBtn">✓ Valider</button>
+      <div class="quick-themes" id="quickThemesDesktop">
+        <a class="quick-theme" data-qtheme="best-seller"><span class="qt-ico">⭐</span><span class="qt-lbl" data-qt-lbl="best-seller">Bestseller</span></a>
+        <a class="quick-theme" data-qtheme="tested-ort"><span class="qt-ico">✅</span><span class="qt-lbl" data-qt-lbl="tested-ort">Testé ORT</span></a>
+        <a class="quick-theme" data-qtheme="creators"><span class="qt-ico">🎬</span><span class="qt-lbl" data-qt-lbl="creators">Créateurs</span></a>
+      </div>
     </div>
   </div>
 
@@ -794,6 +810,7 @@ function populateFilters(){
   }
   document.getElementById('themeFilter').innerHTML = tHtml;
   document.getElementById('themeFilterMobile').innerHTML = tHtml;
+  if (typeof updateQuickThemeLabels === 'function') updateQuickThemeLabels();
 }
 
 function animateCounters(nodes, targets, duration){
@@ -875,6 +892,41 @@ document.getElementById('countryFilterMobile').addEventListener('change', functi
 document.getElementById('themeFilterMobile').addEventListener('change', function(){syncFilters('mobile');applyFilters()});
 
 document.getElementById('sortSelect').addEventListener('change', function(){render()});
+
+/* Quick themes (3 icônes sous le bouton Valider) */
+document.querySelectorAll('.quick-theme').forEach(function(el){
+  el.addEventListener('click', function(e){
+    e.preventDefault();
+    var key = el.getAttribute('data-qtheme');
+    var curDesk = document.getElementById('themeFilter').value;
+    // toggle : si déjà actif, on retire le filtre
+    var newVal = (curDesk === key) ? '' : key;
+    document.getElementById('themeFilter').value = newVal;
+    document.getElementById('themeFilterMobile').value = newVal;
+    // marque visuel actif
+    document.querySelectorAll('.quick-theme').forEach(function(q){
+      q.classList.toggle('active', newVal && q.getAttribute('data-qtheme') === newVal);
+    });
+    applyFilters();
+    // si on active un filtre, on scrolle vers les résultats
+    if (newVal) {
+      var grid = document.querySelector('.itins-grid') || document.getElementById('resultsCount');
+      if (grid) grid.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+  });
+});
+
+/* Traduction des labels des 3 icônes selon la langue */
+function updateQuickThemeLabels(){
+  if (typeof THEMES_LIST === 'undefined') return;
+  document.querySelectorAll('[data-qt-lbl]').forEach(function(el){
+    var key = el.getAttribute('data-qt-lbl');
+    var th = THEMES_LIST.find(function(x){return x.key === key});
+    if (th){
+      el.textContent = (th.i18n && th.i18n[currentLang]) || th.label_fr;
+    }
+  });
+}
 
 /* Validate buttons — scroll to first itinerary found */
 function goToFirstItin(){
