@@ -4916,6 +4916,15 @@ var PHOTOS_CACHE = window.PHOTOS_CACHE;
 // Optimiser les URLs de photos pour réduire la bande passante
 // Pexels: ajouter &w=600 pour limiter la taille (au lieu de l'original 3000+px)
 window.optimizePhotoUrl = function(url, maxWidth) {
+  // Support des 2 formats de photos :
+  // - ancien : "url_string"
+  // - nouveau (R2) : {url, caption, author, source, keyword}
+  if (url && typeof url === 'object') {
+    if (typeof url.url === 'string') url = url.url;
+    else if (typeof url.src === 'string') url = url.src;
+    else if (typeof url.href === 'string') url = url.href;
+    else return null;
+  }
   if (!url || typeof url !== 'string') return url;
   maxWidth = maxWidth || 600;
   if (url.includes('images.pexels.com') && !url.includes('&w=')) {
@@ -4925,8 +4934,47 @@ window.optimizePhotoUrl = function(url, maxWidth) {
 };
 window.optimizePhotoUrls = function(urls, maxWidth) {
   if (!Array.isArray(urls)) return urls;
-  return urls.map(u => window.optimizePhotoUrl(u, maxWidth));
+  // Filtrer les null (photos objet sans .url exploitable)
+  return urls.map(u => window.optimizePhotoUrl(u, maxWidth)).filter(Boolean);
 };
+
+// === Helper : extrait l'URL d'une photo (ancien format string ou nouveau format objet R2)
+window.ortPhotoUrl = function(p) {
+  if (!p) return null;
+  if (typeof p === 'string') return p;
+  if (typeof p === 'object') return p.url || p.src || p.href || null;
+  return null;
+};
+
+// === Wrap getPhotosForPlace / findPhotosForPlace du loader externe pour toujours renvoyer
+// un tableau de strings, quel que soit le format renvoyé par PHOTOS_CACHE.
+(function wrapOrtPhotoLoaders(){
+  function _wrap(fnName) {
+    var original = window[fnName];
+    if (typeof original !== 'function' || original.__ortWrapped) return;
+    var wrapped = function() {
+      var res = original.apply(this, arguments);
+      if (!Array.isArray(res)) return res;
+      return res.map(window.ortPhotoUrl).filter(Boolean);
+    };
+    wrapped.__ortWrapped = true;
+    window[fnName] = wrapped;
+  }
+  _wrap('getPhotosForPlace');
+  _wrap('findPhotosForPlace');
+  // Re-tenter après chargement complet au cas où le loader arrive plus tard
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){
+      _wrap('getPhotosForPlace');
+      _wrap('findPhotosForPlace');
+    });
+  }
+  // Et encore une fois après window.load pour couvrir les scripts asynchrones
+  window.addEventListener('load', function(){
+    _wrap('getPhotosForPlace');
+    _wrap('findPhotosForPlace');
+  });
+})();
 
 const state={
   title:'Roadtrip', country:'XX', targetNights:0, steps:[],
