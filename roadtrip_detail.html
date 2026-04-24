@@ -508,6 +508,24 @@ body.view-map-only .map-popup{
 .popup-photos .carousel-dot.active{background:#fff;transform:scale(1.2)}
 .popup-photos .carousel-counter{position:absolute;top:8px;right:8px;background:rgba(0,0,0,0.6);color:#fff;padding:3px 8px;border-radius:10px;font-size:0.7rem;font-weight:600;z-index:2}
 .popup-photos .no-photo{display:flex;align-items:center;justify-content:center;height:100%;color:#94a3b8;font-size:0.85rem}
+.popup-photos .carousel-slide img{cursor:zoom-in}
+/* === LIGHTBOX PHOTOS === */
+.ort-lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:99999;display:none;align-items:center;justify-content:center;touch-action:none;animation:ortLbFade 0.2s ease}
+.ort-lightbox.open{display:flex}
+@keyframes ortLbFade{from{opacity:0}to{opacity:1}}
+.ort-lightbox-img{max-width:95vw;max-height:90vh;object-fit:contain;user-select:none;-webkit-user-drag:none;box-shadow:0 4px 30px rgba(0,0,0,0.5)}
+.ort-lightbox-close{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.5rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background 0.2s}
+.ort-lightbox-close:hover{background:rgba(255,255,255,0.3)}
+.ort-lightbox-btn{position:absolute;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:1.4rem;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px);transition:background 0.2s}
+.ort-lightbox-btn:hover{background:rgba(255,255,255,0.3)}
+.ort-lightbox-btn.prev{left:14px}
+.ort-lightbox-btn.next{right:14px}
+.ort-lightbox-counter{position:absolute;bottom:18px;left:50%;transform:translateX(-50%);color:#fff;background:rgba(0,0,0,0.5);padding:6px 14px;border-radius:14px;font-size:0.85rem;font-weight:600}
+@media (max-width:640px){
+  .ort-lightbox-btn{width:40px;height:40px;font-size:1.2rem}
+  .ort-lightbox-btn.prev{left:6px}
+  .ort-lightbox-btn.next{right:6px}
+}
 .popup-title{font-weight:700;font-size:1.05rem;color:#113f7a}
 .popup-header{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .popup-stars{font-size:0.95rem;font-weight:600;letter-spacing:1px}
@@ -7033,7 +7051,8 @@ function createStepDetailsPanel(step, idx) {
     bookGuide: { fr:'Réserver un guide (bientôt)', en:'Book a guide (coming soon)', es:'Reservar un guía (próximamente)', it:'Prenota una guida (prossimamente)', pt:'Reservar um guia (em breve)', ar:'حجز مرشد (قريباً)' },
     noVisits: { fr:'Aucune visite prévue', en:'No visits planned', es:'Sin visitas previstas', it:'Nessuna visita prevista', pt:'Nenhuma visita prevista', ar:'لا توجد زيارات مخططة' },
     noActivities: { fr:'Aucune activité', en:'No activities', es:'Sin actividades', it:'Nessuna attività', pt:'Nenhuma atividade', ar:'لا توجد أنشطة' },
-    seeOnMaps: { fr:'Voir sur Google Maps', en:'See on Google Maps', es:'Ver en Google Maps', it:'Vedi su Google Maps', pt:'Ver no Google Maps', ar:'عرض على خرائط جوجل' }
+    seeOnMaps: { fr:'Voir sur Google Maps', en:'See on Google Maps', es:'Ver en Google Maps', it:'Vedi su Google Maps', pt:'Ver no Google Maps', ar:'عرض على خرائط جوجل' },
+    clickToEnlarge: { fr:'Cliquez pour agrandir', en:'Click to enlarge', es:'Clic para ampliar', it:'Clicca per ingrandire', pt:'Clique para ampliar', ar:'انقر للتكبير' }
   };
   const t = (key) => I18N[key]?.[lang] || I18N[key]?.fr || key;
   
@@ -7168,11 +7187,11 @@ function createStepDetailsPanel(step, idx) {
     
     <div class="step-details-section">
       <h4><span class="section-icon" title="Photos">📸</span> Photos</h4>
-      <div class="photos-list" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px;">
+      <div class="photos-list ort-photo-grid" data-photos-json="${safe(JSON.stringify(step.images || []))}" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px;">
         ${(step.images || []).map((img, i) => `
           <div style="aspect-ratio:1/1;border-radius:8px;overflow:hidden;background:#f1f5f9;border:2px solid #e2e8f0;">
-            <img src="${safe(img)}" style="width:100%;height:100%;object-fit:cover;cursor:pointer;" 
-                 alt="Photo ${i+1}" title="Cliquez pour agrandir">
+            <img src="${safe(img)}" class="ort-photo-clickable" data-photo-idx="${i}" style="width:100%;height:100%;object-fit:cover;cursor:zoom-in;" 
+                 alt="Photo ${i+1}" title="${t('clickToEnlarge')}">
           </div>
         `).join('')}
       </div>
@@ -7535,14 +7554,14 @@ function showStepPreview(step){
   if (imgs.length) {
     const carouselId = 'popup-carousel';
     const slides = imgs.map((url, i) => 
-      `<div class="carousel-slide ${i === 0 ? 'active' : ''}" data-index="${i}"><img src="${url}" alt="" loading="lazy" onerror="removeCarouselSlide(this)"></div>`
+      `<div class="carousel-slide ${i === 0 ? 'active' : ''}" data-index="${i}"><img src="${url}" alt="" loading="lazy" onerror="removeCarouselSlide(this)" class="ort-photo-clickable" data-photo-idx="${i}" data-photo-carousel="popup" style="cursor:zoom-in"></div>`
     ).join('');
     const dots = imgs.length > 1 ? imgs.map((_, i) => 
       `<div class="carousel-dot ${i === 0 ? 'active' : ''}" data-index="${i}"></div>`
     ).join('') : '';
     
     photosContainer.innerHTML = `
-      <div id="${carouselId}" data-current="0" data-total="${imgs.length}" style="width:100%;height:100%;position:relative">
+      <div id="${carouselId}" class="ort-photo-carousel-wrap" data-photos-json='${JSON.stringify(imgs).replace(/'/g, "&#39;")}' data-current="0" data-total="${imgs.length}" style="width:100%;height:100%;position:relative">
         ${slides}
         ${imgs.length > 1 ? `
           <button class="carousel-btn prev" onclick="carouselNavPopup(-1)">❮</button>
@@ -14346,6 +14365,119 @@ if ('serviceWorker' in navigator) {
     window.showLoginModalForSave = v5;
     console.warn('[LOCK-V5] fallback non verrouillé:', e.message);
   }
+})();
+</script>
+
+<!-- === LIGHTBOX PHOTOS (zoom grand format) === -->
+<div class="ort-lightbox" id="ortLightbox" onclick="ortLightboxClickBg(event)">
+  <button class="ort-lightbox-close" onclick="ortLightboxClose()" title="Fermer (Esc)">&times;</button>
+  <button class="ort-lightbox-btn prev" onclick="event.stopPropagation();ortLightboxNav(-1)" title="Précédente (←)">&#10094;</button>
+  <img class="ort-lightbox-img" id="ortLightboxImg" src="" alt="" onclick="event.stopPropagation()">
+  <button class="ort-lightbox-btn next" onclick="event.stopPropagation();ortLightboxNav(1)" title="Suivante (→)">&#10095;</button>
+  <div class="ort-lightbox-counter" id="ortLightboxCounter"></div>
+</div>
+<script>
+(function(){
+  var state = { imgs: [], idx: 0 };
+
+  window.ortLightboxOpen = function(imgs, startIndex) {
+    if (!Array.isArray(imgs) || !imgs.length) return;
+    state.imgs = imgs.slice();
+    state.idx = Math.max(0, Math.min(startIndex|0, imgs.length - 1));
+    render();
+    document.getElementById('ortLightbox').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.ortLightboxClose = function() {
+    document.getElementById('ortLightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  window.ortLightboxNav = function(dir) {
+    if (!state.imgs.length) return;
+    state.idx = (state.idx + dir + state.imgs.length) % state.imgs.length;
+    render();
+  };
+
+  window.ortLightboxClickBg = function(ev) {
+    // Fermeture uniquement si on clique le fond (pas l'image ni les boutons)
+    if (ev.target.id === 'ortLightbox') ortLightboxClose();
+  };
+
+  function render() {
+    var imgEl = document.getElementById('ortLightboxImg');
+    var counter = document.getElementById('ortLightboxCounter');
+    imgEl.src = state.imgs[state.idx];
+    if (state.imgs.length > 1) {
+      counter.textContent = (state.idx + 1) + ' / ' + state.imgs.length;
+      counter.style.display = '';
+    } else {
+      counter.style.display = 'none';
+    }
+    // Masquer fleches si 1 seule photo
+    var prev = document.querySelector('#ortLightbox .ort-lightbox-btn.prev');
+    var next = document.querySelector('#ortLightbox .ort-lightbox-btn.next');
+    if (prev) prev.style.display = state.imgs.length > 1 ? '' : 'none';
+    if (next) next.style.display = state.imgs.length > 1 ? '' : 'none';
+  }
+
+  // === DELEGATION D'EVENEMENT ===
+  // Ecoute les clics sur tout .ort-photo-clickable, quel que soit le contexte
+  // (popup Leaflet, grille du panneau détail, carrousel, modales...)
+  document.addEventListener('click', function(e){
+    var img = e.target.closest && e.target.closest('.ort-photo-clickable');
+    if (!img) return;
+    e.preventDefault();
+    e.stopPropagation();
+    // Retrouver la liste de photos :
+    // 1) via un parent .ort-photo-grid ou .ort-photo-carousel-wrap avec data-photos-json
+    // 2) fallback : toutes les .ort-photo-clickable du meme parent direct
+    var container = img.closest('[data-photos-json]');
+    var photos = null;
+    if (container) {
+      try {
+        var json = container.getAttribute('data-photos-json');
+        // Les & etaient encodes en &quot; / &#39; par le HTML, le navigateur les a deja decodes
+        photos = JSON.parse(json);
+      } catch(err) {
+        console.warn('[ORT-LIGHTBOX] JSON parse fail, fallback DOM:', err);
+      }
+    }
+    if (!photos || !photos.length) {
+      // Fallback : collecter les src des siblings cliquables
+      var siblings = img.closest('div') && img.closest('div').parentElement
+        ? img.closest('div').parentElement.querySelectorAll('.ort-photo-clickable')
+        : [img];
+      photos = Array.from(siblings).map(function(n){ return n.getAttribute('src'); }).filter(Boolean);
+    }
+    var idx = parseInt(img.getAttribute('data-photo-idx') || '0', 10) || 0;
+    ortLightboxOpen(photos, idx);
+  }, true); // capture=true pour passer avant d'autres handlers
+
+  // Clavier
+  document.addEventListener('keydown', function(e){
+    var open = document.getElementById('ortLightbox');
+    if (!open || !open.classList.contains('open')) return;
+    if (e.key === 'Escape') ortLightboxClose();
+    else if (e.key === 'ArrowLeft') ortLightboxNav(-1);
+    else if (e.key === 'ArrowRight') ortLightboxNav(1);
+  });
+
+  // Swipe mobile
+  var touchX = null;
+  document.getElementById('ortLightbox').addEventListener('touchstart', function(e){
+    if (e.touches.length === 1) touchX = e.touches[0].clientX;
+  }, { passive: true });
+  document.getElementById('ortLightbox').addEventListener('touchend', function(e){
+    if (touchX === null) return;
+    var endX = (e.changedTouches[0] || {}).clientX || touchX;
+    var dx = endX - touchX;
+    if (Math.abs(dx) > 50) ortLightboxNav(dx < 0 ? 1 : -1);
+    touchX = null;
+  }, { passive: true });
+
+  console.log('[ORT-LIGHTBOX] ✅ Initialisé (delegation active)');
 })();
 </script>
 

@@ -2842,19 +2842,52 @@ function _t(key){ const l = (state && state.lang) || 'fr'; return (_T[key]||{})[
 // toSlug() → fourni par ort-utils.js
 // findPhotosForPlace(), getPhotosForPlace(), loadPhotosCache() → fournis par ort-data-loader.js
 
-// Helper local : normalise un tableau de photos (gere ancien et nouveau format R2)
-// Utilise window.normalizePhotos du loader, avec un fallback safe si le loader n'est pas encore charge
+// Helper local : normalise un tableau de photos (gere ancien ET nouveau format R2)
+// Ancien format : ["url1", "url2", ...]
+// Nouveau format : [{url, caption, author, source, keyword}, ...]
+// On normalise TOUJOURS nous-memes (meme si le loader existe) pour garantir le support des 2 formats.
 function _normPhotos(raw) {
-  if (typeof window.normalizePhotos === 'function') return window.normalizePhotos(raw);
   if (!Array.isArray(raw)) return [];
   const out = [];
   for (let i = 0; i < raw.length; i++) {
     const p = raw[i];
-    if (typeof p === 'string' && p) out.push(p);
-    else if (p && typeof p === 'object' && typeof p.url === 'string' && p.url) out.push(p.url);
+    if (typeof p === 'string' && p) {
+      out.push(p);
+    } else if (p && typeof p === 'object') {
+      // Nouveau format R2 : objet avec .url
+      if (typeof p.url === 'string' && p.url) out.push(p.url);
+      // Variantes eventuelles : .src, .href
+      else if (typeof p.src === 'string' && p.src) out.push(p.src);
+      else if (typeof p.href === 'string' && p.href) out.push(p.href);
+    }
   }
   return out;
 }
+
+// Wrap les fonctions du loader externe pour qu'elles renvoient TOUJOURS un tableau de strings,
+// quel que soit le format renvoye par PHOTOS_CACHE (ancien strings[] ou nouveau objet[] R2).
+(function wrapPhotoLoaders(){
+  function _wrap(fnName) {
+    const original = window[fnName];
+    if (typeof original !== 'function' || original.__ortWrapped) return;
+    const wrapped = function() {
+      const res = original.apply(this, arguments);
+      return _normPhotos(res);
+    };
+    wrapped.__ortWrapped = true;
+    window[fnName] = wrapped;
+  }
+  // Tenter immediatement (si le loader est deja charge)
+  _wrap('findPhotosForPlace');
+  _wrap('getPhotosForPlace');
+  // Et re-tenter apres que tout soit charge (au cas ou le loader arrive plus tard)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){
+      _wrap('findPhotosForPlace');
+      _wrap('getPhotosForPlace');
+    });
+  }
+})();
 
 // === STATE ===
 let state = { title: 'Roadtrip', steps: [], cc: '', lang: 'fr', _originalItinId: null };
@@ -4218,8 +4251,9 @@ async function loadPlacesForRoute(config, routeData) {
           const slug = toSlug(p.name);
           const id = p.place_id || `${cc}::${slug}`;
           
-          // Récupérer photos du cache
-          let photos = p.photos || (p.photo ? [p.photo] : []);
+          // Récupérer photos du cache (normalise les 2 formats)
+          let photos = _normPhotos(p.photos);
+          if (!photos.length && p.photo) photos = [p.photo];
           if (!photos.length) {
             photos = findPhotosForPlace(p.name, cc);
           }
@@ -4300,7 +4334,7 @@ function selectStepsAlongRoute(config, routeData, places) {
     if (best) {
       // Récupérer photos du cache
       const placeId = best.placeId || best.place_id || `${best.cc}::${toSlug(best.name)}`;
-      let photos = best.photos || [];
+      let photos = _normPhotos(best.photos);
       
       // Chercher dans PHOTOS_CACHE si pas de photos
       if (!photos.length) {
