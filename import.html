@@ -919,7 +919,7 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 
 **suggested_days** = real time spent at this stop. Full day = 1. Half-day stop = 0.5. Quick intermediate stop = 0.3. Two-day city = 2. Small village drive-through = 0.2. Decimals are expected and encouraged.
 
-**estimated_days_base** = sum of ALL suggested_days across days_plan, rounded UP to the nearest integer. Example: 7 full days (7×1) + 2 intermediate stops (2×0.3) = 7.6 → estimated_days_base = 8.
+**estimated_days_base** = sum of ALL suggested_days across days_plan, rounded UP to the nearest integer (ceil). This integer N MUST equal the number in title, subtitle (if duration mentioned), h1_title, intro_paragraph, seo_hook, seo_keywords line, segments[last].to_day, variants[0].to_day, variants[0].label "Var Nj", and days_plan[last].day. If these are not all identical, the JSON is INVALID. Example: 7×1 + 2×0.3 = 7.6 → estimated_days_base = 8 → title says "8 jours" → variants[0].label = "Var 8j" → segments[last].to_day = 8.
 
 **best_months** = all lowercase in the output language "${targetLang}", e.g. ["avril", "mai", "juin", "septembre"]
 
@@ -977,8 +977,8 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 7. practical_info — optional object on visits AND activities, only when genuinely useful. Free-form keys (tip, duration, best_time, booking, distance, difficulty, parking...). Do NOT add systematically.
 
 8. INTERMEDIATE STOP RULE:
-   If the drive between two consecutive nights exceeds 2 hours, you MUST insert an intermediate stop (suggested_days: 0.3).
-   TOLERANCE: in regions where the landscape IS the attraction (Great Plains, mountain passes, desert highways), the threshold is raised to 4 hours. BUT even then, if something interesting exists along the route, insert a stop.
+   If the drive between two consecutive nights exceeds 2 hours, you MUST insert an intermediate stop (suggested_days: 0.3 or 0.5).
+   TOLERANCE: 4h threshold ONLY applies when the route ITSELF is the attraction — Great Plains, named scenic mountain passes, desert highways through dunes, taiga roads, Tibetan plateau, Mongolian steppe. Standard expressways through agricultural plains DO NOT QUALIFY, even if "rural and pleasant". Saying "the landscape is the attraction" without naming a specific famous feature = abuse of the tolerance, REJECTED. When in doubt, INSERT the stop.
    Search for what exists along each long route BEFORE deciding to skip the stop.
    Visits listed on a given day must be geographically accessible FROM that day's night location — not from the previous day's driving route.
 
@@ -987,6 +987,7 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
    - Last day: omit to_next_leg entirely OR set to {}.
    - If two consecutive days share the SAME night.place_id: use {"distance_km": 0, "drive_min": 0, "transport_mode": "car", "method": "heuristic"}
    - road_type: add ONLY when NOT a standard tarmac drive: "flight" | "ferry" | "train" | "mountain_pass" | "gravel" | "dirt_road" | "4x4_track"
+   - transport_mode: STRICTLY one of "car", "train", "flight", "ferry", "boat", "walk". NEVER "plane", "airplane", "auto", "voiture", "avion". When transport_mode is "flight"/"ferry"/"train", road_type must echo it.
 
 10. coords = [lat, lon] of city center. Do NOT invent precise POI coordinates.
 
@@ -998,56 +999,137 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
     ✅ CORRECT: ["Villa d'Este Tivoli", "Villa Adriana Tivoli", "Tempio di Vesta Tivoli"]
     ❌ WRONG: "Villa d'Este Tivoli, Villa Adriana Tivoli" (string, not array)
 
+14. NIGHT.PLACE_ID — real geographic location, reused IDENTICALLY when sleeping at the same place on multiple days. NEVER create artificial suffixes like "-stop", "-return", "-day2", "-airport" (when not actually sleeping there). If you transit through a city already used as a night, REUSE the SAME place_id. The places_taglines must contain ONE entry per UNIQUE place_id used as night.place_id — no orphans (taglines pointing to IDs not used in days_plan), no missing entries.
+
+15. VARIANTS LABELS — variants[0].label = STRICTLY format "Var Nj" where N = estimated_days_base. NO additional text. NO "complète", NO "14,5j", NO calendar/effective distinction. Other variants can have descriptive labels like "Var 8j Kham uniquement" only if they are TRUE shorter versions covering different from_day/to_day.
+
 ═══════════════════════════════════════════════════════════
-✍️ WRITING STYLE
+✍️ WRITING STYLE — TRAVEL BLOG, NOT ENCYCLOPEDIA
 ═══════════════════════════════════════════════════════════
 
-🚨 Write in TRAVEL BLOG mode FROM THE FIRST SENTENCE. NOT encyclopedia style.
-Address the reader directly ("vous" in French, "you" in English, "tú/usted" in Spanish, etc. — adapt to "${targetLang}").
-Be the friend who has been there. Tone: warm, lively, concrete. Real advice, real warnings, make the reader WANT to go.
+🚨 STOP. Before writing the FIRST WORD of the FIRST text, internalize this:
 
-GOLDEN RULE — every text must combine:
-- CONCRETE FACTS (dates, dimensions, history, who built it, what happened)
-- PRACTICAL ADVICE (when to go, what to avoid, how long, tips)
-- A HUMAN TOUCH (anecdotes, comparisons, sensory details)
+You are NOT writing Wikipedia. You are NOT writing a museum panel. You are writing for someone planning a trip, who needs to know if it's worth their time, when to go, what to watch for, what's actually like to be there. Write like you've been there and you're telling a friend. If you find yourself starting with "Located in...", "Founded in...", "Built in...", "The X is a..." — STOP and rewrite.
 
-⚠️ TEXT LENGTH:
-- Target: 60-100 words per text. Hard ceiling: 150 words.
+⚠️ THE ENCYCLOPEDIA TRAP — what gets rejected:
+
+❌ ENCYCLOPEDIA (REJECTED):
+"Le palais impérial de Shenyang, classé UNESCO en 2004, fut la résidence des trois premiers empereurs Qing de 1625 à 1644. Le complexe compte 114 bâtiments et environ 300 pièces, soit douze fois moins grand que la Cité interdite mais bien plus intime."
+
+✅ BLOG (ACCEPTED):
+"Premier choc : la 'petite Cité interdite' de Shenyang. Construite à partir de 1625 par Nurhaci, elle a abrité les trois premiers empereurs Qing avant que Pékin prenne le relais en 1644. 114 bâtiments, douze fois plus petite que sa grande sœur de la capitale — et c'est tant mieux, on en fait le tour en deux heures sans s'épuiser. Repérez le Dazheng Hall, salle octogonale inspirée d'une tente mandchoue : c'est unique au monde. Fermé le lundi matin, prévoyez l'audioguide, les panneaux en anglais sont rares."
+
+What changed: opinion ("c'est tant mieux"), comparison live ("sa grande sœur de la capitale"), practical ("fermé le lundi", "audioguide"), and a specific tip ("repérez le Dazheng Hall").
+
+═══════════════════════════════════════════════════════════
+🎯 THE BLOG FORMULA — apply to EVERY text without exception
+═══════════════════════════════════════════════════════════
+
+Each visit/activity text MUST contain ALL THREE layers, ideally in this order or interleaved:
+
+1. THE HOOK (1-2 sentences) — opens with sensory detail, opinion, comparison, contradiction, question, or imperative. NEVER with "Located in...", "Founded in...", "Built in...", "The X is..."
+
+2. THE FACTS (2-4 sentences) — dates, dimensions, who built it, what happened, with at least ONE surprising detail (an anecdote, a record, a death toll, a transformation, a number that makes the reader pause).
+
+3. THE PRACTICAL HUMAN TOUCH (1-2 sentences) — when to go, what to bring, what to avoid, what's unexpectedly free or unexpectedly expensive, how locals do it, the tip you only get from someone who's been there.
+
+Test each text: does it have all three? If only facts → ENCYCLOPEDIA, rewrite. If only feelings → MARKETING SLOP, rewrite. If only "vous + verb" → ROBOT, rewrite.
+
+═══════════════════════════════════════════════════════════
+🎨 THE 6 OPENING PATTERNS — vary across the itinerary
+═══════════════════════════════════════════════════════════
+
+Across all 30-50 texts of the itinerary, distribute opening patterns like this. NO single pattern above 30%. NO pattern below 10%.
+
+1. PLACE-FIRST (~25%): "La basilique Saint-Pierre domine la place..." / "Le temple Shaolin a été fondé en 495..." / "Le pont brisé du Yalu est l'attraction phare de Dandong..."
+
+2. SENSORY/SCENIC HOOK (~15%): "L'odeur du pain qui sort du tandoor vous accueille..." / "À 6h du matin sur l'île, il fait -28°C avec vent..." / "Le silence est total, à part le vent qui sculpte le sable..."
+
+3. OPINION/JUDGMENT (~15%): "Sans doute le plus beau village du Xinjiang..." / "Le clou du site, c'est..." / "À voir absolument, mais arrivez tôt..."
+
+4. FACTUAL-THEN-PIVOT (~15%): "Construite en 1372, la forteresse de Jiayuguan marque la limite ouest — passée cette porte, on entrait chez les barbares..."
+
+5. CONDITIONAL/TIMING (~10%): "Si vous êtes là entre le 5 et le 25 avril..." / "Levez-vous avant 6h..."
+
+6. DIRECT ADDRESS "Vous + verb" (~20% MAX, NOT MORE): "Vous montez par 1 442 marches..." — used sparingly, only when the action is truly the focus. NEVER as the default opening of every text.
+
+⚠️ SAME PATTERN TWICE IN A ROW = REWRITE. Especially "Vous + verb" twice.
+
+═══════════════════════════════════════════════════════════
+🔥 SIGNATURE BLOG MOVES — INCLUDE AT LEAST 5 ACROSS THE ITINERARY
+═══════════════════════════════════════════════════════════
+
+These are the moves that make a text memorable. Plant at least 5 of them across the itinerary, varying types:
+
+▸ THE PARADOX: "Mordre une poire à -20°C, c'est croquer dans un sorbet brut." / "Imaginez la scène : -25°C dans l'air, eau à 40°C, neige sur les sapins."
+
+▸ THE ABSURD-BUT-TRUE FACT: "Aujourd'hui encore, deux Allemands viennent en boire chaque année." / "Le pont a été bombardé par plus de 100 B-29 américains le 8 novembre 1950."
+
+▸ THE LOCAL VOICE: "Les pêcheurs disent qu'il s'agit d'énormes huchos taimen, saumons pouvant atteindre deux mètres." / "Les Mongols l'appellent 'palette de Dieu'."
+
+▸ THE CONTRADICTION: "Touristique, mais bien fait." / "C'est kitsch, mais le fleuve impressionne." / "Sommaire mais bien placé."
+
+▸ THE COMPARISON THAT LANDS: "Douze fois moins grand que la Cité interdite mais bien plus intime." / "Probablement le plus petit voyage à l'étranger que vous ferez jamais — sans poser le pied à terre."
+
+▸ THE SHARP TIP: "Ne portez pas de lunettes de soleil sur la tête, les singes les volent." / "Achetez la glace même par grand froid : c'est la tradition harbinoise par excellence."
+
+▸ THE PRACTICAL HONESTY: "Confort spartiate, mais l'expérience compte." / "Touristique, mais sincère, et bien plus instructif que les démonstrations."
+
+▸ THE EVOCATIVE NUMBER: "L'eau jaillit à plus de 80°C." / "Le bruit peut atteindre 105 décibels et durer plus d'une minute." / "Le calendrier Shoushi calculé ici est resté en usage jusqu'à la fin des Ming."
+
+═══════════════════════════════════════════════════════════
+⛔ ABSOLUTE FORBIDDEN
+═══════════════════════════════════════════════════════════
+
+❌ FORBIDDEN openings (HARD LIMIT: max ZERO in entire itinerary):
+- "Vous entrez dans...", "You walk into...", "You step into..."
+- "Vous découvrez...", "Vous voici aux...", "You stand at..."
+- "You arrive at...", "You'll find...", "Located in..."
+- "Vous commencez votre voyage par..." used at every section opening
+- Any "Welcome to..." or "Bienvenue à..." (use it ONCE max, on Day 1)
+
+❌ FORBIDDEN clichés (HARD LIMIT: max ZERO, except where noted):
+- "iconique", "incontournable", "must-see", "hidden gem", "joyau caché"
+- "inoubliable", "unforgettable", "magique", "magical"
+- "vous garderez toute votre vie", "souvenir impérissable"
+- "véritable", "véritablement"
+- "où l'histoire rencontre la modernité", "where history meets modernity"
+- "testament to", "témoignage de"
+- "plongez dans..." used more than ONCE in the whole itinerary
+- "ne manquez pas..." used more than TWICE in the whole itinerary
+- "spectacle saisissant", "spectaculaire" used more than TWICE
+- "atmosphère unique", "atmosphère vibrante"
+
+❌ FORBIDDEN structures:
+- Encyclopedia openings: "Le palais X, classé Y, fut Z."
+- Stacking 3 facts in a row without practical pivot
+- Listing the same building's "X bâtiments, Y mètres, Z étages" without anecdote
+- Pure dimensions without human meaning ("Le bâtiment fait 30 000 m²" → so what? add "soit la taille de 4 terrains de foot" or "et il est intact depuis quatre siècles")
+
+═══════════════════════════════════════════════════════════
+📏 LENGTH & RHYTHM
+═══════════════════════════════════════════════════════════
+
+- Target per text: 60-100 words. Hard ceiling: 150 words.
 - Intermediate stops (suggested_days < 1): 40-80 words.
-- If over 150 words, split into two entries or move extra facts to practical_info.
+- VARY sentence length: short (5-10 words), medium (12-20), long (25+). Pure short = choppy. Pure long = encyclopedic. Alternate.
+- Use em-dashes (—) and colons (:) for pivots, not semicolons everywhere.
+- One opinion per text minimum. One practical detail per text minimum. Both are non-negotiable.
 
-⚠️ BLOG STYLE — 70% RULE:
-At least 70% of ALL visit and activity texts must address the reader directly in the first 2 sentences.
-Before outputting, verify this ratio. If under 70%, rewrite until compliant.
+═══════════════════════════════════════════════════════════
+🔍 SELF-CHECK BEFORE WRITING — DO THIS MENTALLY FOR EACH TEXT
+═══════════════════════════════════════════════════════════
 
-⚠️ ANTI-REPETITION — VARY OPENINGS:
-No two consecutive texts in the same day may start with the same sentence pattern.
-Direct reader address ("You/Vous + verb") openings must account for no more than 40% of all texts.
-The other 60% must use varied openings — adapt these patterns to the output language "${targetLang}":
-- Place-first: "La basilique Saint-Pierre domine la place..." / "The 16th Street Baptist Church sits on the corner..."
-- Imperative: "Ne manquez pas le musée..." / "Don't miss the Legacy Museum..."
-- Sensory: "L'odeur du pain grillé vous accueille..." / "The smell of smoked meat hits you..."
-- Conditional: "Si vous êtes là un dimanche..." / "If you're here on a Sunday..."
-- Factual-then-pivot: "Construit en 1911, l'église accueille encore les fidèles — poussez la porte..." / "Built in 1911, the church still holds services — step inside..."
+Ask yourself for EACH text before validating:
+1. Could a Wikipedia article have this opening sentence as-is? → If yes, REWRITE.
+2. Is there at least ONE opinion, ONE comparison, OR ONE sensory detail? → If no, REWRITE.
+3. Is there at least ONE practical detail (timing, price, tip, warning)? → If no, ADD.
+4. Did I just stack 3 facts? → REWRITE with a pivot to the reader.
+5. Does this opening pattern match the previous text? → CHANGE IT.
 
-❌ FORBIDDEN robotic pattern: "Vous entrez dans..." / "You walk into..." repeated across multiple texts. Same for "Vous découvrez..." / "You step into..." / "You stand at..." — never more than twice in the entire itinerary.
+If you can't pass all 5 checks, the text is REJECTED.
 
-GOOD examples (adapt to "${targetLang}"):
-
-French:
-- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée. L'eau y est translucide et vous avez pied sur des dizaines de mètres. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour — réservez en ligne."
-- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II l'a fait construire à partir de 1869 comme temple dédié à Richard Wagner. Le roi n'y a passé que 172 nuits. Arrivez avant 9h — après, les bus débarquent."
-
-English:
-- "You spot Chimney Rock from 30 miles away — a 325-foot spire of clay and volcanic ash rising from the prairie. Pioneer diaries mention it more than any other landmark on the Oregon Trail. The visitor center sits at its base; come at golden hour for the best light."
-- "The 16th Street Baptist Church sits on the corner of 6th Avenue, and there's a plaque at the door: September 15, 1963, a Klan bomb killed four girls here. Guided tours run Tuesday through Saturday."
-
-BAD examples — FORBIDDEN:
-- ❌ "This iconic site offers an unforgettable experience"
-- ❌ "A must-see" / "An absolute gem" / "A testament to human ingenuity"
-- ❌ "Immerse yourself in the vibrant atmosphere"
-- ❌ "Where history meets modernity"
-- ❌ Pure encyclopedia style without addressing the reader
+═══════════════════════════════════════════════════════════
 
 ═══════════════════════════════════════════════════════════
 🔍 RESEARCH — MANDATORY
@@ -1060,22 +1142,51 @@ DO NOT invent or guess any historical fact, date or measurement. If unverifiable
 ✅ FINAL CHECK BEFORE OUTPUT
 ═══════════════════════════════════════════════════════════
 ✅ ALL mandatory fields present: itin_id, id, notes, specialties, segments, variants, regions, nearby_itins, meta.audience, seo (all sub-fields), seo_keywords
-✅ estimated_days_base = ceil(sum of all suggested_days)
+✅ DURATION CONSISTENCY: write SUM = X.X, ceil = N, then verify N appears identically in: title, subtitle (if applicable), estimated_days_base, h1_title, intro_paragraph, seo_hook (if duration mentioned), seo_keyword line, segments[last].to_day, variants[0].to_day & label "Var Nj", days_plan[last].day. If ANY mismatch → REWRITE the JSON.
 ✅ suggested_days = realistic decimal per stop (0.2, 0.3, 0.5, 1, 1.5, 2...)
 ✅ best_months all lowercase in output language
 ✅ dept_code = real code like "GR-M", "FR-06", "US-AL" — not "CC", "XX"
 ✅ to_next_leg present on all days except last (last = omitted or {})
 ✅ Same night.place_id on consecutive days → to_next_leg with distance_km:0
-✅ Drive > 2h → intermediate stop inserted (4h tolerance only in landscape-driven regions)
+✅ Drive > 2h → intermediate stop inserted (4h tolerance ONLY for named scenic routes: passes, dunes, steppe, plateau — NOT standard expressways)
 ✅ map_keywords = JSON array (not string) on every day
 ✅ places_taglines = one entry per unique night.place_id
 ✅ meta.themes = exactly 2 values from the French list above (verbatim, no translation)
 ✅ meta.audience = French values
-✅ No AI clichés ("iconic", "unforgettable", "testament to", "where X meets Y")
-✅ 70% of texts address the reader in first 2 sentences (using "you/vous" or imperative, adapted to "${targetLang}")
-✅ No more than 40% of texts start with direct reader address ("You/Vous + verb")
+✅ No AI clichés (zero "iconique", "incontournable", "must-see", "unforgettable", "hidden gem", "testament to", "where X meets Y")
+✅ BLOG STYLE: every text has hook + facts + practical. No encyclopedia openings ("Le X, classé Y, fut Z..."). No "vous entrez/découvrez/voici" openings. Opening patterns distributed across the itinerary (no single >30%, "Vous+verb" ≤20%). At least 5 signature blog moves planted (paradox, local voice, contradiction, sharp tip, evocative number, etc.).
 ✅ No text exceeds 150 words
 ✅ All dates, distances, dimensions factually verified
+
+═══════════════════════════════════════════════════════════
+🔒 STEP 0 — DURATION CALCULATION (MANDATORY, BEFORE WRITING ANYTHING)
+═══════════════════════════════════════════════════════════
+
+Before writing a single field, you MUST execute this calculation and WRITE THE RESULT explicitly in your reasoning:
+
+1. Sum all suggested_days from days_plan: SUM = ?
+2. Apply ceil(): N = ceil(SUM) = ?
+3. This integer N is THE duration of the itinerary.
+
+N must appear identically in ALL these emplacements:
+  □ title (the number)
+  □ subtitle (if duration mentioned)
+  □ estimated_days_base
+  □ seo.h1_title (if duration mentioned)
+  □ seo.intro_paragraph (the number)
+  □ seo.seo_hook (if duration mentioned)
+  □ seo_keywords (the line containing "X jours/days")
+  □ segments[last].to_day = N
+  □ variants[0].to_day = N AND label = "Var Nj"
+  □ days_plan[last].day = N
+
+⚠️ IF N IS DIFFERENT FROM WHAT YOU INITIALLY HAD IN MIND FOR THE TITLE:
+   → Either ADJUST suggested_days to make SUM match the desired N
+   → Or ACCEPT the calculated N and update the title accordingly
+   → DO NOT invent "calendar days vs effective days" distinctions
+   → DO NOT leave two different numbers in different fields
+
+This is ARITHMETIC, not editorial style. Two different numbers in the final JSON = INVALID output, must be rewritten.
 
 SOURCE:
 `;
@@ -2895,6 +3006,36 @@ ${JSON.stringify({ itins: [itin] }, null, 2)}
 \`\`\`
 
 ═══════════════════════════════════════════════════════════
+🔒 STEP 0 — DURATION CALCULATION (MANDATORY, BEFORE WRITING ANYTHING)
+═══════════════════════════════════════════════════════════
+
+Before rewriting a single field, you MUST execute this calculation and WRITE THE RESULT explicitly:
+
+1. Sum all suggested_days from days_plan: SUM = ?
+2. Apply ceil(): N = ceil(SUM) = ?
+3. This integer N is THE duration of the itinerary.
+
+N must appear identically in ALL these emplacements:
+  □ title (the number)
+  □ subtitle (if duration mentioned)
+  □ estimated_days_base
+  □ seo.h1_title (if duration mentioned)
+  □ seo.intro_paragraph (the number)
+  □ seo.seo_hook (if duration mentioned)
+  □ seo_keywords (the line containing "X jours/days")
+  □ segments[last].to_day = N
+  □ variants[0].to_day = N AND label = "Var Nj"
+  □ days_plan[last].day = N
+
+⚠️ IF N IS DIFFERENT FROM THE CURRENT TITLE:
+   → Either ADJUST suggested_days to match
+   → Or UPDATE the title and ALL 9 other emplacements to N
+   → DO NOT invent "calendar days vs effective days"
+   → DO NOT leave two different numbers in different fields
+
+Two different numbers in the final JSON = INVALID, must be rewritten.
+
+═══════════════════════════════════════════════════════════
 🧭 ITINERARY AUDIT — DO THIS FIRST
 ═══════════════════════════════════════════════════════════
 Before rewriting, ANALYZE the itinerary and flag issues. Report findings under **"⚠️ ITINERARY AUDIT"**, then ask: *"Shall I proceed with these corrections?"*
@@ -2903,11 +3044,11 @@ Check for:
 1️⃣ Route logic: coherent geographical path? No zigzags/backtracking?
 2️⃣ Missing stops: important places along the route that should be added?
 3️⃣ Airports: starts AND ends at a city with airport or train station?
-4️⃣ Transport modes: flights/ferries/trains correctly flagged (not "car")?
-5️⃣ Drive times: any leg > 2h without intermediate stop? (4h tolerance only in landscape-driven regions)
-6️⃣ Fantasy place_ids: all night.place_id = real cities/villages?
+4️⃣ Transport modes: flights/ferries/trains correctly flagged (not "car", never "plane" — use "flight")?
+5️⃣ Drive times: any leg > 2h without intermediate stop? (4h tolerance ONLY when route itself is famous attraction — named scenic passes, dunes, steppe, plateau)
+6️⃣ Fantasy place_ids: all night.place_id = real cities/villages? No artificial "-stop", "-return", "-airport" suffixes?
 7️⃣ suggested_days: realistic time at each stop? (decimals encouraged: 0.2, 0.3, 0.5, 1, 1.5, 2)
-8️⃣ estimated_days_base: should equal ceil(sum of all suggested_days)
+8️⃣ DURATION CONSISTENCY (CRITICAL): does estimated_days_base = ceil(sum) AND match title AND last day AND last segment.to_day AND variants[0].to_day AND variants[0].label "Var Nj"?
 
 ═══════════════════════════════════════════════════════════
 📦 SEGMENT-BY-SEGMENT APPROACH
@@ -2930,7 +3071,7 @@ ${itin.days_plan.filter(d => d.day >= seg.from_day && d.day <= seg.to_day).map(d
 
 **suggested_days** = real time spent at this stop. Decimals expected: 0.2 (drive-through), 0.3 (quick stop), 0.5 (half-day), 1 (full day), 1.5, 2 (rich city). Adjust freely based on what the place deserves.
 
-**estimated_days_base** = ceil(sum of ALL suggested_days). Example: 7×1 + 2×0.3 = 7.6 → estimated_days_base = 8.
+**estimated_days_base** = ceil(sum of ALL suggested_days). This integer N MUST equal the number in title, subtitle (if duration mentioned), h1_title, intro_paragraph, seo_hook, seo_keywords line, segments[last].to_day, variants[0].to_day, variants[0].label "Var Nj", and days_plan[last].day. If these are not all identical, the JSON is INVALID. Example: 7×1 + 2×0.3 = 7.6 → estimated_days_base = 8 → title says "8 jours" → variants[0].label = "Var 8j".
 
 **meta.themes** = ALWAYS IN FRENCH. EXACTLY 2 from:
 "Montagne", "Mer & Côtes", "Ville & Histoire", "Nature", "Culture", "Gastronomie & Vin", "Aventure & Outdoor", "Route & Exploration", "Insolite & Hors sentiers battus", "Faune & Vie sauvage", "Spiritualité & Religion", "Bien-être & Détente"
@@ -2950,44 +3091,115 @@ ${itin.days_plan.filter(d => d.day >= seg.from_day && d.day <= seg.to_day).map(d
 
 **Visits vs Activities**: visits[] = places to SEE. activities[] = things to DO. Never mix.
 **place_id** in visits/activities = always "". Only night.place_id gets a value.
+**night.place_id** = real geographic location, REUSED IDENTICALLY when sleeping at the same place on multiple days. NEVER create artificial suffixes like "-stop", "-return", "-day2", "-airport". The places_taglines must contain ONE entry per UNIQUE night.place_id used in days_plan — no orphans, no missing entries.
 **rating** = always 0.
 **to_next_leg**: mandatory except last day. Same-night = {distance_km:0, drive_min:0}.
+**transport_mode**: STRICTLY one of "car", "train", "flight", "ferry", "boat", "walk". NEVER "plane", "airplane", "auto", "voiture", "avion". When transport_mode is "flight"/"ferry"/"train", road_type must echo it.
 **map_keywords**: JSON array of English-searchable place names on every day.
+**variants[0].label**: STRICTLY format "Var Nj" where N = estimated_days_base. NO additional text, NO "complète", NO "(Xj effectifs)", NO calendar/effective distinction. Other variants can have descriptive labels only if they cover different from_day/to_day.
 
 ═══════════════════════════════════════════════════════════
-✍️ WRITING STYLE
+✍️ WRITING STYLE — TRAVEL BLOG, NOT ENCYCLOPEDIA
 ═══════════════════════════════════════════════════════════
 
-Write in TRAVEL BLOG mode. Address the reader directly ("vous" in French, "you" in English — adapt to "${lang}").
+🚨 STOP. Before rewriting any text, internalize this:
 
-⚠️ TEXT LENGTH: Target 60-100 words. Hard ceiling 150 words. Stops < 1 day: 40-80 words.
+You are NOT writing Wikipedia. You are NOT writing a museum panel. You are writing for someone planning a trip. Write like you've been there and you're telling a friend. If a text starts with "Located in...", "Founded in...", "Built in...", "The X is..." — REWRITE.
 
-⚠️ BLOG STYLE — 70% RULE:
-At least 70% of ALL texts must address the reader in the first 2 sentences. Verify before outputting.
+⚠️ THE ENCYCLOPEDIA TRAP — what gets rejected:
 
-⚠️ ANTI-REPETITION:
-- No two consecutive texts may start with the same pattern
-- "Vous + verb" / "You + verb" openings: max 40% of all texts
-- Vary: place-first, imperative, sensory, conditional, factual-then-pivot
-- ❌ FORBIDDEN: "Vous entrez dans..." / "You walk into..." repeated. Never more than twice in the entire itinerary.
+❌ ENCYCLOPEDIA (REJECTED):
+"Le palais impérial de Shenyang, classé UNESCO en 2004, fut la résidence des trois premiers empereurs Qing de 1625 à 1644. Le complexe compte 114 bâtiments et environ 300 pièces."
 
-GOOD examples:
-- "Juste au-dessus de Stintino, vous trouverez l'une des plus belles plages de la Méditerranée. L'eau y est translucide. Du 1er juin au 31 octobre, l'accès est limité à 1 500 personnes par jour — réservez en ligne."
-- "Le château de Neuschwanstein est posé sur un éperon rocheux à 200 mètres au-dessus de la vallée. Louis II n'y a passé que 172 nuits. Arrivez avant 9h."
+✅ BLOG (ACCEPTED):
+"Premier choc : la 'petite Cité interdite' de Shenyang. Construite à partir de 1625 par Nurhaci, elle a abrité les trois premiers empereurs Qing avant que Pékin prenne le relais en 1644. 114 bâtiments, douze fois plus petite que sa grande sœur de la capitale — et c'est tant mieux, on en fait le tour en deux heures. Repérez le Dazheng Hall, salle octogonale inspirée d'une tente mandchoue. Fermé le lundi matin, prévoyez l'audioguide."
 
-❌ FORBIDDEN: "iconic", "must-see", "unforgettable", "hidden gem", "where X meets Y", "testament to", encyclopedia style.
+What changed: opinion ("c'est tant mieux"), live comparison, practical detail ("fermé le lundi"), specific tip ("repérez le Dazheng Hall").
+
+═══════════════════════════════════════════════════════════
+🎯 THE BLOG FORMULA — every text needs ALL THREE
+═══════════════════════════════════════════════════════════
+
+1. HOOK (1-2 sentences) — sensory, opinion, comparison, contradiction, or imperative. NEVER "Located in...", "The X is...", "Built in..."
+2. FACTS (2-4 sentences) — dates, dimensions, history, with at least ONE surprising detail.
+3. PRACTICAL TOUCH (1-2 sentences) — timing, price, warning, local trick.
+
+If only facts → ENCYCLOPEDIA, rewrite. If only feelings → MARKETING, rewrite. If only "vous + verb" → ROBOT, rewrite.
+
+═══════════════════════════════════════════════════════════
+🎨 OPENING PATTERNS — distribute across the itinerary
+═══════════════════════════════════════════════════════════
+
+Across all 30-50 texts, NO single opening pattern above 30%, NONE below 10%:
+
+1. PLACE-FIRST (~25%): "Le temple Shaolin a été fondé en 495..."
+2. SENSORY (~15%): "L'odeur du pain qui sort du tandoor vous accueille..."
+3. OPINION (~15%): "Sans doute le plus beau village du Xinjiang..."
+4. FACTUAL-PIVOT (~15%): "Construite en 1372, la forteresse marque la limite ouest — passée cette porte, on entrait chez les barbares..."
+5. CONDITIONAL (~10%): "Si vous êtes là entre le 5 et le 25 avril..."
+6. DIRECT "Vous + verb" (~20% MAX): used SPARINGLY, only when the action is the focus.
+
+⚠️ SAME PATTERN TWICE IN A ROW = REWRITE.
+
+═══════════════════════════════════════════════════════════
+🔥 SIGNATURE BLOG MOVES — plant at least 5 across the itinerary
+═══════════════════════════════════════════════════════════
+
+▸ PARADOX: "Mordre une poire à -20°C, c'est croquer dans un sorbet brut."
+▸ ABSURD-BUT-TRUE: "Aujourd'hui encore, deux Allemands viennent en boire chaque année."
+▸ LOCAL VOICE: "Les Mongols l'appellent 'palette de Dieu'."
+▸ CONTRADICTION: "Touristique, mais bien fait." / "Kitsch, mais le fleuve impressionne."
+▸ COMPARISON: "Douze fois plus petite que sa grande sœur de la capitale."
+▸ SHARP TIP: "Ne portez pas de lunettes de soleil, les singes les volent."
+▸ PRACTICAL HONESTY: "Confort spartiate, mais l'expérience compte."
+▸ EVOCATIVE NUMBER: "L'eau jaillit à plus de 80°C."
+
+═══════════════════════════════════════════════════════════
+⛔ ABSOLUTE FORBIDDEN
+═══════════════════════════════════════════════════════════
+
+❌ FORBIDDEN openings (HARD LIMIT: max ZERO):
+"Vous entrez dans...", "You walk into...", "You step into...", "Vous découvrez...", "Vous voici aux...", "You stand at...", "You arrive at...", "Located in...", "Welcome to..." (max once on Day 1).
+
+❌ FORBIDDEN clichés (HARD LIMIT: max ZERO except where noted):
+"iconique", "incontournable", "must-see", "hidden gem", "joyau caché", "inoubliable", "magique", "magical", "vous garderez toute votre vie", "véritable", "où l'histoire rencontre la modernité", "where history meets modernity", "testament to". "plongez dans..." max ONCE. "ne manquez pas..." max TWICE. "spectaculaire" max TWICE.
+
+❌ FORBIDDEN structures:
+- Encyclopedia openings: "Le X, classé Y, fut Z."
+- Stacking 3 facts in a row without practical pivot
+- Pure dimensions without human meaning
+
+═══════════════════════════════════════════════════════════
+📏 LENGTH & RHYTHM
+═══════════════════════════════════════════════════════════
+
+- 60-100 words per text. Hard ceiling 150. Intermediate stops (< 1 day): 40-80 words.
+- VARY sentence length: short, medium, long. Pure short = choppy. Pure long = encyclopedic.
+- One opinion per text MINIMUM. One practical detail per text MINIMUM.
+
+═══════════════════════════════════════════════════════════
+🔍 SELF-CHECK BEFORE EACH TEXT
+═══════════════════════════════════════════════════════════
+
+1. Could Wikipedia have this opening? → REWRITE.
+2. At least ONE opinion, comparison, or sensory detail? → If no, REWRITE.
+3. At least ONE practical detail? → If no, ADD.
+4. Same opening pattern as previous text? → CHANGE.
+5. 3 facts in a row without pivot? → REWRITE.
+
+If you can't pass all 5, the text is REJECTED.
 
 ═══════════════════════════════════════════════════════════
 ✅ FINAL CHECK
 ═══════════════════════════════════════════════════════════
 ✅ itin_id and id = "${itin.itin_id}" (unchanged)
-✅ estimated_days_base = ceil(sum of suggested_days)
+✅ DURATION CONSISTENCY: write SUM = X.X, ceil = N, then verify N appears identically in: title, subtitle, estimated_days_base, h1_title, intro_paragraph, seo_hook, seo_keyword line, segments[last].to_day, variants[0].to_day & label "Var Nj", days_plan[last].day. ANY mismatch → REWRITE.
 ✅ suggested_days = realistic decimals per stop
 ✅ meta.themes = 2 values from French list (verbatim)
 ✅ meta.audience = French values, 2-4
-✅ 70% blog style, 40% max "Vous/You + verb" openings
+✅ BLOG STYLE: every text has hook + facts + practical. No encyclopedia openings. No "vous entrez/découvrez/voici". Opening patterns distributed (no single >30%, "Vous+verb" ≤20%). At least 5 signature moves planted (paradox, local voice, contradiction, sharp tip, etc.).
 ✅ No text > 150 words
-✅ Drive > 2h → intermediate stop (4h tolerance only landscape regions)
+✅ Drive > 2h → intermediate stop (4h tolerance ONLY named scenic routes — not standard expressways)
 ✅ map_keywords = JSON array on every day
 ✅ places_taglines = sentence per unique night.place_id
 ✅ All facts verified via web search

@@ -149,8 +149,8 @@ body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);li
 .rb-sug div:hover{background:#f0f4f8}
 
 /* Stats bar with CTA buttons on sides */
-.stats-bar{display:flex;align-items:center;justify-content:center;gap:20px;padding:20px 6%;background:#fff;border-bottom:1px solid var(--border)}
-.stats-group{display:flex;gap:30px;align-items:center}
+.stats-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px;padding:20px 6%;background:#fff;border-bottom:1px solid var(--border)}
+.stats-group{display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:center}
 .stat{text-align:center;width:80px}
 .stat-val{font-family:'Playfair Display',serif;font-size:2rem;color:var(--p);font-weight:700;font-variant-numeric:tabular-nums}
 .stat-lbl{font-size:.8rem;color:var(--gray);text-transform:uppercase}
@@ -211,6 +211,10 @@ footer{background:var(--pd);color:#fff;padding:30px 6%;text-align:center}
 footer p{opacity:.5;font-size:.8rem}
 
 /* Responsive */
+@media(max-width:1100px){
+  /* Tablette / écran étroit : la grille 2x2 devient 1 colonne pour ne pas tronquer le contenu */
+  .trio-filters-grid{grid-template-columns:1fr}
+}
 @media(max-width:600px){
   .hero-banner{height:70px;padding:0 10px}
   .hero-banner p{font-size:11px}
