@@ -189,9 +189,11 @@ main{padding:40px 6%;max-width:1400px;margin:auto;background:rgba(255,255,255,0.
 .country-count{font-size:1rem;color:var(--gray);font-weight:400}
 
 /* Itin cards */
-.itins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px}
-.itin-card{display:block;background:#fff;border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(17,63,122,.08);transition:all .2s;border:1px solid var(--border)}
+.itins-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;touch-action:pan-y}
+.itin-card{display:block;background:#fff;border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 10px rgba(17,63,122,.08);transition:all .2s;border:1px solid var(--border);touch-action:pan-y}
+@media (hover:hover){
 .itin-card:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(17,63,122,.12);border-color:var(--s)}
+}
 .itin-card-photo{position:relative;height:160px;background-size:cover;background-position:center;background-color:#d0d8e0}
 .itin-card-photo .itin-cc-badge{position:absolute;top:10px;left:10px;background:rgba(17,63,122,.85);color:#fff;padding:3px 8px;border-radius:6px;font-size:.75rem;font-weight:700;letter-spacing:.05em}
 .itin-card-body{padding:14px 16px 16px}
