@@ -404,7 +404,8 @@ body.layout-stack .main>section{order:1}
 .step-row[draggable="true"]{cursor:grab}
 .step-row.dragging{opacity:.6;border-style:dashed}
 .cell{padding:4px}
-.hotel-thumb-lg{width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)}
+.hotel-thumb-lg{width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12);transition:transform .2s ease,box-shadow .2s ease;cursor:pointer;position:relative;z-index:1}
+.hotel-thumb-lg:hover{transform:scale(3.2);z-index:1000;box-shadow:0 8px 24px rgba(0,0,0,0.35);border-radius:10px}
 .step-num{
   display:inline-flex;align-items:center;justify-content:center;
   width:24px;height:24px;border-radius:50%;
@@ -4188,8 +4189,8 @@ function showAffiliatePopover(anchorEl, step, idx){
   box.innerHTML = `
     <div style="font-weight:600;margin-bottom:8px;color:#113f7a;">${step.name || 'Étape'}</div>
     <div style="font-size:12px;color:#64748b;margin-bottom:10px;">${step.nights || 0} nuit(s)</div>
-    <a href="${stay22Url}" target="_blank" rel="noopener" class="btn" style="display:block;text-align:center;text-decoration:none;margin-bottom:6px;">
-      🏨 ${t.hotels}
+    <a href="${stay22Url}" target="_blank" rel="noopener" class="btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;margin-bottom:6px;">
+      <img src="/assets/hotel.png" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"> ${t.hotels}
     </a>
     <button class="btn ghost" data-act="close" style="width:100%">${t.close}</button>
   `;
@@ -5967,10 +5968,10 @@ async function initFromItin(it){
   state._nightsCalculatedByInit = true;
   
   // Utiliser REQUESTED_DAYS si disponible (depuis URL), sinon le calcul par défaut
-  // IMPORTANT: nuits = jours - 1 (ex: 7 jours = 6 nuits)
+  // V3 : 4 jours = 4 nuits (cohérent avec mobile, et avec ce que l'utilisateur paie en hôtels).
   if (REQUESTED_DAYS > 0) {
-    state.targetNights = Math.max(1, REQUESTED_DAYS - 1);
-    console.log(`[LOG-CONTROLE][INIT] 🛏️ Target nuits: ${state.targetNights} (${REQUESTED_DAYS} jours - 1, depuis URL)`);
+    state.targetNights = REQUESTED_DAYS;
+    console.log(`[LOG-CONTROLE][INIT] 🛏️ Target nuits: ${state.targetNights} (${REQUESTED_DAYS} jours, depuis URL)`);
   } else {
     state.targetNights = finalTotal;
     console.log(`[LOG-CONTROLE][INIT] 🛏️ Target nuits: ${state.targetNights} (calculé depuis JSON)`);
@@ -6914,8 +6915,8 @@ dateCell.style.textAlign='left';
       const hotelName = bookedHotel.name || bookedHotel.title || '🏨 Réservé';
       const shortName = hotelName.length > 25 ? hotelName.substring(0, 23) + '…' : hotelName;
       hotel.innerHTML = `
-        <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center" title="${_esc(hotelName)}">
-          🏨 ${_esc(shortName)}
+        <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px" title="${_esc(hotelName)}">
+          <img src="/assets/hotel.png" alt="" style="width:14px;height:14px;display:inline-block;vertical-align:middle" onerror="this.style.display='none'"> ${_esc(shortName)}
         </div>`;
       hotel.addEventListener('click', () => {
         if (typeof openStepBookingsModal === 'function') openStepBookingsModal(idx);
@@ -6926,8 +6927,8 @@ dateCell.style.textAlign='left';
       hotel.innerHTML = `
         <button class="btn-hotel-choose" data-step-idx="${idx}" 
           title="${t('chooseHotel')}"
-          style="background:#113f7a;color:#fff;border:none;border-radius:6px;padding:5px 10px;cursor:pointer;font-size:0.85rem;display:flex;align-items:center;gap:4px">
-          🏨 ${t('chooseHotel').split(' ')[0]}
+          style="background:transparent;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center">
+          <img src="/assets/hotel.png" alt="${t('chooseHotel')}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)" onerror="this.style.display='none'">
         </button>`;
       
       // Essayer de charger la photo hôtel du JSON → remplace le bouton
@@ -6966,7 +6967,7 @@ dateCell.style.textAlign='left';
         }
       }, 0);
     } else {
-      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem">🏨 —</div>';
+      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem;display:flex;align-items:center;gap:4px"><img src="/assets/hotel.png" alt="" style="width:14px;height:14px;opacity:0.5" onerror="this.style.display=\'none\'"> —</div>';
     }
   } else {
     hotel.innerHTML = '&nbsp;';
@@ -8302,46 +8303,76 @@ function openOtherPlaceDetails(p){
     });
   }
 
-  // 2) Contenus + bouton
+  // 2) Contenus + sélecteur de position d'insertion (en haut)
   const visitsLbl = trLabel(document.documentElement.lang,'visits');
   const actsLbl   = trLabel(document.documentElement.lang,'activities');
   const v = (p.visits||[]).map(x=>safe(x.text||x)).slice(0,8).map(t=>'<div class="visit-line">• '+t+'</div>').join('') || '—';
   const a = (p.activities||[]).map(x=>safe(x.text||x)).slice(0,8).map(t=>'<div class="visit-line">• '+t+'</div>').join('') || '—';
 
   if (desc) {
-    // vider puis injecter → évite les handlers “fantômes”
+    // Construire la liste des positions possibles à partir de l'ordre courant
+    const currentSteps = (state && Array.isArray(state.steps)) ? state.steps : [];
+    let posListHtml = '';
+    posListHtml += `<button class="op-pos-btn" data-pos="0" type="button" style="display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:1px solid #e5e7eb;border-radius:9px;background:#fff;cursor:pointer;text-align:left;margin-bottom:6px;font-family:inherit">
+      <span style="background:#e11d48;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex:none">↑</span>
+      <span style="font-size:.88rem;color:#374151;font-weight:600">Au début</span>
+    </button>`;
+    currentSteps.forEach((step, idx) => {
+      posListHtml += `<button class="op-pos-btn" data-pos="${idx + 1}" type="button" style="display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:1px solid #e5e7eb;border-radius:9px;background:#fff;cursor:pointer;text-align:left;margin-bottom:6px;font-family:inherit">
+        <span style="background:#113f7a;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex:none">${idx + 1}</span>
+        <span style="font-size:.88rem;color:#374151">Après <strong>${safe(step.name || '')}</strong></span>
+      </button>`;
+    });
+
+    // Vider puis injecter → évite les handlers fantômes
     desc.textContent = '';
     desc.insertAdjacentHTML('afterbegin', `
+      <div style="padding:6px 0 10px;border-bottom:1px solid #e5e7eb;margin-bottom:12px">
+        <p style="margin:0 0 8px;font-weight:700;color:#113f7a;font-size:.95rem">📍 Insérer ${safe(p.name || '')} :</p>
+        <div style="max-height:184px;overflow-y:auto;padding-right:4px">
+          ${posListHtml}
+        </div>
+      </div>
       <p class="mut" style="margin:6px 0 10px">Lieu hors trajet (places master)</p>
       <p><strong>🏛️ ${visitsLbl}:</strong><br>${v}</p>
       <p><strong>🎯 ${actsLbl}:</strong><br>${a}</p>
-      <div style="margin-top:10px;display:flex;gap:8px;justify-content:flex-end">
-        <button id="btnAddOther" class="btn" type="button">+ Ajouter à l’itinéraire</button>
-      </div>
     `);
 
-    const addBtn = desc.querySelector('#btnAddOther');
-    if (addBtn) {
-      addBtn.addEventListener('click', ()=>{
-        const newStep = {
-          place_id: p.pid,
-          name: p.name,
-          lat: p.lat,
-          lon: p.lon,
-          nights: 1,
-          visits: Array.isArray(p.visits)? p.visits : [],
-          activities: Array.isArray(p.activities)? p.activities : [],
-          images: optimizePhotoUrls(getPhotosForPlace(p.pid)),
-          description: (p.visits||[]).map(v=>v.text||v).join('. ')
-        };
-        // __sid unique dès la création
-        newStep.__sid = (typeof ensureSid === 'function') ? ensureSid(newStep) : (crypto?.randomUUID?.() || ('S'+Date.now()+Math.random().toString(36).slice(2)));
-        state.steps.push(newStep);
-        renderRows();
-        popup?.classList.remove('show');
-        toast(`✅ ${p.name} ajouté`);
-      }, { once: true }); // évite les doublons au re-clic
-    }
+    // Handler factorisé : ajout à la position choisie
+    const doAdd = (posInOrder) => {
+      const newStep = {
+        place_id: p.pid,
+        name: p.name,
+        lat: p.lat,
+        lon: p.lon,
+        nights: 1,
+        visits: Array.isArray(p.visits)? p.visits : [],
+        activities: Array.isArray(p.activities)? p.activities : [],
+        images: optimizePhotoUrls(getPhotosForPlace(p.pid)),
+        description: (p.visits||[]).map(v=>v.text||v).join('. ')
+      };
+      newStep.__sid = (typeof ensureSid === 'function') ? ensureSid(newStep) : (crypto?.randomUUID?.() || ('S'+Date.now()+Math.random().toString(36).slice(2)));
+      // Insertion à la position demandée (clamp pour sécurité)
+      const pos = Math.max(0, Math.min(posInOrder, state.steps.length));
+      state.steps.splice(pos, 0, newStep);
+
+      if (typeof renderRows === 'function') renderRows();
+      // Redessine carte + route (drawMap nettoie et recalcule la polyline OSRM)
+      if (typeof drawMap === 'function') drawMap();
+      // Marquer modifications non sauvegardées
+      if (typeof markUnsavedChanges === 'function') markUnsavedChanges();
+
+      popup?.classList.remove('show');
+      toast(`✅ ${p.name} ajouté`);
+    };
+
+    // Brancher les clics sur les boutons de position
+    desc.querySelectorAll('.op-pos-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pos = parseInt(btn.dataset.pos, 10) || 0;
+        doAdd(pos);
+      }, { once: true });
+    });
   }
 
   // 3) Ouvrir le panneau
@@ -13136,10 +13167,18 @@ if (!cc || !itin) {
 /* Bouton hôtel Stay22 */
 .btn-hotel-choose {
   transition: all 0.2s;
+  position: relative;
+}
+.btn-hotel-choose img {
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 .btn-hotel-choose:hover {
-  background: #0d5bba !important;
-  transform: scale(1.02);
+  z-index: 1000;
+}
+.btn-hotel-choose:hover img {
+  transform: scale(3.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  border-radius: 10px;
 }
 
 .group-modal {
@@ -14077,7 +14116,7 @@ if (new URLSearchParams(location.search).get('share')) {
 </div>
 
 <!-- SCRIPTS HÔTELS -->
-<script src="/js/ort-hotels.js"></script>
+<script src="/js/ort-hotels-v3.js"></script>
 <link rel="stylesheet" href="/css/ort-hotels.css">
 
 <!-- Service Worker pour mode offline -->

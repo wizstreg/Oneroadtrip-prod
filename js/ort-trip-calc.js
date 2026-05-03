@@ -322,10 +322,10 @@
     }
     
     // 2. Fallback haversine
-    const lat1 = Number(prev.lat || prev.coords?.[0] || 0);
-    const lon1 = Number(prev.lon || prev.coords?.[1] || 0);
-    const lat2 = Number(curr.lat || curr.coords?.[0] || 0);
-    const lon2 = Number(curr.lon || curr.coords?.[1] || 0);
+    const lat1 = Number(prev.lat || prev.latitude || prev.coords?.[0] || 0);
+    const lon1 = Number(prev.lon || prev.lng || prev.longitude || prev.coords?.[1] || 0);
+    const lat2 = Number(curr.lat || curr.latitude || curr.coords?.[0] || 0);
+    const lon2 = Number(curr.lon || curr.lng || curr.longitude || curr.coords?.[1] || 0);
     
     return { distance: haversineDistance(lat1, lon1, lat2, lon2), source: 'haversine' };
   }
@@ -355,8 +355,10 @@
       const curr = steps[i];
       
       const dist = haversineDistance(
-        Number(prev.lat || 0), Number(prev.lon || 0),
-        Number(curr.lat || 0), Number(curr.lon || 0)
+        Number(prev.lat || prev.latitude || prev.coords?.[0] || 0),
+        Number(prev.lon || prev.lng || prev.longitude || prev.coords?.[1] || 0),
+        Number(curr.lat || curr.latitude || curr.coords?.[0] || 0),
+        Number(curr.lon || curr.lng || curr.longitude || curr.coords?.[1] || 0)
       );
       
       const tooFar = dist > CONFIG.GROUPING_DISTANCE_KM;
@@ -526,38 +528,78 @@
       const ratingBonus = h.rating > 5 ? (h.rating - 5) * 0.1 : 0; // bonus si rating > médiane
       return sdWeight + ratingBonus;
     };
-    const totalWeight = eligibleHubs.reduce((sum, h) => sum + getWeight(h), 0);
-    let allocatedNights = 0;
-    
+
     console.log('[LOG-CONTROLE][TRIP-CALC] ========== RÉPARTITION NUITS ==========');
     console.log(`[LOG-CONTROLE][TRIP-CALC] Target: ${targetNights} nuits à répartir`);
+
+    // V3 : si on a plus de hubs éligibles que de nuits demandées, on doit en
+    // déclasser certains en satellites (= 0 nuit, juste traversés).
+    // On garde les `targetNights` MEILLEURS hubs (par rating + suggestedDays),
+    // les autres deviennent satellites. Sinon on alloue 8 nuits pour 3 demandées.
+    let activeHubs = eligibleHubs;
+    if (targetNights > 0 && targetNights < eligibleHubs.length * CONFIG.MIN_NIGHTS_PER_HUB) {
+      console.log(`[LOG-CONTROLE][TRIP-CALC] ⚠️ ${eligibleHubs.length} hubs > ${targetNights} nuits demandées : sélection des meilleurs`);
+
+      // Tri : score combiné (rating bonus + suggestedDays), décroissant.
+      // En départage : rating brut, puis ordre original (idx croissant pour stabilité).
+      const ranked = [...eligibleHubs].sort((a, b) => {
+        const wDiff = getWeight(b) - getWeight(a);
+        if (wDiff !== 0) return wDiff;
+        const rDiff = b.rating - a.rating;
+        if (rDiff !== 0) return rDiff;
+        return a.idx - b.idx;
+      });
+
+      const keepCount = Math.floor(targetNights / CONFIG.MIN_NIGHTS_PER_HUB);
+      activeHubs = ranked.slice(0, keepCount);
+      const dropped = ranked.slice(keepCount);
+
+      // Les hubs déclassés deviennent satellites : nights=0, et on les marque
+      // pour que le rendu UI sache que ce sont des "passages" et non des étapes-nuit.
+      dropped.forEach(h => {
+        steps[h.idx].nights = 0;
+        steps[h.idx]._isHub = false;
+        steps[h.idx]._isSatellite = true;
+      });
+
+      console.log(`[LOG-CONTROLE][TRIP-CALC] ${activeHubs.length} hub(s) gardé(s), ${dropped.length} déclassé(s) en satellite :`);
+      activeHubs.forEach(h => {
+        console.log(`[LOG-CONTROLE][TRIP-CALC]   ✅ GARDÉ : ${steps[h.idx].name} (rating=${h.rating}, sd=${h.suggestedDays})`);
+      });
+      dropped.forEach(h => {
+        console.log(`[LOG-CONTROLE][TRIP-CALC]   ❌ SATELLITE : ${steps[h.idx].name} (rating=${h.rating}, sd=${h.suggestedDays})`);
+      });
+    }
+
+    const totalWeight = activeHubs.reduce((sum, h) => sum + getWeight(h), 0);
+    let allocatedNights = 0;
     console.log(`[LOG-CONTROLE][TRIP-CALC] Total weight (suggestedDays×2 + ratingBonus): ${totalWeight.toFixed(2)}`);
-    
-    // Première passe : allocation proportionnelle avec floor
-    eligibleHubs.forEach(hub => {
+
+    // Première passe : allocation proportionnelle avec floor (sur activeHubs uniquement)
+    activeHubs.forEach(hub => {
       const proportion = getWeight(hub) / totalWeight;
       const nights = Math.floor(targetNights * proportion);
       const finalNights = Math.max(nights, CONFIG.MIN_NIGHTS_PER_HUB);
-      
+
       steps[hub.idx].nights = finalNights;
       allocatedNights += finalNights;
-      
+
       console.log(`[LOG-CONTROLE][TRIP-CALC]   ${steps[hub.idx].name}: sd=${hub.suggestedDays} → ${(proportion*100).toFixed(1)}% → ${nights} nuits (min ${CONFIG.MIN_NIGHTS_PER_HUB}) → ${finalNights} nuits`);
     });
-    
-    // Deuxième passe : répartir le reste sur les meilleurs hubs
+
+    // Deuxième passe : répartir le reste sur les meilleurs hubs actifs
     let remainingNights = targetNights - allocatedNights;
     console.log(`[LOG-CONTROLE][TRIP-CALC] Après 1ère passe: ${allocatedNights} allouées, ${remainingNights} restantes`);
-    
+
     // Trier par suggestedDays décroissant (puis rating en départage)
-    const sortedHubs = [...eligibleHubs].sort((a, b) => 
+    const sortedHubs = [...activeHubs].sort((a, b) =>
       (b.suggestedDays - a.suggestedDays) || (b.rating - a.rating)
     );
-    
+
     if (remainingNights > 0) {
       console.log(`[LOG-CONTROLE][TRIP-CALC] 2ème passe: +${remainingNights} nuit(s) sur les meilleurs hubs`);
     }
-    
+
     for (let i = 0; remainingNights > 0 && i < sortedHubs.length; i++) {
       const hub = sortedHubs[i % sortedHubs.length];
       steps[hub.idx].nights += 1;
