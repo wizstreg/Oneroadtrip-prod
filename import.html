@@ -1001,6 +1001,62 @@ Transform the SOURCE content into a JSON "itins" object (ONE single itinerary). 
 
 14. NIGHT.PLACE_ID — real geographic location, reused IDENTICALLY when sleeping at the same place on multiple days. NEVER create artificial suffixes like "-stop", "-return", "-day2", "-airport" (when not actually sleeping there). If you transit through a city already used as a night, REUSE the SAME place_id. The places_taglines must contain ONE entry per UNIQUE place_id used as night.place_id — no orphans (taglines pointing to IDs not used in days_plan), no missing entries.
 
+14.bis PLACE_ID FORMAT RULES — CRITICAL, ZERO TOLERANCE:
+
+   FORMAT: "XX::slug" where XX = ISO 3166-1 alpha-2 country code (uppercase), slug = lowercase ASCII.
+
+   ✅ ALLOWED in slug: a-z, 0-9, single hyphens
+   ❌ FORBIDDEN in slug: uppercase letters, accents (é, è, ñ, ë, ç, ï, ô...), apostrophes ('), spaces, dots (.), underscores (_), double hyphens (--)
+
+   USE THE LOCAL NAME (endonym), NOT THE TRANSLATION:
+   ✅ IT::firenze   ❌ IT::florence
+   ✅ IT::roma      ❌ IT::rome
+   ✅ IT::venezia   ❌ IT::venice
+   ✅ IT::milano    ❌ IT::milan
+   ✅ AT::wien      ❌ AT::vienna   ❌ AT::vienne
+   ✅ DE::munchen   ❌ DE::munich
+   ✅ DE::koln      ❌ DE::cologne
+   ✅ ES::sevilla   ❌ ES::seville
+   ✅ ES::zaragoza  ❌ ES::saragosse
+   ✅ CZ::praha     ❌ CZ::prague
+   ✅ PL::warszawa  ❌ PL::warsaw   ❌ PL::varsovie
+   ✅ HU::budapest  (same in local)
+   ✅ JP::kyoto     ❌ JP::kyoto-shi
+   ✅ CN::beijing   ❌ CN::pekin    ❌ CN::peking
+   ✅ RU::moskva    ❌ RU::moscow   ❌ RU::moscou
+   ✅ GR::athina    ❌ GR::athens   ❌ GR::athenes
+   ✅ TR::istanbul  (same in local)
+
+   ACCENTS REMOVED, NOT REPLACED BY ENGLISH NAME:
+   ✅ AL::valbone   ❌ AL::valbona  (the local name is Valbonë, slug = valbone)
+   ✅ AL::sarande   ❌ AL::saranda  (the local name is Sarandë)
+   ✅ CZ::plzen     ❌ CZ::pilsen   (local is Plzeň, slug = plzen)
+   ✅ NZ::wanaka    (local is Wānaka)
+   ✅ IT::tortoli   (local is Tortolì)
+
+   APOSTROPHES AND SPECIAL CHARACTERS REMOVED:
+   ✅ FR::l-aigle      ❌ FR::l'aigle
+   ✅ NL::s-hertogenbosch   ❌ NL::'s-hertogenbosch
+   ✅ FR::saint-raphael     ❌ FR::saint-raphaël
+
+   USA — MANDATORY STATE SUFFIX (2-letter postal code) TO AVOID COLLISIONS:
+   ✅ US::springfield-il  ✅ US::springfield-mo  ✅ US::springfield-ma
+   ✅ US::columbus-oh     ✅ US::columbus-ga
+   ✅ US::portland-or     ✅ US::portland-me
+   ✅ US::charlotte-nc    ❌ US::charlotte
+   ✅ US::denver-co       ❌ US::denver
+
+   COUNTRY CODE = WHERE THE PLACE IS, NOT THE TRIP'S BASE COUNTRY:
+   ❌ IT::nice  → Nice is in France → ✅ FR::nice
+   ❌ FR::geneve → Genève is in Switzerland → ✅ CH::geneve
+   ❌ DE::strasbourg → Strasbourg is in France → ✅ FR::strasbourg
+
+   THE display "name" FIELD KEEPS THE LOCAL FORM WITH ACCENTS:
+   place_id: "AL::valbone"  →  name: "Valbonë"
+   place_id: "CZ::plzen"    →  name: "Plzeň"
+   place_id: "IT::firenze"  →  name: "Firenze"
+   The slug is for technical matching, the name is for display.
+
 15. VARIANTS LABELS — variants[0].label = STRICTLY format "Var Nj" where N = estimated_days_base. NO additional text. NO "complète", NO "14,5j", NO calendar/effective distinction. Other variants can have descriptive labels like "Var 8j Kham uniquement" only if they are TRUE shorter versions covering different from_day/to_day.
 
 ═══════════════════════════════════════════════════════════
@@ -3092,6 +3148,19 @@ ${itin.days_plan.filter(d => d.day >= seg.from_day && d.day <= seg.to_day).map(d
 **Visits vs Activities**: visits[] = places to SEE. activities[] = things to DO. Never mix.
 **place_id** in visits/activities = always "". Only night.place_id gets a value.
 **night.place_id** = real geographic location, REUSED IDENTICALLY when sleeping at the same place on multiple days. NEVER create artificial suffixes like "-stop", "-return", "-day2", "-airport". The places_taglines must contain ONE entry per UNIQUE night.place_id used in days_plan — no orphans, no missing entries.
+
+**🆔 PLACE_ID FORMAT — CRITICAL, ZERO TOLERANCE:**
+Format: "XX::slug" — XX = ISO 3166-1 alpha-2 country code (uppercase), slug = lowercase ASCII only (a-z, 0-9, single hyphens). NO accents, NO uppercase, NO apostrophes, NO spaces, NO dots, NO underscores, NO double hyphens.
+USE THE LOCAL ENDONYM, NOT THE TRANSLATION:
+✅ IT::firenze (NOT IT::florence)   ✅ IT::roma (NOT IT::rome)   ✅ IT::venezia (NOT IT::venice)   ✅ IT::milano (NOT IT::milan)
+✅ AT::wien (NOT AT::vienna NOR AT::vienne)   ✅ DE::munchen (NOT DE::munich)   ✅ DE::koln (NOT DE::cologne)
+✅ ES::sevilla (NOT ES::seville)   ✅ CZ::praha (NOT CZ::prague)   ✅ PL::warszawa (NOT PL::warsaw)
+✅ JP::kyoto   ✅ CN::beijing (NOT CN::pekin)   ✅ RU::moskva (NOT RU::moscow)   ✅ GR::athina (NOT GR::athens)
+ACCENTS REMOVED, NOT REPLACED: AL::valbone (local Valbonë), AL::sarande (local Sarandë), CZ::plzen (local Plzeň), NZ::wanaka (local Wānaka).
+APOSTROPHES REMOVED: FR::l-aigle (NOT FR::l'aigle), NL::s-hertogenbosch.
+USA: MANDATORY 2-letter state suffix to avoid collisions: US::springfield-il, US::springfield-mo, US::columbus-oh, US::denver-co, US::charlotte-nc.
+COUNTRY CODE = WHERE THE PLACE PHYSICALLY IS: ❌ IT::nice (Nice is in France) → ✅ FR::nice. ❌ FR::geneve (in Switzerland) → ✅ CH::geneve.
+The "name" display field KEEPS local form WITH accents: place_id "AL::valbone" → name "Valbonë". place_id "CZ::plzen" → name "Plzeň".
 **rating** = always 0.
 **to_next_leg**: mandatory except last day. Same-night = {distance_km:0, drive_min:0}.
 **transport_mode**: STRICTLY one of "car", "train", "flight", "ferry", "boat", "walk". NEVER "plane", "airplane", "auto", "voiture", "avion". When transport_mode is "flight"/"ferry"/"train", road_type must echo it.
