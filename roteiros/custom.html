@@ -240,7 +240,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
             function _drvT(m){if(!m)return'';var h=Math.floor(m/60),mn=m%60;return h>0?(mn>0?h+'h'+String(mn).padStart(2,'0'):h+'h'):mn+'min';}
             function _findPlace(pid){if(!pid)return null;for(var i=0;i<_places.length;i++){if(_places[i].place_id===pid)return _places[i];}return null;}
             function _getPhoto(pid){if(!pid)return null;if(_photos[pid]&&_photos[pid].photos&&_photos[pid].photos[0])return _photos[pid].photos[0];var pl=_findPlace(pid);if(pl&&pl.images&&pl.images[0])return pl.images[0];return null;}
-            function _optImg(url,w){if(!url||url==='null')return null;if(url.startsWith('data:'))return url;w=w||600;return'https://wsrv.nl/?url='+encodeURIComponent(url)+'&w='+w+'&q=70&output=webp';}
+            function _optImg(url,w){if(!url||url==='null')return null;if(typeof url==='object'&&url&&url.url)url=url.url;if(typeof url!=='string')return null;if(url.startsWith('data:'))return url;w=w||600;return'https://wsrv.nl/?url='+encodeURIComponent(url)+'&w='+w+'&q=70&output=webp';}
             function _getRating(pid){var pl=_findPlace(pid);return pl?(pl.rating||0):0;}
             var stps=trip.steps;
             var html='';
