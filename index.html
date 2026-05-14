@@ -22,6 +22,9 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Leaflet (utilisé pour le sélecteur de zone optionnel) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" defer></script>
 <!-- Microsoft Clarity -->
 <script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","w1sbx0fb07");</script>
 <!-- Favicon -->
@@ -351,6 +354,15 @@ footer p{opacity:.5;font-size:.8rem}
           <input type="text" id="rbStart" autocomplete="off" placeholder="Ex: Paris">
           <div class="rb-sug" id="rbStartSug"></div>
         </div>
+        <div class="rb-loop">
+          <input type="checkbox" id="rbLoopMode">
+          <label for="rbLoopMode" id="rbLoopLabel">Circuit (retour au départ)</label>
+        </div>
+        <!-- Statut de la zone (visible uniquement si une zone est dessinée) -->
+        <div class="rb-zone" id="rbZoneWrap" style="display:none;margin-top:6px;text-align:center">
+          <div id="rbZoneStatus" style="font-size:12px;color:rgba(255,255,255,0.9);background:rgba(16,185,129,0.25);border:1px solid rgba(16,185,129,0.5);border-radius:14px;padding:6px 10px;display:inline-block"></div>
+          <div style="margin-top:4px"><a href="#" id="rbZoneEdit" style="font-size:11px;color:rgba(255,255,255,0.75);text-decoration:underline">Modifier / effacer</a></div>
+        </div>
         <div class="rb-field" id="rbEndContainer">
           <label id="rbEndLabel">Ville d'arrivée</label>
           <input type="text" id="rbEnd" autocomplete="off" placeholder="Ex: Barcelone">
@@ -358,9 +370,7 @@ footer p{opacity:.5;font-size:.8rem}
         </div>
         <div class="rb-field">
           <label id="rbDaysLabel">Durée</label>
-          <select id="rbDays">
-            <option value="3">3</option><option value="5">5</option><option value="7" selected>7</option><option value="10">10</option><option value="14">14</option><option value="21">21</option>
-          </select>
+          <input type="number" id="rbDays" value="7" min="2" max="30" step="1">
         </div>
         <div class="rb-mini-row">
           <div class="rb-field">
@@ -371,10 +381,6 @@ footer p{opacity:.5;font-size:.8rem}
             <label id="rbDetourLabel">Détour (km)</label>
             <input type="number" id="rbDetour" value="50" min="0" max="200" step="10">
           </div>
-        </div>
-        <div class="rb-loop">
-          <input type="checkbox" id="rbLoopMode">
-          <label for="rbLoopMode" id="rbLoopLabel">Circuit (retour au départ)</label>
         </div>
         <button class="rb-go" id="rbGo">🚀 Générer</button>
       </div>
@@ -625,29 +631,82 @@ document.getElementById('canonicalLink').href = 'https://www.oneroadtrip.com/ind
     if(!items.length){sugEl.style.display='none';return}
     var html='';
     for(var i=0;i<items.length;i++){
-      html+='<div data-i="'+i+'">'+items[i].name+' <small style="color:#888">'+(items[i].countryCode||'')+'</small></div>';
+      var it = items[i];
+      // Détails additionnels pour distinguer les homonymes (région, admin, etc.)
+      var detail = it.admin1 || it.region || it.state || it.department || '';
+      var cc = it.countryCode || it.cc || '';
+      var sub = [detail, cc].filter(Boolean).join(' · ');
+      html+='<div data-i="'+i+'" title="lat:'+(it.lat||'?')+' lon:'+(it.lon||it.lng||'?')+'">'
+        +'<strong>'+it.name+'</strong>'
+        +(sub ? ' <small style="color:#888">'+sub+'</small>' : '')
+        +'</div>';
     }
     sugEl.innerHTML=html;sugEl.style.display='block';
     var divs=sugEl.querySelectorAll('div');
     for(var j=0;j<divs.length;j++){
-      (function(idx){divs[idx].onclick=function(){cb(items[idx]);sugEl.style.display='none'}})(j);
+      (function(idx){divs[idx].onclick=function(){
+        console.log('[CITY] Sélection:', items[idx].name, 'lat='+items[idx].lat, 'lon='+(items[idx].lon||items[idx].lng), 'admin='+(items[idx].admin1||items[idx].region||'?'));
+        cb(items[idx]);
+        sugEl.style.display='none';
+      }})(j);
     }
   }
   var s=document.getElementById('rbStart'),e=document.getElementById('rbEnd');
   var sSug=document.getElementById('rbStartSug'),eSug=document.getElementById('rbEndSug');
-  if(s)s.addEventListener('input',debounce(function(){startCity=null;search(s.value,function(items){showSug(sSug,items,function(c){startCity=c;s.value=c.name})})},300));
-  if(e)e.addEventListener('input',debounce(function(){endCity=null;search(e.value,function(items){showSug(eSug,items,function(c){endCity=c;e.value=c.name})})},300));
+  if(s)s.addEventListener('input',debounce(function(){startCity=null;window.startCity=null;search(s.value,function(items){showSug(sSug,items,function(c){startCity=c;window.startCity=c;s.value=c.name})})},300));
+  if(e)e.addEventListener('input',debounce(function(){endCity=null;window.endCity=null;search(e.value,function(items){showSug(eSug,items,function(c){endCity=c;window.endCity=c;e.value=c.name})})},300));
   var loopCb=document.getElementById('rbLoopMode'),endCont=document.getElementById('rbEndContainer');
   if(loopCb&&endCont){loopCb.addEventListener('change',function(){endCont.style.display=loopCb.checked?'none':'block'})}
   document.getElementById('rbGo').addEventListener('click',function(){
+    // Synchroniser la variable locale avec window.startCity (la modale peut l'avoir mise à jour)
+    if (window.startCity && (!startCity || startCity.name !== window.startCity.name)) startCity = window.startCity;
+    if (window.endCity && (!endCity || endCity.name !== window.endCity.name)) endCity = window.endCity;
     var sv=s?s.value.trim():'',ev=e?e.value.trim():'',isLoop=loopCb&&loopCb.checked;
     if(!sv){s.focus();return}if(!isLoop&&!ev){e.focus();return}
     var fs=startCity||{name:sv},fe=isLoop?fs:(endCity||{name:ev});
+    // Sécurité : si on n'a pas de coords pour le départ, on bloque
+    if (!fs.lat || !fs.lon) {
+      alert('Veuillez sélectionner une ville de départ dans la liste de suggestions.');
+      s.focus();
+      return;
+    }
+    console.log('[GENERATE] Départ:', fs.name, fs.lat, fs.lon);
     var p='from=builder&startName='+encodeURIComponent(fs.name)+'&startLat='+(fs.lat||'')+'&startLon='+(fs.lon||'')+'&startCC='+(fs.countryCode||'')+'&endName='+encodeURIComponent(fe.name)+'&endLat='+(fe.lat||'')+'&endLon='+(fe.lon||'')+'&endCC='+(fe.countryCode||'')+'&maxKm='+(document.getElementById('rbMaxKm').value||200)+'&detour='+(document.getElementById('rbDetour').value||50)+'&days='+document.getElementById('rbDays').value+'&lang='+currentLang;
     if(isLoop)p+='&loop=1';
+    // Ajouter la zone dessinée si définie (mode Circuit uniquement)
+    if(isLoop && window._rbZone && window._rbZone.polygon){
+      // Encode le polygone en lat1,lon1;lat2,lon2;... (4 décimales pour rester court)
+      var polyStr = window._rbZone.polygon.map(function(pt){
+        return pt[0].toFixed(4) + ',' + pt[1].toFixed(4);
+      }).join(';');
+      p+='&zonePolygon=' + encodeURIComponent(polyStr);
+    }
     this.textContent='\u23F3';this.disabled=true;
     setTimeout(function(){location.href='/roadtrip_detail.html?'+p},400);
   });
+  // Restaurer le bouton "Générer" si on revient en arrière (cache navigateur)
+  var rbGoBtn = document.getElementById('rbGo');
+  if (rbGoBtn) {
+    var rbGoOriginalLabel = rbGoBtn.textContent;
+    window.addEventListener('pageshow', function(){
+      rbGoBtn.disabled = false;
+      rbGoBtn.textContent = rbGoOriginalLabel;
+      // Reset complet de la zone et de la case Circuit au retour arrière :
+      // l'utilisateur doit redessiner explicitement, sinon une ancienne zone (ex GB)
+      // serait renvoyée alors qu'il fait un autre voyage.
+      window._rbZone = null;
+      window._rbZoneCenter = null;
+      var zw = document.getElementById('rbZoneWrap');
+      if (zw) zw.style.display = 'none';
+      var lc = document.getElementById('rbLoopMode');
+      if (lc) {
+        lc.checked = false;
+        // Réafficher la ville d'arrivée si elle avait été masquée
+        var ec = document.getElementById('rbEndContainer');
+        if (ec) ec.style.display = 'block';
+      }
+    });
+  }
   document.addEventListener('click',function(ev){
     if(!ev.target.closest('.rb-field')){sSug.style.display='none';eSug.style.display='none'}
   });
@@ -1241,5 +1300,448 @@ gtag('config', 'G-JK3QGQGDDL');
 gtag('config', 'GT-WF83FMCX');
 </script>
 <script src="/js/ort-footer.js"></script>
+
+
+<!-- ===== MODALE SÉLECTEUR DE ZONE - DESSIN À MAIN LEVÉE ===== -->
+<style>
+  /* Overlay plein écran, strictement collé aux bords */
+  #rbZoneModal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    width:100vw;
+    height:100vh;
+    height:100dvh;
+    background:rgba(0,0,0,0.75);
+    z-index:99999;
+    box-sizing:border-box;
+    padding:0;
+    margin:0;
+  }
+  #rbZoneModal.is-open{display:flex;align-items:stretch;justify-content:center}
+  /* Carte plein écran sur mobile, max 560px sur desktop */
+  #rbZoneModal .rbz-card{
+    background:#fff;
+    display:flex;
+    flex-direction:column;
+    width:100%;
+    height:100%;
+    max-width:560px;
+    overflow:hidden;
+    box-sizing:border-box;
+  }
+  #rbZoneModal *,
+  #rbZoneModal *::before,
+  #rbZoneModal *::after{box-sizing:border-box}
+  #rbZoneModal .rbz-head{padding:10px 14px;border-bottom:1px solid #eee;display:flex;justify-content:space-between;align-items:center;flex:0 0 auto;background:#fff}
+  #rbZoneModal .rbz-title{font-size:15px;font-weight:700}
+  #rbZoneModal .rbz-close{background:none;border:none;font-size:26px;cursor:pointer;line-height:1;padding:0 6px}
+  #rbZoneModal .rbz-help{padding:6px 14px;font-size:12px;color:#555;background:#f7f9fc;flex:0 0 auto;line-height:1.35}
+  /* Carte : prend tout l'espace restant */
+  #rbZoneModal .rbz-mapwrap{position:relative;width:100%;flex:1 1 auto;min-height:0;background:#eef;overflow:hidden}
+  #rbZoneModal .rbz-actions{padding:8px 12px;border-top:1px solid #eee;display:flex;gap:6px;flex-wrap:wrap;flex:0 0 auto;background:#fff}
+  #rbZoneModal .rbz-actions button{border-radius:8px;padding:10px 8px;cursor:pointer;font-size:13px;border:none}
+  #rbZoneModal .rbz-actions .rbz-reset{flex:1 1 30%;background:#f0f0f0;color:#333;min-width:80px}
+  #rbZoneModal .rbz-actions .rbz-skip{flex:1 1 30%;background:#fff;color:#555;border:1px solid #ccc;min-width:80px;font-size:12px}
+  #rbZoneModal .rbz-actions .rbz-validate{flex:2 1 40%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);color:#fff;font-weight:600;font-size:14px;min-width:100px}
+  #rbZoneModal .rbz-actions .rbz-validate:disabled{opacity:0.45;cursor:not-allowed}
+  /* Desktop ≥ 600px : modale centrée arrondie, pas plein écran */
+  @media (min-width:600px){
+    #rbZoneModal{padding:16px}
+    #rbZoneModal.is-open{align-items:center}
+    #rbZoneModal .rbz-card{height:auto;max-height:90vh;border-radius:12px}
+    /* Carte avec hauteur explicite (le flex:1 ne fonctionne pas avec parent height:auto) */
+    #rbZoneModal .rbz-mapwrap{flex:0 0 auto;height:60vh;min-height:400px;max-height:600px}
+  }
+</style>
+<div id="rbZoneModal">
+  <div class="rbz-card">
+    <div class="rbz-head">
+      <strong id="rbZoneTitle" class="rbz-title">🗺️ Dessinez votre zone</strong>
+      <button type="button" id="rbZoneClose" class="rbz-close" title="Nous laisser décider">&times;</button>
+    </div>
+    <div id="rbZoneHelp" class="rbz-help">
+      Tracez avec le doigt la zone que vous voulez visiter.
+    </div>
+    <!-- Conteneur carte + canvas de dessin -->
+    <div class="rbz-mapwrap">
+      <div id="rbZoneMap" style="position:absolute;inset:0;z-index:1"></div>
+      <canvas id="rbZoneCanvas" style="position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair;z-index:10"></canvas>
+      <!-- Boutons zoom +/- -->
+      <div style="position:absolute;top:8px;right:8px;display:flex;flex-direction:column;gap:4px;z-index:20">
+        <button type="button" id="rbZoneZoomIn" style="width:36px;height:36px;border-radius:6px;border:1px solid #ccc;background:#fff;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.2);padding:0">+</button>
+        <button type="button" id="rbZoneZoomOut" style="width:36px;height:36px;border-radius:6px;border:1px solid #ccc;background:#fff;font-size:20px;font-weight:700;cursor:pointer;box-shadow:0 1px 3px rgba(0,0,0,0.2);padding:0">−</button>
+      </div>
+    </div>
+    <div class="rbz-actions">
+      <button type="button" id="rbZoneReset" class="rbz-reset">↺ Effacer</button>
+      <button type="button" id="rbZoneSkip" class="rbz-skip">Nous laisser décider</button>
+      <button type="button" id="rbZoneValidate" class="rbz-validate" disabled>✓ Valider</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   SÉLECTEUR DE ZONE - DESSIN À MAIN LEVÉE
+   Comportement :
+   - S'ouvre AUTOMATIQUEMENT au clic sur la case "Circuit"
+   - Carte centrée sur la ville de départ, FIGÉE (pas de zoom/déplacement)
+   - Zoom calculé pour cadrer un rayon = (maxKm × jours / 2)
+   - Dessin libre au doigt/souris → polygone fermé
+   - Bouton "Nous laisser décider" / fermer = pas de zone (comportement normal)
+   - Stocke window._rbZone = { polygon: [[lat,lon], ...] }
+   ============================================================ */
+(function(){
+  var Z_I18N = {
+    title:    { fr:'🗺️ Dessinez votre zone', en:'🗺️ Draw your area', es:'🗺️ Dibuje su zona', it:'🗺️ Disegna la tua zona', pt:'🗺️ Desenhe a sua zona' },
+    helpTouch:{ fr:'Tracez avec le doigt la zone que vous voulez visiter. Fermez la fenêtre pour nous laisser choisir.', en:'Draw the area you want to visit with your finger. Close to let us decide.', es:'Dibuje con el dedo la zona que quiere visitar. Cierre para que decidamos nosotros.', it:'Disegna con il dito la zona da visitare. Chiudi per lasciarci decidere.', pt:'Desenhe com o dedo a zona que quer visitar. Feche para nos deixar decidir.' },
+    helpMouse:{ fr:'Tracez avec la souris la zone que vous voulez visiter. Fermez la fenêtre pour nous laisser choisir.', en:'Draw the area you want to visit with your mouse. Close to let us decide.', es:'Dibuje con el ratón la zona que quiere visitar. Cierre para que decidamos nosotros.', it:'Disegna con il mouse la zona da visitare. Chiudi per lasciarci decidere.', pt:'Desenhe com o rato a zona que quer visitar. Feche para nos deixar decidir.' },
+    reset:    { fr:'↺ Effacer', en:'↺ Clear', es:'↺ Borrar', it:'↺ Cancella', pt:'↺ Limpar' },
+    skip:     { fr:'Nous laisser décider', en:'Let us decide', es:'Déjenos decidir', it:'Lasciaci decidere', pt:'Deixe-nos decidir' },
+    validate: { fr:'✓ Valider', en:'✓ Confirm', es:'✓ Confirmar', it:'✓ Conferma', pt:'✓ Confirmar' },
+    status:   { fr:'Zone dessinée ({n} points)', en:'Area drawn ({n} points)', es:'Zona dibujada ({n} puntos)', it:'Zona disegnata ({n} punti)', pt:'Zona desenhada ({n} pontos)' },
+    edit:     { fr:'Modifier / effacer', en:'Edit / clear', es:'Modificar / borrar', it:'Modifica / cancella', pt:'Modificar / limpar' },
+    needStart:{ fr:'Choisissez d\u2019abord une ville de départ (sélectionnez-la dans la liste).', en:'Please choose a departure city first (select from the list).', es:'Elija primero una ciudad de salida (seleccione de la lista).', it:'Scegli prima una città di partenza (seleziona dall\u2019elenco).', pt:'Escolha primeiro uma cidade de partida (selecione na lista).' },
+    warnNoSuggestion:{ fr:'Vous n\u2019avez pas sélectionné de ville dans la liste de suggestions. Le résultat pourrait être imprécis (homonymes possibles). Continuer ?', en:'You did not select a city from the suggestions list. Result may be inaccurate (possible homonyms). Continue?', es:'No seleccionó una ciudad de la lista de sugerencias. El resultado puede ser impreciso (homónimos posibles). ¿Continuar?', it:'Non hai selezionato una città dall\u2019elenco. Il risultato potrebbe essere impreciso (omonimi possibili). Continuare?', pt:'Não selecionou uma cidade na lista de sugestões. O resultado pode ser impreciso (homônimos possíveis). Continuar?' }
+  };
+  function tZ(k){ var lg = window.currentLang || localStorage.getItem('lang') || 'fr'; return (Z_I18N[k] && (Z_I18N[k][lg] || Z_I18N[k].fr)) || k; }
+  function isTouch(){ return ('ontouchstart' in window) || (navigator.maxTouchPoints > 0); }
+  
+  var loopCb = document.getElementById('rbLoopMode');
+  var zoneWrap = document.getElementById('rbZoneWrap');
+  var zoneStatus = document.getElementById('rbZoneStatus');
+  var zoneEditLink = document.getElementById('rbZoneEdit');
+  var modal = document.getElementById('rbZoneModal');
+  var closeBtn = document.getElementById('rbZoneClose');
+  var resetBtn = document.getElementById('rbZoneReset');
+  var skipBtn = document.getElementById('rbZoneSkip');
+  var validateBtn = document.getElementById('rbZoneValidate');
+  var canvas = document.getElementById('rbZoneCanvas');
+  
+  // Libellés i18n
+  function applyLabels(){
+    document.getElementById('rbZoneTitle').textContent = tZ('title');
+    document.getElementById('rbZoneHelp').textContent = isTouch() ? tZ('helpTouch') : tZ('helpMouse');
+    resetBtn.textContent = tZ('reset');
+    skipBtn.textContent = tZ('skip');
+    validateBtn.textContent = tZ('validate');
+    if (zoneEditLink) zoneEditLink.textContent = tZ('edit');
+  }
+  applyLabels();
+  var langSel = document.getElementById('langSel') || document.getElementById('langSelector');
+  if (langSel) langSel.addEventListener('change', function(){ setTimeout(applyLabels, 50); });
+  
+  // État dessin
+  var leafletMap = null;
+  var drawnPolygon = null; // L.polygon affiché sur la carte
+  var pathLatLon = []; // [[lat,lon], ...] tracé en cours
+  var pathPxCanvas = []; // [{x,y}] pour dessin canvas pendant le tracé
+  var isDrawing = false;
+  
+  function getRadiusKm(){
+    // Rayon de cadrage de la carte : 400 km autour du départ.
+    // Donne assez de marge pour dessiner une zone large (jusqu'à 800 km de diamètre).
+    return 400;
+  }
+  
+  // Calculer le niveau de zoom Leaflet pour cadrer un rayon donné (en km)
+  // Approximation classique : zoom = log2(40075 * cos(lat) / (radius_px_target))
+  function zoomForRadius(lat, radiusKm, mapWidthPx){
+    // On veut que radiusKm tienne dans ~40% de la largeur de carte
+    var targetPx = mapWidthPx * 0.4;
+    // À zoom z : pixels/km à la latitude lat = (256 * 2^z * cos(lat_rad)) / 40075
+    // Donc z = log2( (targetPx / radiusKm) * 40075 / (256 * cos(lat_rad)) )
+    var latRad = lat * Math.PI / 180;
+    var z = Math.log2((targetPx / radiusKm) * 40075 / (256 * Math.cos(latRad)));
+    return Math.max(3, Math.min(12, Math.round(z)));
+  }
+  
+  function openZoneModal(){
+    var startObj = window.startCity || null;
+    var startInput = document.getElementById('rbStart');
+    var txt = startInput && startInput.value ? startInput.value.trim() : '';
+    
+    if (!startObj && !txt) {
+      alert(tZ('needStart'));
+      loopCb.checked = false;
+      return;
+    }
+    
+    // Si on a un texte mais pas d'objet (utilisateur n'a pas cliqué une suggestion)
+    // → géocoder à la volée + AVERTIR que ça peut être inexact
+    if (!startObj && txt) {
+      if (!confirm(tZ('warnNoSuggestion'))) {
+        loopCb.checked = false;
+        if (startInput) {
+          startInput.focus();
+          startInput.dispatchEvent(new Event('input', { bubbles: true }));
+        }
+        return;
+      }
+      var lang = window.currentLang || localStorage.getItem('lang') || 'fr';
+      fetch(API + '/citysearch?q=' + encodeURIComponent(txt) + '&lang=' + lang + '&limit=5')
+        .then(function(r){ return r.json(); })
+        .then(function(d){
+          function norm(s){ return (s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[-\s]/g, ''); }
+          var txtNorm = norm(txt);
+          var items = (d.items || []).filter(function(it){ return it.lat; });
+          // Préférer un nom qui COMMENCE par le texte (plus probable que celui demandé)
+          var match = items.find(function(it){ return norm(it.name).indexOf(txtNorm) === 0; })
+                   || items[0];
+          if (match) {
+            window.startCity = match;
+            startInput.value = match.name;
+            console.log('[ZONE] Géocodage à la volée:', txt, '→', match.name, match.lat, match.lon || match.lng);
+            openZoneModal();
+          } else {
+            alert(tZ('needStart'));
+            loopCb.checked = false;
+          }
+        })
+        .catch(function(){
+          alert(tZ('needStart'));
+          loopCb.checked = false;
+        });
+      return;
+    }
+    
+    var centerLat = startObj.lat;
+    var centerLon = startObj.lon || startObj.lng;
+    console.log('[ZONE] Ouverture modale, centre:', startObj.name, centerLat, centerLon);
+    
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+    
+    function initMap(){
+      if (typeof L === 'undefined') { setTimeout(initMap, 100); return; }
+      var mapDiv = document.getElementById('rbZoneMap');
+      var w = mapDiv.clientWidth || 400;
+      var zoom = zoomForRadius(centerLat, getRadiusKm(), w);
+      
+      if (leafletMap) {
+        leafletMap.remove();
+        leafletMap = null;
+      }
+      leafletMap = L.map('rbZoneMap', {
+        center: [centerLat, centerLon],
+        zoom: zoom,
+        zoomControl: false,
+        dragging: false,
+        scrollWheelZoom: false,
+        doubleClickZoom: false,
+        touchZoom: false,
+        boxZoom: false,
+        keyboard: false,
+        tap: false
+      });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18, attribution: '© OpenStreetMap'
+      }).addTo(leafletMap);
+      
+      // Marqueur ville de départ
+      L.circleMarker([centerLat, centerLon], {
+        radius: 7, color:'#1d4ed8', fillColor:'#3b82f6', fillOpacity:1, weight:2
+      }).addTo(leafletMap).bindTooltip(startObj.name, { permanent:true, direction:'top' });
+      
+      // Mémoriser le centre pour les +/- (interdit le drift)
+      window._rbZoneCenter = [centerLat, centerLon];
+      
+      setTimeout(function(){
+        leafletMap.invalidateSize();
+        setupCanvas();
+      }, 250);
+    }
+    initMap();
+  }
+  
+  // Boutons zoom +/- : on garde le centre fixe
+  var zoomInBtn = document.getElementById('rbZoneZoomIn');
+  var zoomOutBtn = document.getElementById('rbZoneZoomOut');
+  function reZoom(delta){
+    if (!leafletMap) return;
+    var z = Math.max(3, Math.min(15, leafletMap.getZoom() + delta));
+    var c = window._rbZoneCenter || leafletMap.getCenter();
+    leafletMap.setView(c, z, { animate: false });
+    // Re-dessiner le polygone validé si présent (les coords px changent)
+    setTimeout(function(){ leafletMap.invalidateSize(); setupCanvas(); }, 50);
+  }
+  if (zoomInBtn) zoomInBtn.addEventListener('click', function(e){ e.preventDefault(); reZoom(1); });
+  if (zoomOutBtn) zoomOutBtn.addEventListener('click', function(e){ e.preventDefault(); reZoom(-1); });
+  
+  // Préparer le canvas (taille + handlers)
+  function setupCanvas(){
+    var rect = canvas.getBoundingClientRect();
+    var dpr = window.devicePixelRatio || 1;
+    // Reset width/height (en attribut) → pixels physiques
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    var ctx = canvas.getContext('2d');
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // reset éventuelle transformation précédente
+    ctx.scale(dpr, dpr);
+    console.log('[ZONE] Canvas configuré:', rect.width, 'x', rect.height, 'dpr=', dpr);
+    
+    // Reset état dessin
+    pathLatLon = [];
+    pathPxCanvas = [];
+    if (drawnPolygon) { leafletMap.removeLayer(drawnPolygon); drawnPolygon = null; }
+    validateBtn.disabled = true;
+    clearCanvas();
+  }
+  
+  function clearCanvas(){
+    var rect = canvas.getBoundingClientRect();
+    var ctx = canvas.getContext('2d');
+    var dpr = window.devicePixelRatio || 1;
+    // setTransform identité → on efface en pixels physiques
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.restore();
+  }
+  
+  function drawCanvasPath(){
+    var ctx = canvas.getContext('2d');
+    clearCanvas();
+    if (pathPxCanvas.length < 2) return;
+    
+    // Remplissage léger (en cours de tracé)
+    ctx.beginPath();
+    ctx.moveTo(pathPxCanvas[0].x, pathPxCanvas[0].y);
+    for (var i = 1; i < pathPxCanvas.length; i++) ctx.lineTo(pathPxCanvas[i].x, pathPxCanvas[i].y);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(16,185,129,0.25)';
+    ctx.fill();
+    
+    // Contour vert épais
+    ctx.beginPath();
+    ctx.moveTo(pathPxCanvas[0].x, pathPxCanvas[0].y);
+    for (var j = 1; j < pathPxCanvas.length; j++) ctx.lineTo(pathPxCanvas[j].x, pathPxCanvas[j].y);
+    ctx.lineWidth = 3;
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.strokeStyle = '#10b981';
+    ctx.stroke();
+  }
+  
+  function pxToLatLon(x, y){
+    var pt = L.point(x, y);
+    var latlng = leafletMap.containerPointToLatLng(pt);
+    return [latlng.lat, latlng.lng];
+  }
+  
+  function getEventXY(e){
+    var rect = canvas.getBoundingClientRect();
+    var t = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
+    return { x: t.clientX - rect.left, y: t.clientY - rect.top };
+  }
+  
+  function startDraw(e){
+    e.preventDefault();
+    isDrawing = true;
+    pathLatLon = [];
+    pathPxCanvas = [];
+    if (drawnPolygon) { leafletMap.removeLayer(drawnPolygon); drawnPolygon = null; }
+    clearCanvas();
+    var p = getEventXY(e);
+    pathPxCanvas.push(p);
+    pathLatLon.push(pxToLatLon(p.x, p.y));
+  }
+  
+  function continueDraw(e){
+    if (!isDrawing) return;
+    e.preventDefault();
+    var p = getEventXY(e);
+    var last = pathPxCanvas[pathPxCanvas.length - 1];
+    if (Math.abs(p.x - last.x) < 2 && Math.abs(p.y - last.y) < 2) return;
+    pathPxCanvas.push(p);
+    pathLatLon.push(pxToLatLon(p.x, p.y));
+    drawCanvasPath();
+  }
+  
+  function endDraw(e){
+    if (!isDrawing) return;
+    isDrawing = false;
+    e.preventDefault();
+    if (pathLatLon.length < 4) {
+      // Trop court : on annule
+      pathLatLon = [];
+      clearCanvas();
+      validateBtn.disabled = true;
+      return;
+    }
+    // Tracer le polygone fermé sur la carte Leaflet (pour le rendu propre)
+    drawnPolygon = L.polygon(pathLatLon, {
+      color:'#10b981', fillColor:'#10b981', fillOpacity:0.2, weight:2
+    }).addTo(leafletMap);
+    clearCanvas(); // on efface le canvas, le polygone Leaflet prend le relais
+    validateBtn.disabled = false;
+  }
+  
+  // Évènements souris + tactile
+  canvas.addEventListener('mousedown', startDraw);
+  canvas.addEventListener('mousemove', continueDraw);
+  canvas.addEventListener('mouseup', endDraw);
+  canvas.addEventListener('mouseleave', endDraw);
+  canvas.addEventListener('touchstart', startDraw, { passive: false });
+  canvas.addEventListener('touchmove', continueDraw, { passive: false });
+  canvas.addEventListener('touchend', endDraw, { passive: false });
+  
+  // Bouton effacer
+  resetBtn.addEventListener('click', function(){
+    pathLatLon = [];
+    pathPxCanvas = [];
+    if (drawnPolygon) { leafletMap.removeLayer(drawnPolygon); drawnPolygon = null; }
+    clearCanvas();
+    validateBtn.disabled = true;
+  });
+  
+  // Bouton "Nous laisser décider" et croix : ferme et oublie la zone
+  function dismissWithoutZone(){
+    window._rbZone = null;
+    zoneWrap.style.display = 'none';
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  }
+  closeBtn.addEventListener('click', dismissWithoutZone);
+  skipBtn.addEventListener('click', dismissWithoutZone);
+  modal.addEventListener('click', function(e){
+    if (e.target === modal) dismissWithoutZone();
+  });
+  
+  // Valider : enregistre le polygone
+  validateBtn.addEventListener('click', function(){
+    if (pathLatLon.length < 4) return;
+    window._rbZone = { polygon: pathLatLon.slice() };
+    zoneStatus.textContent = tZ('status').replace('{n}', pathLatLon.length);
+    zoneWrap.style.display = 'block';
+    modal.classList.remove('is-open');
+    document.body.style.overflow = '';
+  });
+  
+  // Lien "Modifier / effacer" sous le champ Circuit
+  if (zoneEditLink) zoneEditLink.addEventListener('click', function(e){
+    e.preventDefault();
+    if (loopCb.checked) openZoneModal();
+  });
+  
+  // Ouverture AUTO au clic sur Circuit
+  if (loopCb) {
+    loopCb.addEventListener('change', function(){
+      if (loopCb.checked) {
+        openZoneModal();
+      } else {
+        // Décoché → on oublie tout
+        window._rbZone = null;
+        zoneWrap.style.display = 'none';
+      }
+    });
+  }
+})();
+</script>
+
 </body>
 </html>

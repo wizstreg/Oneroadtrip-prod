@@ -2236,7 +2236,7 @@ html, body {
     <span data-i18n="map">Carte</span>
   </button>
   <button class="tab-btn" id="tabBookings" data-panel="bookingsPanel">
-    <span class="tab-icon"><img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle" onerror="this.style.display='none'"></span>
+    <span class="tab-icon"><img src="/assets/hotel.png" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle" onerror="this.style.display='none'"></span>
     <span data-i18n="bookings">Réservations</span>
   </button>
   <button class="tab-btn" id="tabServices">
@@ -2271,7 +2271,7 @@ html, body {
         🎟️ Billets
       </a>
       <a class="affiliate-btn affiliate-hotel" id="btnHotel" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px">
-        <img src="/assets/hotel.webp" alt="" style="width:18px;height:18px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'"> Hôtel
+        <img src="/assets/hotel.png" alt="" style="width:18px;height:18px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'"> Hôtel
       </a>
     </div>
     
@@ -2420,7 +2420,7 @@ html, body {
   <div class="sheet-body">
     <div class="service-grid">
       <div class="service-card" id="btnOrganizeHotels" style="cursor:pointer;">
-        <span class="service-icon"><img src="/assets/hotel.webp" alt="" style="width:32px;height:32px;border-radius:6px;object-fit:cover" onerror="this.style.display='none'"></span>
+        <span class="service-icon"><img src="/assets/hotel.png" alt="" style="width:32px;height:32px;border-radius:6px;object-fit:cover" onerror="this.style.display='none'"></span>
         <span class="service-name" data-i18n="hotels">Hôtels</span>
         <span class="service-desc" data-i18n="hotelsDesc">Carte interactive</span>
       </div>
@@ -4489,8 +4489,180 @@ async function loadBuilderResult() {
   
   console.log(`[LOG-CONTROLE][MOBILE] Builder result: ${state.steps.length} étapes`);
   
+  // === MODE CIRCUIT : récupérer config pour permettre le recalcul ===
+  if (data._isLoop && data._loopConfig) {
+    window._mobileLoopConfig = data._loopConfig;
+    window._mobileLoopUsedPlaces = data._loopUsedPlaces || [];
+    console.log('[LOG-CONTROLE][MOBILE] 🔄 Mode circuit détecté, config sauvée pour recalcul');
+    // Afficher le bouton "Autres suggestions" après le rendu
+    setTimeout(showMobileRecalculateButton, 1500);
+    // Bandeau si la zone choisie a dû être élargie
+    if (data._zoneInfo && (data._zoneInfo.outCount > 0 || data._zoneInfo.bufferKm > 0)) {
+      window._mobileZoneFallback = data._zoneInfo;
+      setTimeout(showZoneFallbackBanner, 1600);
+    }
+  }
+  
   // Nettoyer localStorage
   localStorage.removeItem('ORT_BUILDER_RESULT');
+}
+
+// === BOUTON RECALCULER (mode circuit, mobile) ===
+function showMobileRecalculateButton() {
+  if (document.getElementById('btnMobileRecalcLoop')) return;
+  if (!window._mobileLoopConfig) return;
+  
+  const lang = localStorage.getItem('lang') || 'fr';
+  const fallback = {
+    fr: '🔄 Autres suggestions',
+    en: '🔄 Other suggestions',
+    es: '🔄 Otras sugerencias',
+    it: '🔄 Altri suggerimenti',
+    pt: '🔄 Outras sugestões'
+  };
+  const label = window.ORT_I18N?.recalculateLoop?.[lang]
+             || window.ORT_I18N?.recalculateLoop?.fr
+             || fallback[lang]
+             || fallback.fr;
+  
+  const btn = document.createElement('button');
+  btn.id = 'btnMobileRecalcLoop';
+  btn.textContent = label;
+  btn.dataset.originalLabel = label;
+  btn.style.cssText = `
+    position: fixed;
+    bottom: 80px;
+    right: 16px;
+    padding: 12px 18px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #fff;
+    border: none;
+    border-radius: 24px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(102,126,234,0.45);
+    z-index: 1000;
+  `;
+  
+  // Réinitialiser le bouton si l'utilisateur revient en arrière (cache navigateur)
+  window.addEventListener('pageshow', function(e){
+    const b = document.getElementById('btnMobileRecalcLoop');
+    if (b) {
+      b.disabled = false;
+      b.textContent = b.dataset.originalLabel || label;
+    }
+  });
+  
+  btn.addEventListener('click', () => {
+    const cfg = window._mobileLoopConfig;
+    const usedNow = (window._mobileLoopUsedPlaces || []);
+    const stepsPids = (state.steps || []).map(s => s.placeId).filter(Boolean);
+    // On garde les exclusions historiques (déjà bannies), mais sur les places ACTUELLES
+    // on n'en exclut que 50% (tirées au hasard) pour garder ~50% de continuité.
+    const historicalExclusions = [...(cfg.excludePlaces || [])];
+    const currentPlaces = [...new Set([...usedNow, ...stepsPids])];
+    // Mélanger et prendre la moitié
+    const shuffled = currentPlaces.slice().sort(() => Math.random() - 0.5);
+    const halfToExclude = shuffled.slice(0, Math.ceil(shuffled.length / 2));
+    const allExcluded = [...new Set([...historicalExclusions, ...halfToExclude])];
+    console.log('[MOBILE-RECALC] Renouvellement 50% :', halfToExclude.length, 'exclues sur', currentPlaces.length, 'actuelles + ', historicalExclusions.length, 'historiques');
+    
+    btn.disabled = true;
+    btn.textContent = '⏳ ...';
+    
+    // Construire l'URL vers RT detail avec returnTo=mobile et les exclusions
+    const params = new URLSearchParams();
+    params.set('from', 'builder');
+    params.set('startName', cfg.start.name || '');
+    params.set('startLat', cfg.start.lat || '');
+    params.set('startLon', cfg.start.lon || cfg.start.lng || '');
+    params.set('startCC', cfg.start.cc || '');
+    params.set('endName', cfg.start.name || '');
+    params.set('endLat', cfg.start.lat || '');
+    params.set('endLon', cfg.start.lon || cfg.start.lng || '');
+    params.set('endCC', cfg.start.cc || '');
+    params.set('maxKm', cfg.maxKm || 200);
+    params.set('detour', cfg.detour || 50);
+    params.set('days', cfg.days || 7);
+    params.set('loop', '1');
+    params.set('lang', lang);
+    params.set('returnTo', 'mobile');
+    // Liste des places à exclure, séparées par des virgules
+    if (allExcluded.length) params.set('excludePlaces', allExcluded.join(','));
+    // Conserver le polygone de zone si défini
+    if (cfg.zonePolygon && cfg.zonePolygon.length >= 3) {
+      const polyStr = cfg.zonePolygon.map(pt => pt[0].toFixed(4) + ',' + pt[1].toFixed(4)).join(';');
+      params.set('zonePolygon', polyStr);
+    }
+    
+    console.log('[MOBILE-RECALC] Redirection vers RT detail pour recalcul avec', allExcluded.length, 'exclusions');
+    window.location.href = `roadtrip_detail.html?${params.toString()}`;
+  });
+  
+  document.body.appendChild(btn);
+  console.log('[LOG-CONTROLE][MOBILE] ✅ Bouton recalculer affiché');
+}
+
+// === BANDEAU REPLI ZONE (si la zone choisie n'avait pas assez de places) ===
+function showZoneFallbackBanner() {
+  if (document.getElementById('mobileZoneFallbackBanner')) return;
+  if (!window._mobileZoneFallback) return;
+  const info = window._mobileZoneFallback;
+  
+  const lang = localStorage.getItem('lang') || 'fr';
+  let text;
+  if (info.bufferKm > 0) {
+    // Zone élargie automatiquement
+    const messages = {
+      fr: `ℹ️ La zone dessinée contenait trop peu de lieux. Elle a été élargie de ${info.bufferKm} km pour vous proposer un circuit complet.`,
+      en: `ℹ️ The drawn area had too few places. It was widened by ${info.bufferKm} km to offer a full circuit.`,
+      es: `ℹ️ La zona dibujada tenía pocos lugares. Se amplió ${info.bufferKm} km para proponer un circuito completo.`,
+      it: `ℹ️ La zona disegnata aveva pochi luoghi. È stata ampliata di ${info.bufferKm} km per un circuito completo.`,
+      pt: `ℹ️ A zona desenhada tinha poucos lugares. Foi ampliada em ${info.bufferKm} km para um circuito completo.`
+    };
+    text = messages[lang] || messages.fr;
+  } else {
+    const messages = {
+      fr: `ℹ️ Pas assez de lieux dans la zone dessinée. ${info.outCount} étape(s) ajoutée(s) hors zone pour compléter le circuit.`,
+      en: `ℹ️ Not enough places in the drawn area. ${info.outCount} step(s) added outside the area to complete the circuit.`,
+      es: `ℹ️ No hay suficientes lugares en la zona dibujada. ${info.outCount} etapa(s) añadida(s) fuera de zona para completar el circuito.`,
+      it: `ℹ️ Non ci sono abbastanza luoghi nella zona disegnata. ${info.outCount} tappa(e) aggiunta(e) fuori zona per completare il circuito.`,
+      pt: `ℹ️ Não há lugares suficientes na zona desenhada. ${info.outCount} etapa(s) adicionada(s) fora da zona para completar o circuito.`
+    };
+    text = messages[lang] || messages.fr;
+  }
+  
+  const banner = document.createElement('div');
+  banner.id = 'mobileZoneFallbackBanner';
+  banner.style.cssText = `
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    background: #fff3cd;
+    color: #664d03;
+    border: 1px solid #ffecb5;
+    border-radius: 8px;
+    padding: 10px 36px 10px 12px;
+    font-size: 13px;
+    line-height: 1.35;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    z-index: 1001;
+  `;
+  banner.textContent = text;
+  
+  // Bouton fermer
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = '×';
+  closeBtn.style.cssText = 'position:absolute;top:4px;right:6px;background:none;border:none;font-size:20px;cursor:pointer;color:#664d03;line-height:1';
+  closeBtn.addEventListener('click', () => banner.remove());
+  banner.appendChild(closeBtn);
+  
+  document.body.appendChild(banner);
+  // Auto-disparition après 12 s
+  setTimeout(() => { if (banner.parentNode) banner.remove(); }, 12000);
+  console.log('[LOG-CONTROLE][MOBILE] ℹ️ Bandeau de repli zone affiché');
 }
 
 // calculateOSRMRoute() → fourni par ort-routing.js
@@ -5270,6 +5442,13 @@ function setupTabs() {
 function setupEvents() {
   $('btnBack').onclick = () => {
     if (hasUnsavedChanges && !confirm(_t('unsavedQuit'))) return;
+    // Si on vient du builder (URL avec ?fromBuilder=1), retourner à l'accueil
+    // car history.back() renverrait sur RT detail (intermédiaire de la chaîne de redirections)
+    var params = new URLSearchParams(location.search);
+    if (params.get('fromBuilder') === '1') {
+      location.href = '/index.html';
+      return;
+    }
     history.back();
   };
   
@@ -5662,7 +5841,7 @@ function renderList() {
       if (hotelBooking) {
         bookedHotelName = hotelBooking.name || hotelBooking.title || '';
         const displayName = bookedHotelName.length > 22 ? bookedHotelName.substring(0, 20) + '…' : bookedHotelName;
-        bookingIndicator = `<span class="step-card-booking" style="font-size:11px;gap:3px;display:inline-flex;align-items:center"><img src="/assets/hotel.webp" alt="" style="width:14px;height:14px;border-radius:3px;object-fit:cover;margin-right:3px" onerror="this.style.display='none'"> ${displayName || 'Réservé'}</span>`;
+        bookingIndicator = `<span class="step-card-booking" style="font-size:11px;gap:3px;display:inline-flex;align-items:center"><img src="/assets/hotel.png" alt="" style="width:14px;height:14px;border-radius:3px;object-fit:cover;margin-right:3px" onerror="this.style.display='none'"> ${displayName || 'Réservé'}</span>`;
       } else if (hasActivity) {
         bookingIndicator = `<span class="step-card-booking">🎫</span>`;
       }
@@ -5692,10 +5871,10 @@ function renderList() {
         hotelThumbPart = '';
       } else if (finalHotelPhoto) {
         // Photo dispo → afficher la miniature cliquable
-        hotelThumbPart = `<img class="step-card-hotel-thumb" src="${finalHotelPhoto}" alt="" onerror="this.outerHTML='<img class=\\'step-card-hotel-icon\\' src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer\\' data-step-hotel=\\'${idx}\\' data-hotel-action=\\'open\\'>'" data-step-hotel="${idx}" data-hotel-action="open">`;
+        hotelThumbPart = `<img class="step-card-hotel-thumb" src="${finalHotelPhoto}" alt="" onerror="this.outerHTML='<img class=\\'step-card-hotel-icon\\' src=\\'/assets/hotel.png\\' alt=\\'\\' style=\\'width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer\\' data-step-hotel=\\'${idx}\\' data-hotel-action=\\'open\\'>'" data-step-hotel="${idx}" data-hotel-action="open">`;
       } else {
         // Pas de photo, pas réservé → image hotel.png cliquable
-        hotelThumbPart = `<img class="step-card-hotel-icon" src="/assets/hotel.webp" alt="" style="width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer" data-step-hotel="${idx}" data-hotel-action="open">`;
+        hotelThumbPart = `<img class="step-card-hotel-icon" src="/assets/hotel.png" alt="" style="width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer" data-step-hotel="${idx}" data-hotel-action="open">`;
       }
     }
     
@@ -5746,7 +5925,7 @@ function renderList() {
           img.alt = '';
           img.dataset.hotelAction = 'open';
           img.style.cursor = 'pointer';
-          img.onerror = () => { img.outerHTML = '<img class="step-card-hotel-icon" src="/assets/hotel.webp" alt="" data-hotel-action="open" style="width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer">'; };
+          img.onerror = () => { img.outerHTML = '<img class="step-card-hotel-icon" src="/assets/hotel.png" alt="" data-hotel-action="open" style="width:32px;height:32px;border-radius:6px;object-fit:cover;cursor:pointer">'; };
           img.addEventListener('click', (e) => {
             e.stopPropagation();
             if (typeof openHotelsModal === 'function') openHotelsModal(step, idx);
@@ -6052,7 +6231,7 @@ function openStepSheet(idx) {
   } else {
     btnHotel.style.display = '';
     // Mettre la photo hôtel si dispo, sinon hotel.png
-    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
+    btnHotel.innerHTML = '<img src="/assets/hotel.png" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
     const sheetPid = step.placeId || step.place_id;
     if (sheetPid && window.ORT_HOTELS && ORT_HOTELS.loadHotelsForPlace) {
       ORT_HOTELS.loadHotelsForPlace(sheetPid).then(data => {
@@ -6060,7 +6239,7 @@ function openStepSheet(idx) {
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
         const thumbUrl = imgUrl.replace('square240', 'square60');
-        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.png\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {
@@ -6363,7 +6542,7 @@ function adjustNights(delta) {
     btnHotel.style.display = 'none';
   } else {
     btnHotel.style.display = '';
-    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
+    btnHotel.innerHTML = '<img src="/assets/hotel.png" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
     const adjPid = step.placeId || step.place_id;
     if (adjPid && window.ORT_HOTELS && ORT_HOTELS.loadHotelsForPlace) {
       ORT_HOTELS.loadHotelsForPlace(adjPid).then(data => {
@@ -6371,7 +6550,7 @@ function adjustNights(delta) {
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
         const thumbUrl = imgUrl.replace('square240', 'square60');
-        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.png\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {
@@ -7770,7 +7949,7 @@ window.deleteActivity = deleteActivity;
     if (steps.length === 0) {
       wrapper.innerHTML = `
         <div class="hotels-placeholder">
-          <div class="hotels-placeholder-icon"><img src="/assets/hotel.webp" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;opacity:0.6" onerror="this.style.display='none'"></div>
+          <div class="hotels-placeholder-icon"><img src="/assets/hotel.png" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;opacity:0.6" onerror="this.style.display='none'"></div>
           <div>Aucune étape à afficher</div>
         </div>
       `;
