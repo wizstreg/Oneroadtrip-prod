@@ -421,7 +421,7 @@
     `;
 
     const partnerImg = document.createElement('img');
-    partnerImg.src = '/assets/logos/infostourisme.png';
+    partnerImg.src = '/assets/logos/logoit2-3-scaled.webp';
     partnerImg.alt = 'InfosTourisme.com';
     partnerImg.loading = 'lazy';
     partnerImg.style.cssText = `
