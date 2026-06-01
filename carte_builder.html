@@ -2043,26 +2043,46 @@ async function loadAllPlaces() {
       return [];
     };
 
-    // On lance tous les pays en parallèle, mais on AFFICHE chacun dès qu'il
-    // arrive, sans attendre le plus lent. C'est ça qui supprime le délai long.
+    // 1) On télécharge d'abord le PAYS VISIBLE à l'ouverture (France par défaut).
+    //    Seul, il a toute la bande passante : la zone affichée se remplit vite.
+    //    Pour changer le pays prioritaire : modifier 'FR' ci-dessous, ou ouvrir
+    //    la page avec ?country=XX dans l'URL.
+    const _params = new URLSearchParams(location.search);
+    const PRIORITY_CC = (_params.get('country') || _params.get('cc') || 'FR').toUpperCase();
+    const ccOf = (o) => String(o.cc || o.code || o).toUpperCase();
+    const focal = countryList.find(o => ccOf(o) === PRIORITY_CC);
+    const rest = countryList.filter(o => o !== focal);
+
+    const handleCountry = (places) => {
+      if (places && places.length) {
+        allPlaces.push(...places);
+        enqueuePlaces(places);
+      }
+    };
+
     let pendingCountries = countryList.length;
-    countryList.forEach((countryObj) => {
+    const onCountrySettled = () => {
+      pendingCountries--;
+      if (pendingCountries === 0) {
+        console.log(`✅ Total: ${allPlaces.length} lieux chargés`);
+        calculateRatingThreshold();
+        allCountriesLoaded = true; // le moteur masquera le bandeau à la fin
+      }
+    };
+
+    // Pays visible en premier, on l'attend avant de lancer le reste.
+    if (focal) {
+      try { handleCountry(await loadCountry(focal)); }
+      catch (e) { console.warn('Pays prioritaire en échec:', e); }
+      finally { onCountrySettled(); }
+    }
+
+    // 2) Puis tout le reste du monde en parallèle, ajouté au fil de l'eau.
+    rest.forEach((countryObj) => {
       loadCountry(countryObj)
-        .then((places) => {
-          if (places && places.length) {
-            allPlaces.push(...places);
-            enqueuePlaces(places);
-          }
-        })
+        .then(handleCountry)
         .catch((e) => console.warn('Pays en échec:', e))
-        .finally(() => {
-          pendingCountries--;
-          if (pendingCountries === 0) {
-            console.log(`✅ Total: ${allPlaces.length} lieux chargés`);
-            calculateRatingThreshold();
-            allCountriesLoaded = true; // le moteur masquera le bandeau à la fin
-          }
-        });
+        .finally(onCountrySettled);
     });
 
   } catch (error) {
@@ -2220,6 +2240,7 @@ let queueDirty = false;         // la file a reçu de nouveaux lieux, à retrier
 let renderRunning = false;      // le moteur tourne déjà
 let renderedCount = 0;          // nombre de points déjà affichés
 let allCountriesLoaded = false; // tous les pays ont fini de télécharger
+let renderTickCount = 0;        // pour espacer la mise à jour des stats
 
 // Démarre le moteur. Sans danger si appelé plusieurs fois.
 function startProgressiveRender() {
@@ -2282,7 +2303,9 @@ function renderTick() {
       renderedCount += layers.length;
     }
     updateLoadingCounter();
-    updateStats();
+    // updateStats boucle sur tous les points : on l'espace pour ne pas ralentir.
+    renderTickCount++;
+    if (renderTickCount % 10 === 0) updateStats();
   }
 
   // Fini seulement quand la file est vide ET que tous les pays sont arrivés.
