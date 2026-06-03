@@ -1030,6 +1030,8 @@ body.view-itin-only .group-badge {
 }
 /* Dans mapActions en mode map-only */
 body.view-map-only #mapActions #reorgFullscreenBtn{ display:inline-flex; }
+/* Bouton Modifier visible aussi sur la carte non plein écran */
+#mapActions #reorgFullscreenBtn{ display:inline-flex !important; }
 /* Dans Outils : normal (tools-item) */
 #toolsPop #reorgFullscreenBtn{
   display:block;
@@ -4190,7 +4192,7 @@ function showAffiliatePopover(anchorEl, step, idx){
     <div style="font-weight:600;margin-bottom:8px;color:#113f7a;">${step.name || 'Étape'}</div>
     <div style="font-size:12px;color:#64748b;margin-bottom:10px;">${step.nights || 0} nuit(s)</div>
     <a href="${stay22Url}" target="_blank" rel="noopener" class="btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;margin-bottom:6px;">
-      <img src="/assets/hotel.webp" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"> ${t.hotels}
+      <img src="/assets/hotel.png" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"> ${t.hotels}
     </a>
     <button class="btn ghost" data-act="close" style="width:100%">${t.close}</button>
   `;
@@ -6916,7 +6918,7 @@ dateCell.style.textAlign='left';
       const shortName = hotelName.length > 25 ? hotelName.substring(0, 23) + '…' : hotelName;
       hotel.innerHTML = `
         <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px" title="${_esc(hotelName)}">
-          <img src="/assets/hotel.webp" alt="" style="width:14px;height:14px;display:inline-block;vertical-align:middle" onerror="this.style.display='none'"> ${_esc(shortName)}
+          <img src="/assets/hotel.png" alt="" style="width:14px;height:14px;display:inline-block;vertical-align:middle" onerror="this.style.display='none'"> ${_esc(shortName)}
         </div>`;
       hotel.addEventListener('click', () => {
         if (typeof openStepBookingsModal === 'function') openStepBookingsModal(idx);
@@ -6928,7 +6930,7 @@ dateCell.style.textAlign='left';
         <button class="btn-hotel-choose" data-step-idx="${idx}" 
           title="${t('chooseHotel')}"
           style="background:transparent;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center">
-          <img src="/assets/hotel.webp" alt="${t('chooseHotel')}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)" onerror="this.style.display='none'">
+          <img src="/assets/hotel.png" alt="${t('chooseHotel')}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)" onerror="this.style.display='none'">
         </button>`;
       
       // Essayer de charger la photo hôtel du JSON → remplace le bouton
@@ -6967,7 +6969,7 @@ dateCell.style.textAlign='left';
         }
       }, 0);
     } else {
-      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem;display:flex;align-items:center;gap:4px"><img src="/assets/hotel.webp" alt="" style="width:14px;height:14px;opacity:0.5" onerror="this.style.display=\'none\'"> —</div>';
+      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem;display:flex;align-items:center;gap:4px"><img src="/assets/hotel.png" alt="" style="width:14px;height:14px;opacity:0.5" onerror="this.style.display=\'none\'"> —</div>';
     }
   } else {
     hotel.innerHTML = '&nbsp;';
@@ -8211,6 +8213,19 @@ $togOther?.addEventListener('change', (e) => {
     if (typeof PLACES_INDEX !== 'undefined' && Object.keys(PLACES_INDEX||{}).length > 0) {
       renderOtherPlaces();
     }
+    // Charger tous les pays en différé (itinéraires transfrontaliers / mondiaux)
+    if (typeof loadWorldPlacesProgressive === 'function') loadWorldPlacesProgressive();
+    // Re-render à chaque déplacement/zoom (affichage par zone visible)
+    if (!window.__OTHER_MOVE_HOOKED__ && window.map) {
+      window.__OTHER_MOVE_HOOKED__ = true;
+      let moveT = null;
+      window.map.on('moveend zoomend', () => {
+        const tog = document.getElementById('toggleOtherPlaces');
+        if (!tog || !tog.checked) return;
+        clearTimeout(moveT);
+        moveT = setTimeout(() => { try { renderOtherPlaces(); } catch(_){} }, 250);
+      });
+    }
   } else {
     // Cacher
     clearOtherPlaces();
@@ -8254,6 +8269,19 @@ $togOther?.addEventListener('change', (e) => {
     ensurePlacesIndex(countriesFromSteps).then(() => {
       console.log('[OTHER] Auto-load: places dans master =', Object.keys(PLACES_INDEX || {}).length);
       renderOtherPlaces();
+      // Charger tous les pays en différé (transfrontalier / mondial) — déclencheur fiable
+      if (typeof loadWorldPlacesProgressive === 'function') loadWorldPlacesProgressive();
+      // Re-render par zone visible quand on déplace/zoome (même si le toggle était déjà coché)
+      if (!window.__OTHER_MOVE_HOOKED__ && window.map) {
+        window.__OTHER_MOVE_HOOKED__ = true;
+        let moveT = null;
+        window.map.on('moveend zoomend', () => {
+          const tog = document.getElementById('toggleOtherPlaces');
+          if (tog && !tog.checked) return;
+          clearTimeout(moveT);
+          moveT = setTimeout(() => { try { renderOtherPlaces(); } catch(_){} }, 250);
+        });
+      }
     }).catch(e => {
       console.warn('[OTHER] Auto-load erreur:', e);
     });
@@ -8414,6 +8442,10 @@ function getCurrentCC(){
 
 function renderOtherPlaces(){
   clearOtherPlaces();
+
+  // Zone visible de la carte (+ marge), pour n'afficher que les lieux à l'écran
+  let viewBounds = null;
+  try { viewBounds = map.getBounds().pad(0.25); } catch(_){}
   
   // Initialiser L_OTHER comme feature group simple (sans clustering)
   if(!L_OTHER){
@@ -8458,6 +8490,7 @@ function renderOtherPlaces(){
     if(inTrip.has(pid)) continue;
     const m = PLACES_INDEX[pid];
     if(!Number.isFinite(m.lat)||!Number.isFinite(m.lon)) continue;
+    if(viewBounds && !viewBounds.contains([m.lat, m.lon])) continue;
     list.push({
       pid, lat:m.lat, lon:m.lon,
       name:m.name||pid.split('::')[1],
@@ -8469,8 +8502,8 @@ function renderOtherPlaces(){
   console.log('[OTHER] Pays:', Array.from(ccSet).join(', '), '| Lieux:', list.length);
 
 
-  // (optionnel) limiter l’affichage brut
-  const MAX = 1500;
+  // Plafond de sécurité (le filtre par zone visible limite déjà la charge)
+  const MAX = 3000;
   const items = list.slice(0, MAX);
 
    items.forEach(p=>{
@@ -9271,6 +9304,9 @@ $('#btnEditMapRoute').onclick=()=>{
   // Déclencher le mode réorganisation
   const reorgBtn = document.getElementById('reorgFullscreenBtn');
   if(reorgBtn) reorgBtn.click();
+
+  // Charger en fond tous les autres pays (itinéraires transfrontaliers / mondiaux)
+  if (typeof loadWorldPlacesProgressive === 'function') loadWorldPlacesProgressive();
 };
 
 // === Bouton Proposer d'autres lieux ===
@@ -9293,7 +9329,83 @@ $('#btnShowOtherPlaces')?.addEventListener('click', async ()=>{
       renderOtherPlaces();
     }
   }, 300);
+
+  // Charger en fond tous les autres pays (itinéraires transfrontaliers / mondiaux)
+  loadWorldPlacesProgressive();
 });
+
+// === [WORLD-PLACES] Chargement progressif de tous les pays ===
+// Charge les master.json de tous les pays listés dans countries.index.json,
+// un pays à la fois avec un délai, pour ne pas figer la page. renderOtherPlaces()
+// affiche automatiquement les nouveaux pays au fur et à mesure (filtre déjà ouvert).
+async function loadWorldPlacesProgressive(){
+  if (window.__WORLD_LOADING__ || window.__WORLD_DONE__) return;
+  window.__WORLD_LOADING__ = true;
+
+  const DELAY_MS = 200;        // pause entre deux pays
+  const RENDER_THROTTLE = 400; // re-render au plus une fois toutes les 400ms
+
+  // 1) Manifest des pays (chargé une seule fois). Plusieurs noms candidats
+  //    car l'extension .json peut être masquée selon l'export.
+  if (!window.__ALL_CC__) {
+    const candidates = [
+      './data/Roadtripsprefabriques/countries/countries.index.json',
+      './data/Roadtripsprefabriques/countries/countries_index.json',
+      './data/Roadtripsprefabriques/countries/countries.index'
+    ];
+    let manifest = null;
+    for (const url of candidates) {
+      try { const r = await fetch(url); if (r.ok) { manifest = await r.json(); break; } }
+      catch(_){}
+    }
+    if (!manifest || !Array.isArray(manifest.countries)) {
+      console.warn('[WORLD] Manifest pays introuvable – chargement mondial annulé');
+      window.__WORLD_LOADING__ = false;
+      return;
+    }
+    window.__ALL_CC__ = manifest.countries
+      .map(c => (c.cc || '').toUpperCase())
+      .filter(Boolean);
+  }
+
+  // 2) File des pays restant à charger (ceux absents de PLACES_INDEX)
+  const loadedCC = new Set(
+    Object.values(window.PLACES_INDEX || {}).map(p => (p.cc || '').toUpperCase())
+  );
+  const queue = window.__ALL_CC__.filter(cc => cc && cc !== 'XX' && !loadedCC.has(cc));
+  console.log('[WORLD] Chargement progressif:', queue.length, 'pays restants');
+
+  // 3) Re-render throttlé (respecte le toggle "autres lieux")
+  let renderScheduled = false;
+  const scheduleRender = () => {
+    if (renderScheduled) return;
+    renderScheduled = true;
+    setTimeout(() => {
+      renderScheduled = false;
+      try {
+        const tog = document.getElementById('toggleOtherPlaces');
+        if ((!tog || tog.checked) && typeof renderOtherPlaces === 'function') renderOtherPlaces();
+      } catch(_){}
+    }, RENDER_THROTTLE);
+  };
+
+  // 4) Boucle décalée : un pays à la fois
+  let i = 0;
+  const next = async () => {
+    if (i >= queue.length) {
+      window.__WORLD_LOADING__ = false;
+      window.__WORLD_DONE__ = true;
+      scheduleRender();
+      console.log('[WORLD] Terminé –', Object.keys(window.PLACES_INDEX || {}).length, 'lieux dans l\'index');
+      return;
+    }
+    const cc = queue[i++];
+    try { await ensurePlacesIndex([cc]); scheduleRender(); }
+    catch(e){ console.warn('[WORLD] Échec', cc, e); }
+    setTimeout(next, DELAY_MS);
+  };
+  next();
+}
 
 // Handler km/mi (bouton supprimé mais garde la logique au cas où)
 if($('#unitToggle')) $('#unitToggle').onclick=()=>{
