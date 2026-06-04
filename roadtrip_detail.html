@@ -5847,10 +5847,12 @@ async function initFromItin(it){
       const masterData = PLACES_INDEX[pid] || {};
       const rating = d.rating || masterData.rating || 0;
       const suggestedDays = d.suggested_days || masterData.suggested_days || 1;
+      const placeType = d.place_type || masterData.place_type || '';
       
       steps.push({
         place_id:pid,name,lat,lon,nights:1,visits,activities,
         rating,
+        place_type: placeType,
         region_code: d.region_code || '',
         _suggestedDays: suggestedDays,
         _driveMinToNext: d.to_next_leg?.drive_min || 0,
@@ -5867,6 +5869,7 @@ async function initFromItin(it){
       const masterData = PLACES_INDEX[pid] || {};
       const rating = p.rating || masterData.rating || 0;
       const suggestedDays = p.suggested_days || masterData.suggested_days || 1;
+      const placeType = p.place_type || masterData.place_type || '';
       return{
         place_id:pid,
         name:p.name||p.title||'',
@@ -5874,6 +5877,7 @@ async function initFromItin(it){
         lon:Number(p.lon)||null,
         nights:1,
         rating,
+        place_type: placeType,
         _suggestedDays: suggestedDays,
         visits:p.visits||[],
         activities:p.activities||[],

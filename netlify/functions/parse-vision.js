@@ -15,6 +15,7 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
 
 const DAILY_LIMIT = parseInt(process.env.VISION_DAILY_LIMIT || '2', 10);
@@ -162,7 +163,7 @@ async function callGemini(photoBase64, prompt, language) {
   const userLabel = { fr: 'Question du voyageur', en: 'Traveler question', es: 'Pregunta del viajero', it: 'Domanda del viaggiatore', de: 'Frage des Reisenden', pt: 'Pergunta do viajante', ja: '旅行者の質問', zh: '旅行者的问题' };
   const fullPrompt = `${systemPrompt}\n\n${userLabel[language] || userLabel.en}: ${prompt}`;
   
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -193,7 +194,7 @@ async function callGemini(photoBase64, prompt, language) {
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) throw new Error('Réponse vide Gemini');
   
-  return { text, model: 'Gemini Flash' };
+  return { text, model: GEMINI_MODEL };
 }
 
 // ===== OPENROUTER VISION =====

@@ -25,7 +25,10 @@ if (!admin.apps.length) {
 const db = admin.firestore();
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
+const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
+const GROQ_KEY = process.env.GROQ_API_KEY;
+const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
 const MONTHLY_LIMIT = 20;
 
 const CATEGORIES = {
@@ -148,7 +151,7 @@ async function checkQuota(uid, email) {
 // ===== GEMINI =====
 async function callGemini(content) {
   console.log('🔄 Essai Gemini Flash...');
-  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_KEY}`, {
+  const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -166,7 +169,47 @@ async function callGemini(content) {
   const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
   if (!text) throw new Error('Réponse vide Gemini');
   
-  return { text, model: 'Gemini Flash' };
+  return { text, model: GEMINI_MODEL };
+}
+
+// ===== GROQ (fallback texte) =====
+async function callGroq(content) {
+  console.log('⚡ Fallback Groq...');
+  for (const model of GROQ_MODELS) {
+    try {
+      console.log('⚡ Essai', model);
+      const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${GROQ_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: model,
+          messages: [
+            { role: 'system', content: PROMPT },
+            { role: 'user', content: content }
+          ],
+          temperature: 0.1,
+          max_tokens: 1024,
+          response_format: { type: 'json_object' }
+        })
+      });
+
+      if (!res.ok) { console.warn(`⚡ ❌ ${model}: HTTP ${res.status}`); continue; }
+
+      const data = await res.json();
+      const text = data.choices?.[0]?.message?.content?.trim();
+      if (text) {
+        console.log('✅ Groq OK:', model);
+        return { text, model: `groq/${model}` };
+      }
+    } catch (e) {
+      console.warn('⚡ ❌', model, e.message);
+    }
+  }
+
+  throw new Error('Tous les modèles Groq ont échoué');
 }
 
 // ===== OPENROUTER =====
@@ -237,8 +280,17 @@ async function parseEmail(content) {
       console.warn('❌ Gemini échoué:', e.message);
     }
   }
-  
-  // 2. OpenRouter
+
+  // 2. Groq
+  if (GROQ_KEY) {
+    try {
+      return await callGroq(content);
+    } catch (e) {
+      console.warn('❌ Groq échoué:', e.message);
+    }
+  }
+
+  // 3. OpenRouter
   if (OPENROUTER_KEY) {
     return await callOpenRouter(content);
   }
