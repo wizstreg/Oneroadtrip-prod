@@ -4192,7 +4192,7 @@ function showAffiliatePopover(anchorEl, step, idx){
     <div style="font-weight:600;margin-bottom:8px;color:#113f7a;">${step.name || 'Étape'}</div>
     <div style="font-size:12px;color:#64748b;margin-bottom:10px;">${step.nights || 0} nuit(s)</div>
     <a href="${stay22Url}" target="_blank" rel="noopener" class="btn" style="display:flex;align-items:center;justify-content:center;gap:6px;text-decoration:none;margin-bottom:6px;">
-      <img src="/assets/hotel.png" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"> ${t.hotels}
+      <img src="/assets/hotel.webp" alt="" style="width:14px;height:14px" onerror="this.style.display='none'"> ${t.hotels}
     </a>
     <button class="btn ghost" data-act="close" style="width:100%">${t.close}</button>
   `;
@@ -6922,7 +6922,7 @@ dateCell.style.textAlign='left';
       const shortName = hotelName.length > 25 ? hotelName.substring(0, 23) + '…' : hotelName;
       hotel.innerHTML = `
         <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px" title="${_esc(hotelName)}">
-          <img src="/assets/hotel.png" alt="" style="width:14px;height:14px;display:inline-block;vertical-align:middle" onerror="this.style.display='none'"> ${_esc(shortName)}
+          <img src="/assets/hotel.webp" alt="" style="width:14px;height:14px;display:inline-block;vertical-align:middle" onerror="this.style.display='none'"> ${_esc(shortName)}
         </div>`;
       hotel.addEventListener('click', () => {
         if (typeof openStepBookingsModal === 'function') openStepBookingsModal(idx);
@@ -6934,7 +6934,7 @@ dateCell.style.textAlign='left';
         <button class="btn-hotel-choose" data-step-idx="${idx}" 
           title="${t('chooseHotel')}"
           style="background:transparent;border:none;padding:0;cursor:pointer;display:flex;align-items:center;justify-content:center">
-          <img src="/assets/hotel.png" alt="${t('chooseHotel')}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)" onerror="this.style.display='none'">
+          <img src="/assets/hotel.webp" alt="${t('chooseHotel')}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;box-shadow:0 1px 4px rgba(0,0,0,0.12)" onerror="this.style.display='none'">
         </button>`;
       
       // Essayer de charger la photo hôtel du JSON → remplace le bouton
@@ -6973,7 +6973,7 @@ dateCell.style.textAlign='left';
         }
       }, 0);
     } else {
-      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem;display:flex;align-items:center;gap:4px"><img src="/assets/hotel.png" alt="" style="width:14px;height:14px;opacity:0.5" onerror="this.style.display=\'none\'"> —</div>';
+      hotel.innerHTML = '<div style="color:#94a3b8;font-size:0.85rem;display:flex;align-items:center;gap:4px"><img src="/assets/hotel.webp" alt="" style="width:14px;height:14px;opacity:0.5" onerror="this.style.display=\'none\'"> —</div>';
     }
   } else {
     hotel.innerHTML = '&nbsp;';
@@ -8632,7 +8632,7 @@ Object.entries(grouped).forEach(([key, indices]) => {
     const starInfo = ratingToStars(stepRating);
     
     // Drapeau pour les hubs (étapes avec nuits d'hôtel)
-    const isHub = step._isHub || (step.nights && step.nights > 0);
+    const isHub = Number(step.nights) > 0;
     const flagHtml = isHub ? '<span class="hub-flag">🚩</span>' : '';
     
     const iconHtml = `<div class="marker-num">${(i + 1)}${flagHtml}</div>`;

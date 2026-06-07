@@ -1,5 +1,5 @@
 # robots.txt pour OneRoadTrip
-# Generated: 2026-06-06T16:46:41.534Z
+# Generated: 2026-06-07T17:45:24.001Z
 
 User-agent: *
 Allow: /
@@ -23,22 +23,48 @@ Disallow: /dashboard_user.html
 Sitemap: https://www.oneroadtrip.com/sitemap-index.xml
 
 # AI Assistants - structured info available at /llms.txt
+# Usage rules: see /llms.txt. Citation with a direct link is welcome. Model training is not permitted.
 
-# AI crawlers
-User-agent: GPTBot
+# --- AI search / citation crawlers: ALLOWED (live fetch, cite with a link) ---
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: Claude-Web
-Allow: /
-
-User-agent: Anthropic-AI
-Allow: /
-
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Google-Extended
+User-agent: Perplexity-User
 Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# --- AI training crawlers: DISALLOWED (no model training on OneRoadTrip) ---
+User-agent: GPTBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
