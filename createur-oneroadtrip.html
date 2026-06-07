@@ -29,9 +29,9 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
-<!-- Module de routage OneRoadTrip (window.ORT_ROUTING). Ajuste le chemin si besoin. -->
+<!-- Module de routage OneRoadTrip (window.ORT_ROUTING). -->
 <script src="/js/ort-routing.js"></script>
-<!-- Firebase (compat) + ta config (définit window.ORT_CONFIG / __FIREBASE_CONFIG__). Ajuste le chemin si besoin. -->
+<!-- Firebase (compat) + ta config (window.ORT_CONFIG). -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -1259,7 +1259,7 @@ function renderDashboard(){
 
 /* ====== COMPTE & CLOUD (Firebase Auth + Firestore) ======
    Chemin Firestore : {COL}/{uid}/{SUB}/{itinId}. Adapte si besoin + règles de sécurité côté Firebase. */
-var FS = { COL:"creators", SUB:"itineraries" };
+var FS = { COL:"creator_itineraries", SUB:"itineraries" };
 var fbUser=null, _db=null;
 
 function fbReady(){ return typeof firebase!=="undefined" && firebase.apps && firebase.apps.length>0; }
@@ -1366,7 +1366,7 @@ function sendToCloud(){
   ref.set({
     itinerary:j, snap:snapshot(),
     title:j.title||"", country:j.country||"", steps:j.days_plan.length,
-    author:j.author||{}, status:"sent",
+    author:j.author||{}, status:"sent", published:false,
     updatedAt:firebase.firestore.FieldValue.serverTimestamp()
   },{merge:true}).then(function(){
     btn.disabled=false; btn.textContent=lbl; toast(dict().sentCloud,"ok"); persist(); loadCloud();
