@@ -71,6 +71,7 @@
       cookiePolicy: 'Cookies',
       about: 'À propos',
       blog: 'Blog',
+      contact: 'Contact',
       manageCookies: 'Gérer mes cookies',
       pressPartner: 'Partenaire presse'
     },
@@ -105,6 +106,7 @@
       cookiePolicy: 'Cookies',
       about: 'About',
       blog: 'Blog',
+      contact: 'Contact',
       manageCookies: 'Manage cookies',
       pressPartner: 'Press partner'
     },
@@ -139,6 +141,7 @@
       cookiePolicy: 'Cookies',
       about: 'Acerca de',
       blog: 'Blog',
+      contact: 'Contacto',
       manageCookies: 'Gestionar cookies',
       pressPartner: 'Socio de prensa'
     },
@@ -173,6 +176,7 @@
       cookiePolicy: 'Cookie',
       about: 'Chi siamo',
       blog: 'Blog',
+      contact: 'Contatti',
       manageCookies: 'Gestisci cookie',
       pressPartner: 'Partner stampa'
     },
@@ -207,6 +211,7 @@
       cookiePolicy: 'Cookies',
       about: 'Sobre',
       blog: 'Blog',
+      contact: 'Contacto',
       manageCookies: 'Gerir cookies',
       pressPartner: 'Parceiro de imprensa'
     },
@@ -241,6 +246,7 @@
       cookiePolicy: 'ملفات تعريف الارتباط',
       about: 'حول',
       blog: 'المدونة',
+      contact: 'اتصل بنا',
       manageCookies: 'إدارة ملفات تعريف الارتباط',
       pressPartner: 'شريك صحفي'
     }
@@ -334,7 +340,7 @@
       font-size: 14px;
       padding: 12px 20px;
       max-width: 600px;
-      background: rgba(0, 0, 0, 0.5);
+      background: #113f7a;
       border: 1px solid rgba(195, 214, 182, 0.4);
       border-radius: 10px;
       backdrop-filter: blur(4px);
@@ -345,10 +351,10 @@
 
     // URLs des pages légales avec suffixe de langue
     const getLegalUrls = (lang) => ({
-      cgu: `cgu-${lang}.html`,
-      privacy: `confidentialite-${lang}.html`,
-      cookies: `cookies-${lang}.html`,
-      about: getAboutPageUrl(lang)
+      cgu: `/cgu-${lang}.html`,
+      privacy: `/confidentialite-${lang}.html`,
+      cookies: `/cookies-${lang}.html`,
+      about: '/' + getAboutPageUrl(lang)
     });
 
     const urls = getLegalUrls(lang);
@@ -361,9 +367,20 @@
     ];
 
     footer.innerHTML = links.map((link, i) => {
-      const separator = i < links.length - 1 ? ' · ' : '';
-      return `<a href="${link.href}" style="color:#fff;text-decoration:none">${link.label}</a>${separator}`;
+      return `<a href="${link.href}" style="color:#fff;text-decoration:none">${link.label}</a> · `;
     }).join('');
+
+    // Lien Contact : adresse reconstruite au clic, jamais en clair dans le HTML (anti-spam)
+    const contactLink = document.createElement('a');
+    contactLink.href = '#';
+    contactLink.textContent = T.contact;
+    contactLink.style.cssText = 'color:#fff;text-decoration:none';
+    contactLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      const u = ['contact', 'oneroadtrip.com'];
+      window.location.href = 'mailto:' + u[0] + '@' + u[1];
+    });
+    footer.appendChild(contactLink);
 
     const manageBtn = document.createElement('button');
     manageBtn.id = 'manageCookies';
@@ -484,7 +501,7 @@
           </div>
           <div style="color: #444; font-size: 14px; line-height: 1.5;">
             ${T.bannerText}
-            <a href="politique-cookies.html?lang=${lang}" style="color: #113f7a; text-decoration: underline; margin-${rtl ? 'right' : 'left'}: 4px;">
+            <a href="/politique-cookies.html?lang=${lang}" style="color: #113f7a; text-decoration: underline; margin-${rtl ? 'right' : 'left'}: 4px;">
               ${T.bannerLink}
             </a>
           </div>
@@ -624,7 +641,7 @@
           <p style="margin: 0; color: #444; font-size: 14px; line-height: 1.6;">
             ${T.modalIntro}
           </p>
-          <a href="politique-cookies.html?lang=${lang}" target="_blank" style="
+          <a href="/politique-cookies.html?lang=${lang}" target="_blank" style="
             display: inline-block;
             margin-top: 12px;
             color: #113f7a;
