@@ -36,9 +36,9 @@
   const SUPPORTED_LANGS = ['fr', 'en', 'it', 'es', 'pt', 'ar'];
 
   // ===== LIMITES FIRESTORE =====
-  const MAX_SAVED_TRIPS = 2;      // Max voyages sauvegardés (users normaux)
-  const MAX_BOOKINGS_TOTAL = 20;  // Max réservations par voyage
-  const MAX_DOCUMENTS = 10;       // Max documents d'identité
+  const MAX_SAVED_TRIPS = 5;      // Max voyages sauvegardés (users normaux)
+  const MAX_BOOKINGS_TOTAL = 30;  // Max réservations par voyage
+  const MAX_DOCUMENTS = 20;       // Max documents d'identité
   
   // ===== ADMIN (accès illimité) =====
   const ADMIN_EMAILS = [atob('bWFyY3NvcmNpQGZyZWUuZnI=')]; // Encodé base64
