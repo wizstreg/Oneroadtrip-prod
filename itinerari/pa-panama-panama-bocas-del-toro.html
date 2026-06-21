@@ -263,7 +263,10 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 #ort-welcome-overlay.open{display:flex}
 #ort-welcome-box{position:relative;background:#fff;border-radius:16px;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 25px 80px rgba(0,0,0,.4);padding:28px 28px 24px}
 #ort-welcome-box .ow-notice{font-size:.75rem;color:#888;text-align:center;margin:0 0 16px;line-height:1.4}
-#ort-welcome-box h2{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;color:var(--p);margin:0 0 10px;padding-right:24px}
+#ort-welcome-box .ow-worldcup{overflow:hidden;white-space:nowrap;margin:-4px 0 14px;background:#fff4e6;border:1px solid #ffd9a8;border-radius:7px;padding:6px 0}
+#ort-welcome-box .ow-worldcup span{display:inline-block;padding-left:100%;animation:owMarquee 8s linear infinite;font-size:.86rem;font-weight:700;color:#e11d48;font-style:italic}
+@keyframes owMarquee{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+#ort-welcome-box h2{font-family:"Playfair Display",Georgia,serif;font-size:1.25rem;color:var(--p);margin:0 0 10px;padding:0 24px;text-align:center}
 #ort-welcome-box .ow-section{margin:14px 0}
 #ort-welcome-box .ow-section h3{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:#888;margin:0 0 6px;font-weight:600}
 #ort-welcome-box .ow-section p{font-size:.88rem;line-height:1.55;color:var(--t);margin:0}
@@ -280,8 +283,8 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 </style>
 <style>
 #ort-welcome-box .ow-modify{display:flex;flex-direction:column;gap:5px;margin-top:6px}
-#ort-welcome-box .ow-mod-item{display:flex;align-items:baseline;gap:6px;padding:6px 10px;background:#f0f7ff;border:1px solid #d0dff0;border-radius:7px;font-size:.82rem;color:var(--t);line-height:1.35}
-#ort-welcome-box .ow-mod-item strong{flex-shrink:0;color:var(--p);font-size:.83rem}
+#ort-welcome-box .ow-mod-item{display:block;padding:8px 11px;background:#f0f7ff;border:1px solid #d0dff0;border-radius:7px;font-size:.82rem;color:var(--t);line-height:1.4;text-align:justify}
+#ort-welcome-box .ow-mod-item strong{display:block;margin-bottom:2px;color:var(--p);font-size:.84rem;text-align:left}
 #ort-welcome-box .ow-pills-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px}
 #ort-welcome-box .ow-pill-acc{border:1px solid #e2e8f0;border-radius:8px;overflow:hidden}
 #ort-welcome-box .ow-pill-acc.ow-full{grid-column:1/-1}
@@ -305,6 +308,7 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 <button class="ow-close" onclick="ortWelcomeClose()" aria-label="Fermer">×</button>
 <p class="ow-notice">Queste informazioni sono sempre disponibili nel menu.</p>
 <h2>Benvenuto su OneRoadTrip</h2>
+<p class="ow-worldcup"><span>OneRoadTrip non è fornitore ufficiale dei Mondiali di calcio… e ce ne dispiace 🥲</span></p>
 <div class="ow-section"><h3>È gratuito?</h3><p><strong style="color:#d12d2d">Prenotando i tuoi hotel (anche se non sono quelli che proponiamo), voli, auto ecc. dopo aver cliccato i nostri link: non pagherai di più, e noi guadagneremo qualche euro.</strong> È ciò che ci permette di continuare. In ogni caso, <strong>OneRoadTrip è 100% gratuito</strong>. Nessuna falsa promessa né pagamenti alla fine.</p></div>
 <div class="ow-section"><h3>Puoi modificare questo itinerario?</h3><p style="font-size:.82rem;margin:0 0 6px;color:var(--t)">Sì, hai tre modi per farlo:</p><div class="ow-modify"><div class="ow-mod-item"><strong>Unisci :</strong> ti permette di trovare itinerari vicini e integrarli nella mappa e nelle visite.</div><div class="ow-mod-item"><strong>Modifica sulla mappa :</strong> puoi riorganizzare le tappe, rimuovere o aggiungere.</div><div class="ow-mod-item"><strong>Editor completo :</strong> ti porta alla pagina successiva dove puoi modificare visite/attività, aggiungerne, importare prenotazioni e stampare un diario di viaggio.</div></div></div>
 <div class="ow-section"><h3>Info sul viaggio</h3><div class="ow-pills-grid">
@@ -945,6 +949,6 @@ function boot(){var d=0;try{if(typeof activeDay!=='undefined'&&activeDay)d=activ
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){setTimeout(boot,600);});else setTimeout(boot,600);
 })();
 </script>
-<script>(function(){var T={tpl:10,itin:"PA::panama::panama-bocas-del-toro",cc:"PA",lang:"it"};/* ===== FIRESTORE : COLLE TES 2 VALEURS ICI ===== */var FB_PROJECT="oneroadtrip-prod";var FB_APIKEY="AIzaSyChwXhmVSy6FyGVlrBDdi4IJ2LKCyt7VjM";if(!FB_PROJECT||!FB_APIKEY)return;var URL="https://firestore.googleapis.com/v1/projects/"+FB_PROJECT+"/databases/(default)/documents/template_events?key="+FB_APIKEY;var openTs=Date.now(),maxScroll=0,sent=false;function pct(){var h=document.documentElement;var sc=h.scrollTop||document.body.scrollTop||0;var mx=(h.scrollHeight-h.clientHeight)||1;return Math.min(100,Math.round(sc/mx*100));}window.addEventListener("scroll",function(){var p=pct();if(p>maxScroll)maxScroll=p;},{passive:true});function send(){if(sent)return;sent=true;var dur=Date.now()-openTs;var body={fields:{tpl:{integerValue:T.tpl},itin:{stringValue:T.itin},cc:{stringValue:T.cc},lang:{stringValue:T.lang},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},ts:{timestampValue:new Date(openTs).toISOString()}}};try{fetch(URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true});}catch(e){}}document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});window.addEventListener("pagehide",send);})();</script>
+<script>(function(){var T={tpl:10,itin:"PA::panama::panama-bocas-del-toro",cc:"PA",lang:"it"};/* ===== FIRESTORE : COLLE TES 2 VALEURS ICI ===== */var FB_PROJECT="oneroadtrip-prod";var FB_APIKEY="AIzaSyChwXhmVSy6FyGVlrBDdi4IJ2LKCyt7VjM";if(!FB_PROJECT||!FB_APIKEY)return;var URL="https://firestore.googleapis.com/v1/projects/"+FB_PROJECT+"/databases/(default)/documents/template_events?key="+FB_APIKEY;function isOwner(){try{if(window.firebase&&typeof firebase.auth==="function"){var u=firebase.auth().currentUser;if(u&&u.email&&u.email.toLowerCase()==="marcsorci@free.fr")return true;}}catch(e){}return false;}function device(){try{var w=window.innerWidth||document.documentElement.clientWidth||0;var mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900;return mob?"mobile":"desktop";}catch(e){return "unknown";}}var openTs=Date.now(),maxScroll=0,sent=false;function pct(){var h=document.documentElement;var sc=h.scrollTop||document.body.scrollTop||0;var mx=(h.scrollHeight-h.clientHeight)||1;return Math.min(100,Math.round(sc/mx*100));}window.addEventListener("scroll",function(){var p=pct();if(p>maxScroll)maxScroll=p;},{passive:true});function send(){if(sent)return;sent=true;if(isOwner())return;var dur=Date.now()-openTs;var body={fields:{tpl:{integerValue:T.tpl},itin:{stringValue:T.itin},cc:{stringValue:T.cc},lang:{stringValue:T.lang},device:{stringValue:device()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},ts:{timestampValue:new Date(openTs).toISOString()}}};try{fetch(URL,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body),keepalive:true});}catch(e){}}document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});window.addEventListener("pagehide",send);})();</script>
 </body>
 </html>
