@@ -330,7 +330,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
                 visits.forEach(function(v,vi){
                   var txt=v.text||v;
                   html+='<div class="vi"><div class="vm">'+(vi+1)+'</div><div class="vc"><p>'+_esc(txt)+'</p>';
-                  if(v.visit_duration_min)html+='<span class="vd">\u23f1 '+v.visit_duration_min+' min</span>';
+                  if(v.visit_duration_min)html+='<span class="vd">⏱ '+v.visit_duration_min+' min</span>';
                   html+='</div></div>';
                 });
                 if(activities.length){
@@ -338,7 +338,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
                   activities.forEach(function(a){
                     var txt=a.text||a;
                     html+='<div class="ai"><p>'+_esc(txt)+'</p>';
-                    if(a.activity_duration_min)html+='<span class="vd">\u23f1 '+a.activity_duration_min+' min</span>';
+                    if(a.activity_duration_min)html+='<span class="vd">⏱ '+a.activity_duration_min+' min</span>';
                     html+='</div>';
                   });
                   html+='</div>';
