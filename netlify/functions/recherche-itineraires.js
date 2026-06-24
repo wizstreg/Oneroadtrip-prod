@@ -10,6 +10,9 @@
  * Sortie         : { success, criteres, results:[{id,slug,title,country,days,heures_vol,raison}] }
  */
 
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+
 const SITE = 'https://www.oneroadtrip.com';
 const LANG_FOLDERS = { fr: 'itineraires', en: 'itineraries', es: 'rutas', it: 'itinerari', pt: 'roteiros', ar: 'masar' };
 const UA = 'OneRoadTrip/2.0 (https://oneroadtrip.com)';
@@ -25,15 +28,18 @@ const catCache = new Map(); // lang -> { rows, ts }
 const CAT_TTL = 30 * 60 * 1000;
 
 async function loadCatalog(lang, origin) {
-  const base = origin || SITE;
-  const key = base + '|' + lang;
+  const key = lang;
   const hit = catCache.get(key);
   if (hit && Date.now() - hit.ts < CAT_TTL) return hit.rows;
   const folder = LANG_FOLDERS[lang] || LANG_FOLDERS.fr;
-  const url = `${base}/${folder}/search-catalog-${lang}.json`;
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`catalogue ${lang} introuvable (${res.status})`);
-  const rows = await res.json();
+  const filePath = join(process.cwd(), folder, `search-catalog-${lang}.json`);
+  let txt;
+  try {
+    txt = await readFile(filePath, 'utf-8');
+  } catch (e) {
+    throw new Error(`catalogue ${lang} introuvable sur le disque (${filePath})`);
+  }
+  const rows = JSON.parse(txt);
   catCache.set(key, { rows, ts: Date.now() });
   return rows;
 }
