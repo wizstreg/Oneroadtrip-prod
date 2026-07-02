@@ -5092,6 +5092,27 @@ window.ortPhotoUrl = function(p) {
   return null;
 };
 
+// === COUPLES lieu+itin : si l'itin de la page a une selection de photos validee pour un lieu,
+// elle remplace le pool commun de ce lieu dans le cache. Sinon le pool reste tel quel.
+// Reversible si l'itin de la page change (le pool d'origine est garde de cote).
+window.applyCouplesToCache = function(){
+  var itinId = (window.state && window.state._originalItinId) || null;
+  if (!itinId) { try { itinId = decodeURIComponent(new URLSearchParams(location.search).get('itin') || '') || null; } catch(e){} }
+  var db = window.PHOTOS_CACHE;
+  if (!itinId || !db) return;
+  for (var pid in db) {
+    var e = db[pid];
+    if (!e || typeof e !== 'object') continue;
+    if (e._couple_itin && e._couple_itin !== itinId && e._pool_photos) { e.photos = e._pool_photos; e._couple_itin = null; }
+    if (!e.selections_by_itin || e._couple_itin === itinId) continue;
+    var sel = e.selections_by_itin[itinId];
+    if (!sel || !sel.done || !sel.photos || !sel.photos.length) continue;
+    if (!e._pool_photos) e._pool_photos = e.photos;
+    e.photos = sel.photos;
+    e._couple_itin = itinId;
+  }
+};
+
 // === Wrap getPhotosForPlace / findPhotosForPlace du loader externe pour toujours renvoyer
 // un tableau de strings, quel que soit le format renvoyé par PHOTOS_CACHE.
 (function wrapOrtPhotoLoaders(){
@@ -5099,6 +5120,7 @@ window.ortPhotoUrl = function(p) {
     var original = window[fnName];
     if (typeof original !== 'function' || original.__ortWrapped) return;
     var wrapped = function() {
+      window.applyCouplesToCache();
       var res = original.apply(this, arguments);
       if (!Array.isArray(res)) return res;
       return res.map(window.ortPhotoUrl).filter(Boolean);
@@ -5643,6 +5665,7 @@ async function loadPhotosJSON(){
       const data = await r.json() || {};
       Object.assign(window.PHOTOS_CACHE, data);
       PHOTOS_CACHE = window.PHOTOS_CACHE;
+      window.applyCouplesToCache();
     }
   }catch(e){console.error('Photos:',e)}
 }

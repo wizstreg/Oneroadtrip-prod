@@ -303,16 +303,43 @@
     hideModal();
   }
 
+  var GA_ID = 'G-JK3QGQGDDL';
+  var CLARITY_ID = 'w1sbx0fb07';
+  var analyticsLoaded = false;
+
+  function loadAnalytics() {
+    if (analyticsLoaded) return;
+    analyticsLoaded = true;
+
+    // Google Analytics
+    var ga = document.createElement('script');
+    ga.async = true;
+    ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(ga);
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+
+    // Microsoft Clarity
+    (function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script",CLARITY_ID);
+  }
+
   function applyConsent(consent) {
     if (!consent) return;
-    
+
+    if (consent.analytics) {
+      loadAnalytics();
+    }
+
     if (typeof gtag === 'function') {
       gtag('consent', 'update', {
         'analytics_storage': consent.analytics ? 'granted' : 'denied',
         'ad_storage': consent.marketing ? 'granted' : 'denied'
       });
     }
-    
+
     console.log('[ORT-FOOTER] Consentement appliqué:', consent);
   }
 

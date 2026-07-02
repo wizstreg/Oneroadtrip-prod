@@ -3146,6 +3146,20 @@
             try {
                 const r = await fetch('./data/photos-json/photos_lieux.json', { cache: 'no-store' });
                 if (r.ok) photosCache = await r.json() || {};
+                // COUPLES lieu+itin : si l'itin du carnet a une selection validee pour un lieu,
+                // elle remplace le pool commun de ce lieu. Sinon le pool reste.
+                let itinId = null;
+                try { itinId = decodeURIComponent(new URLSearchParams(location.search).get('itin') || '') || null; } catch(e){}
+                if (itinId && photosCache) {
+                    for (const pid in photosCache) {
+                        const entry = photosCache[pid];
+                        const sel = entry && entry.selections_by_itin ? entry.selections_by_itin[itinId] : null;
+                        if (sel && sel.done && sel.photos && sel.photos.length) {
+                            entry.photos = sel.photos;
+                        }
+                    }
+                    console.log('[CARNET] Photos du couple appliquées pour', itinId);
+                }
             } catch(e) {}
         }
         

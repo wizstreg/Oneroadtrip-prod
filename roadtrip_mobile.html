@@ -3095,6 +3095,31 @@ function _normPhotos(raw) {
   return out;
 }
 
+// === COUPLES lieu+itin : si l'itin ouvert a une selection de photos validee pour un lieu,
+// elle remplace le pool commun de ce lieu. Sinon le pool reste. Reversible si l'itin change.
+window.applyCouplesToCache = function(){
+  const db = window.PHOTOS_CACHE;
+  if (!db || !window.state) return;
+  let urlItin = null;
+  try { urlItin = decodeURIComponent(new URLSearchParams(location.search).get('itin') || '') || null; } catch(e){}
+  const ids = [window.state._coupleItinId, window.state._originalItinId, urlItin].filter(Boolean);
+  if (!ids.length) return;
+  for (const pid in db) {
+    const e = db[pid];
+    if (!e || typeof e !== 'object') continue;
+    const sel = e.selections_by_itin ? (e.selections_by_itin[ids[0]] || (ids[1] && e.selections_by_itin[ids[1]])) : null;
+    const wanted = (sel && sel.done && sel.photos && sel.photos.length) ? sel : null;
+    if (e._couple_itin && (!wanted || e._couple_itin !== (ids[0] || ids[1]))) {
+      if (e._pool_photos) { e.photos = e._pool_photos; }
+      e._couple_itin = null;
+    }
+    if (!wanted || e._couple_itin) continue;
+    if (!e._pool_photos) e._pool_photos = e.photos;
+    e.photos = wanted.photos;
+    e._couple_itin = ids[0] || ids[1];
+  }
+};
+
 // Wrap les fonctions du loader externe pour qu'elles renvoient TOUJOURS un tableau de strings,
 // quel que soit le format renvoye par PHOTOS_CACHE (ancien strings[] ou nouveau objet[] R2).
 (function wrapPhotoLoaders(){
@@ -3102,6 +3127,7 @@ function _normPhotos(raw) {
     const original = window[fnName];
     if (typeof original !== 'function' || original.__ortWrapped) return;
     const wrapped = function() {
+      window.applyCouplesToCache();
       const res = original.apply(this, arguments);
       return _normPhotos(res);
     };
@@ -4011,6 +4037,7 @@ async function loadFromTemp(rtKey) {
   state.title = toUse.title || toUse.name || 'Roadtrip';
   state.cc = toUse.itin_id ? toUse.itin_id.split('::')[0].toUpperCase() : (itinsObj.country || 'XX');
   state._originalItinId = rtKey;
+  state._coupleItinId = toUse.itin_id || rtKey;
   if (toUse.notes) state._originalNotes = toUse.notes;
   if (toUse.practical_context) state._originalPracticalContext = toUse.practical_context;
   // Fallback: notes au niveau racine de itinsObj
@@ -5075,6 +5102,7 @@ async function loadItinerary_OLD(cc, itinId, lang) {
   const data = await resp.json();
   const itins = data.itins || data.itineraries || data || [];
   const itin = itins.find(i => (i.id || i.itin_id) === itinId);
+  if (itin) state._coupleItinId = itin.itin_id || itin.id || itinId;
   if (!itin) throw new Error('Itinéraire non trouvé');
   
   state.title = itin.title || itin.name || 'Roadtrip';

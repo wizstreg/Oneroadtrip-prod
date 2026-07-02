@@ -1400,7 +1400,21 @@ function findPhoto(item, photosDb){
     var place = words.slice(0,len).join('-');
     var key = cc + '::' + place;
     if(photosDb[key] && photosDb[key].photos && photosDb[key].photos.length){
-      var photos = photosDb[key].photos;
+      var entry = photosDb[key];
+      /* COUPLE lieu+itin : si CET itin a une selection validee, on prend SA photo
+         (la principale d'abord), sinon le pool commun avec la rotation habituelle. */
+      var itinId = item.itin_id || item.id || '';
+      var selMap = entry.selections_by_itin;
+      if(itinId && selMap && selMap[itinId] && selMap[itinId].done && selMap[itinId].photos && selMap[itinId].photos.length){
+        var selPhotos = selMap[itinId].photos;
+        for(var pi=0; pi<selPhotos.length; pi++){
+          if(selPhotos[pi] && selPhotos[pi].is_primary && selPhotos[pi].url) return selPhotos[pi].url;
+        }
+        var sp = selPhotos[0];
+        if(typeof sp === 'string') return sp;
+        if(sp && sp.url) return sp.url;
+      }
+      var photos = entry.photos;
       /* Tourne sur les photos dispo : 1er itin → photos[0], 2e → photos[1], etc.
          Si plus d'itins que de photos, on reboucle (modulo). */
       var usedIdx = (PHOTO_USAGE[key] || 0) % photos.length;
