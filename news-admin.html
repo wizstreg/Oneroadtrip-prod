@@ -205,6 +205,8 @@ let rootHandle = null;        // dossier racine du site
 let dataDirHandle = null;     // data/news
 let assetsDirHandle = null;   // assets/news
 let store = { news: [], press: [], partners: [] };
+let shapes = {};              // mémorise la forme d'origine de chaque fichier
+let loadedFromServer = false; // articles déjà lus via le serveur ?
 let currentTab = 'news';
 
 const supportsFS = ('showDirectoryPicker' in window);
@@ -258,25 +260,66 @@ async function useRootHandle(handle){
   let perm = await handle.queryPermission({ mode:'readwrite' });
   if (perm !== 'granted') perm = await handle.requestPermission({ mode:'readwrite' });
   if (perm !== 'granted') {
-    setConnectStatus('Permission refusée.', false);
+    setConnectStatus('Permission refusée. Reclique pour autoriser.', false);
     return;
   }
   rootHandle = handle;
 
-  // data/news (créé si absent)
-  const dataRoot = await handle.getDirectoryHandle('data', { create:true });
-  dataDirHandle = await dataRoot.getDirectoryHandle('news', { create:true });
+  // Trouve le dossier des articles, peu importe ce que tu as choisi
+  dataDirHandle = await resolveDataDir(handle);
+  assetsDirHandle = await resolveAssetsDir(handle);
 
-  // assets/news (lecture seule des photos, créé si absent)
-  try {
-    const assetsRoot = await handle.getDirectoryHandle('assets', { create:true });
-    assetsDirHandle = await assetsRoot.getDirectoryHandle('news', { create:true });
-  } catch(e){ assetsDirHandle = null; }
+  // Si le serveur a déjà chargé tes articles, on NE relit PAS le disque :
+  // connecter ne sert qu'à pouvoir enregistrer. Ta liste reste intacte.
+  if (loadedFromServer){
+    const total = store.news.length + store.press.length + store.partners.length;
+    setConnectStatus(`Enregistrement autorisé · dossier <b>${dataDirHandle.name}</b>. Tes ${total} articles restent affichés.`, true);
+    await loadImages();
+    renderList();
+    return;
+  }
 
-  setConnectStatus(`Connecté à <b>${handle.name}</b>.`, true);
+  // Sinon (serveur injoignable), on lit les articles depuis le disque
+  setConnectStatus(`Connecté · articles lus dans <b>${dataDirHandle.name}</b>.`, true);
   await loadStore();
   await loadImages();
   renderList();
+}
+
+// Cherche le dossier contenant news.json / press.json / partners.json,
+// que tu aies choisi la racine du site, "data", ou directement "news".
+async function resolveDataDir(picked){
+  // On cherche data/news EN PREMIER (le vrai dossier des articles).
+  const dn = await tryPath(picked, ['data','news']); if (dn) return dn;
+  const n  = await tryPath(picked, ['news']);          if (n)  return n;
+  // Sinon seulement, si les json sont directement dans le dossier choisi.
+  if (await dirHasAnyFile(picked, ['news.json','press.json','partners.json'])) return picked;
+  // Rien trouvé : on crée data/news en dernier recours
+  const dataRoot = await picked.getDirectoryHandle('data', { create:true });
+  return await dataRoot.getDirectoryHandle('news', { create:true });
+}
+
+async function resolveAssetsDir(picked){
+  return (await tryPath(picked, ['assets','news']))
+      || (await tryPath(picked, ['..','assets','news']))
+      || null;
+}
+
+async function dirHasAnyFile(dir, names){
+  for (const nm of names){
+    try { await dir.getFileHandle(nm, { create:false }); return true; } catch(e){}
+  }
+  return false;
+}
+async function tryPath(dir, parts){
+  try {
+    let h = dir;
+    for (const p of parts){
+      if (p === '..') return null; // on ne peut pas remonter avec cette API
+      h = await h.getDirectoryHandle(p, { create:false });
+    }
+    return h;
+  } catch(e){ return null; }
 }
 
 function setConnectStatus(html, ok){
@@ -285,8 +328,38 @@ function setConnectStatus(html, ok){
   el.style.color = ok ? 'var(--ok)' : 'var(--danger)';
 }
 
-// Reconnexion auto au chargement si possible
+// ===============================
+// Chargement automatique depuis le serveur (AUCUN choix de dossier)
+// Les fichiers sont servis à /data/news/ par le serveur du site.
+// ===============================
+const DATA_URL = '/data/news/';
+
+async function fetchJson(name){
+  try{
+    const res = await fetch(DATA_URL + name + '?t=' + Date.now(), { cache:'no-store' });
+    if (!res.ok) return null;
+    return normalizeShape(name, await res.json());
+  } catch(e){ return null; }
+}
+
+async function autoLoad(){
+  const n  = await fetchJson(FILES.news);
+  const p  = await fetchJson(FILES.press);
+  const pa = await fetchJson(FILES.partners);
+  if (n === null && p === null && pa === null) return false; // pas de serveur joignable
+  store.news = n || []; store.press = p || []; store.partners = pa || [];
+  loadedFromServer = true;
+  const total = store.news.length + store.press.length + store.partners.length;
+  setConnectStatus(`Articles chargés depuis le site (${total}). Pas de dossier à choisir.`, true);
+  renderList();
+  return true;
+}
+
+// Au chargement : on lit direct via le serveur. Le dossier ne sert que pour ENREGISTRER.
 (async ()=>{
+  const ok = await autoLoad();
+  if (ok) return;
+  setConnectStatus("Lecture directe impossible (page pas servie par le serveur). Connecte le dossier.", false);
   if (!supportsFS) return;
   const saved = await idbGet('root');
   if (saved){
@@ -299,20 +372,36 @@ function setConnectStatus(html, ok){
 // ===============================
 // Lecture / écriture des fichiers JSON
 // ===============================
+// Garde la forme d'origine du fichier (liste simple OU objet contenant une liste)
+function normalizeShape(name, data){
+  if (Array.isArray(data)){ shapes[name] = { type:'array' }; return data; }
+  if (data && typeof data === 'object'){
+    const prefer = ['items','news','press','partners','articles','data','list','entries'];
+    let key = prefer.find(k => Array.isArray(data[k]))
+           || Object.keys(data).find(k => Array.isArray(data[k]));
+    if (key){ shapes[name] = { type:'wrap', obj:data, key }; return data[key]; }
+  }
+  shapes[name] = { type:'array' };
+  return [];
+}
+
 async function readJsonFile(name){
   try {
     const fh = await dataDirHandle.getFileHandle(name, { create:false });
     const file = await fh.getFile();
     const txt = await file.text();
-    const data = JSON.parse(txt || '[]');
-    return Array.isArray(data) ? data : [];
-  } catch(e){ return []; } // fichier absent = liste vide
+    if (!txt.trim()){ shapes[name] = { type:'array' }; return []; }
+    return normalizeShape(name, JSON.parse(txt));
+  } catch(e){ shapes[name] = { type:'array' }; return []; } // fichier absent = liste vide
 }
 
 async function writeJsonFile(name, arr){
   const fh = await dataDirHandle.getFileHandle(name, { create:true });
   const w = await fh.createWritable();
-  await w.write(JSON.stringify(arr, null, 2));
+  const shape = shapes[name] || { type:'array' };
+  let out = arr;
+  if (shape.type === 'wrap'){ shape.obj[shape.key] = arr; out = shape.obj; }
+  await w.write(JSON.stringify(out, null, 2));
   await w.close();
 }
 
@@ -323,7 +412,10 @@ async function loadStore(){
 }
 
 async function persist(tab){
-  if (!dataDirHandle){ flash('Connecte ton dossier avant de valider.', false); return false; }
+  if (!dataDirHandle){
+    flash('Articles lus par le serveur. Pour ENREGISTRER, clique “Connecter mon dossier” une fois.', false);
+    return false;
+  }
   await writeJsonFile(FILES[tab], store[tab]);
   return true;
 }

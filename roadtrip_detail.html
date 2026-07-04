@@ -246,7 +246,7 @@ header{position:sticky;top:0;z-index:10;background:url("/assets/image_index.webp
 .brandlink img{width:40px;height:40px}
 header .brand{font-weight:800}
 header .sp{flex:1}
-.hdr-btn{padding:8px 10px;border-radius:10px;border:1px solid #113f7a;background:#fff;color:#113f7a;cursor:pointer;font-weight:600}
+.hdr-btn{height:44px;padding:0 14px;border-radius:10px;border:1px solid #113f7a;background:#fff;color:#113f7a;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;justify-content:center;box-sizing:border-box}
 
 .topband{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}
 .pill{background:#ffffff1a;color:#fff;border:1px solid #ffffff55;border-radius:999px;padding:6px 14px;font-weight:700;cursor:default}
@@ -2718,7 +2718,6 @@ row.style.marginBottom = '0';   // ↓ supprime l’espace dessous
     // renforts visuels au cas où hdr-btn n’existe pas partout
     a.style.textDecoration = 'none';
     a.style.whiteSpace = 'nowrap';
-    a.style.padding = '6px 14px';
     a.style.borderRadius = '10px';
     a.style.color = '#dc2626';
     a.style.border = '2px solid #dc2626';
@@ -2758,7 +2757,7 @@ if(!d){
   const urlDeparture = new URLSearchParams(location.search).get('departure') || '';
   const initVal = urlDeparture || localStorage.getItem('ort.rtStartDate') || '';
   Object.assign(d.style, {
-    padding:'6px 10px', borderRadius:'10px',
+    height:'44px', padding:'0 10px', borderRadius:'10px', boxSizing:'border-box',
     border:'1px solid #c3d6b6', color:'#113f7a', cursor:'pointer'
   });
   // i18n titre 6 langues
@@ -3708,6 +3707,9 @@ hdr.appendChild(row);
       margin-left:6px;padding:6px 14px;border-radius:10px;
       background:#2563eb;color:#fff;border:none;cursor:pointer;
       font-weight:700;font-size:14px;
+      min-width:190px;height:40px;
+      display:inline-flex;align-items:center;justify-content:center;
+      box-sizing:border-box;text-align:center;white-space:nowrap;
     `;
     b.addEventListener('mouseover', () => b.style.background = '#1d4ed8');
     b.addEventListener('mouseout',  () => b.style.background = '#2563eb');
@@ -6003,6 +6005,7 @@ async function initFromItin(it){
         _driveMinToNext: d.to_next_leg?.drive_min || 0,
         _distanceKmToNext: d.to_next_leg?.distance_km || 0,
         _roadType: d.to_next_leg?.road_type || null,
+        _transportMode: d.to_next_leg?.transport_mode || null,
         _mapKeywords: Array.isArray(d.night?.map_keywords) ? d.night.map_keywords : [],
         images:optimizePhotoUrls(getPhotosForPlace(pid)),
         description:visits.map(v=>v.text||v).join('. ')
@@ -6150,6 +6153,7 @@ async function initFromItin(it){
   state._originalDeptName = it.dept_name || null;
   // Nouveaux champs format enrichi
   state._originalSubtitle = it.subtitle || null;
+  state._originalClimate = it.climate || null;
   state._originalSeoKeywords = it.seo_keywords || null;
   state._originalPracticalContext = it.practical_context || null;
   console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗', state._originalPracticalContext ? 'practical_context ✓' : '');
@@ -10203,17 +10207,19 @@ window.initSaveSourceButton = function(){
         // Utiliser drive_min du JSON si disponible, sinon estimer depuis distance
         distance_km: s._distanceKmToNext || (s._distanceToNext ? Math.round(s._distanceToNext) : null),
         drive_min: s._driveMinToNext || (s._distanceToNext ? Math.round(s._distanceToNext * 1.2) : null),
-        transport_mode: 'car',
+        transport_mode: s._transportMode || 'car',
         method: s._driveMinToNext ? 'source' : 'heuristic',
         road_type: s._roadType || null
       }
     }));
     
     // Calculer estimated_days_base depuis les NUITS ACTUELLES (pas suggested_days)
-    // estimated_days = nuits totales + 1 (jour de départ)
+    // estimated_days = nuits totales + 1 (jour de départ), SAUF si le voyage
+    // commence/finit par une étape à 0 nuit (ex: Paris transit) qui fournit déjà ce jour.
     const totalNights = state.steps.reduce((sum, s) => sum + (s.nights || 0), 0);
     const totalTransportBonus = state.steps.reduce((sum, s) => sum + (s._transportBonus || 0), 0);
-    const estimatedDays = totalNights + 1;
+    const firstZero = state.steps.length && (state.steps[0].nights || 0) === 0;
+    const estimatedDays = firstZero ? totalNights : totalNights + 1;
     console.log('[SAVE SOURCE] 📊 Nuits:', totalNights, '+ bonus transport:', totalTransportBonus.toFixed(1), '→ estimated_days_base:', estimatedDays);
     
     // Construire l'objet itinéraire à sauvegarder (format ORT multi-langues)
@@ -10246,6 +10252,7 @@ window.initSaveSourceButton = function(){
     if (state._originalDeptName) itinToSave.dept_name = state._originalDeptName;
     // Nouveaux champs format enrichi
     if (state._originalSubtitle) itinToSave.subtitle = state._originalSubtitle;
+    if (state._originalClimate) itinToSave.climate = state._originalClimate;
     if (state._originalSeoKeywords) itinToSave.seo_keywords = state._originalSeoKeywords;
     if (state._originalPracticalContext) itinToSave.practical_context = state._originalPracticalContext;
     // Champs enrichis supplémentaires (v3.3)
@@ -10567,6 +10574,7 @@ if(itinsObj){
         if (toUse.dept_name) state._originalDeptName = toUse.dept_name;
         // Nouveaux champs format enrichi
         if (toUse.subtitle) state._originalSubtitle = toUse.subtitle;
+        if (toUse.climate) state._originalClimate = toUse.climate;
         if (toUse.seo_keywords) state._originalSeoKeywords = toUse.seo_keywords;
         if (toUse.practical_context) state._originalPracticalContext = toUse.practical_context;
         // Champs enrichis supplémentaires (v3.3)
@@ -10792,7 +10800,9 @@ state.country=CC;
    await initFromItin(it);
 
 // Fusionne les éditions utilisateur (visites/activités) si dispo
-if (window.ORT_STEP_COMMON && typeof window.ORT_STEP_COMMON.loadStepData === 'function') {
+// SAUF en mode import/temp : le JSON importé fait foi, on ne le réécrase pas
+// avec d'anciennes données de lieu (ex: une étape volontairement vide comme un transit).
+if (!TEMP_MODE && window.ORT_STEP_COMMON && typeof window.ORT_STEP_COMMON.loadStepData === 'function') {
   const tripId = (function(){
     const u = new URLSearchParams(location.search);
     const itin = u.get('itin') || '';
@@ -13278,6 +13288,10 @@ if (!cc || !itin) {
             state._originalMeta = trip.meta;
             console.log('[LOG-CONTROLE][INIT] 📦 meta restauré');
           }
+          if (trip.climate) {
+            state._originalClimate = trip.climate;
+            console.log('[LOG-CONTROLE][INIT] 📦 climate restauré');
+          }
           
           window.ORT_DETAIL_ADAPTER.init(trip.id, window.state);
           
@@ -14956,6 +14970,35 @@ if ('serviceWorker' in navigator) {
   console.log('[ORT-LIGHTBOX] ✅ Initialisé (delegation active)');
 })();
 </script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){
+  try{
+    var openTs = Date.now(), maxScroll = 0;
+    function device(){try{var w=window.innerWidth||document.documentElement.clientWidth||0;var mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900;return mob?"mobile":"desktop";}catch(e){return "unknown";}}
+    function campaign(){try{var p=new URLSearchParams(window.location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+    function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+    function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:(document.documentElement.lang||"?");}catch(e){return "?";}}
+    function attr(n){try{var b=document.body;var v=b&&b.getAttribute(n);return v||"";}catch(e){return "";}}
+    window.addEventListener("scroll",function(){try{var h=document.documentElement;var sc=(h.scrollTop)/((h.scrollHeight-h.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+    function send(){
+      try{
+        var dur=Date.now()-openTs;
+        var cc=attr("data-cc")||"__PAGE__";
+        var itin=attr("data-itin-id")||attr("data-itin")||"__PAGE__";
+        var body={fields:{tpl:{integerValue:0},itin:{stringValue:itin},cc:{stringValue:cc},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"detail"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+        var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+        var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+        if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+      }catch(e){}
+    }
+    document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+    window.addEventListener("pagehide",send);
+  }catch(e){}
+})();
+</script>
+<!-- /ort-page-tracking-v1 -->
 
 </body>
 </html>
