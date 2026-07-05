@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- ===== OneRoadTrip carte_builder v26 - mobile : carte et liste figees plein ecran, liste qui defile sans pousser la carte, distance sur la meme ligne que l etape, bouton Reinitialiser mobile ===== -->
 <html lang="fr">
 <head>
 <!-- ort-pwa-injected-v1 -->
@@ -103,13 +104,49 @@ header {
 .auth-pop .btn.out { background: #fff; color: #113f7a; }
 
 /* Panneau supérieur - Itinéraire personnalisé */
+.builder-row {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+  margin: 12px 16px 16px;
+  height: calc(100vh - 90px);
+  min-height: 460px;
+}
 .top-panel {
   background: var(--card);
   border: 2px solid var(--acc);
   border-radius: 14px;
   padding: 12px 16px;
-  margin: 12px 16px;
   box-shadow: 0 4px 12px rgba(17, 63, 122, 0.15);
+  flex: 0 0 340px;
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+.map-topbar {
+  position: absolute;
+  top: 10px; left: 10px; right: 10px;
+  z-index: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+.map-topbar > * { pointer-events: auto; }
+.map-topbar .country-select,
+.map-topbar .stats-box,
+.map-topbar .fullscreen-btn {
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.map-topbar .zoom-hint {
+  background: rgba(255,255,255,0.92);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.12);
 }
 
 .top-panel-header {
@@ -161,75 +198,128 @@ header {
 }
 .reset-btn:hover { background: #e5e7eb; }
 
-/* Liste itinéraire horizontal avec flèches - s'adapte à la popup */
+/* ====================== */
+/* LISTE D'ÉTAPES VERTICALE (global)              */
+/* ====================== */
+.top-panel { overflow-x: hidden; }
+.top-panel-header { flex-wrap: wrap; row-gap: 4px; }
 .itinerary-flow {
   display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-top: 10px;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 12px;
   min-height: 40px;
-  padding-right: 380px; /* Espace pour la popup */
-  transition: padding-right 0.3s;
+  overflow-x: hidden;
 }
-
-body.preview-open .itinerary-flow {
-  padding-right: 380px;
-}
-
-body:not(.preview-open) .itinerary-flow {
-  padding-right: 0;
-}
+/* La preview qui s'ouvre au survol ne doit PAS déformer la liste */
+body.preview-open .itinerary-flow,
+body:not(.preview-open) .itinerary-flow { padding-right: 0; }
 
 .itinerary-empty {
   color: var(--mut);
   font-style: italic;
-  padding: 8px 0;
-}
-
-.itinerary-step {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #fff;
-  border: 2px solid var(--bd);
-  border-radius: 20px;
-  padding: 6px 10px 6px 12px;
   font-size: 13px;
-  font-weight: 600;
-  color: var(--ink);
-  white-space: nowrap;
+  padding: 10px 2px;
 }
 
-.itinerary-step .step-color {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+/* Carte d'étape */
+.step-card {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding: 10px 12px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-top: 8px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
   flex-shrink: 0;
 }
-
-.itinerary-step .step-name {
-  max-width: 150px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.step-card:first-child { margin-top: 0; }
+.step-card.brut { border-left: 4px solid #d97706; }
+.step-card.master { border-left: 4px solid #16a34a; }
+.step-num {
+  flex: 0 0 auto; width: 28px; height: 28px; border-radius: 50%;
+  background: var(--acc); color: #fff; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
 }
+.step-body { flex: 1 1 auto; min-width: 0; }
+.step-name { font-size: 14px; font-weight: 700; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.step-tag { font-size: 11px; color: var(--mut); }
+.step-duration-wrap { flex: 0 0 auto; display: flex; align-items: center; }
+.step-duration {
+  padding: 5px 6px; border: 1px solid #cbd5e1; border-radius: 8px; font-size: 13px;
+  background: #f8fafc; color: #1f2937; cursor: pointer;
+}
+.step-del {
+  flex: 0 0 auto; border: none; background: transparent; color: #94a3b8;
+  font-size: 16px; cursor: pointer; padding: 4px 6px; border-radius: 6px;
+}
+.step-del:hover { color: #e11d48; background: #fef2f2; }
 
-.itinerary-step .step-remove {
-  background: none;
-  border: none;
-  color: #e11d48;
-  cursor: pointer;
-  font-size: 14px;
-  padding: 0 2px;
+/* Tronçon entre deux étapes (distance / temps de route) */
+.step-leg {
+  display: flex; align-items: center; gap: 8px;
+  flex-basis: 100%;
+  margin: 6px 0 0 25px;
+  padding: 6px 0 6px 16px;
+  font-size: 12px; font-weight: 600; color: var(--mut);
+  border-left: 2px dashed #b6c6d8;
+}
+.step-leg .leg-line { display: none; }
+.step-leg.calc { font-style: italic; font-weight: 400; opacity: .7; }
+
+/* Stats globales du voyage (résumé en haut du panneau) */
+.trip-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+.trip-stats[hidden] { display: none; }
+.trip-stat {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  background: #eef4fb; border-radius: 10px; padding: 8px 4px;
+  font-size: 11px; color: #475569; text-align: center;
+}
+.trip-stat b { color: var(--acc); font-size: 17px; line-height: 1.1; }
+
+/* Poignée de glisser-déposer à gauche de chaque étape */
+.step-drag {
+  flex: 0 0 auto;
+  cursor: grab;
+  color: #b6c6d8;
+  font-size: 15px;
   line-height: 1;
+  padding: 6px 2px 6px 0;
+  user-select: none;
+  touch-action: none;
+}
+.step-drag:hover { color: var(--acc); }
+.step-drag:active { cursor: grabbing; }
+@media (max-width: 768px) {
+  .step-drag { font-size: 18px; padding: 12px 8px 12px 2px; }
+}
+.step-card.dragging { opacity: .45; }
+.step-card.drag-over {
+  border-color: var(--acc);
+  box-shadow: 0 0 0 2px rgba(17, 63, 122, .18);
+}
+
+/* Bouton + discret sous la dernière étape */
+.itinerary-flow .step-add-next {
+  background: #f8fafc;
+  color: var(--acc);
+  border: 2px dashed #b6c6d8;
+  box-shadow: none;
+  padding: 9px 12px;
   font-weight: 700;
 }
-.itinerary-step .step-remove:hover { color: #be123c; }
-
-.itinerary-arrow {
-  color: var(--acc);
-  font-weight: 700;
-  font-size: 16px;
+.itinerary-flow .step-add-next:hover {
+  background: #eef4fb;
+  border-color: var(--acc);
+  transform: none;
+  box-shadow: none;
 }
 
 /* Contrôles carte */
@@ -522,11 +612,22 @@ body.fullscreen-mode.selection-open .map-container {
   z-index: 1;
 }
 
+/* Curseur toujours visible sur la carte */
+.leaflet-grab,
+.leaflet-container,
+.leaflet-container .leaflet-marker-pane,
+.leaflet-container .leaflet-tile-pane { cursor: default; }
+.leaflet-interactive,
+.leaflet-marker-icon { cursor: pointer; }
+.leaflet-dragging .leaflet-grab,
+.leaflet-dragging .leaflet-container { cursor: grabbing; }
+
 .map-container {
   position: relative;
-  height: calc(100vh - 280px);
+  flex: 1 1 auto;
+  height: auto;
   min-height: 400px;
-  margin: 0 16px 16px;
+  margin: 0;
   border-radius: 14px;
   overflow: hidden;
   border: 2px solid var(--acc);
@@ -938,16 +1039,173 @@ body.fullscreen-mode .place-preview {
   filter: drop-shadow(0 2px 4px rgba(225,29,72,0.5));
 }
 
+/* ============================================= */
+/* AJOUT D'ÉTAPE + RECHERCHE (styles globaux)     */
+/* ============================================= */
+.step-add-zone { margin-top: 8px; }
+.step-add-btn {
+  width: 100%; padding: 12px 16px; border: none;
+  background: linear-gradient(135deg, #2563eb, #4f46e5); color: #fff;
+  font-size: 14px; font-weight: 600; border-radius: 10px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  box-shadow: 0 4px 12px rgba(37,99,235,.3); transition: transform .12s, box-shadow .12s;
+}
+.step-add-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(37,99,235,.4); }
+.step-add-btn:active { transform: translateY(0); }
+.step-add-next { margin-top: 10px; }
+
+.step-search { position: relative; margin-top: 8px; width: 100%; }
+.step-search-inputwrap { position: relative; display: flex; align-items: center; }
+.step-search-icon { position: absolute; left: 10px; font-size: 14px; opacity: .7; pointer-events: none; }
+.step-search-close {
+  position: absolute; right: 8px; border: none; background: transparent; cursor: pointer;
+  font-size: 14px; color: #94a3b8;
+}
+.step-search-input {
+  width: 100%; box-sizing: border-box; padding: 10px 32px 10px 32px;
+  border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none;
+  background: #fff; color: #1f2937;
+}
+.step-search-input:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37,99,235,.15); }
+.step-search-spinner {
+  position: absolute; right: 30px; width: 14px; height: 14px; border-radius: 50%;
+  border: 2px solid #cbd5e1; border-top-color: #2563eb; animation: stepspin .7s linear infinite;
+}
+@keyframes stepspin { to { transform: rotate(360deg); } }
+
+/* Le panneau ne doit pas rogner le volet de résultats quand il est ouvert */
+.top-panel:has(.step-search-results:not([hidden])) { overflow: visible; }
+
+/* ---- Volet de résultats : large, par-dessus la carte ---- */
+.step-search-results {
+  position: fixed; z-index: 6000;
+  left: 16px; top: 120px;
+  width: min(760px, calc(100vw - 40px));
+  background: #fff; border: 1px solid #dbe4ee; border-radius: 14px;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, .25);
+  max-height: min(70vh, 620px); overflow-y: auto; overflow-x: hidden;
+  padding: 12px;
+}
+/* En-têtes des deux colonnes */
+.step-search-results:has(.step-result) { padding-top: 38px; }
+.step-search-results:has(.step-result)::before,
+.step-search-results:has(.step-result)::after {
+  position: absolute; top: 14px;
+  font-size: 11px; font-weight: 800; letter-spacing: .07em; text-transform: uppercase;
+  color: #94a3b8; pointer-events: none; white-space: nowrap;
+}
+.step-search-results:has(.step-result)::before { content: "Villes trouvées"; left: 18px; }
+.step-search-results:has(.step-result)::after { content: "Catalogue OneRoadTrip"; left: calc(38% + 24px); }
+
+/* ---- Une ligne = ville (col. 1) + correspondance catalogue (col. 2) ---- */
+.step-result {
+  display: grid;
+  grid-template-columns: minmax(0, 38%) minmax(0, 1fr);
+  grid-auto-rows: min-content;
+  column-gap: 14px; row-gap: 7px;
+  align-items: start;
+  padding: 10px;
+  border: 1px solid #e2e8f0; border-radius: 12px;
+  background: #fff;
+  margin-bottom: 8px;
+  transition: border-color .15s, box-shadow .15s;
+}
+.step-result:hover { border-color: #93c5fd; box-shadow: 0 4px 14px rgba(37, 99, 235, .12); }
+.step-result:last-child { margin-bottom: 0; }
+
+/* Colonne 1 : la ville issue de la recherche géographique */
+.step-result-head {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  align-self: stretch;
+  display: flex; flex-direction: column; gap: 2px; justify-content: center;
+  padding: 10px 12px;
+  background: #f5f8fc;
+  border: 1px solid #e6edf5;
+  border-radius: 10px;
+}
+.step-search-item-name { font-size: 14px; font-weight: 700; color: #1f2937; line-height: 1.25; }
+.step-search-item-sub { font-size: 12px; color: #64748b; }
+
+/* Colonne 2 : badge, compteurs, actions */
+.step-search-item-match,
+.step-search-item-brut,
+.step-result-counts,
+.step-result-actions { grid-column: 2; min-width: 0; }
+
+.step-search-item-match, .step-search-item-brut {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+  width: fit-content; max-width: 100%;
+}
+.step-search-item-match { color: #15803d; background: #dcfce7; }
+.step-search-item-brut { color: #b45309; background: #fef3c7; }
+.step-search-item-warn { font-size: 12px; color: #b45309; font-weight: 600; margin-top: 2px; }
+.step-duration-free { width: 62px; padding: 4px 6px; border: 1px solid #cbd5e1; border-radius: 7px; font-size: 13px; margin-left: 4px; }
+.step-howto { font-size: 12px; color: #64748b; line-height: 1.4; margin: 6px 0 2px; padding: 8px 10px; background: #f8fafc; border-radius: 8px; }
+@media (max-width: 768px) { .step-howto { display: none; } }
+.howto-btn { margin-left: 6px; width: 22px; height: 22px; border-radius: 50%; border: none; background: #e0e7ff; color: #4338ca; font-weight: 700; font-size: 13px; cursor: pointer; vertical-align: middle; }
+.howto-btn:hover { background: #c7d2fe; }
+.howto-modal { position: fixed; inset: 0; background: rgba(15,23,42,.5); z-index: 9000; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.howto-modal[hidden] { display: none !important; }
+.howto-box { background: #fff; border-radius: 14px; padding: 24px; max-width: 420px; width: 100%; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.3); }
+.howto-box h3 { margin: 0 0 12px; color: #1d4ed8; font-size: 18px; }
+.howto-box p { margin: 0 0 18px; color: #334155; line-height: 1.5; font-size: 14px; }
+.howto-close { position: absolute; top: 12px; right: 14px; border: none; background: transparent; font-size: 18px; color: #94a3b8; cursor: pointer; }
+.howto-ok { width: 100%; padding: 11px; border: none; border-radius: 9px; background: linear-gradient(135deg,#2563eb,#4f46e5); color: #fff; font-weight: 600; font-size: 14px; cursor: pointer; }
+.step-search-item-match::before { content: "✓"; }
+.step-search-item-brut::before { content: "+"; }
+
+.step-result-counts { font-size: 12.5px; font-weight: 600; color: #475569; }
+
+.step-result-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+.step-btn {
+  flex: 0 1 auto; padding: 8px 12px; border-radius: 8px; font-size: 12.5px;
+  font-weight: 700; cursor: pointer; border: 1px solid transparent; line-height: 1.2;
+}
+.step-btn-primary { background: #2563eb; color: #fff; }
+.step-btn-primary:hover { background: #1d4ed8; }
+.step-btn-ghost { background: #fff; color: #1d4ed8; border-color: #bfdbfe; }
+.step-btn-ghost:hover { background: #eff6ff; }
+
+.step-search-empty { padding: 14px; font-size: 13px; color: #64748b; font-style: italic; text-align: center; }
+.step-search-item { padding: 10px 12px; cursor: pointer; border-radius: 8px; display: flex; flex-direction: column; gap: 4px; }
+.step-search-item:hover, .step-search-item.active { background: #eff6ff; }
+
 /* Bandeau mobile collapsible - caché par défaut */
 .mobile-itin-header {
   display: none;
 }
+.hdr-toggle { display: none; }
 
 @media (max-width: 768px) {
-  /* Top-panel sticky en haut sur mobile */
+  /* Écran figé : liste en haut, carte en bas, rien ne pousse */
+  .builder-row {
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    margin: 0;
+    gap: 0;
+    overflow: hidden;
+  }
   .top-panel {
-    position: sticky;
-    top: 0;
+    flex: 0 0 auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    max-height: 48vh;
+    overflow: hidden;
+  }
+  .map-topbar {
+    position: static;
+    margin: 8px;
+    background: rgba(255,255,255,0.9);
+    padding: 6px;
+    border-radius: 8px;
+  }
+  /* Panneau liste non sticky, il fait partie de la colonne figée */
+  .top-panel {
+    position: relative;
     z-index: 1000;
     margin: 0 !important;
     border-radius: 0;
@@ -987,6 +1245,16 @@ body.fullscreen-mode .place-preview {
     cursor: pointer;
   }
   .validate-btn-mobile:hover { background: #16a34a; }
+  .reset-btn-mobile {
+    background: #fff;
+    color: #113f7a;
+    border: 1px solid #113f7a;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
   
   /* Agrandir la zone de tap des points sur la carte */
   /* pointer-events sur le SVG path + zone de hit élargie via le JS (radius +3) */
@@ -1016,22 +1284,41 @@ body.fullscreen-mode .place-preview {
     display: none !important;
   }
   
-  /* Liste toujours visible avec scroll horizontal */
+  /* Liste en colonne, qui défile dans un panneau court */
   .itinerary-flow {
-    display: flex;
-    flex-wrap: nowrap !important;
-    overflow-x: auto;
-    overflow-y: hidden;
-    margin-top: 10px;
-    padding-bottom: 6px;
-    gap: 8px;
+    display: block !important;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 8px;
+    padding-bottom: 4px;
+    gap: 6px;
     -webkit-overflow-scrolling: touch;
-    max-height: none !important;
+    max-height: 34vh !important;
   }
   
   /* Plus besoin de .list-open pour afficher */
   .top-panel.list-open .itinerary-flow {
-    max-height: none;
+    max-height: 34vh;
+  }
+
+  /* Étape condensée sur une ligne */
+  .step-card {
+    padding: 6px 8px !important;
+    gap: 6px !important;
+    min-height: 0 !important;
+  }
+  .step-card .step-tag { display: none !important; }
+  .step-card .step-name { font-size: 14px !important; line-height: 1.1 !important; }
+  .step-card .step-body { justify-content: center !important; }
+  .step-card .step-duration { padding: 4px 4px !important; font-size: 12px !important; min-width: 0 !important; }
+  /* Distance sur la même ligne que l'étape, compacte */
+  .step-card .step-leg {
+    flex-basis: auto !important;
+    margin: 0 0 0 4px !important;
+    padding: 2px 6px !important;
+    border-left: none !important;
+    font-size: 11px !important;
+    white-space: nowrap;
   }
   
   /* Masquer la barre d'action mobile (bandeau rouge "Retirer") */
@@ -1039,13 +1326,42 @@ body.fullscreen-mode .place-preview {
     display: none !important;
   }
   
-  /* Ajuster hauteur carte */
+  /* La carte remplit tout le bas de l'écran figé */
   .map-container { 
-    height: calc(100vh - 160px);
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 0;
     margin: 8px;
   }
   
   .map-controls { margin: 0 8px 8px; }
+
+  /* La liste défile à l'intérieur du panneau, sans pousser la carte */
+  .itinerary-flow { flex: 1 1 auto; overflow-y: auto; max-height: none !important; }
+  .top-panel.list-open .itinerary-flow { max-height: none; }
+
+  /* Header ORT masqué par défaut, réaffichable via le bouton */
+  #site-header { display: none !important; }
+  body.header-shown #site-header { display: block !important; }
+  .hdr-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 6px;
+    right: 6px;
+    z-index: 3000;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    border: none;
+    background: #113f7a;
+    color: #fff;
+    font-size: 18px;
+  }
+
+  /* Légende repliée par défaut (contrôlée par la classe collapsed) */
+  #colorLegend { max-width: 60%; }
   
   /* Preview popup - Plein écran sur mobile */
   .place-preview {
@@ -1090,6 +1406,67 @@ body.fullscreen-mode .place-preview {
     font-size: 28px !important;
   }
   
+  .version-badge {
+    display: inline-block; margin-left: 8px; padding: 2px 9px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff;
+    font-size: 12px; font-weight: 700; border-radius: 999px; vertical-align: middle;
+    letter-spacing: .3px;
+  }
+  /* --- Recherche d'étape : overrides mobile (une seule colonne) --- */
+  .step-search-results {
+    left: 0;
+    width: calc(100vw - 40px);
+    min-width: 0;
+    max-height: 55vh;
+    padding: 10px;
+  }
+  .step-search-results:has(.step-result) { padding-top: 10px; }
+  .step-search-results:has(.step-result)::before,
+  .step-search-results:has(.step-result)::after { content: none; }
+  .step-result { grid-template-columns: minmax(0, 1fr); }
+  .step-result-head { grid-row: auto; grid-column: 1; margin-bottom: 2px; }
+  .step-search-item-match,
+  .step-search-item-brut,
+  .step-result-counts,
+  .step-result-actions { grid-column: 1; }
+  .step-btn { flex: 1 1 auto; padding: 10px 12px; }
+
+  /* Liste d'étapes verticale */
+  .itinerary-flow { display: flex; flex-direction: column; gap: 0; }
+  .step-card {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; margin-top: 8px;
+  }
+  .step-card.brut { border-left: 4px solid #d97706; }
+  .step-card.master { border-left: 4px solid #16a34a; }
+  .step-num {
+    flex: 0 0 auto; width: 26px; height: 26px; border-radius: 50%;
+    background: #2563eb; color: #fff; font-size: 13px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-body { flex: 1 1 auto; min-width: 0; }
+  .step-name { font-size: 14px; font-weight: 600; color: #1f2937; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .step-tag { font-size: 11px; color: #64748b; }
+  .step-duration-wrap { flex: 0 0 auto; display: flex; align-items: center; gap: 4px; }
+  .step-duration {
+    padding: 4px 6px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px;
+    background: #fff; color: #1f2937; cursor: pointer;
+  }
+  .step-del { flex: 0 0 auto; border: none; background: transparent; color: #ef4444; font-size: 16px; cursor: pointer; }
+  .step-leg {
+    display: flex; align-items: center; gap: 6px; padding: 2px 0 2px 32px;
+    font-size: 12px; color: #64748b;
+  }
+  .step-leg .leg-line { flex: 0 0 auto; color: #94a3b8; }
+  .step-leg.calc { font-style: italic; opacity: .7; }
+
+  /* Stats globales */
+  .trip-stats {
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; padding: 10px 12px;
+    background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px;
+  }
+  .trip-stat { font-size: 13px; color: #475569; }
+  .trip-stat b { color: #1f2937; font-size: 15px; }
   .preview-duration {
     font-size: 18px;
     padding: 12px 16px;
@@ -1265,36 +1642,54 @@ body.fullscreen-mode .place-preview {
 
 <!-- Header ORT unifié -->
 <header id="site-header"></header>
+<button id="hdrToggle" class="hdr-toggle" onclick="document.body.classList.toggle('header-shown')" title="Afficher/masquer le menu">☰</button>
 
-<!-- Panneau itinéraire personnalisé -->
+<!-- Rangée : liste étapes à gauche, carte à droite -->
+<div class="builder-row">
+
+<!-- Panneau itinéraire personnalisé (colonne gauche) -->
 <div class="top-panel">
   <!-- Bandeau mobile -->
   <div id="mobileItinHeader" class="mobile-itin-header">
     <span id="mobileItinCount">0 étapes</span>
-    <button id="validateBtnMobile" class="validate-btn-mobile" onclick="document.getElementById('validateBtn').click();">✓ Valider</button>
+    <span style="display:flex; gap:8px;">
+      <button id="resetBtnMobile" class="reset-btn-mobile" onclick="document.getElementById('resetBtn').click();">🔄 Réinit.</button>
+      <button id="validateBtnMobile" class="validate-btn-mobile" onclick="document.getElementById('validateBtn').click();">✓ Valider</button>
+    </span>
   </div>
   
   <div class="top-panel-header">
     <h2 id="panelTitle">🗺️ Mon itinéraire personnalisé</h2>
+    <span class="version-badge" id="versionBadge">v26</span>
+    <button type="button" id="howtoBtn" class="howto-btn" title="Mode d'emploi">?</button>
     <button id="resetBtn" class="reset-btn">🔄 Réinitialiser</button>
     <button id="validateBtn" class="validate-btn">✓ Valider</button>
     <span class="subtitle" id="panelSubtitle">(modifiable sur la page suivante)</span>
-    <div class="top-panel-controls">
-      <select id="countrySelect" class="country-select">
-        <option value="">-- Tous les pays --</option>
-      </select>
-      <div class="stats-box" id="statsBox">0 lieux visibles</div>
-      <button id="fullscreenBtn" class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Plein écran</button>
+  </div>
+  <!-- Résumé du voyage (en haut) -->
+  <div id="tripStats" class="trip-stats" hidden>
+    <span class="trip-stat"><b id="tripStatSteps">0</b> étapes</span>
+    <span class="trip-stat"><b id="tripStatDays">0</b> jours</span>
+    <span class="trip-stat"><b id="tripStatKm">0</b> km</span>
+    <span class="trip-stat"><b id="tripStatDrive">0h</b> de route</span>
+  </div>
+  <div class="step-howto" id="stepHowto">Ajoutez vos étapes une à une : servez-vous de la recherche, ou cliquez directement sur la carte, que l'endroit soit référencé ou non.</div>
+  <!-- Liste des étapes (+ bouton ajouter en fin de liste) -->
+  <div id="itineraryFlow" class="itinerary-flow">
+    <span class="itinerary-empty" id="emptyMsg">Cliquez sur les lieux ou ajoutez une étape</span>
+  </div>
+  <!-- Champ de recherche : caché tant qu'on n'a pas cliqué sur + -->
+  <div class="step-add-zone">
+    <div class="step-search" id="stepSearch" hidden>
+      <div class="step-search-inputwrap">
+        <span class="step-search-icon">🔎</span>
+        <input type="text" id="stepSearchInput" class="step-search-input" autocomplete="off" placeholder="Chercher une étape par nom…">
+        <span class="step-search-spinner" id="stepSearchSpinner" hidden></span>
+        <button type="button" id="stepSearchClose" class="step-search-close" title="Fermer">✕</button>
+      </div>
+      <div class="step-search-results" id="stepSearchResults" hidden></div>
     </div>
   </div>
-  <div id="itineraryFlow" class="itinerary-flow">
-    <span class="itinerary-empty" id="emptyMsg">Cliquez sur les lieux pour les ajouter</span>
-  </div>
-</div>
-
-<!-- Contrôles carte (visibles hors plein écran, vide car remonté dans top-panel) -->
-<div class="map-controls">
-  <div class="zoom-hint" id="zoomHint">🔍 Zoomez pour voir plus de lieux</div>
 </div>
 
 <!-- Barre supérieure plein écran -->
@@ -1321,8 +1716,17 @@ body.fullscreen-mode .place-preview {
   </div>
 </div>
 
-<!-- Carte -->
+<!-- Carte (colonne droite) -->
 <div class="map-container">
+  <!-- Contrôles carte (pays, stats, plein écran) -->
+  <div class="map-topbar">
+    <select id="countrySelect" class="country-select">
+      <option value="">-- Tous les pays --</option>
+    </select>
+    <div class="stats-box" id="statsBox">0 lieux visibles</div>
+    <button id="fullscreenBtn" class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Plein écran</button>
+    <div class="zoom-hint" id="zoomHint">🔍 Zoomez pour voir plus de lieux</div>
+  </div>
   <div id="map"></div>
   <div id="loadingCounter" class="map-loading-counter" hidden>
     <span class="mlc-dot"></span>
@@ -1369,11 +1773,21 @@ body.fullscreen-mode .place-preview {
     <div class="legend-item" data-filter="selected" onclick="toggleLegendFilter(this)"><span class="legend-checkbox">✓</span><div class="legend-dot selected-dot"></div> <span data-i18n="selected">Sélectionné</span></div>
   </div>
 </div>
+</div><!-- /builder-row -->
 
 <!-- Overlay pour popup (mobile uniquement) -->
 <div id="previewOverlay" class="preview-overlay" onclick="closePlacePreview()"></div>
 
 <!-- Modal configuration voyage -->
+<div id="howtoModal" class="howto-modal" hidden>
+  <div class="howto-box">
+    <button type="button" class="howto-close" id="howtoClose">✕</button>
+    <h3 id="howtoTitle">Comment ça marche</h3>
+    <p id="howtoText">Ajoutez vos étapes une à une : servez-vous de la recherche, ou cliquez directement sur la carte, que l'endroit soit référencé ou non.</p>
+    <button type="button" class="howto-ok" id="howtoOk">OK</button>
+  </div>
+</div>
+
 <div id="configModal" class="config-modal">
   <div class="config-modal-content">
     <h2 id="configTitle">Configurez votre voyage</h2>
@@ -1423,6 +1837,27 @@ const T = {
     visitsLabel: "🏛️ Visites possibles",
     activitiesLabel: "🎯 Activités",
     duration: "⏱️ Durée estimée",
+    stepSearchPlaceholder: "Chercher une étape par nom…",
+    stepFoundInOrt: "Trouvé dans OneRoadTrip",
+    stepBrut: "Nouvelle étape (sans visites listées)",
+    stepNotFound: "Non trouvé dans les lieux ORT",
+    stepNearby: "Villes ORT proches",
+    stepValidate: "Valider",
+    stepNoCity: "Aucune ville trouvée",
+    stepSearchUnavailable: "Recherche indisponible",
+    stepCalc: "calcul…",
+    stepTagBrut: "Ville ajoutée",
+    stepTagOrt: "Lieu ORT",
+    stepAddNext: "＋  Ajouter l'étape suivante",
+    stepAddFirst: "＋  Ajouter une étape",
+    stepVisits: "visites",
+    stepActivities: "activités",
+    stepIntegrateWith: "Intégrer avec visites et activités",
+    stepIntegrateWithout: "Intégrer sans visites",
+    stepDiffName: "⚠️ Ville proche, nom différent",
+    stepDurOther: "Autre…",
+    howtoTitle: "Comment ça marche",
+    stepHowto: "Ajoutez vos étapes une à une : servez-vous de la recherche, ou cliquez directement sur la carte, que l'endroit soit référencé ou non.",
     day: "jour",
     days: "jours",
     minutes: "min",
@@ -1462,6 +1897,27 @@ const T = {
     visitsLabel: "🏛️ Possible visits",
     activitiesLabel: "🎯 Activities",
     duration: "⏱️ Estimated duration",
+    stepSearchPlaceholder: "Search a stop by name…",
+    stepFoundInOrt: "Found in OneRoadTrip",
+    stepBrut: "New stop (no listed visits)",
+    stepNotFound: "Not found in ORT places",
+    stepNearby: "Nearby ORT cities",
+    stepValidate: "Confirm",
+    stepNoCity: "No city found",
+    stepSearchUnavailable: "Search unavailable",
+    stepCalc: "calculating…",
+    stepTagBrut: "Added city",
+    stepTagOrt: "ORT place",
+    stepAddNext: "＋  Add next stop",
+    stepAddFirst: "＋  Add a stop",
+    stepVisits: "visits",
+    stepActivities: "activities",
+    stepIntegrateWith: "Add with visits and activities",
+    stepIntegrateWithout: "Add without visits",
+    stepDiffName: "⚠️ Nearby city, different name",
+    stepDurOther: "Other…",
+    howtoTitle: "How it works",
+    stepHowto: "Add your stops one by one: use the search, or click directly on the map, whether the place is listed or not.",
     day: "day",
     days: "days",
     minutes: "min",
@@ -1501,6 +1957,27 @@ const T = {
     visitsLabel: "🏛️ Visite possibili",
     activitiesLabel: "🎯 Attività",
     duration: "⏱️ Durata stimata",
+    stepSearchPlaceholder: "Cerca una tappa per nome…",
+    stepFoundInOrt: "Trovato in OneRoadTrip",
+    stepBrut: "Nuova tappa (senza visite elencate)",
+    stepNotFound: "Non trovato nei luoghi ORT",
+    stepNearby: "Città ORT vicine",
+    stepValidate: "Conferma",
+    stepNoCity: "Nessuna città trovata",
+    stepSearchUnavailable: "Ricerca non disponibile",
+    stepCalc: "calcolo…",
+    stepTagBrut: "Città aggiunta",
+    stepTagOrt: "Luogo ORT",
+    stepAddNext: "＋  Aggiungi la tappa successiva",
+    stepAddFirst: "＋  Aggiungi una tappa",
+    stepVisits: "visite",
+    stepActivities: "attività",
+    stepIntegrateWith: "Aggiungi con visite e attività",
+    stepIntegrateWithout: "Aggiungi senza visite",
+    stepDiffName: "⚠️ Città vicina, nome diverso",
+    stepDurOther: "Altro…",
+    howtoTitle: "Come funziona",
+    stepHowto: "Aggiungi le tappe una a una: usa la ricerca o clicca direttamente sulla mappa, che il luogo sia elencato o no.",
     day: "giorno",
     days: "giorni",
     minutes: "min",
@@ -1540,6 +2017,27 @@ const T = {
     visitsLabel: "🏛️ Visitas posibles",
     activitiesLabel: "🎯 Actividades",
     duration: "⏱️ Duración estimada",
+    stepSearchPlaceholder: "Buscar una etapa por nombre…",
+    stepFoundInOrt: "Encontrado en OneRoadTrip",
+    stepBrut: "Nueva etapa (sin visitas listadas)",
+    stepNotFound: "No encontrado en lugares ORT",
+    stepNearby: "Ciudades ORT cercanas",
+    stepValidate: "Validar",
+    stepNoCity: "Ninguna ciudad encontrada",
+    stepSearchUnavailable: "Búsqueda no disponible",
+    stepCalc: "calculando…",
+    stepTagBrut: "Ciudad añadida",
+    stepTagOrt: "Lugar ORT",
+    stepAddNext: "＋  Añadir la siguiente etapa",
+    stepAddFirst: "＋  Añadir una etapa",
+    stepVisits: "visitas",
+    stepActivities: "actividades",
+    stepIntegrateWith: "Añadir con visitas y actividades",
+    stepIntegrateWithout: "Añadir sin visitas",
+    stepDiffName: "⚠️ Ciudad cercana, nombre distinto",
+    stepDurOther: "Otro…",
+    howtoTitle: "Cómo funciona",
+    stepHowto: "Añade tus etapas una a una: usa la búsqueda o haz clic directamente en el mapa, esté el lugar listado o no.",
     day: "día",
     days: "días",
     minutes: "min",
@@ -1579,6 +2077,27 @@ const T = {
     visitsLabel: "🏛️ Visitas possíveis",
     activitiesLabel: "🎯 Atividades",
     duration: "⏱️ Duração estimada",
+    stepSearchPlaceholder: "Procurar uma etapa por nome…",
+    stepFoundInOrt: "Encontrado no OneRoadTrip",
+    stepBrut: "Nova etapa (sem visitas listadas)",
+    stepNotFound: "Não encontrado nos locais ORT",
+    stepNearby: "Cidades ORT próximas",
+    stepValidate: "Validar",
+    stepNoCity: "Nenhuma cidade encontrada",
+    stepSearchUnavailable: "Pesquisa indisponível",
+    stepCalc: "a calcular…",
+    stepTagBrut: "Cidade adicionada",
+    stepTagOrt: "Local ORT",
+    stepAddNext: "＋  Adicionar a próxima etapa",
+    stepAddFirst: "＋  Adicionar uma etapa",
+    stepVisits: "visitas",
+    stepActivities: "atividades",
+    stepIntegrateWith: "Adicionar com visitas e atividades",
+    stepIntegrateWithout: "Adicionar sem visitas",
+    stepDiffName: "⚠️ Cidade próxima, nome diferente",
+    stepDurOther: "Outro…",
+    howtoTitle: "Como funciona",
+    stepHowto: "Adicione as etapas uma a uma: use a pesquisa ou clique diretamente no mapa, esteja o local listado ou não.",
     day: "dia",
     days: "dias",
     minutes: "min",
@@ -1618,6 +2137,27 @@ const T = {
     visitsLabel: "🏛️ الزيارات الممكنة",
     activitiesLabel: "🎯 الأنشطة",
     duration: "⏱️ المدة المقدرة",
+    stepSearchPlaceholder: "ابحث عن مرحلة بالاسم…",
+    stepFoundInOrt: "موجود في OneRoadTrip",
+    stepBrut: "مرحلة جديدة (بدون زيارات مدرجة)",
+    stepNotFound: "غير موجود في أماكن ORT",
+    stepNearby: "مدن ORT القريبة",
+    stepValidate: "تأكيد",
+    stepNoCity: "لم يتم العثور على مدينة",
+    stepSearchUnavailable: "البحث غير متاح",
+    stepCalc: "جاري الحساب…",
+    stepTagBrut: "مدينة مضافة",
+    stepTagOrt: "مكان ORT",
+    stepAddNext: "＋  إضافة المرحلة التالية",
+    stepAddFirst: "＋  إضافة مرحلة",
+    stepVisits: "زيارات",
+    stepActivities: "أنشطة",
+    stepIntegrateWith: "إضافة مع الزيارات والأنشطة",
+    stepIntegrateWithout: "إضافة بدون زيارات",
+    stepDiffName: "⚠️ مدينة قريبة باسم مختلف",
+    stepDurOther: "أخرى…",
+    howtoTitle: "كيف يعمل",
+    stepHowto: "أضف مراحلك واحدة تلو الأخرى: استخدم البحث أو انقر مباشرة على الخريطة، سواء كان المكان مدرجًا أم لا.",
     day: "يوم",
     days: "أيام",
     minutes: "دقيقة",
@@ -1730,6 +2270,15 @@ document.addEventListener('DOMContentLoaded', () => {
   
   loadPhotosJSON(); // Charger les photos
   loadAllPlaces();
+  restoreDraftItinerary(); // Recharger la liste laissée avant le retour arrière
+  updateItineraryList(); // Afficher le bouton d'ajout dès le départ
+  // Sur mobile : légende repliée par défaut
+  if (window.matchMedia('(max-width: 768px)').matches) {
+    const cl = document.getElementById('colorLegend');
+    if (cl) cl.classList.add('collapsed');
+  }
+  console.log('🐞DBG-29 init : liste affichée, appel du calcul du tracé...');
+  try { recalcLegs(); } catch (e) { console.log('🐞DBG-30 recalcLegs a planté à l\'init ->', e && e.message); }
 });
 
 // ===============================
@@ -1803,6 +2352,10 @@ function applyTranslations() {
   document.getElementById('resetBtn').textContent = TXT.reset;
   document.getElementById('visitsLabel').textContent = TXT.visitsLabel;
   document.getElementById('activitiesLabel').textContent = TXT.activitiesLabel;
+  const howto = document.getElementById('stepHowto');
+  if (howto) howto.textContent = TXT.stepHowto || howto.textContent;
+  const stepInput = document.getElementById('stepSearchInput');
+  if (stepInput) stepInput.placeholder = TXT.stepSearchPlaceholder || 'Chercher une étape par nom…';
   
   // emptyMsg est créé dynamiquement dans updateItineraryList, pas dans le HTML
   const emptyMsgEl = document.querySelector('.itinerary-empty');
@@ -1884,6 +2437,7 @@ function initMap() {
   map.on('zoomend', updateMarkersVisibility);
   map.on('moveend', updateStats);
   map.on('zoomend', updateStats);
+  map.on('click', onMapClickPickCity);
 }
 
 // ===============================
@@ -2548,6 +3102,7 @@ function updateStats() {
 function updateMarkerStyles() {
   allMarkers.forEach(marker => {
     const place = marker.placeData;
+    if (!place || !marker.starInfo) return;
     const isSelected = selectedPlaces.some(p => p.place_id === place.place_id);
     
     if (marker.starInfo.isStar) {
@@ -2602,17 +3157,11 @@ function updateAddPlaceButton() {
 // ===============================
 function togglePlaceSelection(place) {
   const isSelected = selectedPlaces.some(p => p.place_id === place.place_id);
-  
   if (isSelected) {
-    // Retirer
-    selectedPlaces = selectedPlaces.filter(p => p.place_id !== place.place_id);
+    removePlaceFromItinerary(place.place_id);
   } else {
-    // Ajouter
-    selectedPlaces.push(place);
+    addStepToItinerary(place);
   }
-  
-  updateItineraryList();
-  updateMarkerStyles();
 }
 
 async function showPlacePreview(place) {
@@ -2821,16 +3370,536 @@ function toggleMobileItinList() {
 }
 
 // ===============================
-// GESTION ITINÉRAIRE
+// RECHERCHE D'ÉTAPE PAR NOM (citysearch + rapprochement master)
 // ===============================
-function addPlaceToItinerary(place) {
-  if (selectedPlaces.some(p => p.place_id === place.place_id)) return;
+const STEP_SEARCH_RADIUS_KM = 12; // rayon de rapprochement GPS avec tes master places
 
-  selectedPlaces.push(place);
-  updateItineraryList();
-  updateMarkerStyles();
-  updateAddPlaceButton();
-  closePlacePreview(); // Fermer la modale après ajout
+// Valeurs de durée proposées (en jours). 0.2 ~ 2h, 0.5 = demi-journée.
+const STEP_DURATION_VALUES = [0.2, 0.5, 1, 1.5, 2, 2.5, 3, 4, 5];
+
+// Cache des distances de route entre étapes : clé "idA|idB" -> {km, min}
+const legCache = new Map();
+
+// Normalise un nom : minuscules, sans accent, sans ponctuation
+function normalizeStepName(s) {
+  return (s || '')
+    .toString()
+    .toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+}
+
+// Distance vol d'oiseau en km
+function stepHaversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a = Math.sin(dLat / 2) ** 2 +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+// Cherche dans TES master places le plus proche d'une ville trouvée. Priorité au GPS.
+function findMasterMatch(city) {
+  if (!city || typeof city.lat !== 'number' || typeof city.lon !== 'number') return null;
+  const cc = (city.countryCode || '').toUpperCase();
+  const targetName = normalizeStepName(city.name);
+  let best = null;
+  let bestScore = Infinity;
+  for (const p of allPlaces) {
+    if (typeof p.lat !== 'number' || typeof p.lon !== 'number') continue;
+    if (cc && p.cc && p.cc.toUpperCase() !== cc) continue;
+    const d = stepHaversineKm(city.lat, city.lon, p.lat, p.lon);
+    if (d > STEP_SEARCH_RADIUS_KM) continue;
+    const sameName = normalizeStepName(p.name) === targetName;
+    const score = d - (sameName ? 3 : 0);
+    if (score < bestScore) {
+      bestScore = score;
+      best = { place: p, distanceKm: d, sameName };
+    }
+  }
+  return best;
+}
+
+// Cherche jusqu'à 3 villes ORT proches (pour la box "villes proches")
+function findNearbyMasters(city, max = 3) {
+  if (!city || typeof city.lat !== 'number') return [];
+  const cc = (city.countryCode || '').toUpperCase();
+  const list = [];
+  for (const p of allPlaces) {
+    if (typeof p.lat !== 'number' || typeof p.lon !== 'number') continue;
+    if (cc && p.cc && p.cc.toUpperCase() !== cc) continue;
+    const d = stepHaversineKm(city.lat, city.lon, p.lat, p.lon);
+    if (d <= 40) list.push({ place: p, distanceKm: d });
+  }
+  list.sort((a, b) => a.distanceKm - b.distanceKm);
+  return list.slice(0, max);
+}
+
+// Appel de la fonction Netlify citysearch
+let stepSearchAbort = null;
+async function citySearch(query, cc) {
+  if (stepSearchAbort) stepSearchAbort.abort();
+  stepSearchAbort = new AbortController();
+  const params = new URLSearchParams({ q: query, lang: currentLang, limit: '8' });
+  if (cc) params.set('country', cc);
+  const res = await fetch(`/.netlify/functions/citysearch?${params}`, { signal: stepSearchAbort.signal });
+  if (!res.ok) throw new Error('citysearch ' + res.status);
+  const data = await res.json();
+  return data.items || [];
+}
+
+// Clic sur la carte : trouve la ville cliquée et propose de l'ajouter
+let _mapClickBusy = false;
+async function onMapClickPickCity(e) {
+  // Ignorer si on a cliqué sur un marqueur (géré ailleurs)
+  if (_mapClickBusy) return;
+  _mapClickBusy = true;
+  const { lat, lng } = e.latlng;
+  const search = document.getElementById('stepSearch');
+  const box = document.getElementById('stepSearchResults');
+  const input = document.getElementById('stepSearchInput');
+  search.hidden = false;
+  input.value = '';
+  box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepCalc || 'calcul…'}</div>`;
+  positionStepResults(); box.hidden = false;
+
+  try {
+    const params = new URLSearchParams({
+      lat: lat.toFixed(5), lon: lng.toFixed(5),
+      format: 'json', zoom: '10', 'accept-language': currentLang
+    });
+    let name = '', cc = '', admin1 = '';
+    try {
+      const res = await fetch(`https://nominatim.openstreetmap.org/reverse?${params}`);
+      if (!res.ok) throw new Error('nominatim ' + res.status);
+      const data = await res.json();
+      const a = data.address || {};
+      name = a.city || a.town || a.village || a.municipality || a.county || data.name || '';
+      cc = (a.country_code || '').toUpperCase();
+      admin1 = a.state || a.region || '';
+    } catch (e1) {
+      // Secours Photon (Komoot)
+      const pp = new URLSearchParams({ lat: lat.toFixed(5), lon: lng.toFixed(5), lang: currentLang });
+      const res2 = await fetch(`https://photon.komoot.io/reverse?${pp}`);
+      const d2 = await res2.json();
+      const p = (d2.features && d2.features[0] && d2.features[0].properties) || {};
+      name = p.name || p.city || p.county || '';
+      cc = (p.countrycode || '').toUpperCase();
+      admin1 = p.state || p.region || '';
+    }
+    if (!name) {
+      box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepNoCity || 'Aucune ville trouvée'}</div>`;
+    } else {
+      const city = { name, countryCode: cc, admin1, lat, lon: lng };
+      // Clic carte = ajout direct, sans validation. Point ORT trouvé -> avec visites, sinon ville seule.
+      const match = findMasterMatch(city);
+      if (match && match.place) {
+        addStepToItinerary(match.place);
+      } else {
+        addStepToItinerary(makeBrutPlace(city));
+      }
+      resetStepSearch();
+    }
+  } catch (err) {
+    box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepSearchUnavailable || 'Recherche indisponible'}</div>`;
+    box.hidden = false;
+  } finally {
+    _mapClickBusy = false;
+  }
+}
+
+// Affiche la liste de résultats sous le champ
+function renderStepSearchResults(cities) {
+  const box = document.getElementById('stepSearchResults');
+  const TXT = T[currentLang] || T.fr;
+  box.innerHTML = '';
+  if (!cities || cities.length === 0) {
+    box.innerHTML = `<div class="step-search-empty">${TXT.stepNoCity || 'Aucune ville trouvée'}</div>`;
+    positionStepResults(); box.hidden = false;
+    return;
+  }
+  cities.forEach((city) => {
+    const match = findMasterMatch(city);
+    const item = document.createElement('div');
+    item.className = 'step-result';
+
+    const head = document.createElement('div');
+    head.className = 'step-result-head';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'step-search-item-name';
+    nameEl.textContent = city.name + (city.countryCode ? ' (' + city.countryCode + ')' : '');
+    head.appendChild(nameEl);
+    if (city.admin1) {
+      const sub = document.createElement('div');
+      sub.className = 'step-search-item-sub';
+      sub.textContent = city.admin1;
+      head.appendChild(sub);
+    }
+    item.appendChild(head);
+
+    if (match) {
+      const p = match.place;
+      const nbV = (p.visits || []).length;
+      const nbA = (p.activities || []).length;
+
+      const badge = document.createElement('div');
+      const sameName = normalizeStepName(p.name) === normalizeStepName(city.name);
+      badge.className = 'step-search-item-match';
+      badge.textContent = TXT.stepFoundInOrt + ' : ' + p.name + ' (' + match.distanceKm.toFixed(1) + ' km)';
+      item.appendChild(badge);
+
+      if (!sameName) {
+        const warn = document.createElement('div');
+        warn.className = 'step-search-item-warn';
+        warn.textContent = TXT.stepDiffName;
+        item.appendChild(warn);
+      }
+
+      const counts = document.createElement('div');
+      counts.className = 'step-result-counts';
+      counts.textContent = `${nbV} ${TXT.stepVisits} · ${nbA} ${TXT.stepActivities}`;
+      item.appendChild(counts);
+
+      // Survol : montrer le lieu ORT sur la carte
+      item.addEventListener('mouseenter', () => highlightPlaceOnMap(p, true));
+      item.addEventListener('mouseleave', () => highlightPlaceOnMap(p, false));
+
+      const actions = document.createElement('div');
+      actions.className = 'step-result-actions';
+      const btnWith = document.createElement('button');
+      btnWith.className = 'step-btn step-btn-primary';
+      btnWith.textContent = TXT.stepIntegrateWith + ' : ' + p.name;
+      btnWith.onclick = () => { addStepToItinerary(p); resetStepSearch(); };
+      const btnBrut = document.createElement('button');
+      btnBrut.className = 'step-btn step-btn-ghost';
+      btnBrut.textContent = TXT.stepIntegrateWithout + ' : ' + city.name;
+      btnBrut.onclick = () => { addStepToItinerary(makeBrutPlace(city)); resetStepSearch(); };
+      actions.appendChild(btnWith);
+      actions.appendChild(btnBrut);
+      item.appendChild(actions);
+    } else {
+      const badge = document.createElement('div');
+      badge.className = 'step-search-item-brut';
+      badge.textContent = TXT.stepBrut;
+      item.appendChild(badge);
+
+      const actions = document.createElement('div');
+      actions.className = 'step-result-actions';
+      const btnBrut = document.createElement('button');
+      btnBrut.className = 'step-btn step-btn-primary';
+      btnBrut.textContent = TXT.stepIntegrateWithout;
+      btnBrut.onclick = () => { addStepToItinerary(makeBrutPlace(city)); resetStepSearch(); };
+      actions.appendChild(btnBrut);
+      item.appendChild(actions);
+    }
+
+    box.appendChild(item);
+  });
+  positionStepResults(); box.hidden = false;
+}
+
+// Fabrique un lieu brut (ville sans visites) depuis un résultat de recherche
+function makeBrutPlace(city) {
+  const cc = (city.countryCode || document.getElementById('countrySelect').value || 'XX').toUpperCase();
+  return {
+    place_id: cc + '::' + normalizeStepName(city.name).replace(/\s+/g, '-') + '-' + Date.now().toString(36),
+    name: city.name,
+    lat: city.lat,
+    lon: city.lon,
+    cc: cc,
+    rating: 0,
+    suggested_days: 1,
+    visits: [],
+    activities: [],
+    _brut: true
+  };
+}
+
+// Allume un lieu en vert sur la carte au survol
+let _highlightMarker = null;
+function highlightPlaceOnMap(place, on) {
+  if (!place || !place.lat || !place.lon || typeof map === 'undefined' || !map) return;
+  if (on) {
+    if (_highlightMarker) { map.removeLayer(_highlightMarker); _highlightMarker = null; }
+    _highlightMarker = L.circleMarker([place.lat, place.lon], {
+      radius: 11, color: '#16a34a', fillColor: '#22c55e', fillOpacity: 0.9, weight: 3, interactive: false
+    }).addTo(map);
+  } else if (_highlightMarker) {
+    map.removeLayer(_highlightMarker);
+    _highlightMarker = null;
+  }
+}
+
+// Clic sur un résultat : recentre la carte, affiche une box de confirmation dans la preview
+function selectStepSearchResult(city, match) {
+  document.getElementById('stepSearchResults').hidden = true;
+  const TXT = T[currentLang] || T.fr;
+
+  let place;
+  if (match) {
+    place = match.place;
+  } else {
+    const cc = (city.countryCode || document.getElementById('countrySelect').value || 'XX').toUpperCase();
+    place = {
+      place_id: cc + '::' + normalizeStepName(city.name).replace(/\s+/g, '-') + '-' + Date.now().toString(36),
+      name: city.name,
+      lat: city.lat,
+      lon: city.lon,
+      cc: cc,
+      rating: 0,
+      suggested_days: 1,
+      visits: [],
+      activities: [],
+      _brut: true
+    };
+  }
+
+  if (place.lat && place.lon && typeof map !== 'undefined' && map) {
+    map.setView([place.lat, place.lon], 11, { animate: true });
+  }
+
+  // Box de confirmation
+  const nearby = match ? [] : findNearbyMasters(city);
+  showStepConfirmBox(place, match, nearby, city);
+}
+
+// Petite box de confirmation avant ajout (trouvé / non trouvé + villes proches)
+function showStepConfirmBox(place, match, nearby, city) {
+  const TXT = T[currentLang] || T.fr;
+  document.getElementById('stepSearchResults').hidden = true;
+  const box = document.getElementById('stepSearchResults');
+  box.innerHTML = '';
+  const wrap = document.createElement('div');
+  wrap.style.padding = '12px';
+
+  const title = document.createElement('div');
+  title.className = 'step-search-item-name';
+  title.textContent = place.name;
+  wrap.appendChild(title);
+
+  const status = document.createElement('div');
+  if (match) {
+    status.className = 'step-search-item-match';
+    status.textContent = TXT.stepFoundInOrt + ' ✓';
+  } else {
+    status.className = 'step-search-item-brut';
+    status.textContent = TXT.stepNotFound;
+  }
+  status.style.margin = '4px 0 8px';
+  wrap.appendChild(status);
+
+  // Villes ORT proches (si non trouvé)
+  if (!match && nearby.length > 0) {
+    const near = document.createElement('div');
+    near.className = 'step-search-item-sub';
+    near.style.marginBottom = '8px';
+    near.textContent = TXT.stepNearby + ' : ' + nearby.map(n => `${n.place.name} (${n.distanceKm.toFixed(0)} km)`).join(', ');
+    wrap.appendChild(near);
+
+    nearby.forEach(n => {
+      const b = document.createElement('button');
+      b.className = 'step-add-btn';
+      b.style.marginBottom = '6px';
+      b.textContent = '→ ' + n.place.name;
+      b.onclick = () => { addStepToItinerary(n.place); resetStepSearch(); };
+      wrap.appendChild(b);
+    });
+  }
+
+  const confirm = document.createElement('button');
+  confirm.className = 'step-add-btn';
+  confirm.textContent = TXT.stepValidate + ' : ' + place.name;
+  confirm.onclick = () => { addStepToItinerary(place); resetStepSearch(); };
+  wrap.appendChild(confirm);
+
+  box.appendChild(wrap);
+  positionStepResults(); box.hidden = false;
+}
+
+function resetStepSearch() {
+  document.getElementById('stepSearchInput').value = '';
+  document.getElementById('stepSearchResults').hidden = true;
+  document.getElementById('stepSearch').hidden = true;
+}
+
+// Ouvre le champ de recherche (appelé par les boutons + de la liste)
+// Fenêtre mode d'emploi : à l'arrivée (une fois par visite) et via le bouton ?
+(function initHowto() {
+  const modal = document.getElementById('howtoModal');
+  const btn = document.getElementById('howtoBtn');
+  const ok = document.getElementById('howtoOk');
+  const close = document.getElementById('howtoClose');
+  if (!modal) return;
+  const open = () => {
+    const TXT = T[currentLang] || T.fr;
+    document.getElementById('howtoText').textContent = TXT.stepHowto || document.getElementById('howtoText').textContent;
+    if (TXT.howtoTitle) document.getElementById('howtoTitle').textContent = TXT.howtoTitle;
+    modal.hidden = false;
+  };
+  const hide = () => { modal.hidden = true; };
+  if (btn) btn.addEventListener('click', open);
+  if (ok) ok.addEventListener('click', hide);
+  if (close) close.addEventListener('click', hide);
+  modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+  // Ouverture auto une fois par session, UNIQUEMENT sur mobile
+  try {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    if (isMobile && !sessionStorage.getItem('ort_howto_seen')) {
+      open();
+      sessionStorage.setItem('ort_howto_seen', '1');
+    }
+  } catch (_) {}
+})();
+
+function openStepSearch() {
+  const search = document.getElementById('stepSearch');
+  const input = document.getElementById('stepSearchInput');
+  const box = document.getElementById('stepSearchResults');
+  search.hidden = false;
+  input.value = '';
+  box.hidden = true;
+  input.focus();
+}
+
+// Place la liste de résultats juste sous le champ, sans jamais sortir de l'écran
+function positionStepResults() {
+  const input = document.getElementById('stepSearchInput');
+  const box = document.getElementById('stepSearchResults');
+  if (!input || !box) return;
+  const r = input.getBoundingClientRect();
+  const margin = 8;
+  const left = Math.max(10, r.left);
+  const width = Math.min(760, window.innerWidth - left - 10);
+  box.style.left = left + 'px';
+  box.style.width = width + 'px';
+  // Sous le champ si la place suffit, sinon au-dessus
+  const spaceBelow = window.innerHeight - r.bottom;
+  if (spaceBelow > 260) {
+    box.style.top = (r.bottom + margin) + 'px';
+    box.style.maxHeight = Math.min(window.innerHeight - r.bottom - 20, 620) + 'px';
+  } else {
+    const h = Math.min(r.top - 20, 620);
+    box.style.top = (r.top - margin - h) + 'px';
+    box.style.maxHeight = h + 'px';
+  }
+}
+
+// Branche le champ de recherche
+(function initStepSearch() {
+  const search = document.getElementById('stepSearch');
+  const input = document.getElementById('stepSearchInput');
+  const spinner = document.getElementById('stepSearchSpinner');
+  const box = document.getElementById('stepSearchResults');
+  const closeBtn = document.getElementById('stepSearchClose');
+  if (!input) return;
+  window.addEventListener('resize', () => { if (!box.hidden) positionStepResults(); });
+  window.addEventListener('scroll', () => { if (!box.hidden) positionStepResults(); }, true);
+  let debounce = null;
+
+  if (closeBtn) closeBtn.addEventListener('click', resetStepSearch);
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim();
+    if (debounce) clearTimeout(debounce);
+    if (q.length < 2) { box.hidden = true; return; }
+    debounce = setTimeout(async () => {
+      spinner.hidden = false;
+      try {
+        const cc = document.getElementById('countrySelect').value || '';
+        const cities = await citySearch(q, cc);
+        renderStepSearchResults(cities);
+      } catch (e) {
+        if (e.name !== 'AbortError') {
+          box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepSearchUnavailable || 'Recherche indisponible'}</div>`;
+          positionStepResults(); box.hidden = false;
+        }
+      } finally {
+        spinner.hidden = true;
+      }
+    }, 300);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!search.contains(e.target) && !e.target.classList.contains('step-add-next')) {
+      box.hidden = true;
+    }
+  });
+})();
+
+// ===============================
+// GESTION ITINÉRAIRE (liste d'étapes + durées + distances)
+// ===============================
+
+// Ajoute une étape depuis la recherche (avec durée par défaut = suggested_days)
+// Sauvegarde du brouillon (pour retrouver la liste au retour arrière)
+const DRAFT_KEY = 'ORT_BUILDER_DRAFT';
+function saveDraftItinerary() {
+  try { localStorage.setItem(DRAFT_KEY, JSON.stringify(selectedPlaces)); } catch (_) {}
+}
+function restoreDraftItinerary() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    console.log('🐞DBG-26 sauvegarde trouvée ?', !!raw);
+    if (!raw) return;
+    const arr = JSON.parse(raw);
+    console.log('🐞DBG-27 sauvegarde : nb étapes rechargées =', Array.isArray(arr) ? arr.length : 'pas un tableau');
+    if (Array.isArray(arr)) arr.forEach((p, i) => console.log(`🐞DBG-28 étape ${i} : ${p && p.name} | _dur=${p && p._dur} | lat=${p && p.lat} lon=${p && p.lon}`));
+    if (Array.isArray(arr) && arr.length) {
+      arr.forEach(p => {
+        if (typeof p._dur !== 'number' || isNaN(p._dur) || p._dur <= 0) {
+          p._dur = snapDuration(p.suggested_days || 1);
+        }
+      });
+      selectedPlaces = arr;
+      arr.forEach(p => { try { ensureMarkerLoaded(p); } catch (_) {} });
+      try { updateMarkerStyles(); } catch (_) {}
+    }
+  } catch (_) {}
+}
+
+function addStepToItinerary(place) {
+  if (!place || !place.place_id) { console.warn('addStep: place invalide', place); return; }
+  if (selectedPlaces.some(p => p.place_id === place.place_id)) return;
+  const withDur = { ...place };
+  if (typeof withDur._dur !== 'number') {
+    withDur._dur = snapDuration(place.suggested_days || 1);
+  }
+  selectedPlaces.push(withDur);
+  // Première étape : centrer la carte dessus
+  try { if (selectedPlaces.length === 1 && withDur.lat && withDur.lon && map) map.setView([withDur.lat, withDur.lon], 9, { animate: true }); } catch (e) { console.warn('focus carte', e); }
+  // Chaque étape est isolée : une erreur ne doit pas empêcher l'affichage dans la liste
+  try { updateItineraryList(); } catch (e) { console.warn('updateItineraryList', e); }
+  try { ensureMarkerLoaded(withDur); } catch (e) { console.warn('ensureMarkerLoaded', e); }
+  try { updateMarkerStyles(); } catch (e) { console.warn('updateMarkerStyles', e); }
+  try { updateAddPlaceButton(); } catch (e) { console.warn('updateAddPlaceButton', e); }
+  try { recalcLegs(); } catch (e) { console.warn('recalcLegs', e); }
+}
+
+// Crée le marqueur d'un lieu s'il n'est pas encore sur la carte (sinon il ne peut pas devenir rouge)
+function ensureMarkerLoaded(place) {
+  if (!place || !place.lat || !place.lon) return;
+  if (loadedMarkersIds.has(place.place_id)) return;
+  // S'assurer que le lieu est connu de allPlaces (cas d'une ville brute ajoutée par recherche)
+  if (!allPlaces.some(p => p.place_id === place.place_id)) {
+    allPlaces.push(place);
+  }
+  try {
+    const marker = createMarkerElement(place);
+    markersLayer.addLayer(marker);
+    allMarkers.push(marker);
+    loadedMarkersIds.add(place.place_id);
+  } catch (e) {
+    console.warn('Marqueur non créé pour', place.place_id, e);
+  }
+}
+
+// Ajout depuis la carte (bouton dans la preview) : même logique
+function addPlaceToItinerary(place) {
+  addStepToItinerary(place);
+  closePlacePreview();
 }
 
 function removePlaceFromItinerary(placeId) {
@@ -2838,17 +3907,39 @@ function removePlaceFromItinerary(placeId) {
   updateItineraryList();
   updateMarkerStyles();
   updateAddPlaceButton();
+  recalcLegs();
 }
 
+// Cale une durée sur la valeur autorisée la plus proche
+function snapDuration(val) {
+  let best = STEP_DURATION_VALUES[0];
+  let bestDiff = Infinity;
+  for (const v of STEP_DURATION_VALUES) {
+    const d = Math.abs(v - val);
+    if (d < bestDiff) { bestDiff = d; best = v; }
+  }
+  return best;
+}
+
+// Libellé durée selon la langue (Jour/Day/Giorno...)
+function durationLabel(val) {
+  const TXT = T[currentLang] || T.fr;
+  const unit = val > 1 ? (TXT.days || 'jours') : (TXT.day || 'jour');
+  const num = Number.isInteger(val) ? val : val.toString().replace('.', ',');
+  return `${num} ${unit}`;
+}
+
+// Index de l'étape en cours de glissement (réordonnancement)
+let stepDragIndex = null;
+
 function updateItineraryList() {
+  saveDraftItinerary();
   const flow = document.getElementById('itineraryFlow');
-  const emptyMsg = document.getElementById('emptyMsg');
   const validateBtn = document.getElementById('validateBtn');
   const resetBtn = document.getElementById('resetBtn');
   const mobileCount = document.getElementById('mobileItinCount');
   const TXT = T[currentLang] || T.fr;
-  
-  // Mise à jour compteur mobile
+
   if (mobileCount) {
     const count = selectedPlaces.length;
     mobileCount.textContent = count === 0 ? TXT.emptyItinerary : `${count} étape${count > 1 ? 's' : ''}`;
@@ -2856,8 +3947,16 @@ function updateItineraryList() {
 
   if (selectedPlaces.length === 0) {
     flow.innerHTML = `<span class="itinerary-empty">${TXT.emptyItinerary}</span>`;
+    const addFirst = document.createElement('button');
+    addFirst.type = 'button';
+    addFirst.className = 'step-add-btn step-add-next';
+    addFirst.textContent = TXT.stepAddFirst || '➕ Ajouter une étape';
+    addFirst.onclick = openStepSearch;
+    flow.appendChild(addFirst);
     validateBtn.style.display = 'none';
     resetBtn.style.display = 'none';
+    document.getElementById('tripStats').hidden = true;
+    updateSelectionPanel();
     return;
   }
 
@@ -2867,62 +3966,325 @@ function updateItineraryList() {
 
   flow.innerHTML = '';
   selectedPlaces.forEach((place, index) => {
-    // Vérification de sécurité
-    if (!place || !place.name) {
-      console.warn('Place invalide:', place);
-      return;
-    }
-    
-    // Étape avec couleur
-    const step = document.createElement('div');
-    step.className = 'itinerary-step';
-    
-    const rating = place.rating || 0;
-    const ratingColor = getRatingColor(rating);
-    const shortName = place.name.length > 20 ? place.name.substring(0, 20) + '...' : place.name;
+    if (!place || !place.name) return;
 
-    const nameSpan = document.createElement('span');
-    nameSpan.className = 'step-name';
-    nameSpan.title = place.name;
-    nameSpan.textContent = shortName;
+    const card = document.createElement('div');
+    card.className = 'step-card ' + (place._brut ? 'brut' : 'master');
+    card.dataset.index = String(index);
 
-    step.innerHTML = `
-      <span class="step-color" style="background:${ratingColor}"></span>
-    `;
-    step.appendChild(nameSpan);
-    
-    const removeBtn = document.createElement('button');
-    removeBtn.className = 'step-remove';
-    removeBtn.title = TXT.removePlace;
-    removeBtn.textContent = '✕';
-    removeBtn.onclick = () => removePlaceFromItinerary(place.place_id);
-    step.appendChild(removeBtn);
+    // Poignée : glisser pour réordonner (recalcul auto des tronçons)
+    const drag = document.createElement('span');
+    drag.className = 'step-drag';
+    drag.title = 'Glisser pour déplacer';
+    drag.textContent = '⠿';
+    drag.draggable = true;
+    drag.addEventListener('dragstart', (e) => {
+      stepDragIndex = index;
+      card.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+      try { e.dataTransfer.setData('text/plain', String(index)); } catch (_) {}
+    });
+    card.addEventListener('dragend', () => {
+      card.draggable = false;
+      card.classList.remove('dragging');
+      stepDragIndex = null;
+      document.querySelectorAll('.step-card.drag-over').forEach(c => c.classList.remove('drag-over'));
+    });
+    card.addEventListener('dragover', (e) => {
+      if (stepDragIndex === null || stepDragIndex === index) return;
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      card.classList.add('drag-over');
+    });
+    card.addEventListener('dragleave', () => card.classList.remove('drag-over'));
+    card.addEventListener('drop', (e) => {
+      e.preventDefault();
+      if (stepDragIndex === null || stepDragIndex === index) return;
+      const moved = selectedPlaces.splice(stepDragIndex, 1)[0];
+      selectedPlaces.splice(index, 0, moved);
+      stepDragIndex = null;
+      updateItineraryList();
+      try { updateMarkerStyles(); } catch (_) {}
+      try { recalcLegs(); } catch (_) {}
+    });
+    // Tactile : glisser avec le doigt depuis la poignée
+    drag.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      stepDragIndex = index;
+      card.classList.add('dragging');
+    }, { passive: false });
+    drag.addEventListener('touchmove', (e) => {
+      if (stepDragIndex === null) return;
+      e.preventDefault();
+      const t = e.touches[0];
+      const el = document.elementFromPoint(t.clientX, t.clientY);
+      const over = el ? el.closest('.step-card') : null;
+      document.querySelectorAll('.step-card.drag-over').forEach(c => { if (c !== over) c.classList.remove('drag-over'); });
+      if (over && over !== card) over.classList.add('drag-over');
+    }, { passive: false });
+    const endTouchDrag = (e) => {
+      if (stepDragIndex === null) return;
+      const t = e.changedTouches && e.changedTouches[0];
+      const el = t ? document.elementFromPoint(t.clientX, t.clientY) : null;
+      const over = el ? el.closest('.step-card') : null;
+      card.classList.remove('dragging');
+      document.querySelectorAll('.step-card.drag-over').forEach(c => c.classList.remove('drag-over'));
+      const from = stepDragIndex;
+      stepDragIndex = null;
+      if (over && over !== card && over.dataset.index !== undefined) {
+        const to = parseInt(over.dataset.index, 10);
+        if (!isNaN(to) && to !== from) {
+          const moved = selectedPlaces.splice(from, 1)[0];
+          selectedPlaces.splice(to, 0, moved);
+          updateItineraryList();
+          try { updateMarkerStyles(); } catch (_) {}
+          try { recalcLegs(); } catch (_) {}
+        }
+      }
+    };
+    drag.addEventListener('touchend', endTouchDrag);
+    drag.addEventListener('touchcancel', endTouchDrag);
+    card.appendChild(drag);
 
-    // Les données sont déjà traduites dans les fichiers JSON séparés par langue
+    const num = document.createElement('div');
+    num.className = 'step-num';
+    num.textContent = String(index + 1);
+    card.appendChild(num);
 
-    flow.appendChild(step);
+    const body = document.createElement('div');
+    body.className = 'step-body';
+    const nameEl = document.createElement('div');
+    nameEl.className = 'step-name';
+    nameEl.title = place.name;
+    nameEl.textContent = place.name;
+    body.appendChild(nameEl);
+    const tag = document.createElement('div');
+    tag.className = 'step-tag';
+    tag.textContent = place._brut ? (TXT.stepTagBrut || 'Ville ajoutée') : (TXT.stepTagOrt || 'Lieu ORT');
+    body.appendChild(tag);
+    card.appendChild(body);
 
-    // Flèche si pas le dernier
+    // Menu durée avec option de saisie libre
+    const durWrap = document.createElement('div');
+    durWrap.className = 'step-duration-wrap';
+    const sel = document.createElement('select');
+    sel.className = 'step-duration';
+    let known = false;
+    STEP_DURATION_VALUES.forEach(v => {
+      const opt = document.createElement('option');
+      opt.value = String(v);
+      opt.textContent = durationLabel(v);
+      if (Math.abs(v - place._dur) < 0.001) { opt.selected = true; known = true; }
+      sel.appendChild(opt);
+    });
+    // Option saisie libre
+    const optOther = document.createElement('option');
+    optOther.value = '__other__';
+    optOther.textContent = (T[currentLang]||T.fr).stepDurOther || 'Autre…';
+    if (!known) optOther.selected = true;
+    sel.appendChild(optOther);
+
+    // Champ libre (visible si valeur hors liste)
+    const free = document.createElement('input');
+    free.type = 'number'; free.min = '0.1'; free.step = '0.1';
+    free.className = 'step-duration-free';
+    free.value = place._dur;
+    free.style.display = known ? 'none' : 'inline-block';
+
+    sel.addEventListener('change', (e) => {
+      if (e.target.value === '__other__') {
+        free.style.display = 'inline-block';
+        free.focus();
+      } else {
+        free.style.display = 'none';
+        place._dur = parseFloat(e.target.value);
+        updateTripStats();
+      }
+    });
+    free.addEventListener('change', () => {
+      const v = parseFloat(free.value);
+      if (!isNaN(v) && v > 0) { place._dur = v; updateTripStats(); }
+    });
+    durWrap.appendChild(sel);
+    durWrap.appendChild(free);
+    card.appendChild(durWrap);
+
+    const del = document.createElement('button');
+    del.className = 'step-del';
+    del.title = TXT.removePlace || 'Retirer';
+    del.textContent = '🗑';
+    del.onclick = () => removePlaceFromItinerary(place.place_id);
+    card.appendChild(del);
+
+    flow.appendChild(card);
+
+    // Tronçon vers l'étape suivante
     if (index < selectedPlaces.length - 1) {
-      const arrow = document.createElement('span');
-      arrow.className = 'itinerary-arrow';
-      arrow.textContent = '→';
-      flow.appendChild(arrow);
+      const leg = document.createElement('div');
+      leg.className = 'step-leg';
+      leg.id = 'leg-' + index;
+      const key = selectedPlaces[index].place_id + '|' + selectedPlaces[index + 1].place_id;
+      const cached = legCache.get(key);
+      if (cached) {
+        leg.innerHTML = `<span class="leg-line">↓</span> ${cached.km} km · ${formatDrive(cached.min)}`;
+      } else {
+        leg.className += ' calc';
+        leg.innerHTML = `<span class="leg-line">↓</span> ${TXT.stepCalc || 'calcul…'}`;
+      }
+      card.appendChild(leg);
     }
   });
 
-  // Synchroniser le panneau de sélection (plein écran)
+  // Bouton + pour l'étape suivante, sous la dernière étape
+  const addNext = document.createElement('button');
+  addNext.type = 'button';
+  addNext.className = 'step-add-btn step-add-next';
+  addNext.textContent = TXT.stepAddNext || '➕ Ajouter l\'étape suivante';
+  addNext.onclick = openStepSearch;
+  flow.appendChild(addNext);
+
+  updateTripStats();
   updateSelectionPanel();
 }
+
+// Formate un temps de conduite en h/min
+function formatDrive(minutes) {
+  const h = Math.floor(minutes / 60);
+  const m = Math.round(minutes % 60);
+  if (h === 0) return `${m} min`;
+  return `${h}h${m > 0 ? String(m).padStart(2, '0') : ''}`;
+}
+
+// Recalcule les distances de route entre étapes consécutives
+let routeLayer = null; // couche du tracé sur la carte
+
+async function recalcLegs() {
+  console.log('🐞DBG-01 recalcLegs appelé, nb étapes =', selectedPlaces.length);
+  if (selectedPlaces.length < 2) {
+    console.log('🐞DBG-02 moins de 2 étapes, on sort (pas de tracé)');
+    if (routeLayer && map) { map.removeLayer(routeLayer); routeLayer = null; }
+    updateTripStats();
+    return;
+  }
+  console.log('🐞DBG-03 window.ORT_ROUTING existe ?', !!window.ORT_ROUTING, '| routeWithChunking ?', !!(window.ORT_ROUTING && typeof window.ORT_ROUTING.routeWithChunking === 'function'));
+  console.log('🐞DBG-04 map défini ?', (typeof map !== 'undefined' && !!map), '| L (leaflet) défini ?', (typeof L !== 'undefined'));
+
+  const allCoords = []; // pour tracer la route complète
+
+  for (let i = 0; i < selectedPlaces.length - 1; i++) {
+    const a = selectedPlaces[i], b = selectedPlaces[i + 1];
+    console.log(`🐞DBG-05 tronçon ${i} : ${a && a.name} -> ${b && b.name}`);
+    console.log(`🐞DBG-06 coords A lat=${a && a.lat} lon=${a && a.lon} | coords B lat=${b && b.lat} lon=${b && b.lon}`);
+    if (!a.lat || !a.lon || !b.lat || !b.lon) { console.log(`🐞DBG-07 tronçon ${i} IGNORÉ, coordonnées manquantes`); continue; }
+    const key = a.place_id + '|' + b.place_id;
+
+    let leg = legCache.get(key);
+    console.log(`🐞DBG-08 tronçon ${i} déjà en cache ?`, !!leg);
+    if (!leg) {
+      let km = null, min = null, geom = null;
+      try {
+        if (window.ORT_ROUTING && typeof window.ORT_ROUTING.routeWithChunking === 'function') {
+          console.log(`🐞DBG-09 tronçon ${i} : appel du service de route...`);
+          const r = await Promise.race([
+            window.ORT_ROUTING.routeWithChunking([[a.lat, a.lon], [b.lat, b.lon]]),
+            new Promise((_, rej) => setTimeout(() => rej(new Error('route timeout')), 6000))
+          ]);
+          console.log(`🐞DBG-10 tronçon ${i} : réponse service =`, r);
+          if (r && r.distance) {
+            km = Math.round(r.distance / 1000);
+            min = r.duration ? Math.round(r.duration / 60) : Math.round((km / 70) * 60);
+            geom = r.coordinates || null;
+            console.log(`🐞DBG-11 tronçon ${i} : service OK, km=${km} min=${min}`);
+          } else {
+            console.log(`🐞DBG-12 tronçon ${i} : service a répondu sans distance exploitable`);
+          }
+        } else {
+          console.log(`🐞DBG-13 tronçon ${i} : service ORT_ROUTING absent, on passera au repli`);
+        }
+      } catch (e) {
+        console.log(`🐞DBG-14 tronçon ${i} : service en échec/timeout ->`, e && e.message);
+      }
+
+      if (km === null) {
+        const straight = stepHaversineKm(a.lat, a.lon, b.lat, b.lon);
+        km = Math.round(straight * 1.3);
+        min = Math.round((km / 70) * 60);
+        geom = [[a.lat, a.lon], [b.lat, b.lon]]; // ligne droite en repli
+        console.log(`🐞DBG-15 tronçon ${i} : REPLI vol d'oiseau, km=${km} min=${min}`);
+      }
+      leg = { km, min, geom };
+      legCache.set(key, leg);
+      console.log(`🐞DBG-16 tronçon ${i} : mis en cache`);
+    }
+
+    if (leg.geom && leg.geom.length) allCoords.push(...leg.geom);
+
+    // Mettre à jour la ligne du tronçon (retrouvée par les données, pas par index figé)
+    const legEl = document.getElementById('leg-' + i);
+    console.log(`🐞DBG-17 tronçon ${i} : élément 'leg-${i}' trouvé dans la page ?`, !!legEl);
+    if (legEl) {
+      legEl.className = 'step-leg';
+      legEl.innerHTML = `<span class="leg-line">↓</span> ${leg.km} km · ${formatDrive(leg.min)}`;
+      console.log(`🐞DBG-18 tronçon ${i} : affichage MIS À JOUR -> ${leg.km} km`);
+    } else {
+      console.log(`🐞DBG-19 tronçon ${i} : PROBLÈME, la ligne 'leg-${i}' n'existe pas, le 'calcul…' ne peut pas être remplacé`);
+    }
+    updateTripStats();
+  }
+
+  console.log('🐞DBG-20 total points du tracé =', allCoords.length);
+  drawRouteOnMap(allCoords);
+  console.log('🐞DBG-21 recalcLegs terminé');
+}
+
+// Trace la route sur la carte et dézoome pour tout montrer
+function drawRouteOnMap(coords) {
+  console.log('🐞DBG-22 drawRouteOnMap, points reçus =', coords && coords.length);
+  if (typeof map === 'undefined' || !map) { console.log('🐞DBG-23 carte non prête, tracé non dessiné'); return; }
+  if (routeLayer) { map.removeLayer(routeLayer); routeLayer = null; }
+  if (!coords || coords.length < 2) { console.log('🐞DBG-24 pas assez de points, tracé non dessiné'); return; }
+  routeLayer = L.polyline(coords, { color: '#2563eb', weight: 4, opacity: 0.8 }).addTo(map);
+  console.log('🐞DBG-25 tracé bleu dessiné sur la carte');
+  try {
+    map.fitBounds(routeLayer.getBounds(), { padding: [60, 60], maxZoom: 12 });
+  } catch (e) { /* rien */ }
+}
+
+// Stats globales
+function updateTripStats() {
+  const box = document.getElementById('tripStats');
+  if (selectedPlaces.length === 0) { box.hidden = true; return; }
+  box.hidden = false;
+
+  const nSteps = selectedPlaces.length;
+  let days = 0;
+  selectedPlaces.forEach(p => { days += (typeof p._dur === 'number' ? p._dur : (p.suggested_days || 1)); });
+
+  let km = 0, min = 0;
+  for (let i = 0; i < selectedPlaces.length - 1; i++) {
+    const key = selectedPlaces[i].place_id + '|' + selectedPlaces[i + 1].place_id;
+    const leg = legCache.get(key);
+    if (leg) { km += leg.km; min += leg.min; }
+  }
+  const daysLabel = Number.isInteger(days) ? days : days.toFixed(1).replace('.', ',');
+  document.getElementById('tripStatSteps').textContent = nSteps;
+  document.getElementById('tripStatDays').textContent = daysLabel;
+  document.getElementById('tripStatKm').textContent = km;
+  document.getElementById('tripStatDrive').textContent = formatDrive(min);
+}
+
 
 // ===============================
 // RESET ITINÉRAIRE
 // ===============================
 document.getElementById('resetBtn').addEventListener('click', () => {
   selectedPlaces = [];
+  legCache.clear();
+  if (routeLayer && map) { map.removeLayer(routeLayer); routeLayer = null; }
   updateItineraryList();
   updateMarkerStyles();
   closePlacePreview();
+  updateTripStats();
 });
 
 // ===============================
@@ -2974,16 +4336,21 @@ function updateSelectionPanel() {
   const list = document.getElementById('selectionList');
   const count = document.getElementById('selCount');
   const validateBtn = document.getElementById('selValidateBtn');
-  const emptyMsg = document.getElementById('selEmptyMsg');
+  let emptyMsg = document.getElementById('selEmptyMsg');
   if (!list) return;
+  if (!emptyMsg) {
+    emptyMsg = document.createElement('div');
+    emptyMsg.id = 'selEmptyMsg';
+    emptyMsg.className = 'selection-panel-empty';
+    emptyMsg.textContent = (T[currentLang]||T.fr).emptyItinerary || 'Cliquez sur les lieux pour les ajouter';
+  }
 
   count.textContent = selectedPlaces.length;
   
   if (selectedPlaces.length === 0) {
     list.innerHTML = '';
-    list.appendChild(emptyMsg);
-    emptyMsg.style.display = 'block';
-    validateBtn.style.display = 'none';
+    if (emptyMsg) { list.appendChild(emptyMsg); emptyMsg.style.display = 'block'; }
+    if (validateBtn) validateBtn.style.display = 'none';
     return;
   }
 
@@ -3085,12 +4452,12 @@ function showConfigModal() {
   
   // Calculer la somme des jours conseillés
   const totalSuggestedDays = selectedPlaces.reduce((sum, place) => {
-    return sum + (place.suggested_days || 1);
+    return sum + (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1));
   }, 0);
   
-  // Pré-remplir avec la somme (minimum 1, maximum 30)
+  // Pré-remplir avec la somme réelle des durées choisies (arrondi au jour supérieur)
   const nbDaysInput = document.getElementById('days');
-  nbDaysInput.value = Math.min(30, Math.max(1, totalSuggestedDays));
+  nbDaysInput.value = Math.min(30, Math.max(1, Math.ceil(totalSuggestedDays)));
   
   // Mettre à jour les textes
   document.getElementById('configTitle').textContent = TXT.configTitle;
@@ -3106,9 +4473,11 @@ function submitItinerary() {
   if (selectedPlaces.length === 0) return;
 
   // Récupérer les paramètres de configuration
+  // Total de jours = somme des durées choisies par étape (arrondi au jour supérieur)
+  const totalDur = selectedPlaces.reduce((s, p) => s + (typeof p._dur === 'number' ? p._dur : (p.suggested_days || 1)), 0);
   const config = {
     departDate: document.getElementById('departDate').value,
-    days: parseInt(document.getElementById('days').value) || 7
+    days: Math.max(1, Math.ceil(totalDur))
   };
 
   // Générer un titre basé sur les lieux sélectionnés
@@ -3137,7 +4506,7 @@ function submitItinerary() {
         visits: place.visits || [],
         activities: place.activities || [],
         rating: place.rating || 0,
-        suggested_days: place.suggested_days || 1
+        suggested_days: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
       }))
     }]
   };
@@ -3156,7 +4525,7 @@ function submitItinerary() {
       hotels: place.hotels || [],
       images: getPhotosForPlace(place.place_id),
       rating: place.rating || 0,
-      suggested_days: place.suggested_days || 1
+      suggested_days: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
     }))
   };
 
@@ -3224,6 +4593,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Scripts ORT modulaires -->
 <script src="js/ort-config.js"></script>
+<script src="js/ort-utils.js"></script>
+<script src="js/ort-routing.js"></script>
 <script src="js/ort-tripid.js"></script>
 <script src="js/ort-i18n-auth.js"></script>
 <script src="js/ort-header.js"></script>
