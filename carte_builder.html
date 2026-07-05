@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===== OneRoadTrip carte_builder v26 - mobile : carte et liste figees plein ecran, liste qui defile sans pousser la carte, distance sur la meme ligne que l etape, bouton Reinitialiser mobile ===== -->
+<!-- ===== OneRoadTrip carte_builder v28 - tap carte sur mobile : carte de choix (point ORT proche en premier, puis ville seule) avant ajout ; ordinateur inchange ===== -->
 <html lang="fr">
 <head>
 <!-- ort-pwa-injected-v1 -->
@@ -1660,7 +1660,7 @@ body.fullscreen-mode .place-preview {
   
   <div class="top-panel-header">
     <h2 id="panelTitle">🗺️ Mon itinéraire personnalisé</h2>
-    <span class="version-badge" id="versionBadge">v26</span>
+    <span class="version-badge" id="versionBadge">v28</span>
     <button type="button" id="howtoBtn" class="howto-btn" title="Mode d'emploi">?</button>
     <button id="resetBtn" class="reset-btn">🔄 Réinitialiser</button>
     <button id="validateBtn" class="validate-btn">✓ Valider</button>
@@ -3494,14 +3494,20 @@ async function onMapClickPickCity(e) {
       box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepNoCity || 'Aucune ville trouvée'}</div>`;
     } else {
       const city = { name, countryCode: cc, admin1, lat, lon: lng };
-      // Clic carte = ajout direct, sans validation. Point ORT trouvé -> avec visites, sinon ville seule.
-      const match = findMasterMatch(city);
-      if (match && match.place) {
-        addStepToItinerary(match.place);
+      if (isMobileTouch()) {
+        // Mobile : on affiche la carte de choix (point ORT proche en premier), l'utilisateur confirme.
+        renderStepSearchResults([city]);
       } else {
-        addStepToItinerary(makeBrutPlace(city));
+        // Ordinateur : ajout direct. On ne rattache un point ORT que s'il est vraiment sous le curseur.
+        const TAP_SNAP_KM = 2.5;
+        const match = findMasterMatch(city);
+        if (match && match.place && match.distanceKm <= TAP_SNAP_KM) {
+          addStepToItinerary(match.place);
+        } else {
+          addStepToItinerary(makeBrutPlace(city));
+        }
+        resetStepSearch();
       }
-      resetStepSearch();
     }
   } catch (err) {
     box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepSearchUnavailable || 'Recherche indisponible'}</div>`;
