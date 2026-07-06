@@ -2753,5 +2753,125 @@ gtag('config', 'GT-WF83FMCX');
 </script>
 <!-- /ort-page-tracking-v1 -->
 
+<!-- ===== ORT AIDE (bouton ? + fenetre) - injecte ===== -->
+<style>
+  #ortHelpFab{position:fixed;right:22px;bottom:22px;z-index:9000;width:56px;height:56px;border-radius:50%;
+    background:#12305c;color:#fff;border:none;cursor:pointer;font-size:26px;font-weight:700;
+    box-shadow:0 10px 26px rgba(18,48,92,.4);display:flex;align-items:center;justify-content:center}
+  #ortHelpFab:hover{background:#0c2547}
+  #ortHelpOv{position:fixed;inset:0;background:#0a1426;z-index:9001;display:none;align-items:center;justify-content:center;padding:26px}
+  #ortHelpOv.show{display:flex}
+  .ortHelpBox{background:#fff;border-radius:16px;width:min(1500px,100%);max-height:96vh;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 24px 70px rgba(8,20,40,.4)}
+  .ortHelpTop{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 20px;border-bottom:1px solid #e3e7ee}
+  .ortHelpTop h3{font-size:18px;color:#12305c;margin:0;font-family:inherit}
+  .ortHelpTop .x{width:36px;height:36px;border-radius:9px;border:1px solid #e3e7ee;background:#fff;font-size:22px;color:#5b6577;cursor:pointer;line-height:1}
+  .ortHelpTop .x:hover{background:#eef1f5}
+  .ortHelpMain{display:flex;gap:0;min-height:0;flex:1}
+  .ortHelpImg{flex:2.4;min-width:0;background:#0e1e38;display:flex;align-items:center;justify-content:center;padding:16px;position:relative}
+  .ortHelpImg .fig{position:relative;max-width:100%;max-height:100%}
+  .ortHelpImg img{display:block;max-width:100%;max-height:86vh;border-radius:8px}
+  .ortDot{position:absolute;transform:translate(-50%,-50%);width:30px;height:30px;border-radius:50%;
+    background:#d6301f;color:#fff;font-size:15px;font-weight:700;display:flex;align-items:center;justify-content:center;
+    border:2.5px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4);cursor:pointer;transition:transform .12s}
+  .ortDot.active{transform:translate(-50%,-50%) scale(1.25);z-index:3}
+  .ortHelpSide{flex:1;min-width:280px;max-width:360px;overflow-y:auto;padding:18px 20px;border-left:1px solid #e3e7ee}
+  .ortHelpSide .lead{font-size:13px;color:#5b6577;margin:0 0 14px;line-height:1.5}
+  .ortRow{display:flex;gap:12px;padding:12px;border:1px solid #e3e7ee;border-radius:11px;margin-bottom:10px;transition:border-color .12s,background .12s}
+  .ortRow.active{border-color:#d6301f;background:#fff5f2}
+  .ortRow .num{flex:0 0 26px;height:26px;border-radius:50%;background:#d6301f;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .ortRow .tx{font-size:14px;line-height:1.55;color:#1a2233}
+  .ortErr{font-size:14px;color:#c62828;line-height:1.6}
+  @media (max-width:820px){
+    .ortHelpMain{flex-direction:column}
+    .ortHelpSide{max-width:none;border-left:none;border-top:1px solid #e3e7ee}
+    .ortHelpImg img{max-height:44vh}
+  }
+</style>
+
+<button id="ortHelpFab" type="button" aria-label="Aide">?</button>
+<div id="ortHelpOv">
+  <div class="ortHelpBox">
+    <div class="ortHelpTop">
+      <h3 id="ortHelpTitle">Aide</h3>
+      <button class="x" type="button" id="ortHelpClose" aria-label="Fermer">&times;</button>
+    </div>
+    <div class="ortHelpMain">
+      <div class="ortHelpImg">
+        <div class="fig" id="ortFig">
+          <img id="ortHelpShot" alt="Aide">
+        </div>
+      </div>
+      <div class="ortHelpSide">
+        <p class="lead" id="ortHelpLead"></p>
+        <div id="ortHelpRows"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // Fichier d'aide de la page d'accueil. Lu tel quel, aucun texte recopie ici.
+  var HELP_JSON = "/data/help/Recherche-index.json";
+  var IMG_DIR   = "/assets/help/";
+
+  // Position des points sur l'image, en pourcentage. L'ordre suit les points du fichier.
+  var DOTS = [
+    {x:66.6, y:14.2},
+    {x:82.3, y:14.2},
+    {x:22.8, y:61.4},
+    {x:43.6, y:61.4},
+    {x:67.4, y:77.6},
+    {x:14.3, y:96.4}
+  ];
+
+  var A = null;
+  var $ = function(id){ return document.getElementById(id); };
+  function lang(){ return (typeof currentLang!=='undefined' && A && A.title && A.title[currentLang]) ? currentLang : 'fr'; }
+
+  function build(){
+    var lg = lang();
+    $('ortHelpTitle').textContent = (A.title && A.title[lg]) || 'Aide';
+    $('ortHelpShot').src = IMG_DIR + ((A.image && A.image.desktop) || '');
+
+    // Pas de points ajoutes : ton image porte deja ses numeros.
+
+    // textes a cote
+    var box = $('ortHelpRows'); box.innerHTML='';
+    (A.points||[]).forEach(function(p){
+      var row = document.createElement('div');
+      row.className='ortRow'; row.dataset.n=p.n;
+      row.innerHTML='<div class="num">'+p.n+'</div><div class="tx"></div>';
+      row.querySelector('.tx').textContent = (p.text && p.text[lg]) || '';
+      box.appendChild(row);
+    });
+    $('ortHelpLead').textContent='';
+  }
+
+  function hi(n,on){}
+
+  function open(){
+    $('ortHelpOv').classList.add('show');
+    if(A){ build(); return; }
+    $('ortHelpRows').innerHTML='<p class="ortErr">Chargement...</p>';
+    fetch(HELP_JSON).then(function(r){
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    }).then(function(data){ A=data; build(); })
+      .catch(function(e){
+        $('ortHelpRows').innerHTML='<p class="ortErr">Fichier d\'aide introuvable. Ouvre la page via ton serveur (http://127.0.0.1:8030/index.html).</p>';
+      });
+  }
+  function close(){ $('ortHelpOv').classList.remove('show'); }
+
+  $('ortHelpFab').onclick=open;
+  $('ortHelpClose').onclick=close;
+  $('ortHelpOv').addEventListener('click',function(e){ if(e.target===$('ortHelpOv')) close(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+})();
+</script>
+<!-- /ort-aide -->
+
+
 </body>
 </html>
