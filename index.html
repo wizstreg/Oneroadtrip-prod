@@ -2731,6 +2731,7 @@ gtag('config', 'GT-WF83FMCX');
     var openTs = Date.now(), maxScroll = 0;
     function device(){try{var w=window.innerWidth||document.documentElement.clientWidth||0;var mob=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900;return mob?"mobile":"desktop";}catch(e){return "unknown";}}
     function campaign(){try{var p=new URLSearchParams(window.location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+    function referrer(){try{var r=document.referrer||"";if(!r)return "(direct)";var h=new URL(r).hostname.replace(/^www\./,"");if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
     function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
     function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:(document.documentElement.lang||"?");}catch(e){return "?";}}
     function attr(n){try{var b=document.body;var v=b&&b.getAttribute(n);return v||"";}catch(e){return "";}}
@@ -2740,7 +2741,7 @@ gtag('config', 'GT-WF83FMCX');
         var dur=Date.now()-openTs;
         var cc=attr("data-cc")||"__PAGE__";
         var itin=attr("data-itin-id")||attr("data-itin")||"__PAGE__";
-        var body={fields:{tpl:{integerValue:0},itin:{stringValue:itin},cc:{stringValue:cc},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"index"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+        var body={fields:{tpl:{integerValue:0},itin:{stringValue:itin},cc:{stringValue:cc},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"index"},ts:{timestampValue:new Date(openTs).toISOString()}}};
         var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
         var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
         if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}

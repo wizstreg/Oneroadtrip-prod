@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- ===== OneRoadTrip carte_builder v28 - tap carte sur mobile : carte de choix (point ORT proche en premier, puis ville seule) avant ajout ; ordinateur inchange ===== -->
+<!-- ===== OneRoadTrip carte_builder v26 - mobile : carte et liste figees plein ecran, liste qui defile sans pousser la carte, distance sur la meme ligne que l etape, bouton Reinitialiser mobile ===== -->
 <html lang="fr">
 <head>
 <!-- ort-pwa-injected-v1 -->
@@ -136,9 +136,11 @@ header {
 }
 .map-topbar > * { pointer-events: auto; }
 .map-topbar .country-select,
-.map-topbar .stats-box,
-.map-topbar .fullscreen-btn {
+.map-topbar .stats-box {
   background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+.map-topbar .fullscreen-btn {
   box-shadow: 0 2px 8px rgba(0,0,0,.15);
 }
 .map-topbar .zoom-hint {
@@ -1660,7 +1662,7 @@ body.fullscreen-mode .place-preview {
   
   <div class="top-panel-header">
     <h2 id="panelTitle">🗺️ Mon itinéraire personnalisé</h2>
-    <span class="version-badge" id="versionBadge">v28</span>
+    <span class="version-badge" id="versionBadge">v26</span>
     <button type="button" id="howtoBtn" class="howto-btn" title="Mode d'emploi">?</button>
     <button id="resetBtn" class="reset-btn">🔄 Réinitialiser</button>
     <button id="validateBtn" class="validate-btn">✓ Valider</button>
@@ -1788,6 +1790,16 @@ body.fullscreen-mode .place-preview {
   </div>
 </div>
 
+<style>
+.dest-choice{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.dest-opt{flex:1 1 150px;display:flex;flex-direction:column;gap:2px;padding:12px 14px;border:2px solid #d7dee8;border-radius:12px;cursor:pointer;transition:border-color .15s,background .15s;position:relative}
+.dest-opt:hover{border-color:#9db8d8}
+.dest-opt input{position:absolute;opacity:0;pointer-events:none}
+.dest-opt.dest-on{border-color:#113f7a;background:#f0f7ff}
+.dest-opt-title{font-weight:700;color:#113f7a;font-size:.95rem}
+.dest-opt-sub{font-size:.8rem;color:#5b6b80;line-height:1.3}
+[dir="rtl"] .dest-opt{text-align:right}
+</style>
 <div id="configModal" class="config-modal">
   <div class="config-modal-content">
     <h2 id="configTitle">Configurez votre voyage</h2>
@@ -1801,7 +1813,23 @@ body.fullscreen-mode .place-preview {
       <label id="labelNbDays">Nombre de jours souhaités :</label>
       <input type="number" id="days" class="config-input" value="7" min="1" max="30">
     </div>
-    
+
+    <div class="config-field">
+      <label id="labelDest">Où envoyer votre itinéraire ?</label>
+      <div class="dest-choice" id="destChoice">
+        <label class="dest-opt dest-on" data-dest="detail">
+          <input type="radio" name="dest" value="detail" checked>
+          <span class="dest-opt-title" id="destDetailTitle">Éditeur avancé</span>
+          <span class="dest-opt-sub" id="destDetailSub">Tout modifier, ajouter hôtels et réservations.</span>
+        </label>
+        <label class="dest-opt" data-dest="carnet">
+          <input type="radio" name="dest" value="carnet">
+          <span class="dest-opt-title" id="destCarnetTitle">Carnet de voyage</span>
+          <span class="dest-opt-sub" id="destCarnetSub">Votre itinéraire en format premium et interactif.</span>
+        </label>
+      </div>
+    </div>
+
     <div class="config-actions">
       <button type="button" id="configCancel" class="config-btn-cancel">Annuler</button>
       <button type="button" id="configConfirm" class="config-btn-confirm">Valider</button>
@@ -3494,20 +3522,14 @@ async function onMapClickPickCity(e) {
       box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepNoCity || 'Aucune ville trouvée'}</div>`;
     } else {
       const city = { name, countryCode: cc, admin1, lat, lon: lng };
-      if (isMobileTouch()) {
-        // Mobile : on affiche la carte de choix (point ORT proche en premier), l'utilisateur confirme.
-        renderStepSearchResults([city]);
+      // Clic carte = ajout direct, sans validation. Point ORT trouvé -> avec visites, sinon ville seule.
+      const match = findMasterMatch(city);
+      if (match && match.place) {
+        addStepToItinerary(match.place);
       } else {
-        // Ordinateur : ajout direct. On ne rattache un point ORT que s'il est vraiment sous le curseur.
-        const TAP_SNAP_KM = 2.5;
-        const match = findMasterMatch(city);
-        if (match && match.place && match.distanceKm <= TAP_SNAP_KM) {
-          addStepToItinerary(match.place);
-        } else {
-          addStepToItinerary(makeBrutPlace(city));
-        }
-        resetStepSearch();
+        addStepToItinerary(makeBrutPlace(city));
       }
+      resetStepSearch();
     }
   } catch (err) {
     box.innerHTML = `<div class="step-search-empty">${(T[currentLang]||T.fr).stepSearchUnavailable || 'Recherche indisponible'}</div>`;
@@ -4446,6 +4468,18 @@ function initConfigModal() {
       modal.classList.remove('show');
     }
   });
+
+  // Surbrillance du choix de destination
+  const destChoice = document.getElementById('destChoice');
+  if (destChoice) {
+    destChoice.querySelectorAll('input[name="dest"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        destChoice.querySelectorAll('.dest-opt').forEach((opt) => {
+          opt.classList.toggle('dest-on', opt.querySelector('input').checked);
+        });
+      });
+    });
+  }
   
   // Confirmer
   confirmBtn.addEventListener('click', () => {
@@ -4453,8 +4487,31 @@ function initConfigModal() {
   });
 }
 
+// Libellés du choix de destination (6 langues), séparés de T pour ne pas toucher les blocs existants
+const DEST_T = {
+  fr: { label: "Où envoyer votre itinéraire ?", detailTitle: "Éditeur avancé", detailSub: "Tout modifier, ajouter hôtels et réservations.", carnetTitle: "Carnet de voyage", carnetSub: "Votre itinéraire en format premium et interactif." },
+  en: { label: "Where do you want to send your itinerary?", detailTitle: "Advanced editor", detailSub: "Edit everything, add hotels and bookings.", carnetTitle: "Travel notebook", carnetSub: "Your itinerary in a premium, interactive format." },
+  es: { label: "¿Dónde enviar tu itinerario?", detailTitle: "Editor avanzado", detailSub: "Edítalo todo, añade hoteles y reservas.", carnetTitle: "Cuaderno de viaje", carnetSub: "Tu itinerario en formato premium e interactivo." },
+  pt: { label: "Para onde enviar o seu itinerário?", detailTitle: "Editor avançado", detailSub: "Edite tudo, adicione hotéis e reservas.", carnetTitle: "Diário de viagem", carnetSub: "O seu itinerário em formato premium e interativo." },
+  it: { label: "Dove inviare il tuo itinerario?", detailTitle: "Editor avanzato", detailSub: "Modifica tutto, aggiungi hotel e prenotazioni.", carnetTitle: "Diario di viaggio", carnetSub: "Il tuo itinerario in formato premium e interattivo." },
+  ar: { label: "أين تريد إرسال مسارك؟", detailTitle: "المحرر المتقدم", detailSub: "عدّل كل شيء، أضف الفنادق والحجوزات.", carnetTitle: "دفتر الرحلة", carnetSub: "مسارك بتنسيق مميّز وتفاعلي." }
+};
+
 function showConfigModal() {
   const TXT = T[currentLang] || T.fr;
+  const D = DEST_T[currentLang] || DEST_T.fr;
+
+  // Appliquer les libellés du choix de destination
+  const setTxt = (id, v) => { const el = document.getElementById(id); if (el) el.textContent = v; };
+  setTxt('labelDest', D.label);
+  setTxt('destDetailTitle', D.detailTitle);
+  setTxt('destDetailSub', D.detailSub);
+  setTxt('destCarnetTitle', D.carnetTitle);
+  setTxt('destCarnetSub', D.carnetSub);
+
+  // Réinitialiser sur "Éditeur avancé" à chaque ouverture
+  const detailRadio = document.querySelector('input[name="dest"][value="detail"]');
+  if (detailRadio) { detailRadio.checked = true; detailRadio.dispatchEvent(new Event('change')); }
   
   // Calculer la somme des jours conseillés
   const totalSuggestedDays = selectedPlaces.reduce((sum, place) => {
@@ -4498,6 +4555,14 @@ function submitItinerary() {
   const timestamp = Date.now();
   const rtKey = `${cc}_custom_${timestamp}`;
   const itinId = `${cc}::custom-${timestamp}`;
+
+  // Destination choisie par l'utilisateur : Éditeur avancé (RT Detail) ou Carnet de voyage
+  const destEl = document.querySelector('input[name="dest"]:checked');
+  const dest = destEl ? destEl.value : 'detail';
+  if (dest === 'carnet') {
+    submitToCarnet({ title: title, cc: cc, itinId: itinId, config: config });
+    return;
+  }
 
   // Créer la structure de l'itinéraire au format attendu par roadtrip_detail.html
   const itineraryData = {
@@ -4575,6 +4640,60 @@ function submitItinerary() {
   }
 }
 
+// Envoi vers le Carnet de voyage (page coquille custom.html).
+// Le carnet lit le voyage via ORT_STATE.getTrip, qui lit d'abord localStorage.
+// ATTENTION : saveTrip régénère l'id quand il commence par "custom::",
+// donc on redirige avec l'id RETOURNÉ, jamais l'id d'origine.
+async function submitToCarnet(ctx) {
+  const LSLUG = { fr: 'itineraires', en: 'itineraries', es: 'rutas', pt: 'roteiros', it: 'itinerari', ar: 'masar' };
+  const langSlug = LSLUG[currentLang] || 'itineraries';
+
+  // Étapes au format attendu par le carnet (place_id, name, lat, lon + lng, cc)
+  const steps = selectedPlaces.map(place => ({
+    place_id: place.place_id,
+    name: place.name,
+    lat: place.lat,
+    lon: place.lon,
+    lng: place.lon,
+    cc: place.cc || ctx.cc,
+    suggested_days: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
+  }));
+
+  const trip = {
+    id: ctx.itinId,          // "custom::..." -> sera régénéré en "trip_..." par saveTrip
+    title: ctx.title,
+    cc: ctx.cc,
+    country: ctx.cc,
+    lang: currentLang,
+    steps: steps,
+    departDate: ctx.config.departDate,
+    days: ctx.config.days
+  };
+
+  try {
+    if (!window.ORT_STATE || typeof window.ORT_STATE.saveTrip !== 'function') {
+      console.error('❌ ORT_STATE indisponible');
+      alert('Erreur, réessayez.');
+      return;
+    }
+    const res = await window.ORT_STATE.saveTrip(trip);
+    if (!res || !res.success || !res.tripId) {
+      console.error('❌ Sauvegarde carnet échouée:', res);
+      alert('Erreur, réessayez.');
+      return;
+    }
+    console.log('✅ Carnet sauvegardé, tripId final:', res.tripId, '(', res.storage, ')');
+
+    if (window.ORT_TRIPID) window.ORT_TRIPID.store(res.tripId);
+
+    const params = new URLSearchParams({ tripId: res.tripId, lang: currentLang });
+    window.location.href = `/${langSlug}/custom.html?${params.toString()}`;
+  } catch (e) {
+    console.error('❌ Erreur envoi carnet:', e);
+    alert('Erreur, réessayez.');
+  }
+}
+
 // Bouton Valider -> ouvre la modal
 document.getElementById('validateBtn').addEventListener('click', () => {
   if (selectedPlaces.length === 0) return;
@@ -4599,6 +4718,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <!-- Scripts ORT modulaires -->
 <script src="js/ort-config.js"></script>
+<script src="js/ort-state-manager.js"></script>
 <script src="js/ort-utils.js"></script>
 <script src="js/ort-routing.js"></script>
 <script src="js/ort-tripid.js"></script>
