@@ -73,7 +73,8 @@
       blog: 'Blog',
       contact: 'Contact',
       manageCookies: 'Gérer mes cookies',
-      pressPartner: 'Partenaire presse'
+      pressPartner: 'Partenaire presse',
+      pressRoom: 'Presse'
     },
     
     en: {
@@ -108,7 +109,8 @@
       blog: 'Blog',
       contact: 'Contact',
       manageCookies: 'Manage cookies',
-      pressPartner: 'Press partner'
+      pressPartner: 'Press partner',
+      pressRoom: 'Press'
     },
     
     es: {
@@ -143,7 +145,8 @@
       blog: 'Blog',
       contact: 'Contacto',
       manageCookies: 'Gestionar cookies',
-      pressPartner: 'Socio de prensa'
+      pressPartner: 'Socio de prensa',
+      pressRoom: 'Prensa'
     },
     
     it: {
@@ -178,7 +181,8 @@
       blog: 'Blog',
       contact: 'Contatti',
       manageCookies: 'Gestisci cookie',
-      pressPartner: 'Partner stampa'
+      pressPartner: 'Partner stampa',
+      pressRoom: 'Stampa'
     },
     
     pt: {
@@ -213,7 +217,8 @@
       blog: 'Blog',
       contact: 'Contacto',
       manageCookies: 'Gerir cookies',
-      pressPartner: 'Parceiro de imprensa'
+      pressPartner: 'Parceiro de imprensa',
+      pressRoom: 'Imprensa'
     },
     
     ar: {
@@ -248,7 +253,8 @@
       blog: 'المدونة',
       contact: 'اتصل بنا',
       manageCookies: 'إدارة ملفات تعريف الارتباط',
-      pressPartner: 'شريك صحفي'
+      pressPartner: 'شريك صحفي',
+      pressRoom: 'الصحافة'
     }
   };
 
@@ -385,11 +391,13 @@
     });
 
     const urls = getLegalUrls(lang);
+    const pressUrl = lang === 'fr' ? '/presentations/press-fr.html' : '/presentations/press-en.html';
     const links = [
       { href: urls.cgu, label: T.legalNotice },
       { href: urls.privacy, label: T.privacyPolicy },
       { href: urls.cookies, label: T.cookiePolicy },
       { href: urls.about, label: T.about },
+      { href: pressUrl, label: T.pressRoom },
       { href: 'https://www.oneroadtrip.com/blog/', label: T.blog }
     ];
 
