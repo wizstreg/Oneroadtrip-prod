@@ -681,13 +681,14 @@ gtag('config', 'GT-WF83FMCX');
 <!-- ort-page-tracking-v1 -->
 <script>
 (function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
   var openTs=Date.now(),maxScroll=0,sent=false;
   function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
   function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
-  function referrer(){try{var r=document.referrer;if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
   function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
-  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:(document.documentElement.lang||"?");}catch(e){return "?";}}
-  window.addEventListener("scroll",function(){try{var h=document.documentElement;var sc=h.scrollTop/((h.scrollHeight-h.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
   function send(){
     if(sent)return; sent=true;
     try{
@@ -698,8 +699,9 @@ gtag('config', 'GT-WF83FMCX');
       if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
     }catch(e){}
   }
-  document.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
   window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
 }catch(e){}})();
 </script>
 <!-- /ort-page-tracking-v1 -->
