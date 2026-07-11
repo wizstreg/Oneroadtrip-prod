@@ -391,7 +391,8 @@
     });
 
     const urls = getLegalUrls(lang);
-    const pressUrl = lang === 'fr' ? '/presentations/press-fr.html' : '/presentations/press-en.html';
+    const pressPages = { fr: 'press-fr', en: 'press-en', es: 'press-es', it: 'press-it', pt: 'press-pt' };
+    const pressUrl = '/presentations/' + (pressPages[lang] || 'press-en') + '.html';
     const links = [
       { href: urls.cgu, label: T.legalNotice },
       { href: urls.privacy, label: T.privacyPolicy },
