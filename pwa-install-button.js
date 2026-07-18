@@ -11,9 +11,20 @@
   var SUPPORTED = ['fr','en','es','it','pt','ar'];
   var lang = 'en';
   try {
+    // Priorite : 1) ?lang= dans l'URL  2) langue de la page (attribut lang du HTML)
+    // 3) langue choisie sur le site (localStorage)  4) langue du navigateur en dernier recours.
+    // Avant, le navigateur passait avant la page : un visiteur au navigateur en francais
+    // voyait le bouton en francais sur une page espagnole.
     var p = new URLSearchParams(location.search).get('lang');
+    var pageLang = (document.documentElement.lang || '').slice(0,2).toLowerCase();
+    var storedLang = '';
+    try { storedLang = (localStorage.getItem('lang') || '').slice(0,2).toLowerCase(); } catch(e2) {}
     if (p && SUPPORTED.indexOf(p) !== -1) {
       lang = p;
+    } else if (SUPPORTED.indexOf(pageLang) !== -1) {
+      lang = pageLang;
+    } else if (SUPPORTED.indexOf(storedLang) !== -1) {
+      lang = storedLang;
     } else {
       var navLangs = navigator.languages || [navigator.language || ''];
       for (var i = 0; i < navLangs.length; i++) {
@@ -210,6 +221,7 @@
   });
 
   window.addEventListener('appinstalled', function() {
+    if (window.clarity) clarity('event', 'pwa_installee');
     hideInstallButton();
     deferredPrompt = null;
   });
@@ -234,18 +246,41 @@
     btn.addEventListener('click', function(e) {
       if (e.target.classList.contains('ort-close')) {
         localStorage.setItem('ort-pwa-dismissed-at', Date.now().toString());
+        if (window.clarity) clarity('event', 'pwa_ferme');
         hideInstallButton();
         return;
       }
-      if (!deferredPrompt) return;
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(function(choice) {
-        if (choice.outcome === 'dismissed') {
-          localStorage.setItem('ort-pwa-dismissed-at', Date.now().toString());
-        }
-        deferredPrompt = null;
+
+      // Le signal d'Android a expire ou a deja ete consomme : le bouton ne sert plus a rien.
+      if (!deferredPrompt) {
+        if (window.clarity) clarity('event', 'pwa_bouton_mort');
         hideInstallButton();
-      });
+        return;
+      }
+
+      if (window.clarity) clarity('event', 'pwa_clic_installer');
+
+      var prompted = deferredPrompt;
+      deferredPrompt = null; // consomme tout de suite : un 2e clic ne peut plus rien casser
+
+      try {
+        prompted.prompt();
+        prompted.userChoice.then(function(choice) {
+          if (window.clarity) clarity('event', 'pwa_choix_' + choice.outcome);
+          if (choice.outcome === 'dismissed') {
+            localStorage.setItem('ort-pwa-dismissed-at', Date.now().toString());
+          }
+          hideInstallButton();
+        }).catch(function(err) {
+          if (window.clarity) clarity('event', 'pwa_erreur_choix');
+          console.warn('[ORT] userChoice en echec :', err);
+          hideInstallButton();
+        });
+      } catch (err) {
+        if (window.clarity) clarity('event', 'pwa_erreur_prompt');
+        console.warn('[ORT] prompt() en echec :', err);
+        hideInstallButton();
+      }
     });
 
     appendWhenReady(btn);

@@ -68,14 +68,8 @@ figure{margin:2rem 0}figure img{width:100%;height:380px;object-fit:cover;border-
 </style>
 </head>
 <body>
+<header id="site-header" class="ort-hdr"></header>
 
-<nav class="lang-bar">
-  <a href="/blog/fr/road-trip-route-romantique-allemagne-7-jours.html" class="active">FR</a>
-  <a href="/blog/en/road-trip-romantic-road-germany-7-days.html">EN</a>
-  <a href="/blog/es/road-trip-ruta-romantica-alemania-7-dias.html">ES</a>
-  <a href="/blog/it/road-trip-strada-romantica-germania-7-giorni.html">IT</a>
-  <a href="/blog/pt/road-trip-estrada-romantica-alemanha-7-dias.html">PT</a>
-</nav>
 
 <header class="hero">
   <img src="https://images.unsplash.com/photo-1617934276076-ec9239067428?w=1400&q=80&auto=format&fit=crop" alt="Frankfurt am Main de nuit, skyline illuminée et ponts se reflétant dans le Main">
@@ -300,20 +294,7 @@ figure{margin:2rem 0}figure img{width:100%;height:380px;object-fit:cover;border-
 
 </article>
 
-<!-- ========== COMMENTAIRES ========== -->
-<section class="comments-section" id="commentaires">
-  <h2>💬 Commentaires</h2>
 
-  <div class="comment-form">
-    <input type="text" id="cmtName" placeholder="Votre prénom" maxlength="50">
-    <textarea id="cmtText" placeholder="Partagez votre expérience, posez une question..." maxlength="1000"></textarea>
-    <button id="cmtSubmit" onclick="submitComment()">Publier</button>
-  </div>
-
-  <div id="cmtList">
-    <div class="comments-loading">Chargement des commentaires...</div>
-  </div>
-</section>
 
 <a href="/roadtrip_detail.html?cc=DE&itin=DE%3A%3Aby-romantische-strasse&lang=fr&days=11" class="floating-cta"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Planifier ce voyage</a>
 
@@ -327,71 +308,12 @@ figure{margin:2rem 0}figure img{width:100%;height:380px;object-fit:cover;border-
 </script>
 
 <footer id="footer-legal"></footer>
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
 <script src="/js/ort-footer.js"></script>
 
-<!-- ========== COMMENTAIRES : Firebase ========== -->
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-<script>
-// ---- INIT FIREBASE (même config que ORT) ----
-// IMPORTANT : remplacer par ta vraie config Firebase si différente
-firebase.initializeApp({
-  apiKey: "AIzaSyChwXhmVSy6FyGVlrBDdi4IJ2LKCyt7VjM",
-  authDomain: "oneroadtrip-prod.firebaseapp.com",
-  projectId: "oneroadtrip-prod",
-  storageBucket: "oneroadtrip-prod.appspot.com",
-  messagingSenderId: "451183452295",
-  appId: "1:451183452295:web:3004ec5c970c0b53ddd822",
-  measurementId: "G-JK3QGQGDDL"
-});
-var db = firebase.firestore();
-var SLUG = "route-romantique-allemagne-7j";
 
-function escapeHtml(t){var d=document.createElement("div");d.textContent=t;return d.innerHTML;}
-
-function loadComments(){
-  var list = document.getElementById("cmtList");
-  db.collection("blog-comments").where("slug","==",SLUG).orderBy("date","desc").limit(50)
-    .get().then(function(snap){
-      if(snap.empty){list.innerHTML='<div class="comments-empty">Soyez le premier à commenter !</div>';return;}
-      var html="";
-      snap.forEach(function(doc){
-        var c=doc.data();
-        var d=c.date?new Date(c.date.seconds*1000).toLocaleDateString("fr-FR",{day:"numeric",month:"long",year:"numeric"}):"";
-        html+='<div class="comment-item"><span class="comment-author">'+escapeHtml(c.name||"Anonyme")+'</span><span class="comment-date">'+d+'</span><div class="comment-text">'+escapeHtml(c.text||"")+'</div></div>';
-      });
-      list.innerHTML=html;
-    }).catch(function(err){
-      console.log("Comments load error:",err);
-      list.innerHTML='<div class="comments-empty">Soyez le premier à commenter !</div>';
-    });
-}
-
-function submitComment(){
-  var name=document.getElementById("cmtName").value.trim();
-  var text=document.getElementById("cmtText").value.trim();
-  if(!text){alert("Écrivez un commentaire avant de publier.");return;}
-  if(!name)name="Anonyme";
-  var btn=document.getElementById("cmtSubmit");
-  btn.disabled=true;btn.textContent="Publication...";
-  db.collection("blog-comments").add({
-    slug:SLUG, name:name, text:text,
-    date:firebase.firestore.FieldValue.serverTimestamp(),
-    lang:"fr"
-  }).then(function(){
-    document.getElementById("cmtName").value="";
-    document.getElementById("cmtText").value="";
-    btn.disabled=false;btn.textContent="Publier";
-    loadComments();
-  }).catch(function(err){
-    console.log("Comment submit error:",err);
-    btn.disabled=false;btn.textContent="Publier";
-    alert("Erreur lors de la publication. Réessayez.");
-  });
-}
-
-loadComments();
-</script>
 <!-- ort-page-tracking-v1 -->
 <script>
 (function(){try{

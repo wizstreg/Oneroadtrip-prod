@@ -80,13 +80,57 @@
   }
 
   /** Récupère la langue courante — priorise le chemin URL sur les pages statiques */
+  /** Dossiers d'itineraires par langue */
+  var ITIN_DIRS = {itineraires:'fr',itineraries:'en',rutas:'es',roteiros:'pt',itinerari:'it',masar:'ar'};
+
   function getLang() {
-    // 1. Détecter depuis le chemin URL (pages statiques)
-    var pathMap = {itineraires:'fr',itineraries:'en',rutas:'es',roteiros:'pt',itinerari:'it',masar:'ar'};
-    var pathMatch = window.location.pathname.match(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//);
-    if (pathMatch && pathMap[pathMatch[1]]) return pathMap[pathMatch[1]];
-    // 2. Fallback : ORT_getLang de ort-i18n.js (lit localStorage 'lang' / documentElement.lang)
+    var path = window.location.pathname;
+
+    // 1. Itineraires : /itineraires/, /itineraries/, /rutas/...
+    var m = path.match(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//);
+    if (m && ITIN_DIRS[m[1]]) return ITIN_DIRS[m[1]];
+
+    // 2. Blog : /blog/fr/, /blog/en/...
+    m = path.match(/^\/blog\/([a-z]{2})\//);
+    if (m && SUPPORTED_LANGS.indexOf(m[1]) !== -1) return m[1];
+
+    // 3. Page statique qui declare sa langue : on lui fait confiance
+    var declared = document.documentElement.getAttribute('lang');
+    if (declared && SUPPORTED_LANGS.indexOf(declared) !== -1) return declared;
+
+    // 4. Fallback : localStorage via ort-i18n.js
     return window.ORT_getLang?.() || 'fr';
+  }
+
+  /** Construit l'URL de la meme page dans une autre langue.
+   *  Renvoie null si le chemin ne porte pas la langue. */
+  function urlForLang(newLang) {
+    var path = window.location.pathname;
+
+    // Blog : les articles changent de nom de fichier selon la langue
+    // (preparer-voyage-chine -> planning-trip-china). La bonne URL est
+    // donnee par les balises <link rel="alternate" hreflang="..."> de la page.
+    var m = path.match(/^\/blog\/([a-z]{2})\//);
+    if (m && SUPPORTED_LANGS.indexOf(m[1]) !== -1) {
+      var alt = document.querySelector('link[rel="alternate"][hreflang="' + newLang + '"]');
+      if (alt && alt.href) {
+        try { return new URL(alt.href).pathname; } catch (e) { return alt.getAttribute('href'); }
+      }
+      // Pas de balise (ex: l'index du blog) : on se contente de changer le segment.
+      return path.replace(/^\/blog\/[a-z]{2}\//, '/blog/' + newLang + '/');
+    }
+
+    // Itineraires : on remplace le dossier. Le slug ne change pas.
+    m = path.match(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//);
+    if (m && ITIN_DIRS[m[1]]) {
+      var dirFor = {};
+      for (var d in ITIN_DIRS) dirFor[ITIN_DIRS[d]] = d;
+      if (dirFor[newLang]) {
+        return path.replace(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//, '/' + dirFor[newLang] + '/');
+      }
+    }
+
+    return null;
   }
 
   /** Récupère les traductions */
@@ -122,8 +166,15 @@
     sel.addEventListener('change', function() {
       const newLang = this.value;
       localStorage.setItem('lang', newLang);
-      
-      // Recharger avec le nouveau paramètre lang
+
+      // 1. Page statique dont l'URL porte la langue : on change de fichier.
+      const target = urlForLang(newLang);
+      if (target) {
+        window.location.href = target + window.location.search + window.location.hash;
+        return;
+      }
+
+      // 2. Page dynamique : ancien comportement, on passe la langue en parametre.
       const url = new URL(window.location.href);
       url.searchParams.set('lang', newLang);
       window.location.replace(url.toString());
@@ -665,8 +716,27 @@
 
   /** Génère le HTML du header si l'élément est vide */
   function generateHeaderHTML() {
-    const header = document.getElementById('site-header');
-    if (!header || header.children.length > 0) return; // Déjà du contenu
+    let header = document.getElementById('site-header');
+    if (!header) return;
+
+    // Sur les articles du blog, "site-header" est un <div> vide place a
+    // l'interieur d'un <header class="header">. On veut habiller le vrai
+    // <header> parent, pas le div : sinon la barre s'affiche sans style.
+    if (header.tagName !== 'HEADER') {
+      const parentHeader = header.closest('header');
+      if (parentHeader) {
+        // On enleve les elements fantomes que l'article avait prepares
+        // (select et bloc auth caches), ils seront recrees proprement.
+        header = parentHeader;
+      }
+    }
+    if (header.querySelector('.header-row-1')) return; // Barre deja construite
+
+    // Vide ce qui restait (le div interne et les elements caches).
+    header.innerHTML = '';
+
+    // Sans cette classe, aucun style ne s'applique et le logo sort en grand.
+    header.classList.add('ort-hdr');
 
     const T = getT();
     const lang = getLang();
@@ -677,16 +747,68 @@
     const newsLabel = NEWS_LABEL[lang] || 'News';
     const CATALOG_LABEL = { fr:'Catalogue', en:'Catalogue', es:'Catálogo', it:'Catalogo', pt:'Catálogo', ar:'الكتالوج' };
     const catalogLabel = CATALOG_LABEL[lang] || 'Catalogue';
+    const BLOG_LABEL = { fr:'Blog', en:'Blog', es:'Blog', it:'Blog', pt:'Blog', ar:'المدونة' };
+    const blogLabel = BLOG_LABEL[lang] || 'Blog';
+    const TRIPS_LABEL = { fr:'Vos voyages', en:'Your trips', es:'Tus viajes', it:'I tuoi viaggi', pt:'As suas viagens', ar:'رحلاتك' };
+    const tripsLabel = TRIPS_LABEL[lang] || 'Your trips';
+
+    // Habillage de base de la barre.
+    // Il etait jusqu'ici recopie dans chaque template ; il vit maintenant ici,
+    // pour que n'importe quelle page recoive la meme barre sans rien preparer.
+    // Les valeurs de secours (#113f7a...) servent aux pages qui n'ont pas les couleurs du site.
+    if (!document.getElementById('ort-hdr-base-style')) {
+      const base = document.createElement('style');
+      base.id = 'ort-hdr-base-style';
+      base.textContent = `
+        header.ort-hdr{position:sticky;top:0;z-index:10000;background:var(--p,#113f7a);color:#fff;padding:6px 12px;display:flex;flex-direction:column;gap:0;border-bottom:1px solid rgba(255,255,255,.2);width:100%;transition:transform .25s ease;box-sizing:border-box}
+        header.ort-hdr.hdr-hide{transform:translateY(-100%)}
+        header.ort-hdr .spacer{flex:1}
+        header.ort-hdr .brandlink{display:flex;align-items:center;gap:6px;color:#fff;text-decoration:none;flex-shrink:0}
+        header.ort-hdr .brandlink img{width:44px;height:44px}
+        @media(min-width:640px){header.ort-hdr .brandlink img{width:56px;height:56px}}
+        header.ort-hdr .brand{display:none}
+        header.ort-hdr .langpick{appearance:none;background:#fff;border:1px solid var(--pd,#0b2d5c);border-radius:6px;padding:3px 6px;cursor:pointer;color:var(--pd,#0b2d5c);font-size:.78rem;flex-shrink:0}
+        header.ort-hdr .auth{position:relative;flex-shrink:0}
+        header.ort-hdr .btn{padding:4px 10px;border-radius:8px;border:1px solid #ffffff80;background:#ffffff1a;color:#fff;cursor:pointer;font-size:.82rem;font-weight:600;white-space:nowrap}
+        header.ort-hdr .btn:hover{background:#ffffff2b}
+        header.ort-hdr .auth-pop{position:absolute;right:0;top:44px;background:#fff;color:var(--pd,#0b2d5c);border:1px solid var(--bd,#dfe3e8);border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.2);padding:12px;display:none;min-width:260px;z-index:100000}
+        @media(max-width:480px){header.ort-hdr .auth-pop{min-width:220px;right:-10px}}
+        header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd,#0b2d5c);border:1px solid var(--bd,#dfe3e8)}
+      `;
+      document.head.appendChild(base);
+    }
+
     if (!document.getElementById('ort-nav-style')) {
       const st = document.createElement('style');
       st.id = 'ort-nav-style';
       st.textContent = `
+        .header-row-1{display:flex;align-items:center;gap:8px;width:100%;flex-wrap:nowrap;min-width:0}
+        .header-row-2{display:none}
+        header.ort-hdr .brandlink img{height:56px;width:auto;display:block}
         .ort-nav-link{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;
           border-radius:10px;border:1px solid #ffffff80;background:#ffffff1a;color:#fff;
           text-decoration:none;font-size:14px;white-space:nowrap;flex:0 0 auto;}
         .ort-nav-link:hover{background:#ffffff2b;}
-        .lbl-short{display:none;}
-        @media(max-width:600px){.ort-nav-link{padding:7px 9px;font-size:13px;}.brand{display:none!important;}.auth-txt{display:none;}.lbl-full{display:none;}.lbl-short{display:inline;}}
+
+        /* Ecrans moyens : les libelles retrecissent avant de disparaitre. */
+        @media(max-width:900px){
+          .ort-nav-link{padding:7px 10px;font-size:13px;gap:5px;}
+          header.ort-hdr .brandlink img{height:44px;}
+        }
+        /* Petits ecrans : on ne garde que les pictos, la barre tient sur une ligne. */
+        @media(max-width:720px){
+          .ort-nav-link .lbl{display:none;}
+          .ort-nav-link{padding:7px 9px;}
+          header.ort-hdr .auth-txt{display:none;}
+          header.ort-hdr .brand{display:none!important;}
+        }
+        /* Tres petits ecrans : dernier resserrement, plus rien ne deborde. */
+        @media(max-width:380px){
+          .header-row-1{gap:5px;}
+          header.ort-hdr{padding:6px 8px;}
+          .ort-nav-link{padding:6px 7px;font-size:12px;}
+          header.ort-hdr .brandlink img{height:38px;}
+        }
       `;
       document.head.appendChild(st);
     }
@@ -695,7 +817,6 @@
       <div class="header-row-1">
         <a class="brandlink" id="homeLink" href="/index.html">
           <img src="/assets/symbol.webp" alt="Logo">
-          <div class="brand">OneRoadTrip</div>
         </a>
         <div class="spacer"></div>
         <a class="ort-nav-link" id="catalogLink" href="/index.html" aria-label="${catalogLabel}">
@@ -703,6 +824,12 @@
         </a>
         <a class="ort-nav-link" id="newsLink" href="/news.html" aria-label="${newsLabel}">
           <span aria-hidden="true">📰</span><span class="lbl">${newsLabel}</span>
+        </a>
+        <a class="ort-nav-link" id="blogLink" href="/blog/" aria-label="${blogLabel}">
+          <span aria-hidden="true">✍️</span><span class="lbl">${blogLabel}</span>
+        </a>
+        <a class="ort-nav-link" id="btnTrips" href="/dashboard_user.html?lang=${lang}" aria-label="${tripsLabel}">
+          <span aria-hidden="true">🏠</span><span class="lbl">${tripsLabel}</span>
         </a>
         <select id="langSel" class="langpick" aria-label="Langue">
           <option value="fr">FR</option>

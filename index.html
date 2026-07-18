@@ -13,7 +13,10 @@
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+      navigator.serviceWorker.register('/service-worker.js').catch(function(err) {
+        if (window.clarity) clarity('event', 'sw_echec');
+        console.warn('[ORT] service worker non enregistre :', err);
+      });
     });
   }
 </script>
@@ -497,28 +500,8 @@ main{padding-block:40px 64px}
 <body>
 
 <!-- ===== HEADER ===== -->
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="/index.html"><img class="mark-img" src="/assets/symbol.webp" alt="OneRoadTrip"></a>
-    <nav class="site-nav" id="topNav">
-      <a id="navNews" href="news.html">News</a>
-      <a id="navPress" href="news.html">Presse</a>
-      <a id="navPartners" href="news.html">Partenaires</a>
-    </nav>
-    <div class="header-right">
-      <a class="header-contact" href="#footer-legal" id="btnContact">Contact</a>
-      <a class="btn btn-secondary on-dark" id="btnTrips" href="dashboard_user.html" style="height:auto;padding:8px 16px"></a>
-      <div class="lang" id="langSelector">
-        <button class="lang-btn" type="button" onclick="document.getElementById('langSelector').classList.toggle('open')">
-          <span id="langFlag">🇫🇷</span>
-          <span id="langName">Français</span>
-          <span data-icon="chevron"></span>
-        </button>
-        <div class="lang-menu" id="langDropdown"></div>
-      </div>
-    </div>
-  </div>
-</header>
+<!-- Barre vide : c'est /js/ort-header.js qui la remplit, comme sur les itineraires et le blog. -->
+<header id="site-header" class="ort-hdr"></header>
 
 <!-- ===== HERO SPLIT ===== -->
 <section class="heroB">
@@ -1032,8 +1015,7 @@ if(currentLang === 'ar') document.documentElement.dir = 'rtl';
   if(md) md.setAttribute('content', m.desc);
 })();
 
-document.getElementById('langFlag').textContent = t.flag;
-document.getElementById('langName').textContent = t.name;
+/* Langue : c'est /js/ort-header.js qui affiche le selecteur. */
 
 document.getElementById('heroSuffix').textContent = T2.heroH1;
 document.getElementById('heroSub').textContent = T2.lede;
@@ -1079,10 +1061,7 @@ document.getElementById('sortDaysDesc').textContent = t.sortDaysDesc;
 document.getElementById('vtPhotoLbl').textContent = T2.photosLbl;
 document.getElementById('vtMapLbl').textContent = T2.mapsLbl;
 
-/* CTA et contact */
-document.getElementById('btnTrips').textContent = t.tripsBtn;
-document.getElementById('btnTrips').href = 'dashboard_user.html?lang=' + currentLang;
-document.getElementById('btnContact').textContent = T2.contactShort;
+/* "Vos voyages" est desormais dans la barre commune, Contact dans le footer. */
 document.getElementById('contactTitle').textContent = t.contactTitle;
 document.getElementById('contactDesc').textContent = t.contactDesc;
 
@@ -1152,8 +1131,10 @@ injectIcons();
   fw.innerHTML = html;
 })();
 
-/* Contact modal open/close */
-document.getElementById('btnContact').addEventListener('click', function(e){
+/* Contact : le lien du footer et l'ancre #footer-legal ouvrent la fenetre. */
+document.addEventListener('click', function(e){
+  var a = e.target.closest && e.target.closest('a[href$="#footer-legal"], a[href="#footer-legal"]');
+  if(!a) return;
   e.preventDefault();
   document.getElementById('contactModal').classList.add('active');
 });
@@ -1183,19 +1164,9 @@ document.getElementById('contactModal').addEventListener('click', function(e){
   });
 })();
 
-/* navNews : libellé localisé sur desktop, "News" universel sur mobile */
-(function(){
-  var nn = document.getElementById('navNews'); if(!nn) return;
-  var full = nn.textContent;
-  nn.innerHTML = '<span class="nav-full">' + full + '</span><span class="nav-short">News</span>';
-})();
+/* Les liens Catalogue / Actualites / Blog viennent de la barre commune. */
 
-/* Fermeture du menu langue au clic exterieur */
-document.addEventListener('click', function(e){
-  if(!e.target.closest('.lang')){
-    document.getElementById('langSelector').classList.remove('open');
-  }
-});
+/* Le menu de langue est gere par /js/ort-header.js. */
 
 /* Contact form submit via EmailJS */
 document.getElementById('cSend').addEventListener('click', function(e){
@@ -1229,6 +1200,7 @@ document.getElementById('cSend').addEventListener('click', function(e){
 /* Lang dropdown */
 (function(){
   var dd = document.getElementById('langDropdown');
+  if(!dd) return; /* menu maison retire : la barre commune s'en charge */
   var html = '';
   var keys = ['fr','en','es','pt','it','ar'];
   /* Build base URL preserving other params like ?filter= */
@@ -2234,6 +2206,9 @@ gtag('js', new Date());
 gtag('config', 'G-JK3QGQGDDL');
 gtag('config', 'GT-WF83FMCX');
 </script>
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
 <script src="/js/ort-footer.js"></script>
 
 <!-- ===== MODALE SÉLECTEUR DE ZONE - DESSIN À MAIN LEVÉE ===== -->

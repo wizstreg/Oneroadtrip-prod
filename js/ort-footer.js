@@ -371,8 +371,8 @@
       margin: 18px auto 20px;
       text-align: center;
       font-size: 14px;
-      padding: 12px 20px;
-      max-width: 600px;
+      padding: 10px 20px;
+      max-width: 1100px;
       background: #113f7a;
       border: 1px solid rgba(195, 214, 182, 0.4);
       border-radius: 10px;
@@ -380,6 +380,12 @@
       position: relative;
       z-index: 1;
       direction: ${rtl ? 'rtl' : 'ltr'};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 6px 10px;
+      line-height: 1.4;
     `;
 
     // URLs des pages légales avec suffixe de langue
@@ -399,7 +405,7 @@
       { href: urls.cookies, label: T.cookiePolicy },
       { href: urls.about, label: T.about },
       { href: pressUrl, label: T.pressRoom },
-      { href: 'https://www.oneroadtrip.com/blog/', label: T.blog }
+      { href: '/blog/', label: T.blog }
     ];
 
     footer.innerHTML = links.map((link, i) => {
@@ -436,17 +442,13 @@
     footer.appendChild(document.createTextNode(' · '));
     footer.appendChild(manageBtn);
 
-    // Bloc partenaire presse InfosTourisme
+    // Bloc partenaire presse InfosTourisme, aligné sur la même ligne que les liens
     const partnerBlock = document.createElement('div');
     partnerBlock.style.cssText = `
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px solid rgba(195, 214, 182, 0.25);
-      display: flex;
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
+      gap: 8px;
+      margin-${rtl ? 'right' : 'left'}: 6px;
     `;
 
     const partnerLabel = document.createElement('span');
@@ -468,8 +470,8 @@
       justify-content: center;
       text-decoration: none;
       background: #ffffff;
-      padding: 6px 12px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 5px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.15);
     `;
 
@@ -478,7 +480,7 @@
     partnerImg.alt = 'InfosTourisme.com';
     partnerImg.loading = 'lazy';
     partnerImg.style.cssText = `
-      height: 28px;
+      height: 20px;
       width: auto;
       display: block;
       mix-blend-mode: multiply;
