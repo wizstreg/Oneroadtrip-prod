@@ -35,6 +35,7 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
 <script src="/js/ort-config.js"></script>
 <style>
 /* ============================================================
@@ -278,6 +279,18 @@ input[type=color]{padding:5px;height:46px;cursor:pointer;background:var(--field)
 .btn:focus-visible,.acct-btn:focus-visible,.icon-btn:focus-visible,.add-btn:focus-visible,.add-step:focus-visible,.di-btn:focus-visible{outline:none;box-shadow:var(--ring)}
 .complete{font-size:.72rem;color:var(--ink-soft);align-self:center;line-height:1.3;max-width:30%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;flex:none}
 .complete.ok{color:var(--ok);font-weight:600}
+.up-wrap{display:flex;gap:6px;align-items:stretch}
+.up-wrap input{flex:1;min-width:0}
+.up-btn{flex:none;width:40px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;cursor:pointer;font-size:1rem;line-height:1}
+.up-btn:hover{border-color:var(--accent);color:var(--accent)}
+.up-btn:disabled{opacity:.7;cursor:default;font-size:.72rem;font-weight:700}
+.html-offer{background:linear-gradient(180deg,#f3ecff,#fbf8ff);border:1px solid #d9c7ff;border-left:4px solid #7c3aed;border-radius:12px;padding:14px 16px;margin:0 0 16px}
+.html-offer-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;color:#5b21b6;margin-bottom:4px}
+.html-offer p{margin:0;font-size:.9rem;color:var(--ink)}
+.how{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.how-title{font-family:"Fraunces",serif;font-weight:600;font-size:1.05rem;margin-bottom:8px}
+.how ol{margin:0;padding-left:20px}
+.how ol li{margin:6px 0;line-height:1.5}
 @media(max-width:820px){.complete{display:none}}
 
 /* ---------- Toast & modale ---------- */
@@ -473,6 +486,14 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
         <li data-i18n="about_adv3"></li>
       </ul>
     </div>
+    <div class="how">
+      <div class="how-title" data-i18n="howTitle"></div>
+      <ol>
+        <li data-i18n="howStep1"></li>
+        <li data-i18n="howStep2"></li>
+        <li data-i18n="howStep3"></li>
+      </ol>
+    </div>
   </section>
 
   <section class="block">
@@ -487,6 +508,15 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
       <div class="field"><label data-i18n="a_site"></label><input id="a_site" placeholder="https://…"></div>
       <div class="field"><label data-i18n="a_photo"></label><input id="a_photo" placeholder="https://…"></div>
     </div>
+    <p class="hint" style="padding-left:0" data-i18n="f_socials_hint"></p>
+    <div class="grid2">
+      <div class="field"><label data-i18n="f_instagram"></label><input id="a_instagram" placeholder="https://instagram.com/…"></div>
+      <div class="field"><label data-i18n="f_tiktok"></label><input id="a_tiktok" placeholder="https://tiktok.com/@…"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label data-i18n="f_youtube"></label><input id="a_youtube" placeholder="https://youtube.com/@…"></div>
+      <div class="field"><label data-i18n="f_facebook"></label><input id="a_facebook" placeholder="https://facebook.com/…"></div>
+    </div>
       <div style="height:2px"></div>
     <div class="grid2">
       <div class="field"><label data-i18n="f_colorA"></label><input id="t_colorA" type="color" value="#b45309"></div>
@@ -495,7 +525,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
     <p class="hint" style="padding-left:0;margin-top:-4px" data-i18n="f_colors_hint"></p>
   </section>
 
-  <section class="block">
+  <section class="block" style="display:none">
     <h2>🔗 <span data-i18n="plTitle"></span></h2>
     <p class="hint" data-i18n="plHint"></p>
     <div class="grid2">
@@ -523,7 +553,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
         </select>
       </div>
     </div>
-    <div class="field"><label data-i18n="f_cover"></label><input id="t_cover" data-ph="f_cover_ph"></div>
+    <div class="field"><label data-i18n="f_cover"></label><input id="t_cover" data-img data-ph="f_cover_ph"></div>
     <div class="field"><label data-i18n="f_template"></label>
       <select id="t_template">
         <option value="T3" data-i18n="tplT3"></option>
@@ -541,10 +571,17 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
       </div>
     </div>
     <div class="field"><label data-i18n="f_notes"></label><textarea id="t_notes" data-ph="f_notes_ph"></textarea></div>
+    <div class="field"><label data-i18n="f_article"></label><input id="t_article" placeholder="https://…">
+      <p class="hint" style="padding-left:0;margin-top:4px" data-i18n="f_article_hint"></p>
+    </div>
   </section>
 
   <section class="block">
     <h2><span class="ord">3</span> <span data-i18n="s3title"></span></h2>
+    <div class="html-offer">
+      <div class="html-offer-title">✦ <span data-i18n="htmlOfferTitle"></span></div>
+      <p data-i18n="htmlOfferText"></p>
+    </div>
     <p class="hint" data-i18n="s3hint"></p>
     <p class="hint" data-i18n="lkHint"></p>
     <div id="steps"></div>
@@ -656,10 +693,12 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
       </div>
       <div class="sub">
         <div class="sub-title"><h4><span class="dot h"></span> <span data-i18n="hotTitle"></span> <span class="muted" data-i18n="hotSub"></span></h4><button class="add-btn" data-add="hotel" data-i18n="addHot"></button></div>
+        <p class="hint" style="padding-left:0;margin:2px 0 8px" data-i18n="affiliateHint"></p>
         <div data-list="hotel"></div>
       </div>
       <div class="sub">
         <div class="sub-title"><h4>🍽️ <span data-i18n="restoTitle"></span> <span class="muted" data-i18n="restoSub"></span></h4><button class="add-btn" data-add="resto" data-i18n="addResto"></button></div>
+        <p class="hint" style="padding-left:0;margin:2px 0 8px" data-i18n="affiliateHint"></p>
         <div data-list="resto"></div>
       </div>
       <div class="sub">
@@ -680,7 +719,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
     <div class="field"><label data-i18n="riDesc"></label><textarea data-f="text" data-ph="riVisitDesc_ph"></textarea></div>
     <div class="grid2">
       <div class="field" style="margin-bottom:0"><label data-i18n="riDur"></label><input data-f="dur" inputmode="numeric" placeholder="90"></div>
-      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" placeholder="https://…"></div>
+      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" data-img placeholder="https://…"></div>
     </div>
     <div class="field" style="margin:13px 0 0">
       <div class="sub-title" style="margin-bottom:8px"><label style="margin:0" data-i18n="tipsGroup"></label><button class="add-btn" type="button" data-add-tip data-i18n="addTip"></button></div>
@@ -696,7 +735,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
     <div class="field"><label data-i18n="riDesc"></label><textarea data-f="text" data-ph="riActDesc_ph"></textarea></div>
     <div class="grid2">
       <div class="field" style="margin-bottom:0"><label data-i18n="riDur"></label><input data-f="dur" inputmode="numeric" placeholder="60"></div>
-      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" placeholder="https://…"></div>
+      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" data-img placeholder="https://…"></div>
     </div>
     <div class="field" style="margin:13px 0 0">
       <div class="sub-title" style="margin-bottom:8px"><label style="margin:0" data-i18n="tipsGroup"></label><button class="add-btn" type="button" data-add-tip data-i18n="addTip"></button></div>
@@ -712,7 +751,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
     <div class="field"><label data-i18n="riHotUrl"></label><input data-f="url" data-ph="riHotUrl_ph"></div>
     <div class="grid2">
       <div class="field" style="margin-bottom:0"><label data-i18n="riHotPrice"></label><input data-f="price" data-ph="riHotPrice_ph"></div>
-      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" placeholder="https://…"></div>
+      <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" data-img placeholder="https://…"></div>
     </div>
     <div class="field" style="margin:13px 0 0"><label data-i18n="riHotDesc"></label><textarea data-f="text" data-ph="riHotDesc_ph"></textarea></div>
   </div>
@@ -738,7 +777,7 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
 <template id="tplPhoto">
   <div class="row-item" data-row>
     <button class="rm" data-rm data-title="rmTitle">✕</button>
-    <div class="field" style="margin-bottom:0"><label data-i18n="riPhotoUrl"></label><input data-f="url" placeholder="https://…"></div>
+    <div class="field" style="margin-bottom:0"><label data-i18n="riPhotoUrl"></label><input data-f="url" data-img placeholder="https://…"></div>
   </div>
 </template>
 
@@ -766,6 +805,10 @@ var I18N = {
     about_p2:"Blogueur, travel planner ou spécialiste du voyage : profitez de notre savoir-faire et de notre audience pour publier vos propres itinéraires.",
     about_offer:"Votre premier itinéraire est gratuit, en échange d'un lien vers OneRoadTrip sur votre site ou vos réseaux. Envie d'en publier plusieurs ? Écrivez-nous.",
     about_advTitle:"Vos avantages",
+    howTitle:"Comment ça marche",
+    howStep1:"D'abord, remplissez vos informations et vos réseaux sociaux : ils seront mis en avant sur votre itinéraire.",
+    howStep2:"Ensuite, ajoutez les informations générales et complémentaires de l'itinéraire à publier.",
+    howStep3:"Enfin, au choix : envoyez-nous la page HTML de votre article pour qu'on tente de la transformer en itinéraire, ou saisissez tout vous-même.",
     about_adv1:"Un outil interactif en 5 langues — votre itinéraire est traduit pour vous.",
     about_adv2:"Une audience qui ne fait que grandir.",
     about_adv3:"Les liens hôtels restent les vôtres : vous gardez vos commissions.",
@@ -780,6 +823,12 @@ var I18N = {
     a_name:"Votre nom / pseudo", a_name_ph:"Marie Voyage", a_email:"Votre email (pour vous recontacter)", a_email_ph:"vous@exemple.com",
     a_bio:"Bio courte", a_bio_ph:"Deux phrases sur vous et votre univers de voyage.",
     a_site:"Lien vers votre site / blog", a_photo:"Votre photo (lien, optionnel)",
+    f_socials_hint:"Réseaux sociaux (optionnel) : collez le lien de vos profils.",
+    upTitle:"Charger une photo depuis votre ordinateur", upLogin:"Connectez-vous pour envoyer une photo.", upErr:"Échec de l'envoi de la photo.", upBig:"Image trop lourde (max 5 Mo).", upType:"Ce fichier n'est pas une image.",
+    f_instagram:"Instagram", f_tiktok:"TikTok", f_youtube:"YouTube", f_facebook:"Facebook",
+    htmlOfferTitle:"Pas envie de tout ressaisir ?", htmlOfferText:"Si votre article de voyage est déjà en ligne, envoyez-nous simplement sa page (le HTML) à contact@oneroadtrip.com. Nous pouvons souvent la transformer en itinéraire OneRoadTrip, avec vos propres liens affiliés et vos photos.",
+    f_article:"Lien vers votre article de blog", f_article_hint:"Affiché en tête de l'itinéraire, un seul lien vers votre article complet.",
+    affiliateHint:"Mettez votre lien affilié AVEC votre identifiant (Booking, GetYourGuide…), pas un lien vers votre site. Il fonctionne dans les 5 langues et vous rapporte partout, même auprès des visiteurs étrangers.",
     s3title:"Les étapes", s3hint:"Une étape = un lieu où l'on s'arrête. Ajoutez ses visites, activités, hôtels, photos et conseils.",
     addStep:"＋ Ajouter une étape", newStep:"Nouvelle étape",
     tUp:"Monter", tDown:"Descendre", tDup:"Dupliquer", tDel:"Supprimer", rmTitle:"Retirer",
@@ -852,6 +901,10 @@ var I18N = {
     about_p2:"Blogger, travel planner or travel expert: tap into our know-how and our audience to publish your own itineraries.",
     about_offer:"Your first itinerary is free, in exchange for a link to OneRoadTrip on your site or socials. Want to publish several? Get in touch.",
     about_advTitle:"What's in it for you",
+    howTitle:"How it works",
+    howStep1:"First, fill in your details and social media: they'll be featured on your itinerary.",
+    howStep2:"Then add the general and extra information for the itinerary you want to publish.",
+    howStep3:"Finally, your choice: send us the HTML page of your article so we can try to turn it into an itinerary, or enter everything yourself.",
     about_adv1:"An interactive tool in 5 languages — your itinerary is translated for you.",
     about_adv2:"An audience that keeps growing.",
     about_adv3:"Hotel links stay yours: you keep your commissions.",
@@ -866,6 +919,12 @@ var I18N = {
     a_name:"Your name / handle", a_name_ph:"Mary Travels", a_email:"Your email (so we can reach you)", a_email_ph:"you@example.com",
     a_bio:"Short bio", a_bio_ph:"Two lines about you and your travel world.",
     a_site:"Link to your site / blog", a_photo:"Your photo (link, optional)",
+    f_socials_hint:"Social media (optional): paste the link to your profiles.",
+    upTitle:"Upload a photo from your computer", upLogin:"Sign in to upload a photo.", upErr:"Photo upload failed.", upBig:"Image too large (max 5 MB).", upType:"This file is not an image.",
+    f_instagram:"Instagram", f_tiktok:"TikTok", f_youtube:"YouTube", f_facebook:"Facebook",
+    htmlOfferTitle:"Don't want to retype everything?", htmlOfferText:"If your travel article is already online, just send us its page (the HTML) at contact@oneroadtrip.com. We can often turn it into a OneRoadTrip itinerary, with your own affiliate links and photos.",
+    f_article:"Link to your blog article", f_article_hint:"Shown at the top of the itinerary, a single link to your full article.",
+    affiliateHint:"Use your affiliate link WITH your ID (Booking, GetYourGuide…), not a link to your site. It works in all 5 languages and earns you money everywhere, including with foreign visitors.",
     s3title:"The stops", s3hint:"A stop = a place where you pause. Add its visits, activities, hotels, photos and tips.",
     addStep:"＋ Add a stop", newStep:"New stop",
     tUp:"Move up", tDown:"Move down", tDup:"Duplicate", tDel:"Delete", rmTitle:"Remove",
@@ -938,6 +997,10 @@ var I18N = {
     about_p2:"Blogger, travel planner o especialista en viajes: aprovecha nuestro saber hacer y nuestra audiencia para publicar tus propios itinerarios.",
     about_offer:"Tu primer itinerario es gratis, a cambio de un enlace a OneRoadTrip en tu sitio o tus redes. ¿Quieres publicar varios? Escríbenos.",
     about_advTitle:"Tus ventajas",
+    howTitle:"Cómo funciona",
+    howStep1:"Primero, rellena tus datos y tus redes sociales: se destacarán en tu itinerario.",
+    howStep2:"Luego añade la información general y complementaria del itinerario que quieres publicar.",
+    howStep3:"Por último, a tu elección: envíanos la página HTML de tu artículo para que intentemos convertirla en itinerario, o introdúcelo todo tú mismo.",
     about_adv1:"Una herramienta interactiva en 5 idiomas: tu itinerario se traduce por ti.",
     about_adv2:"Una audiencia que no para de crecer.",
     about_adv3:"Los enlaces de hoteles son tuyos: conservas tus comisiones.",
@@ -952,6 +1015,12 @@ var I18N = {
     a_name:"Tu nombre / alias", a_name_ph:"María Viajes", a_email:"Tu email (para contactarte)", a_email_ph:"tu@ejemplo.com",
     a_bio:"Biografía breve", a_bio_ph:"Dos frases sobre ti y tu universo viajero.",
     a_site:"Enlace a tu sitio / blog", a_photo:"Tu foto (enlace, opcional)",
+    f_socials_hint:"Redes sociales (opcional): pega el enlace de tus perfiles.",
+    upTitle:"Sube una foto desde tu ordenador", upLogin:"Inicia sesión para subir una foto.", upErr:"Error al subir la foto.", upBig:"Imagen demasiado grande (máx 5 MB).", upType:"Este archivo no es una imagen.",
+    f_instagram:"Instagram", f_tiktok:"TikTok", f_youtube:"YouTube", f_facebook:"Facebook",
+    htmlOfferTitle:"¿No quieres reescribir todo?", htmlOfferText:"Si tu artículo de viaje ya está en línea, envíanos su página (el HTML) a contact@oneroadtrip.com. A menudo podemos convertirla en un itinerario OneRoadTrip, con tus propios enlaces de afiliado y tus fotos.",
+    f_article:"Enlace a tu artículo de blog", f_article_hint:"Mostrado en la cabecera del itinerario, un único enlace a tu artículo completo.",
+    affiliateHint:"Pon tu enlace de afiliado CON tu identificador (Booking, GetYourGuide…), no un enlace a tu sitio. Funciona en los 5 idiomas y te reporta ingresos en todas partes, también con visitantes extranjeros.",
     s3title:"Las etapas", s3hint:"Una etapa = un lugar donde te detienes. Añade sus visitas, actividades, hoteles, fotos y consejos.",
     addStep:"＋ Añadir una etapa", newStep:"Nueva etapa",
     tUp:"Subir", tDown:"Bajar", tDup:"Duplicar", tDel:"Eliminar", rmTitle:"Quitar",
@@ -1024,6 +1093,10 @@ var I18N = {
     about_p2:"Blogger, travel planner o esperto di viaggi: sfrutta il nostro know-how e il nostro pubblico per pubblicare i tuoi itinerari.",
     about_offer:"Il tuo primo itinerario è gratuito, in cambio di un link a OneRoadTrip sul tuo sito o sui tuoi social. Vuoi pubblicarne diversi? Scrivici.",
     about_advTitle:"I tuoi vantaggi",
+    howTitle:"Come funziona",
+    howStep1:"Prima, inserisci i tuoi dati e i tuoi social: saranno messi in evidenza sul tuo itinerario.",
+    howStep2:"Poi aggiungi le informazioni generali e complementari dell'itinerario da pubblicare.",
+    howStep3:"Infine, a tua scelta: inviaci la pagina HTML del tuo articolo così proviamo a trasformarla in itinerario, oppure inserisci tutto tu.",
     about_adv1:"Uno strumento interattivo in 5 lingue — il tuo itinerario viene tradotto per te.",
     about_adv2:"Un pubblico in continua crescita.",
     about_adv3:"I link degli hotel restano tuoi: mantieni le tue commissioni.",
@@ -1038,6 +1111,12 @@ var I18N = {
     a_name:"Il tuo nome / pseudonimo", a_name_ph:"Marco Viaggi", a_email:"La tua email (per ricontattarti)", a_email_ph:"tu@esempio.com",
     a_bio:"Bio breve", a_bio_ph:"Due frasi su di te e sul tuo mondo di viaggio.",
     a_site:"Link al tuo sito / blog", a_photo:"La tua foto (link, facoltativo)",
+    f_socials_hint:"Social (facoltativo): incolla il link dei tuoi profili.",
+    upTitle:"Carica una foto dal tuo computer", upLogin:"Accedi per caricare una foto.", upErr:"Caricamento della foto non riuscito.", upBig:"Immagine troppo grande (max 5 MB).", upType:"Questo file non è un'immagine.",
+    f_instagram:"Instagram", f_tiktok:"TikTok", f_youtube:"YouTube", f_facebook:"Facebook",
+    htmlOfferTitle:"Non hai voglia di riscrivere tutto?", htmlOfferText:"Se il tuo articolo di viaggio è già online, inviaci la sua pagina (l'HTML) a contact@oneroadtrip.com. Spesso possiamo trasformarla in un itinerario OneRoadTrip, con i tuoi link di affiliazione e le tue foto.",
+    f_article:"Link al tuo articolo del blog", f_article_hint:"Mostrato in cima all'itinerario, un solo link al tuo articolo completo.",
+    affiliateHint:"Usa il tuo link di affiliazione CON il tuo identificativo (Booking, GetYourGuide…), non un link al tuo sito. Funziona in tutte e 5 le lingue e ti fa guadagnare ovunque, anche con i visitatori stranieri.",
     s3title:"Le tappe", s3hint:"Una tappa = un luogo dove ci si ferma. Aggiungi visite, attività, hotel, foto e consigli.",
     addStep:"＋ Aggiungi una tappa", newStep:"Nuova tappa",
     tUp:"Su", tDown:"Giù", tDup:"Duplica", tDel:"Elimina", rmTitle:"Rimuovi",
@@ -1110,6 +1189,10 @@ var I18N = {
     about_p2:"Blogger, travel planner ou especialista em viagens: aproveite o nosso saber-fazer e a nossa audiência para publicar os seus próprios itinerários.",
     about_offer:"O seu primeiro itinerário é gratuito, em troca de um link para a OneRoadTrip no seu site ou nas suas redes. Quer publicar vários? Fale connosco.",
     about_advTitle:"As suas vantagens",
+    howTitle:"Como funciona",
+    howStep1:"Primeiro, preencha os seus dados e as suas redes sociais: serão destacados no seu itinerário.",
+    howStep2:"Depois, adicione as informações gerais e complementares do itinerário a publicar.",
+    howStep3:"Por fim, à sua escolha: envie-nos a página HTML do seu artigo para tentarmos transformá-la em itinerário, ou preencha tudo você mesmo.",
     about_adv1:"Uma ferramenta interativa em 5 idiomas — o seu itinerário é traduzido para si.",
     about_adv2:"Uma audiência que não para de crescer.",
     about_adv3:"Os links dos hotéis são seus: fica com as suas comissões.",
@@ -1124,6 +1207,12 @@ var I18N = {
     a_name:"O seu nome / pseudónimo", a_name_ph:"Maria Viagens", a_email:"O seu email (para o contactarmos)", a_email_ph:"voce@exemplo.com",
     a_bio:"Bio curta", a_bio_ph:"Duas frases sobre você e o seu universo de viagem.",
     a_site:"Link para o seu site / blog", a_photo:"A sua foto (link, opcional)",
+    f_socials_hint:"Redes sociais (opcional): cole o link dos seus perfis.",
+    upTitle:"Carregue uma foto do seu computador", upLogin:"Inicie sessão para enviar uma foto.", upErr:"Falha no envio da foto.", upBig:"Imagem demasiado grande (máx 5 MB).", upType:"Este ficheiro não é uma imagem.",
+    f_instagram:"Instagram", f_tiktok:"TikTok", f_youtube:"YouTube", f_facebook:"Facebook",
+    htmlOfferTitle:"Não quer reescrever tudo?", htmlOfferText:"Se o seu artigo de viagem já está online, envie-nos a sua página (o HTML) para contact@oneroadtrip.com. Muitas vezes podemos transformá-la num itinerário OneRoadTrip, com os seus links de afiliado e as suas fotos.",
+    f_article:"Link para o seu artigo de blog", f_article_hint:"Mostrado no topo do itinerário, um único link para o seu artigo completo.",
+    affiliateHint:"Use o seu link de afiliado COM o seu identificador (Booking, GetYourGuide…), não um link para o seu site. Funciona nas 5 línguas e rende em todo o lado, incluindo com visitantes estrangeiros.",
     s3title:"As etapas", s3hint:"Uma etapa = um lugar onde se para. Adicione visitas, atividades, hotéis, fotos e dicas.",
     addStep:"＋ Adicionar uma etapa", newStep:"Nova etapa",
     tUp:"Subir", tDown:"Descer", tDup:"Duplicar", tDel:"Eliminar", rmTitle:"Remover",
@@ -1366,7 +1455,7 @@ function applyI18n(root){
 var TPL = { visit:"#tplVisit", activity:"#tplActivity", hotel:"#tplHotel", resto:"#tplResto", photo:"#tplPhoto" };
 function addRow(listEl,type,data){
   var node=$(TPL[type]).content.firstElementChild.cloneNode(true);
-  applyI18n(node);
+  applyI18n(node); if(typeof wireUploads==="function") wireUploads(node);
   if(data){ $$("[data-f]",node).forEach(function(inp){ var k=inp.getAttribute("data-f"); if(data[k]!=null) inp.value=data[k]; }); }
   $("[data-rm]",node).addEventListener("click",function(){ node.remove(); persist(); });
   $$("[data-f]",node).forEach(function(inp){ inp.addEventListener("input",persist); });
@@ -1384,7 +1473,7 @@ function addRow(listEl,type,data){
 /* ====== ÉTAPES ====== */
 function addStep(data){
   var node=$("#tplStep").content.firstElementChild.cloneNode(true);
-  applyI18n(node);
+  applyI18n(node); if(typeof wireUploads==="function") wireUploads(node);
   var stepsEl=$("#steps");
 
   $$("[data-f]",node).forEach(function(inp){
@@ -1522,12 +1611,13 @@ function buildJSON(){
   var title=$("#t_title").value.trim();
   var baseId=cc.toLowerCase()+"::creator::"+(slugify(title)||"itineraire");
   var creator={ name:$("#a_name").value.trim(), email:$("#a_email").value.trim(),
-                bio:$("#a_bio").value.trim(), website:$("#a_site").value.trim(), photo:$("#a_photo").value.trim() };
+                bio:$("#a_bio").value.trim(), website:$("#a_site").value.trim(), photo:$("#a_photo").value.trim(),
+                socials:{ instagram:$("#a_instagram").value.trim(), tiktok:$("#a_tiktok").value.trim(), youtube:$("#a_youtube").value.trim(), facebook:$("#a_facebook").value.trim() } };
   return {
     schema:"creator-v1", generated_at:new Date().toISOString(),
     itins:[{
       itin_id:baseId, id:baseId, language:lang, created_at:new Date().toISOString(),
-      source_url:creator.website, dept_code:"", dept_name:"",
+      source_url:creator.website, article_url:$("#t_article").value.trim(), dept_code:"", dept_name:"",
       title:title, subtitle:$("#t_subtitle").value.trim(), notes:$("#t_notes").value.trim(),
       specialties:[], estimated_days_base:N,
       pacing_rules:{ factors:{slow:1.25,standard:1.0,fast:0.75}, day_budgets_min:{soft:300,standard:420,fast:540}, merge_threshold:0.85 },
@@ -1570,7 +1660,9 @@ function snapshot(){
            p_flight:$("#p_flight").value, p_car:$("#p_car").value, p_van:$("#p_van").value,
            p_extra1:$("#p_extra1").value, p_extra2:$("#p_extra2").value, template:$("#t_template").value,
            a_name:$("#a_name").value, a_email:$("#a_email").value, a_bio:$("#a_bio").value,
-           a_site:$("#a_site").value, a_photo:$("#a_photo").value, _id:currentId },
+           a_site:$("#a_site").value, a_photo:$("#a_photo").value,
+           a_instagram:$("#a_instagram").value, a_tiktok:$("#a_tiktok").value, a_youtube:$("#a_youtube").value, a_facebook:$("#a_facebook").value,
+           t_article:$("#t_article").value, _id:currentId },
     steps:$$("#steps [data-step]").map(readStep)
   };
 }
@@ -1586,6 +1678,8 @@ function loadSnapshot(d){
   $("#p_extra1").value=m.p_extra1||""; $("#p_extra2").value=m.p_extra2||""; $("#t_template").value=m.template||"T3";
   $("#a_name").value=m.a_name||""; $("#a_email").value=m.a_email||"";
   $("#a_bio").value=m.a_bio||""; $("#a_site").value=m.a_site||""; $("#a_photo").value=m.a_photo||"";
+  $("#a_instagram").value=m.a_instagram||""; $("#a_tiktok").value=m.a_tiktok||""; $("#a_youtube").value=m.a_youtube||""; $("#a_facebook").value=m.a_facebook||"";
+  $("#t_article").value=m.t_article||"";
   currentId = m._id || null;
   clearSteps();
   (d.steps||[]).forEach(function(s){ addStep(s); });
@@ -1611,7 +1705,7 @@ function resetItinerary(){
 /* ====== COMPTE & CLOUD (Firebase Auth + Firestore) ======
    Chemin Firestore : {COL}/{uid}/{SUB}/{itinId}. Adapte si besoin + règles de sécurité côté Firebase. */
 var FS = { COL:"creator_itineraries", SUB:"itineraries" };
-var fbUser=null, _db=null;
+var fbUser=null, _db=null, _st=null;
 
 function fbReady(){ return typeof firebase!=="undefined" && firebase.apps && firebase.apps.length>0; }
 function fbConfig(){
@@ -1635,6 +1729,7 @@ function initFirebase(){
     }
     if(firebase.auth.Auth) firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL).catch(function(){});
     _db=firebase.firestore();
+    try{ if(firebase.storage) _st=firebase.app().storage("gs://oneroadtrip-prod.firebasestorage.app"); }catch(e){ try{ _st=firebase.storage(); }catch(e2){} }
     return true;
   }catch(e){ console.warn("[ORT-CREATEUR] Firebase:",e&&e.message); return false; }
 }
@@ -1701,6 +1796,69 @@ function updateAccountUI(){
     var bi=document.createElement("button"); bi.className="acct-btn primary"; bi.textContent=d.signIn; bi.addEventListener("click",openAuthModal);
     el.appendChild(bi);
   }
+}
+
+/* ====== UPLOAD PHOTOS (Firebase Storage) ======
+   Compression navigateur puis envoi dans creator_uploads/{uid}/. Remplit le champ image. */
+function compressImage(file, maxPx, quality){
+  return new Promise(function(resolve,reject){
+    var img=new Image(), url=URL.createObjectURL(file);
+    img.onload=function(){
+      var w=img.width, h=img.height, m=maxPx||1600;
+      if(w>m||h>m){ if(w>=h){ h=Math.round(h*m/w); w=m; } else { w=Math.round(w*m/h); h=m; } }
+      var c=document.createElement("canvas"); c.width=w; c.height=h;
+      c.getContext("2d").drawImage(img,0,0,w,h);
+      URL.revokeObjectURL(url);
+      c.toBlob(function(b){ b?resolve(b):reject(new Error("compress")); }, "image/jpeg", quality||0.82);
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); reject(new Error("image")); };
+    img.src=url;
+  });
+}
+function uploadPhoto(file, onProgress){
+  return new Promise(function(resolve,reject){
+    if(!_st||!fbReady()||!fbUser){ reject(new Error("auth")); return; }
+    compressImage(file,1600,0.82).then(function(blob){
+      if(blob.size > 5*1024*1024){ reject(new Error("big")); return; }
+      var name=Date.now().toString(36)+"-"+Math.random().toString(36).slice(2,8)+".jpg";
+      var ref=_st.ref().child("creator_uploads/"+fbUser.uid+"/"+name);
+      var task=ref.put(blob,{contentType:"image/jpeg"});
+      task.on("state_changed",
+        function(s){ if(onProgress) onProgress(Math.round(s.bytesTransferred/s.totalBytes*100)); },
+        function(err){ reject(err); },
+        function(){ task.snapshot.ref.getDownloadURL().then(resolve).catch(reject); }
+      );
+    }).catch(reject);
+  });
+}
+function wireUploads(root){
+  (root||document).querySelectorAll("input[data-img]").forEach(function(inp){
+    if(inp._up) return; inp._up=true;
+    var btn=document.createElement("button");
+    btn.type="button"; btn.className="up-btn"; btn.textContent="⬆";
+    btn.setAttribute("data-tiptext","upTitle"); btn.title=dict().upTitle||"";
+    var file=document.createElement("input"); file.type="file"; file.accept="image/*"; file.style.display="none";
+    btn.addEventListener("click",function(){
+      if(!fbReady()||!fbUser){ toast(dict().upLogin,"err"); openAuthModal(); return; }
+      file.value=""; file.click();
+    });
+    file.addEventListener("change",function(){
+      var f=file.files&&file.files[0]; if(!f) return;
+      if(f.type.indexOf("image/")!==0){ toast(dict().upType,"err"); return; }
+      var lbl=btn.textContent; btn.disabled=true; btn.textContent="0%";
+      uploadPhoto(f,function(p){ btn.textContent=p+"%"; }).then(function(url){
+        inp.value=url; inp.dispatchEvent(new Event("input",{bubbles:true}));
+        btn.disabled=false; btn.textContent="✓"; setTimeout(function(){ btn.textContent=lbl; },1500);
+      }).catch(function(e){
+        btn.disabled=false; btn.textContent=lbl;
+        toast(e&&e.message==="big"?dict().upBig:(e&&e.message==="auth"?dict().upLogin:dict().upErr),"err");
+        if(e&&e.message==="auth") openAuthModal();
+      });
+    });
+    var wrap=document.createElement("div"); wrap.className="up-wrap";
+    inp.parentNode.insertBefore(wrap,inp);
+    wrap.appendChild(inp); wrap.appendChild(btn); wrap.appendChild(file);
+  });
 }
 
 /* Choix d'une vignette : cover, sinon première photo trouvée */
@@ -1841,7 +1999,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   ["t_title","t_subtitle","t_country","t_lang","t_cover","t_notes","t_colorA","t_colorB",
    "p_flight","p_car","p_van","p_extra1","p_extra2","t_template",
-   "a_name","a_email","a_bio","a_site","a_photo"].forEach(function(id){
+   "a_name","a_email","a_bio","a_site","a_photo","a_instagram","a_tiktok","a_youtube","a_facebook","t_article"].forEach(function(id){
     var el=$("#"+id); if(el) el.addEventListener("input",persist);
   });
 
@@ -1856,6 +2014,7 @@ document.addEventListener("DOMContentLoaded",function(){
 
   if(initFirebase()) watchAuth();
   updateAccountUI();
+  if(typeof wireUploads==="function") wireUploads(document);
 
   $("#au_do").addEventListener("click",doAuth);
   $("#au_google").addEventListener("click",signInGoogle);
