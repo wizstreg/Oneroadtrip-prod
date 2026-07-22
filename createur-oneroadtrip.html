@@ -583,7 +583,6 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
       <p data-i18n="htmlOfferText"></p>
     </div>
     <p class="hint" data-i18n="s3hint"></p>
-    <p class="hint" data-i18n="lkHint"></p>
     <div id="steps"></div>
     <button class="add-step" id="addStep" data-i18n="addStep"></button>
   </section>
@@ -706,6 +705,11 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
         <div data-list="photo" class="gallery-urls"></div>
       </div>
       <div class="sub">
+        <div class="sub-title"><h4><span class="dot" style="background:#ff5533"></span> <span data-i18n="bkTitle"></span> <span class="muted" data-i18n="bkSub"></span></h4><button class="add-btn" data-add="booking" data-i18n="addBk"></button></div>
+        <p class="hint" style="padding-left:0;margin:2px 0 8px" data-i18n="bkAffNote"></p>
+        <div data-list="booking"></div>
+      </div>
+      <div class="sub">
         <div class="field" style="margin-bottom:0"><label data-i18n="tipsLabel"></label><textarea data-f="tips" data-ph="tips_ph"></textarea></div>
       </div>
     </div>
@@ -754,6 +758,25 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
       <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" data-img placeholder="https://…"></div>
     </div>
     <div class="field" style="margin:13px 0 0"><label data-i18n="riHotDesc"></label><textarea data-f="text" data-ph="riHotDesc_ph"></textarea></div>
+  </div>
+</template>
+
+<template id="tplBooking">
+  <div class="row-item" data-row>
+    <button class="rm" data-rm data-title="rmTitle">✕</button>
+    <div class="grid2">
+      <div class="field"><label data-i18n="riBkType"></label>
+        <select data-f="type">
+          <option value="getyourguide" data-i18n="bkTypeGyg"></option>
+          <option value="viator" data-i18n="bkTypeViator"></option>
+          <option value="other" data-i18n="bkTypeOther"></option>
+        </select>
+      </div>
+      <div class="field"><label data-i18n="riBkUrl"></label><input data-f="url" data-ph="riBkUrl_ph"></div>
+    </div>
+    <div class="field"><label data-i18n="riBkDesc"></label><textarea data-f="text" data-ph="riBkDesc_ph"></textarea></div>
+    <div class="field" style="margin-bottom:0"><label data-i18n="riPhoto"></label><input data-f="photo" data-img placeholder="https://…"></div>
+    <p class="hint" data-i18n="bkWarn" style="color:#c0392b;margin-top:8px"></p>
   </div>
 </template>
 
@@ -852,6 +875,12 @@ var I18N = {
     visitsTitle:"Visites", visitsSub:"(ce qu'on voit)", addVisit:"＋ Visite",
     actTitle:"Activités", actSub:"(ce qu'on fait)", addAct:"＋ Activité",
     hotTitle:"Hôtels", hotSub:"(avec votre lien)", addHot:"＋ Hôtel",
+    bkTitle:"Réservations / liens affiliés", bkSub:"(lien commissionné)", addBk:"＋ Réservation",
+    riBkType:"Plateforme", bkTypeGyg:"GetYourGuide", bkTypeViator:"Viator", bkTypeOther:"Autre",
+    riBkUrl:"Lien de réservation", riBkUrl_ph:"https://…",
+    riBkDesc:"Descriptif", riBkDesc_ph:"Ce que propose la réservation.",
+    bkWarn:"⚠ Sans photo ET sans descriptif, l'encadré s'affiche en version pauvre. Mettez au moins un descriptif, idéalement une photo.",
+    bkAffNote:"Lien affilié : une commission peut être reversée, sans surcoût pour le voyageur.",
     galTitle:"Galerie du lieu", galSub:"(liens photos)", addPhoto:"＋ Photo",
     tipsLabel:"💡 Vos conseils sur ce lieu", tips_ph:"Le bon moment, ce qu'il faut éviter, l'astuce locale…",
     tip_days:"Vous pouvez indiquer plusieurs jours, mais pour plus de clarté mieux vaut 1 étape = 1 jour, en répartissant visites et activités.",
@@ -948,6 +977,12 @@ var I18N = {
     visitsTitle:"Visits", visitsSub:"(what you see)", addVisit:"＋ Visit",
     actTitle:"Activities", actSub:"(what you do)", addAct:"＋ Activity",
     hotTitle:"Hotels", hotSub:"(with your link)", addHot:"＋ Hotel",
+    bkTitle:"Bookings / affiliate links", bkSub:"(commissioned link)", addBk:"＋ Booking",
+    riBkType:"Platform", bkTypeGyg:"GetYourGuide", bkTypeViator:"Viator", bkTypeOther:"Other",
+    riBkUrl:"Booking link", riBkUrl_ph:"https://…",
+    riBkDesc:"Description", riBkDesc_ph:"What the booking offers.",
+    bkWarn:"⚠ Without a photo AND a description, the box renders poorly. Add at least a description, ideally a photo.",
+    bkAffNote:"Affiliate link: a commission may be earned, at no extra cost to the traveler.",
     galTitle:"Place gallery", galSub:"(photo links)", addPhoto:"＋ Photo",
     tipsLabel:"💡 Your tips for this place", tips_ph:"The best time, what to avoid, the local trick…",
     tip_days:"You can set several days, but for clarity it's better to keep 1 stop = 1 day and split visits and activities.",
@@ -1044,6 +1079,12 @@ var I18N = {
     visitsTitle:"Visitas", visitsSub:"(lo que se ve)", addVisit:"＋ Visita",
     actTitle:"Actividades", actSub:"(lo que se hace)", addAct:"＋ Actividad",
     hotTitle:"Hoteles", hotSub:"(con tu enlace)", addHot:"＋ Hotel",
+    bkTitle:"Reservas / enlaces de afiliado", bkSub:"(enlace con comisión)", addBk:"＋ Reserva",
+    riBkType:"Plataforma", bkTypeGyg:"GetYourGuide", bkTypeViator:"Viator", bkTypeOther:"Otro",
+    riBkUrl:"Enlace de reserva", riBkUrl_ph:"https://…",
+    riBkDesc:"Descripción", riBkDesc_ph:"Lo que ofrece la reserva.",
+    bkWarn:"⚠ Sin foto Y sin descripción, el recuadro se ve pobre. Añade al menos una descripción, idealmente una foto.",
+    bkAffNote:"Enlace de afiliado: se puede recibir una comisión, sin coste adicional para el viajero.",
     galTitle:"Galería del lugar", galSub:"(enlaces de fotos)", addPhoto:"＋ Foto",
     tipsLabel:"💡 Tus consejos sobre este lugar", tips_ph:"El mejor momento, qué evitar, el truco local…",
     tip_days:"Puedes indicar varios días, pero para mayor claridad es mejor 1 etapa = 1 día, repartiendo visitas y actividades.",
@@ -1140,6 +1181,12 @@ var I18N = {
     visitsTitle:"Visite", visitsSub:"(cosa si vede)", addVisit:"＋ Visita",
     actTitle:"Attività", actSub:"(cosa si fa)", addAct:"＋ Attività",
     hotTitle:"Hotel", hotSub:"(con il tuo link)", addHot:"＋ Hotel",
+    bkTitle:"Prenotazioni / link di affiliazione", bkSub:"(link con commissione)", addBk:"＋ Prenotazione",
+    riBkType:"Piattaforma", bkTypeGyg:"GetYourGuide", bkTypeViator:"Viator", bkTypeOther:"Altro",
+    riBkUrl:"Link di prenotazione", riBkUrl_ph:"https://…",
+    riBkDesc:"Descrizione", riBkDesc_ph:"Cosa offre la prenotazione.",
+    bkWarn:"⚠ Senza foto E senza descrizione, il riquadro appare povero. Aggiungi almeno una descrizione, idealmente una foto.",
+    bkAffNote:"Link di affiliazione: potrebbe essere riconosciuta una commissione, senza costi aggiuntivi per il viaggiatore.",
     galTitle:"Galleria del luogo", galSub:"(link foto)", addPhoto:"＋ Foto",
     tipsLabel:"💡 I tuoi consigli su questo luogo", tips_ph:"Il momento giusto, cosa evitare, il trucco locale…",
     tip_days:"Puoi indicare più giorni, ma per chiarezza è meglio 1 tappa = 1 giorno, distribuendo visite e attività.",
@@ -1236,6 +1283,12 @@ var I18N = {
     visitsTitle:"Visitas", visitsSub:"(o que se vê)", addVisit:"＋ Visita",
     actTitle:"Atividades", actSub:"(o que se faz)", addAct:"＋ Atividade",
     hotTitle:"Hotéis", hotSub:"(com o seu link)", addHot:"＋ Hotel",
+    bkTitle:"Reservas / links de afiliado", bkSub:"(link com comissão)", addBk:"＋ Reserva",
+    riBkType:"Plataforma", bkTypeGyg:"GetYourGuide", bkTypeViator:"Viator", bkTypeOther:"Outro",
+    riBkUrl:"Link de reserva", riBkUrl_ph:"https://…",
+    riBkDesc:"Descrição", riBkDesc_ph:"O que a reserva oferece.",
+    bkWarn:"⚠ Sem foto E sem descrição, o quadro fica pobre. Adicione pelo menos uma descrição, idealmente uma foto.",
+    bkAffNote:"Link de afiliado: pode ser paga uma comissão, sem custo adicional para o viajante.",
     galTitle:"Galeria do lugar", galSub:"(links de fotos)", addPhoto:"＋ Foto",
     tipsLabel:"💡 As suas dicas sobre este lugar", tips_ph:"O melhor momento, o que evitar, a dica local…",
     tip_days:"Pode indicar vários dias, mas para maior clareza é melhor 1 etapa = 1 dia, distribuindo visitas e atividades.",
@@ -1452,7 +1505,7 @@ function applyI18n(root){
 }
 
 /* ====== LIGNES ====== */
-var TPL = { visit:"#tplVisit", activity:"#tplActivity", hotel:"#tplHotel", resto:"#tplResto", photo:"#tplPhoto" };
+var TPL = { visit:"#tplVisit", activity:"#tplActivity", hotel:"#tplHotel", resto:"#tplResto", photo:"#tplPhoto", booking:"#tplBooking" };
 function addRow(listEl,type,data){
   var node=$(TPL[type]).content.firstElementChild.cloneNode(true);
   applyI18n(node); if(typeof wireUploads==="function") wireUploads(node);
@@ -1532,6 +1585,7 @@ function addStep(data){
     (data.hotels||[]).forEach(function(h){ addRow($("[data-list=hotel]",node),"hotel",h); });
     (data.restaurants||[]).forEach(function(r){ addRow($("[data-list=resto]",node),"resto",r); });
     (data.photos||[]).forEach(function(u){ addRow($("[data-list=photo]",node),"photo",{url:u}); });
+    (data.bookings||[]).forEach(function(b){ addRow($("[data-list=booking]",node),"booking",b); });
   }
 
   stepsEl.appendChild(node);
@@ -1568,7 +1622,7 @@ function readStep(node){
     lat:get("lat"), lon:get("lon"), days:get("days"),
     mode:get("mode"), km:get("km"), min:get("min"), tips:get("tips"),
     visits:readRows(node,"visit"), activities:readRows(node,"activity"),
-    hotels:readRows(node,"hotel"), restaurants:readRows(node,"resto"),
+    hotels:readRows(node,"hotel"), bookings:readRows(node,"booking"), restaurants:readRows(node,"resto"),
     photos:readRows(node,"photo").map(function(p){return p.url;}).filter(Boolean)
   };
 }
@@ -1601,6 +1655,8 @@ function buildJSON(){
                  name:a.name||"", photo:a.photo||"", tips:a.tips||[] }; }),
       hotels:s.hotels.filter(function(h){return h.name||h.url;}).map(function(h){
         return { name:h.name, affiliate_url:h.url||"", price:h.price||"", image_url:h.photo||"", text:h.text||"" }; }),
+      bookings:(s.bookings||[]).filter(function(b){return b.url;}).map(function(b){
+        return { type:b.type||"other", booking_url:b.url, text:b.text||"", photo:b.photo||"" }; }),
       restaurants:(s.restaurants||[]).filter(function(r){return r.name;}).map(function(r){
         return { name:r.name, meal:r.meal||"lunch", affiliate_url:r.url||"", text:r.text||"" }; }),
       photos:s.photos, place_tips:s.tips||"",

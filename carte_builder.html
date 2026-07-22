@@ -1412,7 +1412,7 @@ body.fullscreen-mode.selection-open .map-container {
 /* Preview popup - PLEINE HAUTEUR depuis le haut de la page */
 .place-preview {
   position: fixed;
-  top: 0;
+  top: var(--site-header-h, 0px);
   right: 0;
   bottom: 0;
   width: 360px;
@@ -5873,6 +5873,28 @@ document.addEventListener('DOMContentLoaded', () => {
 <script src="js/ort-header.js"></script>
 <script src="js/ort-footer.js"></script>
 
+
+<script>
+/* Cale le haut du panneau de droite juste sous la barre de menu du site,
+   pour que le nom du lieu et sa note ne soient plus cachés dessous. */
+(function () {
+  function syncHeaderHeight() {
+    var h = document.getElementById('site-header');
+    var hh = (h && h.offsetHeight) ? h.offsetHeight : 0;
+    document.documentElement.style.setProperty('--site-header-h', hh + 'px');
+  }
+  window.addEventListener('load', syncHeaderHeight);
+  window.addEventListener('resize', syncHeaderHeight);
+  document.addEventListener('DOMContentLoaded', syncHeaderHeight);
+  var hdr = document.getElementById('site-header');
+  if (hdr && window.MutationObserver) {
+    new MutationObserver(syncHeaderHeight).observe(hdr, { childList: true, subtree: true });
+  }
+  syncHeaderHeight();
+  setTimeout(syncHeaderHeight, 500);
+  setTimeout(syncHeaderHeight, 1500);
+})();
+</script>
 <!-- ort-page-tracking-v1 -->
 <script>
 (function(){try{
