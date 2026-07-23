@@ -640,6 +640,11 @@ dialog::backdrop{background:rgba(40,34,24,.5);backdrop-filter:blur(3px)}
           <label data-i18n="place"></label>
           <div class="place-wrap">
             <input data-f="place" data-ph="place_ph" autocomplete="off">
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label data-i18n="introLabel"></label>
+            <textarea data-f="intro" data-ph="intro_ph" rows="3"></textarea>
+            <p class="hint" style="padding-left:0;margin:4px 0 0" data-i18n="introHint"></p>
             <div class="ac" data-ac></div>
           </div>
           <div class="slug"><span data-i18n="idGen"></span> <b data-slug>—</b></div>
@@ -883,6 +888,8 @@ var I18N = {
     bkAffNote:"Lien affilié : une commission peut être reversée, sans surcoût pour le voyageur.",
     galTitle:"Galerie du lieu", galSub:"(liens photos)", addPhoto:"＋ Photo",
     tipsLabel:"💡 Vos conseils sur ce lieu", tips_ph:"Le bon moment, ce qu'il faut éviter, l'astuce locale…",
+    introLabel:"✍️ Texte d'introduction de l'étape (optionnel)", intro_ph:"Quelques phrases pour présenter l'étape, à votre façon.",
+    introHint:"Affiché en chapeau, avant vos visites. Idéal pour donner le ton et votre ressenti.",
     tip_days:"Vous pouvez indiquer plusieurs jours, mais pour plus de clarté mieux vaut 1 étape = 1 jour, en répartissant visites et activités.",
     tip_coords:"Tapez le nom du lieu ci-dessus et choisissez une proposition : les coordonnées se remplissent toutes seules. Ajustez le point sur la carte si besoin.",
     tip_dist:"Laissez vide : le site calcule la distance et le temps. Ne remplissez que pour imposer un passage précis.",
@@ -985,6 +992,8 @@ var I18N = {
     bkAffNote:"Affiliate link: a commission may be earned, at no extra cost to the traveler.",
     galTitle:"Place gallery", galSub:"(photo links)", addPhoto:"＋ Photo",
     tipsLabel:"💡 Your tips for this place", tips_ph:"The best time, what to avoid, the local trick…",
+    introLabel:"✍️ Step introduction (optional)", intro_ph:"A few sentences to introduce this stop, in your own words.",
+    introHint:"Shown as a lead-in, before your visits. Great to set the tone.",
     tip_days:"You can set several days, but for clarity it's better to keep 1 stop = 1 day and split visits and activities.",
     tip_coords:"Type the place name above and pick a suggestion: the coordinates fill in automatically. Fine-tune the point on the map if needed.",
     tip_dist:"Leave empty: the site calculates distance and time. Fill in only to force a specific detour.",
@@ -1087,6 +1096,8 @@ var I18N = {
     bkAffNote:"Enlace de afiliado: se puede recibir una comisión, sin coste adicional para el viajero.",
     galTitle:"Galería del lugar", galSub:"(enlaces de fotos)", addPhoto:"＋ Foto",
     tipsLabel:"💡 Tus consejos sobre este lugar", tips_ph:"El mejor momento, qué evitar, el truco local…",
+    introLabel:"✍️ Texto de introducción de la etapa (opcional)", intro_ph:"Unas frases para presentar la etapa, a tu manera.",
+    introHint:"Se muestra como entradilla, antes de tus visitas. Ideal para dar el tono.",
     tip_days:"Puedes indicar varios días, pero para mayor claridad es mejor 1 etapa = 1 día, repartiendo visitas y actividades.",
     tip_coords:"Escribe el nombre del lugar arriba y elige una sugerencia: las coordenadas se rellenan solas. Ajusta el punto en el mapa si hace falta.",
     tip_dist:"Déjalo vacío: el sitio calcula la distancia y el tiempo. Rellénalo solo para imponer un paso concreto.",
@@ -1189,6 +1200,8 @@ var I18N = {
     bkAffNote:"Link di affiliazione: potrebbe essere riconosciuta una commissione, senza costi aggiuntivi per il viaggiatore.",
     galTitle:"Galleria del luogo", galSub:"(link foto)", addPhoto:"＋ Foto",
     tipsLabel:"💡 I tuoi consigli su questo luogo", tips_ph:"Il momento giusto, cosa evitare, il trucco locale…",
+    introLabel:"✍️ Testo introduttivo della tappa (facoltativo)", intro_ph:"Qualche frase per presentare la tappa, a modo tuo.",
+    introHint:"Mostrato come occhiello, prima delle visite. Ideale per dare il tono.",
     tip_days:"Puoi indicare più giorni, ma per chiarezza è meglio 1 tappa = 1 giorno, distribuendo visite e attività.",
     tip_coords:"Scrivi il nome del luogo qui sopra e scegli un suggerimento: le coordinate si compilano da sole. Regola il punto sulla mappa se serve.",
     tip_dist:"Lascia vuoto: il sito calcola distanza e tempo. Compila solo per imporre un passaggio preciso.",
@@ -1291,6 +1304,8 @@ var I18N = {
     bkAffNote:"Link de afiliado: pode ser paga uma comissão, sem custo adicional para o viajante.",
     galTitle:"Galeria do lugar", galSub:"(links de fotos)", addPhoto:"＋ Foto",
     tipsLabel:"💡 As suas dicas sobre este lugar", tips_ph:"O melhor momento, o que evitar, a dica local…",
+    introLabel:"✍️ Texto de introdução da etapa (opcional)", intro_ph:"Algumas frases para apresentar a etapa, à sua maneira.",
+    introHint:"Mostrado como chamada, antes das suas visitas. Ideal para dar o tom.",
     tip_days:"Pode indicar vários dias, mas para maior clareza é melhor 1 etapa = 1 dia, distribuindo visitas e atividades.",
     tip_coords:"Escreva o nome do lugar acima e escolha uma sugestão: as coordenadas preenchem-se sozinhas. Ajuste o ponto no mapa se necessário.",
     tip_dist:"Deixe vazio: o site calcula a distância e o tempo. Preencha apenas para impor uma passagem específica.",
@@ -1620,7 +1635,7 @@ function readStep(node){
   return {
     place:get("place"), country:(get("country")||"").toUpperCase(),
     lat:get("lat"), lon:get("lon"), days:get("days"),
-    mode:get("mode"), km:get("km"), min:get("min"), tips:get("tips"),
+    mode:get("mode"), km:get("km"), min:get("min"), tips:get("tips"), intro:get("intro"),
     visits:readRows(node,"visit"), activities:readRows(node,"activity"),
     hotels:readRows(node,"hotel"), bookings:readRows(node,"booking"), restaurants:readRows(node,"resto"),
     photos:readRows(node,"photo").map(function(p){return p.url;}).filter(Boolean)
@@ -1659,7 +1674,7 @@ function buildJSON(){
         return { type:b.type||"other", booking_url:b.url, text:b.text||"", photo:b.photo||"" }; }),
       restaurants:(s.restaurants||[]).filter(function(r){return r.name;}).map(function(r){
         return { name:r.name, meal:r.meal||"lunch", affiliate_url:r.url||"", text:r.text||"" }; }),
-      photos:s.photos, place_tips:s.tips||"",
+      photos:s.photos, place_tips:s.tips||"", intro:s.intro||"",
       to_next_leg:leg
     };
   });

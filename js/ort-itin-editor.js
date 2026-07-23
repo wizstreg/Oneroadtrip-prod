@@ -1131,6 +1131,16 @@
     });
 
     textPanel.innerHTML = html;
+
+    // T20 : les sections .ds sont masquees par defaut et revelees via .active.
+    // Sans ca, le panneau reste entierement blanc apres une fusion.
+    try {
+      var secs = textPanel.querySelectorAll('section.ds');
+      if (secs.length && window.getComputedStyle(secs[0]).display === 'none') {
+        if (typeof global.sD === 'function') { try { global.sD(1); } catch (e) {} }
+        if (window.getComputedStyle(secs[0]).display === 'none') secs[0].classList.add('active');
+      }
+    } catch (e) {}
   }
 
   // ─────────────────────────────────────────────
@@ -2580,8 +2590,16 @@
       originalSteps = deepClone(steps);
       editorActive = true;
       isDirty = true;
-      editorMode = 'map';
-      startMapReorg();
+      editorMode = 'list';
+      // Fusion : on montre directement le resultat fusionne, avec le choix
+      // sauvegarder / annuler. La reorganisation sur carte reste accessible
+      // par le bouton du bandeau, mais n'est plus imposee.
+      try { recalcDistances(); } catch (e) {}
+      renderPostReorgChoice();
+      try {
+        var _tp = document.getElementById('textPanel');
+        if (_tp && _tp.scrollIntoView) _tp.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } catch (e) {}
     } catch (err) {
       console.error('[ORT-EDITOR] startMerged:', err);
       try { showToast(String(err.message || err), 'error'); } catch (e) {}

@@ -16,12 +16,12 @@
   'use strict';
 
   var I18N = {
-    fr: { title: 'Fusionner des itinéraires', intro: 'Cochez un ou plusieurs itinéraires proches à fusionner avec celui-ci.', warn: 'Nous tenterons de réordonner les étapes automatiquement. Vous devrez probablement ajuster certains trajets à la main : c\'est plus simple sur ordinateur.', steps: 'étapes', validate: 'Fusionner', cancel: 'Annuler', none: 'Aucun autre itinéraire disponible pour ce pays.', pick: 'Sélectionnez au moins un itinéraire.', err: 'Chargement impossible.', vMap: 'Carte', vPhoto: 'Photo', cur: 'Itinéraire actuel' },
-    en: { title: 'Merge itineraries', intro: 'Tick one or more nearby itineraries to merge with this one.', warn: 'We will try to reorder the stops automatically. You will probably need to adjust some legs by hand: it is easier on a computer.', steps: 'stops', validate: 'Merge', cancel: 'Cancel', none: 'No other itinerary available for this country.', pick: 'Select at least one itinerary.', err: 'Could not load.', vMap: 'Map', vPhoto: 'Photo', cur: 'Current itinerary' },
-    es: { title: 'Fusionar itinerarios', intro: 'Marca uno o varios itinerarios cercanos para fusionar con este.', warn: 'Intentaremos reordenar las paradas automáticamente. Probablemente tendrás que ajustar algunos trayectos a mano: es más fácil en un ordenador.', steps: 'paradas', validate: 'Fusionar', cancel: 'Cancelar', none: 'No hay otro itinerario disponible para este país.', pick: 'Selecciona al menos un itinerario.', err: 'No se pudo cargar.', vMap: 'Mapa', vPhoto: 'Foto', cur: 'Itinerario actual' },
-    pt: { title: 'Fundir itinerários', intro: 'Marque um ou mais itinerários próximos para fundir com este.', warn: 'Tentaremos reordenar as paragens automaticamente. Provavelmente terá de ajustar alguns trajetos à mão: é mais fácil num computador.', steps: 'paragens', validate: 'Fundir', cancel: 'Cancelar', none: 'Nenhum outro itinerário disponível para este país.', pick: 'Selecione pelo menos um itinerário.', err: 'Não foi possível carregar.', vMap: 'Mapa', vPhoto: 'Foto', cur: 'Itinerário atual' },
-    it: { title: 'Unisci itinerari', intro: 'Seleziona uno o più itinerari vicini da unire a questo.', warn: 'Proveremo a riordinare le tappe automaticamente. Probabilmente dovrai sistemare alcuni tragitti a mano: è più facile su un computer.', steps: 'tappe', validate: 'Unisci', cancel: 'Annulla', none: 'Nessun altro itinerario disponibile per questo paese.', pick: 'Seleziona almeno un itinerario.', err: 'Impossibile caricare.', vMap: 'Mappa', vPhoto: 'Foto', cur: 'Itinerario attuale' },
-    ar: { title: 'دمج المسارات', intro: 'حدّد مسارًا أو أكثر من المسارات القريبة لدمجها مع هذا المسار.', warn: 'سنحاول إعادة ترتيب المحطات تلقائيًا. غالبًا ستحتاج إلى تعديل بعض المسارات يدويًا: الأمر أسهل على جهاز كمبيوتر.', steps: 'محطات', validate: 'دمج', cancel: 'إلغاء', none: 'لا يوجد مسار آخر متاح لهذا البلد.', pick: 'اختر مسارًا واحدًا على الأقل.', err: 'تعذر التحميل.', vMap: 'خريطة', vPhoto: 'صورة', cur: 'المسار الحالي' }
+    fr: { title: 'Fusionner des itinéraires', intro: 'Cochez un ou plusieurs itinéraires proches à fusionner avec celui-ci.', warn: 'Nous tenterons de réordonner les étapes automatiquement. Vous devrez probablement ajuster certains trajets à la main : c\'est plus simple sur ordinateur.', steps: 'étapes', validate: 'Fusionner', cancel: 'Annuler', none: 'Aucun autre itinéraire disponible pour ce pays.', pick: 'Sélectionnez au moins un itinéraire.', err: 'Chargement impossible.', vMap: 'Carte', vPhoto: 'Photo', cur: 'Itinéraire actuel', login: 'Connectez-vous pour fusionner des itinéraires.' },
+    en: { title: 'Merge itineraries', intro: 'Tick one or more nearby itineraries to merge with this one.', warn: 'We will try to reorder the stops automatically. You will probably need to adjust some legs by hand: it is easier on a computer.', steps: 'stops', validate: 'Merge', cancel: 'Cancel', none: 'No other itinerary available for this country.', pick: 'Select at least one itinerary.', err: 'Could not load.', vMap: 'Map', vPhoto: 'Photo', cur: 'Current itinerary', login: 'Please sign in to merge itineraries.' },
+    es: { title: 'Fusionar itinerarios', intro: 'Marca uno o varios itinerarios cercanos para fusionar con este.', warn: 'Intentaremos reordenar las paradas automáticamente. Probablemente tendrás que ajustar algunos trayectos a mano: es más fácil en un ordenador.', steps: 'paradas', validate: 'Fusionar', cancel: 'Cancelar', none: 'No hay otro itinerario disponible para este país.', pick: 'Selecciona al menos un itinerario.', err: 'No se pudo cargar.', vMap: 'Mapa', vPhoto: 'Foto', cur: 'Itinerario actual', login: 'Inicia sesión para fusionar itinerarios.' },
+    pt: { title: 'Fundir itinerários', intro: 'Marque um ou mais itinerários próximos para fundir com este.', warn: 'Tentaremos reordenar as paragens automaticamente. Provavelmente terá de ajustar alguns trajetos à mão: é mais fácil num computador.', steps: 'paragens', validate: 'Fundir', cancel: 'Cancelar', none: 'Nenhum outro itinerário disponível para este país.', pick: 'Selecione pelo menos um itinerário.', err: 'Não foi possível carregar.', vMap: 'Mapa', vPhoto: 'Foto', cur: 'Itinerário atual', login: 'Inicie sessão para fundir itinerários.' },
+    it: { title: 'Unisci itinerari', intro: 'Seleziona uno o più itinerari vicini da unire a questo.', warn: 'Proveremo a riordinare le tappe automaticamente. Probabilmente dovrai sistemare alcuni tragitti a mano: è più facile su un computer.', steps: 'tappe', validate: 'Unisci', cancel: 'Annulla', none: 'Nessun altro itinerario disponibile per questo paese.', pick: 'Seleziona almeno un itinerario.', err: 'Impossibile caricare.', vMap: 'Mappa', vPhoto: 'Foto', cur: 'Itinerario attuale', login: 'Accedi per unire gli itinerari.' },
+    ar: { title: 'دمج المسارات', intro: 'حدّد مسارًا أو أكثر من المسارات القريبة لدمجها مع هذا المسار.', warn: 'سنحاول إعادة ترتيب المحطات تلقائيًا. غالبًا ستحتاج إلى تعديل بعض المسارات يدويًا: الأمر أسهل على جهاز كمبيوتر.', steps: 'محطات', validate: 'دمج', cancel: 'إلغاء', none: 'لا يوجد مسار آخر متاح لهذا البلد.', pick: 'اختر مسارًا واحدًا على الأقل.', err: 'تعذر التحميل.', vMap: 'خريطة', vPhoto: 'صورة', cur: 'المسار الحالي', login: 'سجّل الدخول لدمج المسارات.' }
   };
 
   function esc(s) { return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
@@ -226,7 +226,44 @@
     ROOT.ORT_ITIN_EDITOR._startMerged(ordered, title, state.cc);
   }
 
+  // ---- connexion ----
+  // On ne bloque que si l'on est CERTAIN que personne n'est connecte.
+  // Si Firebase n'est pas la, on laisse passer plutot que d'empecher a tort.
+  function withUser(cb) {
+    var fb = ROOT.firebase;
+    if (!fb || !fb.auth) { cb(undefined); return; }
+    var a;
+    try { a = fb.auth(); } catch (e) { cb(undefined); return; }
+    if (a.currentUser) { cb(a.currentUser); return; }
+    var done = false, unsub = null;
+    function fin(u) { if (done) return; done = true; try { if (unsub) unsub(); } catch (e) {} cb(u); }
+    try { unsub = a.onAuthStateChanged(function (u) { fin(u || null); }); } catch (e) { fin(undefined); return; }
+    setTimeout(function () { fin(a.currentUser || null); }, 2500);
+  }
+
+  function askLogin(cc, itId, lang) {
+    alert(L(lang).login);
+    var pop = document.getElementById('authPop');
+    if (pop) pop.style.display = 'block';
+    var btn = document.getElementById('openAuth');
+    if (!pop && btn) btn.click();
+    // des que la connexion est faite, on rouvre la fenetre de fusion
+    try {
+      var unsub = ROOT.firebase.auth().onAuthStateChanged(function (u) {
+        if (u) { try { unsub(); } catch (e) {} openMerge(cc, itId, lang); }
+      });
+    } catch (e) {}
+  }
+
   function open(cc, itId, lang) {
+    lang = (lang || 'fr').slice(0, 2);
+    withUser(function (u) {
+      if (u === null) { askLogin(cc, itId, lang); return; }
+      openMerge(cc, itId, lang);
+    });
+  }
+
+  function openMerge(cc, itId, lang) {
     cc = (cc || '').toUpperCase();
     lang = (lang || 'fr').slice(0, 2);
     state.cc = cc; state.lang = lang; state.view = 'map';
