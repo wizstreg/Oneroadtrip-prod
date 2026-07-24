@@ -103,6 +103,8 @@ header.ort-hdr.hdr-hide{transform:translateY(-100%)}
 .ip-bar,.mp,.rcol{transition:top .25s ease}
 body.hdr-off .ip-bar{top:0}
 body.hdr-off .mp{top:50px}
+.mtg{display:none}.mopen{display:none}
+@media(max-width:900px){.mp{position:sticky!important;top:var(--hh);z-index:12;transition:height .28s ease}.mtg{display:inline-block;font-weight:700;line-height:1}.mc{top:auto;bottom:10px;left:10px;right:auto;flex-wrap:wrap;max-width:60%;gap:6px}body.map-off .mp{height:0!important;min-height:0!important;border:0!important;overflow:hidden!important}body.map-off .mp>*{display:none!important}body.map-off .btm{display:flex!important}body.map-off .mopen{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 16px;margin:0;border:none;border-bottom:1px solid var(--bd);background:var(--p);color:#fff;font-size:.95rem;font-weight:700;cursor:pointer;position:sticky;top:var(--snBase,var(--hh));z-index:1160;box-shadow:0 2px 8px rgba(0,0,0,.18)}}
 body.hdr-off .rcol{top:8px;height:calc(100vh - 16px)}
 .tp{position:relative;z-index:1}
 .header-row-1{display:flex;align-items:center;gap:8px;width:100%;flex-wrap:nowrap}
@@ -142,18 +144,24 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 <div id="placeBox" aria-live="polite"><span class="pb-day" id="pbDay"></span><span class="pb-name" id="pbName"></span><span class="pb-tag" id="pbTag"></span><button class="pb-close" onclick="closePlaceBox()" aria-label="Fermer">×</button></div>
 <header id="site-header" class="ort-hdr"></header>
 <nav class="bc" aria-label="breadcrumb"><a href="/index.html">OneRoadTrip</a><span>›</span>مساري المخصص</nav>
-<div class="ml"><div class="mp" id="mapPanel"><div class="dp-map" id="dayPhoto"></div><div id="map"></div><div id="hoverPhoto" class="hover-photo"><img id="hoverPhotoImg" src="" alt=""></div><div class="mc"><button class="edit-on-map" id="editOnMap" style="display:none" onclick="openItinEditor()">✏️ <span id="editOnMapLbl">Modifier</span></button><button class="mb" onclick="cMap()" title="توسيط">◎</button><button class="mb" onclick="tFs()" id="fsBtn" title="شاشة كاملة">⛶</button></div><button class="see-itin" onclick="document.getElementById('textPanel').scrollIntoView({behavior:'smooth',block:'start'})">شاهد المسار يوماً بيوم ▼</button><div class="ml-leg" id="mapLeg"><div style="display:flex;justify-content:flex-end"><button onclick="var l=document.getElementById('mapLeg');l.classList.remove('open');l.classList.add('ml-leg-hidden');document.getElementById('mapLegBtn').style.display='block'" style="background:none;border:none;font-size:1rem;cursor:pointer;color:#999;line-height:1;padding:0 0 2px">×</button></div><div class="ml-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1565C0" stroke="#fff" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> لا يفوتك</div><div class="ml-li"><span class="ml-dot" style="background:#43A047"></span> موصى به</div><div class="ml-li"><span class="ml-dot" style="background:#7CB342"></span> للاكتشاف</div><div class="ml-li"><span class="ml-dot" style="background:#e11d48"></span> المحطة الحالية</div></div><button class="ml-leg-btn" id="mapLegBtn" onclick="var l=document.getElementById('mapLeg');l.classList.remove('ml-leg-hidden');l.classList.add('open');this.style.display='none'" title="Légende">ℹ️</button></div>
-<div class="tp" id="textPanel"></div></div>
+<div class="ml"><div class="mp" id="mapPanel"><div class="dp-map" id="dayPhoto"></div><div id="map"></div><div id="hoverPhoto" class="hover-photo"><img id="hoverPhotoImg" src="" alt=""></div><div class="mc"><button class="mb mtg" onclick="toggleMap()" title="إخفاء الخريطة">▲</button><button class="edit-on-map" id="editOnMap" style="display:none" onclick="openItinEditor()">✏️ <span id="editOnMapLbl">تعديل</span></button><button class="mb" onclick="cMap()" title="توسيط">◎</button><button class="mb" onclick="tFs()" id="fsBtn" title="شاشة كاملة">⛶</button></div><button class="see-itin" onclick="document.getElementById('textPanel').scrollIntoView({behavior:'smooth',block:'start'})">شاهد المسار يوماً بيوم ▼</button><div class="ml-leg" id="mapLeg"><div style="display:flex;justify-content:flex-end"><button onclick="var l=document.getElementById('mapLeg');l.classList.remove('open');l.classList.add('ml-leg-hidden');document.getElementById('mapLegBtn').style.display='block'" style="background:none;border:none;font-size:1rem;cursor:pointer;color:#999;line-height:1;padding:0 0 2px">×</button></div><div class="ml-li"><svg width="14" height="14" viewBox="0 0 24 24" fill="#1565C0" stroke="#fff" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> لا يفوتك</div><div class="ml-li"><span class="ml-dot" style="background:#43A047"></span> موصى به</div><div class="ml-li"><span class="ml-dot" style="background:#7CB342"></span> للاكتشاف</div><div class="ml-li"><span class="ml-dot" style="background:#e11d48"></span> المحطة الحالية</div></div><button class="ml-leg-btn" id="mapLegBtn" onclick="var l=document.getElementById('mapLeg');l.classList.remove('ml-leg-hidden');l.classList.add('open');this.style.display='none'" title="Légende">ℹ️</button></div>
+<button class="mopen" onclick="showMapAgain()">▼ <span>عودة إلى الخريطة</span></button><div class="tp" id="textPanel"></div></div>
 <div class="po" id="mapPop"><div class="pc" id="mapPopC"><button class="px" onclick="cPop()">×</button><div id="mapPopB"></div></div></div>
-<button class="btm" id="backToMap" onclick="goMap()"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>عودة إلى الخريطة</button>
+<button class="btm" id="backToMap" onclick="showMapAgain()"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>عودة إلى الخريطة</button>
 <footer id="footer-legal"></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-<script src="/js/ort-routing.js?v=1784827301720" defer></script>
+<script src="/js/ort-routing.js?v=1784890112631" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
 function wkLoad(img,url,attempt,fallbacks){attempt=attempt||0;fallbacks=fallbacks||[];function tryNext(){if(attempt<2){var delay=attempt===0?2000:5000;setTimeout(function(){wkLoad(img,url,attempt+1,fallbacks);},delay);}else if(fallbacks.length>0){var next=fallbacks.shift();wkLoad(img,next,0,fallbacks);}else{img.style.display='none';}}img.onload=function(){if(img.naturalWidth<2){tryNext();return;}img.classList.add('wk-loaded');};img.onerror=function(){tryNext();};img.src=url;}
 function goMap(){document.getElementById('mapPanel').scrollIntoView({behavior:'smooth',block:'start'});}
+function ortSnTop(){var d=document.documentElement,b=document.body;if(window.innerWidth>900){d.style.removeProperty('--snBase');return;}var hdr=b.classList.contains('hdr-off')?50:(parseInt(getComputedStyle(d).getPropertyValue('--hh'))||0);var ip=document.querySelector('.ip-bar');var ipH=ip?ip.offsetHeight:0;var mp=document.getElementById('mapPanel');var mpH=(mp&&!b.classList.contains('map-off'))?mp.offsetHeight:0;d.style.setProperty('--snBase',(hdr+Math.max(ipH,mpH))+'px');}
+var _snQ=false;function ortSnQueue(){if(_snQ)return;_snQ=true;requestAnimationFrame(function(){_snQ=false;ortSnTop();});}
+window.addEventListener('load',ortSnTop);window.addEventListener('resize',ortSnQueue);window.addEventListener('scroll',ortSnQueue,{passive:true});ortSnTop();setTimeout(ortSnTop,600);setTimeout(ortSnTop,1500);
+function ortMapOff(v){var b=document.body;if(v){b.classList.add('map-off');}else{b.classList.remove('map-off');}if(!v){setTimeout(function(){if(window.map&&window.map.invalidateSize)window.map.invalidateSize();},320);}if(window.ortSnTop){ortSnTop();setTimeout(ortSnTop,320);}}
+function toggleMap(){ortMapOff(!document.body.classList.contains('map-off'));}
+function showMapAgain(){ortMapOff(false);setTimeout(goMap,60);}
 function showPlaceBox(day,name,tag){var b=document.getElementById('placeBox');if(!b)return;document.getElementById('pbDay').textContent=day;document.getElementById('pbName').textContent=name;var tEl=document.getElementById('pbTag');if(tEl){tEl.textContent='';tEl.style.display='none';}b.classList.add('open');}
 function closePlaceBox(){var b=document.getElementById('placeBox');if(b)b.classList.remove('open');}
 function openItinEditor(){if(window.ORT_ITIN_EDITOR&&window.ORT_ITIN_EDITOR._launch){window.ORT_ITIN_EDITOR._launch();}}
@@ -205,10 +213,10 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1784827301720"></script>
-<script src="/js/ort-i18n-auth.js?v=1784827301720"></script>
-<script src="/js/ort-header.js?v=1784827301720"></script>
-<script src="/js/ort-footer.js?v=1784827301720"></script>
+<script src="/js/ort-config.js?v=1784890112631"></script>
+<script src="/js/ort-i18n-auth.js?v=1784890112631"></script>
+<script src="/js/ort-header.js?v=1784890112631"></script>
+<script src="/js/ort-footer.js?v=1784890112631"></script>
 <script>
 (function(){
   var langUrls={};
@@ -237,8 +245,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1784827301720" defer></script>
-<script src="/js/ort-state-manager.js?v=1784827301720" defer></script>
+<script src="/js/ort-itin-editor.js?v=1784890112631" defer></script>
+<script src="/js/ort-state-manager.js?v=1784890112631" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
