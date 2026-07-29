@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route 66: the iconic stops to see, state by state</title>
+<meta name="description" content="Cadillac Ranch, Blue Swallow Motel, Seligman-Kingman, Santa Monica Pier, neon motels, diners and the movie Cars: the complete guide to Route 66's iconic stops.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/en/route-66.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/route-66.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/route-66.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/route-66.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/route-66.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/route-66.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/route-66.html">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Route 66: the iconic stops to see, state by state">
+<meta property="og:description" content="Cadillac Ranch, Blue Swallow Motel, Seligman-Kingman, Santa Monica Pier, neon motels, diners and the movie Cars: the guide to Route 66's iconic stops.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/en/route-66.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Route 66 crossing the American desert toward the horizon">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Route 66: the iconic stops to see, state by state">
+<meta name="twitter:description" content="Cadillac Ranch, Blue Swallow Motel, Seligman-Kingman, neon motels, diners and the movie Cars.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover,.cta:visited,.cta:focus,.cta:active{color:#fff;background:#0c2c56;}
+  .cta-accent{background:#c1502e;font-size:15px;padding:14px 26px;}
+  .cta-accent:hover,.cta-accent:visited,.cta-accent:focus,.cta-accent:active{background:#a53f20;color:#fff;}
+  .country-card{border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:24px 28px;margin:24px auto 28px;}
+  .country-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .country-name{font-family:'Instrument Serif',serif;font-size:26px;color:#3a2f22;margin:0 0 14px;}
+  .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0 4px;}
+  .country-fact{font-size:14px;color:#4a4030;line-height:1.5;}
+  .country-fact b{color:#113f7a;display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;padding:8px 26px;margin:14px auto 28px;background:#fff;}
+  .checklist li{font-size:15px;line-height:1.7;color:#4a4030;margin:12px 0;}
+  .checklist li b{color:#113f7a;}
+  .full-img-c{width:100%;max-width:960px;margin:8px auto 28px;padding:0 48px;display:block;}
+  .full-img-c img{width:100%;height:auto;display:block;border-radius:12px;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  .hotel-card{display:flex;gap:0;border:1px solid #e3e0d8;border-radius:16px;background:#fff;overflow:hidden;margin:24px auto 28px;}
+  .hotel-card img{width:38%;object-fit:cover;display:block;min-height:200px;}
+  .hotel-body{padding:22px 26px;flex:1;}
+  .hotel-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 8px;}
+  .hotel-rating{display:inline-block;background:#113f7a;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:12px;}
+  .hotel-desc{font-size:14px;line-height:1.6;color:#4a4030;margin:0 0 14px;}
+  @media (max-width:600px){.hotel-card{flex-direction:column;}.hotel-card img{width:100%;min-height:180px;height:200px;}}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .full-img-c{padding:0 20px;}
+    .full-img{height:220px;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .country-grid{grid-template-columns:1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">United States</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Iconic road guide · Route 66</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Route 66: the iconic stops, from Chicago to the Pacific</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Buried Cadillacs, neon motels, vintage diners, untouched stretches and movie backdrops. Everything that makes the Mother Road a legend.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Route 66 crossing the American desert toward the horizon" data-imgkey="hero-route66" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Contents</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Route 66, myth and reality</a>
+      <a href="#s02">02 · Illinois and Missouri: the start</a>
+      <a href="#s03">03 · Oklahoma: the heart of the Route</a>
+      <a href="#s04">04 · Texas and New Mexico: the neon</a>
+      <a href="#s05">05 · Arizona: the preserved stretch</a>
+      <a href="#s06">06 · California: the desert and the ocean</a>
+      <a href="#s07">07 · Sleeping on the Route: the neon motels</a>
+      <a href="#s08">08 · Eating on the Route: the classic diners</a>
+      <a href="#s09">09 · Route 66 and the movie Cars</a>
+      <a href="#s10">10 · The checklist before you go</a>
+      <a href="#s11">11 · Photo credits</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Contents</span>
+</div>
+
+<!-- ============ S01 ============ -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Route 66, myth and reality</h2></div>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0 0 20px;">3,940 kilometres from Chicago to the Pacific, eight states crossed, a century of American history. And a surprise for many: officially, Route 66 no longer exists.</p>
+  </div>
+  <div class="col" style="margin-top:4px;">
+    <p>Created in 1926, the "Mother Road" was the great artery of the westward migration and the symbol of freedom on four wheels. But it was <b>decommissioned in 1985</b>, replaced by the modern Interstates. What survives today is a signposted "Historic Route 66", made of preserved sections and stretches that merge with the highway. You don't drive one continuous road: you follow a trace, which makes a good GPS with the waypoints essential.</p>
+    <p style="margin:0;">That's exactly what makes its charm. Along the route survive neon motels, 1950s diners, gas stations frozen in time and kitsch attractions found nowhere else. As it nears its centenary in 2026, Route 66 has never felt more alive. Here are its iconic stops, in travel order from east to west, then three angles to live it to the fullest: where to sleep, where to eat, and why the movie Cars owes it everything.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+      <a class="cta cta-accent" href="https://www.oneroadtrip.com/itineraries/us-us66-route-66-chicago-to-santa-monica-14j.html" target="_blank" rel="noopener">See the Route 66 itinerary, 14 days →</a>
+      <a class="cta cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Compare car rentals →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S02 : ILLINOIS / MISSOURI ============ -->
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Illinois and Missouri: the start</h2></div>
+    <p>It all begins in Chicago, at the corner of Adams Street and Michigan Avenue, under a "Begin Historic Route 66" sign so discreet you have to look for it. This is mile zero. Right away in Illinois the tone is set: the first "Muffler Men", those giant fibreglass advertising figures, and in Pontiac more than twenty murals telling the story of the Route. Then comes Missouri and its passage through St. Louis, marked by the Gateway Arch, the "gateway to the West".</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Illinois · The first giant</div>
+      <div class="country-name">Gemini Giant</div>
+      <p style="margin:0 0 8px;">In Wilmington stands the first "Muffler Man" of the route: a 9-metre fibreglass giant holding a Gemini rocket, planted there in the 1960s to draw drivers to a restaurant. It's the archetype of the roadside attraction that built the folklore of the 66.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>1960s</div>
+        <div class="country-fact"><b>Where</b>Wilmington, Illinois</div>
+        <div class="country-fact"><b>Type</b>A "Muffler Man", giant roadside advertising figure</div>
+        <div class="country-fact"><b>Stop</b>Quick photo, the first of a long series</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Missouri · The bent bridge</div>
+      <div class="country-name">Chain of Rocks Bridge</div>
+      <p style="margin:0 0 8px;">This 1929 bridge spanning the Mississippi has a unique quirk: it makes a <b>22-degree bend</b> right in the middle. Now reserved for pedestrians and cyclists, it's one of the most photogenic spots on the route, and access is free.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>Built in 1929</div>
+        <div class="country-fact"><b>Access</b>Pedestrians and bikes, over the Mississippi</div>
+        <div class="country-fact"><b>Nearby</b>St. Louis and its Gateway Arch</div>
+        <div class="country-fact"><b>Price</b>Free</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/chain-of-rocks.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Chain of Rocks Bridge over the Mississippi" loading="lazy" data-imgkey="chain-of-rocks" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/the-langham-chicago.webp&amp;w=700&amp;output=webp&amp;q=80" alt="The Langham Chicago" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Where to sleep · Chicago, the start</div>
+        <div class="hotel-name">The Langham Chicago</div>
+        <div class="hotel-rating">9.4 / 10 on Booking</div>
+        <p class="hotel-desc">To launch the trip in grand style, an upscale address in the heart of Chicago, steps from Route 66's mile zero.</p>
+        <a class="cta" href="https://www.booking.com/Share-GW2cuK" target="_blank" rel="sponsored nofollow noopener">See on Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S03 : OKLAHOMA ============ -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Oklahoma: the heart of the Route</h2></div>
+    <p>Oklahoma holds the greatest number of Route 66 miles, and a fine lineup of icons. Just before you get there, the tiny Kansas stretch (only 21 km) passes through Galena and its old tow truck that inspired a character in the movie Cars. In the state, don't miss the Round Barn in Arcadia, a wooden round barn from 1898, the only one of its kind on the whole Route.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Oklahoma · The concrete icon</div>
+      <div class="country-name">Blue Whale of Catoosa</div>
+      <p style="margin:0 0 8px;">A smiling 24-metre blue whale set at the edge of a pond, built in 1972 by a retiree for his wife's anniversary. You can climb on its back. Now a cult stop, it captures on its own the good-natured, homemade spirit of Route 66.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>1972, an anniversary gift turned monument</div>
+        <div class="country-fact"><b>Where</b>Catoosa, near Tulsa</div>
+        <div class="country-fact"><b>Price</b>Free</div>
+        <div class="country-fact"><b>Also see</b>The vintage neon of 11th Street in Tulsa, after dark</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/blue-whale-catoosa.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Blue Whale of Catoosa, blue concrete whale at the water's edge" loading="lazy" data-imgkey="blue-whale" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Oklahoma · The giant bottle</div>
+      <div class="country-name">POPS 66</div>
+      <p style="margin:0 0 8px;">Impossible to miss the 20-metre-tall soda bottle sculpture that marks the entrance to this stop in Arcadia. Inside, more than 700 varieties of soda from around the world. Try an improbable one, you won't find it anywhere else.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Sign</b>A 20-metre soda bottle</div>
+        <div class="country-fact"><b>Where</b>Arcadia, Oklahoma</div>
+        <div class="country-fact"><b>Specialty</b>More than 700 different sodas</div>
+        <div class="country-fact"><b>Nearby</b>The 1898 Round Barn, just steps away</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/pops.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="The giant soda bottle of POPS 66 in Arcadia, Oklahoma" loading="lazy" data-imgkey="pops" style="height:400px;">
+</div>
+
+<!-- ============ S04 : TEXAS / NEW MEXICO ============ -->
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Texas and New Mexico: neon and desert</h2></div>
+    <p>In Texas, near Amarillo, stands one of the most famous stops on the whole route: Cadillac Ranch. A little further on, the MidPoint Cafe in Adrian marks the exact middle of the Route, 1,139 miles from each end. Then the journey tips into New Mexico, into the neon, of which Tucumcari is the capital.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Texas · Graffiti encouraged</div>
+      <div class="country-name">Cadillac Ranch</div>
+      <p style="margin:0 0 8px;">Ten Cadillacs buried nose-down in a field near Amarillo, planted there in 1974 by an eccentric patron as a tribute to the evolution of the tail fin. They're covered in constantly renewed layers of graffiti. You have to walk 400 metres into the field from the car park. It's one of the few places in the world where tagging is encouraged.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>Installed in 1974</div>
+        <div class="country-fact"><b>Where</b>Near Amarillo, Texas</div>
+        <div class="country-fact"><b>Tip</b>Bring a spray can, tagging is allowed</div>
+        <div class="country-fact"><b>Price</b>Free</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/cadillac-ranch.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cadillac Ranch, ten cars planted in the ground and covered in graffiti" loading="lazy" data-imgkey="cadillac-ranch" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">New Mexico · The finest neon</div>
+      <div class="country-name">Blue Swallow Motel</div>
+      <p style="margin:0 0 8px;">Arrive at nightfall: the swallow-shaped neon sign, promising "100% Refrigerated Air", is considered the finest lit sign on all of Route 66. This 1939 motor court, listed, has a garage attached to each room, the norm back when travellers kept an eye on their car.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>1939, on the National Register</div>
+        <div class="country-fact"><b>Where</b>Tucumcari, the neon capital of the Route</div>
+        <div class="country-fact"><b>Tip</b>Book 2 months ahead in summer if you want to stay</div>
+        <div class="country-fact"><b>Nearby</b>Palomino Motel, Safari Motel, Teepee Curios, all lit up at night</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/blue-swallow.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Neon sign of the Blue Swallow Motel in Tucumcari at night" loading="lazy" data-imgkey="blue-swallow" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/roadrunner-lodge-motel.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Roadrunner Lodge Motel, Tucumcari" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Where to sleep · Tucumcari</div>
+        <div class="hotel-name">Roadrunner Lodge Motel</div>
+        <div class="hotel-rating">9.2 / 10 on Booking</div>
+        <p class="hotel-desc">To spend the night among Tucumcari's neon. A motor court restored in pure Route 66 spirit, a safe bet when the legendary Blue Swallow is full.</p>
+        <a class="cta" href="https://www.booking.com/Share-GyuO2H" target="_blank" rel="sponsored nofollow noopener">See on Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S05 : ARIZONA ============ -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Arizona: the preserved stretch</h2></div>
+    <p>It's in Arizona that Route 66 was saved. In 1987, a Seligman barber, Angel Delgadillo, founded the association that kept the Mother Road from fading into oblivion after its decommissioning. And 130 km north of Flagstaff, a detour is a must, even though it's not on the Route: the Grand Canyon, its 1,800 metres of depth and two billion years of strata.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Arizona · The intact Route</div>
+      <div class="country-name">The Seligman-Kingman stretch</div>
+      <p style="margin:0 0 8px;">The 145 kilometres between Seligman and Kingman are the <b>best-preserved stretch</b> of all Route 66: two lanes, almost no traffic, the same road as in 1955 through the scrub and the ranches. Along the way, the Hackberry General Store, a 1930s gas station frozen in time, period pumps and a red Corvette out front.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Distance</b>145 km preserved, just as in 1955</div>
+        <div class="country-fact"><b>Start</b>Seligman, the town that saved the Route</div>
+        <div class="country-fact"><b>On the way</b>Hackberry General Store, 50 km east of Kingman</div>
+        <div class="country-fact"><b>Feel</b>The most authentic stretch of the route</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/seligman.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Preserved Route 66 between Seligman and Kingman in Arizona" loading="lazy" data-imgkey="seligman" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Arizona · The Eagles song</div>
+      <div class="country-name">Standing on the Corner, Winslow</div>
+      <p style="margin:0 0 8px;">"Standing on the corner in Winslow, Arizona…": this line from a 1972 Eagles song saved the small town from decline. A street corner with a bronze statue and a mural pays tribute to the song. A five-minute stop, but the tune will stay in your head all day.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Origin</b>A 1972 Eagles song</div>
+        <div class="country-fact"><b>Where</b>Winslow, Arizona</div>
+        <div class="country-fact"><b>On site</b>Bronze statue and mural on the street corner</div>
+        <div class="country-fact"><b>Nearby</b>La Posada, a superb 1929 hotel by Mary Colter</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/la-posada-hotel.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Posada Hotel and Gardens, Winslow" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Where to sleep · Winslow</div>
+        <div class="hotel-name">La Posada Hotel and Gardens</div>
+        <div class="hotel-rating">9.3 / 10 on Booking</div>
+        <p class="hotel-desc">The former 1929 Harvey House, designed by architect Mary Colter, often cited as the finest place to stay on all of Route 66. Gardens, period lobby and a renowned restaurant.</p>
+        <a class="cta" href="https://www.booking.com/Share-gc5VDmJ" target="_blank" rel="sponsored nofollow noopener">See on Booking →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/la-quinta-by-wyndham.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Quinta by Wyndham Kingman" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Where to sleep · Kingman</div>
+        <div class="hotel-name">La Quinta by Wyndham Kingman</div>
+        <div class="hotel-rating">8.5 / 10 on Booking</div>
+        <p class="hotel-desc">A comfortable, practical stop in Kingman, ideal for exploring the preserved Seligman-Kingman stretch and setting off fresh toward the Mojave desert.</p>
+        <a class="cta" href="https://www.booking.com/Share-x1yMc1" target="_blank" rel="sponsored nofollow noopener">See on Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S06 : CALIFORNIA ============ -->
+<div id="s06" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">California: the Mojave desert and the ocean</h2></div>
+    <p>The final stretch crosses the Mojave desert, the most desolate and most spectacular part of the route. Fill up on fuel and water in Needles: stations are rare over the next 250 km, and it often tops 45°C in summer. In Oro Grande, the Bottle Tree Ranch lines up 200 "trees" of metal pipes crowned with glass bottles that chime in the wind.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">California · In the middle of nowhere</div>
+      <div class="country-name">Roy's Motel &amp; Café, Amboy</div>
+      <p style="margin:0 0 8px;">In the very heart of the Mojave, literally in the middle of nowhere, this 1930s motel and its Googie sign form one of the most photographed images of the Route. The site is being renovated for the 2026 centenary. It can top 45°C here in summer: stay cautious.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Era</b>1930s, iconic Googie sign</div>
+        <div class="country-fact"><b>Where</b>Amboy, Mojave desert</div>
+        <div class="country-fact"><b>Caution</b>Extreme heat in summer, few stations around</div>
+        <div class="country-fact"><b>Status</b>Under renovation for the 2026 centenary</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/roys-motel.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Googie sign of Roy's Motel and Café in Amboy in the Mojave desert" loading="lazy" data-imgkey="roys-amboy" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">California · The end of the road</div>
+      <div class="country-name">Santa Monica Pier</div>
+      <p style="margin:0 0 8px;">The "End of the Trail" sign, put up in 2009, marks the official end of Route 66. You've covered 3,940 km since Chicago, and the Pacific is in front of you. Behind the sign, the Ferris wheel of Pacific Park and the historic 1922 carousel. It's the end of the Mother Road and the start of California.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>The finish</b>"End of the Trail" sign, put up in 2009</div>
+        <div class="country-fact"><b>Distance from Chicago</b>3,940 km</div>
+        <div class="country-fact"><b>Before arrival</b>Wigwam Motel and its tipi rooms, in San Bernardino</div>
+        <div class="country-fact"><b>Nearby</b>Venice Beach, 3 km to the south</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/santa-monica.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Santa Monica Pier, end of Route 66 facing the Pacific" loading="lazy" data-imgkey="santa-monica-pier" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/casa-del-mar.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Hotel Casa del Mar, Santa Monica" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Where to sleep · Santa Monica, the finish</div>
+        <div class="hotel-name">Casa del Mar</div>
+        <div class="hotel-rating">9.1 / 10 on Booking</div>
+        <p class="hotel-desc">To treat yourself at journey's end: a five-star hotel with your feet in the sand, facing the Pacific, minutes from the "End of the Trail" sign. The reward after 3,940 km.</p>
+        <a class="cta" href="https://www.booking.com/Share-Jo9MEY" target="_blank" rel="sponsored nofollow noopener">See on Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S07 : NEON MOTELS ============ -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Sleeping on the Route: the neon motels</h2></div>
+    <p>On Route 66, the lodging is part of the journey. Forget the standardised chains: the experience is sleeping in the period <b>motor courts</b>, those 1930s-to-1950s motels whose neon signs light up one by one at nightfall. Many have been restored and still operate.</p>
+    <p>The must-stays: the <b>Blue Swallow Motel</b> in Tucumcari (1939), the finest neon on the Route; the <b>Wigwam Motel</b> in San Bernardino, whose 19 rooms are 1949 concrete tipis surrounded by vintage cars; <b>La Posada</b> in Winslow, a former 1929 Harvey House by Mary Colter, often cited as the finest lodging on the route; and the <b>El Rancho</b> in Gallup (1937), which hosted Hollywood stars in town to shoot westerns, each room bearing a star's name.</p>
+    <p style="margin:0;">One tip you'll hear everywhere: these legendary addresses are small and in high demand. To sleep at the Blue Swallow or the Wigwam in peak season, book <b>several weeks ahead</b>, sometimes two months in summer.</p>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/neon.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Neon signs of vintage Route 66 motels at night" loading="lazy" data-imgkey="neon-motels" style="height:400px;">
+</div>
+
+<!-- ============ S08 : DINERS ============ -->
+<div id="s08" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Eating on the Route: the classic diners</h2></div>
+    <p>Route 66 is also a culinary journey, state by state, in places that haven't changed in decades. Several even claim to have invented an American dish.</p>
+  </div>
+  <div class="col">
+    <ul class="checklist">
+      <li><b>The Cozy Dog Drive In (Springfield, Illinois).</b> This is where the corn dog, the sausage in fried cornmeal batter on a stick, was reportedly invented, in 1946. Still run by the same family, walls covered in memorabilia.</li>
+      <li><b>Chicago deep-dish pizza.</b> The city invented thick-crust pizza in the 1940s. Every local has a favourite spot. It bakes slowly: order well ahead.</li>
+      <li><b>Ted Drewes (St. Louis).</b> A frozen custard institution since 1929, so thick the server turns the cup upside down to prove it won't fall out.</li>
+      <li><b>The Snow Cap Drive-In (Seligman, Arizona).</b> Opened in 1953, a temple of kitsch and gags, at the heart of the town that saved the Route.</li>
+      <li><b>Oklahoma barbecue.</b> Briskets smoked for hours and ribs served on kraft paper, with sweet iced tea: you're in the South.</li>
+      <li><b>New Mexico green chile.</b> They ask "Red or green?" with every order. Answer "Christmas" to get both sauces.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p style="margin:0;">What these places have in common: you don't go just to eat, but for the decor, the history and the atmosphere. They're as much a part of the journey as the landscapes.</p>
+  </div>
+</div>
+
+<!-- ============ S09 : CARS ============ -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Route 66 and the movie Cars</h2></div>
+    <p>If Route 66 speaks so much to children, it's largely thanks to Pixar's movie Cars. The creators drew directly on the Mother Road and its people to build Radiator Springs, the forgotten little town beside a road no one takes anymore, the heart of the film.</p>
+    <p>Several real places fed the film. The village of <b>Seligman</b>, in Arizona, and its barber Angel Delgadillo, who fought to save the Route, inspired the spirit and story of Radiator Springs. In <b>Galena</b>, Kansas, an old rusty tow truck served as the model for the tow-truck character. And the <b>Rock Cafe</b> in Stroud, Oklahoma, inspired one of the film's characters; burned down in 2008, it was rebuilt stone by stone by the community.</p>
+    <p style="margin:0;">Driving Route 66 today means finding, life-size, the atmosphere of those backdrops: the neon signs, the abandoned stations, the small towns living in slow motion. For families who love the film, it's an ideal thread from one end of the trip to the other.</p>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/car-vintage.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Route 66 town evoking Radiator Springs, backdrop reminiscent of the movie Cars" loading="lazy" data-imgkey="cars-route66" style="height:400px;">
+</div>
+
+<!-- ============ S10 : CHECKLIST ============ -->
+<div id="s10" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">The checklist before you go</h2></div>
+    <p>Route 66 takes a bit of preparation, or you're in for trouble. Here are the points that come up most often from those who've done it.</p>
+  </div>
+  <div class="col">
+    <ul class="checklist">
+      <li><b>A GPS with the Route 66 waypoints.</b> The historic route isn't continuous: it alternates preserved sections and bits of Interstate. Without landmarks, you miss half the iconic stops or get lost.</li>
+      <li><b>The right season.</b> Spring (April-May) and autumn (September-October) are ideal, 15 to 25°C. Avoid summer: the Mojave and Arizona top 40°C. In winter, Illinois is harsh, snow and sub-zero temperatures.</li>
+      <li><b>Fill up before the desert.</b> Between Needles and Barstow, stations are rare over 250 km. Fill up on fuel and water before heading into the Mojave.</li>
+      <li><b>Book the iconic motels early.</b> Blue Swallow, Wigwam, La Posada: small capacity, high demand. Several weeks ahead, up to two months in summer.</li>
+      <li><b>Allow enough time.</b> 3,940 km can't be done in a few days if you want to enjoy it. Count on about two weeks for a real trip, without driving all day.</li>
+      <li><b>One-way car rental.</b> Most people pick the car up in Chicago and drop it in Los Angeles. One-way fees between two far-apart cities can be steep: compare carefully before booking.</li>
+      <li><b>The international driving permit.</b> To drive in the United States with a foreign licence, an official translation or an international permit is often required. Plan it before departure.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p style="margin:0;">On that last point, the car is the backbone of the trip: compare offers carefully, especially for a one-way Chicago-Los Angeles. You'll find the rental comparator and the detailed day-by-day itinerary at the top of this page.</p>
+  </div>
+</div>
+
+<!-- ============ S11 CREDITS ============ -->
+<div id="s11" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Photo credits</h2></div>
+    <button class="credit-btn" onclick="document.getElementById('creditsBox').classList.toggle('show');this.textContent=document.getElementById('creditsBox').classList.contains('show')?'Photo credits ▲':'Photo credits ▼'">Photo credits ▼</button>
+    <div id="creditsBox" class="credit-box">
+      Photo "Route 66 sign in the desert": G. Edward Johnson, own work (Nikon Z 9), CC BY 4.0.<br>
+      Photo "Chain of Rocks Bridge": G. Edward Johnson, own work (Nikon Z 9), CC BY 4.0.<br>
+      Photo "Blue Whale of Catoosa": G. Edward Johnson, own work (Nikon Z 9), CC BY 4.0, via Wikimedia Commons.<br>
+      Photo "Cadillac Ranch": inkknife_2000, via Flickr, CC BY-SA 2.0, via Wikimedia Commons.<br>
+      Photo "Blue Swallow Motel": Michael Zanussi, CC BY 2.0.<br>
+      Photo "Seligman stretch": Grenzlandstern, own work, CC BY-SA 4.0, via Wikimedia Commons.<br>
+      Other credits to be completed as the photos are added.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Route 66: the iconic stops to see, state by state",
+  "description": "Cadillac Ranch, Blue Swallow Motel, Seligman-Kingman, Santa Monica Pier, neon motels, diners and the movie Cars: the complete guide to Route 66's iconic stops.",
+  "image": ["https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "en",
+  "datePublished": "2026-07-27",
+  "dateModified": "2026-07-27",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/en/route-66.html"}
+}
+</script>
+
+<script>
+(function(){
+  var fill=document.getElementById('progressFill');
+  var pill=document.getElementById('tocPill');
+  var toc=document.getElementById('tocFull');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    var p=h>0?(window.scrollY/h)*100:0;
+    if(fill)fill.style.width=p+'%';
+    if(pill&&toc){
+      var tocBottom=toc.getBoundingClientRect().bottom;
+      if(tocBottom<0)pill.classList.add('show');
+      else pill.classList.remove('show');
+    }
+  });
+})();
+</script>
+
+<!-- Stay22 / letmeallez -->
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '692f0c75b2478d16bb9b22fa' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.oneroadtrip.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.oneroadtrip.com/blog/en/"},
+    {"@type": "ListItem", "position": 3, "name": "Route 66: the iconic stops"}
+  ]
+}
+</script>
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"route-66"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>
