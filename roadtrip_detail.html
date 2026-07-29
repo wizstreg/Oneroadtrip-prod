@@ -9090,6 +9090,153 @@ Object.entries(grouped).forEach(([key, indices]) => {
 /**
  * Calcule un itinéraire selon le mode de transport
  */
+// ===============================
+// BOUCLES (circuits en étoile) — même logique que carte_builder.html
+// Une boucle = la portion de circuit comprise entre deux passages par le même lieu.
+// Les couleurs doivent rester identiques à celles du builder.
+// ===============================
+const LOOP_COLORS = ['#2563eb', '#e11d48', '#059669', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#4d7c0f'];
+const LINK_COLOR = '#64748b'; // trajets hors boucle
+
+function loopColor(loopIndex) {
+  return loopIndex < 0 ? LINK_COLOR : LOOP_COLORS[loopIndex % LOOP_COLORS.length];
+}
+
+// Identité d'un lieu : place_id si présent, sinon nom + coordonnées
+function loopKeyOf(step) {
+  if (!step) return '';
+  return step.place_id || ((step.name || '') + '|' + step.lat + '|' + step.lon);
+}
+
+// Renvoie, pour chaque tronçon, le numéro de sa boucle (-1 = liaison)
+function computeLegLoops(steps) {
+  const n = (steps || []).length;
+  const legLoop = new Array(Math.max(0, n - 1)).fill(-1);
+  const seen = new Map();
+  let loop = 0;
+  for (let j = 0; j < n; j++) {
+    const id = loopKeyOf(steps[j]);
+    if (seen.has(id)) {
+      const k = seen.get(id);
+      for (let L = k; L < j; L++) if (legLoop[L] === -1) legLoop[L] = loop;
+      loop++;
+      for (let m = k; m < j; m++) seen.delete(loopKeyOf(steps[m]));
+      seen.set(id, j);
+    } else {
+      seen.set(id, j);
+    }
+  }
+  return legLoop;
+}
+
+// Découpe le circuit en portions de même couleur (tronçons consécutifs d'une même boucle)
+function buildLoopSegments(steps) {
+  const legLoop = computeLegLoops(steps);
+  const groups = [];
+  for (let i = 0; i < legLoop.length; i++) {
+    const last = groups[groups.length - 1];
+    if (last && last.loop === legLoop[i] && last.end === i) {
+      last.end = i + 1;
+    } else {
+      groups.push({ loop: legLoop[i], start: i, end: i + 1 });
+    }
+  }
+  return groups;
+}
+
+// Applique le filtre de boucles aux trois surfaces : tracé, marqueurs, liste.
+// Un lieu est visible si au moins une de ses boucles est cochée.
+function applyLoopVisibility() {
+  const filters = window._loopFilters || {};
+  const pointLoops = window._pointLoops || {};
+  const visibleForSid = (sid) => {
+    const set = pointLoops[sid];
+    if (!set || set.size === 0) return true; // pas d'info : on garde visible
+    for (const key of set) { if (filters[key] !== false) return true; }
+    return false;
+  };
+  // Tracé
+  (window._routeLayers || []).forEach(l => {
+    const show = filters[l._loopKey] !== false;
+    if (show) { try { l.addTo(map); } catch(_) {} }
+    else { try { map.removeLayer(l); } catch(_) {} }
+  });
+  // Marqueurs
+  (markers || []).forEach(m => {
+    if (!m.stepId) return;
+    const el = m.getElement && m.getElement();
+    const show = visibleForSid(m.stepId);
+    if (el) el.style.display = show ? '' : 'none';
+  });
+  // Liste des étapes (masquage visuel seulement, state.steps intact)
+  document.querySelectorAll('[data-step-id]').forEach(row => {
+    const sid = row.dataset.stepId;
+    if (!sid || !(sid in pointLoops)) return;
+    row.style.display = visibleForSid(sid) ? '' : 'none';
+  });
+}
+
+// Légende cliquable et repliable des boucles, en surimpression de la carte.
+function renderLoopLegend(loopGroups) {
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  const lang = (new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0, 2);
+  const TXT = ({
+    fr: { title: 'Boucles', loop: 'Boucle {n}', links: 'Liaisons' },
+    en: { title: 'Loops', loop: 'Loop {n}', links: 'Transfers' },
+    it: { title: 'Anelli', loop: 'Anello {n}', links: 'Trasferimenti' },
+    es: { title: 'Bucles', loop: 'Bucle {n}', links: 'Enlaces' },
+    pt: { title: 'Circuitos', loop: 'Circuito {n}', links: 'Ligações' },
+    ar: { title: 'الحلقات', loop: 'الحلقة {n}', links: 'التنقلات' }
+  })[lang] || { title: 'Boucles', loop: 'Boucle {n}', links: 'Liaisons' };
+
+  let box = document.getElementById('loopLegend');
+  if (box) box.remove();
+
+  const nbLoops = loopGroups.filter(g => g.loop >= 0).length;
+  if (nbLoops === 0) return; // pas de boucle : pas de légende
+  const hasLink = loopGroups.some(g => g.loop < 0);
+
+  box = document.createElement('div');
+  box.id = 'loopLegend';
+  box.style.cssText = 'position:absolute;bottom:16px;left:16px;z-index:1202;background:#fffdf7;border:1px solid #e4dac4;border-radius:10px;padding:8px 10px;box-shadow:0 2px 8px rgba(0,0,0,.15);font:600 12px system-ui,sans-serif;color:#2b2b2b;';
+
+  // En-tête avec bouton réduire/déplier
+  const collapsed = window._loopLegendCollapsed === true;
+  const head = document.createElement('div');
+  head.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;';
+  head.innerHTML = '<span style="font-weight:800;color:#113f7a;">' + TXT.title + '</span>'
+    + '<span style="color:#113f7a;font-size:14px;">' + (collapsed ? '▸' : '▾') + '</span>';
+  head.onclick = () => { window._loopLegendCollapsed = !collapsed; renderLoopLegend(loopGroups); };
+  box.appendChild(head);
+
+  if (!collapsed) {
+    const body = document.createElement('div');
+    body.style.cssText = 'margin-top:5px;';
+    const addRow = (key, color, label) => {
+      const on = window._loopFilters[key] !== false;
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:7px;cursor:pointer;padding:2px 0;opacity:' + (on ? '1' : '.4') + ';';
+      row.innerHTML = '<span style="width:14px;text-align:center;color:#113f7a;">' + (on ? '✓' : '') + '</span>'
+        + '<span style="width:20px;height:4px;border-radius:2px;background:' + color + ';flex:none;"></span>'
+        + '<span>' + label + '</span>';
+      row.onclick = () => {
+        window._loopFilters[key] = !on;
+        applyLoopVisibility();
+        renderLoopLegend(loopGroups);
+      };
+      body.appendChild(row);
+    };
+    for (let i = 0; i < nbLoops; i++) {
+      addRow('loop' + i, loopColor(i), TXT.loop.replace('{n}', i + 1));
+    }
+    if (hasLink) addRow('link', LINK_COLOR, TXT.links);
+    box.appendChild(body);
+  }
+
+  mapEl.appendChild(box);
+}
+
 async function calculateRoute(waypoints, mode = 'driving') {
   console.log('[ROUTE] 🗺️ Calcul itinéraire:', mode, waypoints.length, 'points');
   
@@ -9130,50 +9277,84 @@ async function calculateRoute(waypoints, mode = 'driving') {
     dashArray: '5, 10' 
   }).addTo(map);
   
-  // Calculer la route
-  calculateRoute(latlngs, transportMode).then(result => {
+  // Calculer la route, portion par portion, pour colorier chaque boucle
+  const loopGroups = buildLoopSegments(pts);
+  // Table sid -> ensemble des boucles auxquelles ce lieu touche (tronçon avant + après).
+  // Un lieu reste visible tant qu'au moins une de ses boucles est cochée.
+  (function buildPointLoopMap(){
+    const legLoop = computeLegLoops(pts);
+    const m = {};
+    pts.forEach((p, i) => {
+      const sid = (typeof ensureSid === 'function') ? ensureSid(p) : (p.__sid);
+      if (!sid) return;
+      const set = m[sid] || (m[sid] = new Set());
+      const before = legLoop[i - 1]; // tronçon qui arrive sur le point i
+      const after = legLoop[i];      // tronçon qui repart du point i
+      [before, after].forEach(l => {
+        if (l === undefined) return;
+        set.add(l < 0 ? 'link' : 'loop' + l);
+      });
+    });
+    window._pointLoops = m;
+  })();
+  window._routeLayers = window._routeLayers || [];
+  window._routeLayers.forEach(l => { try { map.removeLayer(l); } catch(_) {} });
+  window._routeLayers = [];
+  window._loopFilters = window._loopFilters || {};
+
+  Promise.all(loopGroups.map(g => {
+    const slice = latlngs.slice(g.start, g.end + 1);
+    return calculateRoute(slice, transportMode)
+      .then(res => ({ g, res }))
+      .catch(() => ({ g, res: { type: 'fallback', coordinates: slice } }));
+  })).then(results => {
     // Supprimer ligne temporaire
     try { map.removeLayer(tempLayer); } catch(_) {}
-    
+
     // Vérifier si cette version est toujours la courante (sinon ignorer)
     if (window._drawMapVersion !== thisVersion) {
       console.log('[MAP] ⏭️ Route ignorée (version obsolète:', thisVersion, 'vs', window._drawMapVersion, ')');
       return;
     }
-    
-    if (result.type === 'fallback') {
-      // Fallback : ligne droite
-      console.log('[MAP] ⚠️ Fallback: ligne droite');
-      layer = L.polyline(result.coordinates, { 
-        color: result.color || '#113f7a', 
-        weight: 3, 
-        opacity: 0.8,
-        dashArray: result.dashArray || null
-      }).addTo(map);
-    } else {
-      // Route calculée
-      console.log('[MAP] ✅ Route affichée:', result.type);
-      layer = L.polyline(result.coordinates, { 
-        color: result.color || '#113f7a', 
-        weight: result.weight || 3, 
-        opacity: 0.8,
-        dashArray: result.dashArray || null
-      }).addTo(map);
-      
-      // Afficher les infos dans un toast
-      if (result.distance && result.duration) {
-        const distKm = (result.distance / 1000).toFixed(1);
-        const durationH = (result.duration / 3600).toFixed(1);
-        toast(`📍 ${distKm} km • 🕐 ${durationH}h`, 3000);
-      }
+
+    let totalDist = 0, totalDur = 0;
+
+    results.forEach(({ g, res }) => {
+      const color = loopColor(g.loop);
+      const isFallback = res.type === 'fallback';
+      const key = g.loop < 0 ? 'link' : 'loop' + g.loop;
+      const line = L.polyline(res.coordinates, {
+        color: color,
+        weight: isFallback ? 3 : (res.weight || 3),
+        opacity: 0.85,
+        dashArray: isFallback ? (res.dashArray || null) : (res.dashArray || null)
+      });
+      line._loopKey = key;
+      if (window._loopFilters[key] !== false) line.addTo(map);
+      window._routeLayers.push(line);
+      layer = line; // compatibilité avec le nettoyage existant
+      if (res.distance) totalDist += res.distance;
+      if (res.duration) totalDur += res.duration;
+    });
+
+    const nbLoops = loopGroups.filter(g => g.loop >= 0).length;
+    console.log('[MAP] ✅ Route affichée en', results.length, 'portion(s),', nbLoops, 'boucle(s)');
+    renderLoopLegend(loopGroups);
+    applyLoopVisibility();
+
+    // Afficher les infos dans un toast
+    if (totalDist && totalDur) {
+      const distKm = (totalDist / 1000).toFixed(1);
+      const durationH = (totalDur / 3600).toFixed(1);
+      toast(`📍 ${distKm} km • 🕐 ${durationH}h`, 3000);
     }
   }).catch(error => {
     console.error('[MAP] ❌ Erreur calcul route:', error);
     try { map.removeLayer(tempLayer); } catch(_) {}
-    
+
     // Vérifier la version avant fallback
     if (window._drawMapVersion !== thisVersion) return;
-    
+
     layer = L.polyline(latlngs, { color: '#113f7a', weight: 3, opacity: 0.8 }).addTo(map);
   });
   

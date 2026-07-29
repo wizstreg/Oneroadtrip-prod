@@ -58,6 +58,10 @@
 
 
 
+
+
+
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -5891,6 +5895,7 @@ function renderList() {
   state.steps.forEach((step, idx) => {
     const card = document.createElement('div');
     card.className = 'step-card';
+    card.dataset.stepIdx = idx;
     card.onclick = () => openStepSheet(idx);
     
     // Utiliser getStepPhoto avec l'index pour éviter les doublons
@@ -6161,6 +6166,7 @@ function renderMarkers() {
       });
       
       const marker = L.marker([markerLat, markerLng], { icon });
+      marker._stepIdx = idx; // index d'étape de ce marqueur
       marker.on('click', () => {
         const currentStep = state.steps[idx];
         const photoUrl = getStepPhoto(currentStep);
@@ -6179,31 +6185,228 @@ function renderMarkers() {
   });
 }
 
+// ===============================
+// BOUCLES (circuits en étoile) — même logique et mêmes couleurs que carte_builder.html
+// Une boucle = la portion de circuit comprise entre deux passages par le même lieu.
+// ===============================
+const LOOP_COLORS = ['#2563eb', '#e11d48', '#059669', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#4d7c0f'];
+const LINK_COLOR = '#64748b'; // trajets hors boucle
+let routeLayers = [];
+
+function loopColor(loopIndex) {
+  return loopIndex < 0 ? LINK_COLOR : LOOP_COLORS[loopIndex % LOOP_COLORS.length];
+}
+
+function loopKeyOf(step) {
+  if (!step) return '';
+  return step.place_id || ((step.name || '') + '|' + step.lat + '|' + step.lng);
+}
+
+// Renvoie, pour chaque tronçon, le numéro de sa boucle (-1 = liaison)
+function computeLegLoops(steps) {
+  const n = (steps || []).length;
+  const legLoop = new Array(Math.max(0, n - 1)).fill(-1);
+  const seen = new Map();
+  let loop = 0;
+  for (let j = 0; j < n; j++) {
+    const id = loopKeyOf(steps[j]);
+    if (seen.has(id)) {
+      const k = seen.get(id);
+      for (let L = k; L < j; L++) if (legLoop[L] === -1) legLoop[L] = loop;
+      loop++;
+      for (let m = k; m < j; m++) seen.delete(loopKeyOf(steps[m]));
+      seen.set(id, j);
+    } else {
+      seen.set(id, j);
+    }
+  }
+  return legLoop;
+}
+
+// Découpe le circuit en portions de même couleur
+function buildLoopSegments(steps) {
+  const legLoop = computeLegLoops(steps);
+  const groups = [];
+  for (let i = 0; i < legLoop.length; i++) {
+    const last = groups[groups.length - 1];
+    if (last && last.loop === legLoop[i] && last.end === i) {
+      last.end = i + 1;
+    } else {
+      groups.push({ loop: legLoop[i], start: i, end: i + 1 });
+    }
+  }
+  return groups;
+}
+
+function clearRouteLayers() {
+  routeLayers.forEach(l => { try { map.removeLayer(l); } catch (_) {} });
+  routeLayers = [];
+  if (routeLayer) { try { map.removeLayer(routeLayer); } catch (_) {} routeLayer = null; }
+}
+
+// Calcule un tronçon via OSRM. Renvoie null si le service échoue.
+async function fetchLegGeometry(pts) {
+  const coordsStr = pts.map(p => p[0] + ',' + p[1]).join(';'); // lng,lat
+  const resp = await fetch(`https://router.project-osrm.org/route/v1/driving/${coordsStr}?overview=full&geometries=geojson`, { signal: AbortSignal.timeout(10000) });
+  if (!resp.ok) throw new Error('HTTP ' + resp.status);
+  const data = await resp.json();
+  if (data.code !== 'Ok' || !data.routes?.[0]) throw new Error('No route');
+  return {
+    coords: data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]),
+    distance: data.routes[0].distance
+  };
+}
+
 async function fetchAndDrawRoute() {
   if (!map) return;
-  const coords = state.steps.filter(s => s.lat && s.lng).map(s => [s.lng, s.lat]);
+  const steps = state.steps.filter(s => s.lat && s.lng);
+  const coords = steps.map(s => [s.lng, s.lat]); // ordre OSRM : lng,lat
   if (coords.length < 2) return;
-  
-  try {
-    const coordsStr = coords.map(c => c.join(',')).join(';');
-    const resp = await fetch(`https://router.project-osrm.org/route/v1/driving/${coordsStr}?overview=full&geometries=geojson`, { signal: AbortSignal.timeout(10000) });
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    
-    const data = await resp.json();
-    if (data.code !== 'Ok' || !data.routes?.[0]) throw new Error('No route');
-    
-    const routeCoords = data.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
-    totalRouteKm = Math.round(data.routes[0].distance / 1000);
-    
-    if (routeLayer) map.removeLayer(routeLayer);
-    routeLayer = L.polyline(routeCoords, { color: '#113f7a', weight: 4, opacity: 0.8 }).addTo(map);
-    $('statKm').textContent = totalRouteKm;
-  } catch (err) {
-    console.warn('[ROUTE] Fallback:', err.message);
-    const fallbackCoords = state.steps.filter(s => s.lat && s.lng).map(s => [s.lat, s.lng]);
-    if (routeLayer) map.removeLayer(routeLayer);
-    routeLayer = L.polyline(fallbackCoords, { color: '#113f7a', weight: 3, opacity: 0.7, dashArray: '8,8' }).addTo(map);
+
+  const groups = buildLoopSegments(steps);
+  clearRouteLayers();
+  window._loopFilters = window._loopFilters || {};
+  let totalM = 0;
+  let anyFail = false;
+
+  for (const g of groups) {
+    const slice = coords.slice(g.start, g.end + 1);
+    const color = loopColor(g.loop);
+    const key = g.loop < 0 ? 'link' : 'loop' + g.loop;
+    const visible = window._loopFilters[key] !== false;
+    try {
+      const leg = await fetchLegGeometry(slice);
+      totalM += leg.distance;
+      const line = L.polyline(leg.coords, { color: color, weight: 4, opacity: 0.85 });
+      line._loopKey = key;
+      if (visible) line.addTo(map);
+      routeLayers.push(line);
+    } catch (err) {
+      // Portion en échec : ligne droite pointillée, on n'abandonne pas le reste du tracé
+      console.warn('[ROUTE] Fallback portion:', err.message);
+      anyFail = true;
+      const straight = slice.map(c => [c[1], c[0]]);
+      const line = L.polyline(straight, { color: color, weight: 3, opacity: 0.7, dashArray: '8,8' });
+      line._loopKey = key;
+      if (visible) line.addTo(map);
+      routeLayers.push(line);
+    }
   }
+
+  const nbLoops = groups.filter(g => g.loop >= 0).length;
+  console.log('[ROUTE] Tracé en', groups.length, 'portion(s),', nbLoops, 'boucle(s)');
+
+  // Table index d'étape -> boucles de ses tronçons adjacents (avant + après)
+  (function(){
+    const legLoop = computeLegLoops(steps);
+    const m = {};
+    steps.forEach((s, i) => {
+      const set = m[i] || (m[i] = new Set());
+      const before = legLoop[i - 1], after = legLoop[i];
+      [before, after].forEach(l => { if (l === undefined) return; set.add(l < 0 ? 'link' : 'loop' + l); });
+    });
+    // steps est filtré (lat/lng) ; on veut la correspondance avec l'index réel de state.steps
+    window._pointLoops = {};
+    let k = 0;
+    state.steps.forEach((s, realIdx) => {
+      if (s.lat && s.lng) { window._pointLoops[realIdx] = m[k] || new Set(); k++; }
+    });
+  })();
+
+  renderLoopLegend(groups);
+  applyLoopVisibility();
+
+  if (!anyFail) {
+    totalRouteKm = Math.round(totalM / 1000);
+    $('statKm').textContent = totalRouteKm;
+  }
+}
+
+// Applique le filtre de boucles au tracé, aux marqueurs et à la liste.
+// Un lieu reste visible si au moins une de ses boucles est cochée.
+function applyLoopVisibility() {
+  const filters = window._loopFilters || {};
+  const pointLoops = window._pointLoops || {};
+  const visibleForIdx = (i) => {
+    const set = pointLoops[i];
+    if (!set || set.size === 0) return true;
+    for (const key of set) { if (filters[key] !== false) return true; }
+    return false;
+  };
+  (routeLayers || []).forEach(l => {
+    const show = filters[l._loopKey] !== false;
+    if (show) { try { l.addTo(map); } catch(_) {} } else { try { map.removeLayer(l); } catch(_) {} }
+  });
+  (markers || []).forEach(m => {
+    if (m._stepIdx === undefined) return;
+    const el = m.getElement && m.getElement();
+    const show = visibleForIdx(m._stepIdx);
+    if (el) el.style.display = show ? '' : 'none';
+  });
+  document.querySelectorAll('#stepsList [data-step-idx]').forEach(card => {
+    const i = parseInt(card.dataset.stepIdx, 10);
+    card.style.display = visibleForIdx(i) ? '' : 'none';
+  });
+}
+
+// Légende cliquable et repliable des boucles, en surimpression de la carte.
+function renderLoopLegend(loopGroups) {
+  const mapEl = document.getElementById('map');
+  if (!mapEl) return;
+  const lang = (new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || document.documentElement.lang || 'fr').slice(0, 2);
+  const TXT = ({
+    fr: { title: 'Boucles', loop: 'Boucle {n}', links: 'Liaisons' },
+    en: { title: 'Loops', loop: 'Loop {n}', links: 'Transfers' },
+    it: { title: 'Anelli', loop: 'Anello {n}', links: 'Trasferimenti' },
+    es: { title: 'Bucles', loop: 'Bucle {n}', links: 'Enlaces' },
+    pt: { title: 'Circuitos', loop: 'Circuito {n}', links: 'Ligações' },
+    ar: { title: 'الحلقات', loop: 'الحلقة {n}', links: 'التنقلات' }
+  })[lang] || { title: 'Boucles', loop: 'Boucle {n}', links: 'Liaisons' };
+
+  let box = document.getElementById('loopLegend');
+  if (box) box.remove();
+
+  const nbLoops = loopGroups.filter(g => g.loop >= 0).length;
+  if (nbLoops === 0) return;
+  const hasLink = loopGroups.some(g => g.loop < 0);
+
+  box = document.createElement('div');
+  box.id = 'loopLegend';
+  box.style.cssText = 'position:absolute;bottom:14px;left:10px;z-index:1202;background:#fffdf7;border:1px solid #e4dac4;border-radius:10px;padding:7px 9px;box-shadow:0 2px 8px rgba(0,0,0,.15);font:600 12px system-ui,sans-serif;color:#2b2b2b;';
+
+  const collapsed = window._loopLegendCollapsed === true;
+  const head = document.createElement('div');
+  head.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:10px;cursor:pointer;';
+  head.innerHTML = '<span style="font-weight:800;color:#113f7a;">' + TXT.title + '</span>'
+    + '<span style="color:#113f7a;font-size:14px;">' + (collapsed ? '▸' : '▾') + '</span>';
+  head.onclick = () => { window._loopLegendCollapsed = !collapsed; renderLoopLegend(loopGroups); };
+  box.appendChild(head);
+
+  if (!collapsed) {
+    const body = document.createElement('div');
+    body.style.cssText = 'margin-top:4px;';
+    const addRow = (key, color, label) => {
+      const on = window._loopFilters[key] !== false;
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;gap:6px;cursor:pointer;padding:3px 0;opacity:' + (on ? '1' : '.4') + ';';
+      row.innerHTML = '<span style="width:14px;text-align:center;color:#113f7a;">' + (on ? '✓' : '') + '</span>'
+        + '<span style="width:18px;height:4px;border-radius:2px;background:' + color + ';flex:none;"></span>'
+        + '<span>' + label + '</span>';
+      row.onclick = () => {
+        window._loopFilters[key] = !on;
+        applyLoopVisibility();
+        renderLoopLegend(loopGroups);
+      };
+      body.appendChild(row);
+    };
+    for (let i = 0; i < nbLoops; i++) {
+      addRow('loop' + i, loopColor(i), TXT.loop.replace('{n}', i + 1));
+    }
+    if (hasLink) addRow('link', LINK_COLOR, TXT.links);
+    box.appendChild(body);
+  }
+
+  mapEl.appendChild(box);
 }
 
 function fitMapBounds() {

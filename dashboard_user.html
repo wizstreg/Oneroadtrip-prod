@@ -1422,10 +1422,37 @@ function openRT(rt){
   }
 
   // Construit le SVG du tracé à partir des coordonnées des étapes
+  // Couleurs des boucles, identiques à carte_builder.html
+  const LOOP_COLORS = ['#2563eb', '#e11d48', '#059669', '#d97706', '#7c3aed', '#0891b2', '#db2777', '#4d7c0f'];
+  const LINK_COLOR = '#64748b';
+  function loopColor(l){ return l < 0 ? LINK_COLOR : LOOP_COLORS[l % LOOP_COLORS.length]; }
+
+  // Une boucle = la portion comprise entre deux passages par le même lieu (-1 = liaison)
+  function computeLegLoops(keys){
+    const n = keys.length;
+    const legLoop = new Array(Math.max(0, n-1)).fill(-1);
+    const seen = new Map();
+    let loop = 0;
+    for (let j = 0; j < n; j++){
+      const id = keys[j];
+      if (seen.has(id)){
+        const k = seen.get(id);
+        for (let L = k; L < j; L++) if (legLoop[L] === -1) legLoop[L] = loop;
+        loop++;
+        for (let m = k; m < j; m++) seen.delete(keys[m]);
+        seen.set(id, j);
+      } else {
+        seen.set(id, j);
+      }
+    }
+    return legLoop;
+  }
+
   function buildRouteSvg(steps){
-    const pts = (steps || [])
-      .map(s => ({ lat: s.lat, lon: (s.lon != null ? s.lon : s.lng) }))
+    const kept = (steps || [])
+      .map(s => ({ lat: s.lat, lon: (s.lon != null ? s.lon : s.lng), key: s.place_id || s.name || '', name: s.name || '' }))
       .filter(p => Number.isFinite(p.lat) && Number.isFinite(p.lon));
+    const pts = kept;
 
     const W = 1080, H = 300, padX = 70, padTop = 56, padBot = 40;
     if (pts.length < 2){
@@ -1452,27 +1479,59 @@ function openRT(rt){
       y: offY + (maxY - p.y)*scale
     }));
 
-    // Chemin lissé
-    let d = 'M ' + xy[0].x.toFixed(1) + ' ' + xy[0].y.toFixed(1);
-    for (let i = 1; i < xy.length; i++){
-      const prev = xy[i-1], cur = xy[i];
-      const mx = (prev.x + cur.x) / 2, my = (prev.y + cur.y) / 2;
-      d += ' Q ' + prev.x.toFixed(1) + ' ' + prev.y.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
-    }
-    d += ' T ' + xy[xy.length-1].x.toFixed(1) + ' ' + xy[xy.length-1].y.toFixed(1);
+    // Chemin lissé sur une plage de points donnée
+    const pathFor = (from, to) => {
+      let d = 'M ' + xy[from].x.toFixed(1) + ' ' + xy[from].y.toFixed(1);
+      for (let i = from + 1; i <= to; i++){
+        const prev = xy[i-1], cur = xy[i];
+        const mx = (prev.x + cur.x) / 2, my = (prev.y + cur.y) / 2;
+        d += ' Q ' + prev.x.toFixed(1) + ' ' + prev.y.toFixed(1) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
+      }
+      d += ' T ' + xy[to].x.toFixed(1) + ' ' + xy[to].y.toFixed(1);
+      return d;
+    };
 
-    // Points numérotés (callés sur la liste "Nos étapes"), aucun label texte -> zéro chevauchement
+    // Découpe en portions de même boucle, une couleur par boucle
+    const legLoop = computeLegLoops(pts.map(p => p.key));
+    const groups = [];
+    for (let i = 0; i < legLoop.length; i++){
+      const last = groups[groups.length-1];
+      if (last && last.loop === legLoop[i] && last.end === i) last.end = i + 1;
+      else groups.push({ loop: legLoop[i], start: i, end: i + 1 });
+    }
+
+    let paths = '';
+    groups.forEach(g => {
+      const d = pathFor(g.start, g.end);
+      const c = loopColor(g.loop);
+      paths += '<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.16"/>';
+      paths += '<path d="'+d+'" fill="none" stroke="'+c+'" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 12"/>';
+    });
+
+    // Numérotation calée sur la liste "Nos étapes", qui dédoublonne par nom.
+    // Un lieu traversé deux fois porte donc un seul point, avec son numéro de liste.
+    const numByName = {};
+    let nextNum = 0;
+    (steps || []).forEach(s => {
+      const n = s.name;
+      if (n && !numByName[n]) numByName[n] = ++nextNum;
+    });
+
     let dots = '';
+    const drawn = {};
     xy.forEach((p, i) => {
+      const nm = pts[i].name;
+      if (nm && drawn[nm]) return;          // lieu déjà représenté (hub repassé)
+      if (nm) drawn[nm] = true;
+      const num = (nm && numByName[nm]) ? numByName[nm] : (i + 1);
       const isEnd = (i === 0 || i === xy.length - 1);
       dots += '<circle cx="'+p.x.toFixed(1)+'" cy="'+p.y.toFixed(1)+'" r="13" fill="#fff" stroke="#113f7a" stroke-width="3"/>';
-      dots += '<text x="'+p.x.toFixed(1)+'" y="'+(p.y+4.6).toFixed(1)+'" text-anchor="middle" font-family="Mulish,sans-serif" font-size="13" font-weight="800" fill="'+(isEnd?'#b8860b':'#113f7a')+'">'+(i+1)+'</text>';
+      dots += '<text x="'+p.x.toFixed(1)+'" y="'+(p.y+4.6).toFixed(1)+'" text-anchor="middle" font-family="Mulish,sans-serif" font-size="13" font-weight="800" fill="'+(isEnd?'#b8860b':'#113f7a')+'">'+num+'</text>';
     });
 
     return ''
       + '<svg viewBox="0 0 '+W+' '+H+'" style="position:absolute;inset:0;width:100%;height:100%">'
-      + '<path d="'+d+'" fill="none" stroke="#113f7a" stroke-width="4.5" stroke-linecap="round" stroke-opacity="0.16"/>'
-      + '<path d="'+d+'" fill="none" stroke="#113f7a" stroke-width="3.5" stroke-linecap="round" stroke-dasharray="2 12"/>'
+      + paths
       + dots
       + '</svg>';
   }
