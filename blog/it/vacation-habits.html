@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vacanze nel mondo: giorni di ferie, destinazioni e budget, paese per paese</title>
+<meta name="description" content="30 giorni di ferie in Brasile, zero garantiti negli USA. Chi resta a casa, chi va all'estero, per quanti giorni e con quale budget giornaliero: il grande confronto di 15 paesi.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/it/vacation-habits.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/vacation-habits.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/vacation-habits.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/vacation-habits.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/vacation-habits.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/vacation-habits.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/vacation-habits.html">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Vacanze nel mondo: giorni di ferie, destinazioni e budget, paese per paese">
+<meta property="og:description" content="30 giorni di ferie in Brasile, zero garantiti negli USA. Chi resta a casa, chi va all'estero, per quanti giorni e con quale budget: il grande confronto mondiale.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/it/vacation-habits.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/hero-vacances-monde.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Planisfero, passaporti e biglietti aerei: le vacanze nel mondo">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vacanze nel mondo: giorni di ferie, destinazioni e budget, paese per paese">
+<meta name="twitter:description" content="30 giorni di ferie in Brasile, zero garantiti negli USA. Il grande confronto delle vacanze in 15 paesi.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/hero-vacances-monde.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  .hero-tag{display:inline-block;background:#c1502e;color:#fff;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:10px;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover,.cta:visited,.cta:focus,.cta:active{color:#fff;background:#0c2c56;}
+  .cta-accent{background:#c1502e;font-size:15px;padding:14px 26px;}
+  .cta-accent:hover,.cta-accent:visited,.cta-accent:focus,.cta-accent:active{background:#a53f20;color:#fff;}
+  .country-card{border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:24px 28px;margin:24px auto 28px;}
+  .country-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .country-name{font-family:'Instrument Serif',serif;font-size:26px;color:#3a2f22;margin:0 0 14px;}
+  .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0 4px;}
+  .country-fact{font-size:14px;color:#4a4030;line-height:1.5;}
+  .country-fact b{color:#113f7a;display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;padding:8px 26px;margin:14px auto 28px;background:#fff;}
+  .checklist li{font-size:15px;line-height:1.7;color:#4a4030;margin:12px 0;}
+  .checklist li b{color:#113f7a;}
+  .full-img-c{width:100%;max-width:960px;margin:8px auto 28px;padding:0 48px;display:block;}
+  .full-img-c img{width:100%;height:auto;display:block;border-radius:12px;}
+  .comp-table{overflow-x:auto;margin:8px 0 20px;}
+  .comp-table table{width:100%;min-width:820px;border-collapse:collapse;background:#fff;border:1px solid #e3e0d8;border-radius:12px;font-size:13px;}
+  .comp-table th{background:#113f7a;color:#fff;text-align:left;padding:10px 12px;font-weight:600;white-space:nowrap;}
+  .comp-table td{padding:10px 12px;border-bottom:1px solid #e3e0d8;color:#4a4030;line-height:1.5;vertical-align:top;}
+  .comp-table tr:last-child td{border-bottom:none;}
+  .comp-table td:first-child{font-weight:600;color:#113f7a;white-space:nowrap;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  .hotel-card{display:flex;gap:0;border:1px solid #e3e0d8;border-radius:16px;background:#fff;overflow:hidden;margin:24px auto 28px;}
+  .hotel-card img{width:38%;object-fit:cover;display:block;min-height:200px;}
+  .hotel-body{padding:22px 26px;flex:1;}
+  .hotel-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 8px;}
+  .hotel-rating{display:inline-block;background:#113f7a;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:12px;}
+  .hotel-desc{font-size:14px;line-height:1.6;color:#4a4030;margin:0 0 14px;}
+  @media (max-width:600px){.hotel-card{flex-direction:column;}.hotel-card img{width:100%;min-height:180px;height:200px;}}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .full-img-c{padding:0 20px;}
+    .full-img{height:220px;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .country-grid{grid-template-columns:1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">Mondo</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Il grande confronto · 15 paesi</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Giro del mondo delle vacanze: chi va dove e per quanto?</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">30 giorni di ferie in Brasile, zero garantiti negli Stati Uniti. Giorni di riposo, destinazioni, durate, budget giornalieri: le vacanze raccontano un paese meglio di tanti discorsi.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/hero-vacances-monde.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Planisfero, passaporti e biglietti aerei visti dall'alto" data-imgkey="hero-vacances-monde" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Indice</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Il mondo in vacanza</a>
+      <a href="#s02">02 · Francia: cinque settimane, e restano a casa</a>
+      <a href="#s03">03 · Germania: i re del viaggio organizzato</a>
+      <a href="#s04">04 · Regno Unito: le vacanze prima di tutto</a>
+      <a href="#s05">05 · Italia: il mare, la famiglia, il paese</a>
+      <a href="#s06">06 · Spagna: tanti viaggi, budget ridotti</a>
+      <a href="#s07">07 · Paesi Bassi: il popolo più viaggiatore d'Europa</a>
+      <a href="#s08">08 · Stati Uniti: zero giorni garantiti</a>
+      <a href="#s09">09 · Canada: l'anno in cui tutto è cambiato</a>
+      <a href="#s10">10 · Brasile: 30 giorni di ferie, prima la spiaggia</a>
+      <a href="#s11">11 · Giappone: il paese che non osa partire</a>
+      <a href="#s12">12 · Cina: 6,5 miliardi di viaggi all'anno</a>
+      <a href="#s13">13 · Corea del Sud: tutti dal vicino</a>
+      <a href="#s14">14 · India: il gigante che decolla</a>
+      <a href="#s15">15 · Australia: tutto è lontano, si parte a lungo</a>
+      <a href="#s16">16 · Paesi del Golfo: l'estate più lussuosa del mondo</a>
+      <a href="#s17">17 · Road trip o viaggio organizzato?</a>
+      <a href="#s18">18 · La grande tabella comparativa</a>
+      <a href="#s19">19 · Cosa ricordare</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Indice</span>
+</div>
+
+<!-- ============ S01 : INTRO ============ -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Il mondo in vacanza</h2></div>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0 0 20px;">Italiani che non lasciano quasi mai la loro penisola. Coreani che invadono il Giappone. Cinesi che viaggiano a centinaia di milioni in una sola settimana. Ecco il grande confronto, dati alla mano.</p>
+  </div>
+  <div class="col" style="margin-top:4px;">
+    <p>Quanti giorni di ferie si hanno a seconda del paese in cui si vive? Si resta a casa o si va all'estero? Dove, per quanto tempo, con quale budget al giorno? E si cerca il risparmio o il lusso? Abbiamo spulciato i grandi studi di viaggio 2025-2026, paese per paese, per rispondere a queste domande.</p>
+    <p style="margin:0;">Il risultato disegna culture delle vacanze radicalmente diverse, dalla micro-vacanza giapponese di due notti all'estate di più settimane delle famiglie del Golfo. E un cambiamento mondiale che ci riguarda da vicino: ovunque, il viaggio organizzato arretra a favore del viaggio costruito da sé. Buon viaggio.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+      <a class="cta cta-accent" href="https://www.oneroadtrip.com/" target="_blank" rel="noopener">Crea il mio road trip su OneRoadTrip →</a>
+      <a class="cta cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Confronta i noleggi auto →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S02 : FRANCE ============ -->
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Francia: cinque settimane, e restano a casa</h2></div>
+    <p>I francesi partono con uno dei contratti migliori al mondo: 25 giorni di ferie pagate, 11 festivi e spesso giorni di riposo aggiuntivi. Eppure non vanno lontano: tra il 63 e il 70 % dei vacanzieri estivi resta in Francia. Direzione mare soprattutto: Provenza, Bretagna, costa atlantica, Occitania. Quando varcano il confine, è verso Spagna, Italia, Grecia o Tunisia.</p>
+    <p style="margin:0;">La tendenza è chiara: il 69 % cita il prezzo come criterio numero uno, più della metà parte a giugno o settembre per pagare meno, e quasi un vacanziere su due parte solo una settimana o meno. Le vacanze francesi sono campeggio, casa in affitto e casa di famiglia molto più che hotel di lusso.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Francia · La scheda</div>
+      <div class="country-name">Tanti giorni, a caccia del prezzo migliore</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>25 giorni + 11 festivi, più giorni di riposo</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Dal 30 al 37 % dei vacanzieri estivi</div>
+        <div class="country-fact"><b>Destinazioni top</b>Spagna, Italia, Grecia</div>
+        <div class="country-fact"><b>Durata tipica</b>1-2 settimane, soggiorni sempre più corti</div>
+        <div class="country-fact"><b>Budget</b>100-115 € al giorno a persona</div>
+        <div class="country-fact"><b>Profilo</b>Il prezzo come primo criterio</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/france-plage.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Spiaggia francese animata con ombrelloni colorati d'estate" loading="lazy" data-imgkey="france-plage" style="height:400px;">
+</div>
+
+<!-- ============ S03 : ALLEMAGNE ============ -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Germania: i re del viaggio organizzato</h2></div>
+    <p>Il minimo legale è di 20 giorni, ma la maggior parte dei lavoratori tedeschi ne ha da 28 a 30, più 9-14 festivi a seconda della regione. E loro partono: secondo gli studi, dai due terzi a quasi l'80 % dei viaggi di vacanza è verso l'estero. La Spagna domina la classifica, davanti a Italia, Turchia, Grecia e Austria. Maiorca resta quasi un'annessa della Germania.</p>
+    <p style="margin:0;">Il grande viaggio annuale dura in media 13 giorni e costa 1.636 € a persona, circa 130 € al giorno, un record storico. Il profilo tipico: il pacchetto tutto compreso, prenotato in anticipo, con un budget reale ma senza eccessi. Fascia media comoda, affidabile, pianificata. Molto tedesco.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Germania · La scheda</div>
+      <div class="country-name">13 giorni di sole, prenotati a gennaio</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>20 legali, 28-30 nella pratica + festivi</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Da 2 su 3 a 8 su 10 secondo gli studi</div>
+        <div class="country-fact"><b>Destinazioni top</b>Spagna, Italia, Turchia, Grecia</div>
+        <div class="country-fact"><b>Durata tipica</b>13 giorni per il viaggio principale</div>
+        <div class="country-fact"><b>Budget</b>1.636 € a persona, circa 130 € al giorno</div>
+        <div class="country-fact"><b>Profilo</b>Fascia media, pacchetto organizzato</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/allemagne-mediterranee.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Lettini e ombrelloni di un hotel in riva al Mediterraneo" loading="lazy" data-imgkey="allemagne-mediterranee" style="height:400px;">
+</div>
+
+<!-- ============ S04 : ROYAUME-UNI ============ -->
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Regno Unito: le vacanze prima di tutto, anche a costo di rinunciare al resto</h2></div>
+    <p>I britannici hanno diritto a 5,6 settimane di ferie, cioè 28 giorni festivi inclusi. Il loro rapporto con le vacanze è quasi sentimentale: l'87 % è partito almeno una volta nell'anno, il 59 % all'estero, e il 65 % dichiara che le vacanze sono il momento più importante dell'anno. Cosa notevole: è l'ultima voce che accettano di tagliare; prima riducono ristoranti, cinema e vestiti.</p>
+    <p style="margin:0;">La formula vincente: la spiaggia (quasi un soggiorno su due), una o due settimane, e la Spagna come destinazione del cuore, di gran lunga davanti. In Spagna, un britannico resta in media 7,7 giorni e spende 184 € al giorno (dati 2025), circa 1.420 € a soggiorno. Uno dei budget giornalieri più alti d'Europa: il britannico in vacanza non bada a spese, recupera un anno di cielo grigio.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Regno Unito · La scheda</div>
+      <div class="country-name">Il sole spagnolo come religione nazionale</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>28 giorni, festivi inclusi</div>
+        <div class="country-fact"><b>Vanno all'estero</b>59 % nell'anno</div>
+        <div class="country-fact"><b>Destinazione top</b>La Spagna, di gran lunga</div>
+        <div class="country-fact"><b>Durata tipica</b>Circa 8 giorni all'estero</div>
+        <div class="country-fact"><b>Budget</b>184 € al giorno in Spagna (2025)</div>
+        <div class="country-fact"><b>Profilo</b>Grande budget vacanze, risparmio il resto dell'anno</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/gb-espagne.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Lungomare spagnolo con grattacieli e spiaggia affollata al sole" loading="lazy" data-imgkey="gb-espagne" style="height:400px;">
+</div>
+
+<!-- ============ S05 : ITALIE ============ -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Italia: il mare, la famiglia e soprattutto non lasciare il paese</h2></div>
+    <p>Gli italiani hanno circa quattro settimane di ferie più 11 festivi, e l'estate resta sacra. Ma è uno dei paesi più casalinghi d'Europa: secondo gli studi, l'80-90 % dei vacanzieri resta in Italia. Si capisce: Puglia, Sardegna, Sicilia, Trentino, Riviera romagnola. Il mare assorbe tre quarti dei soggiorni. Quando escono, è verso Spagna, Grecia, Francia, e una new entry che esplode: l'Albania, la metà del prezzo.</p>
+    <p style="margin:0;">Sul fronte budget, la vacanza principale costa circa 900-975 € a persona, più o meno 94 € al giorno. Il segreto di questo risparmio: quasi 3 italiani su 10 alloggiano da familiari o amici, e molti nella casa di famiglia. L'alloggio gratuito è un'istituzione nazionale.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Italia · La scheda</div>
+      <div class="country-name">La casa di famiglia come campo base</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>Circa 4 settimane + 11 festivi</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Solo il 10-20 %</div>
+        <div class="country-fact"><b>Destinazioni top</b>Spagna, Grecia, Albania in pieno boom</div>
+        <div class="country-fact"><b>Durata tipica</b>Circa 10 giorni</div>
+        <div class="country-fact"><b>Budget</b>Circa 94 € al giorno</div>
+        <div class="country-fact"><b>Profilo</b>Budget ridotti, alloggio in famiglia</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/italie-pouilles.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cala italiana dalle acque turchesi con barche e paese bianco" loading="lazy" data-imgkey="italie-pouilles" style="height:400px;">
+</div>
+
+<!-- ============ S06 : ESPAGNE ============ -->
+<div id="s06" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Spagna: tanti viaggi, budget ridotti</h2></div>
+    <p>Sulla carta, gli spagnoli sono fortunati: 30 giorni di calendario di ferie e 14 festivi, uno dei totali più alti d'Europa. Nei fatti viaggiano moltissimo ma soprattutto in patria: l'87 % dei loro spostamenti resta in Spagna. Non a caso: vivono nella prima destinazione balneare del continente.</p>
+    <p style="margin:0;">Il contrasto dei budget è netto: 66 € al giorno e 263 € a viaggio in Spagna, contro 131 € al giorno e oltre 1.000 € a viaggio all'estero. Solo il 13 % dei viaggi varca il confine, ma assorbe il 37 % della spesa. L'estate tipica: la costa, l'appartamento in famiglia, soggiorni spesso spezzati in più brevi fughe.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Spagna · La scheda</div>
+      <div class="country-name">Perché partire se abiti già nella destinazione?</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>30 giorni di calendario + 14 festivi</div>
+        <div class="country-fact"><b>Vanno all'estero</b>13 % dei viaggi</div>
+        <div class="country-fact"><b>Destinazioni top</b>Francia, Portogallo, Italia</div>
+        <div class="country-fact"><b>Durata tipica</b>Soggiorni brevi e spezzati</div>
+        <div class="country-fact"><b>Budget</b>66 € al giorno in patria, 131 € all'estero</div>
+        <div class="country-fact"><b>Profilo</b>Budget ridotti, soggiorni multipli</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/espagne-tapas.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Terrazza animata in una sera d'estate in un vicolo andaluso" loading="lazy" data-imgkey="espagne-tapas" style="height:400px;">
+</div>
+
+<!-- ============ S07 : PAYS-BAS ============ -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Paesi Bassi: il popolo più viaggiatore d'Europa</h2></div>
+    <p>Il minimo legale è di 20 giorni, la maggior parte ne ha 25 o più, e soprattutto gli olandesi ricevono un premio unico nel suo genere: il vakantiegeld, l'8 % dello stipendio annuo versato a maggio, apposta per finanziare le vacanze. Un paese che ti paga per partire. E partono: l'85-88 % ha progetti di vacanza ogni anno, con in media 23 giorni di viaggio complessivi.</p>
+    <p style="margin:0;">Essendo il paese piccolo, piatto e piovoso, più della metà delle vacanze si svolge all'estero: Spagna in testa (un terzo dei vacanzieri), poi Germania e Francia, dove la roulotte olandese sull'autostrada del sud è un monumento dell'estate. Budget controllato: la maggior parte prevede tra 1.000 e 2.000 € a persona per tutto l'anno. Campeggio e bungalow senza complessi.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Paesi Bassi · La scheda</div>
+      <div class="country-name">Un premio legale per andare in vacanza</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>20-25 giorni + premio vacanze dell'8 % dello stipendio</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Più della metà delle vacanze</div>
+        <div class="country-fact"><b>Destinazioni top</b>Spagna, Germania, Francia</div>
+        <div class="country-fact"><b>Durata tipica</b>23 giorni di viaggio complessivi all'anno</div>
+        <div class="country-fact"><b>Budget</b>1.000-2.000 € a persona all'anno</div>
+        <div class="country-fact"><b>Profilo</b>Budget controllato, la roulotte in testa</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/paysbas-caravane.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Roulotte sull'autostrada del sud tra campi di girasoli" loading="lazy" data-imgkey="paysbas-caravane" style="height:400px;">
+</div>
+
+<!-- ============ S08 : ÉTATS-UNIS ============ -->
+<div id="s08" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Stati Uniti: l'unico paese ricco senza ferie garantite</h2></div>
+    <p>È l'anomalia mondiale: nessuna legge federale impone un solo giorno di ferie pagate. Tutto si negozia con il datore di lavoro. Nella pratica, un dipendente americano parte con 10 o 11 giorni, arriva a 15 dopo cinque anni, e parte di questi giorni non viene nemmeno usata. Risultato: le vacanze americane sono brevi e intense. Il paese ha inventato il road trip per un motivo: la stragrande maggioranza dei viaggi di piacere resta interna, Florida, parchi nazionali, California, Las Vegas.</p>
+    <p style="margin:0;">All'estero, il trio di testa: Messico, Caraibi, Europa, con il Giappone in forte crescita. E quando partono, spendono: il budget estivo medio supera i 3.000 $ a persona, e al giorno la forbice va da 120 $ in versione economica a oltre 900 $ in versione lusso. L'americano compensa la mancanza di tempo con il denaro.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Stati Uniti · La scheda</div>
+      <div class="country-name">Pochi giorni, tanti dollari</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>Zero legali, 11-15 nella pratica</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Una minoranza, regna il road trip interno</div>
+        <div class="country-fact"><b>Destinazioni top</b>Messico, Caraibi, Europa, Giappone</div>
+        <div class="country-fact"><b>Durata tipica</b>Soggiorni brevi e intensi</div>
+        <div class="country-fact"><b>Budget</b>Da 120 a oltre 900 $ al giorno secondo la fascia</div>
+        <div class="country-fact"><b>Profilo</b>Grandi budget, comfort ed esperienze</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/usa-roadtrip.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Auto su una strada dritta in un deserto dell'Ovest americano" loading="lazy" data-imgkey="usa-roadtrip" style="height:400px;">
+  <div class="col">
+    <p style="margin:0;">Il road trip americano per eccellenza è ovviamente la Route 66. Le abbiamo dedicato una guida completa dei luoghi mitici, da Chicago al Pacifico: <a href="https://www.oneroadtrip.com/blog/it/route-66.html">leggila qui</a>.</p>
+  </div>
+</div>
+
+<!-- ============ S09 : CANADA ============ -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Canada: l'anno in cui tutto è cambiato</h2></div>
+    <p>Il diritto è modesto per un paese ricco: 2 settimane di ferie legali nella maggior parte delle province, 3 dopo qualche anno di anzianità, più una decina di festivi. Per decenni le vacanze canadesi avevano un indirizzo: gli Stati Uniti. Florida d'inverno, weekend di shopping, Disney. Poi è arrivato il 2025: tensioni commerciali, dazi, clima politico. I viaggi di piacere verso gli Stati Uniti sono crollati da un quinto a un terzo a seconda del trimestre del 2025.</p>
+    <p style="margin:0;">Quel denaro non è rimasto sotto il materasso: il turismo interno batte record, e lo spostamento verso l'estero è enorme, Messico in testa (secondo i dati aeroportuali messicani, Toronto è diventata la prima rotta internazionale verso Cancún, davanti alle città americane), poi Europa e Caraibi. Un caso da manuale: la geopolitica che ridisegna una mappa delle vacanze in un anno.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Canada · La scheda</div>
+      <div class="country-name">La grande svolta del 2025</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>10-15 giorni + una decina di festivi</div>
+        <div class="country-fact"><b>Tendenza</b>Interno in forte crescita, USA in calo</div>
+        <div class="country-fact"><b>Destinazioni top</b>Messico, Europa, Caraibi</div>
+        <div class="country-fact"><b>Durata tipica</b>1-2 settimane</div>
+        <div class="country-fact"><b>Budget</b>Fascia media</div>
+        <div class="country-fact"><b>Profilo</b>Pragmatico</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/canada-lac.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Canoa rossa su un lago turchese delle Montagne Rocciose canadesi" loading="lazy" data-imgkey="canada-lac" style="height:400px;">
+</div>
+
+<!-- ============ S10 : BRÉSIL ============ -->
+<div id="s10" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Brasile: 30 giorni di ferie, prima la spiaggia</h2></div>
+    <p>Trenta giorni di calendario dopo un anno di anzianità, di cui almeno 14 consecutivi. Uno dei regimi più generosi al mondo. Il brasiliano ha tempo per partire, e parte soprattutto in patria: le spiagge del Nordeste, Rio, Florianópolis, e un enorme turismo di famiglia. La moneta debole rende caro l'estero, quindi le destinazioni preferite sono vicine: l'Argentina in testa, Buenos Aires per lo shopping, Bariloche per la neve, poi Uruguay e Cile.</p>
+    <p style="margin:0;">Le due grandi eccezioni a lungo raggio: gli Stati Uniti, con Miami e Orlando come pellegrinaggio di shopping e parchi, e il Portogallo, porta d'ingresso europea senza barriera linguistica. Sullo stile, il brasiliano organizza sempre più da sé il viaggio, predilige l'alloggio economico e concentra il budget sull'esperienza e sullo shopping più che sull'hotel.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Brasile · La scheda</div>
+      <div class="country-name">30 giorni di calendario, tra i più generosi al mondo</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>30 giorni di calendario + festivi</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Una minoranza, l'Argentina in testa</div>
+        <div class="country-fact"><b>Destinazioni top</b>Argentina, Stati Uniti, Portogallo</div>
+        <div class="country-fact"><b>Durata tipica</b>2 settimane di fila possibili</div>
+        <div class="country-fact"><b>Budget</b>Budget ridotto, tranne per lo shopping</div>
+        <div class="country-fact"><b>Profilo</b>Spiaggia, famiglia, organizzazione fai-da-te</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/bresil-bariloche.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Strada panoramica di Bariloche tra lago e montagne della Patagonia" loading="lazy" data-imgkey="bresil-bariloche" style="height:400px;">
+</div>
+
+<!-- ============ S11 : JAPON ============ -->
+<div id="s11" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Giappone: il paese che non osa prendersi le ferie</h2></div>
+    <p>Il diritto esiste: 10 giorni dopo sei mesi di anzianità, fino a 20 poi, più 16 festivi. Ma la cultura aziendale fa il resto: secondo l'indagine del Ministero del Lavoro, nel 2022 i dipendenti prendevano solo 11 giorni sui 17,6 concessi, e nonostante un record recente il tasso supera a malapena il 65 %. Prendere due settimane di fila è ancora malvisto. Da qui un modello unico: le micro-vacanze. Una o due notti in un onsen, un weekend a Kyoto o Hakone, e tutti partono nello stesso momento durante la Golden Week di maggio, l'Obon di agosto e il Capodanno.</p>
+    <p style="margin:0;">Circa il 70 % dei viaggiatori giapponesi preferisce restare in patria, per sicurezza, prezzo e comodità. L'estero riparte lentamente, ma lo yen debole frena: le destinazioni sono vicine e accessibili, Corea del Sud, Taiwan, Thailandia, con le Hawaii come sogno assoluto. La spesa resta prudente, i soggiorni brevi.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Giappone · La scheda</div>
+      <div class="country-name">L'arte della micro-vacanza</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>10-20 giorni + 16 festivi, appena il 65 % usati</div>
+        <div class="country-fact"><b>Vanno all'estero</b>Circa il 30 %</div>
+        <div class="country-fact"><b>Destinazioni top</b>Corea del Sud, Taiwan, Hawaii</div>
+        <div class="country-fact"><b>Durata tipica</b>2-4 giorni</div>
+        <div class="country-fact"><b>Budget</b>Moderato, frenato dallo yen debole</div>
+        <div class="country-fact"><b>Profilo</b>Budget prudenti, partenze concentrate</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/japon-onsen.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Bagno termale giapponese all'aperto con vista sulle montagne" loading="lazy" data-imgkey="japon-onsen" style="height:400px;">
+</div>
+
+<!-- ============ S12 : CHINE ============ -->
+<div id="s12" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">Cina: 6,5 miliardi di viaggi all'anno</h2></div>
+    <p>Le ferie pagate legali sono scarse: 5 giorni con meno di dieci anni di anzianità, 15 al massimo. Ma i festivi cambiano tutto: le Golden Week del Capodanno cinese e di ottobre offrono ciascuna una settimana intera in cui l'intero paese si sposta nello stesso momento. I numeri danno le vertigini: 6,5 miliardi di viaggi interni nel 2025, con una spesa media modesta, intorno ai 1.000 yuan a viaggio, circa 125 €. All'estero, quasi 168 milioni di uscite nel 2025, di cui due terzi verso Hong Kong, Macao e Taiwan, poi Giappone, Thailandia, Corea e Vietnam, e in Europa la Francia, la Norvegia e l'Islanda diventate virali sui social cinesi.</p>
+    <p style="margin:0;">E bisogna seppellire un cliché: il pullman di turisti dietro una guida con la bandierina è finito. Nel 2025, il 56 % dei viaggiatori cinesi diretti all'estero organizza il viaggio da sé, contro il 27 % in gruppo. Tra i 18-24 anni, il viaggio indipendente raggiunge il 71 %. La nuova generazione pianifica sui social, prenota all'ultimo minuto e soprattutto si mette al volante: il noleggio auto all'estero è balzato del 50 % durante l'estate, per road trip di 7-8 giorni, soprattutto in Europa.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Cina · La scheda</div>
+      <div class="country-name">Dal pullman di gruppo al road trip in solitaria</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>5-15 giorni + le Golden Week</div>
+        <div class="country-fact"><b>Volume</b>6,5 miliardi di viaggi interni all'anno</div>
+        <div class="country-fact"><b>Destinazioni top</b>Hong Kong e Macao, Giappone, Thailandia</div>
+        <div class="country-fact"><b>Durata tipica</b>Soggiorni brevi, tutti insieme</div>
+        <div class="country-fact"><b>Budget</b>Circa 125 € a viaggio interno, molto di più all'estero</div>
+        <div class="country-fact"><b>Profilo</b>Budget ridotti in patria, road trip e shopping all'estero</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/chine-roadtrip-europe.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Giovane coppia asiatica in road trip davanti a un fiordo norvegese" loading="lazy" data-imgkey="chine-roadtrip-europe" style="height:400px;">
+</div>
+
+<!-- ============ S13 : CORÉE DU SUD ============ -->
+<div id="s13" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">13</span><h2 class="sec-title">Corea del Sud: il paese che parte di più... dal vicino</h2></div>
+    <p>Circa 15 giorni di ferie dopo un anno di anzianità, più i festivi. Un regime alla giapponese sulla carta, ma un comportamento esattamente opposto. I numeri sono sbalorditivi: 29,55 milioni di uscite dal paese nel 2025, un record storico, per 51 milioni di abitanti. In rapporto alla popolazione, uno dei tassi di partenza all'estero più alti al mondo.</p>
+    <p style="margin:0;">E la destinazione è schiacciante: il Giappone, da solo 9,46 milioni di visitatori coreani nel 2025, +69 % rispetto al 2019 (un anno di boicottaggio coreano del Giappone, quindi il confronto parte da una base bassa). Lo yen debole ha trasformato l'arcipelago vicino in una fuga low cost: due ore di volo, qualche giorno, shopping, ramen e onsen. Seguono, molto più indietro, Vietnam e Cina. Il rovescio della medaglia: un deficit turistico di oltre 10 miliardi di dollari all'anno.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Corea del Sud · La scheda</div>
+      <div class="country-name">Campione della fuga urbana all'estero</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>Circa 15 giorni + festivi</div>
+        <div class="country-fact"><b>Partenze all'estero</b>29,55 milioni nel 2025, record</div>
+        <div class="country-fact"><b>Destinazione top</b>Il Giappone, di gran lunga davanti a tutto</div>
+        <div class="country-fact"><b>Durata tipica</b>Soggiorni brevi e frequenti</div>
+        <div class="country-fact"><b>Budget</b>Moderato a viaggio, grande volume annuo</div>
+        <div class="country-fact"><b>Profilo</b>Soggiorni brevi ripetuti, al miglior prezzo</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/coree-tokyo2.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Giovani viaggiatori con valigie in una via di Tokyo di notte" loading="lazy" data-imgkey="coree-tokyo2" style="height:400px;">
+</div>
+
+<!-- ============ S14 : INDE ============ -->
+<div id="s14" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">14</span><h2 class="sec-title">India: il gigante che comincia appena a viaggiare</h2></div>
+    <p>Il lavoratore indiano dispone in genere di una quindicina di giorni di ferie annue, integrati da numerosi festivi nazionali e regionali. Il turismo interno è colossale, spesso legato a feste religiose e matrimoni: pellegrinaggi, Goa, Kerala, Rajasthan. Ma la vera storia è quella internazionale: circa 30 milioni di indiani sono partiti all'estero nell'anno, un record, con proiezioni a 80-90 milioni di viaggi annui entro il 2040.</p>
+    <p style="margin:0;">Destinazioni regine: Dubai, Thailandia, Singapore, Vietnam, con un affondo verso l'Europa. Nel 2023 la spesa media si aggirava sui 1.000 $ a viaggio, ma la tendenza è alla fascia alta: l'84 % dei viaggiatori intervistati nel 2025 prevedeva di aumentare il budget del 20-50 %. L'India passa dal viaggio economico di gruppo al soggiorno su misura, e a volte al vero lusso.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">India · La scheda</div>
+      <div class="country-name">L'esplosione in arrivo</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>Circa 15 giorni + numerosi festivi</div>
+        <div class="country-fact"><b>Partenze all'estero</b>Circa 30 milioni all'anno, in pieno boom</div>
+        <div class="country-fact"><b>Destinazioni top</b>Dubai, Thailandia, Singapore</div>
+        <div class="country-fact"><b>Durata tipica</b>Variabile, matrimoni e lune di miele in testa</div>
+        <div class="country-fact"><b>Budget</b>Circa 1.000 $ a viaggio, in forte crescita</div>
+        <div class="country-fact"><b>Profilo</b>Sale di fascia anno dopo anno</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S15 : AUSTRALIE ============ -->
+<div id="s15" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">15</span><h2 class="sec-title">Australia: tutto è lontano, quindi si parte a lungo</h2></div>
+    <p>Quattro settimane di ferie legali più una decina di festivi. Discreto, niente di più. Il vero tema australiano è la geografia: il vicino più vicino è a 3 ore di volo, l'Europa a 22. Non li ferma affatto: 12,6 milioni di viaggi all'estero nel 2025, un record assoluto, per 27 milioni di abitanti. Il podio: l'Indonesia, cioè Bali, circa 1,7 milioni di australiani all'anno per un soggiorno tipico di 9 giorni, poi la Nuova Zelanda, e il Giappone, i cui arrivi sono triplicati in dieci anni fino a superare gli Stati Uniti.</p>
+    <p style="margin:0;">Il paradosso australiano: budget vincolati dai voli cari, ma scelte ultra-razionali, con il tasso di cambio e il costo sul posto come primi criteri di destinazione. Da qui il trionfo dell'Asia: lontano da casa, tutto costa poco. Anche il turismo interno resta enorme, con 113 milioni di viaggi con pernottamento all'anno.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Australia · La scheda</div>
+      <div class="country-name">Record di partenze nonostante le distanze</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Giorni garantiti</b>4 settimane + una decina di festivi</div>
+        <div class="country-fact"><b>Partenze all'estero</b>12,6 milioni nel 2025, record</div>
+        <div class="country-fact"><b>Destinazioni top</b>Bali, Nuova Zelanda, Giappone</div>
+        <div class="country-fact"><b>Durata tipica</b>Circa 9 giorni</div>
+        <div class="country-fact"><b>Budget</b>Alto per via dei voli, deciso dal tasso di cambio</div>
+        <div class="country-fact"><b>Profilo</b>Guidato dal tasso di cambio e dai prezzi</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/australie-rizieres.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Scooter su una strada tra le risaie a terrazza di Bali" loading="lazy" data-imgkey="australie-rizieres" style="height:400px;">
+</div>
+
+<!-- ============ S16 : GOLFE ============ -->
+<div id="s16" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">16</span><h2 class="sec-title">Paesi del Golfo: l'estate più lussuosa del mondo</h2></div>
+    <p>Emirati, Arabia Saudita, Qatar, Kuwait: qui la variabile chiave non è il diritto del lavoro. Quando il termometro supera i 45 gradi a luglio, si parte, spesso in famiglia allargata, spesso a lungo. E si parte con mezzi senza pari: la spesa turistica all'estero raggiunge in media 2.262 $ per abitante all'anno nel Golfo, undici volte la media mondiale. Il Qatar tocca il picco di 6.836 $ per abitante.</p>
+    <p style="margin:0;">Nel Regno Unito, il visitatore del Golfo spende in media 2.850 $ a viaggio; in Svizzera, il 73 % dei suoi pernottamenti è in hotel a 4 o 5 stelle. È l'unico mercato al mondo in cui il lusso non è un segmento ma la norma. Le destinazioni raccontano la stessa storia: Londra, Parigi, Ginevra, e l'estate mediterranea chic, Marbella, Cannes, Nizza. Tendenza recente: il Sud-est asiatico cattura ormai oltre un quarto della domanda estiva.</p>
+  </div>
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Golfo · La scheda</div>
+      <div class="country-name">Il lusso come norma, non come segmento</div>
+      <div class="country-grid">
+        <div class="country-fact"><b>Motore</b>Fuggire dalla fornace estiva</div>
+        <div class="country-fact"><b>Spesa</b>2.262 $ spesi all'estero per abitante ogni anno, record mondiale</div>
+        <div class="country-fact"><b>Destinazioni top</b>Londra, Riviera, Marbella, Sud-est asiatico</div>
+        <div class="country-fact"><b>Durata tipica</b>Lunghi soggiorni estivi in famiglia</div>
+        <div class="country-fact"><b>Alloggio</b>73 % dei pernottamenti in 4-5 stelle in Svizzera</div>
+        <div class="country-fact"><b>Profilo</b>Lusso senza complessi, shopping e grandi hotel</div>
+      </div>
+    </div>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/golfe-luxe.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Marina mediterranea di lusso con yacht e palme" loading="lazy" data-imgkey="golfe-luxe" style="height:400px;">
+</div>
+
+<!-- ============ S17 : ROAD TRIP OU ORGANISÉ ============ -->
+<div id="s17" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">17</span><h2 class="sec-title">Road trip o viaggio organizzato? La grande svolta</h2></div>
+    <p>Un filo rosso attraversa tutti questi paesi: ovunque, il viaggio organizzato tradizionale arretra a favore del viaggio costruito da sé. Gli americani hanno inventato il road trip e non sono più tornati indietro. I cinesi, simboli del turismo di gruppo dieci anni fa, sono passati al 56 % di viaggiatori indipendenti e noleggiano auto per 8 giorni in Europa. I brasiliani prediligono il viaggio pianificato in casa. Gli indiani passano dal circuito di gruppo al su misura.</p>
+    <p style="margin:0;">Due roccaforti resistono: la Germania, dove il pacchetto tutto compreso verso il Mediterraneo resta re, e il Regno Unito, legato alle sue agenzie di viaggio. Ma la tendenza di fondo è mondiale: strumenti digitali ovunque, itinerari personalizzati e la libertà della strada come nuovo ideale. In altre parole, se stai leggendo questo blog, sei dalla parte giusta della storia. Il comparatore di noleggio auto e il pianificatore di itinerari sono in cima a questa pagina.</p>
+  </div>
+</div>
+
+<!-- ============ S18 : TABLEAU ============ -->
+<div id="s18" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">18</span><h2 class="sec-title">La grande tabella comparativa</h2></div>
+    <p>Tutto il confronto in un colpo d'occhio. Le cifre sono ordini di grandezza tratti dai grandi studi 2025-2026; quando le fonti divergono, indichiamo la forbice. I giorni sono giorni lavorativi, salvo diversa indicazione.</p>
+    <div class="comp-table">
+      <table>
+        <tr>
+          <th>Paese</th><th>Giorni garantiti</th><th>Vanno all'estero</th><th>Destinazioni top</th><th>Durata tipica</th><th>Budget indicativo</th><th>Profilo</th>
+        </tr>
+        <tr><td>Francia</td><td>36 (25 + 11 festivi) + giorni extra</td><td>30-37 % dei vacanzieri estivi</td><td>Spagna, Italia, Grecia</td><td>1-2 settimane</td><td>100-115 €/giorno</td><td>Il prezzo come primo criterio</td></tr>
+        <tr><td>Germania</td><td>29-44 secondo contratto</td><td>Da 2 su 3 a 8 su 10</td><td>Spagna, Italia, Turchia</td><td>13 giorni</td><td>130 €/giorno</td><td>Fascia media, pacchetti organizzati</td></tr>
+        <tr><td>Regno Unito</td><td>28, festivi inclusi</td><td>59 % nell'anno</td><td>Spagna di gran lunga</td><td>~8 giorni all'estero</td><td>184 €/giorno in Spagna (2025)</td><td>Grande budget vacanze</td></tr>
+        <tr><td>Italia</td><td>~31-37</td><td>Solo 10-20 %</td><td>Spagna, Grecia, Albania</td><td>~10 giorni</td><td>~94 €/giorno</td><td>Budget ridotti, alloggio in famiglia</td></tr>
+        <tr><td>Spagna</td><td>36 (22 + 14 festivi)</td><td>13 % dei viaggi</td><td>Francia, Portogallo, Italia</td><td>Soggiorni spezzati</td><td>66 €/g in patria, 131 €/g all'estero</td><td>Budget ridotti, soggiorni multipli</td></tr>
+        <tr><td>Paesi Bassi</td><td>20-25 + premio vacanze</td><td>Più della metà delle vacanze</td><td>Spagna, Germania, Francia</td><td>23 giorni complessivi/anno</td><td>1.000-2.000 €/anno</td><td>Budget controllato, tutto pianificato</td></tr>
+        <tr><td>Stati Uniti</td><td>0 garantiti, 11-15 reali</td><td>Una minoranza, regna il road trip interno</td><td>Messico, Caraibi, Europa</td><td>Soggiorni brevi</td><td>120-900 $/giorno secondo fascia</td><td>Grandi budget, soggiorni brevi</td></tr>
+        <tr><td>Canada</td><td>10-15 + festivi</td><td>In crescita, tranne verso gli USA</td><td>Messico, Europa, Caraibi</td><td>1-2 settimane</td><td>Fascia media</td><td>Fascia media, in piena svolta</td></tr>
+        <tr><td>Brasile</td><td>30 di calendario (~22 lavorativi) + festivi</td><td>Una minoranza, l'Argentina in testa</td><td>Argentina, USA, Portogallo</td><td>2 settimane possibili</td><td>Budget ridotto, tranne shopping</td><td>Prima spiaggia e famiglia</td></tr>
+        <tr><td>Giappone</td><td>10-20 + 16 festivi, ~65 % usati</td><td>Circa il 30 %</td><td>Corea, Taiwan, Hawaii</td><td>2-4 giorni</td><td>Moderato, yen debole</td><td>Budget prudenti, partenze concentrate</td></tr>
+        <tr><td>Cina</td><td>5-15 + Golden Week</td><td>Circa il 2,5 % dei viaggi</td><td>HK/Macao, Giappone, Thailandia</td><td>Brevi, in massa</td><td>~125 €/viaggio interno</td><td>Budget ridotti in patria, shopping all'estero</td></tr>
+        <tr><td>Corea del Sud</td><td>~15 + festivi</td><td>58 partenze ogni 100 abitanti all'anno</td><td>Giappone di gran lunga</td><td>Brevi e frequenti</td><td>Moderato a viaggio</td><td>Soggiorni brevi ripetuti, al miglior prezzo</td></tr>
+        <tr><td>India</td><td>~15 + numerosi festivi</td><td>Circa 2 abitanti su 100 all'anno</td><td>Dubai, Thailandia, Singapore</td><td>Variabile</td><td>~1.000 $/viaggio, in crescita</td><td>Sale di fascia</td></tr>
+        <tr><td>Australia</td><td>20 + festivi</td><td>47 partenze ogni 100 abitanti all'anno</td><td>Bali, Nuova Zelanda, Giappone</td><td>~9 giorni</td><td>Alto, deciso dal cambio</td><td>Guidato dal tasso di cambio</td></tr>
+        <tr><td>Golfo</td><td>Variabile</td><td>Esodo estivo massiccio</td><td>Londra, Riviera, Sud-est asiatico</td><td>Lunghi soggiorni estivi</td><td>2.262 $ per abitante all'anno, record mondiale</td><td>Fascia alta e lusso</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S19 : CONCLUSION ============ -->
+<div id="s19" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">19</span><h2 class="sec-title">Cosa ricordare</h2></div>
+    <p>Si delineano quattro modelli. Il modello mediterraneo (Francia, Italia, Spagna): tanti giorni, il mare di casa, la famiglia, un budget stretto. Il modello del nord viaggiatore (Germania, Regno Unito, Paesi Bassi, Australia): si va lontano, si va al sole, e si protegge quel budget prima di ogni altra cosa. Il modello asiatico frettoloso (Giappone, Cina, Corea): pochi giorni davvero presi, soggiorni brevi e frequenti, ma comportamenti divergenti, casalinghi in Giappone, frenetici in Corea, sempre più liberi in Cina. E il modello degli estremi: il Golfo che incarna il lusso puro, India e Brasile in ascesa, il Canada che ridisegna la sua mappa in una stagione.</p>
+    <p style="margin:0;">Una certezza per finire: ovunque si viva, nessuno rinuncia alle vacanze. Accorciamo, spezziamo, trattiamo, ma partiamo. E sempre più spesso partiamo al volante, con l'itinerario in tasca. Forse è questo il vero punto in comune dell'umanità.</p>
+  </div>
+  <div class="col">
+    <p style="margin:18px 0 0;font-size:13px;color:#8a7d68;">Fonti principali: Deutsche Tourismusanalyse e Reiseanalyse FUR 2025-2026, ABTA Holiday Habits 2025-26, INE Spagna 2025, Confcommercio/SWG e Federalberghi 2025, barometri Europ Assistance e Voyages E.Leclerc 2025, US Travel Association, JTB, Ministero cinese della Cultura e del Turismo, Dragon Trail e Fliggy 2025, NBTC/ANWB Paesi Bassi 2025, ABS e ATIA Australia 2025, Yanolja Research Corea 2025, dati VisitBritain/GCC, Statistics Canada 2025.</p>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Vacanze nel mondo: giorni di ferie, destinazioni e budget, paese per paese",
+  "description": "30 giorni di ferie in Brasile, zero garantiti negli USA. Chi resta a casa, chi va all'estero, per quanti giorni e con quale budget giornaliero: il grande confronto di 15 paesi.",
+  "image": ["https://wsrv.nl/?url=photos.oneroadtrip.com/vacances-monde/hero-vacances-monde.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "it",
+  "datePublished": "2026-07-29",
+  "dateModified": "2026-07-29",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/it/vacation-habits.html"}
+}
+</script>
+
+<script>
+(function(){
+  var fill=document.getElementById('progressFill');
+  var pill=document.getElementById('tocPill');
+  var toc=document.getElementById('tocFull');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    var p=h>0?(window.scrollY/h)*100:0;
+    if(fill)fill.style.width=p+'%';
+    if(pill&&toc){
+      var tocBottom=toc.getBoundingClientRect().bottom;
+      if(tocBottom<0)pill.classList.add('show');
+      else pill.classList.remove('show');
+    }
+  });
+})();
+</script>
+
+<!-- Stay22 / letmeallez : habille automatiquement les liens Booking avec l'ID affilié -->
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '692f0c75b2478d16bb9b22fa' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.oneroadtrip.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.oneroadtrip.com/blog/it/"},
+    {"@type": "ListItem", "position": 3, "name": "Vacanze nel mondo"}
+  ]
+}
+</script>
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"vacation-habits"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

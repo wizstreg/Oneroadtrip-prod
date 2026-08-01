@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road trip por la Puglia: 4 días alrededor de Alberobello</title>
+<meta name="description" content="Alberobello, Matera, las Cuevas de Castellana, Polignano a Mare, Ostuni y Locorotondo: nuestro itinerario día a día, los precios pagados, los errores a evitar.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/puglia-alberobello.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/puglia-alberobello.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/puglia-alberobello.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Road trip por la Puglia: 4 días alrededor de Alberobello">
+<meta property="og:description" content="Alberobello, Matera, las Cuevas de Castellana, Polignano a Mare, Ostuni y Locorotondo: nuestro itinerario día a día.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/trulli.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Los trulli del Rione Monti en Alberobello">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Road trip por la Puglia: 4 días alrededor de Alberobello">
+<meta name="twitter:description" content="Alberobello, Matera, las Cuevas de Castellana, Polignano a Mare, Ostuni y Locorotondo: nuestro itinerario día a día.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/trulli.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2,h3{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .sub{font-family:'Instrument Serif',serif;font-size:25px;color:#3a2f22;margin:34px 0 12px;}
+  .lede{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;}
+
+  /* ---- SYSTEME PHOTO ---- */
+  .band{width:100%;display:block;object-fit:cover;margin:10px 0 30px;height:420px;}
+  .band.tall{height:520px;}
+  .band.short{height:300px;}
+  .gal{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;gap:12px;}
+  .gal img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;}
+  .gal-2{grid-template-columns:1fr 1fr;grid-auto-rows:260px;}
+  .gal-3{grid-template-columns:1fr 1fr 1fr;grid-auto-rows:200px;}
+  .gal-4{grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-rows:170px;}
+  .gal-hero{grid-template-columns:2fr 1fr;grid-auto-rows:180px;}
+  .gal-hero > :first-child{grid-row:span 2;height:100%;}
+  .gal-wide{grid-template-columns:1fr 1fr;grid-auto-rows:230px;}
+  .gal-wide > :first-child{grid-column:span 2;height:300px;}
+  .duo{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;}
+  .duo.rev > img{order:2;}
+  .duo img{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block;}
+  .duo img.nocrop{height:auto;object-fit:contain;}
+  .duo p{margin:0 0 14px;}
+  .duo p:last-child{margin:0;}
+  figcaption,.cap{font-size:12.5px;color:#8a7d68;margin:-20px 0 28px;padding:0 48px;max-width:960px;margin-left:auto;margin-right:auto;}
+
+  /* ---- ENCADRES ---- */
+  .spot{border:2px solid #c1502e;border-radius:18px;background:#fff;padding:0;margin:34px auto 40px;overflow:hidden;}
+  .spot-img{width:100%;height:280px;object-fit:cover;display:block;}
+  .spot-body{padding:24px 28px 26px;}
+  .spot-eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#c1502e;font-weight:700;margin:0 0 6px;}
+  .spot-name{font-family:'Instrument Serif',serif;font-size:28px;color:#3a2f22;margin:0 0 14px;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:16px 0 0;}
+  .fact{font-size:14px;color:#4a4030;line-height:1.6;}
+  .fact b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:2px;}
+  .tip{border-left:4px solid #113f7a;background:#fff;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 28px;}
+  .tip b{color:#113f7a;}
+  .tip p{margin:0;font-size:15px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 24px;margin:24px 0 30px;}
+  .checklist ul{margin:0;padding-left:20px;}
+  .checklist li{font-size:15px;line-height:1.75;color:#4a4030;margin-bottom:8px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .itin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0 8px;}
+  .itin-card{display:block;border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 20px;text-decoration:none;transition:background .15s;}
+  .itin-card:hover{background:#f2f6fb;}
+  .itin-days{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c1502e;font-weight:700;}
+  .itin-t{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;margin:6px 0 8px;line-height:1.25;}
+  .itin-d{font-size:13.5px;line-height:1.6;color:#4a4030;}
+  .itin-list{margin:22px 0 0;padding:0;list-style:none;}
+  .itin-list li{border-bottom:1px solid #e3e0d8;padding:13px 0;}
+  .itin-list li:last-child{border-bottom:none;}
+  .itin-list a{font-weight:600;text-decoration:none;}
+  .itin-list span{display:block;font-size:13.5px;color:#8a7d68;line-height:1.55;margin-top:3px;}
+
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover{background:#0c2c56;color:#fff;}
+  .cta-accent{display:inline-flex;align-items:center;gap:8px;background:#c1502e;color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;margin:8px 8px 8px 0;}
+  .cta-accent:hover{background:#a53f20;color:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin:0 0 6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px;display:block;}
+  .bio{display:flex;gap:22px;align-items:center;border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:22px 26px;margin:32px auto 8px;}
+  .bio img{width:120px;height:120px;border-radius:999px;object-fit:contain;background:#faf8f4;flex:none;}
+  .bio h3{margin:0 0 8px;font-size:22px;color:#3a2f22;}
+  .bio p{font-size:15px;margin:0;}
+
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .gal,.duo,.cap{padding:0 20px;}
+    .gal-4{grid-template-columns:1fr 1fr;grid-auto-rows:150px;}
+    .gal-3{grid-template-columns:1fr 1fr;grid-auto-rows:150px;}
+    .gal-2{grid-auto-rows:170px;}
+    .gal-hero{grid-template-columns:1fr;grid-auto-rows:170px;}
+    .gal-hero > :first-child{grid-row:span 1;height:230px;}
+    .gal-wide{grid-auto-rows:150px;}
+    .gal-wide > :first-child{height:210px;}
+    .duo{grid-template-columns:1fr;gap:14px;}
+    .duo.rev > img{order:0;}
+    .duo img{height:220px;}
+    .duo img.nocrop{height:auto;}
+    .band{height:240px;}
+    .band.tall{height:300px;}
+    .band.short{height:200px;}
+    .spot-img{height:190px;}
+    .facts{grid-template-columns:1fr;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    .sub{font-size:21px;}
+    h1{font-size:30px !important;}
+    .hotel-gallery img{height:140px;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .bio{flex-direction:column;align-items:center;text-align:center;}
+    .itin-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <span class="hero-tag" style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Italia · Puglia · Diario de viaje</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Road trip por la Puglia: 4 días alrededor de Alberobello</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Trulli, pueblos blancos, gravine y cuevas. Primera parte de nuestros 14 días en el tacón de la bota.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/trulli.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Los tejados cónicos de los trulli de Alberobello" data-imgkey="trulli" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div class="bio">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/patmarccadre.webp&amp;w=400&amp;output=webp&amp;q=85" alt="Patricia y Marc, autores del blog OneRoadTrip" data-imgkey="patmarccadre">
+    <div>
+      <h3>¿Quiénes somos?</h3>
+      <p>Somos Patricia, maestra, y Marc, directivo en el sector de los seguros, y estamos en la cincuentena aventurera. Siempre nos ha gustado viajar. Primero Francia, nuestra tierra, sobre todo el sureste del que somos originarios, pero también muchos otros países. A finales de 2025, Marc creó una aplicación que reúne numerosos itinerarios por todo el mundo, totalmente modificables: <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip.com</a>. Desde entonces nos dejamos llevar los dos por nuestra pasión por los viajes e intentamos compartirla, a través de <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip</a> igual que a través de este blog.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col" style="padding-top:28px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Índice</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Cuándo ir y cómo organizarse</a>
+      <a href="#s02">02 · Alberobello y sus trulli</a>
+      <a href="#s03">03 · Matera y sus Sassi</a>
+      <a href="#s04">04 · Los pueblos de las gravine</a>
+      <a href="#s05">05 · Monopoli y Polignano a Mare</a>
+      <a href="#s06">06 · Las Cuevas de Castellana</a>
+      <a href="#s07">07 · Ostuni y los pueblos blancos</a>
+      <a href="#s08">08 · Locorotondo y el valle de Itria</a>
+      <a href="#s09">09 · Nuestras rutas por la Puglia</a>
+      <a href="#s10">10 · Créditos fotográficos</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Índice</span>
+</div>
+
+<!-- ================= S01 ================= -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Cuándo viajar a la Puglia y cómo organizarse</h2></div>
+    <p class="lede">Este artículo es el primero de una serie que cubre nuestro road trip de 14 días por la Puglia, el tacón de la bota italiana. Esta primera etapa parte de Alberobello, nuestra base durante cuatro días de visitas.</p>
+    <p>La Puglia era uno de los últimos rincones de Italia que nos faltaban. Fuimos la última semana de julio. En cuanto al tiempo, llevad una chaqueta ligera para las mañanas y las noches, refresca. Por la tarde, en cambio, contad entre 30 y 35 grados.</p>
+    <p>Dicen que en verano está abarrotado. No tanto, al menos no la última semana de julio. Algunos de los pueblos de los que vamos a hablar estaban completamente vacíos, sobre todo a primera hora de la tarde. Pero se entiende: muchas cosas cierran entre las 13h y las 16h. Las iglesias y catedrales también suelen estar cerradas, incluso fuera de la pausa, algo poco habitual comparado con el resto de Italia. Ahora bien, si vais por las playas, preparad los guantes de boxeo. Las playas públicas están llenísimas, sobre todo el fin de semana.</p>
+
+    <div class="checklist">
+      <ul>
+        <li><b>Cuándo.</b> Última semana de julio en nuestro caso. Junio y septiembre siguen siendo más cómodos.</li>
+        <li><b>Base.</b> Alberobello, céntrica y animada por la noche.</li>
+        <li><b>Duración.</b> 4 días completos para este circuito, sin correr.</li>
+        <li><b>Coche.</b> Imprescindible. Todo se juega en carreteras pequeñas entre pueblos.</li>
+      </ul>
+    </div>
+
+    <p>Reservamos el avión con Trip.com y el vehículo con QEEQ, que compara más de 500 empresas de alquiler con cancelación gratuita.</p>
+    <!-- Lien vol Trip.com (repris de at-carinthia-lakes-mountains-alpine-roads.html) -->
+    <a class="cta-accent" href="https://www.trip.com/flights/?SID=2209817&amp;allianceid=1094387&amp;trip_sub1=0012d64856b04e83aa39136e2-688844&amp;utm_campaign=688844" target="_blank" rel="sponsored nofollow noopener">Buscar un vuelo a Bari →</a>
+    <a class="cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Comparar coches de alquiler →</a>
+
+    <p style="margin-top:26px;">Si preferís montar vuestro propio viaje, lo más sencillo es ir marcando uno a uno los lugares a los que queréis ir. Después podréis exportar el itinerario como cuaderno de viaje.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=es" target="_blank" rel="noopener">Crear mi itinerario a medida →</a>
+    <p style="margin-top:22px;">O partid de una ruta ya preparada: tenemos catorce que pasan por la Puglia, <a href="#s09">detalladas al final del artículo</a>.</p>
+  </div>
+</div>
+
+<!-- ================= S02 ================= -->
+<div id="s02" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Alberobello y sus trulli: qué ver, dónde dormir</h2></div>
+    <p>Aterrizamos en Bari bastante tarde y recogemos el coche sobre las 23h. Ojo, las oficinas de alquiler cierran a las 23h: avisadles si llegáis más tarde, os facturarán la espera. Una hora de carretera y llegamos a Alberobello.</p>
+    <p>Habíamos elegido una habitación en un trullo, algo apartada del pueblo pero a solo cinco minutos. Tienes aparcamiento, la cercanía del centro y las atenciones sin los inconvenientes. Pagamos, en julio de 2026: 612 euros por 5 noches.</p>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Dónde dormimos</div>
+      <div class="hotel-name">Dimora Sumerano, Alberobello</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/dimorasumerano.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Habitación en un trullo en Alberobello" loading="lazy" data-imgkey="dimorasumerano">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/dimorasumerano2.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Exterior del trullo, Dimora Sumerano" loading="lazy" data-imgkey="dimorasumerano2">
+      </div>
+      <p style="margin:0 0 14px;">Un trullo rehabilitado a cinco minutos del centro, con aparcamiento. 612 euros por 5 noches en julio de 2026. Las reservas de hotel nos permiten financiar la web sin que paguéis un céntimo de más.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/MSrpFJNM24" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Ver la Dimora Sumerano →</a>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">El lugar</div>
+        <div class="spot-name">Alberobello</div>
+        <p style="margin:0;">Unos 1.500 trulli, casas de piedra seca rematadas por un tejado cónico, repartidas en dos barrios declarados Patrimonio de la Humanidad. Es céntrico, está animado por la noche y no faltan restaurantes. Dedicamos dos de nuestras tardes aquí a descubrir el pueblo, cada una por un lado distinto.</p>
+        <div class="facts">
+          <div class="fact"><b>Rione Monti</b>Más de 1.000 trulli, tiendas y restaurantes</div>
+          <div class="fact"><b>Rione Aia Piccola</b>Unos 400 trulli, todavía habitados</div>
+          <div class="fact"><b>Mejor momento</b>Por la tarde, cuando se van los autocares</div>
+          <div class="fact"><b>Aparcamiento</b>Fácil, los campos se han convertido en parkings</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col"><h3 class="sub">El Rione Monti, la cara espectacular</h3></div>
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/freysteinn-g-jonsson-gnn3hxrn7jq-unsplash.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Tejados cónicos de los trulli del Rione Monti en Alberobello" loading="lazy" data-imgkey="trulli-unsplash">
+  <div class="col">
+    <p>Empezad por el Rione Monti, el barrio más impresionante. Más de 1.000 trulli alineados en callejuelas en cuesta, con sus tejados cónicos rematados por pináculos y decorados con símbolos pintados: estrellas, corazones, signos para alejar el mal de ojo. Hoy la mayoría son talleres de artesanos, cafés y restaurantes.</p>
+    <p>No os perdáis el Trullo Siamese, dos cúpulas unidas que esconden una historia de novela, y la iglesia de Sant'Antonio, construida enteramente en trullo en los años veinte. Arriba del todo, el Trullo Sovrano es el único trullo de dos plantas de Italia, construido en el siglo XVIII<sup></sup> . De día está abarrotado. Por la tarde el ambiente cambia por completo: las tiendas cierran, la gente se dispersa y las callejuelas recuperan su encanto.</p>
+
+    <h3 class="sub">El Rione Aia Piccola, la cara auténtica</h3>
+    <p>Al otro lado de la carretera principal, el Rione Aia Piccola reúne unos 400 trulli, la mayoría todavía habitados. Sin tiendas, sin restaurantes, sin multitud. Es el barrio declarado Patrimonio de la Humanidad que muchos visitantes se pierden. Se pasea entre casas blancas con jardincitos de higueras y olivos enanos, y se sube hasta la catedral en lo alto del barrio. Desde el mirador de Santa Lucia, la vista sobre el Rione Monti de enfrente es magnífica.</p>
+
+    <h3 class="sub">El paseo central</h3>
+    <p>Entre los dos barrios, el paseo central acoge un escenario donde suena música casi todas las noches. Ahí es donde late el corazón de Alberobello al caer la tarde.</p>
+
+    <div class="tip"><p><b>Nuestro consejo.</b> Visitad Alberobello por la tarde. Evitáis el calor, evitáis los autocares de turistas y disfrutáis del ambiente musical. En cuanto al aparcamiento, todos los agricultores de los alrededores han convertido sus campos en parkings de pago, no os costará nada aparcar.</p></div>
+    <a class="cta-accent" href="https://getyourguide.tpo.li/D0VQT1sm" target="_blank" rel="sponsored nofollow noopener">Reservar una visita guiada de Alberobello →</a>
+  </div>
+</div>
+
+<!-- ================= S03 ================= -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Visitar Matera y sus Sassi (día 1)</h2></div>
+    <p>Nos levantamos sobre las 8h. Empezamos por las etapas más lejanas. Podríamos haber ido directamente a Matera, porque la ciudad merece un día entero incluso visitando rápido. Pero paramos en Noci de camino.</p>
+
+    <h3 class="sub">Noci</h3>
+    <p>Pueblecito entre Alberobello y Matera. Se va para probar el ambiente de las viejas ciudades italianas. Sin tiendas, pocos restaurantes, solo callejuelas y placitas que te sumergen de inmediato. Contad de media hora a una hora para dar la vuelta a esta pequeña ciudad medieval.</p>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-vue-d-ensemble.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Vista de conjunto de los Sassi de Matera" loading="lazy" data-imgkey="matera-vue-d-ensemble">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Imprescindible ⭐ · Fuera de la Puglia</div>
+        <div class="spot-name">Matera</div>
+        <p>Una de las ciudades más asombrosas del sur de Italia. Sus Sassi, dos barrios trogloditas excavados en la caliza, forman un paisaje urbano único en el mundo, Patrimonio de la Humanidad desde 1993. Habitadas desde la prehistoria, estas cuevas albergaron comunidades campesinas hasta los años cincuenta, cuando el gobierno evacuó por la fuerza a los 15.000 habitantes que vivían allí en condiciones consideradas indignas.</p>
+        <p style="margin:0;">Desde entonces la ciudad ha vivido un renacimiento espectacular: las cuevas se han convertido en hoteles, restaurantes y museos. En 2019, Matera fue capital europea de la cultura. El contraste entre la miseria pasada y la elegancia actual es sobrecogedor. Puede que la hayáis visto sin saberlo: Mel Gibson rodó aquí <i>La Pasión de Cristo</i> (2004), y es el escenario de la apertura de <i>Sin tiempo para morir</i> (2021).</p>
+        <div class="facts">
+          <div class="fact"><b>Aparcamiento</b>Parcheggio Piazza Cesare Firrao, cubierto, 146 plazas, unos 1,50 € la hora</div>
+          <div class="fact"><b>A 200 m</b>De la entrada del casco antiguo</div>
+          <div class="fact"><b>Duración</b>Un día entero</div>
+          <div class="fact"><b>Qué llevar</b>Buen calzado, se sube y se baja sin parar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Siguiendo desde Noci, se atraviesan los campos. Poco que ver por el camino. No habíamos contratado guía. Estuvo bien, pero os aconsejamos optar por una visita guiada: la ciudad es tan rica que aprenderéis mucho más que siguiendo las guías en papel.</p>
+    <a class="cta-accent" href="https://getyourguide.tpo.li/QDiBCNS6" target="_blank" rel="sponsored nofollow noopener">Reservar una visita guiada de Matera →</a>
+
+    <h3 class="sub">Nada más entrar: un Sasso habitado</h3>
+  </div>
+
+  <div class="gal gal-hero">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-visite-sasso.webp&amp;w=900&amp;output=webp&amp;q=80" alt="Visita a una vivienda troglodita en los Sassi de Matera" loading="lazy" data-imgkey="matera-visite-sasso">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-vie-d-avant.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Recreación de la vida de antes en una casa grotta" loading="lazy" data-imgkey="matera-vie-d-avant">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-place-principale.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Piazza Vittorio Veneto, plaza principal de Matera" loading="lazy" data-imgkey="matera-place-principale">
+  </div>
+
+  <div class="col">
+    <p>Nada más entrar en los Sassi encontramos a una familia que enseñaba su vivienda troglodita. Por 5 euros por persona se descubre dónde vivían los materanos, dónde guardaban el vino y los animales. Estas <i>case grotta</i> son la mejor manera de entender la vida de antes. Os cruzaréis con varias en las callejuelas del Sasso Barisano, buscad los carteles «Casa Grotta».</p>
+
+    <h3 class="sub">El recorrido paso a paso</h3>
+    <p><b>Piazza Vittorio Veneto.</b> Empezad aquí. Es la plaza principal de la ciudad moderna, con la fuente Ferdinandea del siglo XIX<sup></sup> , el Palazzo dell'Annunziata (antiguo convento convertido en biblioteca) y la iglesia de San Domenico. Desde el mirador Guerricchio, al borde de la plaza, tenéis vuestra primera panorámica sobre el Sasso Barisano y la Civita con su catedral. Bajo la plaza, no os perdáis el <b>Palombaro Lungo</b> : la mayor cisterna excavada de Europa. Visita guiada de 30 minutos por 3 €. Aquí es donde se entiende el sistema de recogida de aguas de lluvia, una de las razones por las que la UNESCO declaró los Sassi.</p>
+    <p><b>Via San Biagio.</b> Desde la plaza, tomad esta calle animada. Os lleva a la iglesia de San Giovanni Battista, uno de los mejores ejemplos de arquitectura románica de la ciudad.</p>
+    <p><b>Via delle Beccherie.</b> Continuad por esta antigua calle comercial que sube hasta la Piazza Duomo. La catedral de Matera, construida en el siglo XIII<sup></sup> , se alza en el punto más alto de la Civita, el barrio más antiguo. Su fachada románica es sobria, pero el interior esconde frescos restaurados y detalles dorados. Desde la plaza, la vista cae sobre el Sasso Barisano.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-alentours.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Los alrededores de Matera y el barranco de la Gravina" loading="lazy" data-imgkey="matera-alentours">
+
+  <div class="col">
+    <p><b>Bajada al Sasso Barisano.</b> Bajad desde la catedral hacia el Sasso Barisano, el mejor restaurado de los dos barrios. Las callejuelas son un laberinto de escaleras, pasajes y terrazas. Allí encontraréis la iglesia rupestre de San Pietro Barisano, cuyo campanario asoma entre las rocas. El interior está enteramente esculpido en la toba. Bajo la iglesia, una cripta servía antaño para enterrar a los sacerdotes.</p>
+    <p><b>Travesía hacia el Sasso Caveoso.</b> Un paseo bordea el barranco de la Gravina y une los dos Sassi. Es el tramo más espectacular de la ciudad. El Sasso Caveoso es más tosco, menos restaurado, con muchas cuevas todavía visibles.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-eglise.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Iglesia rupestre de Santa Maria de Idris encaramada en su roca" loading="lazy" data-imgkey="matera-eglise">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-rue2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Callejuela con escalones en el Sasso Caveoso" loading="lazy" data-imgkey="matera-rue2">
+  </div>
+
+  <div class="col">
+    <p><b>Chiesa Santa Maria de Idris.</b> Encaramada en una roca sobre el Sasso Caveoso, esta pequeña iglesia rupestre es uno de los símbolos de Matera. Los frescos medievales del interior merecen el desvío. Una entrada combinada «3 chiese» permite visitar Santa Maria de Idris, Santa Lucia alle Malve y San Pietro Barisano.</p>
+    <p><b>Chiesa San Pietro Caveoso.</b> Al fondo del Sasso Caveoso, esta iglesia del siglo XIII<sup></sup> da directamente al barranco. Desde su plaza la panorámica es sobrecogedora: las cuevas se escalonan sobre vuestras cabezas y, enfrente, el Parco della Murgia Materana despliega sus acantilados.</p>
+    <p><b>Subida y miradores.</b> Volved a subir por las escaleras del Sasso Caveoso hasta la Piazzetta Pascoli, cuyo mirador ofrece una vista de conjunto sobre los dos Sassi y el barranco. Es el punto de vista más famoso de la ciudad.</p>
+  </div>
+
+  <img class="band short" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-rue.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Calle en cuesta en los Sassi de Matera" loading="lazy" data-imgkey="matera-rue">
+
+  <div class="col">
+    <div class="tip"><p><b>Consejo.</b> Pasad por la oficina de turismo a recoger un mapa con tres recorridos según el tiempo del que dispongáis. Contad un día entero para verlo bien.</p></div>
+    <h3 class="sub">¿Quedarse una noche?</h3>
+    <p>Fuimos en el día desde Alberobello, pero para disfrutarla de verdad, dos días y una noche serían lo ideal. La ciudad iluminada de noche es un espectáculo en sí mismo.</p>
+    <!-- TODO MARC : lien Booking pour un hôtel à Matera, à fournir. -->
+  </div>
+</div>
+
+<!-- ================= S04 ================= -->
+<div id="s04" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Los pueblos de las gravine alrededor de Matera</h2></div>
+    <p>Si os quedáis más tiempo por la zona, varios pueblos de las gravine merecen el desvío.</p>
+    <div class="checklist">
+      <ul>
+        <li><b>Castellaneta</b> (7 km de Casalrotto). El casco histórico se asoma al borde de una de las gravine más profundas de la Puglia, con una caída de casi 150 metros. Ciudad natal de Rodolfo Valentino, la estrella del cine mudo: un museo le está dedicado en el antiguo convento de Santa Chiara.</li>
+        <li><b>Casalrotto</b> (2 km de Castellaneta). Pequeña aldea rupestre con frescos bizantinos en sus iglesias excavadas. Una parada para los amantes del arte religioso medieval.</li>
+        <li><b>Mottola</b> (9 km). Otra capital de las gravine, conocida por sus iglesias rupestres decoradas con frescos de los siglos XI<sup></sup> al XIV<sup></sup> . La iglesia de San Nicola es apodada la «Capilla Sixtina de la civilización rupestre» por su Juicio Final pintado en las paredes.</li>
+        <li><b>Massafra</b> (23 km). Ciudad partida en dos por la gravina de San Marco. Un castillo medieval, iglesias excavadas en la roca con frescos bizantinos, y la curiosa «farmacia del Mago Greguro», una cueva donde un curandero preparaba sus remedios en la Edad Media.</li>
+      </ul>
+    </div>
+    <p style="margin:0;"><b>Nuestra elección.</b> Solo paramos en Massafra a la vuelta. Pero después de Matera, con el cansancio y la diferencia de calibre entre lo que acabábamos de ver y lo que teníamos delante, no nos entretuvimos. Vuelta a Alberobello.</p>
+  </div>
+</div>
+
+<!-- ================= S05 ================= -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Monopoli y Polignano a Mare: playas y acantilados (día 2)</h2></div>
+    <h3 class="sub" style="margin-top:0;">Fasano</h3>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/fasano-panoramio-michael-paraskevas.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El casco histórico de Fasano y sus fachadas floridas" loading="lazy" data-imgkey="fasano-panoramio">
+    <div>
+      <p>De camino a las playas de Monopoli, parada en Fasano. En la Puglia hay varios tipos de pueblos: los muy turísticos, Alberobello, Locorotondo, y los más auténticos. Fasano es de estos últimos.</p>
+      <p>Pocas tiendas, pocos restaurantes. Se visita con la vista puesta en las fachadas y en las flores que las bordean. Tomamos un café en una placita, rodeados de vecinos que descubren al turista perdido en su casco histórico.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>El casco viejo se llama <i>U'mbracchie</i> en dialecto, del latín <i>umbraculum</i>, la sombra. Las callejuelas son tan estrechas que el sol no entra nunca. Resultado: incluso en pleno verano se está fresco. En el corazón del laberinto, la Piazza Ciaia con su Torre del Reloj y el Palazzo del Balì (hoy ayuntamiento) se abre a dos patios flanqueados de palacios. Y si llegáis hasta la Chiesa Matrice di San Giovanni Battista, su fachada de toba del siglo XVII<sup></sup> y su campanario barroco de 28 metros merecen un vistazo: está construida sobre los cimientos de un templo del siglo XIV<sup></sup> .</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/zoo-fasano.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Animales en libertad en el Zoosafari de Fasano" loading="lazy" data-imgkey="zoo-fasano">
+    <div>
+      <p><b>Zoosafari de Fasano.</b> Para quien viaje en familia, es el segundo parque de animales más grande de Europa. Un circuito de 6 km en coche entre 1.700 animales de 200 especies: jirafas, leones, elefantes y cebras en libertad entre olivos centenarios.</p>
+      <p>Abierto desde 1973, el parque incluye también Fasanolandia (atracciones y espectáculos). Contad un día entero. Adultos unos 30 a 34 €, niños de 4 a 10 años unos 25 €, gratis menores de 3. Llegad temprano: los animales están más activos y las colas son más cortas.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub">Playa en Monopoli: el Capitolo</h3>
+    <p>Después de Fasano teníamos que parar en <b>Egnazia</b>, el yacimiento arqueológico justo antes de Monopoli. Es la mayor ciudad romana de la Puglia: 30 siglos de historia, murallas mesapias todavía en pie, las losas de la Via Traiana marcadas por los carros, un foro, un anfiteatro, basílicas y un museo que guarda la famosa cerámica «gnathia» fabricada aquí hace 2.500 años. El yacimiento ocupa 40 hectáreas junto al mar, entrada unos 3 €. Pero las piedras viejas a 35 grados no son muy lo nuestro. Y mirando de cerca te das cuenta de que hace falta una visita guiada para que tenga interés, si no son ruinas sin explicación. Nos fuimos a las playas.</p>
+  </div>
+
+  <img class="band short" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles/sabbia-doro.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="La playa del Lido Sabbia d'Oro cerca de Monopoli" loading="lazy" data-imgkey="sabbia-doro">
+
+  <div class="col">
+    <p>Dirección Capitolo, la zona de playas de Monopoli. Llegando por la carretera de Fasano probamos el lado izquierdo: rocas abarrotadas. Media vuelta. A la derecha están los clubes de playa. Paramos en uno bien valorado: dos hamacas y una sombrilla, 160 euros el día. El club está vacío, la playa pública está llena. Se entiende rápido por qué. Un vigilante simpático nos aconseja ir 10 o 15 km más allá, al <b>Lido Sabbia d'Oro</b> : playa privada, con gente pero sin agobios, hamacas a 20 euros el día. Pequeña pausa de lectura a la sombra y baño. Con dos horas basta.</p>
+
+    <h3 class="sub">Monopoli</h3>
+    <p>Después de la playa, un cuarto de hora de carretera y llegamos a Monopoli sobre las 13h, perfecto para comer. Nada más entrar en la ciudad damos con <b>Munz Munz biOstrot</b>, un pequeño bistró ecológico slow food con la mamma en los fogones y la hija en la sala. Carta corta, productos locales, opciones vegetarianas y platos caseros. Os lo recomendamos. No nos arrepentimos cuando vimos los restaurantes del centro.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/monopoli-place.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Una plaza animada del casco histórico de Monopoli" loading="lazy" data-imgkey="monopoli-place">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/monopoli-port.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El puerto viejo de Monopoli y sus barcas azules" loading="lazy" data-imgkey="monopoli-port">
+  </div>
+
+  <div class="col">
+    <p>Monopoli, cuyo nombre viene del griego <i>monos polis</i> (ciudad única), es uno de los pueblos turísticos de la costa. Todas las callejuelas están llenas de pequeños comercios y pequeños restaurantes. Hay mucha gente y se ve rápido. Se pasea por las calles blancas, uno se pierde, se llega al puerto viejo con sus barcas azules, se vuelve al centro, se toma un café, se entra en alguna tienda para coger fresco, y luego se sigue.</p>
+    <p>Si tenéis tiempo, no os perdáis la catedral Maria Santissima della Madia, buen ejemplo del barroco de la Puglia (siglo XVIII<sup></sup> ), y el castillo de Carlos V, construido en el siglo XVI<sup></sup> para proteger la ciudad de los turcos. Desde sus murallas, la vista sobre el puerto y el mar es magnífica. La Piazza Garibaldi, rodeada de cafés y edificios históricos, es el corazón animado de la ciudad.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/polignano-panorama.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Panorámica de las casas blancas colgadas de los acantilados de Polignano a Mare" loading="lazy" data-imgkey="polignano-panorama">
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/lama-monachile.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La cala de Lama Monachile y su puente borbónico" loading="lazy" data-imgkey="lama-monachile">
+      <div class="spot-body">
+        <div class="spot-eyebrow">La imagen de la Puglia</div>
+        <div class="spot-name">Polignano a Mare</div>
+        <p style="margin:0;">La primera parte del centro es muy turística: uno se pierde por las callejuelas blancas y desemboca sobre la playa de <b>Lama Monachile</b>, la cala más fotografiada de la Puglia. Encajada entre dos acantilados calcáreos, con sus cantos rodados blancos y su agua turquesa, la cruza el <b>Ponte Borbonico</b>, un puente de piedra que salva el vacío y ofrece una vista en picado sobre la cala.</p>
+        <div class="facts">
+          <div class="fact"><b>Red Bull Cliff Diving</b>Cada verano (agosto o septiembre), saltos desde 27 metros</div>
+          <div class="fact"><b>Cuándo ir</b>Junio o septiembre para evitar las aglomeraciones</div>
+          <div class="fact"><b>Qué ver</b>Arco Marchesale, Terrazza Santo Stefano</div>
+          <div class="fact"><b>Detalle</b>Versos de poemas pintados en los muros y las escaleras</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Se pasea, se llega al borde del acantilado, se ven las casas de enfrente, se hacen fotos, se vuelve a entrar en el pueblo. Es encantador, merece de sobra la visita pese al turismo por todas partes.</p>
+  </div>
+
+  <div class="duo rev">
+    <img class="nocrop" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/domenico-modugno.webp&amp;w=900&amp;output=webp&amp;q=85" alt="La estatua de bronce de Domenico Modugno frente al mar" loading="lazy" data-imgkey="domenico-modugno">
+    <div>
+      <p>Se cruza el puente y al otro lado está mucho más tranquilo. Se bordea el acantilado y se llega al pie de una estatua imponente: la de <b>Domenico Modugno</b>, el cantante de «Volare» (<i>Nel blu dipinto di blu</i>), nacido aquí el 9 de enero de 1928.</p>
+      <p style="margin:0;">La estatua de bronce de 3 metros, esculpida por Hermann Mejer e inaugurada en 2009, lo representa con los brazos abiertos frente al mar. Uno de los puntos más fotografiados de la Puglia.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p style="margin:0;">Terminamos el día sobre las 17h y volvemos a descansar antes de salir hacia Locorotondo.</p>
+  </div>
+</div>
+
+<!-- ================= S06 ================= -->
+<div id="s06" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Las Cuevas de Castellana y la meseta de las Murge (día 3)</h2></div>
+    <h3 class="sub" style="margin-top:0;">Putignano</h3>
+    <p>Empezamos el día por Putignano, a pocos minutos de las cuevas. Es un pueblecito en las alturas de la Murgia, conocido sobre todo por su <b>carnaval</b>, uno de los más antiguos de Europa (desde 1394). Fuera de esa época, el casco histórico es un laberinto de callejuelas de piedra caliza, arcos y casas blancas. Menos encantador que los pueblos visitados los días anteriores, pero permite tomar un café en una de las plazas antes de atacar las cuevas.</p>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/grotte-entree.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La inmensa entrada de las Cuevas de Castellana" loading="lazy" data-imgkey="grotte-entree">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Lo mejor del viaje ⭐</div>
+        <div class="spot-name">Las Cuevas de Castellana</div>
+        <p style="margin:0;">Nada más entrar es un guau inmediato: la primera sala es inmensa, con una abertura fabulosa sobre vuestras cabezas. El mayor impacto que hemos tenido visitando cuevas.</p>
+        <div class="facts">
+          <div class="fact"><b>Duración</b>2 horas para unos 3 kilómetros</div>
+          <div class="fact"><b>Idiomas</b>Alemán, italiano, francés, español, inglés</div>
+          <div class="fact"><b>Altitud</b>Más de 210 metros sobre el nivel del mar</div>
+          <div class="fact"><b>Humedad</b>99 % en la Gruta Blanca</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/grotte-interieur.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Estalactitas en las Cuevas de Castellana" loading="lazy" data-imgkey="grotte-interieur">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/grotte-interieur2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Sala interior de las Cuevas de Castellana" loading="lazy" data-imgkey="grotte-interieur2">
+  </div>
+
+  <div class="col">
+    <p>Dentro, estalactitas en equilibrio por todas partes. Se aprende que estas inmensas cavidades son de los lugares más seguros en caso de terremoto: el vacío anula los movimientos. Hoy las cuevas están a más de 210 metros sobre el nivel del mar, pero originalmente estaban bajo el agua. No es que las aguas bajaran: son las placas tectónicas las que levantaron la tierra a lo largo de millones de años.</p>
+    <p>La visita completa dura dos horas para unos tres kilómetros. Tras hora y media trepando por las distintas salas, llegáis a la Gruta Blanca, y ya habréis adivinado el origen del nombre. Los cincuenta metros de roca de encima permiten limpiar de impurezas el agua que se filtra y dar su color blanco a estalactitas y estalagmitas.</p>
+    <div class="tip"><p><b>Atención.</b> Ahí hay mucha gente, es donde se cruzan los distintos grupos de visita. La humedad llega al 99 %.</p></div>
+    <a class="cta-accent" href="https://getyourguide.tpo.li/SX5xQIGk" target="_blank" rel="sponsored nofollow noopener">Reservar la visita a las cuevas →</a>
+  </div>
+
+  <div class="duo" style="margin-top:34px;">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/castello-marchione.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El Castello Marchione cerca de Conversano" loading="lazy" data-imgkey="castello-marchione">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Castello Marchione</h3>
+      <p>A unos kilómetros de las cuevas, parada en el Castello Marchione. Es una antigua residencia de caza convertida en espacio para banquetes de bodas y bautizos.</p>
+      <p>Estábamos solos y pudimos visitar la sala de recepciones. Una parada de cinco minutos agradable, y la foto merece la pena.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub">Conversano</h3>
+    <p>Pequeña ciudad típica, tranquila, sin turistas. Comimos en el restaurante del castillo: barato y bueno.</p>
+  </div>
+
+  <div class="gal gal-3">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/conversano.webp&amp;w=600&amp;output=webp&amp;q=80" alt="El castillo de los Acquaviva d'Aragona en Conversano" loading="lazy" data-imgkey="conversano">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/conversano2.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Callejuela tranquila del centro de Conversano" loading="lazy" data-imgkey="conversano2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/conersano3.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Fachadas y plazas de Conversano" loading="lazy" data-imgkey="conersano3">
+  </div>
+
+  <div class="col">
+    <p>El castillo de los Acquaviva d'Aragona domina la ciudad desde la Piazza della Concordia. Residencia de los condes de Conversano durante siete siglos, hoy alberga una pinacoteca. Justo al lado, la catedral de Santa Maria Assunta es un buen ejemplo de arquitectura románica de la Puglia (siglo XII<sup></sup> ). Tampoco os perdáis el monasterio de San Benedetto, fundado en 957, cuyas abadesas ejercieron un poder temporal y espiritual sobre el clero local hasta el siglo XIX<sup></sup> , un caso tan raro que se le apodó <i>Monstrum Apuliae</i>, la maravilla de la Puglia.</p>
+    <p>Pese a las iglesias a menudo cerradas, Conversano se visita por la calma de sus callejuelas y la ausencia de multitudes.</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/cantina-polverana.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Cata en la Cantina Polvanera" loading="lazy" data-imgkey="cantina-polverana">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Cantina Polvanera</h3>
+      <p>Después de Conversano vamos a la Cantina Polvanera para una cata de Primitivo. Muy bueno. Las botellas van de 6 a 20 euros.</p>
+      <p style="margin:0;">Os aconsejamos llevaros un <b>Polvanera 14</b> y un <b>Polvanera 16</b> : los números corresponden a los grados de alcohol. Cuanto más sube el número, más concentrado y potente es el vino.</p>
+    </div>
+  </div>
+
+  <img class="band short" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/gioia-del-colle.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="El castillo normando-suabo de Gioia del Colle" loading="lazy" data-imgkey="gioia-del-colle">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Gioia del Colle</h3>
+    <p>Última etapa del día. Gioia del Colle, cuyo nombre significa «alegría de la colina», es una pequeña ciudad tranquila encaramada en la meseta de las Murge, a medio camino entre Bari y Tarento. Su castillo normando-suabo, construido en el siglo IX<sup></sup> y ampliado luego por Federico II hacia 1230, es uno de los más bellos de la región después del Castel del Monte. Dentro, un museo arqueológico presenta las colecciones del cercano Monte Sannace. La ciudad también es famosa por su mozzarella DOP y su Primitivo DOC, aunque ya llevábamos el maletero lleno.</p>
+    <p style="margin:0;">Nos gustó el ambiente tranquilo de esta ciudad que hace su vida lejos del turismo. Las callejuelas alrededor del castillo son agradables, las plazas con sombra invitan a sentarse. Vuelta al hotel sobre las 17h, y luego primer descubrimiento de Locorotondo por la tarde.</p>
+  </div>
+</div>
+
+<!-- ================= S07 ================= -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Ostuni, Cisternino y Martina Franca: los pueblos blancos (día 4)</h2></div>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/martina-franca-1.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Palacio barroco en una plaza de Martina Franca" loading="lazy" data-imgkey="martina-franca-1">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Martina Franca</h3>
+      <p>Una de las ciudades más grandes de la región, y una de las menos turísticas comparada con las anteriores. Las callejuelas se encadenan y se desemboca en bonitas plazas rodeadas de palacios barrocos.</p>
+      <p style="margin:0;">Se llega enseguida a la <b>Piazza Roma</b> donde se alza el inmenso <b>Palazzo Ducale</b>, construido en 1668 para la familia Caracciolo. El patio interior es de acceso gratuito: frescos del siglo XVIII<sup></sup> , techos pintados, columnas.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Justo enfrente, la <b>Basílica de San Martino</b> impone su fachada barroca esculpida. Perdiéndose por las calles, se descubren bonitos balcones de hierro forjado, fachadas de piedra de toba y placitas con sombra donde los vecinos toman café. Martina Franca acoge cada verano un reputado festival de ópera.</p>
+    <h3 class="sub">Cisternino ⭐</h3>
+    <p>Cisternino es uno de los pueblos más bonitos de Italia, distinguido con la Bandera Naranja del Touring Club. Bonitos edificios blancos, callejuelas bien floridas, balcones desbordantes de geranios y buganvillas. Es pequeño, es tranquilo, es encantador.</p>
+  </div>
+
+  <div class="gal gal-3">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/cisternino-1.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Callejuela florida de Cisternino" loading="lazy" data-imgkey="cisternino-1">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/cisternino-2.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Balcones y geranios en Cisternino" loading="lazy" data-imgkey="cisternino-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/cisternino-3.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Casas blancas del centro de Cisternino" loading="lazy" data-imgkey="cisternino-3">
+  </div>
+
+  <div class="col">
+    <p>La <b>Piazza Vittorio Emanuele</b> es el corazón del pueblo, con su torre normanda y la<b>iglesia de San Nicola</b>. Desde el mirador de la Piazza Garibaldi, la vista sobre el valle de Itria y sus trulli es magnífica.</p>
+    <div class="tip"><p><b>Para probar.</b> Cisternino es la capital de las <i>bombette</i> : rollitos de cerdo rellenos de queso, asados delante de vosotros en las carnicerías-asadores del centro. Te instalas en la tienda, eliges la carne y comes en mesas de formica.</p></div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/ostuni-place.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Plaza del casco histórico de Ostuni, la ciudad blanca" loading="lazy" data-imgkey="ostuni-place">
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/ostuni-porte-bleue.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La Porta Azzurra de Ostuni, puerta azul sobre muro blanco" loading="lazy" data-imgkey="ostuni-porte-bleue">
+      <div class="spot-body">
+        <div class="spot-eyebrow">La città bianca ⭐</div>
+        <div class="spot-name">Ostuni</div>
+        <p style="margin:0;">Ostuni es la ciudad blanca. Y es magnífica. Todo el casco antiguo está en cuesta, un laberinto de callejuelas blancas que trepan hacia la catedral. Desde las murallas y los miradores se ven los olivos bajar hasta el Adriático.</p>
+        <div class="facts">
+          <div class="fact"><b>Catedral de Santa Maria Assunta</b>Fachada gótica con un rosetón de 24 secciones</div>
+          <div class="fact"><b>Arco Scoppa</b>Puente suspendido entre el palacio episcopal y el seminario</div>
+          <div class="fact"><b>Porta Azzurra</b>Via Incalzi Antonelli, el rincón más fotografiado</div>
+          <div class="fact"><b>Qué llevar</b>Sube mucho, y al mediodía no hay sombra</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <img class="band short" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/ostuni-remparts.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Las murallas de Ostuni y la vista sobre los olivos hasta el Adriático" loading="lazy" data-imgkey="ostuni-remparts">
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/ceglie.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Gran plaza blanca de Ceglie Messapica" loading="lazy" data-imgkey="ceglie">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Ceglie Messapica</h3>
+      <p>Terminamos por Ceglie Messapica, apodada la «capital gastronómica de la Puglia». El pueblo fue fundado por los mesapios en el siglo VIII<sup></sup> a. C.</p>
+      <p style="margin:0;">Nos perdemos en el laberinto medieval y desembocamos en una gran plaza blanca, probablemente la Piazza Plebiscito. Un castillo medieval corona lo alto del pueblo. Si buscáis un buen restaurante, es aquí.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S08 ================= -->
+<div id="s08" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Locorotondo y el valle de Itria al atardecer</h2></div>
+    <p>Dedicamos dos de nuestras tardes a Locorotondo, a pocos kilómetros de Alberobello. El ambiente es distinto. Aquí no hay trulli por todas partes. El pueblo, encaramado a 410 metros de altitud, ofrece una vista magnífica sobre el valle de Itria, sus viñedos y sus olivares. Su nombre viene del latín <i>locus rotundus</i>, el lugar redondo, que describe el trazado circular de su casco histórico.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/locorotondo1.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Callejuelas blancas de Locorotondo al atardecer" loading="lazy" data-imgkey="locorotondo1">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/locorotondo2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Vista sobre el valle de Itria desde Locorotondo" loading="lazy" data-imgkey="locorotondo2">
+  </div>
+
+  <div class="col">
+    <p>Las callejuelas son pocas, blancas, con tiendas y restaurantes. Es encantador. Locorotondo figura entre los pueblos más bonitos de Italia y ha recibido la Bandera Naranja del Touring Club por la armonía de sus formas.</p>
+    <div class="tip"><p><b>Para aparcar, es una batalla.</b> A diferencia de Alberobello, donde los campos se han convertido en parkings, aquí hay que pelear por una plaza.</p></div>
+    <p>En el punto más alto del casco histórico, la<b>iglesia de San Giorgio</b> domina el pueblo. Construida en el siglo XVIII<sup></sup> en un estilo entre barroco y neoclásico, su cúpula de 35 metros se ve desde todo el valle de Itria. El interior es espacioso, con altares ricamente decorados y frescos en las capillas laterales. Justo al lado, no os perdáis la pequeña <b>Chiesa di San Nicola</b> : su fachada blanca y sobria no deja adivinar la belleza de los frescos que cubren sus muros y su bóveda.</p>
+    <div class="checklist">
+      <ul>
+        <li><b>Villa Comunale.</b> El jardín público, ideal a última hora de la tarde: vistas sobre los trulli, las viñas y los olivares del valle de Itria.</li>
+        <li><b>Via Nardelli.</b> Apodada el «lungomare» del pueblo porque recorre la cresta como un paseo marítimo, salvo que aquí abajo está el campo.</li>
+        <li><b>Mirador de la Piazza Vittorio Emanuele.</b> Rodeado de bonitos edificios del siglo XIX<sup></sup> , con vistas sobre toda la llanura.</li>
+        <li><b>El vino.</b> Locorotondo produce un excelente blanco DOC (Verdeca y Bianco d'Alessano), fresco y seco, con aromas cítricos y de flores blancas. Para probar allí mismo.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin:34px 0 0;">La continuación del road trip, Brindisi, Castro Marina y el sur de la Puglia, en el próximo artículo.</p>
+  </div>
+</div>
+
+<!-- ================= S09 : ITINERAIRES =================
+     LANGUES : ne changer QUE le dossier.
+     fr /itineraires/ · en /itineraries/ · es /rutas/ · it /itinerari/ · pt /roteiros/
+     Le nom de fichier reste identique dans les 5 langues. -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Nuestras rutas que pasan por la Puglia</h2></div>
+    <p>Todas son modificables en OneRoadTrip: añadís, quitáis o movéis las etapas, y luego exportáis el cuaderno de viaje. Estas son primero las tres que más coinciden con lo que acabáis de leer.</p>
+
+    <div class="itin-grid">
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-puglia-boucle-bari-itria-matera.html" target="_blank" rel="noopener">
+        <div class="itin-days">13 días · La más cercana</div>
+        <div class="itin-t">Circuito de Bari: trulli, gravine y Matera</div>
+        <div class="itin-d">46 etapas partiendo de Bari: la costa adriática, el Valle d'Itria y sus trulli, las ciudades blancas, las gravine del arco jónico y los Sassi de Matera. Ninguna etapa supera los 40 minutos de carretera.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-puglia-murgia-barese-gravine-ceramiche.html" target="_blank" rel="noopener">
+        <div class="itin-days">3 días · Versión corta</div>
+        <div class="itin-t">Murgia de Bari, de Polignano a las gravine</div>
+        <div class="itin-d">Un circuito que baja de Bari a Tarento por los pueblos blancos, los barrancos rupestres y los talleres de ceramistas. El formato fin de semana largo.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-puglia-route-des-vins.html" target="_blank" rel="noopener">
+        <div class="itin-days">7 días · Primitivo</div>
+        <div class="itin-t">Puglia, la ruta de los vinos</div>
+        <div class="itin-d">De Bari a Lecce por los trulli de Alberobello, el barroco de Lecce y los viñedos de primitivo, negroamaro y nero di Troia. En la línea de nuestra parada en la Cantina Polvanera.</div>
+      </a>
+    </div>
+
+    <h3 class="sub">Las demás, para ir más lejos</h3>
+    <ul class="itin-list">
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-brindisi-messapie-torre-guaceto.html" target="_blank" rel="noopener">Brindisi en 2 días: criptas bizantinas y Torre Guaceto</a><span>La continuación exacta de nuestro road trip. El norte del Salento, de la Via Appia a las criptas rupestres y la reserva de Torre Guaceto.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-terra-di-bari-murgia.html" target="_blank" rel="noopener">La Terra di Bari en 9 días, Castel del Monte</a><span>La costa adriática, la Murgia y sus catedrales románicas, de Bari al Castel del Monte.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-murgia-vulture-castel-del-monte.html" target="_blank" rel="noopener">Bari, Castel del Monte, Matera: 14 días en la Murgia</a><span>Bordeáis el Adriático, cruzáis la Murgia y el Vulture, y luego llegáis a Matera y Polignano.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-boucle-bari-cote-nord-bat.html" target="_blank" rel="noopener">Circuito de Bari: 7 días por la costa norte</a><span>Desde el aeropuerto de Bari, los pequeños puertos adriáticos, las ciudades de Federico II y el castillo octogonal de Castel del Monte.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-gargano-pouilles-nord-8j.html" target="_blank" rel="noopener">Gargano y Puglia del Norte, 8 días</a><span>De Bari hacia el espolón de la bota: el promontorio del Gargano, Castel del Monte y las islas Tremiti.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-pouilles-secretes-9-jours.html" target="_blank" rel="noopener">Puglia secreta: Federico II y pueblos olvidados</a><span>7 días de Bari a Brindisi por el interior, lejos de los circuitos clásicos.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-salento-au-depart-de-lecce.html" target="_blank" rel="noopener">El gran tour del Salento en 10 días</a><span>Desde Lecce: costas adriática y jónica, pueblos barrocos y yacimientos mesapios.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-salento-salento-profond-grecia-leuca.html" target="_blank" rel="noopener">Salento secreto: Grecìa griko y Otranto</a><span>10 días por el Salento de los pueblos griko, los trujales subterráneos y las cuevas marinas.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-sud-pouilles-noires-bari-naples.html" target="_blank" rel="noopener">Puglia negra: 8 días de Bari a Nápoles</a><span>El Castel del Monte esotérico de Federico II, los Sassi de Matera, el pueblo fantasma de Craco y el culto napolitano a las almas del Purgatorio.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-campania-puglia-sannio-irpinia-daunia.html" target="_blank" rel="noopener">Sannio, Irpinia y Daunia, 5 días</a><span>La cresta apenina entre Campania y Puglia, de los pueblos samnitas encaramados a las catedrales románicas de la Daunia. Solo toca la Puglia por el norte.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-sud-naples-matera-cilento-vulture-basilicata.html" target="_blank" rel="noopener">De Nápoles a Matera: 16 días en el sur de Italia</a><span>El formato largo, si queréis encadenar Campania, Cilento, Vulture y Basilicata antes de llegar a Matera.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= S10 ================= -->
+<div id="s10" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Créditos fotográficos</h2></div>
+    <button class="credit-btn" onclick="var b=document.getElementById('creditsBox');b.classList.toggle('show');this.textContent=b.classList.contains('show')?'Crédits photo ▲':'Crédits photo ▼'">Créditos fotográficos ▼</button>
+    <div id="creditsBox" class="credit-box">
+      fasano-panoramio-michael-paraskevas.webp: Michael Paraskevas (Panoramio)<br>
+      Vista de los trulli de Alberobello: Freysteinn G. Jónsson (Unsplash)<br>
+      Otras fotos: Patricia y Marc, OneRoadTrip.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Road trip por la Puglia: 4 días alrededor de Alberobello",
+  "description": "Alberobello, Matera, las Cuevas de Castellana, Polignano a Mare, Ostuni y Locorotondo: nuestro itinerario día a día, los precios pagados, los errores a evitar.",
+  "image": ["https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/trulli.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "es",
+  "datePublished": "2026-08-01",
+  "dateModified": "2026-08-01",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/es/puglia-alberobello.html"},
+  "about": [
+    {"@type": "Place", "name": "Alberobello"},
+    {"@type": "Place", "name": "Matera"},
+    {"@type": "Place", "name": "Polignano a Mare"},
+    {"@type": "Place", "name": "Ostuni"},
+    {"@type": "Place", "name": "Locorotondo"}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.oneroadtrip.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.oneroadtrip.com/blog/es/"},
+    {"@type": "ListItem", "position": 3, "name": "Road trip por la Puglia: 4 días alrededor de Alberobello", "item": "https://www.oneroadtrip.com/blog/es/puglia-alberobello.html"}
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuántos días hacen falta para visitar la Puglia alrededor de Alberobello?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cuatro días completos bastan para este circuito sin correr: Alberobello, Matera, las Cuevas de Castellana, Monopoli, Polignano a Mare, Ostuni y Locorotondo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuál es la mejor época para viajar a la Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Junio y septiembre siguen siendo los más cómodos. A finales de julio, contad entre 30 y 35 grados por la tarde, y una chaqueta ligera por la mañana y por la noche."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hace falta coche para visitar la Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, es imprescindible. Todo se juega en carreteras pequeñas entre pueblos, y ninguna etapa supera la hora de trayecto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo hace falta para visitar Matera?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un día entero para verla bien. Para disfrutarla de verdad, dos días y una noche son lo ideal, ya que la ciudad iluminada de noche es un espectáculo en sí mismo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto dura la visita a las Cuevas de Castellana?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dos horas para unos tres kilómetros. La humedad llega al 99 % en la Gruta Blanca, y la visita existe en español, italiano, francés, inglés y alemán."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Photo').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"puglia-alberobello"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>
