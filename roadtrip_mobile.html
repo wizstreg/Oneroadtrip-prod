@@ -64,6 +64,8 @@
 
 
 
+
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -3781,7 +3783,7 @@ async function init() {
   // Si on vient d'une rotation depuis RT Detail, récupérer le tripId du handoff
   const handoffTripId = localStorage.getItem('ORT_MOBILE_HANDOFF');
   const effectiveTripId = tripId || handoffTripId;
-  const effectiveDashboardMode = effectiveTripId && (effectiveTripId.startsWith('trip_') || effectiveTripId.startsWith('user::'));
+  const effectiveDashboardMode = !!effectiveTripId && !fromTemp && !rtKey && (effectiveTripId.startsWith('trip_') || effectiveTripId.startsWith('user::') || effectiveTripId.includes('::custom-'));
   
   debugLog('======= INIT MOBILE =======');
   debugLog('URL tripId: ' + tripId);
@@ -8766,8 +8768,9 @@ if ('serviceWorker' in navigator) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ catalogId: catalogId || '', tripId: tripId || '', steps: [{ name: 'x', nights: 1 }], language: lang, cacheOnly: true })
-      }).then(function(res) { return res.json(); })
+      }).then(function(res) { if (!res.ok) return null; return res.json(); })
       .then(function(data) {
+        if (!data) { console.log('[AI-SUMMARY] Service indisponible (pas de cache)'); return; }
         console.log('[AI-SUMMARY] Cache response:', JSON.stringify(data).substring(0, 200));
         if (data.success && data.data && data.data.fromCache) {
           console.log('[AI-SUMMARY] Cache loaded!');
