@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road trip por la Puglia: Castro Marina, Otranto y el Salento</title>
+<meta name="description" content="Brindisi, la Grotta della Poesia, la Baia dei Turchi, Otranto y Santa Cesarea Terme: nuestra segunda etapa en el Salento, día a día.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/salento-castro-otranto.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/salento-castro-otranto.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/salento-castro-otranto.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="es_ES">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Road trip por la Puglia: Castro Marina, Otranto y el Salento">
+<meta property="og:description" content="Brindisi, la Grotta della Poesia, la Baia dei Turchi, Otranto y Santa Cesarea Terme: nuestra segunda etapa en el Salento, día a día.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-3.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="La piscina natural de la Grotta della Poesia">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Road trip por la Puglia: Castro Marina, Otranto y el Salento">
+<meta name="twitter:description" content="Brindisi, la Grotta della Poesia, la Baia dei Turchi, Otranto y Santa Cesarea Terme: nuestra segunda etapa en el Salento, día a día.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-3.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2,h3{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .sub{font-family:'Instrument Serif',serif;font-size:25px;color:#3a2f22;margin:34px 0 12px;}
+  .lede{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;}
+
+  /* ---- SYSTEME PHOTO ---- */
+  .band{width:100%;display:block;object-fit:cover;margin:10px 0 30px;height:420px;}
+  .band.tall{height:520px;}
+  .band.short{height:300px;}
+  .gal{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;gap:12px;}
+  .gal img{width:100%;height:100%;object-fit:cover;border-radius:14px;display:block;}
+  .gal-2{grid-template-columns:1fr 1fr;grid-auto-rows:260px;}
+  .gal-3{grid-template-columns:1fr 1fr 1fr;grid-auto-rows:200px;}
+  .gal-4{grid-template-columns:1fr 1fr 1fr 1fr;grid-auto-rows:170px;}
+  .gal-hero{grid-template-columns:2fr 1fr;grid-auto-rows:180px;}
+  .gal-hero > :first-child{grid-row:span 2;height:100%;}
+  .gal-wide{grid-template-columns:1fr 1fr;grid-auto-rows:230px;}
+  .gal-wide > :first-child{grid-column:span 2;height:300px;}
+  .duo{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;}
+  .duo.rev > img{order:2;}
+  .duo img{width:100%;height:300px;object-fit:cover;border-radius:14px;display:block;}
+  .duo img.nocrop{height:auto;object-fit:contain;}
+  .portrait{display:block;width:auto;max-width:520px;max-height:640px;height:auto;margin:10px auto 30px;border-radius:14px;}
+  .duo p{margin:0 0 14px;}
+  .duo p:last-child{margin:0;}
+  figcaption,.cap{font-size:12.5px;color:#8a7d68;margin:-20px 0 28px;padding:0 48px;max-width:960px;margin-left:auto;margin-right:auto;}
+
+  /* ---- ENCADRES ---- */
+  .spot{border:2px solid #c1502e;border-radius:18px;background:#fff;padding:0;margin:34px auto 40px;overflow:hidden;}
+  .spot-img{width:100%;height:280px;object-fit:cover;display:block;}
+  .spot-body{padding:24px 28px 26px;}
+  .spot-eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#c1502e;font-weight:700;margin:0 0 6px;}
+  .spot-name{font-family:'Instrument Serif',serif;font-size:28px;color:#3a2f22;margin:0 0 14px;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:16px 0 0;}
+  .fact{font-size:14px;color:#4a4030;line-height:1.6;}
+  .fact b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:2px;}
+  .tip{border-left:4px solid #113f7a;background:#fff;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 28px;}
+  .tip b{color:#113f7a;}
+  .tip p{margin:0;font-size:15px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 24px;margin:24px 0 30px;}
+  .checklist ul{margin:0;padding-left:20px;}
+  .checklist li{font-size:15px;line-height:1.75;color:#4a4030;margin-bottom:8px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .itin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0 8px;}
+  .itin-card{display:block;border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 20px;text-decoration:none;transition:background .15s;}
+  .itin-card:hover{background:#f2f6fb;}
+  .itin-days{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c1502e;font-weight:700;}
+  .itin-t{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;margin:6px 0 8px;line-height:1.25;}
+  .itin-d{font-size:13.5px;line-height:1.6;color:#4a4030;}
+  .itin-list{margin:22px 0 0;padding:0;list-style:none;}
+  .itin-list li{border-bottom:1px solid #e3e0d8;padding:13px 0;}
+  .itin-list li:last-child{border-bottom:none;}
+  .itin-list a{font-weight:600;text-decoration:none;}
+  .itin-list span{display:block;font-size:13.5px;color:#8a7d68;line-height:1.55;margin-top:3px;}
+
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover{background:#0c2c56;color:#fff;}
+  .cta-accent{display:inline-flex;align-items:center;gap:8px;background:#c1502e;color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;margin:8px 8px 8px 0;}
+  .cta-accent:hover{background:#a53f20;color:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin:0 0 6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:200px;object-fit:cover;border-radius:10px;display:block;}
+  .bio{display:flex;gap:22px;align-items:center;border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:22px 26px;margin:32px auto 8px;}
+  .bio img{width:120px;height:120px;border-radius:999px;object-fit:contain;background:#faf8f4;flex:none;}
+  .bio h3{margin:0 0 8px;font-size:22px;color:#3a2f22;}
+  .bio p{font-size:15px;margin:0;}
+
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .gal,.duo,.cap{padding:0 20px;}
+    .gal-4{grid-template-columns:1fr 1fr;grid-auto-rows:150px;}
+    .gal-3{grid-template-columns:1fr 1fr;grid-auto-rows:150px;}
+    .gal-2{grid-auto-rows:170px;}
+    .gal-hero{grid-template-columns:1fr;grid-auto-rows:170px;}
+    .gal-hero > :first-child{grid-row:span 1;height:230px;}
+    .gal-wide{grid-auto-rows:150px;}
+    .gal-wide > :first-child{height:210px;}
+    .duo{grid-template-columns:1fr;gap:14px;}
+    .duo.rev > img{order:0;}
+    .duo img{height:220px;}
+    .duo img.nocrop{height:auto;}
+    .portrait{max-width:100%;max-height:none;padding:0 20px;}
+    .band{height:240px;}
+    .band.tall{height:300px;}
+    .band.short{height:200px;}
+    .spot-img{height:190px;}
+    .facts{grid-template-columns:1fr;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    .sub{font-size:21px;}
+    h1{font-size:30px !important;}
+    .hotel-gallery img{height:140px;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .bio{flex-direction:column;align-items:center;text-align:center;}
+    .itin-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <span class="hero-tag" style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Italia · Puglia · Salento</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Road trip por la Puglia: Castro Marina, Otranto y el norte del Salento</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Segunda parte de nuestros 14 días en el tacón de la bota. Brindisi, la Grotta della Poesia, la Baia dei Turchi y Otranto.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-3.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La piscina natural turquesa de la Grotta della Poesia" data-imgkey="grotta-vue-3" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div class="bio">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/patmarccadre.webp&amp;w=400&amp;output=webp&amp;q=85" alt="Patricia y Marc, autores del blog OneRoadTrip" data-imgkey="patmarccadre">
+    <div>
+      <h3>¿Quiénes somos?</h3>
+      <p>Somos Patricia, maestra, y Marc, directivo en el sector de los seguros, y estamos en la cincuentena aventurera. Siempre nos ha gustado viajar. Primero Francia, nuestra tierra, sobre todo el sureste del que somos originarios, pero también muchos otros países. A finales de 2025, Marc creó una aplicación que reúne numerosos itinerarios por todo el mundo, totalmente modificables: <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip.com</a>. Desde entonces nos dejamos llevar los dos por nuestra pasión por los viajes e intentamos compartirla, a través de <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip</a> igual que a través de este blog.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col" style="padding-top:28px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Índice</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Castro Marina, nuestra base</a>
+      <a href="#s02">02 · Brindisi y la Via Appia</a>
+      <a href="#s03">03 · Castro Marina: playa y casco antiguo</a>
+      <a href="#s04">04 · La Grotta della Poesia</a>
+      <a href="#s05">05 · La Baia dei Turchi</a>
+      <a href="#s06">06 · Otranto, la puerta de Oriente</a>
+      <a href="#s07">07 · Santa Cesarea Terme y sus villas</a>
+      <a href="#s08">08 · Nuestras rutas por el Salento</a>
+      <a href="#s09">09 · Créditos fotográficos</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Índice</span>
+</div>
+
+<!-- ================= S01 ================= -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Castro Marina, nuestra base en el Salento</h2></div>
+    <p class="lede">Este artículo forma parte de nuestro road trip de 14 días por la Puglia. Si no habéis leído el principio, empezad por el primer artículo, que cubre la zona de Alberobello durante 4 días.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/es/puglia-alberobello.html" rel="noopener">Leer la primera parte: 4 días alrededor de Alberobello →</a>
+
+    <p style="margin-top:26px;">Para esta segunda parte del viaje elegimos <b>Castro Marina</b> como base. Es un pueblo costero con la doble ventaja de ofrecer playas de roca para bañarse y un casco histórico animado al que se sube a cenar por la noche. Desde Castro se sale cada día hacia los enclaves del Salento. Todos están a menos de una hora. No nos arrepentimos de la elección: Castro es encantador y vivo, y tuvimos dos ambientes distintos.</p>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Dónde dormimos</div>
+      <div class="hotel-name">Hotel degli Ulivi, Castro Marina</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-gli-ulivi-volet.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Fachada y contraventanas del Hotel degli Ulivi en Castro Marina" loading="lazy" data-imgkey="castro-gli-ulivi-volet">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-vue-de-l-hotel.webp&amp;w=600&amp;output=webp&amp;q=80" alt="La vista sobre la bahía de Castro desde la terraza del hotel" loading="lazy" data-imgkey="castro-vue-de-l-hotel">
+      </div>
+      <p style="margin:0 0 14px;">No es el hotel más nuevo de la zona, pero os lo recomendamos encarecidamente. Las habitaciones son grandes y funcionales, y se domina toda la bahía desde una gran terraza con hamacas.</p>
+      <div class="checklist" style="margin:0 0 16px;">
+        <ul>
+          <li><b>Las vistas.</b> Te despiertas con una panorámica magnífica sobre la bahía.</li>
+          <li><b>Los anfitriones.</b> Realmente amables.</li>
+          <li><b>La ubicación.</b> Céntrica, a 10 minutos a pie de las playas y del centro.</li>
+          <li><b>El desayuno.</b> Completo, y agradable de tomar en la terraza cubierta.</li>
+          <li><b>El precio.</b> Tan encantador como los anfitriones.</li>
+          <li><b>El aparcamiento.</b> Muchas plazas, y eso en la Puglia vale oro.</li>
+        </ul>
+      </div>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/kkVv3X4a8t" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Ver el Hotel degli Ulivi →</a>
+    </div>
+
+    <div class="tip"><p><b>Recordatorio práctico para todo el sur de la Puglia.</b> Muchos monumentos, museos y yacimientos cierran entre las 13h y las 16h. Las iglesias tienen horarios aún más impredecibles: incluso fuera de la pausa las encontraréis a menudo cerradas. Planificad las visitas en consecuencia y guardad la tarde para la playa o el café.</p></div>
+
+    <p>Reservamos el avión con Trip.com y el vehículo con QEEQ, que compara más de 500 empresas de alquiler con cancelación gratuita.</p>
+    <a class="cta-accent" href="https://www.trip.com/flights/?SID=2209817&amp;allianceid=1094387&amp;trip_sub1=0012d64856b04e83aa39136e2-688844&amp;utm_campaign=688844" target="_blank" rel="sponsored nofollow noopener">Buscar un vuelo a Brindisi →</a>
+    <a class="cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Comparar coches de alquiler →</a>
+
+    <p style="margin-top:26px;">Si preferís montar vuestro propio viaje, lo más sencillo es ir marcando uno a uno los lugares a los que queréis ir. Después podréis exportar el itinerario como cuaderno de viaje.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=es" target="_blank" rel="noopener">Crear mi itinerario a medida →</a>
+  </div>
+</div>
+
+<!-- ================= S02 ================= -->
+<div id="s02" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Brindisi y el final de la Via Appia</h2></div>
+    <p>Bajando desde Alberobello, elegimos parar en <b>Brindisi</b> en lugar de en Lecce, que veremos en un próximo artículo.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-bord-de-mer.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="El paseo marítimo y el puerto de Brindisi" loading="lazy" data-imgkey="brindisi-bord-de-mer">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-promenade.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El Corso Giuseppe Garibaldi, calle comercial de Brindisi" loading="lazy" data-imgkey="brindisi-promenade">
+    <div>
+      <p>Brindisi se hace sobre todo a pie. Bajad por el <b>Corso Giuseppe Garibaldi</b> para algo de compras, y girad luego a la izquierda al final de la avenida para bordear el puerto.</p>
+      <p style="margin:0;">Llegáis frente a las columnas romanas, en lo alto de la Scalinata Virgiliana, la escalinata de Virgilio.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-colonne-et-pianiste.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La columna romana y la Scalinata Virgiliana en Brindisi" loading="lazy" data-imgkey="brindisi-colonne-et-pianiste">
+      <div class="spot-body">
+        <div class="spot-eyebrow">El símbolo de la ciudad</div>
+        <div class="spot-name">Las columnas romanas</div>
+        <p style="margin:0;">Estas columnas marcaban antaño el punto final de la <b>Via Appia</b>, la ruta legendaria que unía Roma con Brindisi a lo largo de casi 600 km. En origen eran dos, gemelas, de casi 19 metros de alto. Una se derrumbó en 1528: su capitel fue donado a Lecce, donde hoy corona la columna de la Piazza Sant'Oronzo. La que queda domina el puerto con su capitel corintio.</p>
+        <div class="facts">
+          <div class="fact"><b>Via Appia</b>Casi 600 km desde Roma</div>
+          <div class="fact"><b>Altura original</b>Unos 19 metros</div>
+          <div class="fact"><b>Derrumbe</b>1528, capitel donado a Lecce</div>
+          <div class="fact"><b>Virgilio</b>Habría muerto aquí en el 19 a. C.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Aquí es también donde Virgilio habría muerto en el 19 a. C., de regreso de Grecia. Una placa conmemorativa le rinde homenaje.</p>
+
+    <h3 class="sub">La Piazza del Duomo</h3>
+    <p>Continuad hacia la Piazza del Duomo. La catedral, consagrada en 1089, quedó casi totalmente destruida por el terremoto de 1743 y se reconstruyó en estilo barroco. En el interior todavía se ven fragmentos del mosaico original. Enfrente, el <b>Museo Arqueológico Provincial Francesco Ribezzo</b> recorre la historia de Brindisi desde la prehistoria hasta la época romana. No os perdáis los Bronces de Punta del Serrone, esculturas griegas recuperadas del mar en 1992.</p>
+  </div>
+
+  <img class="portrait" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-cathedrale.webp&amp;w=900&amp;output=webp&amp;q=80" alt="Vidriera de la catedral de Brindisi" loading="lazy" data-imgkey="brindisi-cathedrale">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">El Palazzo Granafei-Nervegna</h3>
+    <p>Siguiendo por la izquierda se llega al Palazzo Granafei-Nervegna. No queda gran cosa pero se puede entrar libremente en el edificio que conserva las ruinas. Aquí es donde se expone el capitel de la segunda columna romana derrumbada. Luego, vuelta hacia la plaza de la catedral.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-granafei.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El Palazzo Granafei-Nervegna en Brindisi" loading="lazy" data-imgkey="brindisi-granafei">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/brindisi-granafei2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Las ruinas conservadas dentro del Palazzo Granafei" loading="lazy" data-imgkey="brindisi-granafei2">
+  </div>
+
+  <div class="col">
+    <p>Seguimos hacia el <b>Templo de San Giovanni al Sepolcro</b>, una iglesia románica circular del siglo XI<sup></sup> , construida por los Cruzados según el modelo del Santo Sepulcro de Jerusalén. Pero ojo: cerrado los miércoles. Era miércoles.</p>
+    <p>Seguid paseando por la pequeña ciudad. Hay iglesias por todas partes, por desgracia a menudo cerradas, como pasa en toda la Puglia.</p>
+    <div class="tip"><p><b>Nuestra opinión.</b> Brindisi es una ciudad histórica no turística. Éramos los únicos turistas paseando por la zona. Por la noche el paseo debe de ser más agradable y la ciudad más animada. Es más una ciudad para vivir que para visitar.</p></div>
+  </div>
+</div>
+
+<!-- ================= S03 ================= -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Castro Marina: la playa y el casco antiguo al atardecer</h2></div>
+    <p>Llegamos a Castro a última hora de la tarde. Lo primero que hacemos: la playa.</p>
+    <h3 class="sub">La playa de Castro</h3>
+    <p>No esperéis arena fina, aquí son rocas. Hay playas privadas con hamacas y sombrillas, contad unos 30 € al día, pero a las 16h ya están cogidas. Hacemos como todo el mundo: bajamos los escalones, ponemos la toalla en las rocas y nos tiramos al agua. El agua es cristalina.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-plage.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="La costa rocosa de Castro vista desde la Riviera" loading="lazy" data-imgkey="castro-plage">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-place.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Una de las dos plazas del casco antiguo de Castro" loading="lazy" data-imgkey="castro-place">
+    <div>
+      <h3 class="sub" style="margin-top:0;">El casco antiguo, por la noche</h3>
+      <p>Por la noche subimos al casco antiguo. Es encantador. Los restaurantes se suceden por las callejuelas, y el mirador ofrece unas vistas magníficas sobre la bahía.</p>
+      <p style="margin:0;">El castillo medieval se ha convertido en museo. Comimos en el restaurante mejor valorado del municipio, especializado en carne pero con opciones vegetarianas.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-expo-vetements.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Vestiduras litúrgicas expuestas en la Sacra Textile de Castro" loading="lazy" data-imgkey="castro-expo-vetements">
+    <div>
+      <h3 class="sub" style="margin-top:0;">La Sacra Textile, la buena sorpresa</h3>
+      <p>Bajo la catedral, la iglesia SS. Annunziata, no os perdáis la exposición <b>Sacra Textile</b> : una pequeña sala abovedada donde se presentan extraordinarias vestiduras eclesiásticas sobre maniquíes. Casullas, dalmáticas, albas y estolas, en todos los colores litúrgicos.</p>
+      <p style="margin:0;">Cada pieza va acompañada de un panel explicativo. Es inesperado y realmente bonito.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S04 ================= -->
+<div id="s04" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">La Grotta della Poesia, la piscina natural del Salento</h2></div>
+    <p>Salida hacia el norte de Castro, se bordea la costa durante 45 minutos hasta <b>Roca Vecchia</b>, municipio de Melendugno, entre San Foca y Torre dell'Orso. Gran aparcamiento, tomad a la derecha hacia la cueva. Entrada al parque arqueológico y a la cueva: 5 € por persona en julio de 2026.</p>
+    <p>Los paisajes son majestuosos: acantilados calcáreos, mar de un azul intenso. La cueva en sí es magnífica, uno de los lugares más fotografiados de Italia.</p>
+  </div>
+
+  <img class="band tall" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-paysage.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Los acantilados calcáreos alrededor de la Grotta della Poesia" loading="lazy" data-imgkey="grotta-paysage">
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Imprescindible ⭐</div>
+        <div class="spot-name">La Poesia Grande</div>
+        <p>En realidad hay dos cuevas. La Poesia Grande es la que se viene a ver: una piscina natural de unos 30 por 18 metros, excavada en la roca caliza por el mar a lo largo de los siglos. Su techo se derrumbó después de la Antigüedad, convirtiendo la cueva en una piscina a cielo abierto.</p>
+        <p style="margin:0;">Se admira desde el borde del acantilado: el agua es de un turquesa irreal, las paredes caen a plomo unos cinco metros de profundidad.</p>
+        <div class="facts">
+          <div class="fact"><b>Dimensiones</b>Unos 30 por 18 metros</div>
+          <div class="fact"><b>Profundidad</b>Unos 5 metros</div>
+          <div class="fact"><b>Baño</b>Prohibido desde 2019, la roca es porosa</div>
+          <div class="fact"><b>Tarifa</b>5 € por persona, parque arqueológico incluido</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El agua turquesa de la Grotta della Poesia vista desde el borde" loading="lazy" data-imgkey="grotta-vue-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Grotta della Poesia vista desde el borde del acantilado" loading="lazy" data-imgkey="grotta-vue">
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">La Poesia Piccola, el verdadero tesoro</h3>
+    <p>A unos sesenta metros, la Poesia Piccola está vallada e inaccesible. Y sin embargo es ella el verdadero tesoro arqueológico: en 1983, el arqueólogo Cosimo Pagliara descubrió en sus paredes, sobre más de 600 m², inscripciones en mesapio, griego y latín. Los navegantes grababan allí plegarias al dios <b>Thaotor</b>, «el protector», antes de su travesía hacia Grecia y Albania. Es uno de los santuarios de inscripciones más importantes del Mediterráneo antiguo.</p>
+    <p>El nombre «Poesia» viene probablemente del griego medieval <i>posis</i>, fuente de agua potable. La versión romántica cuenta que una princesa venía a bañarse aquí, inspirando a los poetas de la región.</p>
+    <p>El parque arqueológico de Roca Vecchia, justo al lado, incluye las ruinas de una ciudad costera medieval.</p>
+  </div>
+</div>
+
+<!-- ================= S05 ================= -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">La Baia dei Turchi, la playa más bonita del viaje</h2></div>
+    <p>Camino de Otranto, parada en la <b>Baia dei Turchi</b>, la bahía de los Turcos. Su nombre recuerda el desembarco de las tropas otomanas en 1480, cuando 18.000 soldados turcos desembarcaron en esta playa antes de marchar sobre Otranto y masacrar a 800 habitantes que se negaban a convertirse. Hoy el ambiente es bastante más apacible.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/turchi1.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="La arena fina y el agua clara de la Baia dei Turchi" loading="lazy" data-imgkey="turchi1">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/turchi2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La playa de arena fina de la Baia dei Turchi bordeada de pinos" loading="lazy" data-imgkey="turchi2">
+    <div>
+      <p>La playa está al final de un camino que atraviesa el pinar. Es una bonita playa de arena fina, lo que cambia respecto a las rocas de Castro. Un gran aparcamiento acoge a los numerosos visitantes.</p>
+      <p style="margin:0;">Encontramos unos <i>lettini</i> por 35 € los dos. Se hace pie bastante lejos. Estuvimos tumbados y nadando durante hora y media.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/turchi-douche.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Las duchas del aparcamiento de la Baia dei Turchi" loading="lazy" data-imgkey="turchi-douche">
+    <div>
+      <p style="margin:0;">A la vuelta hay dónde enjuagarse en el aparcamiento antes de marcharse. Un detalle, pero que cuenta cuando encadenas playa y visita el mismo día.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S06 ================= -->
+<div id="s06" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Otranto, la puerta de Oriente</h2></div>
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-arrivee.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="El Lungomare degli Eroi al llegar a Otranto" loading="lazy" data-imgkey="otranto-arrivee">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Imprescindible ⭐</div>
+        <div class="spot-name">Otranto</div>
+        <p style="margin:0;">Otranto es el punto más oriental de la Italia continental. La llaman la «puerta de Oriente», y se nota: las influencias bizantinas, árabes y normandas se mezclan por todas partes. Es también la ciudad que inspiró a Horace Walpole la primera novela gótica inglesa, <i>El castillo de Otranto</i>, en 1764.</p>
+        <div class="facts">
+          <div class="fact"><b>Aparcamiento</b>A la entrada de la ciudad, y luego a pie</div>
+          <div class="fact"><b>Entrada</b>Porta Alfonsina y Torre Alfonsina, siglo XV<sup></sup> </div>
+          <div class="fact"><b>Duración</b>Un día completo, sin problema</div>
+          <div class="fact"><b>Para probar</b>Los pasticciotti, mejor templados</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Aparcamos a la entrada de la ciudad y bordeamos el paseo marítimo, lleno de restaurantes. El <b>Lungomare degli Eroi</b> es una gran explanada que hace de balcón sobre el mar y da acceso al casco antiguo.</p>
+
+    <h3 class="sub">El casco antiguo</h3>
+    <p>Se entra por la <b>Porta Alfonsina</b>, llamada también Porta Terra, puerta monumental del siglo XV<sup></sup> , seguida de la imponente Torre Alfonsina. Las callejuelas están llenas de comercios: bolsos, zapatos, bisutería, tiendas de vino y de aceite de oliva, y sobre todo las pastelerías que venden <b>pasticciotti</b>, la especialidad del Salento. Un pastelito ovalado de masa quebrada relleno de crema pastelera, inventado en 1745 en Galatina. Se comen templados. Habremos comido muchos, muchos, muchos durante el viaje.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-vieilles-rues.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Las callejuelas comerciales del casco antiguo de Otranto" loading="lazy" data-imgkey="otranto-vieilles-rues">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-eglise-ecroulee.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Las ruinas a cielo abierto de la Ex Chiesa dell'Immacolata en Otranto" loading="lazy" data-imgkey="otranto-eglise-ecroulee">
+    <div>
+      <h3 class="sub" style="margin-top:0;">La iglesia derrumbada</h3>
+      <p>Seguimos hasta el final del casco antiguo y descubrimos las ruinas de la<b>Ex Chiesa dell'Immacolata</b>, una iglesia del siglo XVIII<sup></sup> derrumbada en 1970 tras fuertes lluvias. Quedan altares barrocos a cielo abierto.</p>
+      <p style="margin:0;">Una pasarela de madera, el Ponte dell'Immacolata, salva las ruinas y lleva a la Torre Matta.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub">Las murallas y el Castillo Aragonés</h3>
+    <p>Tomando a la izquierda de la iglesia se sube a las murallas. La vista sobre el puerto es magnífica. Se cruza la pasarela para continuar a lo largo de las murallas hasta el <b>Castillo Aragonés</b>. Construido en el siglo XV<sup></sup> bajo Fernando I<sup></sup> de Aragón, el castillo se visita por 12 €. Dentro: exposiciones permanentes sobre la historia de Otranto y la prehistoria, muestras temporales, y sobre todo la terraza panorámica en lo alto con vistas sobre toda la bahía. Las opiniones están divididas sobre el contenido interior, algunas salas están algo vacías, pero las vistas merecen el desvío.</p>
+
+    <div class="tip"><p><b>Recordatorio práctico.</b> Como en toda la Puglia, muchos monumentos cierran entre las 13h y las 16h. Nos encontramos ante la catedral cerrada. Aprovechad para hacer una pausa.</p></div>
+    <a class="cta-accent" href="https://getyourguide.tpo.li/X23vzgvV" target="_blank" rel="sponsored nofollow noopener">Reservar una visita guiada de Otranto →</a>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-coin-cafe.webp&amp;w=700&amp;output=webp&amp;q=80" alt="El jardín a la sombra de L'Ortale, tienda cerca de la catedral de Otranto" loading="lazy" data-imgkey="otranto-coin-cafe">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Nuestro sitio para el café</h3>
+      <p><b>L'Ortale Otranto</b>, una tienda de comestibles con un pequeño jardín a la sombra cerca de la catedral. Perfecto para esperar tranquilamente durante el cierre de la tarde.</p>
+      <p style="margin:0;">Era nuestro rincón secreto. Con, por supuesto, el pasticciotto que uno se come a la sombra.</p>
+    </div>
+  </div>
+
+  <img class="portrait" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-cathedrale.webp&amp;w=900&amp;output=webp&amp;q=80" alt="La catedral Santa Maria Annunziata de Otranto" loading="lazy" data-imgkey="otranto-cathedrale">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">La catedral Santa Maria Annunziata ⭐</h3>
+    <p>Impresionante. Construida por los normandos en el siglo XI<sup></sup> , ha sido remodelada varias veces pero conserva toda su fuerza.</p>
+    <p>El suelo está enteramente cubierto por un <b>mosaico monumental</b> realizado entre 1163 y 1165 por el monje Pantaleone. 54 metros de largo, 28 de ancho, cerca de 600.000 teselas de caliza. Un inmenso <b>Árbol de la Vida</b>, sostenido por dos elefantes, ocupa toda la nave central. Alrededor de sus ramas es un auténtico libro de imágenes medieval: escenas bíblicas (Adán y Eva, Caín y Abel, el Arca de Noé, la Torre de Babel), figuras mitológicas (Alejandro Magno tirado por dos grifos), el zodiaco, animales fantásticos, e incluso el rey Arturo a horcajadas sobre una cabra combatiendo a un monstruo. Cuanto más se avanza hacia el fondo de la nave, más esotérica se vuelve la imaginería.</p>
+    <p>Levantad la vista: el techo artesonado azul y oro data del siglo XVII<sup></sup> .</p>
+    <p>Detrás del altar, la <b>Capilla de los Mártires</b> conserva los huesos de los 800 habitantes de Otranto decapitados por los otomanos el 14 de agosto de 1480 por negarse a convertirse. Fueron canonizados por el papa Francisco en 2013. La losa de piedra sobre la que fueron ejecutados se expone tras una reja.</p>
+    <p>La <b>cripta</b> es un espectáculo en sí misma: 42 columnas, todas distintas, en mármol, pórfido y granito, con capiteles griegos, romanos, bizantinos y árabes. Data del siglo XI<sup></sup> . Se la compara a menudo con una versión en miniatura de la gran mezquita de Córdoba.</p>
+
+    <h3 class="sub">La Basílica de San Pietro</h3>
+    <p>Escondida en las callejuelas del centro histórico, esta pequeña iglesia bizantina de los siglos IX<sup></sup> y X<sup></sup> es uno de los mejores testimonios del arte bizantino en la Puglia. Planta de cruz griega, frescos antiguos en tonos ocre, azul y rojo. Los mejor conservados son <i>El Lavatorio de los pies</i> y <i>La Última Cena</i>, de finales del siglo IX<sup></sup> . Sobre el arco del altar, una inscripción árabe, huella de las distintas civilizaciones que se cruzaron aquí. Entrada 5 €, museo diocesano incluido. Ojo con los horarios: 10h-13h y luego 16:30-19:30 en verano.</p>
+    <p style="margin:0;">No esperábamos tanta riqueza en una ciudad de este tamaño. Otranto merece fácilmente un día completo.</p>
+  </div>
+</div>
+
+<!-- ================= S07 ================= -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Santa Cesarea Terme y sus villas sobre el acantilado</h2></div>
+    <p>De vuelta hacia Castro se bordea el mar por la carretera costera. Los paisajes son magníficos: acantilados que caen sobre un azul profundo, el mar hasta donde alcanza la vista. Paramos en <b>Santa Cesarea Terme</b> para pasear por el paseo que domina el Adriático.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/termes-vue-generale.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Vista general de Santa Cesarea Terme encaramada en los acantilados" loading="lazy" data-imgkey="termes-vue-generale">
+
+  <div class="col">
+    <p>Santa Cesarea es un balneario encaramado en los acantilados, conocido desde el siglo XVI<sup></sup> por sus aguas sulfurosas. Cuatro cuevas naturales, Gattulla, Fetida, Solfurea y Solfatara, alimentan manantiales a unos 30 °C, reputados para tratar los problemas de piel y el reumatismo.</p>
+    <p>La leyenda local cuenta que una joven de Otranto, huyendo de su padre violento, se refugió en una de estas cuevas. Su padre la habría perseguido antes de ser engullido por las llamas y el mar. Desde entonces, las aguas brotan cargadas de azufre.</p>
+    <p>Lo que llama la atención al llegar son las villas del siglo XIX<sup></sup> plantadas sobre los acantilados.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/termes-villa-maure.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Villa Sticchi y su cúpula púrpura en Santa Cesarea Terme" loading="lazy" data-imgkey="termes-villa-maure">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/termes-villa-raffaela.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Villa Raffaella en Santa Cesarea Terme" loading="lazy" data-imgkey="termes-villa-raffaela">
+  </div>
+
+  <div class="col">
+    <p>La más espectacular es la <b>Villa Sticchi</b>, construida entre 1894 y 1900 por el ingeniero Pasquale Ruggieri, que había viajado por Egipto. Con su cúpula púrpura, sus arcos de herradura y sus columnillas salomónicas en piedra de Lecce, parece una pequeña mezquita posada sobre el Adriático. La villa es propiedad privada y no se visita, pero la fachada merece la parada. Justo al lado, la <b>Villa Raffaella</b>, encargada hacia 1850 por la baronesa Lubelli, es más sobria pero igual de elegante.</p>
+    <a class="cta" href="https://booking.stay22.com/oneroadtrip/_NEtB4YHsk" target="_blank" rel="sponsored nofollow noopener">Dormir en una villa en Santa Cesarea Terme →</a>
+
+    <div class="checklist">
+      <ul>
+        <li><b>Base.</b> Castro Marina.</li>
+        <li><b>Alojamiento.</b> Hotel degli Ulivi.</li>
+        <li><b>Duración.</b> 2 días, el trayecto desde Alberobello y el primer día de visitas.</li>
+        <li><b>Distancias.</b> Todos los enclaves están a menos de una hora de Castro.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin:34px 0 0;">La continuación, Lecce, Maglie, Galatina y un paseo en barca desde Castro, en el próximo artículo.</p>
+  </div>
+</div>
+
+<!-- ================= S08 : ITINERAIRES =================
+     LANGUES : ne changer QUE le dossier.
+     fr /itineraires/ · en /itineraries/ · es /rutas/ · it /itinerari/ · pt /roteiros/
+     Le nom de fichier reste identique dans les 5 langues. -->
+<div id="s08" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Nuestras rutas por el Salento</h2></div>
+    <p>Todas son modificables en OneRoadTrip: añadís, quitáis o movéis las etapas, y luego exportáis el cuaderno de viaje. Estas son las tres que más coinciden con lo que acabáis de leer.</p>
+
+    <div class="itin-grid">
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-salento-salento-profond-grecia-leuca.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 días · La más cercana</div>
+        <div class="itin-t">Salento secreto: Grecìa griko y Otranto</div>
+        <div class="itin-d">El Salento de los pueblos griko, los trujales subterráneos y las cuevas marinas. Pasa por Otranto y la costa que acabamos de recorrer.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-puglia-salento-au-depart-de-lecce.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 días · El gran tour</div>
+        <div class="itin-t">El gran tour del Salento</div>
+        <div class="itin-d">Desde Lecce: costas adriática y jónica, pueblos barrocos y yacimientos mesapios. La versión completa de la península.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/rutas/it-puglia-brindisi-messapie-torre-guaceto.html" target="_blank" rel="noopener">
+        <div class="itin-days">2 días · Versión corta</div>
+        <div class="itin-t">Brindisi: criptas bizantinas y Torre Guaceto</div>
+        <div class="itin-d">El norte del Salento, de la Via Appia a las criptas rupestres y la reserva de Torre Guaceto. Ideal si Brindisi es solo una escala.</div>
+      </a>
+    </div>
+
+    <h3 class="sub">Las demás, para ir más lejos</h3>
+    <ul class="itin-list">
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-boucle-bari-itria-matera.html" target="_blank" rel="noopener">Circuito de Bari: trulli, gravine y Matera</a><span>13 días y 46 etapas, la ruta que corresponde a la primera parte de nuestro road trip.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-route-des-vins.html" target="_blank" rel="noopener">Puglia, la ruta de los vinos</a><span>7 días de Bari a Lecce por los trulli de Alberobello, el barroco de Lecce y los viñedos de primitivo y negroamaro.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-pouilles-secretes-9-jours.html" target="_blank" rel="noopener">Puglia secreta: Federico II y pueblos olvidados</a><span>7 días de Bari a Brindisi por el interior, lejos de los circuitos clásicos.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-puglia-murgia-barese-gravine-ceramiche.html" target="_blank" rel="noopener">Murgia de Bari, de Polignano a las gravine</a><span>3 días de Bari a Tarento por los pueblos blancos y los barrancos rupestres.</span></li>
+      <li><a href="https://www.oneroadtrip.com/rutas/it-sud-pouilles-noires-bari-naples.html" target="_blank" rel="noopener">Puglia negra: 8 días de Bari a Nápoles</a><span>Castel del Monte, los Sassi de Matera, el pueblo fantasma de Craco y el culto napolitano a las almas del Purgatorio.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= S09 ================= -->
+<div id="s09" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Créditos fotográficos</h2></div>
+    <button class="credit-btn" onclick="var b=document.getElementById('creditsBox');b.classList.toggle('show');this.textContent=b.classList.contains('show')?'Crédits photo ▲':'Crédits photo ▼'">Créditos fotográficos ▼</button>
+    <div id="creditsBox" class="credit-box">
+      Todas las fotos: Patricia y Marc, OneRoadTrip.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Road trip por la Puglia: Castro Marina, Otranto y el Salento",
+  "description": "Brindisi, la Grotta della Poesia, la Baia dei Turchi, Otranto y Santa Cesarea Terme: nuestra segunda etapa en el Salento, día a día.",
+  "image": [
+    "https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-3.webp&w=1200&output=jpg&q=85"
+  ],
+  "inLanguage": "es",
+  "datePublished": "2026-08-04",
+  "dateModified": "2026-08-04",
+  "author": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html"
+  },
+  "about": [
+    {
+      "@type": "Place",
+      "name": "Castro Marina"
+    },
+    {
+      "@type": "Place",
+      "name": "Otranto"
+    },
+    {
+      "@type": "Place",
+      "name": "Brindisi"
+    },
+    {
+      "@type": "Place",
+      "name": "Grotta della Poesia"
+    },
+    {
+      "@type": "Place",
+      "name": "Santa Cesarea Terme"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://www.oneroadtrip.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://www.oneroadtrip.com/blog/es/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Road trip por la Puglia: Castro Marina, Otranto y el Salento",
+      "item": "https://www.oneroadtrip.com/blog/es/salento-castro-otranto.html"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Dónde alojarse para visitar el Salento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Castro Marina es una buena base: playas de roca para bañarse, un casco histórico animado por la noche, y todos los enclaves del Salento a menos de una hora en coche."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Se puede uno bañar en la Grotta della Poesia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, el baño está prohibido desde 2019 porque la roca es porosa y amenaza con derrumbarse. Está muy vigilado, pero el espectáculo visual desde el borde del acantilado basta de sobra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tiempo hace falta para visitar Otranto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un día completo. La ciudad es mucho más rica de lo que su tamaño hace pensar: la catedral y su mosaico, la cripta, el Castillo Aragonés, las murallas y la Basílica de San Pietro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuáles son los horarios de los monumentos en el sur de la Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Muchos monumentos, museos y yacimientos cierran entre las 13h y las 16h. Las iglesias tienen horarios aún más impredecibles y suelen estar cerradas incluso fuera de la pausa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es el mosaico de la catedral de Otranto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un mosaico de suelo realizado entre 1163 y 1165 por el monje Pantaleone: 54 metros de largo, 28 de ancho, cerca de 600.000 teselas, con un inmenso Árbol de la Vida sostenido por dos elefantes."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Photo').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"salento-castro-otranto"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

@@ -2848,7 +2848,7 @@ window.debugLog = function(msg) {
   };
   
   function t(key) {
-    const lang = localStorage.getItem('ort_lang') || 'fr';
+    const lang = new URLSearchParams(location.search).get('lang') || localStorage.getItem('lang') || localStorage.getItem('ort_lang') || 'fr';
     return T[lang]?.[key] || T.fr[key] || key;
   }
   
@@ -3829,7 +3829,7 @@ async function init() {
   const itinId = params.get('itin') || '';
   const rtKey = params.get('rtKey') || '';
   const tripId = params.get('tripId') || params.get('id') || '';
-  const lang = params.get('lang') || localStorage.getItem('ort_lang') || 'fr';
+  const lang = params.get('lang') || localStorage.getItem('lang') || localStorage.getItem('ort_lang') || 'fr';
   const fromTemp = params.get('from') === 'temp';
   const builderMode = params.get('mode') === 'builder' || params.get('from') === 'builder';
   const fromBuilderResult = params.get('fromBuilder') === '1';
@@ -3881,7 +3881,8 @@ async function init() {
   state.lang = lang;
   state.targetNights = requestedDays || 0; // Nombre de jours demandés depuis l'URL
   state.startDateStr = departDate || null; // Date de départ
-  localStorage.setItem('ort_lang', lang);
+  localStorage.setItem('lang', lang);
+  localStorage.setItem('ort_lang', lang); // compatibilite ancienne cle
   
   // INIT ORT_TRIPID - Source de vérité unique pour le tripId
   if (window.ORT_TRIPID) {
@@ -5669,7 +5670,8 @@ function setupEvents() {
     opt.onclick = () => {
       const newLang = opt.dataset.lang;
       localStorage.setItem('lang', newLang);
-      localStorage.setItem('ort_lang', newLang); // Important pour RT Mobile
+      localStorage.setItem('lang', newLang);
+      localStorage.setItem('ort_lang', newLang); // compatibilite ancienne cle
       
       // Nettoyer les caches de state MAIS PAS les itinéraires temporaires (ORT_TEMP_TRIP_)
       // car ils contiennent les itinéraires personnalisés de l'utilisateur
