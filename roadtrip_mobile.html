@@ -4229,7 +4229,7 @@ async function loadFromTemp(rtKey) {
       // Conserver les infos enrichies
       to_next_leg: s.to_next_leg || null,
       suggested_days: s.suggested_days || null,
-      _mapKeywords: Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : []
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : (Array.isArray(s.map_keywords) ? s.map_keywords : []))
     };
   });
   
@@ -4526,7 +4526,7 @@ async function applyTripDataToState(tripData) {
       rating: s.rating || 0,
       visits: s.visits || s.pois || [],
       activities: s.activities || [],
-      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : (Array.isArray(s.map_keywords) ? s.map_keywords : []))
     };
   });
   
@@ -4629,7 +4629,7 @@ async function loadBuilderResult() {
       placeId: s.place_id || null,
       visits: s.visits || [],
       activities: s.activities || [],
-      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : (Array.isArray(s.map_keywords) ? s.map_keywords : []))
     };
   });
   
@@ -5333,7 +5333,7 @@ async function loadFromFirebase(rtKey) {
       place_id: s.place_id || s.placeId || null,
       visits: visits,
       activities: activities,
-      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : [])
+      _mapKeywords: Array.isArray(s._mapKeywords) ? s._mapKeywords : (Array.isArray(s.night?.map_keywords) ? s.night.map_keywords : (Array.isArray(s.map_keywords) ? s.map_keywords : []))
     };
   });
 }

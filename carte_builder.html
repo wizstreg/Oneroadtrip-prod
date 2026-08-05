@@ -5023,6 +5023,9 @@ const SAVE_MSG = {
 };
 function saveMsg(){ return SAVE_MSG[currentLang] || SAVE_MSG.fr; }
 
+// Les durees sont fractionnaires : sans arrondi, les sommes affichent 10 decimales
+function arrondiJours(v){ return Math.round((Number(v) || 0) * 100) / 100; }
+
 async function saveBuilderTrip(){
   const M = saveMsg();
   if (!selectedPlaces || selectedPlaces.length === 0) { alert(M.empty); return; }
@@ -5041,11 +5044,14 @@ async function saveBuilderTrip(){
     activities: place.activities || [],
     rating: place.rating || 0,
     map_keywords: Array.isArray(place.map_keywords) ? place.map_keywords : [],
-    suggested_days: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1)),
-    nights: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
+    _mapKeywords: Array.isArray(place.map_keywords) ? place.map_keywords : [],
+    night: { place_id: place.place_id, map_keywords: Array.isArray(place.map_keywords) ? place.map_keywords : [] },
+    suggested_days: arrondiJours(typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1)),
+    nights: arrondiJours(typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
   }));
 
-  const nights = steps.reduce((n, st) => n + (st.nights || 1), 0);
+  // Les durees valent 0.2, 0.5, 1.5... : leur somme brute donne 6.000000000000001
+  const nights = arrondiJours(steps.reduce((n, st) => n + (st.nights || 1), 0));
   const trip = {
     id: resumingTripId || ('custom::' + Date.now()),
     title: (selectedPlaces[0] && selectedPlaces[0].name ? selectedPlaces[0].name : 'Mon voyage') + ' — ' + steps.length + ' étapes',
