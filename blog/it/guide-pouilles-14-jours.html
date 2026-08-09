@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guida alla Puglia: itinerario di 14 giorni, budget e consigli</title>
+<meta name="description" content="Il nostro road trip di 14 giorni in Puglia: tre basi, 2.000 km, il percorso giorno per giorno, la classifica delle spiagge, le ZTL e il budget reale in due.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/it/guide-pouilles-14-jours.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/guide-pouilles-14-jours.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/guide-pouilles-14-jours.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/guide-pouilles-14-jours.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/guide-pouilles-14-jours.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/guide-pouilles-14-jours.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/guide-pouilles-14-jours.html">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="it_IT">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Guida alla Puglia: itinerario di 14 giorni, budget e consigli">
+<meta property="og:description" content="Il nostro road trip di 14 giorni in Puglia: tre basi, 2.000 km, il percorso giorno per giorno, la classifica delle spiagge, le ZTL e il budget reale in due.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/it/guide-pouilles-14-jours.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/porte-bleue.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="La porta azzurra di Ostuni, simbolo della città bianca">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Guida alla Puglia: itinerario di 14 giorni, budget e consigli">
+<meta name="twitter:description" content="Il nostro road trip di 14 giorni in Puglia: tre basi, 2.000 km, il percorso giorno per giorno, la classifica delle spiagge, le ZTL e il budget reale in due.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/porte-bleue.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2,h3{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .sub{font-family:'Instrument Serif',serif;font-size:25px;color:#3a2f22;margin:34px 0 12px;}
+  .lede{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;}
+
+  /* ---- SYSTEME PHOTO ---- */
+  .band{display:block;width:auto;max-width:1100px;max-height:700px;height:auto;object-fit:contain;margin:10px auto 30px;border-radius:14px;}
+  .band.tall{max-height:800px;}
+  .band.short{max-height:520px;}
+  .gal{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;gap:12px;}
+  .gal{align-items:start;}
+  .gal img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .gal-2{grid-template-columns:1fr 1fr;}
+  .gal-3{grid-template-columns:1fr 1fr 1fr;}
+  .gal-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .gal-hero{grid-template-columns:2fr 1fr;}
+  .gal-wide{grid-template-columns:1fr 1fr;}
+  .gal-wide > :first-child{grid-column:span 2;}
+  .duo{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;}
+  .duo.rev > img{order:2;}
+  .duo img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .duo img.nocrop{height:auto;object-fit:contain;}
+  .portrait{display:block;width:auto;max-width:520px;max-height:640px;height:auto;margin:10px auto 30px;border-radius:14px;}
+  .duo p{margin:0 0 14px;}
+  .duo p:last-child{margin:0;}
+  figcaption,.cap{font-size:12.5px;color:#8a7d68;margin:-20px 0 28px;padding:0 48px;max-width:960px;margin-left:auto;margin-right:auto;}
+
+  /* ---- ENCADRES ---- */
+  .spot{border:2px solid #c1502e;border-radius:18px;background:#fff;padding:0;margin:34px auto 40px;overflow:hidden;}
+  .spot-img{display:block;width:auto;max-width:100%;max-height:620px;height:auto;object-fit:contain;margin:0 auto;}
+  .spot-body{padding:24px 28px 26px;}
+  .spot-eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#c1502e;font-weight:700;margin:0 0 6px;}
+  .spot-name{font-family:'Instrument Serif',serif;font-size:28px;color:#3a2f22;margin:0 0 14px;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:16px 0 0;}
+  .fact{font-size:14px;color:#4a4030;line-height:1.6;}
+  .fact b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:2px;}
+  .tip{border-left:4px solid #113f7a;background:#fff;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 28px;}
+  .tip b{color:#113f7a;}
+  .tip p{margin:0;font-size:15px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 24px;margin:24px 0 30px;}
+  .checklist ul{margin:0;padding-left:20px;}
+  .checklist li{font-size:15px;line-height:1.75;color:#4a4030;margin-bottom:8px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .chg{color:#c1502e;font-weight:700;}
+  .steps{list-style:none;counter-reset:st;margin:18px 0 0;padding:0;}
+  .steps li{counter-increment:st;position:relative;padding:0 0 14px 44px;border-left:2px solid #e3e0d8;margin-left:14px;}
+  .steps li:last-child{border-left:2px solid transparent;padding-bottom:0;}
+  .steps li::before{content:counter(st);position:absolute;left:-15px;top:0;width:28px;height:28px;border-radius:999px;background:#113f7a;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .steps li b{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;}
+  .steps li i{display:block;font-style:normal;font-size:13.5px;line-height:1.55;color:#4a4030;margin-top:3px;}
+  .sec-head{cursor:pointer;user-select:none;}
+  .sec-head:hover .sec-title{color:#113f7a;}
+  .sec-arrow{margin-left:auto;flex:none;width:30px;height:30px;border-radius:999px;border:1px solid #dcd8cd;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#113f7a;transition:transform .22s,background .15s;}
+  .sec-head:hover .sec-arrow{background:#f2f6fb;}
+  .folded .sec-arrow{transform:rotate(-90deg);}
+  .sec-body{overflow:hidden;transition:max-height .3s ease,opacity .2s;}
+  .folded .sec-body{max-height:0 !important;opacity:0;}
+  .foldall{background:#fff;border:1px solid #dcd8cd;border-radius:999px;padding:8px 18px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;color:#113f7a;cursor:pointer;margin-top:14px;}
+  .foldall:hover{background:#f2f6fb;}
+  .artnav{max-width:960px;margin:28px auto 0;padding:0 48px;}
+  .artnav-t{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#8a7d68;font-weight:700;margin-bottom:10px;}
+  .artnav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .artnav-i{display:block;border:1px solid #e3e0d8;border-radius:12px;background:#fff;padding:12px 14px;text-decoration:none;transition:background .15s;}
+  .artnav-i:hover{background:#f2f6fb;}
+  .artnav-i b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:3px;}
+  .artnav-i span{display:block;font-size:13px;line-height:1.45;color:#4a4030;}
+  .artnav-i.here{background:#c1502e;border-color:#c1502e;cursor:default;}
+  .artnav-i.here b,.artnav-i.here span{color:#fff;}
+  .artnav-i.here em{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#ffe2d6;margin-top:5px;}
+  .itin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0 8px;}
+  .itin-card{display:block;border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 20px;text-decoration:none;transition:background .15s;}
+  .itin-card:hover{background:#f2f6fb;}
+  .itin-days{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c1502e;font-weight:700;}
+  .itin-t{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;margin:6px 0 8px;line-height:1.25;}
+  .itin-d{font-size:13.5px;line-height:1.6;color:#4a4030;}
+  .itin-list{margin:22px 0 0;padding:0;list-style:none;}
+  .itin-list li{border-bottom:1px solid #e3e0d8;padding:13px 0;}
+  .itin-list li:last-child{border-bottom:none;}
+  .itin-list a{font-weight:600;text-decoration:none;}
+  .itin-list span{display:block;font-size:13.5px;color:#8a7d68;line-height:1.55;margin-top:3px;}
+
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover{background:#0c2c56;color:#fff;}
+  .cta-accent{display:inline-flex;align-items:center;gap:8px;background:#c1502e;color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;margin:8px 8px 8px 0;}
+  .cta-accent:hover{background:#a53f20;color:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin:0 0 6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:auto;object-fit:contain;border-radius:10px;display:block;}
+  .bio{display:flex;gap:22px;align-items:center;border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:22px 26px;margin:32px auto 8px;}
+  .bio img{width:120px;height:120px;border-radius:999px;object-fit:contain;background:#faf8f4;flex:none;}
+  .bio-t{font-family:'Instrument Serif',serif;margin:0 0 8px;font-size:22px;color:#3a2f22;}
+  .bio p{font-size:15px;margin:0;}
+
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .gal,.duo,.cap{padding:0 20px;}
+    .gal-4{grid-template-columns:1fr 1fr;}
+    .gal-3{grid-template-columns:1fr 1fr;}
+    .gal-hero{grid-template-columns:1fr;}
+    .duo{grid-template-columns:1fr;gap:14px;}
+    .duo.rev > img{order:0;}
+    .duo img.nocrop{height:auto;}
+    .portrait{max-width:100%;max-height:none;padding:0 20px;}
+    .band{max-width:100%;max-height:none;}
+    .band.tall{max-height:none;}
+    .band.short{max-height:none;}
+    .spot-img{max-height:none;}
+    .facts{grid-template-columns:1fr;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    .sub{font-size:21px;}
+    h1{font-size:30px !important;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .bio{flex-direction:column;align-items:center;text-align:center;}
+    .itin-grid{grid-template-columns:1fr;}
+    .chg{color:#c1502e;font-weight:700;}
+  .steps{list-style:none;counter-reset:st;margin:18px 0 0;padding:0;}
+  .steps li{counter-increment:st;position:relative;padding:0 0 14px 44px;border-left:2px solid #e3e0d8;margin-left:14px;}
+  .steps li:last-child{border-left:2px solid transparent;padding-bottom:0;}
+  .steps li::before{content:counter(st);position:absolute;left:-15px;top:0;width:28px;height:28px;border-radius:999px;background:#113f7a;color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+  .steps li b{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;}
+  .steps li i{display:block;font-style:normal;font-size:13.5px;line-height:1.55;color:#4a4030;margin-top:3px;}
+  .sec-head{cursor:pointer;user-select:none;}
+  .sec-head:hover .sec-title{color:#113f7a;}
+  .sec-arrow{margin-left:auto;flex:none;width:30px;height:30px;border-radius:999px;border:1px solid #dcd8cd;background:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;color:#113f7a;transition:transform .22s,background .15s;}
+  .sec-head:hover .sec-arrow{background:#f2f6fb;}
+  .folded .sec-arrow{transform:rotate(-90deg);}
+  .sec-body{overflow:hidden;transition:max-height .3s ease,opacity .2s;}
+  .folded .sec-body{max-height:0 !important;opacity:0;}
+  .foldall{background:#fff;border:1px solid #dcd8cd;border-radius:999px;padding:8px 18px;font-family:'Archivo',sans-serif;font-size:13px;font-weight:600;color:#113f7a;cursor:pointer;margin-top:14px;}
+  .foldall:hover{background:#f2f6fb;}
+  .artnav{padding:0 20px;}
+    .artnav-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <span class="hero-tag" style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Italia · Puglia · La guida</span>
+    <h1 style="font-size:42px;line-height:1.12;margin:12px 0 18px;">La guida alla Puglia: itinerario di 14&nbsp;giorni, budget e consigli</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Quello che ci è rimasto, quello che rifaremmo diversamente, città per città, spiaggia per spiaggia, con il budget reale.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/porte-bleue.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="La porta azzurra di Ostuni su un muro bianco" data-imgkey="porte-bleue" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="artnav">
+  <div class="artnav-t">La nostra serie sulla Puglia, 6 articoli</div>
+  <div class="artnav-grid">
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/it/puglia-alberobello.html" rel="noopener"><b>Parte 1</b><span>Alberobello, Matera e Ostuni</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/it/salento-castro-otranto.html" rel="noopener"><b>Parte 2</b><span>Otranto, Castro e il Salento</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/it/lecce-galatina-castro.html" rel="noopener"><b>Parte 3</b><span>Lecce, Galatina e le grotte</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/it/gallipoli-nardo-salento.html" rel="noopener"><b>Parte 4</b><span>Gallipoli, Nardò e il Salento</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/it/trani-barletta-castel-del-monte.html" rel="noopener"><b>Parte 5</b><span>Trani, Barletta e Castel del Monte</span></a>
+    <div class="artnav-i here"><b>La guida</b><span>14 giorni, budget e consigli</span><em>Stai leggendo questo articolo</em></div>
+  </div>
+</div>
+<div class="col" style="padding-top:32px;">
+  <div class="bio">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/patmarccadre.webp&amp;w=400&amp;output=webp&amp;q=85" alt="Patricia e Marc, autori del blog OneRoadTrip" data-imgkey="patmarccadre">
+    <div>
+      <div class="bio-t">Chi siamo?</div>
+      <p>Siamo Patricia, maestra, e Marc, dirigente nelle assicurazioni, e siamo in una cinquantina avventurosa. Abbiamo sempre amato viaggiare. Prima la Francia, casa nostra, e in particolare il sud-est da cui veniamo, ma anche tanti altri paesi. A fine 2025 Marc ha creato un'applicazione che raccoglie moltissimi itinerari in giro per il mondo, tutti modificabili: <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip.com</a>. Da allora ci facciamo trascinare tutti e due dalla nostra passione per i viaggi e proviamo a condividerla, con <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip</a> e con questo blog.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col" style="padding-top:28px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Sommario</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Il metodo delle tre basi</a>
+      <a href="#s02">02 · I nostri hotel</a>
+      <a href="#s03">03 · Il percorso giorno per giorno</a>
+      <a href="#s04">04 · Cosa cambieremmo</a>
+      <a href="#s05">05 · Quando partire</a>
+      <a href="#s06">06 · Federico II, il fantasma del viaggio</a>
+      <a href="#s07">07 · Le spiagge, la nostra classifica</a>
+      <a href="#s08">08 · Zona 1: la Valle d'Itria</a>
+      <a href="#s09">09 · Zona 2: il Salento</a>
+      <a href="#s10">10 · Zona 3: la Terra di Bari</a>
+      <a href="#s11">11 · Auto, ZTL e parcheggio</a>
+      <a href="#s12">12 · Il budget reale</a>
+      <a href="#s13">13 · Gli inconfessabili</a>
+      <a href="#s14">14 · I nostri itinerari</a>
+      <a href="#s15">15 · Crediti fotografici</a>
+    </div>
+    <button class="foldall" type="button" onclick="ortFoldAll()">Chiudi tutto</button>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Sommario</span>
+</div>
+
+<!-- ================= S01 ================= -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Il metodo delle tre basi</h2></div>
+    <p class="lede">Questo articolo riassume i cinque articoli che abbiamo scritto sulla Puglia, che trovi linkati più in basso. Ci abbiamo passato quattordici giorni, percorrendola da nord a sud. Ecco cosa ci è rimasto, cosa faremmo diversamente e tutti i consigli che possiamo darti.</p>
+    <p>Abbiamo organizzato il soggiorno attorno a <b>tre basi</b>, un metodo che consigliamo: posi le valigie e ti muovi a raggiera, invece di disfare i bagagli ogni sera. <b>Chilometri percorsi: 2.000 esatti.</b></p>
+
+    <div class="checklist">
+      <ul>
+        <li><b>Alberobello.</b> Per esplorare la Valle d'Itria, il paese dei trulli, con i suoi borghi bianchi arroccati e la costa adriatica da Polignano a Mare a Monopoli. Matera, tecnicamente in Basilicata, si visita benissimo da qui.</li>
+        <li><b>Castro Marina.</b> All'estremo sud, per il Salento: Otranto, Lecce, Gallipoli, le grotte marine e le spiagge del tacco dello stivale.</li>
+        <li><b>Trani.</b> Per risalire sulla Terra di Bari e verso nord: Castel del Monte, Barletta, Bari e le lunghe spiagge di sabbia di Margherita di Savoia.</li>
+      </ul>
+    </div>
+
+    <p>Se preferisci costruirti il viaggio da solo, la cosa più semplice è cliccare uno a uno i posti dove vuoi andare. Poi puoi esportare l'itinerario come diario di viaggio.</p>
+    <a class="cta-accent" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=it" target="_blank" rel="noopener">Costruisci il mio itinerario su misura →</a>
+    <a class="cta-accent" href="https://www.trip.com/flights/?SID=2209817&amp;allianceid=1094387&amp;trip_sub1=0012d64856b04e83aa39136e2-688844&amp;utm_campaign=688844" target="_blank" rel="sponsored nofollow noopener">Cerca un volo per Bari →</a>
+  </div>
+</div>
+
+<!-- ================= S02 ================= -->
+<div id="s02" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">I nostri hotel, e quelli che avremmo preso</h2></div>
+    <p>Tutti e tre ci sono andati bene, per motivi diversi. Le prenotazioni alberghiere ci permettono di finanziare il sito senza che tu paghi un centesimo in più.</p>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Base 1 · Alberobello</div>
+      <div class="hotel-name">Dimora Sumerano</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/dimorasumerano.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Camera in un trullo alla Dimora Sumerano" loading="lazy" data-imgkey="dimorasumerano">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/dimorasumerano2.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Esterno del trullo della Dimora Sumerano" loading="lazy" data-imgkey="dimorasumerano2">
+      </div>
+      <p style="margin:0 0 14px;">Una camera in un trullo, a cinque minuti dal centro, con parcheggio. <b>612 euro per 5 notti</b> a luglio 2026. Hai il parcheggio, la vicinanza al paese e le piccole attenzioni senza gli inconvenienti.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/MSrpFJNM24" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Vedi la Dimora Sumerano →</a>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Base 2 · Castro Marina</div>
+      <div class="hotel-name">Hotel degli Ulivi</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-gli-ulivi-volet.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Facciata e persiane dell'Hotel degli Ulivi a Castro Marina" loading="lazy" data-imgkey="castro-gli-ulivi-volet">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-vue-de-l-hotel.webp&amp;w=700&amp;output=webp&amp;q=85" alt="La vista sulla baia di Castro dalla terrazza dell'hotel" loading="lazy" data-imgkey="castro-vue-de-l-hotel">
+      </div>
+      <p style="margin:0 0 14px;">Non è l'hotel più recente della zona, ma lo consigliamo con convinzione. Le camere sono funzionali e grandi, e si domina tutta la baia da un'ampia terrazza con lettini. <b>115 euro a notte in pieno agosto.</b> Esattamente tra il porto turistico e il centro storico, a 8 minuti a piedi da entrambi. E tanti posti auto, cosa che in Puglia vale oro.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/kkVv3X4a8t" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Vedi l'Hotel degli Ulivi →</a>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Base 3 · Trani</div>
+      <div class="hotel-name">Borgo Beltrani Rooms</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chambre-hotel-trani.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Camera ristrutturata del Borgo Beltrani Rooms a Trani" loading="lazy" data-imgkey="chambre-hotel-trani">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/coin-repas-hotel-trani-a3.webp&amp;w=700&amp;output=webp&amp;q=85" alt="La terrazza della colazione del Borgo Beltrani con vista sulla cattedrale" loading="lazy" data-imgkey="coin-repas-hotel-trani-a3">
+      </div>
+      <p style="margin:0 0 14px;">Un ottimo indirizzo che consigliamo. Camere completamente ristrutturate, a 200 metri dalla cattedrale e dal castello, colazione in terrazza con vista sulla cattedrale. <b>125 euro a camera in pieno agosto.</b> Secondo hotel di Trani su Trip, 9,2 su Booking. Il ristorante Beltrani 29, proprio sotto, è molto buono.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/z_EfAWVXRR" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Vedi il Borgo Beltrani →</a>
+    </div>
+
+    <h3 class="sub">E i due che avremmo preso</h3>
+    <p>Se rifacessimo il viaggio con la nostra divisione ideale, aggiungeremmo una notte a Matera e due nel Gargano. Ecco i due indirizzi che punteremmo. Non li abbiamo provati.</p>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Quello che avremmo preso · Matera</div>
+      <div class="hotel-name">MOYSEION Matera</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/hotel-matera/hotel-exception-matera-1.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Camera rupestre del MOYSEION a Matera" loading="lazy" data-imgkey="moyseion-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/hotel-matera/hotel-exception-matera-2.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Il Santuario delle Acque del MOYSEION a Matera" loading="lazy" data-imgkey="moyseion-2">
+      </div>
+      <p style="margin:0 0 14px;">Se segui la nostra divisione ideale, dormirai una notte a Matera. Tanto vale farlo bene. Il MOYSEION è un hotel-museo di 16 camere ricavato nelle grotte del Sasso Barisano, con un Santuario delle Acque ispirato ai complessi ellenistici. Solo adulti, dai 16 anni in su, tariffe a partire da <b>149 € a notte</b>. Non l'abbiamo provato, te lo segnaliamo perché esce dall'ordinario.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/noHnzAGiNk" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Vedi il MOYSEION Matera →</a>
+    </div>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Quello che avremmo preso · Vieste, Gargano</div>
+      <div class="hotel-name">Hotel Seggio, Vieste</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/veste-1.webp&amp;w=700&amp;output=webp&amp;q=85" alt="L'Hotel Seggio a Vieste, sul promontorio del Gargano" loading="lazy" data-imgkey="veste-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/veste-2.webp&amp;w=700&amp;output=webp&amp;q=85" alt="La vista sul mare dall'Hotel Seggio a Vieste" loading="lazy" data-imgkey="veste-2">
+      </div>
+      <p style="margin:0 0 14px;">Il nostro vero rimpianto è il Gargano. Se rifacessimo il viaggio ci passeremmo due notti, ed è qui che poseremmo le valigie: nel centro storico di Vieste, davanti al mare. Non l'abbiamo provato, te lo segnaliamo per la posizione.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/IP3cvfqjCT" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Vedi l'Hotel Seggio →</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= S03 ================= -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Il percorso vero, giorno per giorno</h2></div>
+    <p>I voti sono i nostri, a caldo, alla fine di ogni giornata.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/photo-jour-le-jour-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="La strada tra gli ulivi della Puglia" loading="lazy" data-imgkey="photo-jour-le-jour-a3">
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Giorno 0 ·</b> Arrivo a Bari tardi, strada verso Alberobello (1 ora).<span>I noleggi chiudono verso le 23 in aeroporto, avvisali se arrivi dopo.</span></li>
+      <li><b>Giorno 1 · ⭐ 5/5 ·</b> Matera (giornata intera), rientro ad Alberobello, Rione Monti la sera.<span>Matera e Alberobello, le due mazzate del viaggio.</span></li>
+      <li><b>Giorno 2 · 4,5/5 ·</b> Fasano, spiaggia del Capitolo e Lido Sabbia d'Oro, Monopoli, Polignano a Mare, Alberobello (Aia Piccola la sera).<span>Piccola delusione sulle spiagge.</span></li>
+      <li><b>Giorno 3 · 4/5 ·</b> Martina Franca, Cisternino e le sue bombette, Ostuni, Ceglie Messapica, Locorotondo la sera.<span>Meno spettacolare dei giorni precedenti.</span></li>
+      <li><b>Giorno 4 · ⭐ 5/5 ·</b> Putignano, grotte di Castellana, Conversano, Cantina Polvanera, Gioia del Colle, Locorotondo la sera.<span>Mazzata con le grotte.</span></li>
+      <li><b>Giorno 5 ·</b> Partenza verso Castro (2 ore e mezza), sosta a Brindisi, arrivo a Castro nel tardo pomeriggio.</li>
+      <li><b>Giorno 6 · ⭐ 5/5 ·</b> Grotta della Poesia, Baia dei Turchi, Otranto, Santa Cesarea Terme.<span>Tutto bello e tutto diverso.</span></li>
+      <li><b>Giorno 7 · 4,5/5 ·</b> Maglie, Galatina e il pasticciotto da Ascalone, Lecce.<span>Meno mazzate, ma Galatina e Lecce sono splendide.</span></li>
+      <li><b>Giorno 8 · 4/5 ·</b> Barca lungo le grotte (Palombara, Azzurra, Zinzulusa), Tricase, Specchia.<span>È una giornata di riposo.</span></li>
+      <li><b>Giorno 9 · 3/5 ·</b> Gallipoli, Casarano, Ugento, Presicce, Pescoluse.<span>La punta del tacco ci ha delusi, tranne Gallipoli.</span></li>
+      <li><b>Giorno 10 · 3,5/5 ·</b> Galatone, Nardò, Porto Cesareo, Punta Prosciutto.<span>Nardò risolleva tutto, e anche Punta Prosciutto.</span></li>
+      <li><b>Giorno 11 ·</b> Specchiolla (pausa caffè), arrivo a Trani alle 15.</li>
+      <li><b>Giorno 12 · 3,5/5 ·</b> Barletta: Santa Maria Maggiore, il Colosso, la Cantina della Disfida.<span>Giornata risollevata da Barletta e Trani.</span></li>
+      <li><b>Giorno 13 · 4,5/5 ·</b> Altamura, Gravina, Castel del Monte.<span>Tutti e tre i posti sono splendidi.</span></li>
+      <li><b>Giorno 14 · 4/5 ·</b> Bisceglie (dolmen, concattedrale), Molfetta, Giovinazzo, Bari Vecchia, aeroporto alle 22.<span>Colpo di fulmine per Giovinazzo.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= S04 ================= -->
+<div id="s04" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Cosa cambieremmo</h2></div>
+    <p><b>Alberobello, cinque notti.</b> Passeremmo a <b class="chg">quattro</b>. La posizione è perfetta: ti sposti a meno di un'ora in tutte le direzioni, senza mai avere l'impressione di perdere tempo in strada. Ma invece di fare Matera in giornata, avremmo dormito lì una notte, poi visitato la costa prima di scendere verso Castro.</p>
+    <p><b>Castro Marina, sei notti.</b> Due di troppo se passi da Matera. <b class="chg">Quattro</b> sarebbero bastate. Il Salento si visita in fretta quando hai una base ben piazzata, e Castro lo è: Otranto a 25 minuti, Lecce a 35 minuti, la Grotta della Poesia a tre quarti d'ora, Gallipoli a 50 minuti.</p>
+    <p><b>Trani, tre notti.</b> È il conto giusto, non lo tocchiamo.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chikashi-miyamoto-4uivaon6szw-unsplash.webp&amp;w=800&amp;output=webp&amp;q=85" alt="Vieste e le sue case bianche sul promontorio del Gargano" loading="lazy" data-imgkey="vieste-unsplash">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/baia-delle-zagare-farallons.webp&amp;w=800&amp;output=webp&amp;q=85" alt="I faraglioni della Baia delle Zagare nel Gargano" loading="lazy" data-imgkey="baia-delle-zagare">
+  </div>
+  <div class="cap">Vieste: Chikashi Miyamoto (Unsplash). Baia delle Zagare: Lohen11, CC BY 4.0.</div>
+
+  <div class="col">
+    <p><b>Il Gargano, zero notti.</b> Il nostro vero rimpianto. Le <b class="chg">due notti</b> risparmiate su Castro avrebbero meritato di essere passate qui: la costa est con Vieste, Peschici, la Baia delle Zagare e i trabucchi; l'interno con la Foresta Umbra, Monte Sant'Angelo e San Giovanni Rotondo; e le isole Tremiti al largo.</p>
+
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">La nostra divisione ideale, in ordine</div>
+        <div class="spot-name">14 notti, rifatte diversamente</div>
+        <ol class="steps">
+          <li><b>Alberobello</b> <span class="chg">4 notti</span><i>La Valle d'Itria, i borghi bianchi e la costa da Monopoli a Polignano.</i></li>
+          <li><b>Matera</b> <span class="chg">1 notte</span><i>Per vedere i Sassi illuminati la sera, cosa che una visita in giornata non permette.</i></li>
+          <li><b>Castro Marina</b> <span class="chg">4 notti</span><i>Tutto il Salento: Otranto, Lecce, Gallipoli, le grotte e le spiagge.</i></li>
+          <li><b>Gargano</b> <span class="chg">2 notti</span><i>Vieste, la Baia delle Zagare e la Foresta Umbra. Attenzione, minimo 4 ore di strada da Castro.</i></li>
+          <li><b>Trani</b> <span class="chg">3 notti</span><i>La Terra di Bari, Castel del Monte, Altamura, Gravina e Bari.</i></li>
+        </ol>
+        <p style="margin:16px 0 0;font-size:14px;color:#8a7d68;">Totale: 14 notti, circa 2.000 km.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S05 ================= -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Quando partire: il nostro parere sull'alta stagione</h2></div>
+    <p>Siamo partiti a fine luglio e la prima settimana di agosto, cioè nel momento peggiore secondo tutto quello che si legge. Sinceramente, non abbiamo trovato la Puglia presa d'assalto. Abbiamo guidato senza difficoltà e, nella maggior parte dei paesi che avevamo in lista, i turisti erano pochi.</p>
+    <p>Dove si concentrano è sulle spiagge. I lidi e le calette si riempiono in fretta, soprattutto dalle 10 in poi. L'entroterra invece resta tranquillo.</p>
+    <div class="tip"><p><b>Il nostro consiglio.</b> Nei paesi più gettonati (Alberobello, Polignano a Mare, Otranto, Lecce) i turisti non li eviterai. Visitali a fine giornata o la sera: c'è meno gente, la luce è migliore e scampi al caldo del pomeriggio, che picchia tra i 30 e i 35 gradi.</p></div>
+    <p><b>Un'alternativa, che va contro quello che ti abbiamo appena detto.</b> Puoi anche visitare questi paesi nel primo pomeriggio, proprio perché a quell'ora qualcosa succede. Trovi cose da fare e da mangiare, mentre tanti paesi non turistici chiudono tutto tra le 13 e le 16.</p>
+    <p style="margin:0;">Una parola sulle temperature: le mattine e le sere sono piuttosto fresche, porta una felpa leggera. Sorprende quando arrivi pensando che ci saranno 35 gradi giorno e notte.</p>
+  </div>
+</div>
+
+<!-- ================= S06 ================= -->
+<div id="s06" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Federico II, il fantasma del viaggio</h2></div>
+    <p>Girando la Puglia incontrerai di continuo <b>Federico II di Svevia</b> (1194-1250), soprannominato <i>Stupor Mundi</i>, la meraviglia del mondo. È lui che ha fondato le città che attraversi, che ha trasformato la regione in un crocevia culturale tra Oriente e Occidente e che ne ha fatto un laboratorio di potere.</p>
+    <p>È dappertutto. Ad Altamura è lui che nel 1232 ha rifondato la città dopo una rivolta. A Gravina ha costruito la cattedrale e il castello. E a Castel del Monte infine, il suo capolavoro esoterico, voluto verso il 1240, di cui a oggi nessuno sa davvero a cosa servisse.</p>
+    <p>Federico II parlava sei lingue. Accoglieva alla sua corte studiosi greci, arabi, italiani ed ebrei. Era anche matematico, astronomo e probabilmente l'architetto dei suoi stessi monumenti. Ha scritto un trattato di caccia che ancora oggi è un riferimento. E allo stesso tempo era un uomo di potere, brutale, che non indietreggiava davanti al massacro.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castel-del-monte-fred-2.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="Castel del Monte, il capolavoro ottagonale di Federico II" loading="lazy" data-imgkey="castel-del-monte-fred-2">
+
+  <div class="col">
+    <p style="margin:0;">Le tre città segnano le sue tre facce. Altamura e Gravina sono le sue città di vita, dove ha costruito per durare. Castel del Monte è il suo enigma, il suo monumento a se stesso, costruito attorno al numero otto, orientato secondo i solstizi e chiuso a ogni ipotesi. Visitandolo capirai che Federico II non somiglia a nessun altro sovrano del Medioevo.</p>
+  </div>
+</div>
+
+<!-- ================= S07 ================= -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Le spiagge, e il buon uso della siesta italiana</h2></div>
+    <p>Abbiamo fatto sei spiagge diverse. Siamo sinceri, da grandi viaggiatori quali siamo, non sono le spiagge più belle che abbiamo visto. Ma servono a riposarsi dalle visite.</p>
+    <div class="tip"><p><b>Il nostro consiglio, se dobbiamo darne uno solo.</b> Vacci tra le 13 e le 16. È il momento più caldo della giornata e soprattutto è l'ora in cui l'Italia chiude. Le chiese e quasi tutti i monumenti abbassano la saracinesca in quella fascia. Tanto vale essere in acqua.</p></div>
+    <p>La nostra scelta: abbiamo continuato a visitare i paesi tra le 13 e le 16. Funziona in una località turistica, dove c'è sempre da camminare, bere qualcosa e mangiare. Altrove non avrai granché da fare, e farai anche fatica a mangiare: molti ristoranti aprono solo la sera.</p>
+
+    <h3 class="sub">La nostra classifica delle sei spiagge</h3>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/turchi2.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="La Baia dei Turchi, la nostra spiaggia preferita della Puglia" loading="lazy" data-imgkey="turchi2">
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>1. Baia dei Turchi</b>, vicino a Otranto.<span>La più bella del lotto. Spazio, un ambiente preservato, un'acqua splendida.</span></li>
+      <li><b>2. Punta Prosciutto</b>, a nord di Porto Cesareo.<span>Spiaggia libera dove non eravamo ammassati, cosa rara nel Salento ad agosto.</span></li>
+      <li><b>3. Margherita di Savoia</b>, a nord di Barletta.<span>Chilometri di sabbia dove sembra quasi di essere soli. Abbiamo chiuso una giornata al Beach Dunes, tenuto benissimo, con un vero ristorante sul posto.</span></li>
+      <li><b>4. Lido Sabbia d'Oro</b>, a 10 o 15 km a sud di Capitolo.<span>Niente di eccezionale, ma lettini a 20 € al giorno invece dei 160 € chiesti dai lidi di Capitolo. Il consiglio veniva da un guardiano, ed era buono.</span></li>
+      <li><b>5. Castro.</b><span>Scogli, e c'è la ressa.</span></li>
+      <li><b>6. Pescoluse</b>, le famose «Maldive del Salento».<span>È stracolma. Pochi pesciolini, ma tanti turisti piccoli.</span></li>
+    </ul>
+
+    <p style="margin-top:26px;">Tieni presente che gran parte del litorale pugliese non è sabbia: sono scogli o falesie, soprattutto tra Otranto e Santa Maria di Leuca.</p>
+    <p><b>Quello che non abbiamo fatto</b> e che torna sempre nelle classifiche: Torre dell'Orso e le sue Due Sorelle, Torre Sant'Andrea e i suoi archi calcarei, la riserva di Torre Guaceto a nord di Brindisi, il parco di Porto Selvaggio vicino a Nardò e soprattutto tutto il Gargano a nord (Vieste, Baia delle Zagare, isole Tremiti), che è un viaggio a sé.</p>
+    <p style="margin:0;"><b>I prezzi.</b> Fuori da Capitolo, a sud di Monopoli, che è un caso a parte, calcola dai 20 € (Margherita di Savoia) ai 50 € (Trani) per due lettini con ombrellone. Le spiagge pubbliche sono gratuite, ma vieni con il tuo ombrellone e, a seconda dei posti, con i guantoni da boxe per il posto.</p>
+  </div>
+</div>
+<!-- ================= S08 ================= -->
+<div id="s08" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Zona 1: attorno ad Alberobello, la Valle d'Itria</h2></div>
+    <h3 class="sub" style="margin-top:0;">I posti molto turistici</h3>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/trulli.webp&amp;w=800&amp;output=webp&amp;q=85" alt="I trulli del Rione Monti ad Alberobello" loading="lazy" data-imgkey="trulli">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/matera-vue-d-ensemble.webp&amp;w=800&amp;output=webp&amp;q=85" alt="Vista d'insieme dei Sassi di Matera" loading="lazy" data-imgkey="matera-vue-d-ensemble">
+  </div>
+  <div class="cap">A sinistra, i trulli del Rione Monti ad Alberobello. A destra, i Sassi di Matera.</div>
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Alberobello.</b><span>I 1.000 trulli del Rione Monti, presi d'assalto di giorno, tutt'altra cosa la sera quando i negozi chiudono e la folla si dirada. Di fronte, il Rione Aia Piccola e i suoi 400 trulli ancora abitati, senza negozi: il quartiere UNESCO che quasi tutti si perdono.</span></li>
+      <li><b>Matera.</b><span>Tecnicamente in Basilicata, a un'ora. I Sassi rupestri sono una mazzata. Una giornata intera come minimo, due giorni e una sera sarebbero l'ideale, la città illuminata di notte è uno spettacolo a parte.</span></li>
+      <li><b>Locorotondo.</b><span>Borgo bianco circolare arroccato a 410 metri, vista splendida sulla valle. La chiesa di San Giorgio e la sua cupola di 35 metri. Il parcheggio invece è una lotta, al contrario di Alberobello.</span></li>
+      <li><b>Ostuni.</b><span>La città bianca. Un labirinto di vicoli bianchi in salita fino alla cattedrale, la Porta Azzurra e gli ulivi che scendono fino all'Adriatico.</span></li>
+      <li><b>Monopoli.</b><span>Porto vecchio con le barche azzurre, vicoli pieni di negozi, cattedrale barocca e castello di Carlo V. Si gira in fretta.</span></li>
+      <li><b>Polignano a Mare.</b><span>La caletta di Lama Monachile sotto il ponte borbonico, la statua di Modugno a braccia aperte davanti al mare, i versi di poesie dipinti sui muri. Molto turistico, e vale comunque il viaggio.</span></li>
+    </ul>
+  </div>
+
+  <div class="gal gal-3">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/lama-monachile.webp&amp;w=600&amp;output=webp&amp;q=85" alt="La caletta di Lama Monachile a Polignano a Mare" loading="lazy" data-imgkey="lama-monachile">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/ostuni-porte-bleue.webp&amp;w=600&amp;output=webp&amp;q=85" alt="La Porta Azzurra di Ostuni" loading="lazy" data-imgkey="ostuni-porte-bleue">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/locorotondo2.webp&amp;w=600&amp;output=webp&amp;q=85" alt="Vista sulla Valle d'Itria da Locorotondo" loading="lazy" data-imgkey="locorotondo2">
+  </div>
+  <div class="cap">Da sinistra a destra: la caletta di Lama Monachile a Polignano a Mare, la Porta Azzurra di Ostuni, la Valle d'Itria vista da Locorotondo.</div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">I bei posti che meritano la deviazione</h3>
+    <ul class="itin-list">
+      <li><b>Cisternino.</b><span>Uno dei borghi più belli d'Italia, Bandiera Arancione del Touring Club. Piccolo, tranquillo, fiorito, e capitale delle bombette grigliate davanti a te nelle macellerie del centro.</span></li>
+      <li><b>Fasano.</b><span>Il centro vecchio si chiama <i>U'mbracchie</i>, l'ombra: i vicoli sono così stretti che il sole non entra mai, e si sta freschi anche ad agosto.</span></li>
+      <li><b>Martina Franca.</b><span>Una delle città più grandi della regione. Palazzo Ducale con il cortile interno visitabile gratuitamente, basilica di San Martino, festival lirico ogni estate.</span></li>
+      <li><b>Ceglie Messapica.</b><span>Soprannominata la capitale gastronomica della Puglia. Labirinto medievale, castello in cima, grande piazza bianca. Il posto giusto per cenare.</span></li>
+      <li><b>Conversano.</b><span>Tranquilla, senza turisti. Il castello degli Acquaviva domina la città, e il suo ristorante è buono e non caro. Il monastero di San Benedetto, le cui badesse comandavano sul clero locale, era soprannominato il <i>Monstrum Apuliae</i>.</span></li>
+      <li><b>Gioia del Colle.</b><span>Castello normanno-svevo di Federico II, uno dei più belli della regione dopo Castel del Monte. Mozzarella DOP e Primitivo DOC. Una città che vive la sua vita lontano dal turismo.</span></li>
+      <li><b>Noci.</b><span>Tra Alberobello e Matera. Da mezz'ora a un'ora, solo per l'atmosfera dei vicoli e delle piazzette italiane.</span></li>
+      <li><b>Putignano.</b><span>Il carnevale più antico d'Europa, dal 1394. Fuori stagione ha meno fascino dei vicini, ma il caffè in piazza ci sta bene prima di attaccare le grotte.</span></li>
+    </ul>
+
+    <h3 class="sub">Gli altri luoghi</h3>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/grotte-entree.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="L'ingresso delle grotte di Castellana" loading="lazy" data-imgkey="grotte-entree">
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Grotte di Castellana.</b><span>Due ore, tre chilometri, la più grande mazzata speleologica della nostra vita. Visita guidata in francese. La Grotta Bianca in fondo.</span></li>
+      <li><b>Cantina Polvanera</b> (Gioia del Colle).<span>Degustazione di Primitivo, bottiglie da 6 a 20 €. Prendi un Polvanera 14 e un 16, i numeri sono i gradi.</span></li>
+      <li><b>Castello Marchione.</b><span>Cinque minuti di sosta vicino alle grotte. Antica residenza di caccia diventata location per ricevimenti. Eravamo soli.</span></li>
+      <li><b>Egnazia.</b><span>La più grande città romana della Puglia, 40 ettari in riva al mare. Ci abbiamo rinunciato: senza visita guidata sono rovine senza spiegazioni, e a 35 gradi siamo filati in spiaggia.</span></li>
+    </ul>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/it/puglia-alberobello.html" rel="noopener">Leggi l'articolo completo su questa zona →</a>
+  </div>
+</div>
+
+<!-- ================= S09 ================= -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Zona 2: attorno a Castro Marina, il Salento</h2></div>
+    <h3 class="sub" style="margin-top:0;">I posti molto turistici</h3>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/otranto-cathedrale.webp&amp;w=700&amp;output=webp&amp;q=85" alt="La cattedrale Santa Maria Annunziata di Otranto" loading="lazy" data-imgkey="otranto-cathedrale">
+    <div>
+      <p><b>Otranto</b>, il punto più orientale d'Italia. La sua cattedrale ospita un mosaico pavimentale di 600.000 tessere, realizzato tra il 1163 e il 1165, con un Albero della Vita portato da due elefanti.</p>
+      <p style="margin:0;">Calcola una giornata intera. La cappella degli 800 martiri del 1480 e la cripta con le sue 42 colonne tutte diverse valgono da sole la deviazione.</p>
+    </div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-plage-eglise-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="La spiaggia di Gallipoli e la Chiesa Santa Maria della Purità" loading="lazy" data-imgkey="galipoli-plage-eglise-a3">
+  <div class="cap">La spiaggia di Gallipoli, con la chiesa della Purità sulla sinistra.</div>
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Otranto.</b><span>Il punto più orientale d'Italia. La cattedrale e il suo mosaico di 600.000 tessere con l'Albero della Vita, la cappella degli 800 martiri del 1480, la cripta con le sue 42 colonne tutte diverse. Una giornata intera, non ci aspettavamo tanta ricchezza.</span></li>
+      <li><b>Gallipoli.</b><span>Centro storico sulla sua isola, castello angioino, e due visite da non perdere: il Frantoio Ipogeo a 2 €, frantoio sotterraneo del XVII<sup></sup> secolo, e la chiesa della Purità, buia e quasi opprimente, costruita dalla confraternita degli scaricatori di porto.</span></li>
+      <li><b>Castro e Castro Marina.</b><span>La marina in basso, il centro storico sulla falesia in alto. Spiaggia di scogli, acqua limpida, e sotto la cattedrale la mostra Sacra Textile, una sala a volta di paramenti ecclesiastici, inaspettata e davvero bella.</span></li>
+    </ul>
+
+    <h3 class="sub">Le grandi città tranquille</h3>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-2.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="Le facciate in pietra di Lecce dorate dal sole" loading="lazy" data-imgkey="lecce-vue-generale-2">
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Lecce.</b><span>La Firenze del Sud. Biglietto per 4 chiese a 11 €, l'anfiteatro romano che spunta in mezzo a Piazza Sant'Oronzo, San Matteo con la facciata ondulata alla Borromini, il soffitto in cartapesta di Santa Chiara. Porta una batteria esterna, fotograferai a ogni angolo.</span></li>
+      <li><b>Nardò.</b><span>Secondo centro storico della provincia di Lecce, e una sorpresa a ogni angolo. Piazza Salandra interamente barocca, Fontana del Toro, cattedrale normanna e il suo Cristo Nero del XII<sup></sup> secolo.</span></li>
+      <li><b>Brindisi.</b><span>Le colonne romane che segnavano la fine della Via Appia, la cattedrale, il tempio di San Giovanni al Sepolcro, chiuso il mercoledì. Eravamo gli unici turisti. Più una città da vivere che da visitare.</span></li>
+    </ul>
+
+    <h3 class="sub">I bei posti che meritano la deviazione</h3>
+    <ul class="itin-list">
+      <li><b>Galatina.</b><span>Culla del pasticciotto, inventato da Ascalone nel 1745, ancora lì, undicesima generazione. E soprattutto la basilica di Santa Caterina d'Alessandria: secondo ciclo di affreschi d'Italia dopo Assisi.</span></li>
+      <li><b>Maglie.</b><span>Città natale di Aldo Moro. La bellezza sta in alto: sculture, draghi, ferri battuti sulle facciate. Il campanile di 48 metri è il più alto della provincia.</span></li>
+      <li><b>Tricase.</b><span>Città abbastanza grande con negozi per lo shopping. Palazzo Risolo e chiesa madre sulla piazza principale.</span></li>
+      <li><b>Tricase Porto.</b><span>Grazioso porticciolo di pesca con una spiaggia piacevole. Pranzo veloce da Martinucci, istituzione del Salento dal 1950.</span></li>
+      <li><b>Specchia.</b><span>Borgo medievale del IX<sup></sup> secolo arroccato in mezzo agli ulivi, tra i borghi più belli d'Italia e poco frequentato. Alle 16 in piena estate, solo le rondini e noi giravamo per i vicoli.</span></li>
+      <li><b>Santa Cesarea Terme.</b><span>Località termale sulle falesie, passeggiata sopra l'Adriatico. Villa Sticchi con la sua cupola purpurea sembra una piccola moschea posata sul mare.</span></li>
+      <li><b>Galatone.</b><span>Il santuario del Crocifisso della Pietà e la sua leggenda: la chiesa crolla nel 1682, la lampada a olio resta accesa tra le macerie. La Chiesa Madre invece è in restauro.</span></li>
+      <li><b>Ugento.</b><span>Senza pretese. La cattedrale era aperta, interno sobrio, altare in marmo policromo e coro in legno d'ulivo.</span></li>
+    </ul>
+
+    <h3 class="sub">I posti che ci sono piaciuti meno</h3>
+    <ul class="itin-list">
+      <li><b>Casarano.</b><span>Arrivati a mezzogiorno e mezzo, tutto chiuso, non un turista, non un abitante. La chiesa di Casaranello, unico vero interesse, apre solo dalle 16 alle 17. Tira dritto, a meno che tu non sia sicuro della fascia oraria.</span></li>
+      <li><b>Presicce-Acquarica.</b><span>Sulla carta è tra i borghi più belli d'Italia. Sul posto il paese è deserto, i palazzi barocchi sono splendidi e molto malandati, e quasi tutto è chiuso.</span></li>
+      <li><b>Porto Cesareo.</b><span>Un quarto d'ora basta. Deserto a mezzogiorno, si fatica a trovare un ristorante. Il vantaggio: quando ne trovi uno, sei solo.</span></li>
+    </ul>
+
+    <h3 class="sub">Gli altri luoghi</h3>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-vue-2.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="L'acqua turchese della Grotta della Poesia" loading="lazy" data-imgkey="grotta-vue-2">
+
+  <div class="col">
+    <ul class="itin-list">
+      <li><b>Grotta della Poesia</b> (Roca Vecchia), 5 €.<span>Una piscina naturale di 30 metri per 18, di un turchese irreale. Balneazione vietata dal 2019, la roccia è porosa. La sua vicina nasconde 600 m² di iscrizioni messapiche, greche e latine.</span></li>
+      <li><b>Giro in barca da Castro.</b><span>Tre ore, 35 € a persona, partenza alle 9. Grotta Palombara, Grotta Azzurra e due bagni, uno dei quali alla Baia di Porto Miggiano.</span></li>
+      <li><b>Grotta Zinzulusa</b>, 7 €.<span>Si visita a piedi e non in barca. 160 metri dentro la falesia, il Duomo alto 25 metri, il lago Cocito e i nomi degli operai del guano scritti sulla roccia nel 1906 e nel 1933.</span></li>
+    </ul>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/it/salento-castro-otranto.html" rel="noopener">Otranto, Castro Marina e il Salento →</a>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/it/lecce-galatina-castro.html" rel="noopener">Lecce, Galatina e le grotte di Castro →</a>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/it/gallipoli-nardo-salento.html" rel="noopener">Gallipoli, Nardò e la punta del Salento →</a>
+  </div>
+</div>
+
+<!-- ================= S10 ================= -->
+<div id="s10" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Zona 3: attorno a Trani, la Terra di Bari e il nord</h2></div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/trani-cathedrale-illuminee-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="La cattedrale di Trani illuminata di notte" loading="lazy" data-imgkey="trani-cathedrale-illuminee-a3">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">I posti molto turistici</h3>
+    <ul class="itin-list">
+      <li><b>Trani.</b><span>Centro storico restaurato benissimo senza risultare imbalsamato. La cattedrale costruita su tre chiese sovrapposte, la porta di bronzo di Barisano, l'ipogeo a 1 €. Il quartiere ebraico e la sinagoga Scolanova, visitabile solo dalle 11 alle 12, con la sua campana e la sua stella di David sulla stessa facciata.</span></li>
+      <li><b>Bari Vecchia.</b><span>Il centro storico di Bari con i suoi turisti. Cattedrale di San Sabino (ingresso a pagamento), piazza Mercantile con la colonna della Giustizia, fontana della Pigna. Molto bello, ma non vale i paesini della costa. Due o tre ore bastano.</span></li>
+    </ul>
+
+    <h3 class="sub">I bei posti che meritano la deviazione</h3>
+    <ul class="itin-list">
+      <li><b>Barletta.</b><span>C'è molto più da vedere di quanto si immagini. Santa Maria Maggiore, metà romanica metà gotica, il castello di Carlo V, il Colosso di bronzo di cinque metri piantato in piena via commerciale, e la Cantina della Disfida, sotterranei del XIV<sup></sup> secolo dove fu lanciata la sfida del 1503.</span></li>
+      <li><b>Specchiolla.</b><span>Sulla strada tra Castro e Trani, a nord di Brindisi. Niente di straordinario, ma la pausa caffè in riva alla spiaggia e la vista valgono la sosta.</span></li>
+      <li><b>Altamura.</b><span>Centro storico grazioso, la cattedrale che domina la via principale vista dall'alto, e un piccolo museo. Obbligatorio: il caffè e l'acquisto di un pane tradizionale nei vecchi forni del centro.</span></li>
+      <li><b>Gravina.</b><span>La piccola Matera, ancora più eccezionale. Parecchie cose da visitare e il fascino funziona subito.</span></li>
+      <li><b>Giovinazzo.</b><span>Il colpo di fulmine dell'ultima giornata. Lungomare ombreggiato a filo d'acqua, centro storico vuoto e bello, il posto dove ti diresti che sarebbe bello vivere. Vicino a Bari, ideale per un ritiro lontano dalla folla.</span></li>
+      <li><b>Molfetta.</b><span>Piccolo porto di pesca con un mercato del pesce molto attivo, i due campanili della cattedrale di San Corrado che incorniciano la facciata. Da fare sulla strada del ritorno verso Bari, ma non vale Trani.</span></li>
+    </ul>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/les-gravines-a3.webp&amp;w=800&amp;output=webp&amp;q=85" alt="Il burrone delle gravine a Gravina in Puglia" loading="lazy" data-imgkey="les-gravines-a3">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/giovinezza-port-a3.webp&amp;w=800&amp;output=webp&amp;q=85" alt="Il porto di Giovinazzo" loading="lazy" data-imgkey="giovinezza-port-a3">
+  </div>
+  <div class="cap">A sinistra, la gravina di Gravina in Puglia. A destra, il porto di Giovinazzo.</div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">I posti che ci sono piaciuti meno</h3>
+    <ul class="itin-list">
+      <li><b>Bisceglie.</b><span>Concattedrale con i suoi matronei e la cripta, dolmen della Chianca un po' fuori. La visita si fa per l'atmosfera più che per i monumenti.</span></li>
+      <li><b>Canosa di Puglia.</b><span>Alla città manca clamorosamente il fascino, e mancano anche le indicazioni su cosa ci sia da visitare. Fermati solo se ti interessano i parchi archeologici di San Leucio e San Giovanni.</span></li>
+      <li><b>Andria.</b><span>Il centro storico è un po' più bello di quello di Canosa, ma è tutto chiuso: palazzo ducale in ristrutturazione, cattedrale sbarrata. Abbiamo girato un po' per trovare dove mangiare, e lì abbiamo mollato.</span></li>
+    </ul>
+
+    <h3 class="sub">Gli altri luoghi</h3>
+    <ul class="itin-list">
+      <li><b>Castel del Monte.</b><span>Il monumento più enigmatico della Puglia, patrimonio UNESCO e inciso sul retro delle monete da un centesimo. Voluto da Federico II verso il 1240, costruito tutto attorno al numero otto, e nessuno sa a cosa servisse. Non si sale in auto: parcheggio in basso e poi navetta.</span></li>
+      <li><b>Villa Comunale di Trani.</b><span>Il nostro angolo preferito, raramente citato dalle guide. Giardino pubblico fresco quando la città brucia, pappagallini in libertà, vasca delle tartarughe, e la cattedrale di fronte dall'altra parte del porto. L'Aquae serve l'aperitivo con i piedi in acqua: 53 € per due lettini, chiusura alle 19 tranne il sabato.</span></li>
+      <li><b>Margherita di Savoia e Beach Dunes.</b><span>Sabbia fine, entrata in acqua in leggera pendenza, vero ristorante sul posto.</span></li>
+    </ul>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/it/trani-barletta-castel-del-monte.html" rel="noopener">Leggi l'articolo completo su questa zona →</a>
+  </div>
+</div>
+
+<!-- ================= S11 ================= -->
+<div id="s11" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Auto, ZTL e parcheggio</h2></div>
+    <h3 class="sub" style="margin-top:0;">Noleggiare un'auto</h3>
+    <p>530 € per due settimane, assicurazione compresa. Un piccolo SUV è l'ideale: abbastanza alto per la Murgia, abbastanza piccolo per i parcheggi. Aria condizionata obbligatoria a luglio e agosto. I noleggi chiudono verso le 23 all'aeroporto di Bari.</p>
+    <a class="cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Confronta le auto a noleggio →</a>
+
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/ztl.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="Un cartello ZTL, zona a traffico limitato, in Puglia" loading="lazy" data-imgkey="ztl">
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">La vera bestia nera della Puglia</div>
+        <div class="spot-name">Le ZTL, zone a traffico limitato</div>
+        <p style="margin:0;">Tutti i centri storici ne hanno una, e le telecamere ti riprendono se non sei registrato.</p>
+        <div class="facts">
+          <div class="fact"><b>Regola 1</b>Entra in ZTL solo se il tuo hotel è dentro e il parcheggio è incluso nella prenotazione</div>
+          <div class="fact"><b>Regola 2</b>Chiedi al tuo hotel o al noleggio un pass o un'esenzione</div>
+          <div class="fact"><b>Regola 3</b>Se sbagli, paga la multa online entro 60 giorni, 80 € in media</div>
+          <div class="fact"><b>Non pagare</b>Costa molto di più</div>
+        </div>
+      </div>
+    </div>
+
+    <p><b>Le città interessate:</b> Alberobello, Locorotondo, Cisternino, Martina Franca, Ostuni, Polignano a Mare, Monopoli, Brindisi, Lecce, Otranto, Gallipoli, Nardò e Trani.</p>
+
+    <h3 class="sub">Il parcheggio</h3>
+    <div class="checklist">
+      <ul>
+        <li><b>Il parchimetro.</b> Inserisci la targa. Due ore gratis tra le 13 e le 16, poi da 1 a 2 € l'ora. Mettiti a cercare il parchimetro: non è mai vicino alla tua auto, spesso è a 200 metri, raramente segnalato. Usa un'app come EasyPark per pagare a distanza e prolungare.</li>
+        <li><b>Il parcheggio custodito.</b> Certe città hanno solo quello. Calcola 4 € per 24 ore a Castro Marina, 5 € a Trani.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S12 ================= -->
+<div id="s12" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">Il budget reale, per due persone</h2></div>
+    <div class="checklist">
+      <ul>
+        <li><b>L'aereo.</b> Dipende da dove parti. Noi avevamo un diretto Easyjet da Nizza: <b>350 €</b> in due.</li>
+        <li><b>Il veicolo.</b> 14 giorni con chilometraggio illimitato, Toyota C-HR: <b>530 €</b>.</li>
+        <li><b>La benzina.</b> 4 pieni per 2.000 km, ad agosto 2026: circa <b>200 €</b>.</li>
+        <li><b>Gli hotel.</b> Circa <b>1 700 €</b> per 14 notti.</li>
+        <li><b>I pasti.</b> Calcola tra i 30 e i 60 € in due con vino, un antipasto e un secondo. Per noi, circa <b>1 000 €</b> senza privarci.</li>
+        <li><b>Spese varie.</b> Parcheggi, ingressi, visite: circa <b>200 €</b>.</li>
+      </ul>
+    </div>
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Totale sul posto</div>
+        <div class="spot-name">3.630 € per due persone, 14 giorni</div>
+        <p style="margin:0;"><b>Volo escluso.</b> Auto, benzina, hotel, pasti e spese varie, senza privarci. Con i nostri 350 € di volo da Nizza, calcola <b>3 980 €</b> in totale. Tariffe rilevate ad agosto 2026.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/pxl-20260804-114135589.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Un piatto di pasta in un ristorante pugliese" loading="lazy" data-imgkey="repas-1">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/pxl-20260804-114133404.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Un antipasto servito in un ristorante pugliese" loading="lazy" data-imgkey="repas-2">
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Come ci siamo trovati</h3>
+    <p style="margin:0;">La Puglia ci è piaciuta molto. Ma a noi piace tutto dell'Italia, che abbiamo girato in lungo e in largo. La sua storia, la sua cultura, le sue città, il suo clima, le sue spiagge. La Puglia è un posto accessibile dove scoprirai diverse meraviglie, che tu ci resti due settimane o meno.</p>
+  </div>
+</div>
+
+<!-- ================= S13 : LES INAVOUABLES ================= -->
+<div id="s13" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">13</span><h2 class="sec-title">Gli inconfessabili</h2></div>
+    <p class="lede">Due cose che non abbiamo raccontato in nessuno dei cinque articoli.</p>
+
+    <h3 class="sub">Il palazzo dell'uomo nudo, a Presicce</h3>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/palais-de-l-homme-nu-presicce-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Il palazzo dalla porta socchiusa di Presicce" loading="lazy" data-imgkey="palais-homme-nu">
+    <div>
+      <p>Presicce non ci lascerà un ricordo indelebile. Ma vedo un palazzo bellissimo, e la sua porta socchiusa. Siccome non c'era niente da visitare, mi dico che hanno voluto fare un piacere al turista che sono. Senza esserne troppo sicuro.</p>
+      <p>Allora spingo un po' la porta, e vedo parecchi cartoni di lato. Spingo un po' di più, e lì... un letto per terra, e sopra un uomo. Nudo.</p>
+      <p style="margin:0;">Rifletto a tutta velocità: o è una guida che fa visitare un palazzo di tipo molto particolare, oppure è meglio scappare. Scelgo la seconda soluzione, richiudo la porta rumorosamente e trascino via Patricia, immaginandomelo inseguirci nudo come un verme. Siamo riusciti a scappare.</p>
+    </div>
+  </div>
+  <div class="cap">Non entrare mai in quel palazzo. Mai.</div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Il pilota di genio, tra Gravina e Castel del Monte</h3>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chatgpt-image-9-aout-2026-18-46-14.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="Ricostruzione della sbandata tra Gravina e Castel del Monte" loading="lazy" data-imgkey="sauvetage-heroique">
+  <div class="cap">Ricostruzione fedele dei fatti, secondo il pilota. Immagine generata dall'intelligenza artificiale.</div>
+
+  <div class="col">
+    <p>Un'altra cosa di cui vado molto fiero. Tornando da Gravina avevamo mangiato bene. Il tragitto fino a Castel del Monte è bellissimo ma molto monotono: campi a perdita d'occhio, una strada dritta. Quindi guido, quando sento la signora urlare «Tesoro! Attento!», cosa che mi sveglia dalla giusta pennichella che mi stavo facendo.</p>
+    <p>E lì vedo una curva, il tachimetro a 80, il prato a un metro da me. Freno, sterzo, l'auto pattina, controsterzo, e ci ritroviamo in senso contrario avendo evitato il ribaltamento per un pelo.</p>
+    <p style="margin:0;">Patricia mi dice che abbiamo sfiorato la morte. Le rispondo che ho reagito come un dio della strada. Il nostro salvataggio in extremis resterà per sempre nella nostra memoria. In realtà era così pianeggiante che finire nel campo non avrebbe fatto grandi danni. Il ribaltamento sarebbe stato più pericoloso, questo sì. Ma me lo tengo per me, perché Patou è molto fiera di sé e del suo lavoro da copilota.</p>
+  </div>
+</div>
+
+<!-- ================= S14 ================= -->
+<div id="s14" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">14</span><h2 class="sec-title">I nostri itinerari per preparare il tuo viaggio</h2></div>
+    <p>OneRoadTrip è completamente gratuito. Ricordati di prenotare gli hotel o le auto dopo aver cliccato sui nostri link, ci aiuta a pagare le spese di hosting del sito.</p>
+    <ul class="itin-list">
+      <li><a href="https://www.oneroadtrip.com/itinerari/it-puglia-boucle-bari-itria-matera.html" target="_blank" rel="noopener">Anello di Bari: trulli, gravine e Matera</a><span>13 giorni e 46 tappe, l'itinerario più vicino alla nostra prima base.</span></li>
+      <li><a href="https://www.oneroadtrip.com/itinerari/it-puglia-salento-au-depart-de-lecce.html" target="_blank" rel="noopener">Il grande giro del Salento in 10 giorni</a><span>Da Lecce: coste adriatica e ionica, borghi barocchi e siti messapici.</span></li>
+      <li><a href="https://www.oneroadtrip.com/itinerari/it-puglia-terra-di-bari-murgia.html" target="_blank" rel="noopener">La Terra di Bari in 9 giorni, Castel del Monte</a><span>La costa adriatica, la Murgia e le sue cattedrali romaniche, da Bari a Castel del Monte.</span></li>
+      <li><a href="https://www.oneroadtrip.com/itinerari/it-puglia-gargano-pouilles-nord-8j.html" target="_blank" rel="noopener">Gargano e Puglia del Nord, 8 giorni</a><span>Quello che avremmo dovuto fare: il promontorio del Gargano, Vieste, la Baia delle Zagare e le isole Tremiti.</span></li>
+      <li><a href="https://www.oneroadtrip.com/itinerari/it-puglia-route-des-vins.html" target="_blank" rel="noopener">Puglia, la strada dei vini</a><span>7 giorni da Bari a Lecce tra i trulli, il barocco e i vigneti di primitivo e negroamaro.</span></li>
+    </ul>
+    <a class="cta-accent" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=it" target="_blank" rel="noopener">Costruisci il mio itinerario su misura →</a>
+    <p class="lede" style="margin:34px 0 0;">Buon viaggio in Puglia!</p>
+  </div>
+</div>
+
+<!-- ================= S15 ================= -->
+<div id="s15" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">15</span><h2 class="sec-title">Crediti fotografici</h2></div>
+    <button class="credit-btn" onclick="var b=document.getElementById('creditsBox');b.classList.toggle('show');this.textContent=b.classList.contains('show')?'Crédits photo ▲':'Crédits photo ▼'">Crediti fotografici ▼</button>
+    <div id="creditsBox" class="credit-box">
+      Vieste: Chikashi Miyamoto (Unsplash)<br>
+      Ricostruzione della sbandata: immagine generata dall'intelligenza artificiale<br>
+      Baia delle Zagare: Lohen11, lavoro personale, CC BY 4.0<br>
+      Altre foto: Patricia e Marc, OneRoadTrip.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Guida alla Puglia: itinerario di 14 giorni, budget e consigli",
+  "description": "Il nostro road trip di 14 giorni in Puglia: tre basi, 2.000 km, il percorso giorno per giorno, la classifica delle spiagge, le ZTL e il budget reale in due.",
+  "image": [
+    "https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/porte-bleue.webp&w=1200&output=jpg&q=85"
+  ],
+  "inLanguage": "it",
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "author": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.oneroadtrip.com/blog/it/guide-pouilles-14-jours.html"
+  },
+  "about": [
+    {
+      "@type": "Place",
+      "name": "Puglia"
+    },
+    {
+      "@type": "Place",
+      "name": "Alberobello"
+    },
+    {
+      "@type": "Place",
+      "name": "Castro Marina"
+    },
+    {
+      "@type": "Place",
+      "name": "Trani"
+    },
+    {
+      "@type": "Place",
+      "name": "Matera"
+    },
+    {
+      "@type": "Place",
+      "name": "Castel del Monte"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.oneroadtrip.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://www.oneroadtrip.com/blog/it/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Guida alla Puglia: itinerario di 14 giorni, budget e consigli",
+      "item": "https://www.oneroadtrip.com/blog/it/guide-pouilles-14-jours.html"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Quanti giorni servono per visitare la Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Quattordici giorni permettono di coprire la regione da nord a sud, circa 2.000 km. La nostra divisione ideale col senno di poi: 4 notti ad Alberobello, 1 a Matera, 4 a Castro Marina, 2 nel Gargano e 3 a Trani."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Che budget prevedere per 14 giorni in Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "3.630 € sul posto per due persone ad agosto 2026, volo escluso: 530 € di auto, 200 € di benzina, 1.700 € di hotel, 1.000 € di pasti e 200 € di spese varie. Aggiungendo i nostri 350 € di volo da Nizza, il totale sale a 3.980 €."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bisogna evitare la Puglia a luglio e ad agosto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Non per forza. Non abbiamo trovato la regione presa d'assalto, tranne sulle spiagge che si riempiono dalle 10. Nelle località più gettonate, visita a fine giornata o la sera: meno gente, luce migliore e meno caldo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Che cos'è una ZTL e come si evita?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Una zona a traffico limitato, presente in tutti i centri storici e sorvegliata da telecamere. Entraci solo se il tuo hotel si trova dentro e il parcheggio è incluso. In caso di errore, paga la multa online entro 60 giorni, circa 80 €."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Qual è la spiaggia più bella della Puglia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La Baia dei Turchi vicino a Otranto è la nostra preferita: spazio, un ambiente preservato e un'acqua splendida. Punta Prosciutto arriva subito dietro, meno frequentata della maggior parte delle spiagge salentine ad agosto."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+(function () {
+  var secs = document.querySelectorAll('div[id^="s"][id$=""]');
+  var list = [];
+  document.querySelectorAll('[id]').forEach(function (el) {
+    if (/^s\d\d$/.test(el.id) && el.querySelector('.sec-head')) list.push(el);
+  });
+  list.forEach(function (sec) {
+    var head = sec.querySelector('.sec-head');
+    if (!head) return;
+    var arrow = document.createElement('span');
+    arrow.className = 'sec-arrow';
+    arrow.textContent = '\u25BC';
+    head.appendChild(arrow);
+    // on enveloppe tout le contenu de la section, puis on remonte l'en-tete
+    var body = document.createElement('div');
+    body.className = 'sec-body';
+    while (sec.firstChild) body.appendChild(sec.firstChild);
+    var wrap = document.createElement('div');
+    wrap.className = 'col';
+    wrap.appendChild(head);
+    sec.appendChild(wrap);
+    sec.appendChild(body);
+    body.style.maxHeight = 'none';
+    head.addEventListener('click', function () { ortToggle(sec); });
+  });
+
+  window.ortToggle = function (sec, force) {
+    var body = sec.querySelector('.sec-body');
+    var fold = (force === undefined) ? !sec.classList.contains('folded') : force;
+    if (fold) {
+      body.style.maxHeight = body.scrollHeight + 'px';
+      body.offsetHeight;
+      sec.classList.add('folded');
+    } else {
+      sec.classList.remove('folded');
+      body.style.maxHeight = body.scrollHeight + 'px';
+      setTimeout(function () { body.style.maxHeight = 'none'; }, 320);
+    }
+  };
+
+  window.ortFoldAll = function () {
+    var btn = document.querySelector('.foldall');
+    var fold = btn.textContent.indexOf('replier') !== -1;
+    list.forEach(function (sec) { ortToggle(sec, fold); });
+    btn.textContent = fold ? 'Tout déplier' : 'Tout replier';
+  };
+
+  // un lien du sommaire ouvre la section visee
+  document.querySelectorAll('#tocFull a[href^="#s"]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var t = document.querySelector(a.getAttribute('href'));
+      if (t && t.classList.contains('folded')) ortToggle(t, false);
+    });
+  });
+})();
+</script>
+
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Photo').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"guide-pouilles-14-jours"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

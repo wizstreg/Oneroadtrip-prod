@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Road trip na Puglia: Gallipoli, Nardò e o Salento</title>
+<meta name="description" content="Visitar Gallipoli e o seu lagar subterrâneo, Nardò a rival de Lecce, Pescoluse, Punta Prosciutto e a Grotta Zinzulusa: o nosso roteiro de 2 dias.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/pt/gallipoli-nardo-salento.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/gallipoli-nardo-salento.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/gallipoli-nardo-salento.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/gallipoli-nardo-salento.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/gallipoli-nardo-salento.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/gallipoli-nardo-salento.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/gallipoli-nardo-salento.html">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="pt_PT">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Road trip na Puglia: Gallipoli, Nardò e o Salento">
+<meta property="og:description" content="Visitar Gallipoli e o seu lagar subterrâneo, Nardò a rival de Lecce, Pescoluse, Punta Prosciutto e a Grotta Zinzulusa: o nosso roteiro de 2 dias.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/pt/gallipoli-nardo-salento.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/photo-couverture-galipoli.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="O porto de Gallipoli">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Road trip na Puglia: Gallipoli, Nardò e o Salento">
+<meta name="twitter:description" content="Visitar Gallipoli e o seu lagar subterrâneo, Nardò a rival de Lecce, Pescoluse, Punta Prosciutto e a Grotta Zinzulusa: o nosso roteiro de 2 dias.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/photo-couverture-galipoli.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2,h3{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .sub{font-family:'Instrument Serif',serif;font-size:25px;color:#3a2f22;margin:34px 0 12px;}
+  .lede{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;}
+
+  /* ---- SYSTEME PHOTO ---- */
+  .band{display:block;width:auto;max-width:1100px;max-height:700px;height:auto;object-fit:contain;margin:10px auto 30px;border-radius:14px;}
+  .band.tall{max-height:800px;}
+  .band.short{max-height:520px;}
+  .gal{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;gap:12px;}
+  .gal{align-items:start;}
+  .gal img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .gal-2{grid-template-columns:1fr 1fr;}
+  .gal-3{grid-template-columns:1fr 1fr 1fr;}
+  .gal-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .gal-hero{grid-template-columns:2fr 1fr;}
+  .gal-wide{grid-template-columns:1fr 1fr;}
+  .gal-wide > :first-child{grid-column:span 2;}
+  .duo{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;}
+  .duo.rev > img{order:2;}
+  .duo img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .duo img.nocrop{height:auto;object-fit:contain;}
+  .portrait{display:block;width:auto;max-width:520px;max-height:640px;height:auto;margin:10px auto 30px;border-radius:14px;}
+  .duo p{margin:0 0 14px;}
+  .duo p:last-child{margin:0;}
+  figcaption,.cap{font-size:12.5px;color:#8a7d68;margin:-20px 0 28px;padding:0 48px;max-width:960px;margin-left:auto;margin-right:auto;}
+
+  /* ---- ENCADRES ---- */
+  .spot{border:2px solid #c1502e;border-radius:18px;background:#fff;padding:0;margin:34px auto 40px;overflow:hidden;}
+  .spot-img{display:block;width:auto;max-width:100%;max-height:620px;height:auto;object-fit:contain;margin:0 auto;}
+  .spot-body{padding:24px 28px 26px;}
+  .spot-eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#c1502e;font-weight:700;margin:0 0 6px;}
+  .spot-name{font-family:'Instrument Serif',serif;font-size:28px;color:#3a2f22;margin:0 0 14px;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:16px 0 0;}
+  .fact{font-size:14px;color:#4a4030;line-height:1.6;}
+  .fact b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:2px;}
+  .tip{border-left:4px solid #113f7a;background:#fff;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 28px;}
+  .tip b{color:#113f7a;}
+  .tip p{margin:0;font-size:15px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 24px;margin:24px 0 30px;}
+  .checklist ul{margin:0;padding-left:20px;}
+  .checklist li{font-size:15px;line-height:1.75;color:#4a4030;margin-bottom:8px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .artnav{max-width:960px;margin:28px auto 0;padding:0 48px;}
+  .artnav-t{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#8a7d68;font-weight:700;margin-bottom:10px;}
+  .artnav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .artnav-i{display:block;border:1px solid #e3e0d8;border-radius:12px;background:#fff;padding:12px 14px;text-decoration:none;transition:background .15s;}
+  .artnav-i:hover{background:#f2f6fb;}
+  .artnav-i b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:3px;}
+  .artnav-i span{display:block;font-size:13px;line-height:1.45;color:#4a4030;}
+  .artnav-i.here{background:#c1502e;border-color:#c1502e;cursor:default;}
+  .artnav-i.here b,.artnav-i.here span{color:#fff;}
+  .artnav-i.here em{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#ffe2d6;margin-top:5px;}
+  .itin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0 8px;}
+  .itin-card{display:block;border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 20px;text-decoration:none;transition:background .15s;}
+  .itin-card:hover{background:#f2f6fb;}
+  .itin-days{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c1502e;font-weight:700;}
+  .itin-t{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;margin:6px 0 8px;line-height:1.25;}
+  .itin-d{font-size:13.5px;line-height:1.6;color:#4a4030;}
+  .itin-list{margin:22px 0 0;padding:0;list-style:none;}
+  .itin-list li{border-bottom:1px solid #e3e0d8;padding:13px 0;}
+  .itin-list li:last-child{border-bottom:none;}
+  .itin-list a{font-weight:600;text-decoration:none;}
+  .itin-list span{display:block;font-size:13.5px;color:#8a7d68;line-height:1.55;margin-top:3px;}
+
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover{background:#0c2c56;color:#fff;}
+  .cta-accent{display:inline-flex;align-items:center;gap:8px;background:#c1502e;color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;margin:8px 8px 8px 0;}
+  .cta-accent:hover{background:#a53f20;color:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin:0 0 6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:auto;object-fit:contain;border-radius:10px;display:block;}
+  .bio{display:flex;gap:22px;align-items:center;border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:22px 26px;margin:32px auto 8px;}
+  .bio img{width:120px;height:120px;border-radius:999px;object-fit:contain;background:#faf8f4;flex:none;}
+  .bio-t{font-family:'Instrument Serif',serif;margin:0 0 8px;font-size:22px;color:#3a2f22;}
+  .bio p{font-size:15px;margin:0;}
+
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .gal,.duo,.cap{padding:0 20px;}
+    .gal-4{grid-template-columns:1fr 1fr;}
+    .gal-3{grid-template-columns:1fr 1fr;}
+    .gal-hero{grid-template-columns:1fr;}
+    .duo{grid-template-columns:1fr;gap:14px;}
+    .duo.rev > img{order:0;}
+    .duo img.nocrop{height:auto;}
+    .portrait{max-width:100%;max-height:none;padding:0 20px;}
+    .band{max-width:100%;max-height:none;}
+    .band.tall{max-height:none;}
+    .band.short{max-height:none;}
+    .spot-img{max-height:none;}
+    .facts{grid-template-columns:1fr;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    .sub{font-size:21px;}
+    h1{font-size:30px !important;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .bio{flex-direction:column;align-items:center;text-align:center;}
+    .itin-grid{grid-template-columns:1fr;}
+    .artnav{padding:0 20px;}
+    .artnav-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <span class="hero-tag" style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Itália · Puglia · Salento</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Road trip na Puglia: Gallipoli, Nardò e a ponta do Salento</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Quarta parte dos nossos 14 dias no salto da bota. A costa jónica, as aldeias esquecidas e uma rival inesperada de Lecce.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/photo-couverture-galipoli.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Gallipoli, a pérola do mar Jónico" data-imgkey="photo-couverture-galipoli" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="artnav">
+  <div class="artnav-t">A nossa série sobre a Puglia, 6 artigos</div>
+  <div class="artnav-grid">
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/pt/puglia-alberobello.html" rel="noopener"><b>Parte 1</b><span>Alberobello, Matera e Ostuni</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/pt/salento-castro-otranto.html" rel="noopener"><b>Parte 2</b><span>Otranto, Castro e o Salento</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/pt/lecce-galatina-castro.html" rel="noopener"><b>Parte 3</b><span>Lecce, Galatina e as grutas</span></a>
+    <div class="artnav-i here"><b>Parte 4</b><span>Gallipoli, Nardò e o Salento</span><em>Estás a ler este artigo</em></div>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/pt/trani-barletta-castel-del-monte.html" rel="noopener"><b>Parte 5</b><span>Trani, Barletta e Castel del Monte</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/pt/guide-pouilles-14-jours.html" rel="noopener"><b>O guia</b><span>14 dias, orçamento e conselhos</span></a>
+  </div>
+</div>
+<div class="col" style="padding-top:32px;">
+  <div class="bio">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/patmarccadre.webp&amp;w=400&amp;output=webp&amp;q=85" alt="Patricia e Marc, autores do blogue OneRoadTrip" data-imgkey="patmarccadre">
+    <div>
+      <div class="bio-t">Quem somos?</div>
+      <p>Somos a Patricia, professora primária, e o Marc, quadro no setor dos seguros, e estamos nos cinquenta com espírito aventureiro. Sempre gostámos de viajar. Primeiro a França, o nosso país, sobretudo o sudeste de onde somos, mas também muitos outros países. No final de 2025, o Marc criou uma aplicação que reúne muitos roteiros pelo mundo inteiro, todos modificáveis: <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip.com</a>. Desde então deixamo-nos levar os dois pela nossa paixão pelas viagens e tentamos partilhá-la, através do <a href="https://www.oneroadtrip.com" rel="noopener">OneRoadTrip</a> e deste blogue.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col" style="padding-top:28px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Índice</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Castro Marina, a nossa base</a>
+      <a href="#s02">02 · Gallipoli, a pérola jónica</a>
+      <a href="#s03">03 · Casarano, Ugento e Presicce</a>
+      <a href="#s04">04 · Pescoluse, as Maldivas do Salento</a>
+      <a href="#s05">05 · Galatone e o seu santuário</a>
+      <a href="#s06">06 · Nardò, a rival de Lecce</a>
+      <a href="#s07">07 · Porto Cesareo e Punta Prosciutto</a>
+      <a href="#s08">08 · A Grotta Zinzulusa a pé</a>
+      <a href="#s09">09 · Os nossos roteiros pelo Salento</a>
+      <a href="#s10">10 · Créditos das fotos</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Índice</span>
+</div>
+
+<!-- ================= S01 ================= -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Castro Marina, a nossa base nestes dois dias</h2></div>
+    <p class="lede">Este artigo faz parte do nosso road trip de 14 dias pela Puglia. Se estás a entrar a meio: passámos 4 dias à volta de Alberobello, 2 dias entre Brindisi e Otranto, depois 2 dias de grutas e barroco a partir de Castro. Hoje, dois dias cheios: a costa jónica, as aldeias da ponta do Salento e uma rival inesperada de Lecce.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/pt/puglia-alberobello.html" rel="noopener">Parte 1: Alberobello, Matera e Ostuni →</a>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/pt/salento-castro-otranto.html" rel="noopener">Parte 2: Otranto, Castro Marina e o Salento →</a>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/pt/lecce-galatina-castro.html" rel="noopener">Parte 3: Lecce, Galatina e as grutas de Castro →</a>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Onde dormimos</div>
+      <div class="hotel-name">Hotel degli Ulivi, Castro Marina</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-gli-ulivi-volet.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Fachada e portadas do Hotel degli Ulivi em Castro Marina" loading="lazy" data-imgkey="castro-gli-ulivi-volet">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-vue-de-l-hotel.webp&amp;w=600&amp;output=webp&amp;q=80" alt="A vista sobre a baía de Castro a partir da esplanada do hotel" loading="lazy" data-imgkey="castro-vue-de-l-hotel">
+      </div>
+      <p style="margin:0 0 14px;">O mesmo hotel de sempre e o mesmo conselho de sempre. Não é o mais recente da zona, mas acordamos felizes.</p>
+      <div class="checklist" style="margin:0 0 16px;">
+        <ul>
+          <li><b>A vista.</b> Acordas com um panorama soberbo sobre a baía.</li>
+          <li><b>Os anfitriões.</b> Muito simpáticos.</li>
+          <li><b>A localização.</b> Central, a 10 minutos a pé das praias e do centro.</li>
+          <li><b>O pequeno-almoço.</b> Completo e agradável de tomar na esplanada coberta.</li>
+          <li><b>O preço.</b> Tão simpático como os anfitriões: 115 euros por noite em pleno mês de agosto.</li>
+          <li><b>O estacionamento.</b> Muitos lugares, e na Puglia isso vale ouro.</li>
+        </ul>
+      </div>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/kkVv3X4a8t" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Ver o Hotel degli Ulivi →</a>
+    </div>
+
+    <p>Reservámos o avião pela Trip.com e o carro pela QEEQ, que compara mais de 500 empresas de aluguer com cancelamento gratuito.</p>
+    <a class="cta-accent" href="https://www.trip.com/flights/?SID=2209817&amp;allianceid=1094387&amp;trip_sub1=0012d64856b04e83aa39136e2-688844&amp;utm_campaign=688844" target="_blank" rel="sponsored nofollow noopener">Procurar um voo para Brindisi →</a>
+    <a class="cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Comparar carros de aluguer →</a>
+
+    <p style="margin-top:26px;">Se quiseres montar a tua própria viagem, o mais simples é ir clicando um a um nos sítios onde queres ir. Depois podes exportar o teu roteiro como caderno de viagem.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=pt" target="_blank" rel="noopener">Criar o meu roteiro à medida →</a>
+  </div>
+</div>
+
+<!-- ================= S02 ================= -->
+<div id="s02" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Gallipoli, a pérola do mar Jónico</h2></div>
+    <p>Saída de Castro às 9h, cerca de uma hora de estrada. Chegamos a Gallipoli por volta das 10h.</p>
+    <div class="tip"><p><b>Estacionar.</b> Escolhe o grande parque do porto, não o pequeno à entrada da cidade velha.</p></div>
+    <p>Do parque de estacionamento, a vista abre-se sobre o porto, os barcos de pesca e, ao fundo, a ponte que atravessa para a cidade velha. É a <b>Ponte Papa Giovanni Paolo II</b>, ladeada de pequenas bancas. À direita vê-se o forte e o antigo armazém. Umas arcadas à entrada abrigam lojas de recordações. Gallipoli hesita entre o peixe e o turismo, e no verão foi o turismo que ganhou.</p>
+    <p>Antes de atravessar a ponte, repara na <b>Fontana Greca</b>, na praça. É uma fonte renascentista, durante muito tempo considerada uma das mais antigas de Itália.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-l-entree-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="O porto de Gallipoli, os barcos de pesca e a ponte para a cidade velha" loading="lazy" data-imgkey="galipoli-l-entree-a3">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-vue-du-port-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O Castello Angioino visto do porto de Gallipoli" loading="lazy" data-imgkey="galipoli-vue-du-port-a4">
+    <div>
+      <h3 class="sub" style="margin-top:0;">O castelo angevino</h3>
+      <p>Logo a seguir à ponte, o <b>Castello Angioino</b> guarda a entrada da cidade velha. O núcleo é do século XIII<sup></sup>, construído por Carlos I<sup></sup> de Anjou. Em 1535, o arquiteto militar Evangelista Menga modernizou-o com quatro grandes bastiões de canto e um belo portão de entrada em calcarenito local.</p>
+      <p style="margin:0;">Em 1557, o castelo foi vendido à família genovesa Squarciafico, que mandou decorar a capela interior com frescos de Gianserio Strafella. Reaberto ao público em 2014, acolhe exposições nas galerias que ligam os bastiões.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p style="margin:0;">Segundo alguns historiadores, o pintor espanhol <b>José de Ribera</b> (1591-1652), dito «lo Spagnoletto», teria nascido neste castelo.</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-vieille-ville-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Ruela da cidade velha de Gallipoli com varandas floridas" loading="lazy" data-imgkey="galipoli-vieille-ville-a4">
+    <div>
+      <h3 class="sub" style="margin-top:0;">A cidade velha</h3>
+      <p>Entramos no labirinto de ruelas. É encantador. Passamos diante do <b>Palazzo Ravenna</b>, palácio neoclássico do século XIX<sup></sup> desenhado por Gregorio Consiglio, hoje transformado em hotel de 5 estrelas. A catedral de Sant'Agata está aberta, mas há uma missa a decorrer e só passamos.</p>
+      <p style="margin:0;">As ruelas estão cheias de lojinhas, varandas floridas e roupa estendida entre as fachadas. Gallipoli faz jus ao nome, «cidade bela» em grego.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">O nosso preferido ⭐</div>
+        <div class="spot-name">O Frantoio Ipogeo, lagar subterrâneo</div>
+        <p>É a surpresa de Gallipoli. Debaixo do Palazzo Granafei, um lagar de azeite subterrâneo do século XVII<sup></sup> totalmente restaurado, com 200 m². É o único dos 35 lagares subterrâneos da cidade que foi recuperado.</p>
+        <p style="margin:0;">Visita muito recomendada, conta 30 minutos.</p>
+        <div class="facts">
+          <div class="fact"><b>Morada</b>Via Antonietta De Pace</div>
+          <div class="fact"><b>Preço</b>2 € por pessoa, audioguia disponível</div>
+          <div class="fact"><b>Área</b>200 m² debaixo do Palazzo Granafei</div>
+          <div class="fact"><b>Duração</b>30 minutos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-pressoir-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A prensa do Frantoio Ipogeo, lagar de azeite subterrâneo de Gallipoli" loading="lazy" data-imgkey="galipoli-pressoir-a3">
+
+  <div class="col">
+    <p>A história é fascinante. Do século XVI<sup></sup> ao XIX<sup></sup>, Gallipoli foi a <b>capital mundial do azeite de iluminação</b>. O seu azeite, demasiado forte para cozinhar, servia para iluminar as grandes cidades da Europa: Paris, Londres, Berlim, Amesterdão, Estocolmo, Oslo. O azeite escorria por poços escavados na rocha. A água residual servia para fabricar sabão.</p>
+    <p>As condições de trabalho eram duras. Os operários e os burros viviam debaixo da terra durante nove meses, em turnos alternados. Havia um espaço reservado aos burros que moviam a mó. Tudo isto na escuridão e na humidade permanentes.</p>
+    <p>Um painel conta o comércio externo de Gallipoli: <b>12 vice-consulados estrangeiros</b> estiveram ativos na cidade até 1923, entre eles a Áustria, a Dinamarca, a França, a Inglaterra, o Império Otomano, os Países Baixos, Portugal, a Prússia, a Rússia, a Espanha e a Suécia-Noruega. Dá uma ideia da importância desta pequena cidade no comércio internacional.</p>
+    <p style="margin:0;">Mesmo ao lado do lagar, uma loja de vinhos locais. Vemos, não provamos, é de manhã. O envio custa cerca de 40 € por 12 garrafas, portanto não.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galipoli-plage-eglise-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A praia de areia de Gallipoli e a Chiesa Santa Maria della Purità" loading="lazy" data-imgkey="galipoli-plage-eglise-a3">
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">O nosso maior favorito ⭐</div>
+        <div class="spot-name">Chiesa Santa Maria della Purità</div>
+        <p>É a igreja de que mais gostámos em toda a viagem. Parece um santuário pagão e teria lugar nos percursos esotéricos do OneRoadTrip.</p>
+        <p style="margin:0;">Atravessando o Palazzo Granafei em direção ao mar, chega-se a uma bonita praia de areia. Mesmo antes, à esquerda, a igreja (1662-1665), construída pela <b>confraria dos estivadores</b>.</p>
+        <div class="facts">
+          <div class="fact"><b>Construção</b>1662-1665, pela confraria dos estivadores</div>
+          <div class="fact"><b>A abóbada</b>Cenas do Apocalipse, demónio nos cantos</div>
+          <div class="fact"><b>As telas</b>Liborio Riccio, altar-mor atribuído a Luca Giordano</div>
+          <div class="fact"><b>Entrada</b>Gratuita</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chiesa-santa-maria-della-purita-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O interior coberto de telas da Chiesa Santa Maria della Purità" loading="lazy" data-imgkey="chiesa-santa-maria-della-purita-a4">
+    <div>
+      <p>O interior está sobrecarregado: não há um centímetro quadrado vazio. As telas cobrem as paredes do chão ao teto. Na abóbada, cenas do Apocalipse, com um demónio enrolado nos cantos.</p>
+      <p>Grandes telas bíblicas assinadas por <b>Liborio Riccio</b>, Judite e Holofernes, David e Golias. A tela do altar-mor é atribuída a <b>Luca Giordano</b>. O chão é em maiólica de Vietri.</p>
+      <p style="margin:0;">A um canto, um manequim vestido com uma túnica branca de capuz pontiagudo e cinto vermelho. É o <b>hábito de penitente</b> da confraria, herdado da tradição espanhola do século XVII<sup></sup>, usado nas procissões da Semana Santa. Um Cristo na cruz muito realista, quase mórbido, e uma Virgem dolorosa em <i>cartapesta</i> completam o quadro.</p>
+    </div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chiesa-santa-maria-della-purita-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="O hábito de penitente e o Cristo na cruz da Chiesa Santa Maria della Purità" loading="lazy" data-imgkey="chiesa-santa-maria-della-purita-a3">
+
+  <div class="col">
+    <p>Parece uma igreja negra. O ambiente é perturbador, quase opressivo.</p>
+    <p style="margin:0;"><b>O balanço.</b> Ao fim de duas horas de visita, seguimos caminho. Gallipoli é muito encantadora e merece meio dia. O Frantoio Ipogeo e a Purità são as duas visitas a não perder.</p>
+  </div>
+</div>
+
+<!-- ================= S03 ================= -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Casarano, Ugento e Presicce</h2></div>
+    <h3 class="sub" style="margin-top:0;">Casarano, cidade fantasma</h3>
+    <p>Paramos em Casarano, a uns vinte minutos a sul de Gallipoli. É meio-dia e meia. Está tudo fechado. Nem um turista na rua, nem um habitante.</p>
+    <p>A cidade deixa-se percorrer a pé, mesmo fechada. Andamos um quilómetro até à <b>Chiesa di Santa Maria della Croce</b>, chamada Casaranello, uma pequena igreja paleocristã do século V<sup></sup> conhecida pelos mosaicos e pelos frescos bizantinos do século IX<sup></sup>. É um dos monumentos cristãos mais antigos da Puglia.</p>
+    <div class="tip"><p><b>Atenção ao horário.</b> Em julho de 2026, a igreja só abre das 16h às 17h. Porta fechada quando chegámos. Se não conheces essa janela, fazes a viagem em vão. Tirando esta igreja, não há nada de especial para ver. Aconselhamos-te a seguir caminho, a não ser que tenhas a certeza de aparecer no momento certo.</p></div>
+
+    <h3 class="sub">Ugento, sem pretensões</h3>
+    <p>Continuamos até Ugento, uma pequena cidade sem pretensões a dez minutos de Casarano.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/ugento-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="A catedral Santa Maria Assunta de Ugento e a sua fachada neoclássica" loading="lazy" data-imgkey="ugento-a4">
+    <div>
+      <p>A catedral <b>Santa Maria Assunta</b> está aberta e entramos. O edifício atual é de 1718, construído graças ao legado do bispo Antonio Carafa sobre as ruínas de uma igreja gótica destruída pelos turcos em 1537.</p>
+      <p>Foi consagrada em 1745. A fachada neoclássica, acrescentada em 1855, é dominada por quatro colunas jónicas que sustentam um frontão triangular.</p>
+      <p style="margin:0;">O interior é sóbrio comparado com as igrejas barrocas que vimos nestes últimos dias. Uma só nave em cruz latina. O altar em mármore policromo de 1740 e o coro em madeira de oliveira de estilo rococó são as peças principais. Vários altares sucedem-se nas paredes laterais, um deles com uma tela de <b>Paolo Finoglio</b>. Ugento é sede de diocese, o que explica o tamanho da catedral para uma cidade desta dimensão.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="checklist">
+      <ul>
+        <li><b>O castelo.</b> Século XIII<sup></sup>, normando, hoje hotel de 5 estrelas mas visitável mediante pedido.</li>
+        <li><b>O Museu Arqueológico.</b> O passado messápico de Ugento, no antigo convento franciscano.</li>
+        <li><b>A Cripta del Crocifisso.</b> Capela escavada na rocha, na estrada para Melissano.</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">Presicce-Acquarica</h3>
+    <p>Seguimos para <b>Presicce</b>, classificada entre as aldeias mais bonitas de Itália e fundida com Acquarica del Capo, cerca de 10 000 habitantes no total, 1 500 deles no centro histórico. No papel é apetecível.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/presicce-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="Os palácios barrocos de Presicce à volta da Piazza del Popolo" loading="lazy" data-imgkey="presicce-a3">
+
+  <div class="col">
+    <p>No terreno, é mais matizado. A aldeia está deserta, provavelmente porque chegamos por volta das 13h e o calor esmaga. Melhor ver ao fim do dia. <b>Atenção: há duas Piazza del Popolo.</b> Segue a direção do Palazzo Ducale para dar com a certa, aquela à volta da qual o centro se organiza. O bairro do Palazzo Ducale é um pouco mais bonito, mas no conjunto os palácios barrocos são soberbos e estão muito degradados. Muita coisa fechada. Não é a aldeia mais bonita que vimos na Puglia.</p>
+    <p><b>Chiesa Parrocchiale Sant'Andrea Apostolo.</b> Construída entre 1776 e 1781 pelo arquiteto Saverio Negro. Fachada barroca sóbria, interior em cruz latina, 9 altares, estuques. O altar-mor é em mármore policromo napolitano, oferecido pelo rei Francisco I<sup></sup> graças a <b>Michele Arditi</b>, natural de Presicce e fundador do museu de Nápoles. O campanário renascentista de 27,60 metros domina a praça. Telas de Catalano, Riccio, Tiso e Lillo. A Chiesa dei Morti de 1575, contígua, está fechada.</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/presicce-2-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O campanário renascentista de Sant'Andrea Apostolo em Presicce" loading="lazy" data-imgkey="presicce-2-a4">
+    <div>
+      <p>O campanário renascentista de 27,60 metros domina a praça. O Palazzo Ducale, esse, está fechado.</p>
+      <p style="margin:0;">Telas de Catalano, Riccio, Tiso e Lillo. A Chiesa dei Morti de 1575, contígua, também está fechada.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p style="margin:0;"><b>Acquarica del Capo.</b> O Castello di Acquarica del Capo, transformado em museu, está fechado a visitas. A <b>Chiesa San Carlo Borromeo</b> do século XVII<sup></sup> merece uma olhada. Construída pelo barão Fabrizio Guarino após uma cura milagrosa em Nápoles: duas naves, pedra de Lecce, altar barroco dedicado ao santo padroeiro, órgão de tubos do século XVIII<sup></sup>. É uma das primeiras igrejas do sul de Itália dedicadas a San Carlo Borromeo, canonizado em 1610.</p>
+  </div>
+</div>
+
+<!-- ================= S04 ================= -->
+<div id="s04" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Marina di Pescoluse, as Maldivas do Salento</h2></div>
+    <p>Fim de dia na praia. <b>Marina di Pescoluse</b>: 4 km de areia, mar translúcido e quente. A alcunha de «Maldivas do Salento» é merecida. A areia é bonita, a água é perfeita.</p>
+    <p>O problema: 40 000 veraneantes, e os lugares têm de se conquistar. É preciso lutar para pôr a toalha.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/plage-de-pescoluse-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A praia de areia de Marina di Pescoluse e a sua água translúcida" loading="lazy" data-imgkey="plage-de-pescoluse-a3">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/vues-sur-le-retour-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="Vista sobre o mar a partir da estrada da costa no regresso a Castro" loading="lazy" data-imgkey="vues-sur-le-retour-a4">
+    <div>
+      <p style="margin:0;">Regresso a Castro pela estrada da costa, com vistas soberbas sobre o mar. Demora mais do que pelo interior, mas não lamentamos o desvio.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S05 ================= -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Galatone, santuário e frustrações</h2></div>
+    <p>Saímos de Castro em direção a oeste. Primeira etapa: <b>Galatone</b>, pequena cidade a uns vinte minutos de Nardò.</p>
+    <h3 class="sub">Santuario del Santissimo Crocifisso della Pietà</h3>
+    <p>O santuário merece o desvio. Fachada barroca, interior cuidado. É um lugar de peregrinação construído à volta de uma imagem do Crucifixo. Em 1682, o edifício desaba. Mas a lamparina de azeite diante do Crucifixo continua acesa nos escombros. Os habitantes veem nisso um sinal divino e reconstroem a igreja à volta dessa imagem milagrosa.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/santuario-del-santissimo-crocifisso-della-pieta-interieur-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O interior do Santuario del Santissimo Crocifisso della Pietà em Galatone" loading="lazy" data-imgkey="santuario-interieur-a4">
+    <div>
+      <p style="margin:0;">O interior é cuidado e, ao entrar, percebe-se porque é que o santuário continua a ser um lugar de peregrinação ativo. Tudo está organizado à volta da imagem do Crucifixo que sobreviveu ao desabamento de 1682.</p>
+    </div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/santuario-del-santissimo-crocifisso-della-pieta-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A fachada barroca do santuário do Santissimo Crocifisso della Pietà" loading="lazy" data-imgkey="santuario-a3">
+
+  <div class="col">
+    <p><b>Chiesa Madre.</b> Fechada. Em obras desde 2024, durante cerca de dois anos, sem indicação da data de reabertura. É frustrante: nestas pequenas aldeias, as igrejas são muitas vezes as únicas joias do património, e estão fechadas metade do tempo.</p>
+    <div class="tip"><p><b>Museu Leonardo da Vinci.</b> No Palazzo Marchesale, um museu dedicado às máquinas de Leonardo, 5 €. Horários complicados: ao fim de semana das 17h30 às 20h30, durante a semana por telefone, e a pessoa chega em 30 minutos. Há também um museu de rádios antigos, só por telefone. Uma organização um pouco artesanal.</p></div>
+  </div>
+</div>
+
+<!-- ================= S06 ================= -->
+<div id="s06" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Nardò, a rival de Lecce</h2></div>
+    <p>Nardò é o segundo centro histórico da província de Lecce. E nota-se. As surpresas aparecem a cada esquina.</p>
+    <h3 class="sub">Castello Acquaviva d'Aragona</h3>
+    <p>Chegamos diretamente ao castelo, que guarda a entrada da cidade velha. Muito bonito. Construído no final do século XV<sup></sup> por Belisario I<sup></sup> Acquaviva em 1497, depois do ataque turco a Otranto em 1480 que traumatizou toda a região. Planta quadrada, quatro torres de canto, entre elas a «Torre dell'innamorato». A fachada atual é do século XIX<sup></sup>, quando a família Personè acrescentou um revestimento almofadado e uma varanda. A câmara comprou o castelo em 1933. Um jovem propõe visitas guiadas aos subterrâneos. Não a fizemos: um castelo é sempre um castelo.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/nardo-castello-acquaviva-d-aragona-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="O Castello Acquaviva d'Aragona à entrada da cidade velha de Nardò" loading="lazy" data-imgkey="nardo-castello-a3">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Giardino Botanico Storico</h3>
+    <p>Mesmo ao lado do castelo, um jardim botânico de acesso livre. Um pequeno bar permite tomar um café à sombra antes de começar a visita. Seguimos com a <b>Chiesa San Giuseppe</b>, a poucos passos, uma visita rápida.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/jardin-nardo-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O jardim botânico histórico de Nardò" loading="lazy" data-imgkey="jardin-nardo-a4">
+    <div>
+      <p style="margin:0;">O jardim botânico visita-se livremente, à sombra das árvores. É a pausa ideal antes de atacar o centro histórico, sobretudo a meio do dia.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Piazza Antonio Salandra</h3>
+    <p>O coração de Nardò, considerada uma das praças mais bonitas do Salento. Inteiramente barroca, reconstruída depois do sismo devastador de 1743, magnitude 7,1, 150 mortos em 5 000 habitantes. Arcos, varandas, loggias, portais rococó, tudo em pedra de Lecce.</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/piazza-antonio-salandra-nardo-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="A Piazza Antonio Salandra em Nardò, inteiramente barroca" loading="lazy" data-imgkey="piazza-salandra-a4">
+    <div>
+      <p>Aqui encontram-se o <b>Palazzo della Pretura</b>, a câmara municipal, o <b>Sedile</b> do século XVII<sup></sup> encimado pela estátua de San Gregorio Armeno, protetor da cidade, e a <b>igreja de San Trifone</b> do século XVIII<sup></sup>, dedicada ao santo que teria livrado a cidade de uma invasão de vespas.</p>
+      <p style="margin:0;">No centro da praça, a <b>Guglia dell'Immacolata</b> de 1769, coluna piramidal barroca de 19 metros erguida pelos sobreviventes do sismo. Em restauro quando passámos: não se vê nada.</p>
+    </div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/fontaine-du-taureau-nardo-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A Fontana del Toro encostada à igreja de San Domenico em Nardò" loading="lazy" data-imgkey="fontaine-taureau-a3">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Fontana del Toro</h3>
+    <p>Encostada ao muro da igreja de San Domenico, a Fontana del Toro de 1930 é um dos símbolos da cidade. Esculpida por Michele Gaballo, um artista local, foi inaugurada para celebrar a chegada da água canalizada a Nardò através do Aqueduto da Puglia. Um touro jovem escava o chão com o casco: segundo a lenda, Nardò foi fundada onde um touro fez brotar água da rocha. O medalhão traz a divisa <i>Tauri non Bovi</i>, touros, não bois. Restaurada em 2021.</p>
+    <p>A <b>Chiesa di San Domenico</b>, essa, está fechada.</p>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/chiesa-di-san-domenico-nardo-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="A fachada da Chiesa di San Domenico em Nardò" loading="lazy" data-imgkey="san-domenico-a4">
+    <div>
+      <p style="margin:0;">A fachada de San Domenico merece uma olhada mesmo de porta fechada: é contra o seu muro que está encostada a Fontana del Toro, e as duas olham-se há quase um século.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">O ponto forte de Nardò ⭐</div>
+        <div class="spot-name">Cattedrale Maria SS. Assunta</div>
+        <p>Descobrimo-la ao virar de uma rua. Soberba. Fundada em 1088 pelos normandos, monumento nacional desde 1879, basílica menor desde 1980. Fachada barroca refeita em 1725 pelo arquiteto Ferdinando Sanfelice e depois restaurada entre 1892 e 1899 para recuperar o aspeto românico de origem.</p>
+        <p style="margin:0;">A catedral visita-se por inteiro: pode passar-se por trás do altar e chegar a algumas salas mobiladas. Leva o teu tempo.</p>
+        <div class="facts">
+          <div class="fact"><b>Fundação</b>1088, pelos normandos</div>
+          <div class="fact"><b>Os frescos</b>Do século XIII<sup></sup> ao XVI<sup></sup> nas paredes e colunas</div>
+          <div class="fact"><b>O Cristo Nero</b>Crucifixo em madeira de cedro do século XII<sup></sup></div>
+          <div class="fact"><b>O coro</b>Decorado em 1590</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/cattedrale-maria-ss-assunta-a4-2.webp&amp;w=700&amp;output=webp&amp;q=85" alt="A fachada da catedral Maria SS. Assunta de Nardò" loading="lazy" data-imgkey="cattedrale-nardo-a4-2">
+    <div>
+      <p style="margin:0;">A fachada barroca foi refeita em 1725 por Ferdinando Sanfelice e depois restaurada entre 1892 e 1899 para lhe devolver o aspeto românico de origem. É essa mistura que dá à catedral o seu ar inclassificável.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/cattedrale-maria-ss-assunta-a4.webp&amp;w=700&amp;output=webp&amp;q=85" alt="O interior da catedral de Nardò e os seus frescos" loading="lazy" data-imgkey="cattedrale-nardo-a4">
+    <div>
+      <p>O interior: três naves separadas por arcos ogivais, teto em madeira. As paredes e as colunas estão cobertas de frescos do século XIII<sup></sup> ao XVI<sup></sup>, histórias de são Nicolau e de santo Agostinho.</p>
+      <p style="margin:0;">À esquerda, a meio da nave, o <b>Cristo Nero</b>, crucifixo em madeira de cedro do século XII<sup></sup>, enegrecido pelo tempo.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Em frente da catedral, o <b>Museo Diocesano</b>, que não visitámos. A algumas centenas de metros, uma igreja sem nome ao lado dos Correios: fechada. Cinquenta metros mais à frente, a Chiesa Santa Teresa: também fechada. A história do costume no Salento.</p>
+    <div class="tip"><p><b>O balanço.</b> Cidade pequena cujo centro histórico merece amplamente o desvio. Na batalha com Lecce, Nardò perdeu, mas as surpresas aparecem a cada esquina. Conta 1 a 3 horas conforme visites o castelo e o museu. Nota OneRoadTrip: 3 em 5, mas a cidade merecia um 4 em 5.</p></div>
+  </div>
+</div>
+
+<!-- ================= S07 ================= -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Porto Cesareo e Punta Prosciutto</h2></div>
+    <p>Seguimos até <b>Porto Cesareo</b>, estância balnear na costa jónica. O centro vê-se num quarto de hora. Em frente ao porto, a uma centena de metros da costa, a <b>Isola Grande</b>, chamada ilha dos coelhos: pode ir-se a pé na maré baixa. À noite é certamente mais animado, mas ao meio-dia está deserto. Custa encontrar um restaurante, mas há uma vantagem: quando o encontras, estás sozinho.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/porto-cesareo-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="O porto e a Isola Grande de Porto Cesareo" loading="lazy" data-imgkey="porto-cesareo-a3">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Punta Prosciutto, a boa praia</h3>
+    <p>Rumo à praia de <b>Punta Prosciutto</b>, entre Torre Castiglione e Punta Grossa. Muito menos cheia do que Pescoluse na véspera, e muito bonita. Conseguimos pôr o chapéu de sol sem lutar e ficar duas horas a ler descansados.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/punta-prosiciutto-credits-a-mettre-andrea-carro-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A praia de Punta Prosciutto e a sua água turquesa" loading="lazy" data-imgkey="punta-prosciutto-a3">
+  <div class="cap">Foto: Andrea Carro</div>
+</div>
+
+<!-- ================= S08 ================= -->
+<div id="s08" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">A Grotta Zinzulusa, desta vez a pé</h2></div>
+    <p>Voltamos a Castro para visitar a <b>Grotta Zinzulusa</b> a pé. Já a tínhamos visto do barco, mas a visita por terra é diferente. Descemos por uma escada talhada na falésia até à entrada da gruta, ao nível da água. Lá dentro, um percurso em passadiço permite avançar cerca de 150 metros.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/zinzu-d-en-haut-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="A entrada da Grotta Zinzulusa vista da falésia" loading="lazy" data-imgkey="zinzu-d-en-haut-a3">
+
+  <div class="col">
+    <p>As estalactites e estalagmites são espetaculares. O nome vem do dialeto local <i>zinzuli</i>, os trapos, porque as concreções calcárias que pendem da abóbada parecem farrapos pendurados.</p>
+    <p>A grande sala, chamada o <b>Duomo</b>, sobe até aos 25 metros de altura. Era ali que viviam outrora centenas de morcegos. Os seus excrementos, o guano, acumularam-se ao longo dos séculos até formar uma camada de 7 metros de espessura em alguns pontos. Podia andar-se por cima. Nas paredes ainda se veem inscrições: foram os trabalhadores encarregados de limpar o guano, a partir de 1906 e depois em 1933, que escreveram os nomes e as datas diretamente na rocha com o próprio guano, escuro e espesso. Usado como adubo, foi extraído durante várias décadas. Essas marcas fazem parte da história da gruta.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/zinzu-interieur-a3.webp&amp;w=1600&amp;output=webp&amp;q=85" alt="As concreções calcárias da Grotta Zinzulusa" loading="lazy" data-imgkey="zinzu-interieur-a3">
+
+  <div class="col">
+    <p>A gruta abriga também um pequeno lago subterrâneo, o Cocito, e espécies animais raras adaptadas à escuridão total. <b>7 € adulto, 3 € criança.</b> Conta 30 minutos de visita.</p>
+
+    <h3 class="sub">Balanço de Castro Marina</h3>
+    <p>Fim da estadia em Castro, amanhã partimos para Bari. Em cinco dias a partir desta base percorremos a região de uma ponta à outra: Lecce, Otranto, as grutas, Gallipoli, Nardò, a ponta do Salento até Pescoluse. Está tudo a menos de uma hora. Um pouco mais de tempo em Lecce teria sido melhor, a cidade merece. Castro continua a ser uma base ideal para explorar o Salento.</p>
+
+    <div class="checklist">
+      <ul>
+        <li><b>Base.</b> Castro Marina.</li>
+        <li><b>Alojamento.</b> Hotel degli Ulivi, 115 € por noite em agosto.</li>
+        <li><b>Duração.</b> 2 dias, dia 4 e dia 5 do road trip.</li>
+        <li><b>Frantoio Ipogeo em Gallipoli.</b> 2 € por pessoa, Via Antonietta De Pace.</li>
+        <li><b>Museu Leonardo da Vinci em Galatone.</b> 5 €, fim de semana 17h30-20h30, dias úteis por telefone.</li>
+        <li><b>Grotta Zinzulusa.</b> 7 € adulto, 3 € criança, 30 minutos.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin:34px 0 0;">O fim do road trip, Trani, Barletta e Castel del Monte, no próximo artigo.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/pt/trani-barletta-castel-del-monte.html" rel="noopener">Continuar a ler: Trani, Barletta e Castel del Monte →</a>
+  </div>
+</div>
+
+<!-- ================= S09 : ITINERAIRES =================
+     LANGUES : ne changer QUE le dossier.
+     fr /roteiros/ · en /itineraries/ · es /rutas/ · it /itinerari/ · pt /roteiros/
+     Le nom de fichier reste identique dans les 5 langues. -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Os nossos roteiros pelo Salento</h2></div>
+    <p>Todos são modificáveis no OneRoadTrip: acrescentas, retiras ou mudas as etapas de sítio e depois exportas o caderno de viagem. Estes são os três que mais coincidem com o que acabaste de ler.</p>
+
+    <div class="itin-grid">
+      <a class="itin-card" href="https://www.oneroadtrip.com/roteiros/it-puglia-salento-au-depart-de-lecce.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 dias · O mais próximo</div>
+        <div class="itin-t">A grande volta ao Salento a partir de Lecce</div>
+        <div class="itin-d">Costas adriática e jónica, vilas barrocas e sítios messápicos. Passa por Gallipoli, Nardò e pela costa que acabámos de percorrer.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/roteiros/it-salento-salento-profond-grecia-leuca.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 dias · O Salento secreto</div>
+        <div class="itin-t">Grecìa griko, Otranto e Leuca</div>
+        <div class="itin-d">As aldeias griko, os frantoi subterrâneos e as grutas marinhas. Desce até à ponta do salto, onde fomos hoje.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/roteiros/it-puglia-route-des-vins.html" target="_blank" rel="noopener">
+        <div class="itin-days">7 dias · Primitivo</div>
+        <div class="itin-t">Puglia, a rota dos vinhos</div>
+        <div class="itin-d">De Bari a Lecce pelos trulli de Alberobello, o barroco de Lecce e as vinhas de primitivo e negroamaro.</div>
+      </a>
+    </div>
+
+    <h3 class="sub">Os outros, para ir mais longe</h3>
+    <ul class="itin-list">
+      <li><a href="https://www.oneroadtrip.com/roteiros/it-puglia-brindisi-messapie-torre-guaceto.html" target="_blank" rel="noopener">Brindisi em 2 dias: criptas bizantinas e Torre Guaceto</a><span>O norte do Salento, da Via Appia às criptas rupestres e à reserva de Torre Guaceto.</span></li>
+      <li><a href="https://www.oneroadtrip.com/roteiros/it-puglia-boucle-bari-itria-matera.html" target="_blank" rel="noopener">Volta de Bari: trulli, gravine e Matera</a><span>13 dias e 46 etapas, o roteiro que corresponde à primeira parte do nosso road trip.</span></li>
+      <li><a href="https://www.oneroadtrip.com/roteiros/it-puglia-pouilles-secretes-9-jours.html" target="_blank" rel="noopener">Puglia secreta: Frederico II e aldeias esquecidas</a><span>7 dias de Bari a Brindisi pelo interior, longe dos circuitos clássicos.</span></li>
+      <li><a href="https://www.oneroadtrip.com/roteiros/it-puglia-murgia-barese-gravine-ceramiche.html" target="_blank" rel="noopener">Murgia barese, de Polignano às gravine</a><span>3 dias de Bari a Taranto pelas aldeias brancas e as ravinas rupestres.</span></li>
+      <li><a href="https://www.oneroadtrip.com/roteiros/it-sud-pouilles-noires-bari-naples.html" target="_blank" rel="noopener">Puglia negra: 8 dias de Bari a Nápoles</a><span>Castel del Monte, os Sassi de Matera, a aldeia fantasma de Craco e o culto napolitano das almas do Purgatório.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= S10 ================= -->
+<div id="s10" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Créditos das fotos</h2></div>
+    <button class="credit-btn" onclick="var b=document.getElementById('creditsBox');b.classList.toggle('show');this.textContent=b.classList.contains('show')?'Crédits photo ▲':'Crédits photo ▼'">Créditos das fotos ▼</button>
+    <div id="creditsBox" class="credit-box">      Praia de Punta Prosciutto: Andrea Carro<br>      Outras fotos: Patricia e Marc, OneRoadTrip.    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Road trip na Puglia: Gallipoli, Nardò e o Salento",
+  "description": "Visitar Gallipoli e o seu lagar subterrâneo, Nardò a rival de Lecce, Pescoluse, Punta Prosciutto e a Grotta Zinzulusa: o nosso roteiro de 2 dias.",
+  "image": [
+    "https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/photo-couverture-galipoli.webp&w=1200&output=jpg&q=85"
+  ],
+  "inLanguage": "pt",
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "author": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.oneroadtrip.com/blog/pt/gallipoli-nardo-salento.html"
+  },
+  "about": [
+    {
+      "@type": "Place",
+      "name": "Gallipoli"
+    },
+    {
+      "@type": "Place",
+      "name": "Nardò"
+    },
+    {
+      "@type": "Place",
+      "name": "Ugento"
+    },
+    {
+      "@type": "Place",
+      "name": "Presicce"
+    },
+    {
+      "@type": "Place",
+      "name": "Marina di Pescoluse"
+    },
+    {
+      "@type": "Place",
+      "name": "Punta Prosciutto"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Início",
+      "item": "https://www.oneroadtrip.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blogue",
+      "item": "https://www.oneroadtrip.com/blog/pt/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Road trip na Puglia: Gallipoli, Nardò e o Salento",
+      "item": "https://www.oneroadtrip.com/blog/pt/gallipoli-nardo-salento.html"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "O que ver em Gallipoli em meio dia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "O Frantoio Ipogeo, lagar de azeite subterrâneo do século XVII a 2 € por pessoa, e a Chiesa Santa Maria della Purità, cujo interior está inteiramente coberto de telas. São as duas visitas a não perder, com o castelo angevino e as ruelas da cidade velha."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Porque é que Gallipoli era a capital do azeite de iluminação?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Do século XVI ao XIX, o seu azeite, demasiado forte para cozinhar, servia para iluminar Paris, Londres, Berlim, Amesterdão, Estocolmo e Oslo. Doze vice-consulados estrangeiros estiveram ativos na cidade até 1923."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Nardò vale o desvio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sim. É o segundo centro histórico da província de Lecce, com o castelo Acquaviva d'Aragona, a Piazza Antonio Salandra inteiramente barroca, a Fontana del Toro e a catedral fundada em 1088. Conta 1 a 3 horas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Que praia escolher no Salento jónico?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Marina di Pescoluse, apelidada de Maldivas do Salento, tem a areia mais bonita mas recebe até 40 000 veraneantes e os lugares têm de se conquistar. Punta Prosciutto é bem menos cheia e igualmente bonita."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Quanto custa a visita à Grotta Zinzulusa?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "7 € para um adulto e 3 € para uma criança, cerca de 30 minutos de visita. Desce-se por uma escada talhada na falésia e depois um percurso em passadiço avança cerca de 150 metros."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Photo').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"gallipoli-nardo-salento"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>
