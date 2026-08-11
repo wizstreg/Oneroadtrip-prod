@@ -5895,12 +5895,14 @@ function setupEvents() {
       
       state.lang = newLang;
       closeAllSheets();
-      showToast(`✅ Langue: ${newLang.toUpperCase()}`);
-      
-      // Mettre à jour l'URL avec la nouvelle langue puis reload
+
+      // On navigue tout de suite. Avec un delai, la page continue de tourner
+      // apres avoir vide ses caches : elle relance des chargements que la
+      // navigation annule ensuite, et Safari affiche "Load failed".
+      window.__ORT_REDIRECTING = true;
       const url = new URL(location.href);
       url.searchParams.set('lang', newLang);
-      setTimeout(() => location.replace(url.toString()), 500);
+      location.replace(url.toString());
     };
   });
 }
