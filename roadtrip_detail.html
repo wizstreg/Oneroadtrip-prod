@@ -95,7 +95,12 @@ function ortDateLocale(){
     qs.set('tripId', newTripId);
     const newUrl = `${location.pathname}?${qs.toString()}`;
     console.log('[INIT-EARLY] Redirect vers:', newUrl);
-    window.location.href = newUrl;
+    // On signale la redirection : le reste de la page continue de se charger
+    // pendant que le navigateur navigue, ses requetes sont annulees en vol et
+    // Safari les signale par "Load failed". Le drapeau permet de taire ces
+    // messages qui ne concernent pas l utilisateur.
+    window.__ORT_REDIRECTING = true;
+    window.location.replace(newUrl);
     return;
   }
   
@@ -115,7 +120,12 @@ function ortDateLocale(){
     qs.set('tripId', newTripId);
     const newUrl = `${location.pathname}?${qs.toString()}`;
     console.log('[INIT-EARLY] Redirect vers:', newUrl);
-    window.location.href = newUrl;
+    // On signale la redirection : le reste de la page continue de se charger
+    // pendant que le navigateur navigue, ses requetes sont annulees en vol et
+    // Safari les signale par "Load failed". Le drapeau permet de taire ces
+    // messages qui ne concernent pas l utilisateur.
+    window.__ORT_REDIRECTING = true;
+    window.location.replace(newUrl);
     return;
   }
   
@@ -135,7 +145,12 @@ function ortDateLocale(){
     qs.set('tripId', newTripId);
     const newUrl = `${location.pathname}?${qs.toString()}`;
     console.log('[INIT-EARLY] Redirect vers:', newUrl);
-    window.location.href = newUrl;
+    // On signale la redirection : le reste de la page continue de se charger
+    // pendant que le navigateur navigue, ses requetes sont annulees en vol et
+    // Safari les signale par "Load failed". Le drapeau permet de taire ces
+    // messages qui ne concernent pas l utilisateur.
+    window.__ORT_REDIRECTING = true;
+    window.location.replace(newUrl);
     return;
   }
 })();
@@ -13040,6 +13055,9 @@ if (window.ORT_DETAIL_ADAPTER && typeof window.ORT_DETAIL_ADAPTER.saveCurrent ==
   
   // Toast de notification
   function showToast(message) {
+    // Pendant une redirection, les requetes annulees produisent de faux messages
+    // d erreur. On ne les affiche pas, la page va disparaitre de toute facon.
+    if (window.__ORT_REDIRECTING) return;
     const toast = document.createElement('div');
     Object.assign(toast.style, {
       position: 'fixed',
