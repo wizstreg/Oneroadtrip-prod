@@ -1225,7 +1225,14 @@ html, body {
   z-index: 201;
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+  /* Sur iPhone, vh mesure la page barres du navigateur masquees, donc plus haut
+     que la zone reellement visible. Le panneau depassait par le haut et son
+     en-tete, avec les fleches de navigation entre etapes, sortait de l ecran.
+     dvh suit la hauteur reellement affichee. La ligne vh reste en repli pour
+     les navigateurs qui ne connaissent pas dvh. */
   max-height: 85vh;
+  max-height: 85dvh;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
   display: flex;
   flex-direction: column;
 }
