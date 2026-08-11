@@ -26,7 +26,7 @@
   // ============================================
   // CONFIGURATION
   // ============================================
-  const SUPPORTED_LANGS = ['fr', 'en', 'es', 'it', 'pt', 'ar'];
+  const SUPPORTED_LANGS = (window.ORT_LANGS || ['fr', 'en', 'es', 'it', 'pt', 'ar', 'nl', 'de']);
   const MODAL_ID = 'ortAuthModal';
   const MODAL_ZINDEX = 10000;
 
@@ -81,13 +81,26 @@
 
   /** Récupère la langue courante — priorise le chemin URL sur les pages statiques */
   /** Dossiers d'itineraires par langue */
-  var ITIN_DIRS = {itineraires:'fr',itineraries:'en',rutas:'es',roteiros:'pt',itinerari:'it',masar:'ar'};
+  var ITIN_DIRS = {itineraires:'fr',itineraries:'en',rutas:'es',roteiros:'pt',itinerari:'it',masar:'ar',routes:'nl',routen:'de'};
 
   function getLang() {
     var path = window.location.pathname;
 
+    // 0. Langue memorisee du visiteur : elle gagne sur tout le reste.
+    //    L en-tete fait partie de l interface, pas du contenu. Un visiteur
+    //    neerlandais qui ouvre un itineraire disponible seulement en anglais
+    //    doit garder un en-tete en neerlandais, meme si l adresse est
+    //    /itineraries/... et porte ?lang=en.
+    try {
+      var saved = localStorage.getItem('lang');
+      if (saved) {
+        saved = String(saved).slice(0, 2).toLowerCase();
+        if (SUPPORTED_LANGS.indexOf(saved) !== -1) return saved;
+      }
+    } catch (e) { /* localStorage indisponible : on continue */ }
+
     // 1. Itineraires : /itineraires/, /itineraries/, /rutas/...
-    var m = path.match(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//);
+    var m = path.match(/^\/(itineraires|itineraries|rutas|roteiros|itinerari|masar|routes|routen)\//);
     if (m && ITIN_DIRS[m[1]]) return ITIN_DIRS[m[1]];
 
     // 2. Blog : /blog/fr/, /blog/en/...
@@ -135,7 +148,7 @@
 
   /** Récupère les traductions */
   function getT() {
-    return window.ORT_I18N_AUTH?.get?.(getLang()) || window.ORT_I18N_AUTH?.fr || {};
+    return window.ORT_I18N_AUTH?.get?.(getLang()) || window.ORT_I18N_AUTH?.en || {};
   }
 
   // ============================================
@@ -153,14 +166,14 @@
     SUPPORTED_LANGS.forEach(code => {
       const opt = document.createElement('option');
       opt.value = code;
-      opt.textContent = T.langNames?.[code] || code.toUpperCase();
+      opt.textContent = (window.ORT_LANG_NAMES && window.ORT_LANG_NAMES[code]) || T.langNames?.[code] || code.toUpperCase();
       if (code === currentLang) opt.selected = true;
       sel.appendChild(opt);
     });
 
     // Appliquer RTL si arabe
     document.documentElement.lang = currentLang;
-    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.dir = (window.ORT_RTL_LANGS || ['ar']).indexOf(currentLang) !== -1 ? 'rtl' : 'ltr';
 
     // Événement changement
     sel.addEventListener('change', function() {
@@ -753,14 +766,15 @@
 
     // Lien "Actualités" : libellé localisé + style injecté une seule fois,
     // pour qu'il s'affiche correctement sur toutes les pages.
-    const NEWS_LABEL = { fr:'Actualités', en:'News', es:'Noticias', it:'Notizie', pt:'Notícias', ar:'أخبار' };
-    const newsLabel = NEWS_LABEL[lang] || 'News';
-    const CATALOG_LABEL = { fr:'Catalogue', en:'Catalogue', es:'Catálogo', it:'Catalogo', pt:'Catálogo', ar:'الكتالوج' };
-    const catalogLabel = CATALOG_LABEL[lang] || 'Catalogue';
-    const BLOG_LABEL = { fr:'Blog', en:'Blog', es:'Blog', it:'Blog', pt:'Blog', ar:'المدونة' };
-    const blogLabel = BLOG_LABEL[lang] || 'Blog';
-    const TRIPS_LABEL = { fr:'Vos voyages', en:'Your trips', es:'Tus viajes', it:'I tuoi viaggi', pt:'As suas viagens', ar:'رحلاتك' };
-    const tripsLabel = TRIPS_LABEL[lang] || 'Your trips';
+    // Libelles pris dans le socle i18n (ort-i18n-socle.js).
+    const lbl = function(key, fallback){
+      const e = window.ORT_I18N && window.ORT_I18N[key];
+      return (e && (e[lang] || e.en)) || fallback;
+    };
+    const newsLabel    = lbl('navNews', 'News');
+    const catalogLabel = lbl('navCatalog', 'Catalogue');
+    const blogLabel    = lbl('navBlog', 'Blog');
+    const tripsLabel   = lbl('navTrips', 'Your trips');
 
     // Habillage de base de la barre.
     // Il etait jusqu'ici recopie dans chaque template ; il vit maintenant ici,
@@ -842,12 +856,7 @@
           <span aria-hidden="true">🏠</span><span class="lbl">${tripsLabel}</span>
         </a>
         <select id="langSel" class="langpick" aria-label="Langue">
-          <option value="fr">FR</option>
-          <option value="en">EN</option>
-          <option value="it">IT</option>
-          <option value="es">ES</option>
-          <option value="pt">PT</option>
-          <option value="ar">AR</option>
+          ${SUPPORTED_LANGS.map(function(c){ return '<option value="'+c+'">'+c.toUpperCase()+'</option>'; }).join('')}
         </select>
         <div class="auth">
           <button id="openAuth" class="btn" type="button">

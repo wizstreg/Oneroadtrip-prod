@@ -1,23 +1,38 @@
 # robots.txt pour OneRoadTrip
-# Generated: 2026-08-09T17:58:29.282Z
+# Generated: 2026-08-11T07:47:45.471Z
 
 User-agent: *
 Allow: /
 
 # Pages dynamiques SPA - pas de valeur SEO
-Disallow: /roadtrip_mobile.html
-Disallow: /roadtrip_detail.html
-Disallow: /roadtrip_detail_simple.html
-Disallow: /roadtrip_step.html
-Disallow: /roadtrip-editor.html
+# CORRECTION : plus de ".html" en fin de ligne.
+# Le serveur sert AUSSI ces pages sans extension (/roadtrip_detail?cc=...),
+# et "Disallow: /roadtrip_detail.html" ne bloquait que la forme avec extension.
+# Google explorait donc des milliers d'URL censees etre interdites.
+# Sans le ".html", la regle est un prefixe : elle couvre la forme avec
+# extension, la forme sans extension, et toutes les variantes a parametres.
+Disallow: /roadtrip_mobile
+Disallow: /roadtrip_detail
+Disallow: /roadtrip_detail_simple
+Disallow: /roadtrip_step
+Disallow: /roadtrip-editor
 Disallow: /roadtrip.html
-Disallow: /carte_builder.html
-Disallow: /rt-user.html
-Disallow: /pres_simple.html
-Disallow: /import.html
-Disallow: /import-creator.html
-Disallow: /booking-extractor.html
-Disallow: /dashboard_user.html
+Disallow: /carte_builder
+Disallow: /rt-user
+Disallow: /pres_simple
+Disallow: /import
+Disallow: /import-creator
+Disallow: /booking-extractor
+Disallow: /dashboard_user
+
+# Le serveur repond aussi a ces pages depuis un dossier de langue
+# (ex: /rutas/dashboard_user.html?lang=pt). Le joker couvre tous les dossiers.
+Disallow: /*/dashboard_user
+Disallow: /*/roadtrip_detail
+Disallow: /*/roadtrip_mobile
+Disallow: /*/roadtrip_step
+Disallow: /*/carte_builder
+Disallow: /*/pres_simple
 
 # Sitemaps
 Sitemap: https://www.oneroadtrip.com/sitemap-index.xml

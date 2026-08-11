@@ -31,32 +31,32 @@
         if (!window.ORT_I18N) return;
         var i18n = window.ORT_I18N;
         if (i18n._envKeysAdded) return;
-        i18n.envCar = { fr: 'VOI', en: 'CAR', es: 'COC', it: 'AUT', pt: 'CAR', ar: 'سيارة' };
-        i18n.envTransit = { fr: 'TC', en: 'TC', es: 'TP', it: 'TP', pt: 'TP', ar: 'نقل' };
-        i18n.envCarTitle = { fr: 'Empreinte voiture', en: 'Car footprint', es: 'Huella coche', it: 'Impronta auto', pt: 'Pegada carro', ar: 'البصمة الكربونية للسيارة' };
-        i18n.envTransitTitle = { fr: 'Empreinte transports en commun', en: 'Public transport footprint', es: 'Huella transporte público', it: 'Impronta trasporto pubblico', pt: 'Pegada transporte público', ar: 'البصمة الكربونية للنقل العام' };
-        i18n.envDistance = { fr: 'Distance', en: 'Distance', es: 'Distancia', it: 'Distanza', pt: 'Distância', ar: 'المسافة' };
-        i18n.envDays = { fr: 'jours', en: 'days', es: 'días', it: 'giorni', pt: 'dias', ar: 'أيام' };
-        i18n.envCo2day = { fr: 'CO₂/jour', en: 'CO₂/day', es: 'CO₂/día', it: 'CO₂/giorno', pt: 'CO₂/dia', ar: 'CO₂/يوم' };
-        i18n.envTotal = { fr: 'Total', en: 'Total', es: 'Total', it: 'Totale', pt: 'Total', ar: 'المجموع' };
-        i18n.envGrade = { fr: 'Grade', en: 'Grade', es: 'Grado', it: 'Grado', pt: 'Grau', ar: 'الدرجة' };
-        i18n.envClickAlts = { fr: 'Cliquez pour voir les alternatives', en: 'Click to see alternatives', es: 'Haga clic para ver alternativas', it: 'Clicca per vedere le alternative', pt: 'Clique para ver alternativas', ar: 'انقر لرؤية البدائل' };
-        i18n.envUrban = { fr: 'Urbain', en: 'Urban', es: 'Urbano', it: 'Urbano', pt: 'Urbano', ar: 'حضري' };
-        i18n.envMixed = { fr: 'Mixte', en: 'Mixed', es: 'Mixto', it: 'Misto', pt: 'Misto', ar: 'مختلط' };
-        i18n.envNature = { fr: 'Nature', en: 'Nature', es: 'Naturaleza', it: 'Natura', pt: 'Natureza', ar: 'طبيعة' };
-        i18n.envUrbanPct = { fr: 'urbain', en: 'urban', es: 'urbano', it: 'urbano', pt: 'urbano', ar: 'حضري' };
-        i18n.envNaturePct = { fr: 'nature/rural', en: 'nature/rural', es: 'naturaleza/rural', it: 'natura/rurale', pt: 'natureza/rural', ar: 'طبيعة/ريفي' };
-        i18n.envExcellent = { fr: 'Excellent', en: 'Excellent', es: 'Excelente', it: 'Eccellente', pt: 'Excelente', ar: 'ممتاز' };
-        i18n.envVeryGood = { fr: 'Très bon', en: 'Very good', es: 'Muy bueno', it: 'Molto buono', pt: 'Muito bom', ar: 'جيد جداً' };
-        i18n.envGood = { fr: 'Bon', en: 'Good', es: 'Bueno', it: 'Buono', pt: 'Bom', ar: 'جيد' };
-        i18n.envAverage = { fr: 'Moyen', en: 'Average', es: 'Medio', it: 'Medio', pt: 'Médio', ar: 'متوسط' };
-        i18n.envHigh = { fr: 'Élevé', en: 'High', es: 'Alto', it: 'Alto', pt: 'Alto', ar: 'مرتفع' };
-        i18n.envVeryHigh = { fr: 'Très élevé', en: 'Very high', es: 'Muy alto', it: 'Molto alto', pt: 'Muito alto', ar: 'مرتفع جداً' };
-        i18n.envLoading = { fr: 'Chargement des scores...', en: 'Loading scores...', es: 'Cargando puntuaciones...', it: 'Caricamento punteggi...', pt: 'Carregando pontuações...', ar: 'تحميل النتائج...' };
-        i18n.envNoNearby = { fr: 'Aucun itinéraire proche trouvé.', en: 'No nearby itineraries found.', es: 'No se encontraron itinerarios cercanos.', it: 'Nessun itinerario vicino trovato.', pt: 'Nenhum itinerário próximo encontrado.', ar: 'لم يتم العثور على مسارات قريبة.' };
-        i18n.envNotCalculated = { fr: 'pas encore calculé', en: 'not yet calculated', es: 'aún no calculado', it: 'non ancora calcolato', pt: 'ainda não calculado', ar: 'لم يُحسب بعد' };
-        i18n.envNearbyTitle = { fr: 'Alternatives moins carbonées', en: 'Lower carbon alternatives', es: 'Alternativas menos carbonadas', it: 'Alternative meno inquinanti', pt: 'Alternativas menos carbonadas', ar: 'بدائل أقل كربوناً' };
-        i18n.envNearbyIntro = { fr: 'Itinéraires proches avec leur impact carbone :', en: 'Nearby itineraries with their carbon impact:', es: 'Itinerarios cercanos con su impacto de carbono:', it: 'Itinerari vicini con il loro impatto di carbonio:', pt: 'Itinerários próximos com seu impacto de carbono:', ar: 'مسارات قريبة مع تأثيرها الكربوني:' };
+        i18n.envCar = { fr: 'VOI', en: 'CAR', es: 'COC', it: 'AUT', pt: 'CAR', ar: 'سيارة' , nl: 'AUTO', de: 'AUTO' };
+        i18n.envTransit = { fr: 'TC', en: 'TC', es: 'TP', it: 'TP', pt: 'TP', ar: 'نقل' , nl: 'OV', de: 'ÖPNV' };
+        i18n.envCarTitle = { fr: 'Empreinte voiture', en: 'Car footprint', es: 'Huella coche', it: 'Impronta auto', pt: 'Pegada carro', ar: 'البصمة الكربونية للسيارة' , nl: 'Voetafdruk auto', de: 'CO₂-Bilanz Auto' };
+        i18n.envTransitTitle = { fr: 'Empreinte transports en commun', en: 'Public transport footprint', es: 'Huella transporte público', it: 'Impronta trasporto pubblico', pt: 'Pegada transporte público', ar: 'البصمة الكربونية للنقل العام' , nl: 'Voetafdruk openbaar vervoer', de: 'CO₂-Bilanz öffentlicher Verkehr' };
+        i18n.envDistance = { fr: 'Distance', en: 'Distance', es: 'Distancia', it: 'Distanza', pt: 'Distância', ar: 'المسافة' , nl: 'Afstand', de: 'Entfernung' };
+        i18n.envDays = { fr: 'jours', en: 'days', es: 'días', it: 'giorni', pt: 'dias', ar: 'أيام' , nl: 'dagen', de: 'Tage' };
+        i18n.envCo2day = { fr: 'CO₂/jour', en: 'CO₂/day', es: 'CO₂/día', it: 'CO₂/giorno', pt: 'CO₂/dia', ar: 'CO₂/يوم' , nl: 'CO₂/dag', de: 'CO₂/Tag' };
+        i18n.envTotal = { fr: 'Total', en: 'Total', es: 'Total', it: 'Totale', pt: 'Total', ar: 'المجموع' , nl: 'Totaal', de: 'Gesamt' };
+        i18n.envGrade = { fr: 'Grade', en: 'Grade', es: 'Grado', it: 'Grado', pt: 'Grau', ar: 'الدرجة' , nl: 'Score', de: 'Note' };
+        i18n.envClickAlts = { fr: 'Cliquez pour voir les alternatives', en: 'Click to see alternatives', es: 'Haga clic para ver alternativas', it: 'Clicca per vedere le alternative', pt: 'Clique para ver alternativas', ar: 'انقر لرؤية البدائل' , nl: 'Klik om de alternatieven te zien', de: 'Klicke, um Alternativen zu sehen' };
+        i18n.envUrban = { fr: 'Urbain', en: 'Urban', es: 'Urbano', it: 'Urbano', pt: 'Urbano', ar: 'حضري' , nl: 'Stedelijk', de: 'Städtisch' };
+        i18n.envMixed = { fr: 'Mixte', en: 'Mixed', es: 'Mixto', it: 'Misto', pt: 'Misto', ar: 'مختلط' , nl: 'Gemengd', de: 'Gemischt' };
+        i18n.envNature = { fr: 'Nature', en: 'Nature', es: 'Naturaleza', it: 'Natura', pt: 'Natureza', ar: 'طبيعة' , nl: 'Natuur', de: 'Natur' };
+        i18n.envUrbanPct = { fr: 'urbain', en: 'urban', es: 'urbano', it: 'urbano', pt: 'urbano', ar: 'حضري' , nl: 'stedelijk', de: 'städtisch' };
+        i18n.envNaturePct = { fr: 'nature/rural', en: 'nature/rural', es: 'naturaleza/rural', it: 'natura/rurale', pt: 'natureza/rural', ar: 'طبيعة/ريفي' , nl: 'natuur/platteland', de: 'Natur/Land' };
+        i18n.envExcellent = { fr: 'Excellent', en: 'Excellent', es: 'Excelente', it: 'Eccellente', pt: 'Excelente', ar: 'ممتاز' , nl: 'Uitstekend', de: 'Ausgezeichnet' };
+        i18n.envVeryGood = { fr: 'Très bon', en: 'Very good', es: 'Muy bueno', it: 'Molto buono', pt: 'Muito bom', ar: 'جيد جداً' , nl: 'Zeer goed', de: 'Sehr gut' };
+        i18n.envGood = { fr: 'Bon', en: 'Good', es: 'Bueno', it: 'Buono', pt: 'Bom', ar: 'جيد' , nl: 'Goed', de: 'Gut' };
+        i18n.envAverage = { fr: 'Moyen', en: 'Average', es: 'Medio', it: 'Medio', pt: 'Médio', ar: 'متوسط' , nl: 'Gemiddeld', de: 'Mittel' };
+        i18n.envHigh = { fr: 'Élevé', en: 'High', es: 'Alto', it: 'Alto', pt: 'Alto', ar: 'مرتفع' , nl: 'Hoog', de: 'Hoch' };
+        i18n.envVeryHigh = { fr: 'Très élevé', en: 'Very high', es: 'Muy alto', it: 'Molto alto', pt: 'Muito alto', ar: 'مرتفع جداً' , nl: 'Zeer hoog', de: 'Sehr hoch' };
+        i18n.envLoading = { fr: 'Chargement des scores...', en: 'Loading scores...', es: 'Cargando puntuaciones...', it: 'Caricamento punteggi...', pt: 'Carregando pontuações...', ar: 'تحميل النتائج...' , nl: 'Scores laden...', de: 'Werte werden geladen...' };
+        i18n.envNoNearby = { fr: 'Aucun itinéraire proche trouvé.', en: 'No nearby itineraries found.', es: 'No se encontraron itinerarios cercanos.', it: 'Nessun itinerario vicino trovato.', pt: 'Nenhum itinerário próximo encontrado.', ar: 'لم يتم العثور على مسارات قريبة.' , nl: 'Geen routes in de buurt gevonden.', de: 'Keine Routen in der Nähe gefunden.' };
+        i18n.envNotCalculated = { fr: 'pas encore calculé', en: 'not yet calculated', es: 'aún no calculado', it: 'non ancora calcolato', pt: 'ainda não calculado', ar: 'لم يُحسب بعد' , nl: 'nog niet berekend', de: 'noch nicht berechnet' };
+        i18n.envNearbyTitle = { fr: 'Alternatives moins carbonées', en: 'Lower carbon alternatives', es: 'Alternativas menos carbonadas', it: 'Alternative meno inquinanti', pt: 'Alternativas menos carbonadas', ar: 'بدائل أقل كربوناً' , nl: 'Alternatieven met minder CO₂', de: 'Alternativen mit weniger CO₂' };
+        i18n.envNearbyIntro = { fr: 'Itinéraires proches avec leur impact carbone :', en: 'Nearby itineraries with their carbon impact:', es: 'Itinerarios cercanos con su impacto de carbono:', it: 'Itinerari vicini con il loro impatto di carbonio:', pt: 'Itinerários próximos com seu impacto de carbono:', ar: 'مسارات قريبة مع تأثيرها الكربوني:' , nl: 'Routes in de buurt met hun CO₂-impact:', de: 'Routen in der Nähe mit ihrer CO₂-Bilanz:' };
         i18n._envKeysAdded = true;
     }
     var t = window.t || function(k) { return k; };
@@ -67,7 +67,7 @@
     const ROUTE_API = '/.netlify/functions/route';
     const CO2_CAR = 0.19;       // kg CO2/km voiture
     const CO2_TRANSIT = 0.04;   // kg CO2/km transport en commun
-    const CACHE_VERSION = 3; // v3: ajout 'city' dans URBAN_TYPES
+    const CACHE_VERSION = 5; // v5: duree reelle de l'itineraire (requestedDays / ORT_TRIP.days)
     const COORD_PRECISION = 3;  // Arrondi coords pour clé cache
 
     // Seuils grade carbone (kg CO2 voiture PAR JOUR)
@@ -150,10 +150,12 @@
     }
 
     /** Récupérer le catalogId (itin_id d'origine) */
+    var _bootItinId = (window.state && window.state._originalItinId) || null;
+
     function getCatalogId() {
         var st = window.state || window._ortState || {};
         // Fallbacks dans l'ordre de priorité
-        var id = st._originalItinId || st.itinId || st.originalItinId || null;
+        var id = st._originalItinId || st.itinId || st.originalItinId || _bootItinId || null;
         if (!id) {
             var params = new URLSearchParams(window.location.search);
             id = params.get('itin') || params.get('itinId') || null;
@@ -162,6 +164,21 @@
         if (!id && st.tripId && st.tripId.indexOf('::') > -1) id = st.tripId;
         if (!id) id = sessionStorage.getItem('ort_catalog_source') || null;
         return id;
+    }
+
+    /** Charger Firebase si la page ne l'a pas encore fait (pages statiques) */
+    function ensureFirebaseReady() {
+        try {
+            if (window.firebase && window.firebase.firestore && window.firebase.apps && window.firebase.apps.length) {
+                return Promise.resolve();
+            }
+            if (typeof window.ortEnsureFirebase === 'function') {
+                return window.ortEnsureFirebase().catch(function(e) {
+                    console.warn('[ENV] Chargement Firebase echoue:', e && e.message);
+                });
+            }
+        } catch (e) {}
+        return Promise.resolve();
     }
 
     /** Récupérer le Firestore db */
@@ -331,12 +348,51 @@
             }
         }
 
+    /** Dernier recours : lire la duree affichee dans l'entete de la page statique */
+    function readDaysFromPage() {
+        try {
+            var el = document.querySelector('.hs');
+            var txt = el ? el.textContent : '';
+            if (!txt) {
+                var lnk = document.querySelector('a[href*="roadtrip_detail.html"][href*="days="]');
+                if (lnk) {
+                    var m0 = lnk.getAttribute('href').match(/[?&]days=([0-9.]+)/);
+                    if (m0) return Number(m0[1]) || 0;
+                }
+                return 0;
+            }
+            var m = txt.match(/([0-9]+(?:[.,][0-9]+)?)\s*(?:jour|day|d\u00eda|giorn|dag|dia|tag)/i);
+            return m ? Number(String(m[1]).replace(',', '.')) || 0 : 0;
+        } catch (e) { return 0; }
+    }
+
         // ── Nombre de jours (basé sur les nuits réelles, pas suggested_days) ──
         var totalNightsCount = 0;
+        var hasRealNights = false;
         for (var d of daysPlan) {
+            if (d.nights) hasRealNights = true;
             totalNightsCount += (d.nights || 1);
         }
-        var totalDays = totalNightsCount > 0 ? totalNightsCount + 1 : daysPlan.length;
+        // La duree qui fait foi est celle de l'itineraire, pas le nombre d'etapes :
+        // 1. duree demandee par l'utilisateur (RT detail / mobile)
+        // 2. duree de l'itineraire du catalogue (pages statiques)
+        // 3. a defaut seulement, somme des nuits puis nombre d'etapes
+        var stt = window.state || window._ortState || {};
+        var totalDays = Number(stt.requestedDays) ||
+                        Number(stt.totalDays) ||
+                        Number(window.REQUESTED_DAYS) ||
+                        Number(window.ORT_TRIP && window.ORT_TRIP.days) ||
+                        Number(window._ortItinData && window._ortItinData.days) ||
+                        readDaysFromPage() ||
+                        (hasRealNights ? totalNightsCount : daysPlan.length);
+
+        console.log('[ENV][DUREE] retenue:', totalDays,
+            '| requestedDays:', stt.requestedDays,
+            '| state.totalDays:', stt.totalDays,
+            '| ORT_TRIP:', (window.ORT_TRIP ? window.ORT_TRIP.days : 'absent'),
+            '| _ortItinData:', (window._ortItinData ? window._ortItinData.days : 'absent'),
+            '| page:', readDaysFromPage(),
+            '| etapes:', daysPlan.length, '| nuits:', totalNightsCount);
 
         // ── CO2 par jour ──
         var co2CarTotal = totalKm * CO2_CAR;
@@ -407,14 +463,49 @@
         style.id = 'ort-env-styles';
         style.textContent = `
 /* ═══ ENV SCORE BADGES ═══ */
+
+/* Emplacement dans la barre d'actions (pages statiques) */
+#ort-env-slot {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 8px;
+}
+#ort-env-slot:empty { display: none; }
+#ort-env-slot .ort-env-wrap { margin-left: 0; }
+@media (max-width: 900px) {
+    #ort-env-slot { order: 13; margin-left: auto; }
+}
+
 .ort-env-wrap {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     margin-left: 12px;
     vertical-align: middle;
-    flex-wrap: wrap;
+    /* Une seule ligne, toujours. Sinon les trois elements s empilent et la
+       barre qui les contient triple de hauteur des que le score est calcule. */
+    flex-wrap: nowrap;
     overflow: visible !important;
+}
+
+/* Aucun des trois elements ne se comprime ni ne passe a la ligne. */
+.ort-env-wrap > * { flex: 0 0 auto; }
+
+/* Sous 1400px, le curseur ville/nature est masque : les deux badges CO2
+   suffisent, et la barre tient sans defilement horizontal. */
+@media (max-width: 1400px) {
+    .ort-env-nature { display: none !important; }
+}
+
+/* Tablette et petits ecrans larges : on reduit pour tenir sur la ligne. */
+@media (min-width: 601px) and (max-width: 1400px) {
+    .ort-env-wrap { gap: 6px; margin-left: 8px; }
+    .ort-env-carbon { font-size: 12px; padding: 3px 8px; }
+    .ort-env-carbon .ort-env-grade { font-size: 14px; }
+    .ort-env-carbon .ort-env-mode { font-size: 10px; }
+    .ort-env-nature { font-size: 12px; }
+    .ort-env-slider-track { width: 50px; height: 8px; }
+    .ort-env-slider-thumb { width: 12px; height: 12px; }
 }
 
 /* Force overflow visible sur les parents du bandeau */
@@ -669,27 +760,131 @@
     /** Ouvrir le panneau nearbies et charger les scores */
     /** Cache des titres d'itinéraires */
     var _itinTitlesCache = {};
+    var _itinUrlCache = {};
 
     /** Charger les titres depuis le fichier modules d'un pays */
     async function loadItinTitles(cc) {
         var lang = (window.ORT_getLang && window.ORT_getLang()) || 'fr';
         if (_itinTitlesCache['_loaded_' + cc + '_' + lang]) return;
         try {
-            var url = './data/Roadtripsprefabriques/countries/' + cc.toLowerCase() + '/' + cc.toLowerCase() + '.itins.modules-' + lang + '.json';
-            var resp = await fetch(url);
-            if (!resp.ok) return;
+            // Le dossier pays est en MAJUSCULES sur le disque (countries/DE/).
+            // Le nom du fichier varie selon les generations, on essaie les
+            // formes connues dans l ordre plutot que d en supposer une seule.
+            var CC = cc.toUpperCase();
+            var cclow = cc.toLowerCase();
+            var base = './data/Roadtripsprefabriques/countries/' + CC + '/';
+            var noms = [
+                CC + '.itins.modules-' + lang + '.json',
+                cclow + '.itins.modules-' + lang + '.json',
+                CC + '_itins_modules-' + lang + '.json'
+            ];
+            var resp = null;
+            for (var n = 0; n < noms.length; n++) {
+                try {
+                    var r = await fetch(base + noms[n]);
+                    if (r.ok) { resp = r; break; }
+                } catch (e) { /* on essaie le nom suivant */ }
+            }
+            if (!resp) return;
             var data = await resp.json();
-            var itins = data.itins || data.itineraries || data || [];
+            var itins = data.itineraries || data.itins || data || [];
             if (Array.isArray(itins)) {
                 for (var it of itins) {
-                    var id = it.id || it.itin_id || '';
-                    if (id) _itinTitlesCache[id] = it.title || it.name || '';
+                    // Champs reels du fichier : itin_id, id, title.
+                    var id = it.itin_id || it.id || '';
+                    if (id && it.title) _itinTitlesCache[id] = it.title;
                 }
             }
             _itinTitlesCache['_loaded_' + cc + '_' + lang] = true;
         } catch (e) {
             console.warn('[ENV] Erreur chargement titres ' + cc + ':', e.message);
         }
+    }
+
+    /**
+     * Titres des itineraires, depuis search-catalog-<langue>.json.
+     * Ce fichier est ecrit par generate-v4.js dans chaque dossier de langue et
+     * contient tous les itineraires publies. Une seule requete suffit, au lieu
+     * d un fichier par pays.
+     * Les noms de champs ne sont pas figes : on repere l identifiant a sa forme
+     * (il contient toujours ::) et on accepte plusieurs noms pour le titre.
+     */
+    function _catId(o) {
+        if (o.itin_id) return o.itin_id;
+        if (o.id) return o.id;
+        // Le catalogue de recherche peut nommer ce champ autrement. On le
+        // reconnait alors a sa forme : un identifiant contient toujours ::
+        for (var k in o) {
+            if (typeof o[k] === 'string' && o[k].indexOf('::') > 0) return o[k];
+        }
+        return '';
+    }
+    function _catTitle(o) { return o.title || ''; }
+    function _catUrl(o) { return o.url || o.href || ''; }
+
+    async function loadCatalogTitles(lang) {
+        if (_itinTitlesCache['_catalog_' + lang]) return;
+        var dir = _currentItinDir() || ITIN_DIRS[lang] || ITIN_DIRS.fr;
+        try {
+            var resp = await fetch('/' + dir + '/search-catalog-' + lang + '.json');
+            if (!resp.ok) return;
+            var data = await resp.json();
+            var rows = Array.isArray(data) ? data : (data.itineraries || data.itins || []);
+            if (!Array.isArray(rows)) return;
+            for (var i = 0; i < rows.length; i++) {
+                var id = _catId(rows[i]);
+                if (!id) continue;
+                var ti = _catTitle(rows[i]);
+                if (ti) _itinTitlesCache[id] = ti;
+                var u = _catUrl(rows[i]);
+                if (u) _itinUrlCache[id] = u;
+            }
+            _itinTitlesCache['_catalog_' + lang] = true;
+        } catch (e) {
+            console.warn('[ENV] Catalogue titres indisponible:', e.message);
+        }
+    }
+
+    /** Dossier d itineraires de la page courante, vide si on n y est pas. */
+    function _currentItinDir() {
+        var seg = window.location.pathname.split('/').filter(Boolean);
+        if (seg.length < 2) return '';
+        var here = seg[seg.length - 2];
+        for (var k in ITIN_DIRS) {
+            if (ITIN_DIRS[k] === here) return here;
+        }
+        return '';
+    }
+
+    /**
+     * Adresse de la page statique d un itineraire.
+     * Regle de nommage constatee : BO::ultimate-bolivia::3-4-weeks donne le
+     * fichier bo-ultimate-bolivia-3-4-weeks.html. Les deux-points deviennent
+     * des tirets, tout en minuscules.
+     * Le dossier depend de la langue. On reste dans le dossier de la page
+     * courante quand il en fait partie, sinon on prend celui de la langue.
+     */
+    var ITIN_DIRS = {
+        fr: 'itineraires', en: 'itineraries', es: 'rutas', pt: 'roteiros',
+        it: 'itinerari', ar: 'masar', nl: 'routes', de: 'routen'
+    };
+
+    function buildItinHref(nId, lang) {
+        var dir = _currentItinDir();
+        if (!dir) {
+            var cl = (window.ORT_getContentLang && window.ORT_getContentLang()) || lang || 'fr';
+            dir = ITIN_DIRS[cl] || ITIN_DIRS.fr;
+        }
+
+        // Si le catalogue donne l adresse, elle fait foi.
+        var known = _itinUrlCache[nId];
+        if (known) {
+            if (known.charAt(0) === '/') return known + '?lang=' + lang;
+            return '/' + dir + '/' + known.replace(/^\.?\//, '') + '?lang=' + lang;
+        }
+
+        var file = String(nId).split('::').join('-').toLowerCase() + '.html';
+        return '/' + dir + '/' + file + '?lang=' + lang;
     }
 
     async function openNearbyPanel(nearbyItins, currentGrade) {
@@ -716,6 +911,7 @@
         Object.keys(_itinTitlesCache).forEach(function(k) {
             if (k.startsWith('_loaded_') && !k.endsWith('_' + lang)) delete _itinTitlesCache[k];
         });
+        await loadCatalogTitles(lang);
         await Promise.all(Object.keys(countries).map(loadItinTitles));
 
         var html = '';
@@ -744,7 +940,7 @@
 
             // Lien vers l\'itinéraire
             var lang = (window.ORT_getLang && window.ORT_getLang()) || 'fr';
-            var href = 'roadtrip_detail.html?cc=' + cc + '&itin=' + encodeURIComponent(nId) + '&lang=' + lang;
+            var href = buildItinHref(nId, lang);
 
             html +=
                 '<div class="ort-env-nearby-item">' +
@@ -764,6 +960,7 @@
     function findTitleContainer() {
         // Sélecteurs par priorité (couvre detail, simple, mobile, static)
         var selectors = [
+            '[data-env-insert]',    // Marqueur explicite (pages statiques) : prioritaire
             '#rtTitle',             // RT detail
             '#tripTitle',           // RT detail alt
             '#itinTitle',           // Autre variante
@@ -886,6 +1083,8 @@
             st._originalSteps = st.steps.map(function(s) { return { place_id: s.place_id, name: s.name, nights: s.nights }; });
             console.log('[ENV] 📸 Snapshot catalogue steps:', st._originalSteps.length, 'étapes');
         }
+
+        await ensureFirebaseReady();
 
         injectStyles();
         buildNearbyOverlay();
@@ -1068,8 +1267,10 @@
             attempts++;
             var catalogId = getCatalogId();
             var st = window.state || window._ortState || {};
-            var hasSteps = st.steps && st.steps.length > 0;
-            var hasPlaces = window.PLACES_INDEX && Object.keys(window.PLACES_INDEX).length > 0;
+            var d = window._ortItinData || {};
+            var hasStatic = !!(d.days_plan && d.days_plan.length > 0);
+            var hasSteps = (st.steps && st.steps.length > 0) || hasStatic;
+            var hasPlaces = (window.PLACES_INDEX && Object.keys(window.PLACES_INDEX).length > 0) || hasStatic;
 
             if (catalogId && hasSteps && hasPlaces) {
                 clearInterval(timer);
