@@ -3442,8 +3442,8 @@ function createMarkerElement(place) {
       isPreviewPinned = true;
       showPlacePreview(place);
     } else {
-      // Sur desktop : clic toggle la sélection et ouvre la preview
-      togglePlaceSelection(place);
+      // Sur ordinateur comme sur tactile : le clic ouvre la fiche.
+      // L'ajout passe toujours par le bouton, jamais sans avoir vu le lieu.
       isPreviewPinned = true;
       showPlacePreview(place);
     }
