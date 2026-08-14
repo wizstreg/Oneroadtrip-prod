@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>As cascatas mais bonitas da Islândia: o guia região a região</title>
+<meta name="description" content="Skógafoss, Seljalandsfoss, Gullfoss, Dettifoss, Goðafoss, Svartifoss, Dynjandi, Háifoss: as cascatas mais bonitas da Islândia, onde encontrá-las, como chegar e quando vê-las.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/pt/iceland-waterfalls.html">
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/iceland-waterfalls.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/iceland-waterfalls.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/iceland-waterfalls.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/iceland-waterfalls.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/iceland-waterfalls.html">
+<link rel="alternate" hreflang="nl" href="https://www.oneroadtrip.com/blog/nl/iceland-waterfalls.html">
+<link rel="alternate" hreflang="de" href="https://www.oneroadtrip.com/blog/de/iceland-waterfalls.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/en/iceland-waterfalls.html">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="As cascatas mais bonitas da Islândia: o guia região a região">
+<meta property="og:description" content="Skógafoss, Gullfoss, Dettifoss, Dynjandi e mais: as cascatas mais bonitas da Islândia, onde encontrá-las, como chegar e quando vê-las.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/pt/iceland-waterfalls.html">
+<meta property="og:image" content="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grande cascata islandesa a cair de uma falésia numa paisagem vulcânica">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="As cascatas mais bonitas da Islândia: o guia região a região">
+<meta name="twitter:description" content="Skógafoss, Gullfoss, Dettifoss, Dynjandi: onde encontrá-las, como chegar e quando vê-las.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .pair{display:flex;gap:28px;align-items:stretch;max-width:960px;margin:26px auto 34px;padding:0 48px;}
+  .pair.reverse{flex-direction:row-reverse;}
+  .pair-txt{flex:1 1 54%;min-width:0;display:flex;}
+  .pair-txt .country-card{margin:0;width:100%;}
+  .pair-img{flex:1 1 46%;width:46%;min-height:340px;object-fit:cover;border-radius:16px;display:block;align-self:stretch;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  a.cta,a.cta:link,a.cta:visited,a.cta:hover,a.cta:active,a.cta:focus{color:#fff;text-decoration:none;}
+  a.cta:hover{background:#0c2c56;}
+  .country-card{border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:24px 28px;margin:24px auto 28px;}
+  .country-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .country-name{font-family:'Instrument Serif',serif;font-size:26px;color:#3a2f22;margin:0 0 14px;}
+  .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0 4px;}
+  .country-fact{font-size:14px;color:#4a4030;line-height:1.5;}
+  .country-fact b{color:#113f7a;display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;padding:8px 26px;margin:14px auto 28px;background:#fff;}
+  .checklist li{font-size:15px;line-height:1.7;color:#4a4030;margin:12px 0;}
+  .checklist li b{color:#113f7a;}
+  .full-img-c{width:100%;max-width:960px;margin:8px auto 28px;padding:0 48px;display:block;}
+  .full-img-c img{width:100%;height:auto;display:block;border-radius:12px;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .full-img-c{padding:0 20px;}
+    .full-img{height:220px;}
+    .pair{flex-direction:column !important;padding:0 20px;gap:14px;}
+    .pair-img{width:100%;flex:none;height:240px;min-height:0;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .country-grid{grid-template-columns:1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">Islande</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Guia natureza · Cascatas</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">As cascatas mais bonitas da Islândia, região a região</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Onde encontrá-las, como chegar, quando vê-las. Uma volta à ilha pelas suas quedas de água, do sul turístico aos selvagens Fiordes do Oeste.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Grande cascata islandesa a cair de uma falésia numa paisagem vulcânica" data-imgkey="hero-cascade" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Sommaire</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Porque é que a Islândia é o país das cascatas</a>
+      <a href="#s02">02 · O sul: os essenciais da Estrada 1</a>
+      <a href="#s03">03 · O Círculo Dourado: Gullfoss</a>
+      <a href="#s04">04 · O sudeste: Svartifoss e as colunas de basalto</a>
+      <a href="#s05">05 · O norte: Goðafoss e Dettifoss</a>
+      <a href="#s06">06 · As Terras Altas: Háifoss</a>
+      <a href="#s07">07 · Os Fiordes do Oeste: Dynjandi</a>
+      <a href="#s08">08 · Quando ir e como encadeá-las</a>
+      <a href="#s09">09 · Créditos fotográficos</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Sommaire</span>
+</div>
+
+<!-- ============ S01 ============ -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Porque é que a Islândia é o país das cascatas</h2></div>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0 0 20px;">Não existe um número oficial, mas a ilha reúne facilmente várias dezenas de cascatas importantes, e muitas mais se incluirmos as pequenas quedas sem nome.</p>
+  </div>
+  <div class="col" style="margin-top:4px;">
+    <p>Esta abundância não é casual. Situada em pleno Atlântico Norte, a Islândia recebe enormes quantidades de chuva e neve. Essa água alimenta rios que descem relevos vulcânicos jovens e abruptos, muitas vezes reforçados pelo degelo dos glaciares. Resultado: a água cai por todo o lado.</p>
+    <p style="margin:0;">Cada cascata tem o seu carácter. Umas são largas e potentes, outras altas e finas, outras ainda emolduradas por colunas de basalto ou escondidas no fundo de um desfiladeiro. Este guia organiza-as por região, na lógica de uma volta à ilha pela Estrada 1, a famosa Ring Road, para as encadear sem desvios inúteis.</p>
+  </div>
+</div>
+
+<figure class="full-img-c" style="margin-bottom:34px;">
+  <img src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/waterfalls-map.webp&amp;w=1400&amp;output=webp&amp;q=85" alt="Mapa da Islândia com as oito cascatas do guia: Dynjandi, Goðafoss, Dettifoss, Gullfoss, Háifoss, Svartifoss, Seljalandsfoss e Skógafoss" loading="lazy" data-imgkey="waterfalls-map">
+  <figcaption style="font-size:13px;color:#8a7d68;line-height:1.6;margin-top:10px;text-align:center;">As oito cascatas deste guia, no mapa. Sete ficam na Estrada 1 ou perto dela; só Dynjandi obriga a um desvio até aos Fiordes do Oeste.</figcaption>
+</figure>
+
+<!-- ============ S02 : SUD ============ -->
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">O sul: os essenciais da Estrada 1</h2></div>
+    <p>É a região mais visitada do país, e com razão: duas das cascatas mais famosas da Islândia erguem-se a poucos quilómetros uma da outra, visíveis da estrada, a cerca de duas horas de Reiquiavique.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Sul · A mais fotografada</div>
+      <div class="country-name">Seljalandsfoss</div>
+      <p style="margin:0 0 8px;">A sua marca: pode passar-se <b>derrière</b> a cortina de água. Com cerca de sessenta metros, contorna-se por inteiro num trilho, o que oferece uma vista única a partir da gruta, atrás da queda. Leva impermeável, os salpicos encharcam depressa.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Hauteur</b>Cerca de 60 metros</div>
+        <div class="country-fact"><b>Accès</b>Junto à Estrada 1, estacionamento pago na base</div>
+        <div class="country-fact"><b>À côté</b>Gljúfrabúi, escondida numa fenda a poucos minutos a pé, muitas vezes ignorada</div>
+        <div class="country-fact"><b>Astuce</b>O trilho atrás da queda pode estar fechado ou escorregadio no inverno</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/seljalandsfoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Seljalandsfoss, que se pode contornar por trás" loading="lazy" data-imgkey="seljalandsfoss">
+</div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Sul · A parede de água</div>
+      <div class="country-name">Skógafoss</div>
+      <p style="margin:0 0 8px;">Uma cortina de água quase perfeita, com 60 metros de altura por 25 de largura, alimentada por dois glaciares. Com sol, os salpicos formam quase sempre um arco-íris. Uma escada de várias centenas de degraus leva a uma plataforma no topo, com vista para a costa.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Cerca de 60 metros de haut, 25 de large</div>
+        <div class="country-fact"><b>Accès</b>A 500 metros da Estrada 1, junto à aldeia de Skógar</div>
+        <div class="country-fact"><b>Sur place</b>Estacionamento gratuito, café, casas de banho e parque de campismo por perto</div>
+        <div class="country-fact"><b>Légende</b>Diz-se que há um baú viking escondido atrás da queda</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/skogafoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Skógafoss, larga cortina de água com arco-íris" loading="lazy" data-imgkey="skogafoss">
+</div>
+</div>
+
+<!-- ============ S03 : CERCLE D'OR ============ -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">O Círculo Dourado: Gullfoss</h2></div>
+    <p>O Círculo Dourado é o circuito mais movimentado da Islândia, um percurso curto a partir de Reiquiavique que reúne Geysir, o parque de Þingvellir e Gullfoss. É muitas vezes a primeira cascata que os visitantes veem.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Sudoeste · A queda dourada</div>
+      <div class="country-name">Gullfoss</div>
+      <p style="margin:0 0 8px;">O seu nome significa «queda dourada», pelo arco-íris que muitas vezes paira nos salpicos. Cai em dois patamares dispostos em ângulo reto, cerca de 32 metros de altura por 70 de largura no total, antes de mergulhar numa garganta estreita. O ruído, ao aproximar-se, impressiona.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Cerca de 32 metros de altura, 70 de largura, dois patamares</div>
+        <div class="country-fact"><b>Accès</b>Estrada 35, fácil mesmo no inverno, a menos de 2 h de Reiquiavique</div>
+        <div class="country-fact"><b>Point clé</b>Faz parte do Círculo Dourado, muito perto de Geysir</div>
+        <div class="country-fact"><b>Astuce</b>Dois miradouros, um em altura e outro junto à queda</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/gullfoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Gullfoss a cair em dois patamares numa garganta" loading="lazy" data-imgkey="gullfoss">
+</div>
+</div>
+
+<!-- ============ S04 : SUD-EST ============ -->
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">O sudeste: Svartifoss e as colunas de basalto</h2></div>
+    <p>Continuando para leste pela Estrada 1 chega-se à região de Skaftafell, no parque nacional de Vatnajökull. Aqui a estrela não é a força da queda, mas o seu cenário.</p>
+  </div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Sudeste · A queda negra</div>
+      <div class="country-name">Svartifoss</div>
+      <p style="margin:0 0 8px;">O seu nome significa «queda negra». Não é muito alta, mas está emoldurada por espetaculares <b>colunas de basalto</b> escuras, colunas hexagonais nascidas do arrefecimento da lava. O contraste entre a água branca e a rocha negra é único. Merece-se: chega-se a ela com uma pequena caminhada desde Skaftafell.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Particularité</b>Emoldurada por colunas de basalto hexagonais</div>
+        <div class="country-fact"><b>Accès</b>A pé desde o centro de visitantes de Skaftafell, contar a caminhada</div>
+        <div class="country-fact"><b>Cadre</b>Parque nacional de Vatnajökull</div>
+        <div class="country-fact"><b>Astuce</b>Bom calçado, o trilho sobe</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/svartifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Svartifoss emoldurada por colunas de basalto negras" loading="lazy" data-imgkey="svartifoss">
+</div>
+</div>
+
+<!-- ============ S05 : NORD ============ -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">O norte: Goðafoss e Dettifoss</h2></div>
+    <p>O norte da ilha, entre Akureyri e o lago Mývatn, alberga duas cascatas de temperamento oposto: uma elegante e harmoniosa, outra bruta e ensurdecedora.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Norte · A cascata dos deuses</div>
+      <div class="country-name">Goðafoss</div>
+      <p style="margin:0 0 8px;">«A cascata dos deuses». O nome vem do ano 1000: quando a Islândia adotou o cristianismo, um chefe teria lançado os seus ídolos pagãos nas suas águas. Com 30 metros de largura e 12 de altura, não é a mais alta nem a mais potente, mas a forma em ferradura e a água turquesa fazem dela uma das mais harmoniosas.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Cerca de 12 metros de altura, 30 de largura, em ferradura</div>
+        <div class="country-fact"><b>Accès</b>Diretamente na Estrada 1, entre Akureyri e o lago Mývatn</div>
+        <div class="country-fact"><b>Astuce</b>Acessível de ambas as margens, com vistas diferentes</div>
+        <div class="country-fact"><b>Sur place</b>Estacionamento a dois minutos a pé</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/godafoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Goðafoss em ferradura de águas turquesa" loading="lazy" data-imgkey="godafoss">
+</div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Nordeste · A mais potente da Europa</div>
+      <div class="country-name">Dettifoss</div>
+      <p style="margin:0 0 8px;">Um monstro. Com 44 metros de altura e 100 de largura, Dettifoss é tida como a cascata <b>mais potente da Europa</b> por caudal. Situada no coração do desfiladeiro do Jökulsá, impressiona de longe pela massa de água cinzenta e pelo estrondo que produz. Acede-se por duas margens, com miradouros diferentes.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>44 metros de altura, 100 de largura</div>
+        <div class="country-fact"><b>Réputation</b>A mais potente da Europa por caudal</div>
+        <div class="country-fact"><b>Accès</b>Margem oeste (estrada 862) ou margem este (864), trilhos por vezes escorregadios</div>
+        <div class="country-fact"><b>Astuce</b>A margem oeste é geralmente a mais praticável</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/dettifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Dettifoss, imensa queda de água cinzenta num desfiladeiro" loading="lazy" data-imgkey="dettifoss">
+</div>
+</div>
+
+<!-- ============ S06 : HAUTES TERRES ============ -->
+<div id="s06" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">As Terras Altas: Háifoss</h2></div>
+    <p>No interior, onde as estradas se tornam pistas, escondem-se cascatas muito mais altas do que as estrelas da costa. Háifoss é o melhor exemplo.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Terras Altas · Entre as mais altas</div>
+      <div class="country-name">Háifoss</div>
+      <p style="margin:0 0 8px;">Com cerca de 122 metros de queda, Háifoss é uma das cascatas mais altas da Islândia. Mergulha num desfiladeiro espetacular, quase sempre acompanhada por uma segunda queda vizinha, Granni. O acesso faz-se por pista e exige um veículo adequado, mas o panorama compensa o esforço.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Hauteur</b>Cerca de 122 metros, entre as mais altas do país</div>
+        <div class="country-fact"><b>Accès</b>Pista no vale de Þjórsárdalur, aconselha-se veículo adequado</div>
+        <div class="country-fact"><b>Voisine</b>Granni, mesmo ao lado, forma um par</div>
+        <div class="country-fact"><b>Saison</b>Pista muitas vezes intransitável fora do verão, verificar antes de partir</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/haifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Háifoss a mergulhar num profundo desfiladeiro das Terras Altas" loading="lazy" data-imgkey="haifoss">
+</div>
+</div>
+
+<!-- ============ S07 : FJORDS DE L'OUEST ============ -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Os Fiordes do Oeste: Dynjandi</h2></div>
+    <p>A região menos visitada do país, afastada da Estrada 1, guarda a joia mais impressionante para quem faz o desvio.</p>
+  </div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Fiordes do Oeste · A joia escondida</div>
+      <div class="country-name">Dynjandi</div>
+      <p style="margin:0 0 8px;">Também chamada Fjallfoss, Dynjandi é a maior cascata dos Fiordes do Oeste. Não é uma queda única, mas uma <b>sucessão de patamares</b> que se alarga para baixo, como um véu de noiva, ao longo de quase 100 metros. O seu nome significa «a ensurdecedora». É muitas vezes apontada como a mais bela do país.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Quase 100 metros, em leque</div>
+        <div class="country-fact"><b>Région</b>Fiordes do Oeste (Vestfirðir), longe da Ring Road</div>
+        <div class="country-fact"><b>Accès</b>Trilho curto a subir desde o estacionamento</div>
+        <div class="country-fact"><b>À savoir</b>O desvio é longo, mas é a região mais selvagem da Islândia</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/dynjandi.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cascata Dynjandi em forma de véu aberto nos Fiordes do Oeste" loading="lazy" data-imgkey="dynjandi">
+</div>
+</div>
+
+<!-- ============ S08 : QUAND / COMMENT ============ -->
+<div id="s08" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Quando ir e como encadeá-las</h2></div>
+    <p>As cascatas veem-se todo o ano, mas a experiência muda por completo consoante a estação. No <b>été</b> (de junho a agosto), os dias são quase infinitos, os caudais são fortes com o degelo e todas as pistas das Terras Altas estão abertas: é a única altura para Háifoss ou o interior. No <b>hiver</b>, algumas quedas congelam em parte, o cenário é de conto de fadas, mas os acessos secundários e as pistas estão muitas vezes fechados e os trilhos escorregam.</p>
+    <p>A lógica do circuito é simples: a maioria das cascatas importantes fica ao longo da <b>Route 1</b>, a estrada circular que dá a volta à ilha. Uma volta completa encadeia o sul (Seljalandsfoss, Skógafoss), o sudeste (Svartifoss) e depois o norte (Goðafoss, Dettifoss). O Círculo Dourado (Gullfoss) faz-se numa ida e volta curta desde Reiquiavique. Só Dynjandi, nos Fiordes do Oeste, e Háifoss, nas Terras Altas, exigem um verdadeiro desvio.</p>
+    <p style="margin:0;">A carrinha ou autocaravana é o meio ideal para este tipo de volta: dormes perto dos locais, sais cedo antes dos autocarros e adaptas o ritmo ao tempo. Explicámos tudo no nosso guia dedicado.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/pt/campervan-rental-world.html" target="_blank" rel="noopener">O nosso guia: alugar uma carrinha na Islândia e não só →</a>
+    <p style="margin:18px 0 0;">E para construir a tua volta à ilha etapa a etapa, cascata a cascata. Este itinerário cobre sete das oito cascatas deste guia: só falta Dynjandi, porque os Fiordes do Oeste não cabem em dez dias.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/roteiros/is-waterfalls-10j.html" target="_blank" rel="noopener">O nosso itinerário: a volta às cascatas da Islândia em 10 dias →</a>
+  </div>
+</div>
+
+<!-- ============ S09 CREDITS ============ -->
+<div id="s09" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Créditos fotográficos</h2></div>
+    <button class="credit-btn" onclick="document.getElementById('creditsBox').classList.toggle('show');this.textContent=document.getElementById('creditsBox').classList.contains('show')?'Créditos fotográficos ▲':'Créditos fotográficos ▼'">Créditos fotográficos ▼</button>
+    <div id="creditsBox" class="credit-box">
+      <b>hero-cascade.webp</b> — Foto de <a href="https://unsplash.com/fr/@nicolasjleclercq" target="_blank" rel="noopener nofollow">Nicolas J Leclercq</a> sur <a href="https://unsplash.com/fr/photos/photo-de-paysage-des-lumieres-daurore-va_nrBLonf8" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>seljalandsfoss.webp</b> — Foto de <a href="https://unsplash.com/fr" target="_blank" rel="noopener nofollow">Lucas Davies</a> sur <a href="https://unsplash.com/fr" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>skogafoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@malcoo" target="_blank" rel="noopener nofollow">Tomáš Malík</a> sur <a href="https://unsplash.com/fr/photos/une-grande-cascade-LaF77hRnE5A" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>gullfoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@marttisalmi" target="_blank" rel="noopener nofollow">Martti Salmi</a> sur <a href="https://unsplash.com/fr/photos/une-cascade-avec-un-arc-en-ciel-au-milieu-AXh5eEGa9ko" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>svartifoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@hdbernd" target="_blank" rel="noopener nofollow">Bernd Dittrich</a> sur <a href="https://unsplash.com/fr/photos/une-cascade-est-vue-du-flanc-dune-falaise-6uRcr2q_Ekc" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>godafoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@leo_visions_" target="_blank" rel="noopener nofollow">Leo_Visions</a> sur <a href="https://unsplash.com/fr/photos/aldeyjarfoss-avec-des-rochers-et-une-colline-en-arriere-plan-CWVwf98_OdA" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>dettifoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@dozza88" target="_blank" rel="noopener nofollow">Richard Dorran</a> sur <a href="https://unsplash.com/fr/photos/cascade-de-dettifoss-en-islande-JFW-P9IMgxo" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>haifoss.webp</b> — Foto de <a href="https://unsplash.com/fr/@curiouscaptures" target="_blank" rel="noopener nofollow">Sonali</a> sur <a href="https://unsplash.com/fr/photos/chutes-deau-sur-la-montagne-rocheuse-brune-pendant-la-journee-Vn77FZ-qYW4" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <b>dynjandi.webp</b> — Foto de <a href="https://unsplash.com/fr/@nisi_bisi_" target="_blank" rel="noopener nofollow">Denise Schuld</a> sur <a href="https://unsplash.com/fr/photos/une-petite-cascade-au-milieu-dune-zone-rocheuse-1g8V8-uPQJg" target="_blank" rel="noopener nofollow">Unsplash</a> — licença Unsplash<br>
+      <br>Todas as imagens estão alojadas em photos.oneroadtrip.com/articles-blog/.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "As cascatas mais bonitas da Islândia: o guia região a região",
+  "description": "Skógafoss, Seljalandsfoss, Gullfoss, Dettifoss, Goðafoss, Svartifoss, Dynjandi, Háifoss: as cascatas mais bonitas da Islândia, onde encontrá-las, como chegar e quando vê-las.",
+  "image": ["https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "pt",
+  "datePublished": "2026-07-26",
+  "dateModified": "2026-07-26",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/pt/iceland-waterfalls.html"}
+}
+</script>
+
+<script>
+(function(){
+  var fill=document.getElementById('progressFill');
+  var pill=document.getElementById('tocPill');
+  var toc=document.getElementById('tocFull');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    var p=h>0?(window.scrollY/h)*100:0;
+    if(fill)fill.style.width=p+'%';
+    if(pill&&toc){
+      var tocBottom=toc.getBoundingClientRect().bottom;
+      if(tocBottom<0)pill.classList.add('show');
+      else pill.classList.remove('show');
+    }
+  });
+})();
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"iceland-waterfalls"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

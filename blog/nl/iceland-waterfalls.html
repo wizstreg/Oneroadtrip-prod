@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De mooiste watervallen van IJsland: de gids regio voor regio</title>
+<meta name="description" content="Skógafoss, Seljalandsfoss, Gullfoss, Dettifoss, Goðafoss, Svartifoss, Dynjandi, Háifoss: de mooiste watervallen van IJsland, waar je ze vindt, hoe je er komt en wanneer je gaat.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/nl/iceland-waterfalls.html">
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/iceland-waterfalls.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/iceland-waterfalls.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/iceland-waterfalls.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/iceland-waterfalls.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/iceland-waterfalls.html">
+<link rel="alternate" hreflang="nl" href="https://www.oneroadtrip.com/blog/nl/iceland-waterfalls.html">
+<link rel="alternate" hreflang="de" href="https://www.oneroadtrip.com/blog/de/iceland-waterfalls.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/en/iceland-waterfalls.html">
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="De mooiste watervallen van IJsland: de gids regio voor regio">
+<meta property="og:description" content="Skógafoss, Gullfoss, Dettifoss, Dynjandi en meer: de mooiste watervallen van IJsland, waar je ze vindt, hoe je er komt en wanneer je gaat.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/nl/iceland-waterfalls.html">
+<meta property="og:image" content="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Grote IJslandse waterval die van een klif stort in een vulkanisch landschap">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="De mooiste watervallen van IJsland: de gids regio voor regio">
+<meta name="twitter:description" content="Skógafoss, Gullfoss, Dettifoss, Dynjandi: waar je ze vindt, hoe je er komt en wanneer je gaat.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .pair{display:flex;gap:28px;align-items:stretch;max-width:960px;margin:26px auto 34px;padding:0 48px;}
+  .pair.reverse{flex-direction:row-reverse;}
+  .pair-txt{flex:1 1 54%;min-width:0;display:flex;}
+  .pair-txt .country-card{margin:0;width:100%;}
+  .pair-img{flex:1 1 46%;width:46%;min-height:340px;object-fit:cover;border-radius:16px;display:block;align-self:stretch;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  a.cta,a.cta:link,a.cta:visited,a.cta:hover,a.cta:active,a.cta:focus{color:#fff;text-decoration:none;}
+  a.cta:hover{background:#0c2c56;}
+  .country-card{border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:24px 28px;margin:24px auto 28px;}
+  .country-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .country-name{font-family:'Instrument Serif',serif;font-size:26px;color:#3a2f22;margin:0 0 14px;}
+  .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0 4px;}
+  .country-fact{font-size:14px;color:#4a4030;line-height:1.5;}
+  .country-fact b{color:#113f7a;display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;padding:8px 26px;margin:14px auto 28px;background:#fff;}
+  .checklist li{font-size:15px;line-height:1.7;color:#4a4030;margin:12px 0;}
+  .checklist li b{color:#113f7a;}
+  .full-img-c{width:100%;max-width:960px;margin:8px auto 28px;padding:0 48px;display:block;}
+  .full-img-c img{width:100%;height:auto;display:block;border-radius:12px;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .full-img-c{padding:0 20px;}
+    .full-img{height:220px;}
+    .pair{flex-direction:column !important;padding:0 20px;gap:14px;}
+    .pair-img{width:100%;flex:none;height:240px;min-height:0;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .country-grid{grid-template-columns:1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+  }
+</style>
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">Islande</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Natuurgids · Watervallen</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">De mooiste watervallen van IJsland, regio voor regio</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Waar je ze vindt, hoe je er komt, wanneer je gaat. Een rondje over het eiland langs zijn watervallen, van het drukke zuiden tot de wilde Westfjorden.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Grote IJslandse waterval die van een klif stort in een vulkanisch landschap" data-imgkey="hero-cascade" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Sommaire</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Waarom IJsland het land van de watervallen is</a>
+      <a href="#s02">02 · Het zuiden: de klassiekers van Route 1</a>
+      <a href="#s03">03 · De Gouden Cirkel: Gullfoss</a>
+      <a href="#s04">04 · Het zuidoosten: Svartifoss en de basaltzuilen</a>
+      <a href="#s05">05 · Het noorden: Goðafoss en Dettifoss</a>
+      <a href="#s06">06 · De Hooglanden: Háifoss</a>
+      <a href="#s07">07 · De Westfjorden: Dynjandi</a>
+      <a href="#s08">08 · Wanneer je gaat en hoe je ze combineert</a>
+      <a href="#s09">09 · Fotoverantwoording</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>
+  <span style="font-size:12px;font-weight:600;color:#fff;">Sommaire</span>
+</div>
+
+<!-- ============ S01 ============ -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Waarom IJsland het land van de watervallen is</h2></div>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0 0 20px;">Er bestaat geen officieel cijfer, maar het eiland telt met gemak enkele tientallen grote watervallen, en veel meer als je de naamloze kleintjes meerekent.</p>
+  </div>
+  <div class="col" style="margin-top:4px;">
+    <p>Die overvloed is geen toeval. Midden in de Noord-Atlantische Oceaan krijgt IJsland enorm veel regen en sneeuw. Dat water voedt rivieren die van jong, steil vulkanisch reliëf naar beneden storten, vaak aangevuld door smeltend gletsjerijs. Het resultaat: overal valt water.</p>
+    <p style="margin:0;">Elke waterval heeft zijn eigen karakter. Sommige zijn breed en krachtig, andere hoog en smal, weer andere omlijst door basaltzuilen of verscholen in een kloof. Deze gids ordent ze per regio, in de volgorde van een rondrit over Route 1, de bekende Ring Road, zodat je ze zonder onnodige omwegen kunt combineren.</p>
+  </div>
+</div>
+
+<figure class="full-img-c" style="margin-bottom:34px;">
+  <img src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/waterfalls-map.webp&amp;w=1400&amp;output=webp&amp;q=85" alt="Kaart van IJsland met de acht watervallen uit de gids: Dynjandi, Goðafoss, Dettifoss, Gullfoss, Háifoss, Svartifoss, Seljalandsfoss en Skógafoss" loading="lazy" data-imgkey="waterfalls-map">
+  <figcaption style="font-size:13px;color:#8a7d68;line-height:1.6;margin-top:10px;text-align:center;">De acht watervallen uit deze gids, op de kaart. Zeven liggen aan of vlak bij Route 1; alleen Dynjandi vraagt een omweg door de Westfjorden.</figcaption>
+</figure>
+
+<!-- ============ S02 : SUD ============ -->
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Het zuiden: de klassiekers van Route 1</h2></div>
+    <p>Dit is de meest bezochte regio van het land, en niet voor niets: twee van de beroemdste watervallen van IJsland liggen op een paar kilometer van elkaar, zichtbaar vanaf de weg, zo'n twee uur van Reykjavík.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Zuiden · De meest gefotografeerde</div>
+      <div class="country-name">Seljalandsfoss</div>
+      <p style="margin:0 0 8px;">Zijn handelsmerk: je kunt <b>derrière</b> achter het watergordijn lopen. De val is zo'n zestig meter hoog en volledig te omcirkelen via een pad, met een uniek uitzicht vanuit de grot erachter. Neem regenkleding mee, de nevel maakt je snel drijfnat.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Hauteur</b>Ongeveer 60 meter</div>
+        <div class="country-fact"><b>Accès</b>Direct aan Route 1, betaald parkeren aan de voet</div>
+        <div class="country-fact"><b>À côté</b>Gljúfrabúi, verscholen in een rotsspleet op een paar minuten lopen, vaak over het hoofd gezien</div>
+        <div class="country-fact"><b>Astuce</b>Het pad achter de val kan in de winter gesloten of glad zijn</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/seljalandsfoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Seljalandsfoss, waar je achterlangs kunt lopen" loading="lazy" data-imgkey="seljalandsfoss">
+</div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Zuiden · De muur van water</div>
+      <div class="country-name">Skógafoss</div>
+      <p style="margin:0 0 8px;">Een bijna perfect watergordijn van 60 meter hoog en 25 meter breed, gevoed door twee gletsjers. Bij zon levert de nevel vrijwel altijd een regenboog op. Een trap van enkele honderden treden leidt naar een platform bovenaan, met uitzicht op de kust.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Ongeveer 60 meter de haut, 25 de large</div>
+        <div class="country-fact"><b>Accès</b>500 meter van Route 1, bij het dorp Skógar</div>
+        <div class="country-fact"><b>Sur place</b>Gratis parkeren, café, toiletten en camping in de buurt</div>
+        <div class="country-fact"><b>Légende</b>Achter de val zou een Vikingkist verborgen liggen</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/skogafoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Skógafoss, breed watergordijn met regenboog" loading="lazy" data-imgkey="skogafoss">
+</div>
+</div>
+
+<!-- ============ S03 : CERCLE D'OR ============ -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">De Gouden Cirkel: Gullfoss</h2></div>
+    <p>De Gouden Cirkel is de drukste route van IJsland, een korte lus vanuit Reykjavík langs Geysir, park Þingvellir en Gullfoss. Vaak is dit de eerste waterval die bezoekers zien.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Zuidwesten · De gouden val</div>
+      <div class="country-name">Gullfoss</div>
+      <p style="margin:0 0 8px;">De naam betekent «gouden val», naar de regenboog die vaak in de nevel hangt. Hij stort in twee trappen die haaks op elkaar staan, samen zo'n 32 meter hoog en 70 meter breed, om daarna in een smalle kloof te verdwijnen. Het geluid is bij het naderen indrukwekkend.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Ongeveer 32 meter hoog, 70 breed, twee trappen</div>
+        <div class="country-fact"><b>Accès</b>Weg 35, ook in de winter goed te doen, minder dan 2 uur van Reykjavík</div>
+        <div class="country-fact"><b>Point clé</b>Onderdeel van de Gouden Cirkel, vlak bij Geysir</div>
+        <div class="country-fact"><b>Astuce</b>Twee uitzichtpunten, één van bovenaf en één vlak bij de val</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/gullfoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Gullfoss die in twee trappen in een kloof stort" loading="lazy" data-imgkey="gullfoss">
+</div>
+</div>
+
+<!-- ============ S04 : SUD-EST ============ -->
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Het zuidoosten: Svartifoss en de basaltzuilen</h2></div>
+    <p>Verder oostwaarts over Route 1 bereik je de streek Skaftafell, in nationaal park Vatnajökull. Hier is niet de kracht van de val de ster, maar het decor eromheen.</p>
+  </div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Zuidoosten · De zwarte val</div>
+      <div class="country-name">Svartifoss</div>
+      <p style="margin:0 0 8px;">De naam betekent «zwarte val». Hij is niet erg hoog, maar wordt omlijst door spectaculaire <b>basaltzuilen</b> donkere, zeshoekige zuilen ontstaan door langzaam afkoelende lava. Het contrast tussen wit water en zwart gesteente is uniek. Je moet er wel iets voor doen: een korte wandeling vanaf Skaftafell.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Particularité</b>Omlijst door zeshoekige basaltzuilen</div>
+        <div class="country-fact"><b>Accès</b>Te voet vanaf het bezoekerscentrum van Skaftafell, reken op de wandeling</div>
+        <div class="country-fact"><b>Cadre</b>Nationaal park Vatnajökull</div>
+        <div class="country-fact"><b>Astuce</b>Stevige schoenen, het pad klimt</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/svartifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Svartifoss omlijst door zwarte basaltzuilen" loading="lazy" data-imgkey="svartifoss">
+</div>
+</div>
+
+<!-- ============ S05 : NORD ============ -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Het noorden: Goðafoss en Dettifoss</h2></div>
+    <p>Het noorden van het eiland, tussen Akureyri en het Mývatnmeer, herbergt twee watervallen met tegengesteld karakter: de een elegant en harmonieus, de ander ruw en oorverdovend.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Noorden · De waterval van de goden</div>
+      <div class="country-name">Goðafoss</div>
+      <p style="margin:0 0 8px;">«De waterval van de goden». De naam gaat terug op het jaar 1000: toen IJsland het christendom aannam, zou een hoofdman zijn heidense godenbeelden in het water hebben geworpen. Met 30 meter breed en 12 hoog is hij niet de hoogste of krachtigste, maar zijn hoefijzervorm en turquoise water maken hem een van de mooist uitgebalanceerde.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Ongeveer 12 meter hoog, 30 breed, hoefijzervormig</div>
+        <div class="country-fact"><b>Accès</b>Direct aan Route 1, tussen Akureyri en het Mývatnmeer</div>
+        <div class="country-fact"><b>Astuce</b>Vanaf beide oevers bereikbaar, met verschillend uitzicht</div>
+        <div class="country-fact"><b>Sur place</b>Parkeerplaats op twee minuten lopen</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/godafoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Goðafoss, hoefijzervormig met turquoise water" loading="lazy" data-imgkey="godafoss">
+</div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Noordoosten · De krachtigste van Europa</div>
+      <div class="country-name">Dettifoss</div>
+      <p style="margin:0 0 8px;">Een monster. Met 44 meter hoogte en 100 meter breedte geldt Dettifoss als de <b>krachtigste waterval van Europa</b> qua debiet. Midden in de Jökulsá-kloof imponeert hij van veraf door zijn grijze watermassa en zijn gebulder. Hij is vanaf twee oevers bereikbaar, met verschillende uitzichtpunten.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>44 meter hoog, 100 breed</div>
+        <div class="country-fact"><b>Réputation</b>De krachtigste van Europa qua debiet</div>
+        <div class="country-fact"><b>Accès</b>Westoever (weg 862) of oostoever (864), paden soms glad</div>
+        <div class="country-fact"><b>Astuce</b>De westoever is meestal het best begaanbaar</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/dettifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Dettifoss, immense grijze waterval in een kloof" loading="lazy" data-imgkey="dettifoss">
+</div>
+</div>
+
+<!-- ============ S06 : HAUTES TERRES ============ -->
+<div id="s06" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">De Hooglanden: Háifoss</h2></div>
+    <p>In het binnenland, waar wegen overgaan in grindpistes, schuilen watervallen die veel hoger zijn dan de sterren van de kust. Háifoss is daarvan het beste voorbeeld.</p>
+  </div>
+
+  <div class="pair">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Hooglanden · Bij de hoogste</div>
+      <div class="country-name">Háifoss</div>
+      <p style="margin:0 0 8px;">Met zo'n 122 meter val is Háifoss een van de hoogste watervallen van IJsland. Hij stort in een spectaculaire kloof, meestal samen met buurval Granni. De toegang loopt over een grindpiste en vraagt een geschikte auto, maar het uitzicht beloont de moeite.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Hauteur</b>Ongeveer 122 meter, bij de hoogste van het land</div>
+        <div class="country-fact"><b>Accès</b>Grindpiste in de Þjórsárdalur-vallei, geschikte auto aanbevolen</div>
+        <div class="country-fact"><b>Voisine</b>Granni, er vlak naast, vormt een duo</div>
+        <div class="country-fact"><b>Saison</b>Piste buiten de zomer vaak onbegaanbaar, controleer dit vooraf</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/haifoss.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Háifoss die in een diepe Hooglandkloof stort" loading="lazy" data-imgkey="haifoss">
+</div>
+</div>
+
+<!-- ============ S07 : FJORDS DE L'OUEST ============ -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">De Westfjorden: Dynjandi</h2></div>
+    <p>De minst bezochte regio van het land, ver van Route 1, bewaart het indrukwekkendste pronkstuk voor wie de omweg maakt.</p>
+  </div>
+
+  <div class="pair reverse">
+  <div class="pair-txt">
+    <div class="country-card">
+      <div class="country-flag">Westfjorden · Het verborgen pronkstuk</div>
+      <div class="country-name">Dynjandi</div>
+      <p style="margin:0 0 8px;">Ook wel Fjallfoss genoemd, is Dynjandi de grootste waterval van de Westfjorden. Het is geen enkele val maar een <b>reeks treden</b> die naar beneden toe uitwaaiert als een bruidssluier, over bijna 100 meter. De naam betekent «de oorverdovende». Hij wordt vaak de mooiste van het land genoemd.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Dimensions</b>Bijna 100 meter, waaiervormig</div>
+        <div class="country-fact"><b>Région</b>Westfjorden (Vestfirðir), ver van de Ring Road</div>
+        <div class="country-fact"><b>Accès</b>Kort klimmend pad vanaf de parkeerplaats</div>
+        <div class="country-fact"><b>À savoir</b>De omweg is lang, maar dit is de wildste regio van IJsland</div>
+      </div>
+    </div>
+  </div>
+  <img class="pair-img" src="https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/dynjandi.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Waterval Dynjandi als uitwaaierende sluier in de Westfjorden" loading="lazy" data-imgkey="dynjandi">
+</div>
+</div>
+
+<!-- ============ S08 : QUAND / COMMENT ============ -->
+<div id="s08" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Wanneer je gaat en hoe je ze combineert</h2></div>
+    <p>Watervallen zijn het hele jaar te zien, maar de beleving verschilt volledig per seizoen. In de <b>été</b> (juni tot augustus) houdt het daglicht nauwelijks op, staan de watervallen vol door smeltwater en zijn alle Hooglandpistes open: dit is het enige raam voor Háifoss of het binnenland. In de <b>hiver</b> bevriezen sommige vallen deels, is het decor sprookjesachtig, maar zijn zijwegen en pistes vaak dicht en de paden glad.</p>
+    <p>De routelogica is simpel: de meeste grote watervallen liggen langs de <b>Route 1</b>, de ringweg rond het eiland. Een volledige ronde rijgt het zuiden (Seljalandsfoss, Skógafoss), het zuidoosten (Svartifoss) en daarna het noorden (Goðafoss, Dettifoss) aaneen. De Gouden Cirkel (Gullfoss) doe je als korte heen-en-terugrit vanuit Reykjavík. Alleen Dynjandi in de Westfjorden en Háifoss in de Hooglanden vragen een echte omweg.</p>
+    <p style="margin:0;">Een busje of camper is het ideale vervoer voor zo'n ronde: je slaapt vlak bij de plekken, vertrekt vroeg vóór de touringcars en past je tempo aan het weer aan. We hebben het allemaal uitgewerkt in onze aparte gids.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/nl/campervan-rental-world.html" target="_blank" rel="noopener">Onze gids: een camper huren in IJsland en daarbuiten →</a>
+    <p style="margin:18px 0 0;">En om je rondrit stap voor stap op te bouwen, waterval na waterval. Deze route dekt zeven van de acht watervallen uit deze gids: alleen Dynjandi ontbreekt, want de Westfjorden passen niet in tien dagen.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/routes/is-waterfalls-10j.html" target="_blank" rel="noopener">Onze route: de IJslandse watervallenronde in 10 dagen →</a>
+  </div>
+</div>
+
+<!-- ============ S09 CREDITS ============ -->
+<div id="s09" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Fotoverantwoording</h2></div>
+    <button class="credit-btn" onclick="document.getElementById('creditsBox').classList.toggle('show');this.textContent=document.getElementById('creditsBox').classList.contains('show')?'Fotoverantwoording ▲':'Fotoverantwoording ▼'">Fotoverantwoording ▼</button>
+    <div id="creditsBox" class="credit-box">
+      <b>hero-cascade.webp</b> — Foto van <a href="https://unsplash.com/fr/@nicolasjleclercq" target="_blank" rel="noopener nofollow">Nicolas J Leclercq</a> sur <a href="https://unsplash.com/fr/photos/photo-de-paysage-des-lumieres-daurore-va_nrBLonf8" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>seljalandsfoss.webp</b> — Foto van <a href="https://unsplash.com/fr" target="_blank" rel="noopener nofollow">Lucas Davies</a> sur <a href="https://unsplash.com/fr" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>skogafoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@malcoo" target="_blank" rel="noopener nofollow">Tomáš Malík</a> sur <a href="https://unsplash.com/fr/photos/une-grande-cascade-LaF77hRnE5A" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>gullfoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@marttisalmi" target="_blank" rel="noopener nofollow">Martti Salmi</a> sur <a href="https://unsplash.com/fr/photos/une-cascade-avec-un-arc-en-ciel-au-milieu-AXh5eEGa9ko" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>svartifoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@hdbernd" target="_blank" rel="noopener nofollow">Bernd Dittrich</a> sur <a href="https://unsplash.com/fr/photos/une-cascade-est-vue-du-flanc-dune-falaise-6uRcr2q_Ekc" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>godafoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@leo_visions_" target="_blank" rel="noopener nofollow">Leo_Visions</a> sur <a href="https://unsplash.com/fr/photos/aldeyjarfoss-avec-des-rochers-et-une-colline-en-arriere-plan-CWVwf98_OdA" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>dettifoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@dozza88" target="_blank" rel="noopener nofollow">Richard Dorran</a> sur <a href="https://unsplash.com/fr/photos/cascade-de-dettifoss-en-islande-JFW-P9IMgxo" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>haifoss.webp</b> — Foto van <a href="https://unsplash.com/fr/@curiouscaptures" target="_blank" rel="noopener nofollow">Sonali</a> sur <a href="https://unsplash.com/fr/photos/chutes-deau-sur-la-montagne-rocheuse-brune-pendant-la-journee-Vn77FZ-qYW4" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <b>dynjandi.webp</b> — Foto van <a href="https://unsplash.com/fr/@nisi_bisi_" target="_blank" rel="noopener nofollow">Denise Schuld</a> sur <a href="https://unsplash.com/fr/photos/une-petite-cascade-au-milieu-dune-zone-rocheuse-1g8V8-uPQJg" target="_blank" rel="noopener nofollow">Unsplash</a> — Unsplash-licentie<br>
+      <br>Alle afbeeldingen worden gehost op photos.oneroadtrip.com/articles-blog/.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "De mooiste watervallen van IJsland: de gids regio voor regio",
+  "description": "Skógafoss, Seljalandsfoss, Gullfoss, Dettifoss, Goðafoss, Svartifoss, Dynjandi, Háifoss: de mooiste watervallen van IJsland, waar je ze vindt, hoe je er komt en wanneer je gaat.",
+  "image": ["https://wsrv.nl/?url=https://photos.oneroadtrip.com/articles-blog/hero-cascade.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "nl",
+  "datePublished": "2026-07-26",
+  "dateModified": "2026-07-26",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/nl/iceland-waterfalls.html"}
+}
+</script>
+
+<script>
+(function(){
+  var fill=document.getElementById('progressFill');
+  var pill=document.getElementById('tocPill');
+  var toc=document.getElementById('tocFull');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    var p=h>0?(window.scrollY/h)*100:0;
+    if(fill)fill.style.width=p+'%';
+    if(pill&&toc){
+      var tocBottom=toc.getBoundingClientRect().bottom;
+      if(tocBottom<0)pill.classList.add('show');
+      else pill.classList.remove('show');
+    }
+  });
+})();
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"iceland-waterfalls"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>
