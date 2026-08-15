@@ -803,6 +803,12 @@ window.addEventListener('DOMContentLoaded', function(){
       }
     });
     grid.innerHTML=html;
+    /* Les cartes de cette fenetre ne passent pas par l'observateur du catalogue :
+       on peint les photos tout de suite, sinon les fonds restent vides. */
+    if(typeof paintCard==='function'){
+      var _ph=grid.querySelectorAll('.card-photo');
+      for(var _i=0;_i<_ph.length;_i++){ paintCard(_ph[_i]); }
+    }
     openModal();
   }
 
