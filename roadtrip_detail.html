@@ -4939,6 +4939,9 @@ localStorage.setItem('ort.view', mapOnly ? 'map' : 'normal');
 })();
 
 function initApp(){
+// Rend l'apercu d'etape accessible aux autres blocs (panneau de reorganisation)
+window.showStepPreview = (step) => showStepPreview(step);
+
 // === VÉRIFICATION MODE PARTAGÉ ===
 (async function checkShareMode(){
   const shareToken = new URLSearchParams(location.search).get('share');
@@ -4972,6 +4975,17 @@ function initApp(){
         // Les données sont dans sharedData.data (pas directement dans sharedData)
         const tripData = sharedData.data || sharedData;
         
+        // Garantit que steps est une vraie liste (parfois recu en chaine JSON)
+        if (typeof tripData.steps === 'string') {
+          try {
+            tripData.steps = JSON.parse(tripData.steps);
+          } catch (e) {
+            console.warn('[SHARE] steps illisible, remis a vide', e);
+            tripData.steps = [];
+          }
+        }
+        if (tripData.steps && !Array.isArray(tripData.steps)) tripData.steps = [];
+
         if (tripData.steps && tripData.steps.length > 0) {
           window.state = window.state || {};
           window.state.steps = tripData.steps;

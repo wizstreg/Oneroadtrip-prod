@@ -1395,6 +1395,34 @@ var CC_PHOTO_FALLBACK = {'EA':'KE','val-de-marne-10-jours':'FR'};
    Permet de donner des photos différentes à des itins qui partagent le même 1er lieu. */
 var PHOTO_USAGE = {};
 
+/* Date de derniere mise a jour de chaque photo, remplie au chargement du
+   fichier photos_lieux.json. Sert a rafraichir les photos remplacees. */
+var PHOTO_VERSIONS = {};
+function buildPhotoVersions(photosDb){
+  if(!photosDb) return;
+  var cles = Object.keys(photosDb);
+  for(var i=0;i<cles.length;i++){
+    var e = photosDb[cles[i]];
+    if(!e || typeof e !== 'object') continue;
+    var maj = (e.r2_updated || '').replace(/[^0-9]/g,'').slice(0,12);
+    if(!maj) continue;
+    var listes = [e.photos || []];
+    var sel = e.selections_by_itin || {};
+    var sk = Object.keys(sel);
+    for(var s=0;s<sk.length;s++){
+      if(sel[sk[s]] && sel[sk[s]].photos) listes.push(sel[sk[s]].photos);
+    }
+    for(var l=0;l<listes.length;l++){
+      var liste = listes[l] || [];
+      for(var p=0;p<liste.length;p++){
+        var it = liste[p];
+        var u = (it && typeof it === 'object') ? it.url : it;
+        if(u && !PHOTO_VERSIONS[u]) PHOTO_VERSIONS[u] = maj;
+      }
+    }
+  }
+}
+
 function findPhoto(item, photosDb){
   if(!photosDb) return '';
   var cc = item.cc.toUpperCase();
@@ -1576,7 +1604,11 @@ function buildCard(item){
   var bgStyle = '';
   if(photoUrl){
     /* Use wsrv.nl proxy for consistent sizing and webp */
-    var proxied = 'https://wsrv.nl/?url=' + encodeURIComponent(photoUrl) + '&w=600&q=80&output=webp&fit=cover&n=-1';
+    /* Le &v= porte la date de mise a jour du lieu : quand une photo est
+       remplacee sous le meme nom, l'adresse change et le service d'images va
+       la rechercher sur R2 au lieu de servir l'ancienne. */
+    var vers = (typeof PHOTO_VERSIONS !== 'undefined' && PHOTO_VERSIONS[photoUrl]) ? ('&v=' + PHOTO_VERSIONS[photoUrl]) : '';
+    var proxied = 'https://wsrv.nl/?url=' + encodeURIComponent(photoUrl) + '&w=600&q=80&output=webp&fit=cover&n=-1' + vers;
     bgStyle = 'background-image:url(\'' + proxied + '\')';
   }
 
@@ -2298,6 +2330,7 @@ Promise.all([
   .then(function(results){
     var data = results[0];
     var photosDb = results[1];
+    buildPhotoVersions(photosDb);
     var countriesIdx = results[2];
     var themesIdx = results[3];
     if(countriesIdx && countriesIdx.countries){

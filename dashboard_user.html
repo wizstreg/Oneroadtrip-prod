@@ -580,7 +580,25 @@ const h = document.createElement('h3'); h.textContent = rt.title || 'Sans titre'
     if (staticUrl) {
       // Ajouter tripId pour que la page statique charge directement la version modifiée
       const staticUrlWithTrip = staticUrl + (staticUrl.indexOf('?') >= 0 ? '&' : '?') + 'tripId=' + encodeURIComponent(rt.id);
-      const staticBtn = btn(L.btn.openStatic || '🗺️ Visualiser', ()=> { location.href = staticUrlWithTrip; });
+      const staticBtn = btn(L.btn.openStatic || '🗺️ Visualiser', async ()=> {
+        // La page du catalogue n'existe pas toujours : on vérifie avant d'y aller,
+        // sinon on bascule sur la page d'accueil des voyages personnels.
+        let cible = staticUrlWithTrip;
+        if (staticUrl.indexOf('custom.html') < 0) {
+          let existe = false;
+          try {
+            const r = await fetch(staticUrl, { method: 'HEAD' });
+            existe = r.ok;
+          } catch (e) { existe = false; }
+          if (!existe) {
+            const LS = {fr:'itineraires', en:'itineraries', es:'rutas', pt:'roteiros', it:'itinerari', ar:'masar', nl:'routes', de:'routen'};
+            const lg = localStorage.getItem('lang') || 'fr';
+            cible = '/' + (LS[lg] || 'itineraries') + '/custom.html?tripId=' + encodeURIComponent(rt.id);
+            console.log('[ORT-DASH] page catalogue absente, bascule sur custom.html');
+          }
+        }
+        location.href = cible;
+      });
       actions.appendChild(staticBtn);
     }
 // 🛠️ Reprendre le voyage dans le constructeur de carte
