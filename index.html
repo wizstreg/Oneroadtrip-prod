@@ -39,14 +39,7 @@
 <title id="pageTitle">OneRoadTrip | 910+ road trips prêts à l'emploi à personnaliser</title>
 <meta name="description" id="metaDesc" content="Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 910+ parcours et 6500+ lieux testés.">
 <link rel="canonical" id="canonicalLink" href="https://www.oneroadtrip.com/index.html">
-<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/index.html?lang=fr">
-<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/index.html?lang=en">
-<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/index.html?lang=es">
-<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/index.html?lang=pt">
-<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/index.html?lang=it">
-<link rel="alternate" hreflang="ar" href="https://www.oneroadtrip.com/index.html?lang=ar">
-<link rel="alternate" hreflang="nl" href="https://www.oneroadtrip.com/index.html?lang=nl">
-<link rel="alternate" hreflang="de" href="https://www.oneroadtrip.com/index.html?lang=de">
+<meta name="robots" content="index, follow">
 <link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/index.html">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -1258,7 +1251,8 @@ document.getElementById('cSend').addEventListener('click', function(e){
 
 
 /* Canonical */
-document.getElementById('canonicalLink').href = 'https://www.oneroadtrip.com/index.html?lang=' + currentLang;
+/* Adresse de reference figee sur l accueil : une seule page pour toutes les langues */
+document.getElementById('canonicalLink').href = 'https://www.oneroadtrip.com/index.html';
 
 /* ========================================================
    ROUTE BUILDER
@@ -1434,6 +1428,11 @@ function findPhoto(item, photosDb){
   if(idx < 0) return '';
   var after = search.substring(idx).replace(/^\s*\S+\s+/, '');
   var words = after.split(/\s+/);
+  /* Certains itineraires ont le code pays repete dans le champ search
+     ("... Lucanes it it melfi venosa"). On saute ces repetitions, sinon le
+     premier mot de lieu serait "it" et aucune cle ne correspondrait. */
+  var ccLow = (item.cc || '').toLowerCase();
+  while(words.length > 1 && words[0].toLowerCase() === ccLow) words.shift();
   /* Try progressively longer hyphenated place names (up to 6 words) */
   var maxLen = Math.min(words.length, 6);
   for(var len=maxLen; len>=1; len--){
