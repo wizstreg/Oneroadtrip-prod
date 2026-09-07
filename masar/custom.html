@@ -89,7 +89,9 @@ img.wk-lazy{background:#e8edf2;background:linear-gradient(90deg,#e8edf2 25%,#f0f
 .vi{display:block;margin-bottom:14px}.vm{display:none}.vc{display:block}.vc p{font-size:.88rem;line-height:1.6;text-align:justify}.vd{display:inline-block;margin-top:3px;font-size:.78rem;color:var(--tl)}
 .ab{margin-top:10px;padding:10px;background:var(--bl);border-radius:var(--r)}.ab h4{font-size:.88rem;color:var(--p);margin-bottom:6px}.ai p{font-size:.85rem;line-height:1.5;margin-bottom:6px}
 .htb{position:relative;display:block;width:56px;height:56px;border-radius:6px;overflow:hidden;box-shadow:0 2px 6px rgba(0,0,0,.3);transition:transform .15s;flex-shrink:0}.htb:hover{transform:scale(1.08)}.htb img{width:100%;height:100%;object-fit:cover;display:block}.hts{position:absolute;bottom:2px;left:2px;background:#003580;color:#fff;font-size:.65rem;font-weight:700;padding:1px 4px;border-radius:3px}
-.nl{display:flex;align-items:center;gap:7px;margin-top:10px;padding:9px 12px;background:linear-gradient(135deg,#f0f7ff,#e8f4fd);border-radius:var(--r);font-size:.83rem}
+.nl{display:flex;align-items:center;gap:8px;margin-top:12px;padding:10px 14px;background:linear-gradient(135deg,#c62828,#a01d1d);color:#fff;border-radius:var(--r);font-size:.86rem;font-weight:500;box-shadow:0 2px 6px rgba(198,40,40,.25)}
+.nl b{color:#fff;font-weight:700}
+.nl>span:first-child{background:rgba(255,255,255,.2);padding:2px 9px;border-radius:999px;font-weight:600;white-space:nowrap}
 .ft{background:var(--pd);color:rgba(255,255,255,.6);padding:20px 28px;text-align:center;font-size:.78rem}.ft a{color:rgba(255,255,255,.8)}
 .po{display:none;position:fixed;inset:0;z-index:100001;background:rgba(0,0,0,.55);align-items:center;justify-content:center;padding:16px}.po[style*="block"]{display:flex !important}.pc{position:relative;width:100%;max-width:640px;max-height:80vh;background:#fff;border-radius:var(--rl);padding:22px 22px 22px;overflow-y:auto;box-shadow:var(--sl)}.px{position:absolute;top:8px;right:12px;background:none;border:none;font-size:1.5rem;cursor:pointer;line-height:1;padding:4px 8px;color:#555}.px:hover{color:#000}
 .btm{display:none;position:fixed;bottom:80px;right:20px;z-index:950;background:var(--p);color:#fff;border:none;border-radius:28px;padding:10px 18px;font-size:.85rem;font-weight:600;cursor:pointer;box-shadow:var(--sl);transition:transform .15s;gap:6px;align-items:center}.btm:hover{transform:scale(1.05)}.btm svg{width:18px;height:18px;fill:#fff}
@@ -161,7 +163,7 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 <button class="btm" id="backToMap" onclick="showMapAgain()"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>عودة إلى الخريطة</button>
 <footer id="footer-legal"></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-<script src="/js/ort-routing.js?v=1787936541564" defer></script>
+<script src="/js/ort-routing.js?v=1788803298626" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
@@ -240,11 +242,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1787936541564"></script>
-<script src="/js/ort-i18n-socle.js?v=1787936541564"></script>
-<script src="/js/ort-i18n-auth.js?v=1787936541564"></script>
-<script src="/js/ort-header.js?v=1787936541564"></script>
-<script src="/js/ort-footer.js?v=1787936541564"></script>
+<script src="/js/ort-config.js?v=1788803298626"></script>
+<script src="/js/ort-i18n-socle.js?v=1788803298626"></script>
+<script src="/js/ort-i18n-auth.js?v=1788803298626"></script>
+<script src="/js/ort-header.js?v=1788803298626"></script>
+<script src="/js/ort-footer.js?v=1788803298626"></script>
 <script>
 (function(){
   var langUrls={};
@@ -273,8 +275,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1787936541564" defer></script>
-<script src="/js/ort-state-manager.js?v=1787936541564" defer></script>
+<script src="/js/ort-itin-editor.js?v=1788803298626" defer></script>
+<script src="/js/ort-state-manager.js?v=1788803298626" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
@@ -392,8 +394,13 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
                 html+='</div>';
               }
               if(idx<stps.length-1&&step.to_next_leg&&step.to_next_leg.distance_km){
-                html+='<div class="nl"><span>\ud83d\ude97</span><span>'+_esc(_t.driveToNext)+': <b>'+Math.round(step.to_next_leg.distance_km)+' km</b>';
+                var _MI={car:{fr:'Voiture',en:'Car',es:'Coche',pt:'Carro',it:'Auto',ar:'\u0633\u064a\u0627\u0631\u0629',nl:'Auto',de:'Auto'},train:{fr:'Train',en:'Train',es:'Tren',pt:'Comboio',it:'Treno',ar:'\u0642\u0637\u0627\u0631',nl:'Trein',de:'Zug'},flight:{fr:'Avion',en:'Flight',es:'Avi\u00f3n',pt:'Avi\u00e3o',it:'Aereo',ar:'\u0631\u062d\u0644\u0629 \u062c\u0648\u064a\u0629',nl:'Vliegtuig',de:'Flug'},ferry:{fr:'Ferry',en:'Ferry',es:'Ferry',pt:'Ferry',it:'Traghetto',ar:'\u0639\u0628\u0651\u0627\u0631\u0629',nl:'Veerboot',de:'F\u00e4hre'},boat:{fr:'Bateau',en:'Boat',es:'Barco',pt:'Barco',it:'Barca',ar:'\u0642\u0627\u0631\u0628',nl:'Boot',de:'Boot'},walk:{fr:'\u00c0 pied',en:'On foot',es:'A pie',pt:'A p\u00e9',it:'A piedi',ar:'\u0633\u064a\u0631\u064b\u0627',nl:'Te voet',de:'Zu Fu\u00df'}};
+                var _mm=_MI[step.to_next_leg.transport_mode]||_MI.car;
+                var _ic=_esc(_mm[LANG]||_mm.en);
+                var _rt=(step.to_next_leg.road_type||'').trim();
+                html+='<div class="nl"><span>'+_ic+'</span><span>'+_esc(_t.driveToNext)+': <b>'+Math.round(step.to_next_leg.distance_km)+' km</b>';
                 if(step.to_next_leg.drive_min)html+=' \u00b7 <b>'+_drvT(step.to_next_leg.drive_min)+'</b>';
+                if(_rt)html+=' \u00b7 '+_esc(_rt);
                 html+='</span></div>';
               }
               if(pid)html+='<div class="htl-ph" data-pid="'+_esc(pid)+'"></div>';

@@ -192,6 +192,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -4444,6 +4445,9 @@ async function loadFromTemp(rtKey) {
       description: s.description || s.desc || '',
       photos: photos,
       distance_km: s.distance_km || s.to_next_leg?.distance_km || 0,
+      _roadType: s._roadType || s.to_next_leg?.road_type || null,
+      _transportMode: s._transportMode || s.to_next_leg?.transport_mode || null,
+      _method: s._method || s.to_next_leg?.method || null,
       placeId: s.placeId || s.place_id || s.night?.place_id || null,
       place_id: s.place_id || s.placeId || s.night?.place_id || null,
       visits: visits,
@@ -4741,6 +4745,9 @@ async function applyTripDataToState(tripData) {
       description: s.description || s.desc || '',
       photos: photos,
       distance_km: s.distance_km || s.to_next_leg?.distance_km || s._distanceKmToNext || 0,
+      _roadType: s._roadType || s.to_next_leg?.road_type || null,
+      _transportMode: s._transportMode || s.to_next_leg?.transport_mode || null,
+      _method: s._method || s.to_next_leg?.method || null,
       drive_min: s.drive_min || s.to_next_leg?.drive_min || s._driveMinToNext || 0,
       placeId: s.placeId || s.place_id || null,
       place_id: s.place_id || s.placeId || null,
@@ -4848,6 +4855,9 @@ async function loadBuilderResult() {
       description: s.description || '',
       photos: photos,
       distance_km: s.distance_km || s.to_next_leg?.distance_km || 0,
+      _roadType: s._roadType || s.to_next_leg?.road_type || null,
+      _transportMode: s._transportMode || s.to_next_leg?.transport_mode || null,
+      _method: s._method || s.to_next_leg?.method || null,
       placeId: s.place_id || null,
       visits: s.visits || [],
       activities: s.activities || [],
@@ -5410,6 +5420,9 @@ async function loadItinerary_OLD(cc, itinId, lang) {
             nights, description,
             photos: photos,
             distance_km: distanceKm,
+            _roadType: day.to_next_leg?.road_type || null,
+            _transportMode: day.to_next_leg?.transport_mode || null,
+            _method: day.to_next_leg?.method || null,
             placeId: day.place_id || day.placeId || placeId,
             place_id: day.place_id || day.placeId || placeId,
             visits: visits,
@@ -5490,6 +5503,11 @@ async function loadItinerary_OLD(cc, itinId, lang) {
       nights, description,
       photos: photos,
       distance_km: distanceKm,
+      // Type de route, mode et methode viennent du fichier et ne se recalculent
+      // pas. La methode dit notamment si le trajet a le droit d'etre route.
+      _roadType: day.to_next_leg?.road_type || null,
+      _transportMode: day.to_next_leg?.transport_mode || null,
+      _method: day.to_next_leg?.method || null,
       placeId: day.place_id || day.placeId || placeId,
       place_id: day.place_id || day.placeId || placeId,
       visits: visits,
@@ -5551,6 +5569,9 @@ async function loadFromFirebase(rtKey) {
       description: s.description || '',
       photos: photos,
       distance_km: s.distance_km || 0,
+      _roadType: s._roadType || s.to_next_leg?.road_type || null,
+      _transportMode: s._transportMode || s.to_next_leg?.transport_mode || null,
+      _method: s._method || s.to_next_leg?.method || null,
       placeId: s.placeId || s.place_id || null,
       place_id: s.place_id || s.placeId || null,
       visits: visits,
@@ -6273,9 +6294,19 @@ function renderList() {
       }
     }
     
+    // Mode de transport : valeur technique anglaise en base, on l'affiche par
+    // une icone plutot que par un mot, ce qui evite d'avoir a la traduire.
+    const ICONE_MODE = { car: '🚗', train: '🚆', flight: '✈️', ferry: '⛴️', boat: '🛶', walk: '🚶' };
+    const iconeMode = ICONE_MODE[step._transportMode] || '';
+
+    // Type de route : deja ecrit en clair dans la langue du fichier, il
+    // s'affiche tel quel, sans table de correspondance.
+    const typeRoute = (step._roadType || '').trim();
+
     // Fusion km + nuits sur une seule ligne meta
     let metaParts = [];
-    if (distText) metaParts.push(distText);
+    if (distText) metaParts.push(iconeMode ? `${iconeMode} ${distText}` : distText);
+    if (typeRoute) metaParts.push(typeRoute.length > 42 ? typeRoute.slice(0, 40) + '…' : typeRoute);
     if (step.nights > 0) metaParts.push(`🌙 ${nightsText}`);
     const metaLine = metaParts.join(' · ');
 
@@ -6563,7 +6594,34 @@ async function fetchAndDrawRoute() {
   const coords = steps.map(s => [s.lng, s.lat]); // ordre OSRM : lng,lat
   if (coords.length < 2) return;
 
-  const groups = buildLoopSegments(steps);
+  let groups = buildLoopSegments(steps);
+
+  // Une piste n'est pas dans OSRM : il la contourne par le goudron et dessine
+  // un detour de plusieurs centaines de kilometres. Ces portions sont donc
+  // coupees et tracees en ligne droite pointillee, comme sur la version bureau.
+  groups = (function couperLesPistes(gs) {
+    const nonRoutable = i => {
+      const m = steps[i] && steps[i]._method;
+      return m === 'piste' || m === 'direct';
+    };
+    const sortie = [];
+    gs.forEach(g => {
+      let debut = g.start;
+      let etatCourant = null;
+      for (let i = g.start; i < g.end; i++) {
+        const etat = nonRoutable(i);
+        if (etatCourant === null) { etatCourant = etat; continue; }
+        if (etat !== etatCourant) {
+          sortie.push({ loop: g.loop, start: debut, end: i, droit: etatCourant });
+          debut = i;
+          etatCourant = etat;
+        }
+      }
+      sortie.push({ loop: g.loop, start: debut, end: g.end, droit: !!etatCourant });
+    });
+    return sortie;
+  })(groups);
+
   clearRouteLayers();
   window._loopFilters = window._loopFilters || {};
   let totalM = 0;
@@ -6574,6 +6632,17 @@ async function fetchAndDrawRoute() {
     const color = loopColor(g.loop);
     const key = g.loop < 0 ? 'link' : 'loop' + g.loop;
     const visible = window._loopFilters[key] !== false;
+
+    // Portion sur piste ou sans route : ligne droite, aucun appel au routeur.
+    if (g.droit) {
+      const straight = slice.map(c => [c[1], c[0]]);
+      const line = L.polyline(straight, { color: color, weight: 3, opacity: 0.75, dashArray: '6,8' });
+      line._loopKey = key;
+      if (visible) line.addTo(map);
+      routeLayers.push(line);
+      continue;
+    }
+
     try {
       const leg = await fetchLegGeometry(slice);
       totalM += leg.distance;

@@ -6080,6 +6080,7 @@ async function initFromItin(it){
         _distanceKmToNext: d.to_next_leg?.distance_km || 0,
         _roadType: d.to_next_leg?.road_type || null,
         _transportMode: d.to_next_leg?.transport_mode || null,
+        _method: d.to_next_leg?.method || null,
         _mapKeywords: Array.isArray(d.night?.map_keywords) ? d.night.map_keywords : [],
         images:optimizePhotoUrls(getPhotosForPlace(pid)),
         description:visits.map(v=>v.text||v).join('. ')
@@ -6109,6 +6110,17 @@ async function initFromItin(it){
   
   // === FUSION DES ÉTAPES CONSÉCUTIVES IDENTIQUES ===
   // DÉSACTIVÉ - chaque jour du JSON = une étape distincte
+  
+  // On note sur chaque etape les coordonnees de l'etape qui la suivait dans le
+  // fichier. C'est ce qui permet plus bas de savoir si la distance ecrite dans
+  // le fichier decrit encore le trajet affiche : si le visiteur deplace ou
+  // supprime une etape, l'arrivee ne correspond plus et on recalcule.
+  for (let i = 0; i < steps.length - 1; i++) {
+    const n = steps[i + 1];
+    if (n && Number.isFinite(n.lat) && Number.isFinite(n.lon)) {
+      steps[i]._nextCoords = [n.lat, n.lon];
+    }
+  }
   
   state.steps=steps;
   
@@ -7640,6 +7652,41 @@ function createStepDetailsPanel(step, idx) {
 // Calcul distance via micro-API ORT (fallback local si erreur)
 async function calculateDistance(fromStep, toStep) {
   
+  // ═══ PRIORITE AU FICHIER ═══
+  // La distance et la duree du fichier ont ete verifiees, corrigees et parfois
+  // routees hors ligne. Les recalculer ici efface tout ce travail, et sur une
+  // piste le routeur renvoie un detour de plusieurs centaines de kilometres par
+  // le goudron. On ne recalcule que si le fichier ne dit rien, ou si le trajet
+  // affiche n'est plus celui du fichier parce que le visiteur a modifie son
+  // parcours.
+  const r3 = n => Math.round(n * 1000) / 1000;
+  const memeArrivee = Array.isArray(fromStep?._nextCoords)
+    && Number.isFinite(toStep?.lat) && Number.isFinite(toStep?.lon)
+    && r3(fromStep._nextCoords[0]) === r3(toStep.lat)
+    && r3(fromStep._nextCoords[1]) === r3(toStep.lon);
+
+  if (memeArrivee) {
+    const kmSource = Number(fromStep._distanceKmToNext);
+    const minSource = Number(fromStep._driveMinToNext);
+    if (Number.isFinite(kmSource) && kmSource > 0
+        && Number.isFinite(minSource) && minSource > 0) {
+      return { km: Math.round(kmSource), minutes: Math.round(minSource) };
+    }
+    // Une piste ou une traversee sans distance utilisable ne doit pas partir
+    // chez le routeur : il ignore que la piste existe. Ligne droite majoree.
+    const m = fromStep._method;
+    if (m === 'piste' || m === 'direct') {
+      const R = 6371, toRad = d => d * Math.PI / 180;
+      const dLat = toRad(toStep.lat - fromStep.lat), dLon = toRad(toStep.lon - fromStep.lon);
+      const a = Math.sin(dLat / 2) ** 2
+        + Math.cos(toRad(fromStep.lat)) * Math.cos(toRad(toStep.lat)) * Math.sin(dLon / 2) ** 2;
+      const vol = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const km = Math.round(vol * 1.25);
+      const vitesse = m === 'piste' ? 40 : 60;
+      return { km, minutes: Math.round((km / vitesse) * 60) };
+    }
+  }
+
   const fallback = () => {
     const R=6371, toRad=d=>d*Math.PI/180;
     const dLat=toRad(toStep.lat-fromStep.lat), dLon=toRad(toStep.lon-fromStep.lon);
@@ -9352,7 +9399,35 @@ async function calculateRoute(waypoints, mode = 'driving') {
   }).addTo(map);
   
   // Calculer la route, portion par portion, pour colorier chaque boucle
-  const loopGroups = buildLoopSegments(pts);
+  let loopGroups = buildLoopSegments(pts);
+
+  // Un trajet marque "piste" ou "direct" ne doit pas passer par le routeur :
+  // il ne connait pas la piste et part la contourner par le goudron, ce qui
+  // dessine un detour de plusieurs centaines de kilometres. On coupe donc les
+  // portions a chaque trajet de ce genre, et ces morceaux la sont traces en
+  // ligne droite pointillee.
+  loopGroups = (function couperLesPistes(groupes) {
+    const nonRoutable = i => {
+      const m = pts[i] && pts[i]._method;
+      return m === 'piste' || m === 'direct';
+    };
+    const sortie = [];
+    groupes.forEach(g => {
+      let debut = g.start;
+      let etatCourant = null;
+      for (let i = g.start; i < g.end; i++) {
+        const etat = nonRoutable(i);
+        if (etatCourant === null) { etatCourant = etat; continue; }
+        if (etat !== etatCourant) {
+          sortie.push({ loop: g.loop, start: debut, end: i, droit: etatCourant });
+          debut = i;
+          etatCourant = etat;
+        }
+      }
+      sortie.push({ loop: g.loop, start: debut, end: g.end, droit: !!etatCourant });
+    });
+    return sortie;
+  })(loopGroups);
   // Table sid -> ensemble des boucles auxquelles ce lieu touche (tronçon avant + après).
   // Un lieu reste visible tant qu'au moins une de ses boucles est cochée.
   (function buildPointLoopMap(){
@@ -9378,6 +9453,10 @@ async function calculateRoute(waypoints, mode = 'driving') {
 
   Promise.all(loopGroups.map(g => {
     const slice = latlngs.slice(g.start, g.end + 1);
+    // Portion sur piste ou sans route : ligne droite, aucun appel au routeur.
+    if (g.droit) {
+      return Promise.resolve({ g, res: { type: 'fallback', coordinates: slice, dashArray: '6, 8' } });
+    }
     return calculateRoute(slice, transportMode)
       .then(res => ({ g, res }))
       .catch(() => ({ g, res: { type: 'fallback', coordinates: slice } }));
@@ -10463,7 +10542,11 @@ window.initSaveSourceButton = function(){
         distance_km: s._distanceKmToNext || (s._distanceToNext ? Math.round(s._distanceToNext) : null),
         drive_min: s._driveMinToNext || (s._distanceToNext ? Math.round(s._distanceToNext * 1.2) : null),
         transport_mode: s._transportMode || 'car',
-        method: s._driveMinToNext ? 'source' : 'heuristic',
+        // Le method d'origine est conserve tel quel : c'est lui qui dit a la
+        // chaine de production si elle a le droit de recalculer ce trajet.
+        // 'piste' et 'direct' interdisent le recalcul, les ecraser reintroduit
+        // les detours par le goudron.
+        method: s._method || (s._driveMinToNext ? 'heuristic' : 'heuristic'),
         road_type: s._roadType || null
       }
     }));
