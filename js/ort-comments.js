@@ -191,6 +191,7 @@
     + '.ort-alert{flex:0 0 auto;display:inline-flex;align-items:center;justify-content:center;vertical-align:middle;'
     + 'inline-size:21px;block-size:21px;margin-inline-start:9px;border:0;border-radius:50%;'
     + 'background:#c2410c;color:#fff;font:700 12px/1 inherit;cursor:pointer;padding:0;position:relative}'
+    + '.ort-alert::before{content:"!"}'
     + '.ort-alert:hover{background:#a5330a}'
     + '.ort-alert:focus-visible{outline:2px solid #113f7a;outline-offset:2px}'
     + '.ort-alert-h1{inline-size:27px;block-size:27px;font-size:15px;margin-inline-start:12px;'
@@ -453,7 +454,10 @@
 
   /* ---------------- Boutons de signalement ---------------- */
   function boutonAlerte(classes) {
-    var b = el('button', 'ort-alert' + (classes ? ' ' + classes : ''), '!');
+    // Le point d exclamation est pose par le style, pas par le texte du bouton.
+    // Ecrit en texte, il partait dans tout textContent recopie ailleurs, et le
+    // selecteur d etapes affichait un ! mort a cote du nom du lieu.
+    var b = el('button', 'ort-alert' + (classes ? ' ' + classes : ''), '');
     b.type = 'button';
     b.title = t.alertTip;
     b.setAttribute('data-tip', t.alertTip);
