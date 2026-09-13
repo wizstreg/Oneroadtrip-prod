@@ -194,6 +194,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -2231,6 +2232,16 @@ html, body {
   height: 26px;
   border: 2px solid #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  position: relative;
+}
+/* Drapeau des étapes où l'on dort, comme sur roadtrip_detail */
+.step-marker .hub-flag {
+  position: absolute;
+  top: -10px;
+  right: -8px;
+  font-size: 12px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
 }
 
 /* Scanner buttons */
@@ -4451,6 +4462,9 @@ async function loadFromTemp(rtKey) {
       _method: s._method || s.to_next_leg?.method || null,
       placeId: s.placeId || s.place_id || s.night?.place_id || null,
       place_id: s.place_id || s.placeId || s.night?.place_id || null,
+      // Base de nuit et nombre de nuits decides en amont, quand le fichier les porte
+      ...(s.stay_at ? { stay_at: s.stay_at } : {}),
+      ...(Number.isFinite(Number(s.stay_nights)) ? { stay_nights: Number(s.stay_nights) } : {}),
       visits: visits,
       activities: activities,
       // Conserver les infos enrichies
@@ -6490,9 +6504,11 @@ function renderMarkers() {
         window._hubLines.push(hubLine);
       }
       
+      // Drapeau sur les étapes où l'on dort (nuits > 0), comme sur roadtrip_detail
+      const isHub = step._isHub || (Number(step.nights) > 0);
       const icon = L.divIcon({
         className: 'step-marker',
-        html: `${idx + 1}`,
+        html: `${idx + 1}${isHub ? '<span class="hub-flag">🚩</span>' : ''}`,
         iconSize: [26, 26],
         iconAnchor: [13, 13]
       });
@@ -7202,6 +7218,14 @@ function adjustNights(delta) {
   step.nights = Math.max(0, (step.nights || 0) + delta);
   $('nightsValue').textContent = step.nights;
   hasUnsavedChanges = true;
+  // Le drapeau du marqueur suit les nuits
+  try {
+    const mk = markers.find(m => m._stepIdx === currentStepIndex);
+    if (mk) {
+      const flag = (step._isHub || step.nights > 0) ? '<span class="hub-flag">🚩</span>' : '';
+      mk.setIcon(L.divIcon({ className: 'step-marker', html: `${currentStepIndex + 1}${flag}`, iconSize: [26, 26], iconAnchor: [13, 13] }));
+    }
+  } catch (e) {}
   
   // MAJ lien hôtel - Ouvrir modale au lieu de Stay22 direct
   const btnHotel = $('btnHotel');

@@ -6074,6 +6074,10 @@ async function initFromItin(it){
       steps.push({
         place_id:pid,name,lat,lon,nights:1,visits,activities,
         rating,
+        // Ou dort le voyageur ce soir la, decide en amont et ecrit dans le
+        // fichier. Absent sur les itineraires non traites : le calcul reprend.
+        ...(d.stay_at ? { stay_at: d.stay_at } : {}),
+        ...(Number.isFinite(Number(d.stay_nights)) ? { stay_nights: Number(d.stay_nights) } : {}),
         region_code: d.region_code || '',
         _suggestedDays: suggestedDays,
         _driveMinToNext: d.to_next_leg?.drive_min || 0,
@@ -10519,6 +10523,13 @@ window.initSaveSourceButton = function(){
       suggested_days: s.nights || s._suggestedDays || 1,
       rating: s.rating || 0,
       region_code: s.region_code || '',
+      // Nuits conseillees : ne jamais les perdre au save, le champ absent est
+      // aussi faux que le champ faux. Les nuits editees ici font foi ; une
+      // etape qui porte des nuits est sa propre base.
+      ...((s.stay_at || Number.isFinite(Number(s.stay_nights))) ? {
+        stay_at: (Number(s.nights) > 0) ? (s.place_id || '') : (s.stay_at || s.place_id || ''),
+        stay_nights: Number.isFinite(Number(s.nights)) ? Number(s.nights) : Number(s.stay_nights)
+      } : {}),
       night: {
         place_id: s.place_id || '',
         coords: [s.lat, s.lon],
