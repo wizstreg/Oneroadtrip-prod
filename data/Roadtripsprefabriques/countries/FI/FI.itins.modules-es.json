@@ -14,7 +14,7 @@
       "title": "Gran Vuelta por Finlandia: 21 Días de Helsinki a Laponia",
       "subtitle": "La vuelta completa a Finlandia en tres semanas: Helsinki, Turku y el archipiélago, Åland, vuelo a Laponia, regreso por los lagos de Saimaa y la Carelia del Norte.",
       "notes": "Dos vuelos domésticos incluidos: Helsinki→Rovaniemi (D9) y Rovaniemi→Helsinki (D12). Coche indispensable excepto para Helsinki, Tampere (excursión en tren) y Joensuu. La Ruta del Archipiélago (D5) se hace con ferries gratuitos incluidos. Åland se alcanza en ferry desde Turku (5-6h, Viking Line o Tallink Silja). El regreso desde Åland hacia Helsinki en ferry nocturno (11h) es recomendado para no perder un día.",
-      "climate": "Mejor época: junio-agosto, temperaturas de 15 a 22°C, días largos (sol de medianoche en Laponia). Evite octubre-abril: frío glacial (-10 a -30°C en Laponia), noche polar, carreteras nevadas. Mayo y septiembre posibles pero frescos (8-15°C).",
+      "climate": "Mejor época: junio-agosto, temperaturas de 15 a 22°C, días largos (sol de medianoche en Laponia). Evita octubre-abril: frío glacial (-10 a -30°C en Laponia), noche polar, carreteras nevadas. Mayo y septiembre posibles pero frescos (8-15°C).",
       "specialties": [
         "Salmón ahumado del Báltico",
         "Karjalanpiirakka (pasties carelianos)",
@@ -42,7 +42,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -99,7 +99,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -157,7 +157,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -206,11 +206,12 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 150,
-            "drive_min": 193,
-            "transport_mode": "flight",
-            "road_type": "avión",
-            "method": "vol-calcule"
+            "distance_km": 168,
+            "drive_min": 121,
+            "transport_mode": "car",
+            "road_type": "E18 hacia Turku",
+            "method": "corrige-audit",
+            "justification": "Helsinki-Turku par la E18, 168 km en deux heures, valeurs bonnes ; le type de route portait le mot allemand pour avion, remplacé par un libellé lisible."
           },
           "stay_at": "FI::helsinki",
           "stay_nights": 1
@@ -220,7 +221,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 1.5,
-          "rating": 5.3,
+          "rating": 4.4,
           "night": {
             "place_id": "FI::turku",
             "coords": [
@@ -274,7 +275,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 0.3,
-          "rating": 3.4,
+          "rating": 2.8,
           "night": {
             "place_id": "FI::pargas",
             "coords": [
@@ -291,12 +292,12 @@
           },
           "visits": [
             {
-              "text": "Naantali, a 16 km de Turku (35-50 min en autobús), tiene un casco antiguo de madera que desciende hacia un puerto deportivo animado. La iglesia de Naantali, fundada sobre un convento brigitino de 1443, es la segunda iglesia medieval más grande del país. Desde el puerto, vigila la bandera en la isla de Luonnonmaa: cuando ondea sobre la villa Kultaranta, el Presidente de la República está en su residencia de verano.",
+              "text": "Naantali, a unos cuarenta minutos en coche de Pargas, tiene un casco antiguo de madera que desciende hacia un animado puerto deportivo. La iglesia de Naantali, fundada sobre un convento birgitino de 1443, es la segunda iglesia medieval más grande del país. Desde el puerto, fíjate en la bandera de la isla de Luonnonmaa: cuando ondea sobre la villa Kultaranta, el presidente de la República está en su residencia de verano.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "Moominworld está en la isla de Kailo, conectada al centro de Naantali por un puente peatonal. Tove Jansson recibió la primera llave del parque el día de su inauguración en 1993. La experiencia es narrativa: entras en el escenario de los libros, no en un parque de atracciones con montañas rusas. Ideal con niños, pero los fans de Jansson de todas las edades encuentran algo. Abierto solo en verano: reserva online.",
+              "text": "A unos cuarenta minutos en coche de Pargas, Moominworld se encuentra en la isla de Kailo, unida al centro de Naantali por un puente peatonal. Tove Jansson recibió la primera llave del parque el día de su apertura en 1993. La experiencia es narrativa: se entra en el escenario de los libros, no en un parque de atracciones con juegos mecánicos. Es ideal con niños, aunque los admiradores de Jansson de cualquier edad encontrarán algo de interés. Solo abre en verano; reserva en línea.",
               "place_id": "",
               "visit_duration_min": 180
             },
@@ -318,11 +319,13 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 185,
-            "drive_min": 475,
+            "distance_km": 190,
+            "drive_min": 480,
             "transport_mode": "ferry",
-            "road_type": "ferry",
-            "method": "corrige-audit"
+            "road_type": "Carretera a Turku y ferry Viking Line a Mariehamn",
+            "method": "corrige-audit",
+            "multimodal": true,
+            "justification": "Trajet absent : Pargas rejoint Turku par la route, 25 km en une demi-heure, puis le ferry Viking Line traverse l archipel jusqu à Mariehamn, environ 165 km en cinq heures et demie."
           },
           "stay_at": "FI::turku",
           "stay_nights": 0
@@ -332,7 +335,7 @@
           "slice": 1,
           "region_code": "ALD",
           "suggested_days": 0.5,
-          "rating": 5.4,
+          "rating": 4.7,
           "night": {
             "place_id": "FI::mariehamn",
             "coords": [
@@ -359,7 +362,7 @@
               "visit_duration_min": 60
             },
             {
-              "text": "En el Museo de Åland, no te pierdas la exposición sobre la 'Champagnegaleas': en 2010, unos buceadores descubrieron un naufragio con 168 botellas de champán de 1840, el champán más antiguo jamás encontrado en el mundo. Algunas botellas aún tenían burbujas al abrirlas.",
+              "text": "En el Museo de Åland, recorre la exposición permanente que presenta 7.500 años de historia del archipiélago. Los objetos arqueológicos, las tradiciones marítimas, la vida rural y la autonomía política muestran cómo se construyó la sociedad de Åland entre influencias suecas, finlandesas y rusas.",
               "place_id": "",
               "visit_duration_min": 75
             }
@@ -383,7 +386,7 @@
           "slice": 1,
           "region_code": "ALD",
           "suggested_days": 0.5,
-          "rating": 5.4,
+          "rating": 4.7,
           "night": {
             "place_id": "FI::mariehamn",
             "coords": [
@@ -399,24 +402,24 @@
           },
           "visits": [
             {
-              "text": "Kastelholm, a 25 km al noreste de Mariehamn, es el único castillo medieval de Åland. Construido a finales del siglo XIV, acogió a los reyes suecos como Gustavo Vasa, fue escenario de juicios por brujería en la década de 1660, ardió en 1745, sirvió de prisión y luego de cantera para los agricultores locales antes de ser restaurado entre 1982 y 1989. Abierto de mayo a mediados de septiembre.",
+              "text": "Kastelholm, a unos 25 km de Mariehamn y 20 minutos en coche, es el único castillo medieval de Åland. Construido a finales del siglo XIV, acogió a reyes suecos como Gustaf Vasa, fue escenario de juicios por brujería en la década de 1660, ardió en 1745 y sirvió de prisión y después de cantera para los agricultores locales antes de ser restaurado entre 1982 y 1989. Abre de mayo a mediados de septiembre.",
               "place_id": "",
               "visit_duration_min": 75
             },
             {
-              "text": "El museo al aire libre Jan Karlsgården linda con el castillo: una veintena de edificios agrícolas del siglo XIX con molinos de viento, graneros, herrería y sauna. Si estás allí un miércoles de julio, hay demostraciones de artesanía.",
+              "text": "Junto a Kastelholm, a unos 25 km de Mariehamn y 20 minutos en coche, el museo al aire libre Jan Karlsgården reúne una veintena de edificios agrícolas del siglo XIX, con molinos de viento, graneros, fragua y sauna. Si está allí un miércoles de julio, podrá ver demostraciones de artesanía.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "Las ruinas de Bomarsund —a pocos kilómetros— son lo que queda de una gigantesca fortaleza naval rusa construida para albergar a 2.000 soldados, destruida en 1854 por las fuerzas franco-británicas durante la guerra de Crimea. Los bloques de granito hexagonal yacen esparcidos por el sitio en un paisaje de bosque y fiordo. Acceso libre, prácticamente siempre desierto.",
+              "text": "A unos treinta minutos en coche de Mariehamn, las ruinas de Bomarsund son lo que queda de una gigantesca fortaleza naval rusa construida para albergar a 2.000 soldados y destruida en 1854 por las fuerzas franco-británicas durante la guerra de Crimea. Bloques hexagonales de granito cubren el lugar en un paisaje de bosque y fiordo. El acceso es libre y casi siempre está desierto.",
               "place_id": "",
               "visit_duration_min": 60
             }
           ],
           "activities": [
             {
-              "text": "Åland es paradisíaco en bicicleta: terreno llano, carreteras tranquilas, ferries gratuitos entre islas. La playa de Degersand en Eckerö (11 km de la compañía de ferry) es una de las más bellas de Finlandia: agua poco profunda durante decenas de metros, paisaje de pinos y rocas rojas.",
+              "text": "Åland es un paraíso para recorrer en bicicleta: terreno llano, carreteras tranquilas y ferris gratuitos entre las islas. La playa de Degersand, en Eckerö, a unos 40 km de Mariehamn y 35 minutos en coche, es una de las más bonitas de Finlandia: agua poco profunda durante decenas de metros y un paisaje de pinos y rocas rojas.",
               "place_id": "",
               "activity_duration_min": 180
             }
@@ -436,7 +439,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -470,11 +473,12 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 705,
-            "drive_min": 240,
+            "distance_km": 720,
+            "drive_min": 260,
             "transport_mode": "flight",
-            "road_type": "avión",
-            "method": "vol-calcule"
+            "road_type": "Vuelo Finnair Helsinki-Rovaniemi",
+            "method": "corrige-audit",
+            "justification": "Le type de route disait avion et 830 km de route en un jour ne sont pas réalistes : vol Finnair Helsinki-Rovaniemi, environ 720 km en une heure vingt."
           },
           "stay_at": "FI::helsinki",
           "stay_nights": 1
@@ -484,7 +488,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -540,7 +544,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -556,7 +560,7 @@
           },
           "visits": [
             {
-              "text": "El Parque de Fauna de Ranua, a 80 km al sur de Rovaniemi, alberga más de 50 especies árticas en recintos naturales: osos polares, linces, glotones, lobos. Es uno de los pocos lugares del mundo donde puedes observar osos polares en medio seminatural tan cerca del círculo ártico. El paseo por el parque lleva de 2 a 3 horas según tu ritmo.",
+              "text": "El Parque de Fauna de Ranua, a unos 80 km al sur de Rovaniemi y 1 hora en coche, alberga más de 50 especies árticas en recintos naturales: osos polares, linces, glotones y lobos. Es uno de los pocos lugares del mundo donde se pueden observar osos polares en un entorno seminatural tan cerca del círculo polar ártico. El recorrido por el parque dura entre 2 y 3 horas, según el ritmo.",
               "place_id": "",
               "visit_duration_min": 150
             }
@@ -589,7 +593,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -623,11 +627,13 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 617,
-            "drive_min": 233,
+            "distance_km": 920,
+            "drive_min": 380,
             "transport_mode": "flight",
-            "road_type": "avión",
-            "method": "vol-calcule"
+            "road_type": "Vuelo Rovaniemi-Helsinki y tren VR a Lappeenranta",
+            "method": "corrige-audit",
+            "multimodal": true,
+            "justification": "Pas de vol direct Rovaniemi-Lappeenranta : vol Finnair vers Helsinki, environ 700 km en une heure vingt, puis train VR Helsinki-Lappeenranta, 220 km en deux heures ; 784 km de route en un jour ne sont pas réalistes."
           },
           "stay_at": "FI::rovaniemi",
           "stay_nights": 1
@@ -637,7 +643,7 @@
           "slice": 1,
           "region_code": "EKAR",
           "suggested_days": 1,
-          "rating": 4.6,
+          "rating": 5,
           "night": {
             "place_id": "FI::lappeenranta",
             "coords": [
@@ -690,7 +696,7 @@
           "slice": 1,
           "region_code": "EKAR",
           "suggested_days": 1,
-          "rating": 4.6,
+          "rating": 5,
           "night": {
             "place_id": "FI::lappeenranta",
             "coords": [
@@ -706,24 +712,24 @@
           },
           "visits": [
             {
-              "text": "Los rápidos de Imatrankoski se formaron hace 5.000 años cuando las aguas del Saimaa perforaron la cresta de Salpausselkä. La emperatriz Catalina II de Rusia vino a admirarlos en 1772 con todo su séquito: así comenzó el turismo en Imatra. En 1929, la presa secó el lecho del río. Hoy, de junio a agosto (de miércoles a domingo a las 18h), la presa se abre durante 16 minutos: 400 m³ de agua por segundo se desatan en los desfiladeros con música de Sibelius de fondo. El espectáculo es gratuito. Colócate en el puente Koskisilta para la mejor vista. Llega 20 minutos antes: la multitud se congrega.",
+              "text": "A unos 35 km de Lappeenranta y 35 minutos en coche, los rápidos de Imatrankoski se formaron hace 5.000 años, cuando las aguas del Saimaa atravesaron la cresta de Salpausselkä. La emperatriz Catalina II de Rusia acudió a admirarlos con todo su séquito en 1772, dando inicio al turismo en Imatra. En 1929, la presa secó el cauce. Hoy, de junio a agosto (de miércoles a domingo a las 18 h), la presa se abre durante 16 minutos y 400 m³ de agua por segundo irrumpen en el desfiladero con música de Sibelius. El espectáculo es gratuito. Sitúate en el puente Koskisilta para disfrutar de la mejor vista. Llega 20 minutos antes, pues se forma una multitud.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "El hotel Valtionhotelli, construido en 1903 en estilo Art Nouveau como un castillo junto a los rápidos, es el edificio más llamativo de Imatra: reemplazó a dos hoteles de madera que habían ardido. Aunque no te alojes allí, la fachada desde el parque merece la foto.",
+              "text": "A unos 35 km de Lappeenranta y 35 minutos en coche, el hotel Valtionhotelli, construido en 1903 en estilo Art Nouveau como un castillo junto a los rápidos, es el edificio más llamativo de Imatra. Sustituyó a dos hoteles de madera que se habían incendiado. Aunque no te alojes allí, merece la pena fotografiar la fachada desde el parque.",
               "place_id": "",
               "visit_duration_min": 20
             },
             {
-              "text": "La iglesia de las Tres Cruces en Imatra es una obra de Alvar Aalto, completada en 1957 y considerada por los especialistas como su creación religiosa más original. La sala principal se divide en tres naves independientes mediante tabiques corredizos: una solución típicamente Aalto: funcional e inesperada.",
+              "text": "A unos 35 km de Lappeenranta y 35 minutos en coche, la iglesia de las Tres Cruces de Imatra es una obra de Alvar Aalto, terminada en 1957 y considerada por los especialistas su creación religiosa más original. La sala principal se divide en tres naves independientes mediante tabiques correderos, una solución típicamente Aalto: funcional e inesperada.",
               "place_id": "",
               "visit_duration_min": 30
             }
           ],
           "activities": [
             {
-              "text": "El parque Kruununpuisto bordea los rápidos desde el puente Koskisilta hasta los grabados rupestres del siglo XIX: firmas reales dejadas en la roca por visitantes ilustres, incluido el emperador Pedro II de Brasil en 1876. Un paseo de una hora en un entorno sombreado e histórico.",
+              "text": "A unos 35 km de Lappeenranta y 35 minutos en coche, el parque Kruununpuisto bordea los rápidos desde el puente Koskisilta hasta los grabados rupestres del siglo XIX: firmas reales dejadas en la roca por visitantes ilustres, entre ellos el emperador Pedro II de Brasil en 1876. Es un paseo de una hora por un entorno sombreado e histórico.",
               "place_id": "",
               "activity_duration_min": 60
             }
@@ -743,7 +749,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 1,
-          "rating": 6.4,
+          "rating": 6.7,
           "night": {
             "place_id": "FI::savonlinna",
             "coords": [
@@ -760,7 +766,7 @@
           },
           "visits": [
             {
-              "text": "La cresta de Punkaharju, camino a Savonlinna, es uno de los paisajes nacionales más célebres de Finlandia. Una estrecha lengua de tierra formada hace 11.000 años separa dos lagos del sistema Saimaa: la carretera panorámica (7 km) bordea la cresta entre pinos centenarios con el agua brillando a ambos lados. El zar Alejandro I la visitó en 1802 y expresó el deseo de que fuera preservada: protegida desde 1843, es una de las reservas naturales más antiguas del mundo. Recorre la carretera despacio o en bicicleta.",
+              "text": "La cresta de Punkaharju, a unos 35 km de Savonlinna y 35 minutos en coche, es uno de los paisajes nacionales más célebres de Finlandia. Una estrecha lengua de tierra formada hace 11.000 años separa dos lagos del sistema Saimaa. La carretera panorámica de 7 km recorre la cresta entre pinos centenarios, con el agua brillando a ambos lados. El zar Alejandro I la visitó en 1802 y expresó el deseo de que se conservara. Protegida desde 1843, es una de las reservas naturales más antiguas del mundo. Recorre la carretera despacio o en bicicleta.",
               "place_id": "",
               "visit_duration_min": 90
             },
@@ -770,7 +776,7 @@
               "visit_duration_min": 90
             },
             {
-              "text": "La iglesia de Kerimäki, a 23 km de Savonlinna, es la iglesia de madera más grande del mundo: 45 metros de largo, 42 metros de ancho, 27 metros de alto, más de 3.000 plazas sentadas. Completada en 1847 por el arquitecto A.F. Grandstedt. Circula una anécdota: el arquitecto habría trabajado en centímetros pero el constructor habría leído los planos en pulgadas. La realidad es menos divertida pero más coherente: la iglesia debía acoger a la mitad de la población de la región.",
+              "text": "La iglesia de Kerimäki, a 23 km de Savonlinna y 25 minutos en coche, es la iglesia de madera más grande del mundo: mide 45 metros de largo, 42 de ancho y 27 de alto, y tiene más de 3.000 asientos. Fue terminada en 1847 por el arquitecto A.F. Grandstedt. Circula una anécdota según la cual el arquitecto habría trabajado en centímetros, pero el constructor habría leído los planos en pulgadas. La realidad es menos divertida, pero más coherente: la iglesia debía albergar a la mitad de la población de la región.",
               "place_id": "",
               "visit_duration_min": 45
             }
@@ -794,7 +800,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 1,
-          "rating": 6.4,
+          "rating": 6.7,
           "night": {
             "place_id": "FI::savonlinna",
             "coords": [
@@ -822,7 +828,7 @@
           ],
           "activities": [
             {
-              "text": "El Parque Nacional de Linnansaari, accesible en barco desde Rantasalmi (unos 45 km), solo se explora en el agua: más de 130 islas, ninguna conectada por carretera. Es el corazón de la zona de reproducción de la foca anillada del Saimaa. Planea el día, reserva el barco con antelación.",
+              "text": "El Parque Nacional de Linnansaari, accesible en barco desde Rantasalmi tras unos cuarenta minutos en coche desde Savonlinna, solo puede explorarse por el agua. Cuenta con más de 130 islas, ninguna unida por carretera. Es el corazón de la zona de reproducción de la foca anillada del Saimaa. Reserva el día entero y el barco con antelación.",
               "place_id": "",
               "activity_duration_min": 240,
               "practical_info": {
@@ -846,7 +852,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 0.5,
-          "rating": 5.3,
+          "rating": 8.8,
           "night": {
             "place_id": "FI::mikkeli",
             "coords": [
@@ -874,7 +880,7 @@
           ],
           "activities": [
             {
-              "text": "La colina de Neitvuori, a 20 km de Mikkeli, ofrece el mejor panorama sobre el lago Saimaa y los bosques de Savo del Sur. Una subida de 30 minutos desde el aparcamiento: la vista desde la cima abarca un paisaje de lagos e islas hasta donde alcanza la vista. Ve si tienes energía después de Savonlinna.",
+              "text": "La colina de Neitvuori, a unos cuarenta minutos en coche de Mikkeli, ofrece la mejor panorámica del lago Saimaa y los bosques de Savonia del Sur. La subida desde el aparcamiento dura 30 minutos y, desde la cima, la vista abarca un paisaje de lagos e islas hasta donde alcanza la vista. Ve si aún te queda energía después de Savonlinna.",
               "place_id": "",
               "activity_duration_min": 90,
               "practical_info": {
@@ -898,7 +904,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 1,
-          "rating": 3.9,
+          "rating": 3.6,
           "night": {
             "place_id": "FI::joensuu",
             "coords": [
@@ -947,7 +953,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.5,
-          "rating": 8.7,
+          "rating": 9.4,
           "night": {
             "place_id": "FI::koli",
             "coords": [
@@ -1001,7 +1007,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.3,
-          "rating": 3,
+          "rating": 2.2,
           "night": {
             "place_id": "FI::nurmes",
             "coords": [
@@ -1043,7 +1049,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.5,
-          "rating": 3.2,
+          "rating": 2.5,
           "night": {
             "place_id": "FI::lieksa",
             "coords": [
@@ -1059,14 +1065,14 @@
           },
           "visits": [
             {
-              "text": "El taller de la artista Eva Ryynänen en Paateri, a 20 km de Lieksa, es uno de los lugares más singulares de Finlandia oriental. Ryynänen (1915-2001) pasó toda su vida aquí, esculpiendo figuras de madera inspiradas en la mitología carelia. Construyó con sus manos su casa, su taller, una galería redonda y una pequeña iglesia de troncos junto a un lago. No es un museo institucional: es la huella de una vida entera pasada en el bosque.",
+              "text": "El taller de la artista Eva Ryynänen en Paateri, a media hora en coche de Lieksa, es uno de los lugares más singulares del este de Finlandia. Ryynänen (1915-2001) pasó aquí toda su vida esculpiendo figuras de madera inspiradas en la mitología carelia. Construyó con sus propias manos su casa, el taller, una galería circular y una pequeña iglesia de troncos junto a un lago. No es un museo institucional, sino la huella de toda una vida pasada en el bosque.",
               "place_id": "",
               "visit_duration_min": 75
             }
           ],
           "activities": [
             {
-              "text": "Los rápidos de Ruunaa, a 30 km de Lieksa, son las aguas bravas más salvajes de Finlandia: 30 km del río Lieksanjoki con seis rápidos sucesivos hacia la frontera rusa. Operadores locales proponen descensos en balsa tradicional de madera o en kayak con almuerzo junto a la hoguera. Cuenta con 4 horas. Reserva con antelación: es la actividad principal de la región.",
+              "text": "Los rápidos de Ruunaa, a 30 km de Lieksa y unos treinta minutos en coche, son las aguas bravas más salvajes de Finlandia: 30 km del río Lieksanjoki con seis rápidos sucesivos hacia la frontera rusa. Operadores locales ofrecen descensos en balsas tradicionales de madera o en kayak, con almuerzo junto a una hoguera. Calcula 4 horas. Reserva con antelación, pues es la principal actividad de la región.",
               "place_id": "",
               "activity_duration_min": 240,
               "practical_info": {
@@ -1091,7 +1097,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -1106,14 +1112,14 @@
           },
           "visits": [
             {
-              "text": "El monasterio de Valamo, en Heinävesi —unos 100 km al suroeste de Joensuu en la ruta de regreso— es el corazón de la vida ortodoxa en Finlandia. La comunidad se refugió aquí desde el lago Ladoga en 1940 llevando sus iconos. La iglesia principal, los jardines y la tienda de productos del monasterio (vinos caseros, miel, quesos) merecen 2 horas de parada. El lugar está abierto a los no creyentes y el ambiente es apacible: no hay nada turístico en esto.",
+              "text": "El monasterio de Valamo, en Heinävesi, puede ser una parada en el trayecto de regreso desde Lieksa y es el corazón de la vida ortodoxa de Finlandia. La comunidad se refugió aquí desde el lago Ládoga en 1940, llevándose sus iconos. La iglesia principal, los jardines y la tienda de productos del monasterio (vinos de la casa, miel y quesos) merecen una parada de 2 horas. El lugar está abierto a los no creyentes y el ambiente es tranquilo, sin nada artificioso para los turistas.",
               "place_id": "",
               "visit_duration_min": 90
             }
           ],
           "activities": [
             {
-              "text": "Regreso a Helsinki (400 km desde Lieksa, unas 4h con la parada en Valamo). La Esplanada al atardecer es la mejor forma de concluir tres semanas en Finlandia: el bulevar peatonal entre la Plaza del Mercado y el Distrito del Diseño, terrazas en verano, calma y luz rasante. Partes de Helsinki y regresas a ella. Círculo cerrado.",
+              "text": "Regreso a Helsinki desde Lieksa: cuenta con una larga jornada de carretera incluyendo la parada en Valamo. La Explanada al atardecer es la mejor forma de concluir tres semanas en Finlandia: el bulevar peatonal entre la plaza del Mercado y el Design District, con terrazas en verano, tranquilidad y luz rasante. Sale de Helsinki y regresa a ella. El círculo se cierra.",
               "place_id": "",
               "activity_duration_min": 90
             }
@@ -1221,7 +1227,7 @@
         "featured_list": [
           "Helsinki: fortaleza UNESCO sobre el agua y capital del diseño nórdico",
           "Turku y archipiélago: ciudades medievales y 20.000 islas",
-          "Åland: territorio autónomo entre Finlandia y Suecia, champán más antiguo del mundo",
+          "Åland: territorio autónomo entre Finlandia y Suecia",
           "Rovaniemi: Círculo Polar, auroras boreales y Papá Noel",
           "Savonlinna: castillo de ópera medieval sobre el lago Saimaa",
           "Koli: paisaje nacional que inspiró a Sibelius"
@@ -1307,7 +1313,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 1,
-          "rating": 4.6,
+          "rating": 5,
           "night": {
             "place_id": "FI::lappeenranta",
             "coords": [
@@ -1374,7 +1380,7 @@
           "slice": 1,
           "region_code": "EKAR",
           "suggested_days": 1,
-          "rating": 4.6,
+          "rating": 5,
           "night": {
             "place_id": "FI::lappeenranta",
             "coords": [
@@ -1428,7 +1434,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 1,
-          "rating": 6.4,
+          "rating": 6.7,
           "night": {
             "place_id": "FI::savonlinna",
             "coords": [
@@ -1484,7 +1490,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 1,
-          "rating": 6.4,
+          "rating": 6.7,
           "night": {
             "place_id": "FI::savonlinna",
             "coords": [
@@ -1546,7 +1552,7 @@
           "slice": 1,
           "region_code": "ESAVO",
           "suggested_days": 0.5,
-          "rating": 5.3,
+          "rating": 8.8,
           "night": {
             "place_id": "FI::mikkeli",
             "coords": [
@@ -1711,7 +1717,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 1,
-          "rating": 3.9,
+          "rating": 3.6,
           "night": {
             "place_id": "FI::joensuu",
             "coords": [
@@ -1770,7 +1776,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.5,
-          "rating": 8.7,
+          "rating": 9.4,
           "night": {
             "place_id": "FI::koli",
             "coords": [
@@ -1817,7 +1823,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.5,
-          "rating": 8.7,
+          "rating": 9.4,
           "night": {
             "place_id": "FI::koli",
             "coords": [
@@ -1874,7 +1880,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.3,
-          "rating": 3,
+          "rating": 2.2,
           "night": {
             "place_id": "FI::nurmes",
             "coords": [
@@ -1921,7 +1927,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 0.5,
-          "rating": 3.2,
+          "rating": 2.5,
           "night": {
             "place_id": "FI::lieksa",
             "coords": [
@@ -1979,7 +1985,7 @@
           "slice": 1,
           "region_code": "NKAR",
           "suggested_days": 1,
-          "rating": 3.9,
+          "rating": 3.6,
           "night": {
             "place_id": "FI::joensuu",
             "coords": [
@@ -2149,7 +2155,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 0.5,
-          "rating": 2.9,
+          "rating": 3.4,
           "night": {
             "place_id": "FI::vantaa",
             "coords": [
@@ -2208,7 +2214,7 @@
           "slice": 1,
           "region_code": "SIP",
           "suggested_days": 0.3,
-          "rating": 3.6,
+          "rating": 4.1,
           "night": {
             "place_id": "FI::sipoo",
             "coords": [
@@ -2280,7 +2286,7 @@
           "slice": 1,
           "region_code": "POR",
           "suggested_days": 0.5,
-          "rating": 5.3,
+          "rating": 8.4,
           "night": {
             "place_id": "FI::porvoo",
             "coords": [
@@ -2354,7 +2360,7 @@
           "slice": 1,
           "region_code": "LOV",
           "suggested_days": 0.5,
-          "rating": 5.9,
+          "rating": 6.9,
           "night": {
             "place_id": "FI::kotka",
             "coords": [
@@ -2417,7 +2423,7 @@
           "slice": 1,
           "region_code": "KOT",
           "suggested_days": 0.5,
-          "rating": 5.9,
+          "rating": 6.9,
           "night": {
             "place_id": "FI::kotka",
             "coords": [
@@ -2489,7 +2495,7 @@
           "slice": 1,
           "region_code": "HAM",
           "suggested_days": 0.3,
-          "rating": 5.6,
+          "rating": 6.4,
           "night": {
             "place_id": "FI::kouvola",
             "coords": [
@@ -2543,7 +2549,7 @@
           "slice": 1,
           "region_code": "KOU",
           "suggested_days": 0.3,
-          "rating": 5.6,
+          "rating": 6.4,
           "night": {
             "place_id": "FI::kouvola",
             "coords": [
@@ -2725,7 +2731,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -2782,7 +2788,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -2845,7 +2851,7 @@
           "slice": 1,
           "region_code": "PIR",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -2899,11 +2905,12 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 705,
-            "drive_min": 240,
+            "distance_km": 720,
+            "drive_min": 260,
             "transport_mode": "flight",
-            "road_type": "avión",
-            "method": "vol-calcule"
+            "road_type": "Vuelo Finnair Helsinki-Rovaniemi",
+            "method": "corrige-audit",
+            "justification": "Le type de route disait avion et 830 km de route en un jour ne sont pas réalistes : vol Finnair Helsinki-Rovaniemi, environ 720 km en une heure vingt."
           },
           "stay_at": "FI::helsinki",
           "stay_nights": 1
@@ -2913,7 +2920,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -2969,7 +2976,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -3024,7 +3031,7 @@
           "slice": 1,
           "region_code": "LAP",
           "suggested_days": 1.5,
-          "rating": 7.9,
+          "rating": 7.7,
           "night": {
             "place_id": "FI::rovaniemi",
             "coords": [
@@ -3076,7 +3083,7 @@
           "slice": 1,
           "region_code": "UUS",
           "suggested_days": 2,
-          "rating": 9,
+          "rating": 9.9,
           "night": {
             "place_id": "FI::helsinki",
             "coords": [
@@ -3248,7 +3255,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 1.5,
-          "rating": 5.3,
+          "rating": 4.4,
           "night": {
             "place_id": "FI::turku",
             "coords": [
@@ -3265,7 +3272,7 @@
           },
           "visits": [
             {
-              "text": "Comience por el Castillo de Turku, el edificio medieval mejor conservado de Finlandia, cuya construcción comenzó alrededor de 1280 en la desembocadura del río Aura. Su apogeo ocurrió entre 1556 y 1563, cuando el duque Juan de Finlandia instaló allí una corte renacentista de 600 personas junto a su esposa polaca Catalina Jagellón. Ella trajo en su dote joyas, terciopelo, tapices y tenedores, entonces prácticamente desconocidos en Finlandia. Su hermano mayor, el rey Erik, no toleraba este esplendor: asedió el castillo, encarceló a Juan y Catalina durante tres años, hasta que un golpe de Estado invirtió los roles. Reserve al menos 2 horas: las salas renacentistas, la capilla y los patios interiores son un auténtico escenario de novela histórica.",
+              "text": "Comience por el Castillo de Turku, el edificio medieval mejor conservado de Finlandia, cuya construcción comenzó alrededor de 1280 en la desembocadura del río Aura. Su apogeo ocurrió entre 1556 y 1563, cuando el duque Juan de Finlandia instaló allí una corte renacentista de 600 personas junto a su esposa polaca Catalina Jagellón. Ella trajo consigo joyas, terciopelo, tapices y tenedores, entonces prácticamente desconocidos en Finlandia. Su hermano mayor, el rey Erik, no toleraba este esplendor: asedió el castillo, encarceló a Juan y Catalina durante tres años, hasta que un golpe de Estado invirtió los roles. Reserve al menos 2 horas: las salas renacentistas, la capilla y los patios interiores son un auténtico escenario de novela histórica.",
               "place_id": "",
               "visit_duration_min": 120
             },
@@ -3295,7 +3302,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 1.5,
-          "rating": 5.3,
+          "rating": 4.4,
           "night": {
             "place_id": "FI::turku",
             "coords": [
@@ -3317,7 +3324,7 @@
               "visit_duration_min": 60
             },
             {
-              "text": "Moominworld está en la isla de Kailo, conectada al centro de Naantali por un puente peatonal. Tove Jansson recibió la primera llave del parque el día de su inauguración en 1993. Ella creó los Moomins en 1945 durante la Segunda Guerra Mundial como antídoto contra la ansiedad. Aquí no hay montañas rusas: entre en el escenario de los libros: la Casa Moomin, el campamento de Snufkin en el bosque, el taller de Snork. Ideal con niños, pero los fans de Jansson de cualquier edad encuentran algo suyo. Reserve en línea: el parque solo abre en verano y los horarios se cierran rápidamente.",
+              "text": "Moominworld está en la isla de Kailo, conectada al centro de Naantali por un puente peatonal. Tove Jansson recibió la primera llave del parque el día de su inauguración en 1993. Ella creó los Moomins en 1945 durante la Segunda Guerra Mundial como antídoto contra la ansiedad. Aquí no hay montañas rusas: entre en el escenario de los libros: la Casa Moomin, el campamento de Snufkin en el bosque, el taller de Snork. Ideal con niños, pero los fans de Jansson de cualquier edad encuentran algo suyo. Reserve en línea: el parque solo abre en verano y las plazas se agotan rápido.",
               "place_id": "",
               "visit_duration_min": 180
             }
@@ -3344,7 +3351,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 0.3,
-          "rating": 3.4,
+          "rating": 2.8,
           "night": {
             "place_id": "FI::pargas",
             "coords": [
@@ -3361,12 +3368,12 @@
           },
           "visits": [
             {
-              "text": "Pargas (Parainen en finlandés) es su primer salto al archipiélago. En el centro del pueblo, la iglesia medieval de piedra gris del siglo XIV convive con casas de madera coloreadas típicas de pueblos costeros finlandés-suecos. A diez minutos a pie, no pierda la cantera de caliza de Pargas: una fosa de 150 metros de profundidad sobre 70 hectáreas en explotación desde el siglo XII, visible desde un mirador gratuito. Completamente desconocida para los turistas, completamente impactante.",
+              "text": "Pargas (Parainen en finlandés) es su primer salto al archipiélago. En el centro del pueblo, la iglesia medieval de piedra gris del siglo XIV convive con casas de madera coloreadas típicas de pueblos costeros fino-suecos. A diez minutos a pie, no pierda la cantera de caliza de Pargas: una fosa de 150 metros de profundidad sobre 70 hectáreas en explotación desde el siglo XII, visible desde un mirador gratuito. Completamente desconocida para los turistas, completamente impactante.",
               "place_id": "",
               "visit_duration_min": 75
             },
             {
-              "text": "Nagu (Nauvo) es la marina que los finlandeses llaman con autodesprecio la 'Riviera del archipiélago': pinos retorcidos en lugar de palmeras, pero una auténtica atmósfera veraniega con veleros de lujo, terrazas y agua azul. La antigua iglesia de piedra del siglo XIV merece cinco minutos de parada antes de continuar. Si está allí al atardecer, quédese a cenar en el puerto: la atmósfera es única.",
+              "text": "Nagu (Nauvo) es el puerto deportivo que los finlandeses apodan con autoironía la «Riviera del archipiélago» - pinos retorcidos en lugar de palmeras, pero un auténtico ambiente veraniego con veleros de lujo, terrazas y agua azul. Cuente unos 34 km desde Pargas, 45 minutos de carretera con la travesía en ferry incluida. La antigua iglesia de piedra del siglo XIV merece una parada de cinco minutos antes de continuar. Si está allí por la tarde, quédese a cenar en el puerto: el ambiente es único.",
               "place_id": "",
               "visit_duration_min": 60
             }
@@ -3397,7 +3404,7 @@
           "slice": 1,
           "region_code": "VAR",
           "suggested_days": 1.5,
-          "rating": 5.3,
+          "rating": 4.4,
           "night": {
             "place_id": "FI::turku",
             "coords": [
@@ -3414,34 +3421,35 @@
           },
           "visits": [
             {
-              "text": "El Viejo Rauma es el conjunto más grande de casas de madera de los países nórdicos: 600 edificios en 29 hectáreas, declarado UNESCO en 1991. No espere un museo congelado: 800 personas viven aquí, rodeadas de tiendas, cafés y talleres de artesanos. Las fachadas neorrenacentistas multicolores datan del período de prosperidad marítima de finales del siglo XIX, cuando en 1897 Rauma poseía la flota a vela más grande de Finlandia con 57 buques. Busque la calle Kitukränn: con 2 metros de ancho, es la más estrecha de Finlandia.",
+              "text": "Rauma está a unos 92 km de Turku, 1 hora 10 de carretera. El Viejo Rauma es el mayor conjunto de casas de madera de los países nórdicos - 600 edificios en 29 hectáreas, declarado Patrimonio de la UNESCO en 1991. No espere un museo congelado: 800 personas viven aquí, rodeadas de tiendas, cafés y talleres de artesanos. Las fachadas neorrenacentistas multicolores datan del periodo de prosperidad marítima de finales del siglo XIX - en 1897, Rauma poseía la mayor flota de vela de Finlandia con 57 barcos. Busque la calle Kitukränn: con 2 metros de ancho, es la más estrecha de Finlandia.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
-              "text": "El antiguo ayuntamiento de 1776 en la plaza del mercado, uno de los dos únicos conservados de esa época en Finlandia junto al de Porvoo, alberga el Museo de Rauma con su colección sobre encaje de bolillos: la tradición que dio a Rauma su apodo de 'ciudad del encaje' desde el siglo XVIII. Si está aquí a finales de julio, la Semana del Encaje (Pitsiviikko) transforma el pueblo antiguo en un festival con mercados de artesanos de toda Europa y la espectacular Noche del Encaje Negro.",
+              "text": "El antiguo ayuntamiento de 1776 en la plaza del mercado, uno de los dos únicos conservados de esa época en Finlandia junto al de Porvoo, alberga el Museo de Rauma con su colección sobre encaje de bolillos: la tradición que dio a Rauma su apodo de «ciudad del encaje» desde el siglo XVIII. Si está aquí a finales de julio, la Semana del Encaje (Pitsiviikko) transforma el pueblo antiguo en un festival con mercados de artesanos de toda Europa y la espectacular Noche del Encaje Negro.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "A 20 km de Rauma, el sitio de Sammallahdenmäki es el segundo sitio UNESCO de la ciudad: 36 túmulos funerarios de la Edad de Bronce que datan de 1500 a 500 antes de nuestra era, esparcidos en un páramo de pinos con senderos señalizados. El túmulo más grande, Kiukkuharju, mide 24 metros de largo. Es tranquilo, acceso libre y casi siempre desierto: uno de los sitios más silenciosos de Finlandia.",
+              "text": "A 20 km de Rauma, el sitio de Sammallahdenmäki es el segundo sitio UNESCO de la ciudad - 36 cairns funerarios de la Edad del Bronce que datan de 1500 a 500 antes de nuestra era, dispersos en un páramo de pinos con senderos señalizados. Desde Turku, cuente con una excursión de ida y vuelta en el día, para combinar con la visita a Rauma. Es tranquilo, de acceso libre y casi siempre desierto.",
               "place_id": "",
               "visit_duration_min": 75
             }
           ],
           "activities": [
             {
-              "text": "Instálese en el mercado de la plaza central del Viejo Rauma: frutas, verduras, pescados ahumados y artesanía local por la mañana. El café Sali en la plaza sirve sándwiches creativos y le ofrece una vista perfecta del ir y venir del barrio. Es el mejor lugar para comprender por qué Rauma es un 'museo viviente' y no una vitrina vacía.",
+              "text": "Instálese en el mercado de la plaza central del Viejo Rauma: frutas, verduras, pescados ahumados y artesanía local por la mañana. El café Sali en la plaza sirve sándwiches creativos y le ofrece una vista perfecta del ir y venir del barrio. Es el mejor lugar para comprender por qué Rauma es un «museo viviente» y no una vitrina vacía.",
               "place_id": "",
               "activity_duration_min": 60
             }
           ],
           "to_next_leg": {
-            "distance_km": 160,
+            "distance_km": 165,
             "drive_min": 450,
             "transport_mode": "ferry",
-            "road_type": "ferry",
-            "method": "corrige-audit"
+            "road_type": "Ferry Viking Line Turku-Mariehamn por el archipiélago",
+            "method": "corrige-audit",
+            "justification": "Trajet absent : Åland se rejoint en ferry, Viking Line de Turku à Mariehamn à travers l archipel, environ 165 km en cinq heures et demie de navigation."
           },
           "stay_at": "FI::turku",
           "stay_nights": 1
@@ -3451,7 +3459,7 @@
           "slice": 1,
           "region_code": "ALD",
           "suggested_days": 0.5,
-          "rating": 5.4,
+          "rating": 4.7,
           "night": {
             "place_id": "FI::mariehamn",
             "coords": [
@@ -3468,17 +3476,17 @@
           },
           "visits": [
             {
-              "text": "El Pommern es el primer choque visual de Mariehamn: un barco velero de cuatro mástiles de 96 metros construido en 1903, el velero carguero mejor conservado del mundo. Suba a bordo y explore libremente: camarotes de la tripulación, bodega, cubierta y mástiles. Este navío doblaba el Cabo de Hornos para entregar grano entre Australia y Europa; algunas travesías duraban cuatro meses. Al lado, el Museo Marítimo de Åland narra tres siglos de tradición marítima en tres plantas con exposiciones interactivas.",
+              "text": "El Pommern es el primer impacto de Mariehamn - una barca de cuatro palos de 96 metros construida en 1903, el velero de carga mejor conservado del mundo. Suba a bordo y explore libremente: camarotes de la tripulación, bodega y cubierta. Este barco dobló el cabo de Hornos para transportar grano entre Australia y Europa - algunas travesías duraban cuatro meses. Al lado, el Museo Marítimo de Åland recorre tres siglos de tradición marítima en tres plantas con exposiciones interactivas.",
               "place_id": "",
               "visit_duration_min": 90
             },
             {
-              "text": "Camine por Torggatan, la calle principal de Mariehamn, y entre al parlamento de Åland: región autónoma de Finlandia desde 1922, desmilitarizada, suecohablante, con su propio parlamento, sus propios sellos y su propia bandera. Mariehamn fue fundada en 1861 por el zar Alejandro II, quien la nombró en honor a su esposa. En verano se ofrecen visitas guiadas del parlamento.",
+              "text": "Camine por Torggatan, la calle principal de Mariehamn, y entre al parlamento de Åland: región autónoma de Finlandia desde 1922, desmilitarizada, de habla sueca, con su propio parlamento, sus propios sellos y su propia bandera. Mariehamn fue fundada en 1861 por el zar Alejandro II, quien la nombró en honor a su esposa. En verano se ofrecen visitas guiadas del parlamento.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "En el Museo de Åland, no pierda la exposición sobre la 'Champagnegaleas': en 2010, buzos descubrieron en aguas de Åland un navio hundido que contenía 168 botellas de champagne de 1840, el champagne más antiguo jamás encontrado en el mundo. Algunas botellas seguían siendo efervescentes al abrirse.",
+              "text": "En el Museo de Åland, no se pierda las botellas de champán expuestas - en 2010, unos buzos descubrieron en aguas de Åland un pecio con 168 botellas de champán de 1840. Algunas botellas aún tenían burbujas al abrirlas.",
               "place_id": "",
               "visit_duration_min": 75
             }
@@ -3502,7 +3510,7 @@
           "slice": 1,
           "region_code": "ALD",
           "suggested_days": 0.5,
-          "rating": 5.4,
+          "rating": 4.7,
           "night": {
             "place_id": "FI::mariehamn",
             "coords": [
@@ -3518,24 +3526,24 @@
           },
           "visits": [
             {
-              "text": "Kastelholm, a 25 km al noreste de Mariehamn, es el único castillo medieval de Åland. Construido a finales del siglo XIV para controlar la ruta comercial entre Estocolmo y Turku, acogió a reyes suecos como Gustaf Vasa, fue escenario de juicios por brujería en los años 1660, se quemó en 1745 y sirvió como cantera a los agricultores locales en los años 1930. Restaurado entre 1982 y 1989, abre de mayo a mediados de septiembre con visitas guiadas. En julio, un festival medieval con justas y artesanos se celebra allí: verifique las fechas si pasa por esa época.",
+              "text": "Kastelholm, a 25 km al noreste de Mariehamn, es el único castillo medieval de Åland. Construido a finales del siglo XIV para controlar la ruta comercial entre Estocolmo y Turku, acogió a reyes suecos como Gustaf Vasa, fue escenario de juicios por brujería en los años 1660, se quemó en 1745 y sirvió de cantera para los agricultores locales en los años 1930. Restaurado entre 1982 y 1989, abre de mayo a mediados de septiembre con visitas guiadas. En julio se celebra allí un festival medieval con justas y artesanos: verifique las fechas si pasa por esa época.",
               "place_id": "",
               "visit_duration_min": 75
             },
             {
-              "text": "El museo al aire libre Jan Karlsgården colinda con el castillo: una veintena de edificios agrícolas del siglo XIX trasladados de diferentes partes del archipiélago: molinos de viento, graneros, fragua, sauna. Si está aquí un miércoles de julio, demostraciones de artesanía tienen lugar en el sitio. Desde los años 1940, el mástil de San Juan se levanta allí cada solsticio de verano.",
+              "text": "El museo al aire libre Jan Karlsgården colinda con el castillo: una veintena de edificios agrícolas del siglo XIX trasladados de diferentes partes del archipiélago: molinos de viento, graneros, fragua, sauna. Si está aquí un miércoles de julio, se organizan demostraciones de artesanía en el lugar. Desde los años 1940, el mástil de San Juan se levanta allí cada solsticio de verano.",
               "place_id": "",
               "visit_duration_min": 60
             },
             {
-              "text": "Las ruinas de Bomarsund están a pocos kilómetros: lo que queda de una gigantesca fortaleza naval rusa construida para albergar 2.000 soldados, destruida en 1854 por las fuerzas franco-británicas durante la Guerra de Crimea. Los bloques de granito hexagonal tallados salpican el sitio en un paisaje de bosque y fiordo. Acceso libre, prácticamente siempre desierto. Es uno de los lugares más extraños de Åland.",
+              "text": "Las ruinas de Bomarsund están a pocos kilómetros del castillo, a unos 32 km de Mariehamn, 25 minutos de carretera - lo que queda de una gigantesca fortaleza naval rusa construida para albergar a 2.000 soldados, destruida en 1854 por las fuerzas franco-británicas durante la guerra de Crimea. Los bloques de granito hexagonal tallado salpican el lugar en un paisaje de bosque y fiordo. Acceso libre, prácticamente siempre desierto.",
               "place_id": "",
               "visit_duration_min": 60
             }
           ],
           "activities": [
             {
-              "text": "Åland es paradisíaco en bicicleta: terreno plano, carreteras tranquilas, ferries gratuitos entre islas. Los alquiladores de Mariehamn ofrecen salidas de día completo. Si solo tiene un día, la Ruta Postal Real hacia Eckerö al oeste (aproximadamente 40 km ida y vuelta) bordea el mar abierto y pasa por la antigua Casa de Postas construida por Engel. Prefiera la mañana: la luz rasante sobre el mar es particularmente hermosa.",
+              "text": "Åland es un paraíso en bicicleta - terreno llano, carreteras tranquilas, ferries gratuitos entre islas. Las empresas de alquiler de Mariehamn ofrecen salidas de un día. Si solo dispone de un día, la Ruta Postal Real hacia Eckerö al oeste (unos 65 km ida y vuelta) bordea el mar abierto y pasa por la antigua Casa de Correos construida por Engel. Prefiera la mañana: la luz rasante sobre el mar es especialmente bella.",
               "place_id": "",
               "activity_duration_min": 240,
               "practical_info": {
@@ -3552,7 +3560,7 @@
           "slice": 1,
           "region_code": "ALD",
           "suggested_days": 0.5,
-          "rating": 5.4,
+          "rating": 4.7,
           "night": {
             "place_id": "FI::mariehamn",
             "coords": [
@@ -3567,14 +3575,14 @@
           },
           "visits": [
             {
-              "text": "La Casa de Postas y Aduanas de Eckerö, en el extremo occidental de la isla principal, es el edificio más imponente de Åland: construido en estilo Imperio amarillo en 1828 por C. L. Engel, el mismo arquitecto que diseñó la Plaza del Senado de Helsinki. Aquí es donde durante siglos los correos y viajeros se embarcaban para la travesía hacia Suecia. En mal tiempo, esta travesía del Mar Báltico podía ser mortal: el edificio de Engel recuerda que incluso los imperios se organizan alrededor de sus rutas más peligrosas.",
+              "text": "La Casa de Correos y Aduanas de Eckerö, en el extremo oeste de la isla principal, a unos 35 km de Mariehamn, 30 minutos de carretera, es un edificio imponente - construido en estilo Imperio amarillo en 1828 por C. L. Engel, el mismo arquitecto que diseñó la plaza del Senado de Helsinki. Fue aquí donde durante siglos los correos y viajeros embarcaban para la travesía hacia Suecia. Con mal tiempo, esta travesía del mar Báltico podía ser mortal - el edificio de Engel recuerda que incluso los imperios se organizan en torno a sus rutas más peligrosas.",
               "place_id": "",
               "visit_duration_min": 45
             }
           ],
           "activities": [
             {
-              "text": "La playa de Degersand en Eckerö, a 11 km del puerto del ferry, es una de las playas de arena más hermosas de Finlandia: agua poco profunda durante decenas de metros, paisaje de pinos y rocas rojas. En bicicleta desde Mariehamn, cuente 30 a 40 minutos. Evite los fines de semana de julio cuando puede estar abarrotada.",
+              "text": "La playa de Degersand en Eckerö, a 11 km del puerto de la compañía de ferry, es una de las playas de arena más bonitas de Finlandia - agua poco profunda a lo largo de decenas de metros, paisaje de pinos y rocas rojas. Desde Mariehamn, cuente unos 30 km, 30 minutos de carretera. Evite los fines de semana de julio, cuando puede estar abarrotada.",
               "place_id": "",
               "activity_duration_min": 120
             },
@@ -3641,11 +3649,11 @@
       },
       "seo": {
         "h1_title": "Finlandia Sudoccidental: Turku, Archipiélago y Åland",
-        "intro_paragraph": "El Castillo de Turku vigila la desembocadura del río Aura desde 1280: allí fue donde el duque Juan y su esposa polaca Catalina introdujeron los tenedores en Finlandia en el siglo XVI. En Rauma, 600 casas de madera forman el conjunto UNESCO más grande de este tipo en los países nórdicos. Y al cabo del ferry desde Turku, Mariehamn: la única capital del mundo fundada por un zar ruso, con su propio parlamento y sus propios sellos.",
+        "intro_paragraph": "El castillo de Turku custodia la desembocadura del río Aura desde 1280 - fue allí donde el duque Juan y su esposa polaca Catalina introdujeron los tenedores en Finlandia en el siglo XVI. En Rauma, 600 casas de madera forman el mayor conjunto UNESCO de este tipo en los países nórdicos. Y al final del ferry desde Turku, Mariehamn - una capital fundada por un zar ruso, con su propio parlamento y sus propios sellos.",
         "seo_hook": "Castillo medieval de Turku, 600 casas de madera UNESCO en Rauma y el archipiélago de Åland: sudoeste finlandés entre patrimonio e islas bálticas.",
         "featured_list": [
           "Turku: castillo medieval más grande de Finlandia, escena de traiciones reales",
-          "Rauma: conjunto más grande de casas de madera de los países nórdicos, declarada UNESCO",
+          "Rauma: conjunto más grande de casas de madera de los países nórdicos, declarado UNESCO",
           "Ruta del Archipiélago: ferries gratuitos entre 20.000 islas",
           "Åland: territorio autónomo entre Finlandia y Suecia, con su propio parlamento"
         ],
@@ -3672,7 +3680,7 @@
         ],
         "highlights": [
           "Castillo de Turku, edificio medieval más grande conservado de Finlandia",
-          "Viejo Rauma, ciudad de madera más grande de países nórdicos declarada UNESCO",
+          "Viejo Rauma, ciudad de madera más grande de los países nórdicos declarada UNESCO",
           "Ruta del Archipiélago con ferries gratuitos entre islas",
           "Pommern, velero carguero mejor conservado del mundo, en Mariehamn"
         ]

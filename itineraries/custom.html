@@ -169,7 +169,7 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 <button class="btm" id="backToMap" onclick="showMapAgain()"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>Back to map</button>
 <footer id="footer-legal"></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-<script src="/js/ort-routing.js?v=1789377909796" defer></script>
+<script src="/js/ort-routing.js?v=1789671215786" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
@@ -251,11 +251,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1789377909796"></script>
-<script src="/js/ort-i18n-socle.js?v=1789377909796"></script>
-<script src="/js/ort-i18n-auth.js?v=1789377909796"></script>
-<script src="/js/ort-header.js?v=1789377909796"></script>
-<script src="/js/ort-footer.js?v=1789377909796"></script>
+<script src="/js/ort-config.js?v=1789671215786"></script>
+<script src="/js/ort-i18n-socle.js?v=1789671215786"></script>
+<script src="/js/ort-i18n-auth.js?v=1789671215786"></script>
+<script src="/js/ort-header.js?v=1789671215786"></script>
+<script src="/js/ort-footer.js?v=1789671215786"></script>
 <script>
 (function(){
   var langUrls={};
@@ -284,8 +284,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1789377909796" defer></script>
-<script src="/js/ort-state-manager.js?v=1789377909796" defer></script>
+<script src="/js/ort-itin-editor.js?v=1789671215786" defer></script>
+<script src="/js/ort-state-manager.js?v=1789671215786" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
@@ -349,9 +349,9 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
             Promise.all([_pPlaces,_pPhotos]).then(function(){
             var _UI={fr:{step:'\u00c9tape',activities:'Activit\u00e9s',driveToNext:'Vers l\'\u00e9tape suivante'},en:{step:'Stop',activities:'Activities',driveToNext:'Drive to next stop'},es:{step:'Etapa',activities:'Actividades',driveToNext:'Trayecto siguiente'},pt:{step:'Etapa',activities:'Atividades',driveToNext:'Trajeto seguinte'},it:{step:'Tappa',activities:'Attivit\u00e0',driveToNext:'Tragitto successivo'},ar:{step:'\u0645\u062d\u0637\u0629',activities:'\u0623\u0646\u0634\u0637\u0629',driveToNext:'\u0627\u0644\u0637\u0631\u064a\u0642 \u0627\u0644\u062a\u0627\u0644\u064a'},nl:{step:'Stop',activities:'Activiteiten',driveToNext:'Naar de volgende stop'},de:{step:'Etappe',activities:'Aktivit\u00e4ten',driveToNext:'Zur n\u00e4chsten Etappe'}};
             var _t=_UI[LANG]||_UI.en;
-            var _ST={"n":"Suggested nights:","b":"Suggested base","s":"Same base as the day before","f":"Hotel here","p":"nights","h":"Sleep here","k":"km"};
+            var _ST={"n":"Suggested nights:","b":"Suggested base","s":"Same base as the day before","f":"Hotel here","p":"nights","h":"Sleep in {x}","k":"km"};
             function _stayKm2(a,b){if(!a||!b)return null;var R=6371,r=Math.PI/180;var dLa=(b[0]-a[0])*r,dLo=(b[1]-a[1])*r;var x=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dLo/2)*Math.sin(dLo/2);return Math.round(R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)));}
-            function _stayLine(step,dayNum,stps){if(!step||step.stay_nights===undefined||step.stay_nights===null)return '';var sn=parseInt(step.stay_nights,10)||0;var sa=step.stay_at||'';var pid=step.place_id||step.placeId||'';var base=null;for(var i=0;i<stps.length;i++){if(sa&&(stps[i].place_id||stps[i].placeId)===sa){base=stps[i];break;}}var bn=base?(base.name||''):'';if(!bn&&sa){bn=String(sa).split('::').pop().replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}var km=null;if(sa&&sa!==pid&&base){var bc=[base.lat||0,base.lng||base.lon||0],sc=[step.lat||0,step.lng||step.lon||0];if(bc[0]&&bc[1]&&sc[0]&&sc[1])km=_stayKm2(sc,bc);}var opts='';for(var o=0;o<=7;o++){opts+='<option value="'+o+'"'+(o===sn?' selected':'')+'>'+o+'</option>';}var baseTxt='';if(bn){baseTxt='<span class="stay-base"'+(sn>0?' hidden':'')+'>\ud83d\udecf\ufe0f '+_esc(_ST.b)+' : <b>'+_esc(bn)+'</b>'+(km!==null?' \u00b7 '+km+' '+_esc(_ST.k):'')+' <button type="button" class="stay-here" onclick="ortStayHere('+dayNum+')">'+_esc(_ST.h)+'</button></span>';}return '<div class="stay-line'+(sn>0?' is-base':'')+'" id="stay-'+dayNum+'" data-day="'+dayNum+'" data-base="'+_esc(sa)+'" onclick="event.stopPropagation()"><label>'+_esc(_ST.n)+' <select class="stay-sel" onchange="ortStaySet('+dayNum+',this.value)">'+opts+'</select></label>'+baseTxt+'</div>';}
+            function _stayLine(step,dayNum,stps){if(!step||step.stay_nights===undefined||step.stay_nights===null)return '';var sn=parseInt(step.stay_nights,10)||0;var sa=step.stay_at||'';var pid=step.place_id||step.placeId||'';var base=null;for(var i=0;i<stps.length;i++){if(sa&&(stps[i].place_id||stps[i].placeId)===sa){base=stps[i];break;}}var bn=base?(base.name||''):'';if(!bn&&sa){bn=String(sa).split('::').pop().replace(/[-_]/g,' ').replace(/\b\w/g,function(c){return c.toUpperCase();});}var km=null;if(sa&&sa!==pid&&base){var bc=[base.lat||0,base.lng||base.lon||0],sc=[step.lat||0,step.lng||step.lon||0];if(bc[0]&&bc[1]&&sc[0]&&sc[1])km=_stayKm2(sc,bc);}var opts='';for(var o=0;o<=7;o++){opts+='<option value="'+o+'"'+(o===sn?' selected':'')+'>'+o+'</option>';}var baseTxt='';if(bn){baseTxt='<span class="stay-base"'+(sn>0?' hidden':'')+'>\ud83d\udecf\ufe0f '+_esc(_ST.b)+' : <b>'+_esc(bn)+'</b>'+(km!==null?' \u00b7 '+km+' '+_esc(_ST.k):'')+' <button type="button" class="stay-here" onclick="ortStayHere('+dayNum+')">'+_esc(String(_ST.h||'').replace('{x}',step.name||''))+'</button></span>';}return '<div class="stay-line'+(sn>0?' is-base':'')+'" id="stay-'+dayNum+'" data-day="'+dayNum+'" data-base="'+_esc(sa)+'" onclick="event.stopPropagation()"><label>'+_esc(_ST.n)+' <select class="stay-sel" onchange="ortStaySet('+dayNum+',this.value)">'+opts+'</select></label>'+baseTxt+'</div>';}
             function _esc(s){return s?String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'):'';}
             function _stars(r){if(!r||r<=0)return'';var n=Math.round(r/2);if(n<1)n=1;if(n>5)n=5;return'\u2605'.repeat(n)+'\u2606'.repeat(5-n);}
             function _drvT(m){if(!m)return'';var h=Math.floor(m/60),mn=m%60;return h>0?(mn>0?h+'h'+String(mn).padStart(2,'0'):h+'h'):mn+'min';}
