@@ -3067,10 +3067,9 @@ function initMap() {
   });
 
   // Utiliser CartoDB Positron pour avoir les noms en anglais/latin
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    attribution: '© OpenStreetMap contributors, © CARTO',
-    maxZoom: 19,
-    subdomains: 'abcd'
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors',
+    maxZoom: 19
   }).addTo(map);
 
   // Le décalage des tracés qui se chevauchent est calculé en pixels :

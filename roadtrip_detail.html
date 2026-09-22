@@ -6246,6 +6246,7 @@ async function initFromItin(it){
   state._originalClimate = it.climate || null;
   state._originalSeoKeywords = it.seo_keywords || null;
   state._originalPracticalContext = it.practical_context || null;
+  state._originalPacingRules = (it.pacing_rules && typeof it.pacing_rules === 'object') ? it.pacing_rules : null;
   console.log('[LOG-CONTROLE][INIT] 📦 Métadonnées stockées:', state._originalSeo ? 'SEO ✓' : 'SEO ✗', state._originalMeta ? 'meta ✓' : 'meta ✗', state._originalPracticalContext ? 'practical_context ✓' : '');
   
   // Afficher le practical_context si présent
@@ -8135,9 +8136,9 @@ map=L.map('map', {
       console.log('Langue carte:',userLang);
       
          // Cartodb Voyager : meilleur multilingue gratuit avec noms en anglais
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{
-        maxZoom:20,
-        attribution:'© CARTO © OpenStreetMap'
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+        maxZoom:19,
+        attribution:'© OpenStreetMap'
       }).addTo(map);
       
       map.on('click',async e=>{
@@ -10518,9 +10519,11 @@ window.initSaveSourceButton = function(){
     const days_plan = state.steps.map((s, i) => ({
       day: i + 1,
       slice: 1,
-      place_id: s.place_id || '',
-      // suggested_days = nuits actuelles (reflète les modifications utilisateur)
-      suggested_days: s.nights || s._suggestedDays || 1,
+      // (pas de place_id au niveau du jour : il vit dans night.place_id, le
+      // doublon ecrit ici jusqu a present etait perdu a chaque import Excel)
+      // suggested_days = la duree de visite du fichier, jamais ecrasee par les
+      // nuits : celles-ci ont leur propre champ (stay_nights) plus bas.
+      suggested_days: (s._suggestedDays !== undefined && s._suggestedDays !== null && s._suggestedDays !== '') ? s._suggestedDays : (s.nights || 1),
       rating: s.rating || 0,
       region_code: s.region_code || '',
       // Nuits conseillees : ne jamais les perdre au save, le champ absent est
@@ -10580,7 +10583,9 @@ window.initSaveSourceButton = function(){
       estimated_days_base: estimatedDays,
       source_url: state._originalSourceUrl || null,
       created_at: state._originalCreatedAt || new Date().toISOString(),
-      pacing_rules: {
+      // Les regles d allure du fichier font foi ; les valeurs fixes ne servent
+      // qu a un itineraire qui n en avait pas.
+      pacing_rules: state._originalPacingRules || {
         factors: { slow: 1.25, standard: 1.0, fast: 0.75 },
         merge_threshold: 0.85
       },
@@ -10926,6 +10931,7 @@ if(itinsObj){
         if (toUse.climate) state._originalClimate = toUse.climate;
         if (toUse.seo_keywords) state._originalSeoKeywords = toUse.seo_keywords;
         if (toUse.practical_context) state._originalPracticalContext = toUse.practical_context;
+        if (toUse.pacing_rules && typeof toUse.pacing_rules === 'object') state._originalPacingRules = toUse.pacing_rules;
         // Champs enrichis supplémentaires (v3.3)
         if (toUse.essential_tips) state._originalEssentialTips = toUse.essential_tips;
         if (toUse.summary) state._originalSummary = toUse.summary;

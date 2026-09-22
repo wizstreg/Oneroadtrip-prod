@@ -201,6 +201,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -6429,8 +6430,8 @@ function initMap() {
   
   map = L.map('map', { zoomControl: true, attributionControl: false });
   window.map = map; // exposé pour ort-itin-editor (bridge)
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-    maxZoom: 19, subdomains: 'abcd'
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19, attribution: '© OpenStreetMap'
   }).addTo(map);
   
   renderMarkers();
