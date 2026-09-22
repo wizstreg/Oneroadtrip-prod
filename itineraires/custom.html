@@ -169,7 +169,7 @@ header.ort-hdr .auth-pop .btn.out{background:#fff;color:var(--pd);border:1px sol
 <button class="btm" id="backToMap" onclick="showMapAgain()"><svg viewBox="0 0 24 24"><path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z"/></svg>Voir la carte</button>
 <footer id="footer-legal"></footer>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-<script src="/js/ort-routing.js?v=1790069739816" defer></script>
+<script src="/js/ort-routing.js?v=1790096343167" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
@@ -204,7 +204,7 @@ function ortClearRoute(){ortRouteLayers.forEach(function(l){try{map.removeLayer(
 function ortDrawLoopRoute(ll,names){ortClearRoute();ortLastLL=ll;ortLastNames=names;var groups=ortLoopGroups(names);ortRenderLoopLegend(names);ortApplyTextFilter(names);var _nl=0,_gi;for(_gi=0;_gi<groups.length;_gi++){if(groups[_gi].loop>=0&&groups[_gi].loop+1>_nl)_nl=groups[_gi].loop+1;}function _col(l){return _nl<2?ORT_LOOP_COLORS[0]:ortLoopColor(l);}function _vis(g){return ortLoopFilters[g.loop<0?'link':'loop'+g.loop]!==false;}if(typeof calculateOSRMRoute!=='function'){groups.forEach(function(g){if(!_vis(g))return;var seg=ll.slice(g.start,g.end+1);ortRouteLayers.push(L.polyline(seg,{color:_col(g.loop),weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));});return;}
 groups.forEach(function(g){if(!_vis(g))return;var seg=ll.slice(g.start,g.end+1);var col=_col(g.loop);calculateOSRMRoute(seg,'driving').then(function(result){if(result&&result.coordinates&&result.coordinates.length>1){ortRouteLayers.push(L.polyline(result.coordinates,{color:col,weight:4,opacity:.85}).addTo(map));}else{ortRouteLayers.push(L.polyline(seg,{color:col,weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));}}).catch(function(){ortRouteLayers.push(L.polyline(seg,{color:col,weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));});});}
 function iM(){map=L.map('map',{scrollWheelZoom:true,zoomControl:true});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'\u00a9 OSM \u00a9 CARTO',maxZoom:19}).addTo(map);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'\u00a9 OSM \u00a9 CARTO',maxZoom:19}).addTo(map);
 map.setView([20,0],2);
 }
 var initBd=null;
@@ -251,11 +251,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1790069739816"></script>
-<script src="/js/ort-i18n-socle.js?v=1790069739816"></script>
-<script src="/js/ort-i18n-auth.js?v=1790069739816"></script>
-<script src="/js/ort-header.js?v=1790069739816"></script>
-<script src="/js/ort-footer.js?v=1790069739816"></script>
+<script src="/js/ort-config.js?v=1790096343167"></script>
+<script src="/js/ort-i18n-socle.js?v=1790096343167"></script>
+<script src="/js/ort-i18n-auth.js?v=1790096343167"></script>
+<script src="/js/ort-header.js?v=1790096343167"></script>
+<script src="/js/ort-footer.js?v=1790096343167"></script>
 <script>
 (function(){
   var langUrls={};
@@ -284,8 +284,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1790069739816" defer></script>
-<script src="/js/ort-state-manager.js?v=1790069739816" defer></script>
+<script src="/js/ort-itin-editor.js?v=1790096343167" defer></script>
+<script src="/js/ort-state-manager.js?v=1790096343167" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
