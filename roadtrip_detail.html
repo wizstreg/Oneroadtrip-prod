@@ -267,6 +267,7 @@ function ortDateLocale(){
 </script>
 <title>OneRoadTrip - Détails du roadtrip</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <style>
 :root{--bg:#113f7a;--card:#fff;--ink:#113f7a;--bd:#c3d6b6;--mut:#6b7a99;--danger:#c62828;--ok:#1b5e20}
 *{box-sizing:border-box}
@@ -807,7 +808,7 @@ body.layout-stack #map .map-popup{
 /* Overlays de la carte (en haut à droite) */
 #mapActions{
   position:absolute; top:140px; right:8px; z-index:1000;
-  display:flex; gap:6px;
+  display:flex; gap:6px; align-items:flex-start;
 }
 
 @media (max-width:580px){
@@ -1061,8 +1062,13 @@ body.view-itin-only .group-badge {
 /* Icône réorganisation en mode plein écran (BAS GAUCHE) */
 #reorgFullscreenBtn{
   display:none;
+  box-sizing:border-box;
+  flex:0 0 auto;
+  align-self:flex-start;
   width:auto;
   height:40px;
+  min-height:40px;
+  max-height:40px;
   padding:0 14px;
   white-space:nowrap;
   border-radius:8px;     
@@ -4256,6 +4262,8 @@ if(home){
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js"></script>
 <script src="js/ort-step-common.js"></script>
 <!-- STATE MANAGER -->
 <script src="js/ort-state-manager.js"></script>
@@ -8135,11 +8143,19 @@ map=L.map('map', {
 
       console.log('Langue carte:',userLang);
       
-         // Cartodb Voyager : meilleur multilingue gratuit avec noms en anglais
-      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
-        maxZoom:19,
-        attribution:'© OpenStreetMap'
-      }).addTo(map);
+         // OpenFreeMap Positron : fond épuré, sans clé, sans limite
+      if (typeof L.maplibreGL === 'function') {
+        L.maplibreGL({
+          style: 'https://tiles.openfreemap.org/styles/liberty',
+          attribution: '© OpenStreetMap © OpenFreeMap'
+        }).addTo(map);
+      } else {
+        // Repli si MapLibre indisponible
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+          maxZoom:19,
+          attribution:'© OpenStreetMap'
+        }).addTo(map);
+      }
       
       map.on('click',async e=>{
         if(!mapClickMode)return;
