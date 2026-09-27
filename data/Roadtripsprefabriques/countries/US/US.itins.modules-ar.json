@@ -3315,7 +3315,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 0.5,
-          "rating": 7.4,
+          "rating": 7.5,
           "night": {
             "place_id": "US::carmel-by-the-sea-ca",
             "coords": [
@@ -5184,12 +5184,20 @@
           "slice": 1,
           "region_code": "FL",
           "suggested_days": 0.5,
-          "rating": 5.7,
+          "rating": 6.1,
           "night": {
-            "place_id": "US::napoli-fl",
+            "place_id": "US::naples-fl",
             "coords": [
               26.142,
               -81.7948
+            ],
+            "map_keywords": [
+              "Naples Pier",
+              "Corkscrew Swamp Sanctuary",
+              "Fifth Avenue South Naples",
+              "Naples Botanical Garden",
+              "Sanibel Island shelling",
+              "Gulf Shore Boulevard Naples"
             ]
           },
           "visits": [
@@ -6090,7 +6098,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1.5,
-          "rating": 6.6,
+          "rating": 6.7,
           "night": {
             "place_id": "US::st-petersburg-fl",
             "coords": [
@@ -6204,7 +6212,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 6.3,
+          "rating": 6.4,
           "night": {
             "place_id": "US::sarasota-fl",
             "coords": [
@@ -6261,7 +6269,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 6.1,
+          "rating": 5.4,
           "night": {
             "place_id": "US::fort-myers-fl",
             "coords": [
@@ -6489,7 +6497,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 7.3,
+          "rating": 7.4,
           "night": {
             "place_id": "US::west-palm-beach-fl",
             "coords": [
@@ -6546,7 +6554,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 7.6,
+          "rating": 7.1,
           "night": {
             "place_id": "US::everglades-fl",
             "coords": [
@@ -8152,7 +8160,7 @@
             "drive_min": 260,
             "transport_mode": "flight",
             "road_type": "flight",
-            "method": "qualifie-ia"
+            "method": "heuristic"
           },
           "stay_at": "US::honolulu-hi",
           "stay_nights": 1
@@ -8162,12 +8170,19 @@
           "slice": 1,
           "region_code": "HI",
           "suggested_days": 1,
-          "rating": 7.2,
+          "rating": 6.6,
           "night": {
-            "place_id": "US::lahaina-hi",
+            "place_id": "US::hana-hi",
             "coords": [
-              20.8783,
-              -156.6825
+              20.7564,
+              -155.9869
+            ],
+            "map_keywords": [
+              "Hāna Highway",
+              "Kīpahulu District, Haleakalā National Park",
+              "Pīpīwai Trail",
+              "Waiʻānapanapa State Park",
+              "Wailua Falls, Maui"
             ]
           },
           "visits": [
@@ -8205,7 +8220,15 @@
             }
           ],
           "stay_at": "US::lahaina-hi",
-          "stay_nights": 1
+          "stay_nights": 1,
+          "to_next_leg": {
+            "transport_mode": "car",
+            "distance_km": 123,
+            "drive_min": 210,
+            "road_type": "طريق هانا السريع (360 ثم 36) حتى كاهولوي، ثم الطريقان 380 و30 حتى لاهاينا.",
+            "justification": "Trajet en voiture par la route sinueuse de Hana jusqu'à Kahului, environ 84 km lents, puis environ 39 km par les routes 380 et 30 jusqu'à Lahaina, soit près de trois heures et demie.",
+            "method": "corrige-audit"
+          }
         },
         {
           "day": 4,
@@ -8259,7 +8282,7 @@
             "drive_min": 265,
             "transport_mode": "flight",
             "road_type": "flight",
-            "method": "qualifie-ia"
+            "method": "heuristic"
           },
           "stay_at": "US::lahaina-hi",
           "stay_nights": 1
@@ -8269,12 +8292,21 @@
           "slice": 1,
           "region_code": "HI",
           "suggested_days": 1,
-          "rating": 6.4,
+          "rating": 5.4,
           "night": {
-            "place_id": "US::kailua-kona-hi",
+            "place_id": "US::volcano-hi",
             "coords": [
-              19.64,
-              -155.9969
+              19.4497,
+              -155.2356
+            ],
+            "map_keywords": [
+              "Hawaiʻi Volcanoes National Park",
+              "Nāhuku - Thurston Lava Tube",
+              "Chain of Craters Road",
+              "Uēkahuna",
+              "Kīlauea Iki Trail",
+              "Punaluʻu Black Sand Beach",
+              "Kaʻū Coffee Mill"
             ]
           },
           "visits": [
@@ -8317,7 +8349,15 @@
             }
           ],
           "stay_at": "US::kailua-kona-hi",
-          "stay_nights": 1
+          "stay_nights": 1,
+          "to_next_leg": {
+            "transport_mode": "car",
+            "distance_km": 155,
+            "drive_min": 150,
+            "road_type": "الطريق 11 عبر جنوب الجزيرة مرورًا بباهالا ونااليهو حتى كايلوا-كونا.",
+            "justification": "Trajet en voiture par la route 11 qui contourne le sud de la Grande Île depuis Volcano jusqu'à Kailua-Kona, environ 155 km en deux heures et demie.",
+            "method": "corrige-audit"
+          }
         },
         {
           "day": 6,
@@ -8372,11 +8412,12 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 280,
-            "drive_min": 230,
+            "distance_km": 450,
+            "drive_min": 240,
             "transport_mode": "flight",
-            "road_type": "flight",
-            "method": "corrige-audit"
+            "road_type": "رحلة جوية بين الجزر من مطار كونا إلى مطار ليهوي، مباشرة أو مع توقف في هونولولو.",
+            "method": "corrige-audit",
+            "justification": "Vol entre la Grande Île et Kauai, environ 450 km et une heure en vol direct ; je ne suis pas sûr qu'une ligne directe Kona-Lihue soit opérée toute l'année, le trajet passe souvent par Honolulu et prend alors plus longtemps."
           },
           "stay_at": "US::kailua-kona-hi",
           "stay_nights": 1
@@ -8386,12 +8427,19 @@
           "slice": 1,
           "region_code": "HI",
           "suggested_days": 2,
-          "rating": 8.3,
+          "rating": 5.4,
           "night": {
-            "place_id": "US::honolulu-hi",
+            "place_id": "US::lihue-hi",
             "coords": [
-              21.3099,
-              -157.8581
+              21.9747,
+              -159.3656
+            ],
+            "map_keywords": [
+              "Waimea Canyon",
+              "Nā Pali Coast State Wilderness Park",
+              "Wailua River State Park",
+              "Fern Grotto",
+              "Hanalei Bay"
             ]
           },
           "visits": [
@@ -8780,7 +8828,7 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 0.5,
-          "rating": 5,
+          "rating": 5.1,
           "night": {
             "place_id": "US::abilene-ks",
             "coords": [
@@ -10316,7 +10364,7 @@
           "slice": 1,
           "region_code": "MT",
           "suggested_days": 0.2,
-          "rating": 5.7,
+          "rating": 5.8,
           "night": {
             "place_id": "US::gardiner-mt",
             "coords": [
@@ -12660,7 +12708,7 @@
           "slice": 1,
           "region_code": "NY",
           "suggested_days": 1,
-          "rating": 5.5,
+          "rating": 5.6,
           "night": {
             "place_id": "US::ithaca-ny",
             "coords": [
@@ -13284,8 +13332,8 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 385,
-            "drive_min": 339,
+            "distance_km": 523,
+            "drive_min": 437,
             "transport_mode": "car",
             "road_type": "",
             "method": "osrm"
@@ -13298,12 +13346,18 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 6,
+          "rating": 8.7,
           "night": {
-            "place_id": "US::newport-or",
+            "place_id": "US::cannon-beach-or",
             "coords": [
-              44.6368,
-              -124.0533
+              45.8918,
+              -123.9615
+            ],
+            "map_keywords": [
+              "Cannon Beach",
+              "Haystack Rock",
+              "Ecola State Park",
+              "Seaside Promenade"
             ]
           },
           "visits": [
@@ -13346,8 +13400,8 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 182,
-            "drive_min": 184,
+            "distance_km": 176,
+            "drive_min": 177,
             "transport_mode": "car",
             "road_type": "",
             "method": "osrm"
@@ -13360,12 +13414,18 @@
           "slice": 1,
           "region_code": "",
           "suggested_days": 1,
-          "rating": 8.7,
+          "rating": 6,
           "night": {
-            "place_id": "US::cannon-beach-or",
+            "place_id": "US::newport-or",
             "coords": [
-              45.8918,
-              -123.9615
+              44.6368,
+              -124.0533
+            ],
+            "map_keywords": [
+              "Three Capes Scenic Loop",
+              "Oregon Coast Aquarium",
+              "Yaquina Head Outstanding Natural Area",
+              "Newport Historic Bayfront"
             ]
           },
           "visits": [
@@ -13408,8 +13468,8 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 127,
-            "drive_min": 108,
+            "distance_km": 213,
+            "drive_min": 178,
             "transport_mode": "car",
             "road_type": "",
             "method": "osrm"
@@ -16522,7 +16582,7 @@
           "slice": 1,
           "region_code": "WA",
           "suggested_days": 1,
-          "rating": 7.7,
+          "rating": 7.8,
           "night": {
             "place_id": "US::mount-rainier-wa",
             "coords": [
