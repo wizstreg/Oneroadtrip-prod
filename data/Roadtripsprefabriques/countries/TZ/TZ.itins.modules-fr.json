@@ -345,22 +345,22 @@
               }
             }
           ],
-          "stay_at": "TZ::serengeti",
-          "stay_nights": 1,
           "to_next_leg": {
-            "transport_mode": "car",
             "distance_km": 160,
             "drive_min": 300,
+            "transport_mode": "car",
             "road_type": "Pistes du parc du Serengeti vers le nord par Lobo jusqu'à la rivière Mara.",
-            "justification": "Trajet en 4x4 sur les pistes du parc, du centre du Serengeti jusqu'à Kogatende par Lobo, environ 160 km et cinq heures hors arrêts d'observation ; distance et durée estimées, un vol court entre les pistes d'atterrissage de Seronera et Kogatende existe aussi.",
-            "method": "corrige-audit"
-          }
+            "method": "corrige-audit",
+            "justification": "Trajet en 4x4 sur les pistes du parc, du centre du Serengeti jusqu'à Kogatende par Lobo, environ 160 km et cinq heures hors arrêts d'observation ; distance et durée estimées, un vol court entre les pistes d'atterrissage de Seronera et Kogatende existe aussi."
+          },
+          "stay_at": "TZ::serengeti",
+          "stay_nights": 1
         },
         {
           "day": 8,
           "slice": 1,
           "region_code": "TZ-NOR",
-          "suggested_days": 3,
+          "suggested_days": 1.5,
           "rating": 9.7,
           "night": {
             "place_id": "TZ::kogatende",
@@ -389,11 +389,13 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 750,
-            "drive_min": 360,
+            "distance_km": 730,
+            "drive_min": 345,
             "transport_mode": "flight",
-            "road_type": "avion",
-            "method": "heuristic"
+            "road_type": "Vol depuis la piste de Kogatende jusqu'à Zanzibar, puis taxi vers Stone Town",
+            "method": "corrige-audit",
+            "multimodal": true,
+            "justification": "Aucune route raisonnable entre le nord du Serengeti et Zanzibar : vol en petit avion depuis la piste de Kogatende vers l'aéroport de Zanzibar (Coastal Aviation ou Auric Air), en général avec escale à Arusha ou Kilimanjaro, soit environ 720 km et 150 min de vol effectif, puis 7 km de taxi de l'aéroport à Stone Town en 15 min. La liaison existe en saison mais n'est pas toujours directe, à vérifier sur l'horaire du jour."
           },
           "stay_at": "TZ::serengeti",
           "stay_nights": 1
