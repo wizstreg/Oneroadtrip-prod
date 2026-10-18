@@ -113,6 +113,8 @@ function ortDateLocale(){
   .actions .btn{display:inline-flex;background:#f3f6fb;color:#113f7a;border:1px solid #d9e4f0;padding:6px 10px;font-size:0.85rem}
   @media(min-width:640px){.actions .btn{padding:8px 12px;font-size:0.95rem}}
   .actions .btn:hover{background:#eaf1fb}
+  .actions .btn.carnet{background:#113f7a;color:#fff;border-color:#113f7a;font-weight:700}
+  .actions .btn.carnet:hover{background:#0a2a57}
 
   /* Topbar: cacher boutons secondaires sur mobile, garder Nouveau voyage */
   @media(max-width:480px){
@@ -385,6 +387,9 @@ function initLeafletMap(div, rt){
 
 
 const Dashboard = (()=>{
+  const CARNET_LANGS = {fr:'itineraires',en:'itineraries',es:'rutas',pt:'roteiros',it:'itinerari',ar:'masar',nl:'routes',de:'routen'};
+  const CARNET_LABELS = {fr:'Voir le carnet',en:'View travel notebook',es:'Ver cuaderno de viaje',pt:'Ver diário de viagem',it:'Apri diario di viaggio',ar:'عرض دفتر الرحلة',nl:'Reisdagboek bekijken',de:'Reisetagebuch ansehen'};
+
   const listEl = document.getElementById('list');
   const emptyEl= document.getElementById('emptyState');
   const lang = localStorage.getItem('lang') || document.documentElement.lang || 'fr';
@@ -573,34 +578,15 @@ const h = document.createElement('h3'); h.textContent = rt.title || 'Sans titre'
 
     const actions = document.createElement('div'); actions.className='actions'; c.appendChild(actions);
 
-    // ↗ Ouvrir dans l'éditeur (RT Detail)
- const openBtn = btn(L.btn.openEditor || L.btn.open, ()=> openRT(rt)); actions.appendChild(openBtn);
-    // 🗺️ Voir l'itinéraire sur la page statique (si le voyage vient d'un itin statique)
-    const staticUrl = buildStaticUrl(rt);
-    if (staticUrl) {
-      // Ajouter tripId pour que la page statique charge directement la version modifiée
-      const staticUrlWithTrip = staticUrl + (staticUrl.indexOf('?') >= 0 ? '&' : '?') + 'tripId=' + encodeURIComponent(rt.id);
-      const staticBtn = btn(L.btn.openStatic || '🗺️ Visualiser', async ()=> {
-        // La page du catalogue n'existe pas toujours : on vérifie avant d'y aller,
-        // sinon on bascule sur la page d'accueil des voyages personnels.
-        let cible = staticUrlWithTrip;
-        if (staticUrl.indexOf('custom.html') < 0) {
-          let existe = false;
-          try {
-            const r = await fetch(staticUrl, { method: 'HEAD' });
-            existe = r.ok;
-          } catch (e) { existe = false; }
-          if (!existe) {
-            const LS = {fr:'itineraires', en:'itineraries', es:'rutas', pt:'roteiros', it:'itinerari', ar:'masar', nl:'routes', de:'routen'};
-            const lg = localStorage.getItem('lang') || 'fr';
-            cible = '/' + (LS[lg] || 'itineraries') + '/custom.html?tripId=' + encodeURIComponent(rt.id);
-            console.log('[ORT-DASH] page catalogue absente, bascule sur custom.html');
-          }
-        }
-        location.href = cible;
-      });
-      actions.appendChild(staticBtn);
+    // Accès direct au carnet 30 du voyage enregistré, quelle que soit son origine.
+    const carnetUrl = buildCarnetUrl(rt);
+    if (carnetUrl) {
+      const carnetBtn = btn('🗺️ ' + CARNET_LABELS[tripPageLang()], ()=> { location.href = carnetUrl; });
+      carnetBtn.classList.add('carnet');
+      actions.appendChild(carnetBtn);
     }
+    const openBtn = btn(L.btn.openEditor || L.btn.open, ()=> openRT(rt));
+    actions.appendChild(openBtn);
 // 🛠️ Reprendre le voyage dans le constructeur de carte
 const builderBtn = btn('🛠️ ' + ((L.btn && L.btn.openBuilder) || 'Modifier sur la carte'), ()=> openBuilder(rt));
 actions.appendChild(builderBtn);
@@ -619,50 +605,29 @@ const shareBtn = btn(L.btn_extra?.share || '📤 Partager', ()=> openShareCompos
 
   function btn(lbl, onclick, danger=false){ const b=document.createElement('button'); b.className='btn'+(danger?' danger':''); b.type='button'; b.textContent=lbl; b.onclick=onclick; return b; }
 
-// Renvoie vers le constructeur de carte, qui rechargera les etapes de ce voyage
+// Une langue et un identifiant cohérents pour les trois accès au voyage.
+function tripPageLang(){
+  const selected = String(localStorage.getItem('lang') || localStorage.getItem('ORT_LANG') || document.documentElement.lang || 'fr').toLowerCase().slice(0,2);
+  return Object.prototype.hasOwnProperty.call(CARNET_LANGS, selected) ? selected : 'en';
+}
+
 function openBuilder(rt){
-  const lang = localStorage.getItem('lang') || localStorage.getItem('ORT_LANG') || 'fr';
-  location.href = `carte_builder.html?tripId=${encodeURIComponent(rt.id)}&lang=${lang}`;
+  const params = new URLSearchParams({tripId:rt.id, lang:tripPageLang()});
+  location.href = 'carte_builder.html?' + params.toString();
 }
 
 function openRT(rt){
-    const lang = localStorage.getItem('lang') || 'fr';
-    const url = `roadtrip_detail.html?tripId=${encodeURIComponent(rt.id)}&lang=${lang}`;
-    location.href = url;
-  }
+  const params = new URLSearchParams({tripId:rt.id, lang:tripPageLang()});
+  location.href = 'roadtrip_detail.html?' + params.toString();
+}
 
-  // Construit l'URL de la page statique si le voyage provient d'un itinéraire pré-fabriqué
-  function buildStaticUrl(rt) {
-    const lang = localStorage.getItem('lang') || 'fr';
-    // Le voyage doit avoir un _originalItinId (posé par l'éditeur statique) ou un sourceUrl pointant vers une page statique
-    var itinId = rt._originalItinId || '';
-    var sourceUrl = rt.sourceUrl || '';
-
-    // Si on a un sourceUrl qui pointe vers une page statique ORT, utiliser le chemin uniquement
-    if (sourceUrl && /\/(itineraires|itineraries|rutas|roteiros|itinerari|masar)\//.test(sourceUrl)) {
-      try { return new URL(sourceUrl, location.origin).pathname; } catch(e) { return sourceUrl.replace(/^https?:\/\/[^\/]+/, ''); }
-    }
-
-    // Sinon, si on a un itinId, construire l'URL
-    // Mais ignorer les itinIds "custom" ou temporaires (générés par RT Detail, pas du catalogue)
-    if (itinId && !/custom|^temp|^\d{10,}/.test(itinId)) {
-      // Slugifier comme generate-v2.js : "84::vaucluse" → "84-vaucluse", "KH::phnom-penh" → "kh-phnom-penh"
-      var slug = itinId.toLowerCase().replace(/::/g, '-').replace(/[^a-z0-9-]/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '');
-      var LSLUG = {fr:'itineraires', en:'itineraries', es:'rutas', pt:'roteiros', it:'itinerari', ar:'masar', nl:'routes', de:'routen'};
-      var langSlug = LSLUG[lang] || 'itineraries';
-      return '/' + langSlug + '/' + slug + '.html';
-    }
-
-    // Pas d'itinéraire catalogue → page coquille custom.html
-    // Le voyage sera chargé depuis Firestore via tripId dans l'URL
-    if (rt.steps && rt.steps.length > 0) {
-      var LSLUG2 = {fr:'itineraires', en:'itineraries', es:'rutas', pt:'roteiros', it:'itinerari', ar:'masar', nl:'routes', de:'routen'};
-      var langSlug2 = LSLUG2[lang] || 'itineraries';
-      return '/' + langSlug2 + '/custom.html';
-    }
-
-    return null; // vraiment rien à afficher
-  }
+// custom.html est généré avec template-30.js et charge les étapes sauvegardées.
+function buildCarnetUrl(rt){
+  if (!rt || !rt.id || !Array.isArray(rt.steps) || !rt.steps.length) return null;
+  const lang = tripPageLang();
+  const params = new URLSearchParams({tripId:rt.id, lang:lang});
+  return '/' + CARNET_LANGS[lang] + '/custom.html?' + params.toString();
+}
 
   async function renameRT(rt){
     const msg = L.btn.rename || 'Renommer';

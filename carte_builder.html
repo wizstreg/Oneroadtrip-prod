@@ -2808,8 +2808,8 @@ body.fullscreen-mode .place-preview {
         </label>
         <label class="dest-opt" data-dest="carnet">
           <input type="radio" name="dest" value="carnet">
-          <span class="dest-opt-title" id="destCarnetTitle">Carnet de voyage</span>
-          <span class="dest-opt-sub" id="destCarnetSub">Votre itinéraire en format premium et interactif.</span>
+          <span class="dest-opt-title" id="destCarnetTitle">Carnet de voyage · Template 30</span>
+          <span class="dest-opt-sub" id="destCarnetSub">Votre itinéraire avec carte et outils de modification.</span>
         </label>
       </div>
     </div>
@@ -2821,6 +2821,7 @@ body.fullscreen-mode .place-preview {
   </div>
 </div>
 
+<script src="js/ort-i18n-socle.js"></script>
 <script src="js/ort-i18n-builder.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
@@ -3052,6 +3053,31 @@ function applyTranslations() {
 // ===============================
 // CARTE LEAFLET
 // ===============================
+function ortAddBaseMap(m){
+  var glLayer;
+  try{
+    if(typeof L.maplibreGL==='function'){
+      glLayer=L.maplibreGL({style:'https://tiles.openfreemap.org/styles/liberty',attribution:'\u00a9 OSM \u00a9 OpenFreeMap'});
+      var onRemove=glLayer.onRemove;
+      glLayer.onRemove=function(map){
+        if(this.getMaplibreMap())return onRemove.call(this,map);
+        var container=this.getContainer();
+        if(container&&container.parentNode)container.parentNode.removeChild(container);
+      };
+      glLayer.addTo(m);
+      return;
+    }
+  }catch(error){
+    // removeLayer declenche aussi le retrait des ecouteurs zoom/move/resize.
+    if(glLayer&&m.hasLayer(glLayer))m.removeLayer(glLayer);
+    console.warn('[MAP] WebGL indisponible : fond OpenStreetMap utilise.',error);
+  }
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom:19
+  }).addTo(m);
+}
+
 function initMap() {
   // Vérifier que Leaflet est chargé
   if (typeof L === 'undefined') {
@@ -3069,18 +3095,8 @@ function initMap() {
     preferCanvas: true    // Utiliser Canvas au lieu de SVG (plus rapide)
   });
 
-  // Utiliser CartoDB Positron pour avoir les noms en anglais/latin
-  if (typeof L.maplibreGL === 'function') {
-    L.maplibreGL({
-      style: 'https://tiles.openfreemap.org/styles/liberty',
-      attribution: '© OpenStreetMap © OpenFreeMap'
-    }).addTo(map);
-  } else {
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors',
-      maxZoom: 19
-    }).addTo(map);
-  }
+  // Fond vectoriel si WebGL est disponible, sinon tuiles OpenStreetMap.
+  ortAddBaseMap(map);
 
   // Le décalage des tracés qui se chevauchent est calculé en pixels :
   // on le recalcule après chaque zoom pour garder un écart constant à l'écran.
@@ -5838,63 +5854,63 @@ function initConfigModal() {
   });
 }
 
-// Libellés du choix de destination (6 langues), séparés de T pour ne pas toucher les blocs existants
+// Libellés du choix de destination (8 langues), séparés de T pour ne pas toucher les blocs existants
 const DEST_T = {
   "fr": {
     "label": "Où envoyer votre itinéraire ?",
     "detailTitle": "Éditeur avancé",
     "detailSub": "Tout modifier, ajouter hôtels et réservations.",
-    "carnetTitle": "Carnet de voyage",
-    "carnetSub": "Votre itinéraire en format premium et interactif."
+    "carnetTitle": "Carnet de voyage · Template 30",
+    "carnetSub": "Votre itinéraire avec carte et outils de modification."
   },
   "en": {
     "label": "Where do you want to send your itinerary?",
     "detailTitle": "Advanced editor",
     "detailSub": "Edit everything, add hotels and bookings.",
-    "carnetTitle": "Travel notebook",
-    "carnetSub": "Your itinerary in a premium, interactive format."
+    "carnetTitle": "Travel notebook · Template 30",
+    "carnetSub": "Your itinerary with a map and editing tools."
   },
   "es": {
     "label": "¿Dónde enviar tu itinerario?",
     "detailTitle": "Editor avanzado",
     "detailSub": "Edítalo todo, añade hoteles y reservas.",
-    "carnetTitle": "Cuaderno de viaje",
-    "carnetSub": "Tu itinerario en formato premium e interactivo."
+    "carnetTitle": "Cuaderno de viaje · Template 30",
+    "carnetSub": "Tu itinerario con mapa y herramientas de edición."
   },
   "pt": {
     "label": "Para onde enviar o seu itinerário?",
     "detailTitle": "Editor avançado",
     "detailSub": "Edite tudo, adicione hotéis e reservas.",
-    "carnetTitle": "Diário de viagem",
-    "carnetSub": "O seu itinerário em formato premium e interativo."
+    "carnetTitle": "Diário de viagem · Template 30",
+    "carnetSub": "O seu itinerário com mapa e ferramentas de edição."
   },
   "it": {
     "label": "Dove inviare il tuo itinerario?",
     "detailTitle": "Editor avanzato",
     "detailSub": "Modifica tutto, aggiungi hotel e prenotazioni.",
-    "carnetTitle": "Diario di viaggio",
-    "carnetSub": "Il tuo itinerario in formato premium e interattivo."
+    "carnetTitle": "Diario di viaggio · Template 30",
+    "carnetSub": "Il tuo itinerario con mappa e strumenti di modifica."
   },
   "ar": {
     "label": "أين تريد إرسال مسارك؟",
     "detailTitle": "المحرر المتقدم",
     "detailSub": "عدّل كل شيء، أضف الفنادق والحجوزات.",
-    "carnetTitle": "دفتر الرحلة",
-    "carnetSub": "مسارك بتنسيق مميّز وتفاعلي."
+    "carnetTitle": "دفتر الرحلة · Template 30",
+    "carnetSub": "مسارك مع خريطة وأدوات التعديل."
   },
   "nl": {
     "label": "Waar wil je je route naartoe sturen?",
     "detailTitle": "Geavanceerde editor",
     "detailSub": "Alles bewerken, hotels en boekingen toevoegen.",
-    "carnetTitle": "Reisdagboek",
-    "carnetSub": "Je route in een premium, interactieve opmaak."
+    "carnetTitle": "Reisdagboek · Template 30",
+    "carnetSub": "Je route met kaart en bewerkingsmogelijkheden."
   },
   "de": {
     "label": "Wohin möchtest du deine Route senden?",
     "detailTitle": "Erweiterter Editor",
     "detailSub": "Alles bearbeiten, Hotels und Buchungen hinzufügen.",
-    "carnetTitle": "Reisetagebuch",
-    "carnetSub": "Deine Route in einem hochwertigen, interaktiven Format."
+    "carnetTitle": "Reisetagebuch · Template 30",
+    "carnetSub": "Deine Route mit Karte und Bearbeitungswerkzeugen."
   }
 };
 
@@ -6058,6 +6074,7 @@ function submitItinerary() {
 // ATTENTION : saveTrip régénère l'id quand il commence par "custom::",
 // donc on redirige avec l'id RETOURNÉ, jamais l'id d'origine.
 async function submitToCarnet(ctx) {
+  if (submitToCarnet.pending) return;
   const LSLUG = ORT_I18N_BUILDER.LSLUG;
   const langSlug = LSLUG[currentLang] || 'itineraries';
 
@@ -6069,6 +6086,11 @@ async function submitToCarnet(ctx) {
     lon: place.lon,
     lng: place.lon,
     cc: place.cc || ctx.cc,
+    coords: { lat: place.lat, lon: place.lon },
+    visits: place.visits || [],
+    activities: place.activities || [],
+    rating: place.rating || 0,
+    night: { place_id: place.place_id, coords: [place.lat, place.lon], map_keywords: Array.isArray(place.map_keywords) ? place.map_keywords : [] },
     map_keywords: Array.isArray(place.map_keywords) ? place.map_keywords : [],
     _mapKeywords: Array.isArray(place.map_keywords) ? place.map_keywords : [],
     suggested_days: (typeof place._dur === 'number' ? place._dur : (place.suggested_days || 1))
@@ -6082,6 +6104,10 @@ async function submitToCarnet(ctx) {
     cc: ctx.cc,
     country: ctx.cc,
     lang: currentLang,
+    language: currentLang,
+    template: 30,
+    source: 'carte_builder',
+    legLoops: computeLegLoops(),
     steps: steps,
     departDate: ctx.config.departDate,
     days: ctx.config.days
@@ -6093,7 +6119,15 @@ async function submitToCarnet(ctx) {
       alert('Erreur, réessayez.');
       return;
     }
-    const res = await window.ORT_STATE.saveTrip(trip);
+    submitToCarnet.pending = true;
+    const confirmBtn = document.getElementById('configConfirm');
+    if (confirmBtn) confirmBtn.disabled = true;
+    // Garder les réservations et notes d'un voyage repris ; remplacer ses étapes.
+    let existing = null;
+    if (resumingTripId && typeof window.ORT_STATE.getTrip === 'function') {
+      existing = await window.ORT_STATE.getTrip(resumingTripId);
+    }
+    const res = await window.ORT_STATE.saveTrip(Object.assign({}, existing || {}, trip));
     if (!res || !res.success || !res.tripId) {
       console.error('❌ Sauvegarde carnet échouée:', res);
       alert('Erreur, réessayez.');
@@ -6101,13 +6135,19 @@ async function submitToCarnet(ctx) {
     }
     console.log('✅ Carnet sauvegardé, tripId final:', res.tripId, '(', res.storage, ')');
 
+    resumingTripId = res.tripId;
     if (window.ORT_TRIPID) window.ORT_TRIPID.store(res.tripId);
+    else localStorage.setItem('ORT_CURRENT_TRIP_ID', res.tripId);
 
     const params = new URLSearchParams({ tripId: res.tripId, lang: currentLang });
     window.location.href = `/${langSlug}/custom.html?${params.toString()}`;
   } catch (e) {
     console.error('❌ Erreur envoi carnet:', e);
     alert('Erreur, réessayez.');
+  } finally {
+    submitToCarnet.pending = false;
+    const confirmBtn = document.getElementById('configConfirm');
+    if (confirmBtn) confirmBtn.disabled = false;
   }
 }
 
