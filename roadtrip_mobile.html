@@ -2250,7 +2250,7 @@ html, body {
   height: 26px;
   border: 2px solid #fff;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  position: relative;
+  position: absolute;
 }
 /* Drapeau des étapes où l'on dort, comme sur roadtrip_detail */
 .step-marker .hub-flag {
@@ -6437,22 +6437,22 @@ function updateSummary() {
 }
 
 // === MAP ===
+function ortAddBaseMap(m){
+  // Le fond raster fonctionne aussi sans contexte graphique WebGL sur iPhone.
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom:19
+  }).addTo(m);
+}
+
 function initMap() {
   if (typeof L === 'undefined') { setTimeout(initMap, 100); return; }
   if (map) return;
   
-  map = L.map('map', { zoomControl: true, attributionControl: false });
+  // Donner une vue initiale valide, même lorsque l’onglet Carte est masqué.
+  map = L.map('map', { center: [0, 0], zoom: 2, zoomControl: true, attributionControl: true });
   window.map = map; // exposé pour ort-itin-editor (bridge)
-  if (typeof L.maplibreGL === 'function') {
-    L.maplibreGL({
-      style: 'https://tiles.openfreemap.org/styles/liberty',
-      attribution: '© OpenStreetMap © OpenFreeMap'
-    }).addTo(map);
-  } else {
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19, attribution: '© OpenStreetMap'
-    }).addTo(map);
-  }
+  ortAddBaseMap(map);
   
   renderMarkers();
   fetchAndDrawRoute();
@@ -6824,8 +6824,12 @@ function renderLoopLegend(loopGroups) {
 
 function fitMapBounds() {
   if (!map) return;
-  const coords = state.steps.filter(s => s.lat && s.lng).map(s => [s.lat, s.lng]);
-  if (coords.length > 0) map.fitBounds(coords, { padding: [30, 30] });
+  const container = map.getContainer();
+  // L'onglet est initialement masqué : attendre ses dimensions réelles.
+  if (!container.clientWidth || !container.clientHeight) return;
+  map.invalidateSize({pan:false});
+  const coords = state.steps.filter(s => Number.isFinite(s.lat) && Number.isFinite(s.lng)).map(s => [s.lat, s.lng]);
+  if (coords.length > 0) map.fitBounds(coords, { padding: [30, 30], maxZoom: 15, animate: false });
 }
 
 function centerMap() {
