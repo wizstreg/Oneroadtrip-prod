@@ -3392,13 +3392,19 @@ async function loadAllPlaces() {
   }
 }
 
+function sortedCountriesForLanguage(countryList) {
+  const collator = new Intl.Collator(currentLang, { sensitivity: 'base' });
+  const name = o => String(o.names?.[currentLang] || o.name || o.cc || o.code || o);
+  return [...countryList].sort((a, b) => collator.compare(name(a), name(b)));
+}
+
 function populateCountrySelect(countryList) {
   const select = document.getElementById('countrySelect');
   const TXT = T[currentLang] || T.en;
   
   select.innerHTML = `<option value="">${TXT.allCountries}</option>`;
   
-  countryList.forEach(countryObj => {
+  sortedCountriesForLanguage(countryList).forEach(countryObj => {
     const cc = String(countryObj.cc || countryObj.code || countryObj).toUpperCase();
     const name = countryObj.names?.[currentLang] || countryObj.name || cc;
     const option = document.createElement('option');
@@ -3406,6 +3412,9 @@ function populateCountrySelect(countryList) {
     option.textContent = `${getFlagEmoji(cc)} ${name}`;
     select.appendChild(option);
   });
+
+  const fsSelect = document.getElementById('fsCountrySelect');
+  if (fsSelect) fsSelect.innerHTML = select.innerHTML;
 
   select.addEventListener('change', (e) => {
     const cc = e.target.value;
@@ -3457,7 +3466,7 @@ function askStartCountry(countryList) {
     label.textContent = M.pickCountry || 'Par quel pays voulez-vous commencer ?';
     const sel = document.createElement('select');
     sel.className = 'ort-start-select';
-    countryList.forEach(o => {
+    sortedCountriesForLanguage(countryList).forEach(o => {
       const cc = String(o.cc || o.code || o).toUpperCase();
       const name = o.names?.[currentLang] || o.name || cc;
       const opt = document.createElement('option');

@@ -859,7 +859,7 @@ window.addEventListener('DOMContentLoaded', function(){
       </div>
       <select class="select sort-select" id="sortSelect" aria-label="Trier">
         <option value="country" id="sortCountry">Tri par pays</option>
-        <option value="recent" id="sortRecent">Plus récents</option>
+        <option value="recent" id="sortRecent" selected>Plus récents</option>
         <option value="days-asc" id="sortDaysAsc">Durée ↑</option>
         <option value="days-desc" id="sortDaysDesc">Durée ↓</option>
       </select>
@@ -1715,7 +1715,7 @@ function render(){
     }
     for(var g=0;g<order.length;g++){
       var grp = groups[order[g]];
-      html += '<section class="cat-section">';
+      html += '<section class="cat-section" id="country-' + encodeURIComponent(normalizeCC(grp[0].cc)) + '" style="scroll-margin-top:140px">';
       html += '<div class="cat-head"><h2 class="cat-title">' + order[g] + '</h2><span class="cat-count">(' + grp.length + ')</span></div>';
       html += '<div class="grid">';
       for(var c=0;c<grp.length;c++) html += buildCard(grp[c]);
@@ -2358,7 +2358,15 @@ Promise.all([
       var tb = document.querySelector('.toolbar');
       if(tb) tb.parentNode.insertBefore(banner, tb);
     }
+    if(urlParams.get('sort') === 'country') document.getElementById('sortSelect').value = 'country';
     applyFilters();
+    var targetCountry = (urlParams.get('country') || '').toUpperCase();
+    if(urlParams.get('sort') === 'country' && /^[A-Z]{2}$/.test(targetCountry)) {
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){
+        var target = document.getElementById('country-' + targetCountry);
+        if(target) target.scrollIntoView({block:'start'});
+      }); });
+    }
   })
   .catch(function(err){
     document.getElementById('mainContent').innerHTML = '<div class="loading"><p style="color:var(--accent);font-weight:600">Erreur de chargement: ' + err.message + '</p><p style="margin-top:10px"><a href="javascript:location.reload()" style="color:var(--navy);text-decoration:underline">R\u00e9essayer</a></p></div>';

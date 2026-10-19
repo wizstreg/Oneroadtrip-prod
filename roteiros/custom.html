@@ -374,14 +374,14 @@ body.t30 .ip-save-btn,body.t30 .ip-trips-btn{font-size:11px}
 @media(max-width:900px){body.t30 #mapPanel:not(.fs){height:52vh!important;min-height:300px}.ort-booking{padding:7px 10px;gap:4px}.ort-booking-map{height:110px}.ort-booking-hotel img{height:72px}.ort-booking-all{padding:6px 8px;font-size:12px}body.t30 .mc{top:10px;bottom:auto;left:auto;right:10px;max-width:70%}}
 .ort-activities{clear:both;border-top:1px solid var(--bd,#e4e1da);margin:20px 0;padding:16px 0;display:grid;gap:10px}.ort-activities h4{margin:0;font-size:14px;color:#113f7a}.ort-activity{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;border:1px solid #e4e1da;border-radius:4px;background:#fff;padding:10px}.ort-activity:hover{border-color:#113f7a}.ort-activity[hidden]{display:none}.ort-activity img{width:76px;height:76px;object-fit:cover;flex-shrink:0}.ort-activity-body{display:grid;gap:8px;min-width:0}.ort-activity strong{font-size:14px;line-height:1.4}.ort-activity-cta,.ort-activities-more{font-size:13px;font-weight:600;color:#113f7a}.ort-activities-fallback{display:flex;gap:12px;flex-wrap:wrap}.ort-activities-fallback a,.ort-activities-more{padding:10px 12px;border:1px solid #113f7a;border-radius:4px;background:#fff;text-decoration:none}.ort-activities-more{justify-self:start;cursor:pointer}.ort-activities-note{font-size:11px;line-height:1.4;color:#5b6470;margin:0}@media(max-width:600px){.ort-activity img{width:60px;height:60px}}
 @media(min-width:901px){
-#textPanel{--ort-text-gap:50px;min-width:0;min-height:0;max-height:calc(100vh - var(--hh,70px) - var(--ort-text-gap));overflow-y:scroll;overflow-x:hidden;scrollbar-gutter:stable;scrollbar-width:auto;scrollbar-color:#6f8195 #e8edf2;overscroll-behavior-y:contain}
+#textPanel{--ort-text-gap:50px;min-width:0;min-height:0;max-height:calc(100vh - var(--hh,70px) - var(--ort-text-gap));overflow-y:scroll!important;overflow-x:hidden;scrollbar-gutter:stable;scrollbar-width:auto!important;scrollbar-color:#ffffff #113f7a!important;overscroll-behavior-y:contain}
 .rcol~#textPanel{--ort-text-gap:16px}
 body.t30 #textPanel{--ort-text-gap:46px}
 body.t30.hdr-off #textPanel{max-height:calc(100vh - 46px)}
-#textPanel::-webkit-scrollbar{width:16px}
-#textPanel::-webkit-scrollbar-track{background:#e8edf2}
-#textPanel::-webkit-scrollbar-thumb{background:#6f8195;border:3px solid #e8edf2;border-radius:12px;min-height:40px}
-#textPanel::-webkit-scrollbar-thumb:hover{background:#113f7a}
+#textPanel::-webkit-scrollbar{width:20px!important;display:block!important}
+#textPanel::-webkit-scrollbar-track{background:#113f7a!important}
+#textPanel::-webkit-scrollbar-thumb{background:#ffffff!important;border:2px solid #113f7a;border-radius:10px;min-height:48px}
+#textPanel::-webkit-scrollbar-thumb:hover{background:#ffffff!important}
 #textPanel:focus-visible{outline:2px solid #113f7a;outline-offset:-2px}
 #textPanel .ds{scroll-margin-top:12px}
 #textPanel .ort-stepnav{top:0;scroll-margin-top:0}
@@ -409,7 +409,7 @@ body.t30 #textPanel{max-height:var(--ort-rail-height,calc(100vh - var(--hh,70px)
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js" defer></script>
-<script src="/js/ort-routing.js?v=1792347321099" defer></script>
+<script src="/js/ort-routing.js?v=1792428825749" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
@@ -442,7 +442,8 @@ function ortScrollToStep(el){
   var tp=document.getElementById('textPanel');
   var nav=tp&&tp.querySelector('.ort-stepnav');
   var behavior=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
-  if(window.innerWidth>900&&tp&&tp.contains(el)){
+  // Page qui defile d'un bloc (t30-flow) : on fait defiler la page, pas le texte seul.
+  if(window.innerWidth>900&&tp&&tp.contains(el)&&!document.body.classList.contains('t30-flow')){
     var offset=nav&&getComputedStyle(nav).display!=='none'?(parseFloat(getComputedStyle(tp).paddingTop)||0)+nav.offsetHeight+12:12;
     var top=tp.scrollTop+el.getBoundingClientRect().top-tp.getBoundingClientRect().top-tp.clientTop-offset;
     tp.scrollTo({top:Math.max(0,top),behavior:behavior});
@@ -759,11 +760,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1792347321099"></script>
-<script src="/js/ort-i18n-socle.js?v=1792347321099"></script>
-<script src="/js/ort-i18n-auth.js?v=1792347321099"></script>
-<script src="/js/ort-header.js?v=1792347321099"></script>
-<script src="/js/ort-footer.js?v=1792347321099"></script>
+<script src="/js/ort-config.js?v=1792428825749"></script>
+<script src="/js/ort-i18n-socle.js?v=1792428825749"></script>
+<script src="/js/ort-i18n-auth.js?v=1792428825749"></script>
+<script src="/js/ort-header.js?v=1792428825749"></script>
+<script src="/js/ort-footer.js?v=1792428825749"></script>
 <script>
 (function(){
   var langUrls={};
@@ -792,8 +793,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1792347321099" defer></script>
-<script src="/js/ort-state-manager.js?v=1792347321099" defer></script>
+<script src="/js/ort-itin-editor.js?v=1792428825749" defer></script>
+<script src="/js/ort-state-manager.js?v=1792428825749" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
@@ -1022,5 +1023,56 @@ window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFram
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot);else boot();
 };ortPinMapHotel();</script>
-</body>
+<script>(function ortCountryLink(folders){
+  var lang=(document.documentElement.lang||'fr').slice(0,2), folder=folders[lang]||folders.en, dataPromise, last='';
+  var labels={fr:['Voir l’autre itinéraire sur ce pays','Voir les {n} autres itinéraires sur ce pays'],en:['See the other itinerary in this country','See {n} other itineraries in this country'],es:['Ver el otro itinerario de este país','Ver los otros {n} itinerarios de este país'],it:['Scopri l’altro itinerario in questo paese','Scopri gli altri {n} itinerari in questo paese'],pt:['Ver o outro itinerário neste país','Ver os outros {n} itinerários neste país'],de:['Weitere Reiseroute in diesem Land ansehen','{n} weitere Reiserouten in diesem Land ansehen'],nl:['Bekijk de andere reisroute in dit land','Bekijk de {n} andere reisroutes in dit land'],ar:['شاهد المسار الآخر في هذا البلد','شاهد {n} مسارات أخرى في هذا البلد']};
+  var style=document.createElement('style');
+  style.textContent='.ort-country-link{display:block;padding:18px 22px;background:#fff3c4;color:#123f76!important;border:2px solid #efa900;border-radius:10px;font:700 18px/1.4 system-ui,sans-serif;text-decoration:none!important;box-shadow:0 3px 12px #0002;text-align:center;box-sizing:border-box}.ort-country-link:hover{background:#ffe59a}.ort-country-link:focus-visible{outline:3px solid #123f76;outline-offset:3px}.ort-country-rail .t30-sl{height:420px}.ort-country-rail .ort-country-link{margin-bottom:16px}body.t30 .hc>.ort-country-rail{grid-column:2;grid-row:1/span 12;align-self:stretch}.ort-country-host{position:relative;padding-inline-end:350px!important}.ort-country-host>.ort-country-link{position:absolute;inset-inline-end:24px;bottom:16px;width:300px;z-index:3}@media(max-width:900px){.ort-country-host{padding-inline-end:16px!important}.ort-country-host>.ort-country-link{position:static;width:auto;margin-top:16px}body.t30 .hc>.ort-country-rail{grid-column:1;grid-row:auto}.ort-country-rail .t30-sl{display:none}.ort-country-rail .ort-country-link{margin:16px 0}}';
+  document.head.appendChild(style);
+  function update(){
+    var cc=(document.body.dataset.cc||'').toUpperCase();
+    if(!/^[A-Z]{2}$/.test(cc)||cc===last)return;
+    last=cc;
+    if(!dataPromise)dataPromise=fetch('/'+folder+'/index-data.json').then(function(r){if(!r.ok)throw Error('catalog');return r.json();});
+    dataPromise.then(function(data){
+      if(last!==cc||!Array.isArray(data))return;
+      var slug=decodeURIComponent(location.pathname.split('/').pop()).replace(/\.html$/,'');
+      var seen=new Set();data.forEach(function(it){if(String(it.cc||'').toUpperCase()===cc&&!it.prive&&it.slug&&it.slug!==slug)seen.add(it.slug);});
+      var old=document.getElementById('ortCountryLink');if(old)old.remove();
+      if(!seen.size)return;
+      var a=document.createElement('a');a.id='ortCountryLink';a.className='ort-country-link';
+      a.textContent=(labels[lang]||labels.en)[seen.size===1?0:1].replace('{n}',seen.size)+' →';
+      a.href='/index.html?lang='+encodeURIComponent(lang)+'&sort=country&country='+cc+'#country-'+cc;
+      var hc=document.querySelector('.hr .hc'),photo=document.getElementById('t30Sl'),flowRail=document.getElementById('t30Rail');
+      // Page qui defile d'un bloc : le lien va toujours en tete de la colonne de droite.
+      if(flowRail){flowRail.prepend(a);}
+      else if(document.body.classList.contains('t30')&&photo){
+        var rail=photo.parentElement;
+        if(!rail.classList.contains('ort-country-rail')){rail=document.createElement('div');rail.className='ort-country-rail';photo.before(rail);rail.appendChild(photo);}
+        rail.prepend(a);
+      }else if(hc){hc.classList.add('ort-country-host');hc.appendChild(a);}
+      else {var text=document.getElementById('textPanel');if(text)text.prepend(a);}
+    }).catch(function(){/* Aucun compteur inventé si le catalogue est indisponible. */});
+  }
+  new MutationObserver(update).observe(document.body,{attributes:true,attributeFilter:['data-cc']});
+  update();
+})({"fr":"itineraires","en":"itineraries","es":"rutas","pt":"roteiros","it":"itinerari","ar":"masar","nl":"routes","de":"routen"});</script><script>(function ortVisibleTextScroll(){
+  var panel=document.getElementById('textPanel');if(!panel)return;
+  var track=document.createElement('div'),thumb=document.createElement('div'),frame=0,drag=null;
+  track.className='ort-text-scroll-track';thumb.className='ort-text-scroll-thumb';track.appendChild(thumb);document.body.appendChild(track);
+  track.setAttribute('role','scrollbar');track.setAttribute('aria-controls','textPanel');track.setAttribute('aria-orientation','vertical');track.setAttribute('aria-valuemin','0');track.tabIndex=0;
+  var lang=(document.documentElement.lang||'fr').slice(0,2);
+  track.setAttribute('aria-label',({fr:'Défilement des étapes',en:'Scroll itinerary',es:'Desplazar itinerario',it:'Scorri itinerario',pt:'Percorrer itinerário',de:'Reiseroute scrollen',nl:'Reisroute scrollen',ar:'تمرير مسار الرحلة'})[lang]||'Scroll itinerary');
+  var style=document.createElement('style');style.textContent='.ort-text-scroll-track{display:none;position:fixed;width:24px;background:#113f7a;border:2px solid #113f7a;border-radius:8px;box-sizing:border-box;z-index:900;touch-action:none;cursor:pointer;box-shadow:0 0 0 2px #fff}.ort-text-scroll-thumb{position:absolute;left:3px;right:3px;top:0;background:#fff;border:1px solid #d9e2ec;border-radius:6px;box-sizing:border-box;cursor:grab;min-height:44px}.ort-text-scroll-track:focus-visible{outline:3px solid #e49d16;outline-offset:2px}';document.head.appendChild(style);
+  function metrics(){var r=panel.getBoundingClientRect(),top=Math.max(0,r.top),bottom=Math.min(innerHeight,r.bottom);document.querySelectorAll('header.ort-hdr,.ip-bar').forEach(function(el){var h=el.getBoundingClientRect();if(h.top<=top&&h.bottom>top)top=h.bottom;});return {r:r,top:top,height:Math.max(0,bottom-top),max:Math.max(0,panel.scrollHeight-panel.clientHeight)};}
+  function paint(){frame=0;var m=metrics();if(innerWidth<=900||m.height<80||!m.max||!panel.getClientRects().length){track.style.display='none';return;}track.style.display='block';track.style.left=(m.r.right-25)+'px';track.style.top=m.top+'px';track.style.height=m.height+'px';var h=Math.max(44,(m.height-4)*panel.clientHeight/panel.scrollHeight);thumb.style.height=h+'px';thumb.style.transform='translateY('+((m.height-4-h)*panel.scrollTop/m.max)+'px)';track.setAttribute('aria-valuemax',String(m.max));track.setAttribute('aria-valuenow',String(Math.round(panel.scrollTop)));}
+  function schedule(){if(!frame)frame=requestAnimationFrame(paint);}
+  track.addEventListener('pointerdown',function(e){if(e.button!==0)return;e.preventDefault();track.focus({preventScroll:true});var r=track.getBoundingClientRect(),h=thumb.getBoundingClientRect().height,offset=e.target===thumb?e.clientY-thumb.getBoundingClientRect().top:h/2;drag={offset:offset};track.setPointerCapture(e.pointerId);move(e);});
+  function move(e){if(!drag)return;var r=track.getBoundingClientRect(),h=thumb.getBoundingClientRect().height,max=panel.scrollHeight-panel.clientHeight;panel.scrollTop=Math.max(0,Math.min(1,(e.clientY-r.top-2-drag.offset)/Math.max(1,r.height-4-h)))*max;schedule();}
+  track.addEventListener('pointermove',move);['pointerup','pointercancel','lostpointercapture'].forEach(function(name){track.addEventListener(name,function(){drag=null;});});
+  track.addEventListener('keydown',function(e){var delta={ArrowDown:60,ArrowUp:-60,PageDown:panel.clientHeight*.8,PageUp:-panel.clientHeight*.8};if(e.key==='Home')panel.scrollTop=0;else if(e.key==='End')panel.scrollTop=panel.scrollHeight;else if(e.key in delta)panel.scrollTop+=delta[e.key];else return;e.preventDefault();schedule();});
+  panel.addEventListener('scroll',schedule,{passive:true});window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule,{passive:true});
+  if(window.ResizeObserver)new ResizeObserver(schedule).observe(panel);
+  new MutationObserver(schedule).observe(panel,{childList:true,subtree:true});panel.addEventListener('load',schedule,true);paint();
+})();</script></body>
 </html>
