@@ -283,7 +283,11 @@
     `;
 
     const partnerImg = document.createElement('img');
-    partnerImg.src = '/assets/logos/logoit2-3-scaled.webp';
+    // Logo reduit (168 x 60 px, quelques Ko) : l'original faisait 2560 x 912 px et 684 Ko
+    // pour un affichage en 56 x 20 px. Largeur et hauteur indiquees : rien ne bouge au chargement.
+    partnerImg.src = '/assets/logos/logoit2-3-small.webp';
+    partnerImg.width = 56;
+    partnerImg.height = 20;
     partnerImg.alt = 'InfosTourisme.com';
     partnerImg.loading = 'lazy';
     partnerImg.style.cssText = `
