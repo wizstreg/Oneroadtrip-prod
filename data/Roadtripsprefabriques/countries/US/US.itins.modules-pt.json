@@ -19349,7 +19349,7 @@
           "slice": 1,
           "region_code": "AB",
           "suggested_days": 1.5,
-          "rating": 7.7,
+          "rating": 0,
           "night": {
             "place_id": "CA::waterton-park",
             "coords": [
@@ -82348,10 +82348,11 @@
           ],
           "to_next_leg": {
             "distance_km": 40,
-            "drive_min": 60,
+            "drive_min": 180,
             "transport_mode": "boat",
-            "road_type": "Travessia para Scorpion Anchorage",
-            "method": "direct"
+            "road_type": "Travessia de barco de Ventura Harbor até Scorpion Anchorage.",
+            "method": "corrige-audit",
+            "justification": "La liaison Island Packers de Ventura Harbor à Scorpion Anchorage existe et demande environ 60 minutes de navigation ; l’estimation de 40 km est compatible avec les 39 km à vol d’oiseau calculés après correction des coordonnées. Le champ duree_min contient uniquement ces 60 minutes de déplacement : conformément à la consigne, le programme doit ajouter séparément son forfait de 120 minutes d’attente, soit 180 minutes au total avec ce forfait. La correction vise à réimporter la durée de déplacement selon cette convention, sans inclure l’attente dans duree_min ni la compter deux fois."
           },
           "stay_at": "US::ventura-ca",
           "stay_nights": 1
@@ -82365,8 +82366,8 @@
           "night": {
             "place_id": "US::santa-cruz-island-ca",
             "coords": [
-              34.00361,
-              -119.72639
+              34.04943,
+              -119.55602
             ],
             "map_keywords": [
               "Scorpion Ranch Santa Cruz Island",
@@ -82401,10 +82402,11 @@
           ],
           "to_next_leg": {
             "distance_km": 40,
-            "drive_min": 60,
+            "drive_min": 180,
             "transport_mode": "boat",
-            "road_type": "Regresso de barco a Ventura Harbor",
-            "method": "direct"
+            "road_type": "Regresso de barco de Scorpion Anchorage a Ventura Harbor.",
+            "method": "corrige-audit",
+            "justification": "Le retour Island Packers de Scorpion Anchorage à Ventura Harbor suit la même liaison maritime et demande environ 60 minutes de navigation ; l’estimation de 40 km est compatible avec les 39 km à vol d’oiseau calculés après correction des coordonnées. Le champ duree_min contient uniquement ces 60 minutes de déplacement : conformément à la consigne, le programme doit ajouter séparément son forfait de 120 minutes d’attente, soit 180 minutes au total avec ce forfait. La correction vise à réimporter la durée de déplacement selon cette convention, sans inclure l’attente dans duree_min ni la compter deux fois."
           },
           "stay_at": "US::ventura-ca",
           "stay_nights": 0
@@ -83663,7 +83665,8 @@
             "drive_min": 65,
             "transport_mode": "car",
             "road_type": "Estradas 32 e 30 pelo sul de West Maui",
-            "method": "heuristic"
+            "method": "corrige-audit",
+            "justification": "Le détour automobile est justifié par le massif de West Maui, sans traversée routière directe entre ʻĪao Valley et Kā‘anapali : le trajet ressort vers Wailuku puis contourne le massif par le sud, via Honoapiʻilani Highway (30), Māʻalaea et Olowalu, avant de remonter vers Kā‘anapali ; les 48 km et 65 min actuels sont plausibles et le rapport au vol d’oiseau ne justifie aucune correction."
           },
           "stay_at": "US::kaanapali-hi",
           "stay_nights": 0
@@ -84233,7 +84236,8 @@
             "drive_min": 80,
             "transport_mode": "car",
             "road_type": "US 211 e depois Skyline Drive, estrada de montanha",
-            "method": "heuristic"
+            "method": "corrige-audit",
+            "justification": "Le détour automobile est réel : depuis Luray, l’accès à Big Meadows passe par US 211 vers Thornton Gap, à la borne 31.5 de Skyline Drive, puis par cette route de crête vers le sud jusqu’au secteur de Big Meadows, à la borne 51 ; ces quelque 31 km sur Skyline Drive s’ajoutent à l’approche depuis Luray, ce qui rend les 53 km et 80 min actuels plausibles sur cet itinéraire montagneux."
           },
           "stay_at": "US::luray-va",
           "stay_nights": 1
