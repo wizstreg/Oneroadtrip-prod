@@ -409,7 +409,7 @@ body.t30 #textPanel{max-height:var(--ort-rail-height,calc(100vh - var(--hh,70px)
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/maplibre-gl@4.7.1/dist/maplibre-gl.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/@maplibre/maplibre-gl-leaflet@0.0.22/leaflet-maplibre-gl.js" defer></script>
-<script src="/js/ort-routing.js?v=1792779844449" defer></script>
+<script src="/js/ort-routing.js?v=1792836358155" defer></script>
 <script>
 var MP=[];var OP=[];
 var map,mk={},pl,isFs=false;
@@ -529,12 +529,12 @@ function ortToggleLoop(btn){var k=btn.getAttribute('data-k');ortLoopFilters[k]=(
 function ortClearRoute(){ortRouteLayers.forEach(function(l){try{map.removeLayer(l);}catch(e){}});ortRouteLayers=[];if(pl){try{map.removeLayer(pl);}catch(e){}pl=null;}}
 function ortDrawLoopRoute(ll,names){ortClearRoute();ortLastLL=ll;ortLastNames=names;var groups=ortLoopGroups(names);ortRenderLoopLegend(names);ortApplyTextFilter(names);var _nl=0,_gi;for(_gi=0;_gi<groups.length;_gi++){if(groups[_gi].loop>=0&&groups[_gi].loop+1>_nl)_nl=groups[_gi].loop+1;}function _col(l){return _nl<2?ORT_LOOP_COLORS[0]:ortLoopColor(l);}function _vis(g){return ortLoopFilters[g.loop<0?'link':'loop'+g.loop]!==false;}if(typeof calculateOSRMRoute!=='function'){groups.forEach(function(g){if(!_vis(g))return;var seg=ll.slice(g.start,g.end+1);ortRouteLayers.push(L.polyline(seg,{color:_col(g.loop),weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));});return;}
 groups.forEach(function(g){if(!_vis(g))return;var seg=ll.slice(g.start,g.end+1);var col=_col(g.loop);calculateOSRMRoute(seg,'driving').then(function(result){if(result&&result.coordinates&&result.coordinates.length>1){ortRouteLayers.push(L.polyline(result.coordinates,{color:col,weight:4,opacity:.85}).addTo(map));}else{ortRouteLayers.push(L.polyline(seg,{color:col,weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));}}).catch(function(){ortRouteLayers.push(L.polyline(seg,{color:col,weight:3,opacity:.7,dashArray:'8,6'}).addTo(map));});});}
-function iM(){map=L.map('map',{scrollWheelZoom:true,zoomControl:true});
+function iM(){map=L.map('map',{scrollWheelZoom:true,zoomControl:true,maxZoom:19});
 map.setView([20,0],2);
 ortAddBaseMap(map);
 }
 var initBd=null;
-function cMap(){if(map&&initBd){map.fitBounds(initBd.pad(0.1));autoFollow=true;}}
+function cMap(){if(map&&initBd){map.fitBounds(initBd.pad(0.1),{maxZoom:13});autoFollow=true;}}
 function sD(d){var p=MP.find(function(x){return x.day===d;});if(p&&map){map.setView([p.lat,p.lng],11,{animate:true});}hD(d);}
 var activeDay=0;
 function mkIcon(day,active){var bg=active?'#e11d48':'#113f7a';var sz=active?34:26;var fs=active?14:11;return L.divIcon({html:'<div style="background:'+bg+';color:#fff;width:'+sz+'px;height:'+sz+'px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:'+fs+'px;font-weight:700;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);position:relative'+(active?';transform:scale(1.1)':'')+'">'+day+(ortNightFlag(day)?'<span class="ort-flag">🚩</span>':'')+'</div>',className:'dm',iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]});}
@@ -733,7 +733,7 @@ function ortMarkerTip(p){var T=window.ORT_TT_T||{};var e=function(s){return Stri
 function hD(d){document.querySelectorAll('.ds').forEach(function(s){s.classList.remove('active');});var el=document.getElementById('day-'+d);if(el)el.classList.add('active');if(activeDay&&mk[activeDay])mk[activeDay].setIcon(mkIcon(activeDay,false));activeDay=d;if(mk[d])mk[d].setIcon(mkIcon(d,true));showDayPhoto(d);}
 (function(){var mq=window.matchMedia('(min-width:901px)');if(!mq.matches)return;var box=document.getElementById('hoverPhoto');var img=document.getElementById('hoverPhotoImg');var tp=document.getElementById('textPanel');if(!box||!img||!tp)return;var enterTimer=null;var SEL='.mag-figure img,.mag-photo img,.mag-inset-left img,.mag-inset-right img,.hb3-img,.dp-inline img';function findTarget(e){var n=e.target;if(!n||n.nodeType!==1)return null;return n.matches&&n.matches(SEL)?n:null;}function show(src,alt){if(!src)return;img.src=src;img.alt=alt||'';box.classList.add('on');}function hide(){box.classList.remove('on');img.src='';if(enterTimer){clearTimeout(enterTimer);enterTimer=null;}}tp.addEventListener('mouseover',function(e){var t=findTarget(e);if(!t)return;if(enterTimer)clearTimeout(enterTimer);var src=t.currentSrc||t.src||t.getAttribute('data-src')||'';var alt=t.alt||'';enterTimer=setTimeout(function(){show(src,alt);},150);});tp.addEventListener('mouseout',function(e){var t=findTarget(e);if(!t)return;hide();});})();
 var autoFollow=true;
-var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=parseInt(e.target.dataset.day);if(d){hD(d);if(autoFollow&&map){var p=MP.find(function(x){return x.day===d;});if(p)map.panTo([p.lat,p.lng],{animate:true,duration:.5});}}}});},{threshold:.3});
+var obs=new IntersectionObserver(function(entries){entries.forEach(function(e){if(e.isIntersecting){var d=parseInt(e.target.dataset.day);if(d){hD(d);if(autoFollow&&map){var p=MP.find(function(x){return x.day===d;});if(p)map.panTo([p.lat,p.lng],{animate:true,duration:.5});}}}});},{rootMargin:(window.innerWidth<=900?'-55% 0px -40% 0px':'-30% 0px -65% 0px'),threshold:0});
 document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){document.querySelectorAll('.ds').forEach(function(s){obs.observe(s);});if(typeof MP!=='undefined'&&MP&&MP.length&&typeof showDayPhoto==='function')showDayPhoto(MP[0].day);},600);});
 function tFs(){var pan=document.getElementById('mapPanel');isFs=!isFs;pan.classList.toggle('fs');document.getElementById('fsBtn').textContent=isFs?'\u2715':'\u26f6';if(map)setTimeout(function(){map.invalidateSize();},200);}
 function sPop(d){var sec=document.getElementById('day-'+d);if(!sec)return;document.getElementById('mapPopB').innerHTML=sec.innerHTML;document.getElementById('mapPop').style.display='block';}
@@ -760,11 +760,11 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   else document.addEventListener('DOMContentLoaded',function(){var t2=document.getElementById('site-header');if(t2)mo.observe(t2,{childList:true,subtree:true});});
 })();
 </script>
-<script src="/js/ort-config.js?v=1792779844449"></script>
-<script src="/js/ort-i18n-socle.js?v=1792779844449"></script>
-<script src="/js/ort-i18n-auth.js?v=1792779844449"></script>
-<script src="/js/ort-header.js?v=1792779844449"></script>
-<script src="/js/ort-footer.js?v=1792779844449"></script>
+<script src="/js/ort-config.js?v=1792836358155"></script>
+<script src="/js/ort-i18n-socle.js?v=1792836358155"></script>
+<script src="/js/ort-i18n-auth.js?v=1792836358155"></script>
+<script src="/js/ort-header.js?v=1792836358155"></script>
+<script src="/js/ort-footer.js?v=1792836358155"></script>
 <script>
 (function(){
   var langUrls={};
@@ -793,8 +793,8 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
   });
 })();
 </script>
-<script src="/js/ort-itin-editor.js?v=1792779844449" defer></script>
-<script src="/js/ort-state-manager.js?v=1792779844449" defer></script>
+<script src="/js/ort-itin-editor.js?v=1792836358155" defer></script>
+<script src="/js/ort-state-manager.js?v=1792836358155" defer></script>
 <script>
 (function(){
   var ITIN_ID='';
@@ -963,7 +963,7 @@ document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(document
                 m.on('click',function(){showPlaceBox(p.day,p.name,p.tag||'');var el=document.getElementById('day-'+p.day);if(el){hD(p.day);ortScrollToStep(el);}});
                 mk[p.day]=m;
               });
-              map.fitBounds(bd.pad(0.1));
+              map.fitBounds(bd.pad(0.1),{maxZoom:13});
               initBd=bd;
             }
             if(typeof obs!=='undefined'){
