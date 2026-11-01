@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bouches-du-Rhône: der umfassende Reiseführer von Marseille bis zur Camargue</title>
+<meta name="description" content="Marseille, Calanques, Côte Bleue, Alpilles, Arles und Camargue: alles für Ihre Reiseplanung. Reisezeit, Aufenthaltsdauer, Unterkünfte und regionale Küche.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/de/bouches-du-rhone.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/bouches-du-rhone.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/bouches-du-rhone.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/bouches-du-rhone.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/bouches-du-rhone.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/bouches-du-rhone.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/bouches-du-rhone.html">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="de_DE">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Bouches-du-Rhône: der umfassende Reiseführer von Marseille bis zur Camargue">
+<meta property="og:description" content="Marseille, Calanques, Côte Bleue, Alpilles, Arles und Camargue: alles, was Sie vor der Reise wissen sollten.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/de/bouches-du-rhone.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/sormiou.jpg&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Die Calanque de Sormiou bei Marseille">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Bouches-du-Rhône: der umfassende Reiseführer von Marseille bis zur Camargue">
+<meta name="twitter:description" content="Marseille, Calanques, Côte Bleue, Alpilles, Arles und Camargue: alles, was Sie vor der Reise wissen sollten.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/sormiou.jpg&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .aff-card{position:relative;display:block;max-width:960px;margin:0 auto 32px;padding:0 48px;text-decoration:none;}
+  .aff-card-inner{position:relative;border-radius:14px;overflow:hidden;}
+  .aff-card-inner img{width:100%;height:260px;object-fit:cover;display:block;}
+  .aff-scrim{position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(20,15,8,0.85));}
+  .aff-text{position:absolute;left:20px;bottom:16px;color:#fff;}
+  .aff-badge{font-size:12px;font-weight:700;background:#113f7a;display:inline-block;padding:3px 10px;border-radius:999px;}
+  .aff-title{font-family:'Instrument Serif',serif;font-size:22px;margin-top:6px;}
+  .aff-highlight{border:2px solid #113f7a;border-radius:14px;padding:18px 22px;margin:12px auto 28px;background:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:130px;object-fit:cover;border-radius:10px;}
+  .hotel-divider{border-top:1px solid #e3e0d8;margin:24px 0;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  .glossary-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .gterm{background:#ffffff0f;border:1px solid #ffffff25;border-radius:10px;padding:12px 14px;}
+  .gterm b{color:#fff;}
+  .gterm div{font-size:13px;color:#f5efe4cc;margin-top:4px;}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .aff-card{padding:0 20px;}
+    .aff-card-inner img{height:180px;}
+    .full-img{height:220px;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .hotel-gallery{grid-template-columns:1fr 1fr;}
+    .hotel-gallery img{height:100px;}
+    .glossary-grid{grid-template-columns:1fr 1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+    .hotel-gallery{grid-template-columns:1fr 1fr;}
+    .glossary-grid{grid-template-columns:1fr;}
+  }
+</style>
+<link rel="alternate" hreflang="de" href="https://www.oneroadtrip.com/blog/de/bouches-du-rhone.html">
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">Frankreich</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Provence · Regionaler Reiseführer</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Bouches-du-Rhône: der umfassende Reiseführer zwischen Marseille, Camargue und Alpilles</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Calanques, Marseille, Camargue und Bergdörfer: Marcel Pagnols Heimat zwischen Meer und Garrigue.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/vieux-port.jpg&amp;w=1200&amp;output=webp&amp;q=80" alt="Der Vieux-Port von Marseille" data-imgkey="vieux-port" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Inhaltsverzeichnis</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Willkommen in der Provence</a>       <a href="#s02">02 · Marseille und Umgebung entdecken</a>       <a href="#s03">03 · Die andere Küste</a>       <a href="#s04">04 · Alpilles, Arles und Camargue</a>       <a href="#s05">05 · Küche und regionale Spezialitäten</a>       <a href="#s06">06 · Lokale Sportarten</a>       <a href="#s07">07 · Wie viel Zeit einplanen?</a>       <a href="#s08">08 · Beste Reisezeit</a>       <a href="#s09">09 · Anreise und Verkehr</a>       <a href="#s10">10 · Ungewöhnliches</a>       <a href="#s11">11 · Die lokale Sprache</a>       <a href="#s12">12 · Bildnachweise</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>   <span style="font-size:12px;font-weight:600;color:#fff;">Inhaltsverzeichnis</span>
+</div>
+
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Willkommen in der Provence</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+      <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0;">Zikaden begleiten mit ihrem Gesang die Siesta, im Sommer oft unverzichtbar: im Schatten einer Schirmkiefer, am Meer oder mit Blick auf ein Lavendelfeld.</p>
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/lavande.jpg&amp;w=700&amp;output=webp&amp;q=80&amp;fit=cover&amp;a=top" alt="Lavendelfeld unter der Sonne der Provence" data-imgkey="lavande" style="width:100%;height:260px;object-fit:cover;border-radius:12px;">
+    </div>
+  </div>
+  <div class="col" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/camargue-flamant.jpg&amp;w=700&amp;output=webp&amp;q=80" alt="Ein Flamingo im Flug über der Camargue" loading="lazy" data-imgkey="camargue-flamant" style="width:100%;height:220px;object-fit:cover;border-radius:12px;">
+    <p style="margin:0;">Willkommen in der Provence, dem Land inspirierter Maler, ehemaliger Päpste, der Pferde und Stiere der Camargue, hoch gelegener Dörfer und Schluchten mit türkisfarbenem Wasser.</p>
+  </div>
+  <div class="col" style="margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+    <p style="margin:0;">Hier trinkt man guten Wein zu kleinen gefüllten Gemüsegerichten. Bouillabaisse genießt man mit Blick aufs Mittelmeer oder auf Marseilles Vieux-Port. Nach jahrhundertealter Methode kandierte Früchte verwöhnen den Gaumen. Nach der Siesta empfangen Sie alte Gassen mit Läden voller provenzalischer Stoffe. Und der Papstpalast in Avignon gibt seine Geheimnisse preis.</p>
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/bouillabaisse.jpg&amp;w=700&amp;output=webp&amp;q=80" alt="Marseiller Bouillabaisse, in zwei Gängen serviert" loading="lazy" data-imgkey="bouillabaisse" style="width:100%;height:220px;object-fit:cover;border-radius:12px;">
+  </div>
+  <div class="col">
+    <p>Die Einheimischen sprechen Sie ganz selbstverständlich an und fragen, woher Sie kommen. Ihr südlicher Akzent scheint direkt aus einem Buch des hier geborenen Marcel Pagnol zu stammen.</p>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;color:#3a2f22;margin:0 0 24px;">Willkommen in der Provence, dem Land der Sonne.</p>
+    <p style="margin:0;">Die Provence ist groß, sehr groß, und lässt sich unmöglich auf einmal behandeln. Beginnen wir also in Marcels Heimat, wo Meer, Sonne, Klippen und Hügel aufeinandertreffen: im Département Bouches-du-Rhône.</p>
+  </div>
+</div>
+
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Marseille und Umgebung entdecken</h2></div>
+    <p>Bouches-du-Rhône bedeutet Meer. Überall hören Sie von den Calanques, tief eingeschnittenen Buchten zwischen Kalksteinklippen. Entdecken Sie sie mit dem Boot oder, noch schöner, auf einer anstrengenden Wanderung unter praller Sonne. Juni und September sind vorzuziehen: Im Sommer wird das Massiv wegen Brandgefahr oft gesperrt. Oben auf dem Hügel über Ihrer ersten Calanque belohnt Sie der Ausblick. Ein anschließendes Bad gibt Kraft für den durchaus steilen Rückweg. Häufig startet man in Luminy im Osten Marseilles, doch es gibt weitere Zugänge. Informationen finden Sie hier: <a href="https://www.calanques-parcnational.fr/fr/venir-aux-calanques-de-marseille" target="_blank" rel="noopener">Ab Marseille | Nationalpark Calanques</a></p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/sormiou.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Calanque de Sormiou vom Hügel aus gesehen" loading="lazy" data-imgkey="sormiou" style="height:400px;">
+  <div class="col">
+    <p>Für einen anderen, weniger anstrengenden und ebenso eindrucksvollen Blick auf die Calanques empfiehlt sich eine Bootsfahrt. Unten finden Sie einen mit 4,7 von 5 bewerteten Ausflug. Er dauert einen halben Tag, bietet großartige Aussichten und ein Bad im warmen Mittelmeer. Erfrischend …</p>
+  </div>
+  <a class="aff-card" href="https://getyourguide.tpo.li/afgpBYhg" target="_blank" rel="noopener">
+    <div class="aff-card-inner">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/bateau-calanques-1.avif&amp;w=900&amp;output=webp&amp;q=80" alt="Bootsausflug in die Calanques" loading="lazy" data-imgkey="bateau-calanques-1">
+      <div class="aff-scrim"></div>
+      <div class="aff-text"><div class="aff-badge">★ 4,7/5 · Ausflug</div><div class="aff-title">Die Calanques vom Meer aus</div></div>
+    </div>
+  </a>
+  <div class="col">
+    <p>Mit Marseille als Ausgangspunkt erreichen Sie die umliegenden Städte und Dörfer bequem mit dem Auto oder, vorzugsweise, öffentlichen Verkehrsmitteln.</p>
+    <p>In Aix-en-Provence erwarten Sie provenzalische Märkte, Brunnen, vornehme Stadthäuser und Cézannes Licht. Nur eine halbe Stunde entfernt ist Aix das Gegenteil Marseilles: bürgerlich und ruhig. Unter den Platanen des Cours Mirabeau erholen Sie sich vom Großstadttrubel. Eine Führung lohnt sich, um Aix' Charakter und die Geschichte der prächtigen Stadtpalais in den alten Gassen kennenzulernen. Sie ist preiswert und erspart zielloses Umherlaufen.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/aix-en-provence.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Brunnen und Fassaden in Aix-en-Provence" loading="lazy" data-imgkey="aix-en-provence" style="width:100%;">
+  </div>
+  <a class="aff-card" href="https://getyourguide.tpo.li/ZE3yJIrr" target="_blank" rel="noopener">
+    <div class="aff-card-inner">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/aix-visite.avif&amp;w=900&amp;output=webp&amp;q=80" alt="Stadtführung durch Aix-en-Provence" loading="lazy" data-imgkey="aix-visite">
+      <div class="aff-scrim"></div>
+      <div class="aff-text"><div class="aff-badge">Führung</div><div class="aff-title">Stadtführung durch Aix-en-Provence</div></div>
+    </div>
+  </a>
+  <div class="col">
+    <p>Rund um Aubagne folgen Sie Marcel Pagnols Spuren durch seine Hügel. Wenn Sie Zeit haben, erleben Sie unbedingt eine Aufführung eines seiner Stücke auf Französisch, die durch die Landschaft zu den Schauplätzen seiner Romane führt. An jedem Ort wird eine kleine Szene gespielt. Achtung vor dem „Cagnard“, der sengenden Sonne: Wasserflaschen und Sonnenschirme sind keineswegs überflüssig! Aufführungstermine finden Sie bei <a href="https://www.danslacourdesgrands.fr/" target="_blank" rel="noopener">Dans la cour des grands</a>.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/troupe-theatre.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Freilichttheatergruppe in den Hügeln" loading="lazy" data-imgkey="troupe-theatre" style="height:340px;margin:8px 0 28px;">
+  <div class="col">
+    <p>Im Dezember lockt Aubagne mit seinem berühmten Santons-Markt für provenzalische Krippenfiguren.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/santons.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Provenzalische Santons auf einem Weihnachtsmarkt" loading="lazy" data-imgkey="santons" style="height:340px;">
+  <div class="col">
+    <p>Weiter nach Cassis: Sein entspannter Hafen und die Geschäfte in den alten Gassen werden Sie begeistern.</p>
+    <p>Von dort lohnt ein kleiner Abstecher ins benachbarte Département Var nach Le Castellet. Der Ort ist eher für seine Rennstrecke als für seine Gassen bekannt, dabei verdient gerade das Dorf einen Besuch.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/cassis-port.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Der Hafen von Cassis am Fuß des Cap Canaille" loading="lazy" data-imgkey="cassis-port">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/le-castellet.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Gasse im hoch gelegenen Dorf Le Castellet" loading="lazy" data-imgkey="le-castellet">
+  </div>
+  <div class="col">
+    <p style="margin:0;">Diese Route verbindet Marseille mit Aix über Cassis, La Ciotat und Le Castellet, von türkisfarbenen Calanques bis zu Bergdörfern in der Garrigue:</p>
+    <a class="cta" href="https://www.oneroadtrip.com/routen/fr-fr-marseille-aix-en-provence-6j.html" target="_blank" rel="noopener">Von Marseille nach Aix-en-Provence, 4 Tage →</a>
+  </div>
+  <div class="col" style="margin-top:32px;">
+    <p>Bleibt Marseille: Frankreichs älteste Stadt, vor mehr als 2.600 Jahren von Griechen gegründet. Eine kosmopolitische, pulsierende Metropole, über deren Gläubige seit Jahrhunderten die Bonne Mère wacht, während zu ihren Füßen das Mucem Kulturen aus aller Welt empfängt.</p>
+    <p style="margin:0;">Wie in Aix empfehlen wir einen geführten Spaziergang. Dabei erfahren Sie viel mehr als allein, und der Preis ist überschaubar.</p>
+    <a class="aff-card" href="https://getyourguide.tpo.li/GcCyWI4A" target="_blank" rel="noopener" style="padding:0;margin:12px 0 28px;">
+      <div class="aff-card-inner">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/FR/marseille-3.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Geführter Spaziergang durch Marseilles Straßen" loading="lazy" data-imgkey="marseille-3">
+        <div class="aff-scrim"></div>
+        <div class="aff-text"><div class="aff-badge">Führung</div><div class="aff-title">Marseille erkunden</div></div>
+      </div>
+    </a>
+    <p>Wenn Sie allein losziehen möchten, beginnen Sie früh am Quai des Belges. Hier verkaufen Fischer ihren Tagesfang direkt am Hafen.</p>
+    <p>Vom selben Kai bringt Sie ein Boot in zwanzig Minuten zum Château d'If, jener Festung, in die Dumas Monte Cristo sperrte. Noch heute zeigt man dort den Kerker eines Gefangenen, den es nie gab. Weiter fährt das Boot zum Frioul, zwei kahlen Inseln mit einsamen Badebuchten.</p>
+    <p>Über dem Hafen thront auf ihrem Hügel die Bonne Mère. Hinauf geht es zu Fuß, mit dem Bus oder mit der kleinen Touristenbahn ab Hafen. Eine Standseilbahn gab es einmal, doch seit 1967 existiert sie nicht mehr.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/bonne-mere.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Notre-Dame de la Garde über Marseille" loading="lazy" data-imgkey="bonne-mere" style="height:400px;">
+  <div class="col">
+    <p>Nach dem Abstieg folgen Sie der Canebière, Marseilles Hauptavenue, hinauf und durchqueren das alte Marseille mit Noailles und seinem Markt, wo sich alle Nationalitäten mischen. Zum Einkaufen lockt die Rue Saint-Ferréol, von den Marseillern Saint-Phé genannt.</p>
+    <p>Den Cours Julien heben wir uns für den Abend auf, wenn Marseille hier ausgeht. Zunächst weiter zur Place Castellane, dann die Avenue du Prado entlang zu den Prado-Stränden. Alles ist zu Fuß machbar, allerdings kommen einige Kilometer zusammen.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/cours-julien.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Die mit Graffiti bedeckten Treppen am Cours Julien" loading="lazy" data-imgkey="cours-julien">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/mucem.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Das Mucem und die Kathedrale La Major" loading="lazy" data-imgkey="mucem">
+  </div>
+  <div class="col">
+    <p>Mit der Metro geht es weiter ins Panier, eines der alten, steil ansteigenden Viertel. Danach hinunter zum Mucem und abends zum Entspannen an den Cours Julien.</p>
+    <p style="margin:0;">Gut, das ist etwas übertrieben. Verteilen Sie das auf zwei oder drei Tage, sonst halten Sie das Tempo nicht durch. Noch gar nicht erwähnt haben wir die gesamte Uferpromenade, die „Maison du Fada“, also die Cité Radieuse, und den Palais Longchamp …</p>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <h3 class="hotel-eyebrow" style="margin:0 0 6px;">Übernachten in Marseille</h3>
+      <p style="font-size:14px;color:#8a7d68;margin:0 0 16px;">Hier einige Hotels, die Sie auf Booking.com buchen können. Die Buchungen helfen, unsere Website zu finanzieren, ohne dass Sie einen Cent mehr bezahlen.</p>
+      <div class="hotel-name">New Hotel of Marseille, Vieux-Port</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/hotel-marseille-1.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Hotel in Marseille" loading="lazy" data-imgkey="hotel-marseille-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/hotel-marseille-2.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="New Hotel of Marseille, Terrasse und Pool" loading="lazy" data-imgkey="hotel-marseille-2">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/hotel-marseille-3.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Hotelzimmer in Marseille" loading="lazy" data-imgkey="hotel-marseille-3">
+      </div>
+      <p style="margin:0 0 14px;">Ein Vier-Sterne-Designhotel gegenüber dem Palais du Pharo, zehn Gehminuten vom Vieux-Port entfernt: Außenpool, Sauna, nordische Bäder und große möblierte Terrasse. Superiorzimmer und Suiten besitzen Stadtblickbalkon und eine bereitgestellte Nespresso-Maschine. Das Frühstücksbuffet genießen Sie auf der Terrasse. Zum Strand Les Catalans sind es fünf Gehminuten, zu den Buchten von Malmousque und Endoume weitere zehn. Paare bewerten die Lage mit 9,1.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/kmZDjVYbnI" target="_blank" rel="noopener" style="margin:0;">New Hotel of Marseille buchen →</a>
+    </div>
+  </div>
+</div>
+
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Die andere Küste: L'Estaque, Côte Bleue, Martigues</h2></div>
+    <p>Fahren Sie nun in Marseilles westlichstes Viertel L'Estaque mit seinem oft von Cézanne, Braque und Dufy gemalten Hafen. Am Kai essen Sie im Stehen Chichis Fregis, süßes frittiertes Gebäck. Sonntags sehen Sie vielleicht zwei weiß gekleidete Männer, die sich auf Booten mit Lanzen messen, bis einer ins Wasser fällt.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/estaque-port.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Der Hafen von L&#x27;Estaque von der Place F. Maleterre aus" loading="lazy" data-imgkey="estaque-port">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/cezanne-estaque.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Das Meer bei L&#x27;Estaque, von Paul Cézanne" loading="lazy" data-imgkey="cezanne-estaque">
+  </div>
+  <div class="col">
+    <p>Hier beginnt eine andere Küste als die berühmten Calanques. Am besten erlebt man auch sie vom Meer aus. Wenn Sie sich fit genug fühlen, mieten Sie für einen halben Tag ein Kajak. Wunderschöne Landschaften und herrliche Badepausen warten.</p>
+  </div>
+  <a class="aff-card" href="https://getyourguide.tpo.li/U5zz7QTg" target="_blank" rel="noopener">
+    <div class="aff-card-inner">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/cote-bleue-kayak.avif&amp;w=900&amp;output=webp&amp;q=80" alt="Kajak in einer Calanque der Côte Bleue" loading="lazy" data-imgkey="cote-bleue-kayak">
+      <div class="aff-scrim"></div>
+      <div class="aff-text"><div class="aff-badge">Ausflug</div><div class="aff-title">Kajakfahren an der Côte Bleue</div></div>
+    </div>
+  </a>
+  <div class="col">
+    <p>Die felsige Küste ist von Einschnitten durchzogen, über die die Bahn fährt. Ab Marseille Saint-Charles erreichen Sie Niolon in zwanzig Minuten. Meiden Sie das Auto, das oft verboten ist. Bei Carry-le-Rouet gilt im Meeresschutzgebiet seit 1982 ein Fangverbot: Hier schauen Ihnen die Fische schon zwei Meter vom Ufer entfernt beim Vorbeischwimmen zu. Im Februar füllt sich der Hafen zu den Seeigelfesten. Die Einwohner erzählen Ihnen zuerst von Fernandel und erst danach vom Meer.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/oursinade.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Seeigelplatte bei den Oursinades in Carry" loading="lazy" data-imgkey="oursinade" style="height:340px;">
+  <div class="col">
+    <p>Bei Martigues endet diese Küste abrupt. Hier dringt das Wasser in die Stadt ein: drei Kanäle, traditionelle Fischerboote direkt vor den Häusern. Die Einheimischen vergleichen ihre schöne Stadt mit Venedig und schwärmen vom Miroir aux Oiseaux, einem seit 1942 geschützten Becken mit kleinen Booten, ockerfarbenen Häusern und bunten Fensterläden. Das Musée Ziem besitzt mehr als 8.000 Werke und bietet einen schönen, kühlen Rundgang, sofern die Siesta nicht gewinnt.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/miroir-aux-oiseaux.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Der Miroir aux Oiseaux mit seinen ockerfarbenen Häusern" loading="lazy" data-imgkey="miroir-aux-oiseaux" style="height:380px;">
+  <div class="col">
+    <p style="margin:0;">Wir haben eine Route zusammengestellt, die im Marseiller Viertel L'Estaque beginnt, über die Côte Bleue führt und in der Camargue endet:</p>
+    <a class="cta" href="https://www.oneroadtrip.com/routen/fr-13-cote-bleue-camargue.html" target="_blank" rel="noopener">Côte Bleue und Camargue, 7 Tage →</a>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <h3 class="hotel-eyebrow" style="margin:0 0 6px;">Übernachten an der Côte Bleue</h3>
+      <div class="hotel-name">Bleu Hôtel &amp; Spa, Carry-le-Rouet</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/carry-1.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Infinitypool des Bleu Hôtel &amp; Spa mit Hafenblick" loading="lazy" data-imgkey="carry-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/carry-2.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Fassade des Bleu Hôtel &amp; Spa vom Hafen aus" loading="lazy" data-imgkey="carry-2">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/carry-3.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Restaurant des Bleu Hôtel &amp; Spa mit Meerblick" loading="lazy" data-imgkey="carry-3">
+      </div>
+      <p style="margin:0 0 14px;">Das Vier-Sterne-Haus Bleu Hôtel &amp; Spa liegt direkt am Wasser in Carry-le-Rouet, 400 Meter vom Strand Fernandel entfernt, mit Außenpool, Terrasse und Restaurant am Mittelmeer. Klimatisierte Zimmer, Kaffeemaschine, eigenes Bad, Frühstücksbuffet und Shuttle: Alles ist auf entspanntes Genießen ausgelegt. Paare bewerten die Lage mit 9,7; Marseilles Flughafen ist 14 km entfernt.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/8Cm-xfHQue" target="_blank" rel="noopener" style="margin:0;">Bleu Hôtel &amp; Spa buchen →</a>
+    </div>
+  </div>
+</div>
+
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Alpilles, Arles und Camargue</h2></div>
+    <p>Verlassen wir das Mittelmeer und fahren nach Norden.</p>
+    <p>Willkommen in den Alpilles, einer Kalksteinhügelkette zwischen Arles und Avignon, zwischen Rhône und Durance. Zum weißen Gestein mischt sich das Grün jahrhundertealter Olivenbäume und Aleppo-Kiefern. Hier herrschen die Zikaden. Hinter jedem überquerten Kamm wechselt die Landschaft. Die Dörfer entdeckt man im provenzalischen Rhythmus: morgens langsam, mittags Pastis, am späten Nachmittag spazieren und im Sommer über die Abendmärkte bummeln.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/alpilles.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Kalksteinkämme der Alpilles" loading="lazy" data-imgkey="alpilles" style="height:380px;">
+  <div class="col">
+    <p>Les Baux-de-Provence klammert sich an seinen Felssporn, die Burg ist nur noch Ruine. Bei klarem Wetter reicht der Blick bis in die Camargue. Gleich darunter projizieren die Carrières de Lumières Meisterwerke auf die Wände eines ehemaligen Steinbruchs. Man tritt ins Dunkel und kommt mit Bildern vor Augen und klassischer Musik in den Ohren zurück. Ringsum pressen Mühlen das AOP-Olivenöl des Vallée des Baux: Es schmeckt nach der Landschaft und hält lange.</p>
+  </div>
+  <div class="half-row" style="margin-bottom:6px;">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/les-baux.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Les Baux-de-Provence auf seinem Felssporn" loading="lazy" data-imgkey="les-baux">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/carrieres-de-lumieres.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Monumentale Projektion in den Carrières de Lumières" loading="lazy" data-imgkey="carrieres-de-lumieres">
+  </div>
+  <div class="col" style="margin-bottom:24px;font-size:11px;color:#8a7d68;">Foto: Jacques Le Letty, CC BY-SA 4.0</div>
+  <div class="col">
+    <p>In Saint-Rémy-de-Provence fesselt Glanum: eine antike Stadt am Eingang eines Tals, in der auf die Griechen die Römer folgten und deren Straßen noch im Boden ablesbar sind. Gleich daneben liegt hinter einer Mauer ein altes Kloster, in dem Van Gogh ein Jahr lebte.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/glanum.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Der römische Triumphbogen von Glanum" loading="lazy" data-imgkey="glanum">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/tissus-provencaux.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Geschäft mit provenzalischen Stoffen" loading="lazy" data-imgkey="tissus-provencaux">
+  </div>
+  <div class="col">
+    <p>Mittwochvormittags findet auf den Boulevards rund ums Dorf der Markt statt. Dort gibt es Olivenöl, Tapenade, Pastis, regionalen Honig und provenzalische Stoffe: Tischdecken, Sets und Schürzen mit winzigen Oliven-, Zikaden- und Zweigmustern in seit zwei Jahrhunderten zeitlosen Gelb- und Blautönen. Diese Muster kamen vor drei Jahrhunderten aus Indien über Marseilles Hafen. Der König verbot sie zum Schutz der Lyoner Seidenweber. Die Provence produzierte trotzdem weiter. Ein wenig Indien unter Südfrankreichs Sonne.</p>
+    <p>Nun nach Arles. Arena und unterirdische Galerien erinnern bemerkenswert gut erhalten an die Römerzeit. Hier ist der Stier König. Zwei Traditionen teilen sich die Arena: der spanische Stierkampf von jenseits der Pyrenäen, bei dem das Tier stirbt, und die heimische Course Camarguaise.</p>
+    <p>Letztere sollten Sie erleben. Weiß gekleidete Männer versuchen, eine rote Kokarde zwischen den Hörnern des tierischen Stars abzureißen. Der Stier wartet, beobachtet, wählt sein Ziel und rennt los. Eine halbe Tonne Tier bremst beim Angriff nicht: Der Raseteur läuft schräg vor den Hörnern vorbei, greift zur Stirn und flüchtet zur Barriere, über die er springt, während der Stier dahinter dagegenprallt. Die Besten holen die Kokarde wenige Zentimeter vor dem Horn. Manchmal werden Raseteure verletzt, der Preis des Ruhms. Der Stier kehrt dagegen immer unversehrt auf seine Weide zurück und bekommt manchmal sogar eine Statue.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/course-camarguaise-raset.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Ein Raseteur greift nach der Kokarde zwischen den Hörnern" loading="lazy" data-imgkey="course-camarguaise-raset">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/course-camarguaise.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Course Camarguaise in der Arena" loading="lazy" data-imgkey="course-camarguaise">
+  </div>
+  <div class="col">
+    <p>Van Gogh verbrachte fünfzehn Monate in Arles, von Februar 1888 bis Mai 1889, und malte über zweihundert Bilder. Merkwürdigerweise finden Sie dort wenig von ihm. Keines seiner Gemälde ist in Arles zu sehen. Das Gelbe Haus, in dem er wohnte, wurde 1944 bei einem Bombenangriff zerstört. Auch die von ihm gemalte Brücke verschwand.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/maison-jaune.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Das Gelbe Haus, 1944 zerstört" loading="lazy" data-imgkey="maison-jaune" style="height:340px;">
+  <div class="col">
+    <p>Geblieben sind die Alyscamps, jene unveränderte Allee römischer Sarkophage, in der er neben Gauguin seine Staffelei aufstellte. Geblieben ist der Hof des alten Krankenhauses, in dem er nach der Ohrverletzung behandelt wurde, heute nach seinem Bild neu bepflanzt. Und es gibt die 2014 eröffnete Stiftung seines Namens, die Gemälde für Ausstellungen ausleiht: Die Stadt muss ihren eigenen Maler gewissermaßen mieten.</p>
+    <p>Auch das gehört dazu: Zu seinen Lebzeiten unterschrieben Einwohner eine Petition, ihn einsperren zu lassen. Sie nannten ihn den rothaarigen Verrückten. Im Mai 1889 ging er nach Saint-Rémy. Dort können Sie wesentlich mehr über den Maler erfahren:</p>
+  </div>
+  <a class="aff-card" href="https://getyourguide.tpo.li/C9Xqo6NZ" target="_blank" rel="noopener">
+    <div class="aff-card-inner">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/chambre-van-gogh.jpg&amp;w=900&amp;output=webp&amp;q=80" alt="Van Goghs Zimmer in Saint-Paul-de-Mausole" loading="lazy" data-imgkey="chambre-van-gogh">
+      <div class="aff-scrim"></div>
+      <div class="aff-text"><div class="aff-badge">Führung</div><div class="aff-title">Auf Van Goghs Spuren</div></div>
+    </div>
+  </a>
+  <div class="col">
+    <p>Im Sommer bringen die Rencontres d'Arles Fotografie in die ganze Stadt, sogar in ehemalige Kapellen.</p>
+    <p>Von Arles führt die Straße ins Delta. Die Camargue beginnt unvermittelt: Bäume ducken sich, Wasser bestimmt die Landschaft – Sümpfe, Lagunen und Reisfelder. Weiße Pferde leben hier halbwild im Freien, ebenso Stiere. Die Flamingos bleiben manchmal so weit entfernt, dass sie fast wie ein Gerücht wirken.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/camargue-chevaux.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Halbwilde weiße Pferde in der Camargue" loading="lazy" data-imgkey="camargue-chevaux">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/camargue-marais.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Sümpfe und Lagunen im Rhône-Delta" loading="lazy" data-imgkey="camargue-marais">
+  </div>
+  <div class="col">
+    <p>Bei Saintes-Maries-de-la-Mer taucht plötzlich das Meer wieder auf. Jedes Jahr pilgern Roma aus ganz Europa hierher, um Sara bis in die Wellen zu tragen. Auf den Tisch kommen Gardiane vom Stier, regionaler Reis und Fleur de Sel aus den Salinen.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saintes-maries-eglise.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Wehrkirche von Saintes-Maries-de-la-Mer" loading="lazy" data-imgkey="saintes-maries-eglise" style="height:360px;">
+  <div class="col">
+    <p style="margin:0;">Diese Route durchquert die Alpilles Dorf für Dorf, vom Pays d'Aix bis Arles und an die Rhône:</p>
+    <a class="cta" href="https://www.oneroadtrip.com/routen/fr-13-alpilles-pays-aix-25-villages.html" target="_blank" rel="noopener">Rundreise Alpilles, Aix-en-Provence und Pays d'Arles, 10 Tage →</a>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <h3 class="hotel-eyebrow" style="margin:0 0 6px;">Übernachten in den Alpilles und der Camargue</h3>
+      <div class="hotel-name">Hotel Mas Valentine, Saint-Rémy-de-Provence</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saint-remy-1.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Provenzalisches Landhaus mit Pool in Saint-Rémy" loading="lazy" data-imgkey="saint-remy-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saint-remy-2.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Gästehaus in Saint-Rémy" loading="lazy" data-imgkey="saint-remy-2">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saint-remy-3.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Zimmer in Saint-Rémy" loading="lazy" data-imgkey="saint-remy-3">
+      </div>
+      <p style="margin:0 0 14px;">Eine Bastide aus dem 18. Jahrhundert in einem großen Park, einen Kilometer von Saint-Rémy-de-Provence entfernt, mit Salzwasserpool und schattiger Terrasse. Elegante klimatisierte Zimmer mit Marmorbad, Bademänteln und Hausschuhen. Das kontinentale Frühstück kann ans Bett kommen. Les Baux-de-Provence ist 7 km entfernt, Avignon fünfzehn Autominuten. Paare bewerten die Lage mit 9,1.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/FnYvgUTjm9" target="_blank" rel="noopener" style="margin:0;">Mas Valentine buchen →</a>
+      <div class="hotel-divider"></div>
+      <div class="hotel-name">Lodge Sainte Hélène, Saintes-Maries-de-la-Mer (nur Erwachsene)</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saintes-maries-1.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Unterkunft in Saintes-Maries" loading="lazy" data-imgkey="saintes-maries-1">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saintes-maries-2.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Zimmer in Saintes-Maries" loading="lazy" data-imgkey="saintes-maries-2">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saintes-maries-3.jpg&amp;w=400&amp;output=webp&amp;q=80" alt="Terrasse mit Lagunenblick, Lodge Sainte Hélène" loading="lazy" data-imgkey="saintes-maries-3">
+      </div>
+      <p style="margin:0 0 14px;">Ein Rückzugsort nur für Erwachsene mitten in der Camargue, in Saintes-Maries-de-la-Mer: Außenpool, Garten, Terrasse, Bar und Zimmer mit Lagunenblick. Klimaanlage, Kaffeemaschine, Safe, eigenes Bad sowie Frühstücksbuffet mit vegetarischen und glutenfreien Varianten. Rundherum Möglichkeiten zum Wandern, Angeln und Radfahren. Arles' Arena liegt 37 km, der Flughafen Nîmes 39 km entfernt. Paare geben der Lage 9,7.</p>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/I76hQpYyNS" target="_blank" rel="noopener" style="margin:0;">Lodge Sainte Hélène buchen →</a>
+    </div>
+  </div>
+</div>
+
+<div id="s05" style="padding:56px 0;background:#3a2f22;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title" style="color:#f5efe4;">Was isst man in Bouches-du-Rhône?</h2></div>
+    <p style="color:#f5efe4dd;">Alles beginnt mit Pastis. Man trinkt ihn am späten Vormittag im Schatten, mit angeschlagenen Oliven aus dem Vallée des Baux, Tapenade aus schwarzen Oliven, Kapern und Sardellen und einer Anchoïade zum Eintunken von Brot und Rohkost. Lauwarme Panisses, frittierte Kichererbsenmehlstäbchen, vervollständigen den Aperitif.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/tapenade.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Tapenade, Anchoïade und angeschlagene Oliven" loading="lazy" data-imgkey="tapenade" style="height:340px;">
+  <div class="col">
+    <p style="color:#f5efe4dd;">Bei Marseille sollten Sie bei Fonfon im Vallon des Auffes eine Bouillabaisse probieren. Ob es die beste ist, wissen wir nicht, aber die bekannteste. Schon der Ort lohnt das Fischessen: eine winzige Bucht unter einer Brücke, Hütten, Boote und das Meer drei Meter vom Tisch entfernt.</p>
+    <p style="color:#f5efe4dd;">Serviert wird in zwei Etappen – daran erkennt man die echte Bouillabaisse. Zuerst die dicke, safrangelbe Brühe aus morgens gefangenen Felsenfischen. Dazu mit Knoblauch eingeriebene und mit Rouille bestrichene Croûtons. Diese Creme aus Knoblauch, Chili, Eigelb und Olivenöl weckt den Gaumen sofort. Erst danach folgen ganze Fische, die vor Ihnen zerlegt werden: Drachenkopf, Petersfisch, Petermännchen, Meeraal. Der Wirt nennt jeden einzeln, zu Recht. Rechnen Sie mit mindestens 70 Euro für das Gericht und mit Wein und allem anderen etwa hundert Euro pro Person. Sie wird vorbestellt, oft am Vortag, nie für nur eine Person. Es ist eine Mahlzeit, kein schnelles Gericht. Wer sie am Vieux-Port nach zehn Minuten serviert, verkauft etwas anderes.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/vallon-des-auffes.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Der Vallon des Auffes in Marseille" loading="lazy" data-imgkey="vallon-des-auffes" style="height:340px;">
+  <div class="col">
+    <p style="color:#f5efe4dd;">Weitere Gerichte warten, leicht sind sie nicht. Pieds et Paquets entstanden aus den Innereien, die niemand wollte: von Hand geschnürte Päckchen aus Schafspansen, Lammfüße und stundenlanges Schmoren in Weißwein. Früher sonntags bei Arbeitern, heute in guten Restaurants. Freitags gibt es Grand Aïoli: entsalzener Kabeljau, gekochtes Gemüse und eine mit Olivenöl aufgeschlagene Knoblauchsauce, die den Tag prägt. Danach arbeitet am Nachmittag niemand besonders gut. Dazu kommen die Petits Farcis, die jede Großmutter sonntags macht: ausgehöhlte Tomaten, Zucchini, Zwiebeln und Auberginen mit Hackfleischfüllung aus dem Ofen. Lauwarm essen, nie brennend heiß; am nächsten Tag schmecken sie noch besser.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/aioli.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Der freitägliche Grand Aïoli" loading="lazy" data-imgkey="aioli" style="height:340px;">
+  <div class="col">
+    <p style="color:#f5efe4dd;">In Martigues wird Meeräschenrogen gesalzen, gepresst und getrocknet: Poutargue. Die Einwohner nennen sie ihren Kaviar und verstehen dabei keinen Spaß. Der Fisch stammt aus der nahen Lagune. Dünne Scheiben mit etwas Öl und einem Glas Weißwein – ihren Grammpreis wert.</p>
+    <p style="color:#f5efe4dd;">Hinter Arles ändert sich die Küche. Reis wurde im Delta angebaut, um die Böden zu entsalzen, und blieb. Er begleitet Gardiane, einen Stiereintopf, der über Nacht in Rotwein mariniert und einen Nachmittag mit schwarzen Oliven schmort. Das Fleisch stammt aus den benachbarten Herden, denen Sie morgens in den Sümpfen begegnet sind. Salzbauern sammeln Fleur de Sel noch von Hand auf den Salinenflächen – dieses landet später auf Ihrer Tomate.</p>
+    <p style="color:#f5efe4dd;">Suchen Sie an den Stränden nach Tellines, kleinen, fingernagelgroßen Muscheln. Fischer schaben sie mit einem Rahmen an einem Stiel aus dem nassen Sand, rückwärts gehend in zwanzig Zentimeter tiefem Wasser. Serviert werden sie mit Knoblauch und Petersilie geschwenkt in tiefen Tellern. Sie leeren eine nach der anderen, tunken Brot in die Sauce und vergessen die Zeit.</p>
+    <p style="color:#f5efe4dd;">Cassis produziert Weißwein auf winzigen Rebflächen zwischen Klippe und Meer, wie geschaffen für Felsenfisch. Bestellen Sie ihn zur Bouillabaisse, dann verstehen Sie, warum er die Region kaum verlässt. Den Rest decken die Coteaux d'Aix ab: unkomplizierter, gekühlt getrunkener Rosé. Zu Lamm passt ein Rotwein aus Les Baux. Fast das ganze Tal wirtschaftet biologisch, und das schmeckt man.</p>
+    <p style="color:#f5efe4dd;">Bleiben die Süßigkeiten. Nahe der Abtei Saint-Victor bäckt ein Ofen seit 1781 Navettes: harte Orangenblütenkekse in Bootsform, die an das Boot der Heiligen aus der Camargue erinnern. Sie halten wochenlang und werden in Kaffee getunkt. Aix stellt seit dem 15. Jahrhundert Calissons her, Mandeln und kandierte Melone auf einer Oblate; jeden September lässt der Erzbischof sie segnen. Weihnachten gehört die Pompe à l'huile zu den dreizehn Desserts. Brechen Sie dieses Ölgebäck mit den Händen: Ein Messer bringt Unglück, niemand am Tisch würde Sie schneiden lassen.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/navettes.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Marseiller Navettes mit Orangenblüte" loading="lazy" data-imgkey="navettes" style="height:320px;margin-bottom:0;">
+</div>
+
+<div id="s06" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Lokale Sportarten</h2></div>
+    <p>Zwei Dinge begleiten Sie überall. Pétanque entstand 1907 in La Ciotat: Ein Spieler konnte seine drei Anlaufschritte nicht mehr machen und spielte mit fest stehenden Füßen, provenzalisch „pieds tanqués“. Der Name blieb. Gespielt wird bis 13 Punkte. Wer keinen einzigen erzielt, ist „Fanny“ und küsst den Hintern jener Holz- oder Keramikfigur, die jeder ordentliche Klub hinter der Bar aufbewahrt. Jeden Sommer empfängt der Parc Borély das Mondial La Marseillaise, das größte Turnier der Welt, bei dem sich jeder anmelden kann.</p>
+  </div>
+  <div class="half-row">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/petanque.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Pétanque im Schatten der Platanen" loading="lazy" data-imgkey="petanque">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/om-velodrome.jpg&amp;w=500&amp;output=webp&amp;q=80" alt="Das Stade Vélodrome an einem Spielabend" loading="lazy" data-imgkey="om-velodrome">
+  </div>
+  <div class="col">
+    <p style="margin:0;">Und dann ist da OM. Sie müssen den Fußball nicht suchen, er findet Sie: in Barunterhaltungen, an Wänden und im Hupkonzert nach einem Sieg. Das Vélodrome kann besichtigt werden. Versuchen Sie jedoch, an einem Spielabend dort zu sein – besonders mutig sind Sie beim Besuch des Erzrivalen Paris Saint-Germain. An diesem Abend spricht die ganze Stadt nur davon.</p>
+  </div>
+</div>
+
+<div id="s07" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Wie lange bleiben?</h2></div>
+    <p>Marseille lässt sich in zwei Tagen zügig, in drei ruhiger und in vier bis fünf ausgiebig entdecken. Cassis und Le Castellet passen in einen vollen Tag. Aubagne lohnt besonders im Dezember oder für Hügelwanderungen und Freilichttheater. Für Aix-en-Provence einen Tag, für die Côte Bleue zwei bis drei, ebenso für die Alpilles und für die Camargue zwei Tage.</p>
+    <p style="margin:0;">Das sind Mindestzeiten. Die Provence erschließt sich langsam, nicht im Laufschritt. Sie möchten sicher Strände, Siesta und Aperitifs unter den Platanen der Dorfplätze genießen. Nehmen Sie sich Zeit, vergessen Sie unsere Mindestdauer und leben Sie provenzalisch, ohne übermäßigen Stress. Außer im Stau oder an Spielabenden.</p>
+  </div>
+</div>
+
+<div id="s08" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Beste Reisezeit für Bouches-du-Rhône</h2></div>
+    <p>April, Mai, Juni. Oder September und Oktober. Dieselbe Sonne, im September noch angenehmes Meer, und die Region gehört fast Ihnen.</p>
+    <p>Juli und August sind anders. Drückende Hitze, volle Dörfer und vor allem gesperrte Calanques: Die Präfektur entscheidet jeden Abend für den Folgetag je nach Brandgefahr und Wind. An einem Augustmorgen kann Ihre geplante Wanderung plötzlich ausfallen. In der Saison ist der Zugang ohnehin begrenzt; für manche Calanques muss man vorher reservieren. Auch die Straßen der Côte Bleue werden an Sommerwochenenden für Autos gesperrt.</p>
+    <p>Manche Termine allein lohnen die Reise: Im Februar Seeigel am Hafen von Carry-le-Rouet, im Mai die Roma-Wallfahrt nach Saintes-Maries. Im Frühsommer findet in Arles die Cocarde d'Or statt, und die Rencontres de la photographie prägen die Stadt bis September. Im Dezember erobern Santons Aubagne und Marseille. Hotels sind dann oft Monate im Voraus voll: Informieren Sie sich vor der Buchung.</p>
+    <p>Und der Mistral gehört dazu. Dieser Nordwind kommt unvermittelt durch das Rhônetal. Er böigt, schlägt Fensterläden zu, beugt die als Windschutz gepflanzten Zypressen, streicht Ihre Bootsfahrt und macht den Meerdamm für Fahrräder unpassierbar. Angeblich weht er drei, sechs oder neun Tage. Das stimmt nicht, wird aber überall erzählt.</p>
+    <p style="margin:0;">Sein großer Verdienst ist das Licht. Nach ihm ist der Himmel gereinigt, die Luft durchsichtig, die Alpilles messerscharf und der Ventoux aus hundert Kilometern sichtbar. Das Licht, das Van Gogh und Cézanne suchten, schenkt der Mistral. Morgens verfluchen Sie ihn, abends danken Sie ihm.</p>
+  </div>
+</div>
+
+<div id="s09" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Anreise und Fortbewegung</h2></div>
+    <p>Sie landen am Flughafen Marseille-Provence in Marignane am Étang de Berre. Frankreichs zweitgrößter Regionalflughafen nach Nizza verbindet die Region mit ganz Europa und liegt 25 km vom Vieux-Port. Ein Shuttle fährt in einer halben Stunde zum Bahnhof Saint-Charles. Auch Avignon, Nîmes und Toulon haben Flughäfen; je nach Herkunft kann das besser passen.</p>
+    <p>Am besten reist man jedoch mit der Bahn an. Der TGV braucht von Paris nach Marseille drei Stunden und hält mitten in der Stadt in Saint-Charles, oberhalb einer monumentalen Treppe mit überwältigendem Stadtblick. Aix-en-Provence hat einen eigenen TGV-Bahnhof fünfzehn Kilometer außerhalb, Avignons liegt ebenfalls abseits. Marseille bleibt am bequemsten: der einzige TGV-Bahnhof des Départements wirklich in einer Stadt.</p>
+    <p>Danach übernehmen die TER-Regionalzüge. Ab Saint-Charles fahren sie nach Aix, Aubagne, Cassis, La Ciotat, Arles und Avignon sowie nach Miramas über die Côte Bleue. Diese Strecke über Viadukte oberhalb der Calanques ist allein das Ticket wert. Beachten Sie: Küstenbahnhöfe liegen oft hoch und weit von den Häfen, der Bahnhof Cassis gut drei Kilometer bergauf vom Dorf. Prüfen Sie den Shuttle, bevor Sie mit Koffern loslaufen.</p>
+    <p>Regionalbusse ergänzen das Netz. Marseille–Aix wird den ganzen Tag und einen großen Teil der Nacht bedient. Andere Linien folgen eher dem Schulrhythmus: montags bis freitags gut, am Wochenende und im Sommer deutlich weniger. Prüfen Sie den aktuellen Fahrplan.</p>
+    <p>In Marseille reichen zwei Metro- und drei Straßenbahnlinien für das Zentrum, ergänzt durch Busse und eine alte Fähre, die den Vieux-Port in fünf Minuten für wenig Geld quert. Aix lässt sich ganz zu Fuß erkunden, Arles ebenso.</p>
+    <p>Mietwagen nötig? Für den ersten Teil nicht. Marseille, Aix, Cassis, Côte Bleue, L'Estaque und Arles sind mit Zug und Bus erreichbar; Sie sparen die Parkplatzsuche. Im Sommer wird das Auto an der Côte Bleue sogar zum Nachteil: Calanques-Straßen sind am Wochenende gesperrt, den Rest erledigt der Abschleppdienst.</p>
+    <p style="margin:0;">Für den zweiten Teil ja. Die Alpilles lassen sich kaum anders erkunden: verstreute Dörfer, Schulbusse fahren Sie an einem Aprilsonntag nicht nach Les Baux, Glanum hat keinen Bahnhof. In der Camargue ist es noch schwieriger: lange, flache, leere Strecken und eine Buslinie von Arles nach Saintes-Maries mit wenigen Zwischenhalten. Fahren Sie mit dem Zug nach Arles, mieten Sie dort ein Auto und geben Sie es dort zurück. So verbinden Sie beides optimal.</p>
+  </div>
+</div>
+
+<div id="s10" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Ungewöhnliches: Was Reiseführer vergessen</h2></div>
+    <p>Wie wäre es mit einem Ausflug in die Hölle?</p>
+    <p>Nördlich von Les Baux-de-Provence liegt das Val d'Enfer. Die Straße führt zwischen weißen Kalksteinfelsen hindurch, die Erosion zu Nadeln und Figuren geformt hat. Besonders auffällig sind die Löcher: schwarze Öffnungen, rechteckige Stollen und Höhlungen, deren Ende unsichtbar bleibt. Jahrhundertelang gruben Menschen hier nach Stein. Die Menschen gingen, die Löcher blieben.</p>
+    <p>Man versteht, warum die Legende hier Hexensabbate ansiedelte. Cocteau erkannte das früh und drehte 1959 Das Testament des Orpheus. Im größten dieser Stollen werden heute Van Goghs Bilder an die Wände projiziert.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/val-d-enfer.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Klippen und schwarzen Stollen des Val d&#x27;Enfer" loading="lazy" data-imgkey="val-d-enfer" style="height:360px;">
+  <div class="col">
+    <p>Noch mehr Ungewöhnliches? Am Ortsrand von Saint-Rémy liegt das weiterhin aktive psychiatrische Krankenhaus Saint-Paul-de-Mausole. Franziskaner eröffneten hier 1605 eine Anstalt, die Revolution schloss sie, 1807 eröffnete ein Arzt sie neu. Seither wird ununterbrochen behandelt. Heute ist es eine Frauenklinik: Während Ihres Besuchs arbeiten hinter den Mauern Ärzte und werden Patientinnen versorgt.</p>
+    <p style="margin:0;">Denn ein Besuch ist möglich. Van Gogh kam am 8. Mai 1889 nach seiner Ohrverletzung freiwillig hierher und ging ein Jahr später wieder. Dazwischen malte er unermüdlich: Iris, Sternennacht, Weizen und Zypressen vor seinem Zimmerfenster – genau jenem Zimmer, das Sie betreten können. Der romanische Kreuzgang steht seit dem Mittelalter. Die Bilder entlang des Rundgangs malten Patientinnen hier in der Kunsttherapie.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/saint-paul-mausole.jpg&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Apsis des Klosters Saint-Paul-de-Mausole" loading="lazy" data-imgkey="saint-paul-mausole" style="height:340px;">
+  <div class="col">
+    <p>Tarascons Burg gehört zu Frankreichs besterhaltenen Burgen, dank ihrer Gefängnisvergangenheit: 445 Jahre lang, bis 1926, wurden hier Menschen eingesperrt. Ihre in den Stein geritzten Graffiti sind noch vorhanden.</p>
+    <p>Zwischen Alpilles und Meer liegt die Crau, und kaum jemand hält an. Eine Kieselwüste im ehemaligen Durance-Delta, Frankreichs einzige Steppe. Seit der Jungsteinzeit weiden hier Schafe. Hier leben Vögel, die sonst nirgends in Frankreich vorkommen.</p>
+  </div>
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/la-crau.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Die Kieselsteppe der Crau" loading="lazy" data-imgkey="la-crau" style="height:320px;">
+  <div class="col">
+    <p>Am Eingang von Saint-Chamas überspannt neben einem Kreisverkehr noch immer eine römische Brücke die Touloubre. Der Pont Flavien trägt an jedem Ende einen Triumphbogen und ist Frankreichs einzige römische Brücke mit beiden erhaltenen Bögen. Wagen fuhren so lange darüber, dass ihre Spurrillen im Stein geblieben sind.</p>
+    <p style="margin:0;">Diese Route folgt den dunkelsten Geschichten des Südens, vom Papstpalast über Van Goghs Anstalt nach Les Baux-de-Provence und Tarascon:</p>
+    <a class="cta" href="https://www.oneroadtrip.com/routen/fr-vaucluse-provence-hantee-5j.html" target="_blank" rel="noopener">Spukende Provence, 5 Tage →</a>
+  </div>
+</div>
+
+<div id="s11" style="padding:56px 0;background:#3a2f22;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title" style="color:#f5efe4;">Die lokale Sprache sprechen</h2></div>
+    <p style="color:#f5efe4dd;">Zum Schluss ein kleiner Sprachkurs, damit man Sie versteht. Diese örtlichen Ausdrücke hören Sie häufig:</p>
+    <div class="glossary-grid">
+      <div class="gterm"><b>Barjaquer</b><div>„Barjaquer“ heißt plaudern.</div></div>
+      <div class="gterm"><b>Cacou</b><div>Jemand, der sich aufspielt, um aufzufallen: „Arrête de faire ton cacou!“ – Hör auf, den Angeber zu spielen!</div></div>
+      <div class="gterm"><b>Cagade</b><div>Eine Dummheit oder ein Missgeschick heißt „Cagade“.</div></div>
+      <div class="gterm"><b>Cagnard</b><div>Sengende Sonnenhitze. „Qué cagnard!“ Am Vieux-Port steht im Sommer kein Baum im Weg der Sonne.</div></div>
+      <div class="gterm"><b>Cagole</b><div>Eine auffällig geschmacklos wirkende Frau, gewollt oder ungewollt 😊.</div></div>
+      <div class="gterm"><b>Va caguer !</b><div>Ähm, höflich übersetzt: Geh auf die Toilette!</div></div>
+      <div class="gterm"><b>Dégun</b><div>„Y a dégun ici!“ hört man oft: Hier ist niemand.</div></div>
+      <div class="gterm"><b>Escagassé</b><div>Müde, erschöpft sein.</div></div>
+      <div class="gterm"><b>Fada</b><div>Ein „Fada“ ist ein Verrückter.</div></div>
+      <div class="gterm"><b>Fatche !</b><div>Oder „Fatche de con!“, der typische örtliche Ausruf für Überraschung, Bewunderung oder Ärger.</div></div>
+      <div class="gterm"><b>Jobastre</b><div>„Qué jobastre!“ – Was für ein Verrückter, der geht viel zu große Risiken ein.</div></div>
+      <div class="gterm"><b>Méfi</b><div>Vorsicht!</div></div>
+      <div class="gterm"><b>Minot</b><div>Kind, kleiner Junge.</div></div>
+      <div class="gterm"><b>Morfale</b><div>Ein „Morfale“ isst alles auf, ein richtiger Vielfraß.</div></div>
+      <div class="gterm"><b>Pastisser</b><div>Hat nichts mit Pastis zu tun. Bedeutet: sich schmutzig machen.</div></div>
+      <div class="gterm"><b>Péguer</b><div>Kleben. Wenn Cola auf dem Tisch verschüttet wird und trocknet, „ça pègue“.</div></div>
+      <div class="gterm"><b>Peuchère</b><div>Ein Ausdruck des Mitgefühls für jemanden mit Pech: „Peuchère, il a raté son train“ – der Arme, er hat seinen Zug verpasst.</div></div>
+      <div class="gterm"><b>Pitchoun</b><div>Der Kleine, das Kind. Auch liebevoll zu Erwachsenen gesagt.</div></div>
+      <div class="gterm"><b>Prendre une rouste</b><div>Eine Tracht Prügel oder eine deutliche Niederlage einstecken.</div></div>
+      <div class="gterm"><b>Scoumoune</b><div>„Avoir la scoumoune“ heißt vom Pech verfolgt sein.</div></div>
+      <div class="gterm"><b>Tarpin</b><div>Viel, sehr. „C'est tarpin bien“ – das ist richtig gut. Ebenfalls sehr verbreitet.</div></div>
+      <div class="gterm"><b>Tè vé</b><div>Na, schau mal!</div></div>
+      <div class="gterm"><b>Testard</b><div>Ein sturer Mensch.</div></div>
+    </div>
+  </div>
+</div>
+
+<div id="s12" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">12</span><h2 class="sec-title">Bildnachweise</h2></div>
+    <button class="credit-btn" onclick="document.getElementById('creditsBox').classList.toggle('show');this.textContent=document.getElementById('creditsBox').classList.contains('show')?'Bildnachweise ▲':'Bildnachweise ▼'">Bildnachweise ▼</button>
+    <div id="creditsBox" class="credit-box">
+      carrieres-de-lumieres.jpg: Jacques Le Letty, CC BY-SA 4.0<br>       maison-jaune.jpg: Vincent van Gogh, gemeinfrei<br>       cezanne-estaque.jpg: Paul Cézanne, gemeinfrei<br>       Weitere Wikimedia-Commons-Fotos unter CC BY-SA: vollständige Urheberliste noch zu ergänzen.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Bouches-du-Rhône: der umfassende Reiseführer zwischen Marseille, Camargue und Alpilles",
+  "description": "Marseille, Calanques, Côte Bleue, Alpilles, Arles und Camargue: alles, was Sie vor der Reise wissen sollten.",
+  "image": ["https://wsrv.nl/?url=photos.oneroadtrip.com/blog/bdr/sormiou.jpg&w=1200&output=jpg&q=85"],
+  "inLanguage": "de",
+  "datePublished": "2026-07-16",
+  "dateModified": "2026-07-16",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/de/bouches-du-rhone.html"},
+  "about": [
+    {"@type": "Place", "name": "Bouches-du-Rhône"},
+    {"@type": "Place", "name": "Marseille"},
+    {"@type": "Place", "name": "Camargue"},
+    {"@type": "Place", "name": "Alpilles"}
+  ]
+}
+</script>
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Foto').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"bouches-du-rhone"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

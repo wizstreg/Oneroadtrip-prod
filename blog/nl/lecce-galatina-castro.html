@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro</title>
+<meta name="description" content="Bezoek barok Lecce, Galatina en zijn pasticciotto, Maglie, Specchia en de grotten van Castro per boot: onze route van 2 dagen door Salento.">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/nl/lecce-galatina-castro.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/lecce-galatina-castro.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/lecce-galatina-castro.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/lecce-galatina-castro.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/lecce-galatina-castro.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/lecce-galatina-castro.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/lecce-galatina-castro.html">
+
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro">
+<meta property="og:description" content="Bezoek barok Lecce, Galatina en zijn pasticciotto, Maglie, Specchia en de grotten van Castro per boot: onze route van 2 dagen door Salento.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/nl/lecce-galatina-castro.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-1.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Het barokke centrum van Lecce">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro">
+<meta name="twitter:description" content="Bezoek barok Lecce, Galatina en zijn pasticciotto, Maglie, Specchia en de grotten van Castro per boot: onze route van 2 dagen door Salento.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-1.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2,h3{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .sub{font-family:'Instrument Serif',serif;font-size:25px;color:#3a2f22;margin:34px 0 12px;}
+  .lede{font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;}
+
+  /* ---- SYSTEME PHOTO ---- */
+  .band{display:block;width:auto;max-width:1100px;max-height:700px;height:auto;object-fit:contain;margin:10px auto 30px;border-radius:14px;}
+  .band.tall{max-height:800px;}
+  .band.short{max-height:520px;}
+  .gal{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;gap:12px;}
+  .gal{align-items:start;}
+  .gal img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .gal-2{grid-template-columns:1fr 1fr;}
+  .gal-3{grid-template-columns:1fr 1fr 1fr;}
+  .gal-4{grid-template-columns:1fr 1fr 1fr 1fr;}
+  .gal-hero{grid-template-columns:2fr 1fr;}
+  .gal-wide{grid-template-columns:1fr 1fr;}
+  .gal-wide > :first-child{grid-column:span 2;}
+  .duo{max-width:960px;margin:0 auto 30px;padding:0 48px;display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center;}
+  .duo.rev > img{order:2;}
+  .duo img{width:100%;height:auto;object-fit:contain;border-radius:14px;display:block;}
+  .duo img.nocrop{height:auto;object-fit:contain;}
+  .portrait{display:block;width:auto;max-width:520px;max-height:640px;height:auto;margin:10px auto 30px;border-radius:14px;}
+  .duo p{margin:0 0 14px;}
+  .duo p:last-child{margin:0;}
+  figcaption,.cap{font-size:12.5px;color:#8a7d68;margin:-20px 0 28px;padding:0 48px;max-width:960px;margin-left:auto;margin-right:auto;}
+
+  /* ---- ENCADRES ---- */
+  .spot{border:2px solid #c1502e;border-radius:18px;background:#fff;padding:0;margin:34px auto 40px;overflow:hidden;}
+  .spot-img{display:block;width:auto;max-width:100%;max-height:620px;height:auto;object-fit:contain;margin:0 auto;}
+  .spot-body{padding:24px 28px 26px;}
+  .spot-eyebrow{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#c1502e;font-weight:700;margin:0 0 6px;}
+  .spot-name{font-family:'Instrument Serif',serif;font-size:28px;color:#3a2f22;margin:0 0 14px;}
+  .facts{display:grid;grid-template-columns:1fr 1fr;gap:10px 22px;margin:16px 0 0;}
+  .fact{font-size:14px;color:#4a4030;line-height:1.6;}
+  .fact b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:2px;}
+  .tip{border-left:4px solid #113f7a;background:#fff;border-radius:0 12px 12px 0;padding:16px 20px;margin:24px 0 28px;}
+  .tip b{color:#113f7a;}
+  .tip p{margin:0;font-size:15px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 24px;margin:24px 0 30px;}
+  .checklist ul{margin:0;padding-left:20px;}
+  .checklist li{font-size:15px;line-height:1.75;color:#4a4030;margin-bottom:8px;}
+  .checklist li:last-child{margin-bottom:0;}
+
+  .artnav{max-width:960px;margin:28px auto 0;padding:0 48px;}
+  .artnav-t{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:#8a7d68;font-weight:700;margin-bottom:10px;}
+  .artnav-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .artnav-i{display:block;border:1px solid #e3e0d8;border-radius:12px;background:#fff;padding:12px 14px;text-decoration:none;transition:background .15s;}
+  .artnav-i:hover{background:#f2f6fb;}
+  .artnav-i b{display:block;font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:#113f7a;margin-bottom:3px;}
+  .artnav-i span{display:block;font-size:13px;line-height:1.45;color:#4a4030;}
+  .artnav-i.here{background:#c1502e;border-color:#c1502e;cursor:default;}
+  .artnav-i.here b,.artnav-i.here span{color:#fff;}
+  .artnav-i.here em{display:block;font-style:normal;font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#ffe2d6;margin-top:5px;}
+  .itin-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:20px 0 8px;}
+  .itin-card{display:block;border:2px solid #113f7a;border-radius:14px;background:#fff;padding:18px 20px;text-decoration:none;transition:background .15s;}
+  .itin-card:hover{background:#f2f6fb;}
+  .itin-days{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c1502e;font-weight:700;}
+  .itin-t{font-family:'Instrument Serif',serif;font-size:19px;color:#3a2f22;margin:6px 0 8px;line-height:1.25;}
+  .itin-d{font-size:13.5px;line-height:1.6;color:#4a4030;}
+  .itin-list{margin:22px 0 0;padding:0;list-style:none;}
+  .itin-list li{border-bottom:1px solid #e3e0d8;padding:13px 0;}
+  .itin-list li:last-child{border-bottom:none;}
+  .itin-list a{font-weight:600;text-decoration:none;}
+  .itin-list span{display:block;font-size:13.5px;color:#8a7d68;line-height:1.55;margin-top:3px;}
+
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover{background:#0c2c56;color:#fff;}
+  .cta-accent{display:inline-flex;align-items:center;gap:8px;background:#c1502e;color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:15px 28px;border-radius:999px;margin:8px 8px 8px 0;}
+  .cta-accent:hover{background:#a53f20;color:#fff;}
+  .hotel-card{border:2px solid #113f7a;border-radius:16px;background:#fff;padding:24px 28px;margin:28px auto 36px;}
+  .hotel-eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin:0 0 6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 12px;}
+  .hotel-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px;}
+  .hotel-gallery img{width:100%;height:auto;object-fit:contain;border-radius:10px;display:block;}
+  .bio{display:flex;gap:22px;align-items:center;border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:22px 26px;margin:32px auto 8px;}
+  .bio img{width:120px;height:120px;border-radius:999px;object-fit:contain;background:#faf8f4;flex:none;}
+  .bio-t{font-family:'Instrument Serif',serif;margin:0 0 8px;font-size:22px;color:#3a2f22;}
+  .bio p{font-size:15px;margin:0;}
+
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .gal,.duo,.cap{padding:0 20px;}
+    .gal-4{grid-template-columns:1fr 1fr;}
+    .gal-3{grid-template-columns:1fr 1fr;}
+    .gal-hero{grid-template-columns:1fr;}
+    .duo{grid-template-columns:1fr;gap:14px;}
+    .duo.rev > img{order:0;}
+    .duo img.nocrop{height:auto;}
+    .portrait{max-width:100%;max-height:none;padding:0 20px;}
+    .band{max-width:100%;max-height:none;}
+    .band.tall{max-height:none;}
+    .band.short{max-height:none;}
+    .spot-img{max-height:none;}
+    .facts{grid-template-columns:1fr;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    .sub{font-size:21px;}
+    h1{font-size:30px !important;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .bio{flex-direction:column;align-items:center;text-align:center;}
+    .itin-grid{grid-template-columns:1fr;}
+    .artnav{padding:0 20px;}
+    .artnav-grid{grid-template-columns:1fr;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+  }
+</style>
+<link rel="alternate" hreflang="nl" href="https://www.oneroadtrip.com/blog/nl/lecce-galatina-castro.html">
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <span class="hero-tag" style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Italië · Puglia · Salento</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Het derde deel van onze 14 dagen in de hak van de laars. De barok van Lecce, de bakermat van de pasticciotto en een boottocht langs de kliffen.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-1.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Panorama van het barokke centrum van Lecce" data-imgkey="lecce-vue-generale-1" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="artnav">
+  <div class="artnav-t">Onze serie over Puglia, 6 artikelen</div>
+  <div class="artnav-grid">
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/nl/puglia-alberobello.html" rel="noopener"><b>Deel 1</b><span>Alberobello, Matera en Ostuni</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/nl/salento-castro-otranto.html" rel="noopener"><b>Deel 2</b><span>Otranto, Castro en Salento</span></a>
+    <div class="artnav-i here"><b>Deel 3</b><span>Lecce, Galatina en de grotten</span><em>Je leest dit artikel</em></div>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/nl/gallipoli-nardo-salento.html" rel="noopener"><b>Deel 4</b><span>Gallipoli, Nardò en Salento</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/nl/trani-barletta-castel-del-monte.html" rel="noopener"><b>Deel 5</b><span>Trani, Barletta en Castel del Monte</span></a>
+    <a class="artnav-i" href="https://www.oneroadtrip.com/blog/nl/guide-pouilles-14-jours.html" rel="noopener"><b>De gids</b><span>14 dagen, budget en tips</span></a>
+  </div>
+</div>
+<div class="col" style="padding-top:32px;">
+  <div class="bio">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/pouilles1/patmarccadre.webp&amp;w=400&amp;output=webp&amp;q=85" alt="Patricia en Marc, auteurs van het OneRoadTrip-blog" data-imgkey="patmarccadre">
+    <div>
+      <div class="bio-t">Wie zijn wij?</div>
+      <p>Wij zijn Patricia, leerkracht, en Marc, manager in de verzekeringssector: twee avontuurlijke vijftigers. We hebben altijd graag gereisd. Eerst door Frankrijk, ons thuisland, vooral het zuidoosten waar we vandaan komen, maar ook door veel andere landen. Eind 2025 ontwikkelde Marc een toepassing met talrijke volledig aanpasbare routes over de hele wereld: <a href="https://www.oneroadtrip.com/?lang=nl" rel="noopener">OneRoadTrip.com</a>. Sindsdien laten we ons allebei meeslepen door onze passie voor reizen en proberen we die te delen, via <a href="https://www.oneroadtrip.com/?lang=nl" rel="noopener">OneRoadTrip</a> en via dit blog.</p>
+    </div>
+  </div>
+</div>
+
+<div class="col" style="padding-top:28px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Inhoud</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Castro Marina, onze uitvalsbasis</a>       <a href="#s02">02 · Maglie, de stad van Aldo Moro</a>       <a href="#s03">03 · Galatina en de pasticciotto</a>       <a href="#s04">04 · Lecce, het Florence van het zuiden</a>       <a href="#s05">05 · De grotten van Castro per boot</a>       <a href="#s06">06 · Tricase en Specchia</a>       <a href="#s07">07 · Castro Marina bij avond</a>       <a href="#s08">08 · Onze routes door Salento</a>       <a href="#s09">09 · Fotoverantwoording</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>   <span style="font-size:12px;font-weight:600;color:#fff;">Inhoud</span>
+</div>
+
+<!-- ================= S01 ================= -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Castro Marina, onze uitvalsbasis voor deze twee dagen</h2></div>
+    <p class="lede">Dit artikel maakt deel uit van onze roadtrip van 14 dagen door Puglia. Voor wie onderweg instapt: we brachten 4 dagen rond Alberobello door en daarna 2 dagen tussen Brindisi en Otranto. Nu volgen twee dagen met de barokke kerken van Salento en een boottocht langs de kliffen van Castro.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/nl/puglia-alberobello.html" rel="noopener">Deel 1: Alberobello, Matera en Ostuni →</a>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/nl/salento-castro-otranto.html" rel="noopener">Deel 2: Otranto, Castro Marina en Salento →</a>
+
+    <div class="tip" style="margin-top:26px;"><p><b>Praktische herinnering.</b> In Zuid-Puglia sluiten veel monumenten en musea tussen 13 en 16 uur. De openingstijden van kerken zijn nog onvoorspelbaarder. Bezoek ze ’s ochtends en aan het einde van de middag, en bewaar de tussenliggende uren voor het strand, een café of de toeristische steden.</p></div>
+
+    <div class="hotel-card">
+      <div class="hotel-eyebrow">Waar wij overnachtten</div>
+      <div class="hotel-name">Hotel degli Ulivi, Castro Marina</div>
+      <div class="hotel-gallery">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-gli-ulivi-volet.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Gevel en luiken van Hotel degli Ulivi in Castro Marina" loading="lazy" data-imgkey="castro-gli-ulivi-volet">
+        <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-vue-de-l-hotel.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Het uitzicht op de baai van Castro vanaf het hotelterras" loading="lazy" data-imgkey="castro-vue-de-l-hotel">
+      </div>
+      <p style="margin:0 0 14px;">Hetzelfde hotel als in het vorige artikel, en we bevelen het nog steeds even graag aan. Het is niet het nieuwste in de streek, maar het uitzicht bij het wakker worden maakt dat ruimschoots goed.</p>
+      <div class="checklist" style="margin:0 0 16px;">
+        <ul>
+          <li><b>Het uitzicht.</b> Je wordt wakker met een prachtig panorama over de baai.</li>
+          <li><b>De gastheren.</b> Ontzettend vriendelijk.</li>
+          <li><b>De ligging.</b> Centraal, op 10 minuten lopen van de stranden en het centrum.</li>
+          <li><b>Het ontbijt.</b> Uitgebreid en heerlijk op het overdekte terras.</li>
+          <li><b>De prijs.</b> Net zo prettig als de gastheren: € 115 per nacht midden in augustus.</li>
+          <li><b>De parkeerplaats.</b> Ruim voldoende plekken, en dat is goud waard in Puglia.</li>
+        </ul>
+      </div>
+      <a class="cta" href="https://booking.stay22.com/oneroadtrip/kkVv3X4a8t" target="_blank" rel="sponsored nofollow noopener" style="margin:0;">Bekijk Hotel degli Ulivi →</a>
+    </div>
+
+    <p>We boekten onze vlucht via Trip.com en onze auto via QEEQ, dat meer dan 500 verhuurders vergelijkt met gratis annulering.</p>
+    <a class="cta-accent" href="https://www.trip.com/flights/?SID=2209817&amp;allianceid=1094387&amp;trip_sub1=0012d64856b04e83aa39136e2-688844&amp;utm_campaign=688844" target="_blank" rel="sponsored nofollow noopener">Zoek een vlucht naar Brindisi →</a>
+    <a class="cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Vergelijk huurauto’s →</a>
+
+    <p style="margin-top:26px;">Als je je eigen reis wilt samenstellen, is het het makkelijkst om de plekken die je wilt bezoeken een voor een aan te klikken. Daarna kun je je route exporteren als reisboek.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/carte_builder.html?mode=expert&amp;lang=nl" target="_blank" rel="noopener">Stel mijn route op maat samen →</a>
+  </div>
+</div>
+
+<!-- ================= S02 ================= -->
+<div id="s02" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Maglie, de geboortestad van Aldo Moro</h2></div>
+    <p>We vertrekken rond 8 uur vanuit Castro naar het noorden. Na veertig minuten rijden bereiken we <b>Maglie</b>, een stadje in Salento waar de meeste toeristen zonder te stoppen doorheen rijden. Toch werd hier <b>Aldo Moro</b> (1916-1978) geboren, de Italiaanse premier die in 1978 na 55 dagen gevangenschap door de Rode Brigades werd vermoord. De affaire blijft een van de meest traumatische gebeurtenissen uit de Italiaanse geschiedenis.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/maglie.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De gebeeldhouwde gevels aan de Piazza Aldo Moro in Maglie" loading="lazy" data-imgkey="maglie">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Piazza Aldo Moro</h3>
+      <p>We beginnen op het plein dat zijn naam draagt. Kijk omhoog: de schoonheid van Maglie zit boven je.</p>
+      <p style="margin:0;">De gevels zijn versierd met beelden, draken en smeedijzeren lantaarns. Aan het plein liggen enkele kleding- en juwelierszaken.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">De oude stad</h3>
+    <p>We lopen het historische centrum in. Zoals vaak in de oude steden van Salento is het er heel rustig. Geen winkels binnenin, geen drukte. De straten zijn wat breder dan elders in de streek, waardoor de sfeer ruimtelijker is dan in compacte centra zoals Ostuni of Castro.</p>
+
+    <h3 class="sub">De kathedraal</h3>
+    <p>We eindigen bij de Duomo della Presentazione del Signore, eind 18<sup>e</sup> eeuw gebouwd in de barokstijl van Lecce, op de resten van twee oudere kerken. De gevel van Lecce-steen is gebeeldhouwd, met een portaal tussen twee engeltjes en een wapenschild erboven. Binnen zijn drie beuken, gescheiden door stevige pijlers. De handbeschilderde altaren in het transept en het hoofdaltaar, door Emanuele Orfano uit Lecce-steen gehouwen, zijn een kijkje waard. Het houten koorgestoelte telt 80 plaatsen.</p>
+    <p style="margin:0;">De 48 meter hoge <b>campanile</b> (1686-1690) is de hoogste van de hele provincie Lecce. De vier bovenste verdiepingen worden toegeschreven aan <b>Giuseppe Zimbalo</b>, dezelfde architect die de zuil van Sant’Oronzo in Lecce maakte. Onthoud die naam: je komt hem vandaag nog vaak tegen.</p>
+  </div>
+</div>
+
+<!-- ================= S03 ================= -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Galatina, de bakermat van de pasticciotto</h2></div>
+    <p>We rijden verder naar Galatina, twintig kilometer ten zuiden van Lecce. Hier begon het verhaal van de <b>pasticciotto</b>, het bekendste gebakje van Salento: een goudbruin zanddeegomhulsel gevuld met citroengeurige room.</p>
+  </div>
+
+  <div class="gal gal-3">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-eglise.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Barokke kerkgevel in Galatina" loading="lazy" data-imgkey="galatina-eglise">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-place-sympa.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Een schaduwrijk plein in het historische centrum van Galatina" loading="lazy" data-imgkey="galatina-place-sympa">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-2.webp&amp;w=600&amp;output=webp&amp;q=80" alt="Geplaveid straatje en barokke palazzi in Galatina" loading="lazy" data-imgkey="galatina-2">
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-pasticceria.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Pasticceria Ascalone in Galatina" loading="lazy" data-imgkey="galatina-pasticceria">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Pasticceria Ascalone</h3>
+      <p>Het verhaal begint in 1740, toen Nicola Ascalone zijn banketbakkerij opende. Vijf jaar later stopte zijn zoon Andrea, in een magere periode, restjes zanddeeg en overgebleven room in kleine koperen vormpjes en schoof ze de oven in. Hij vond het resultaat mislukt en gaf het aan een voorbijganger, die om meer vroeg. ‘Che pasticcio!’, wat een rommeltje, zou hij hebben gezegd. De naam bleef hangen.</p>
+      <p style="margin:0;">De zaak bestaat nog steeds, aan Via Vittorio Emanuele II 17, gerund door de <b>elfde generatie</b>. Een verplichte pelgrimstocht: eet de pasticciotto lauwwarm, net uit de oven, met koffie.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="tip"><p><b>Reserveer vooraf.</b> Alleen van dinsdag tot zaterdag in de ochtend open. Toen wij om 13 uur kwamen, was alles uitverkocht: een meneer nam de laatste 7 mee.</p></div>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-cathedrale.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="De basiliek Santa Caterina d’Alessandria in Galatina" loading="lazy" data-imgkey="galatina-cathedrale">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Onze favoriet ⭐</div>
+        <div class="spot-name">Basiliek Santa Caterina d’Alessandria</div>
+        <p style="margin:0;">Alleen hiervoor is Galatina al een omweg waard. Dit gotische meesterwerk uit de 14<sup>e</sup> eeuw is vanbinnen volledig bedekt met fresco’s uit de late 14<sup>e</sup> eeuw. Het is de op een na belangrijkste frescocyclus van Italië, na die van San Francesco in Assisi.</p>
+        <div class="facts">
+          <div class="fact"><b>Middenschip</b>50 meter, kerk met vijf beuken</div>
+          <div class="fact"><b>Opdrachtgever</b>Maria d’Enghien</div>
+          <div class="fact"><b>Kloostergang</b>Fresco’s uit de late 17<sup>e</sup> eeuw</div>
+          <div class="fact"><b>De muren</b>Bijbelverhalen en heiligenlevens</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <img class="portrait" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/basilique-galatina-interieur.webp&amp;w=900&amp;output=webp&amp;q=85" alt="Fresco’s uit de veertiende eeuw bedekken het interieur van de basiliek Santa Caterina d’Alessandria" loading="lazy" data-imgkey="basilique-galatina-interieur">
+
+  <div class="col">
+    <p>Binnen is alles beschilderd: muren, gewelven en zuilen. Daarom mag je Galatina niet overslaan.</p>
+    <p style="margin:0;">De kloostergang van het aangrenzende klooster bevat fresco’s uit de late 17<sup>e</sup> eeuw, met martelaarsscènes en allegorieën van de deugden. De muren herinnerden de monniken aan het lijden van de heiligen.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/galatina-tour-horloge.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De klokkentoren van Galatina, nu het toeristenbureau" loading="lazy" data-imgkey="galatina-tour-horloge">
+    <div>
+      <h3 class="sub" style="margin-top:0;">De oude stad</h3>
+      <p>In de hoofdstraat naar de kerk liggen verschillende kunstgaleries. We passeren de klokkentoren, die nu als toeristenbureau dient.</p>
+      <p style="margin:0;">Het historische centrum verken je te voet: een doolhof van geplaveide straten met barokke palazzi, versierde balkons en portalen van Lecce-steen.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Chiesa dei Santi Pietro e Paolo</h3>
+    <p style="margin:0;">De hoofdkerk van Galatina is gewijd aan de patroonheiligen van de stad. Het huidige gebouw dateert uit 1621-1633 en verving een kerk uit de 14<sup>e</sup> eeuw waar nog volgens de Griekse ritus werd gevierd. De barokke gevel van Lecce-steen is 36 meter hoog, met heiligenbeelden in nissen. Binnen tonen de gewelffresco’s van de Napolitaanse schilder Vincenzo Paliotti het leven van de heilige Petrus. De altaren van veelkleurig marmer zijn de moeite waard.</p>
+  </div>
+</div>
+
+<!-- ================= S04 ================= -->
+<div id="s04" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Lecce, het Florence van het zuiden</h2></div>
+    <p>We komen vroeg in de middag in Lecce aan. Eerst een tip: neem een <b>powerbank</b> mee. Lecce wil je bezoeken én bewonderen, en je telefoon houdt het niet vol. Op elke straathoek blijf je foto’s maken.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-2.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Gevels van Lecce-steen in het gouden zonlicht" loading="lazy" data-imgkey="lecce-vue-generale-2">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-porta-san-biagio.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Porta San Biagio, de zuidelijke toegang tot de oude stad van Lecce" loading="lazy" data-imgkey="lecce-porta-san-biagio">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Porta San Biagio</h3>
+      <p>We gaan de oude stad binnen via de Porta San Biagio, de zuidelijke toegang. De poort werd in 1774 herbouwd en is 17,3 meter hoog.</p>
+      <p style="margin:0;">Zuilen omlijsten de doorgang, met de wapenschilden van Ferdinand IV en de stad. Bovenop waakt het beeld van bisschop Sint-Blasius over de bezoekers.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-ollicastro-boutique-hotel.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De gebeeldhouwde engel van het Pollicastro Boutique Hotel in Lecce" loading="lazy" data-imgkey="lecce-ollicastro-boutique-hotel">
+    <div>
+      <p style="margin:0;">Let tegenover de kerk San Matteo op het <b>Pollicastro Boutique Hotel</b>, gevestigd in het Palazzo dei Perroni uit de 16<sup>e</sup> eeuw, Via dei Perroni 14. Bij de ingang houdt een gebeeldhouwde engel een ciambella vast. Het dakterras kijkt uit op de Porta San Biagio.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="checklist">
+      <ul>
+        <li><b>Het combiticket.</b> 4 kerken en kathedralen: € 11 per persoon in juli 2026.</li>
+        <li><b>Met de torens.</b> € 21 per persoon als je ook de campaniles wilt beklimmen.</li>
+        <li><b>Waar te kopen.</b> Op de Piazza del Duomo. Het bezoek begint in de kloostergang direct naast de kassa, met in het midden een put van Lecce-steen.</li>
+      </ul>
+    </div>
+
+    <h3 class="sub">De Duomo, kathedraal Santa Maria Assunta</h3>
+    <p>Gesticht in 1144, voor het eerst herbouwd in 1230 en tussen 1659 en 1670 volledig opnieuw opgetrokken door <b>Giuseppe Zimbalo</b> in opdracht van bisschop Luigi Pappacoda.</p>
+    <p>Het bijzondere is dat de kathedraal <b>twee gevels</b> heeft. De hoofdgevel is sober, met zuilen en heiligenbeelden. De zijgevel aan de Piazza del Duomo is spectaculair, ontworpen als een triomfboog met bovenaan Sant’Oronzo tussen engelen. Zimbalo wilde dat niemand het plein zou betreden met uitzicht op een kale muur.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/dome-de-lecce.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="De Piazza del Duomo in Lecce en de zijgevel van de kathedraal" loading="lazy" data-imgkey="dome-de-lecce">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/crypte-cathedrale.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De crypte van de kathedraal van Lecce met haar 92 zuilen" loading="lazy" data-imgkey="crypte-cathedrale">
+    <div>
+      <p>Binnen: een Latijns kruis als plattegrond, drie beuken en 12 altaren naast het hoofdaltaar. Het <b>gesneden houten cassetteplafond</b> uit 1685 bevat schilderijen van Giuseppe da Brindisi.</p>
+      <p style="margin:0;">Onder het transept ligt de <b>crypte</b> uit het begin van de 16<sup>e</sup> eeuw, met 92 zuilen van Lecce-steen waarvan de kapitelen met symbolen zijn versierd.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Mis het <b>bronzen portaal</b> in de hoofdgevel niet, besteld door aartsbisschop Ruppi voor het jubeljaar 2000 en gemaakt door beeldhouwer <b>Armando Marrocco</b>, geboren in Galatina in 1939. Bovenaan is de verrezen Christus afgebeeld als heer van de tijd (de zon links) en de geschiedenis (de maan rechts). Op de deurvleugels zie je Maria’s tenhemelopneming, de marteldood van de patroonheiligen, de omhelzing van Johannes Paulus II en aartsbisschop Ruppi tijdens het bezoek in 1994, de Sint-Pietersbasiliek en Gods volk op pelgrimstocht.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/campanile.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De 72 meter hoge campanile van de kathedraal van Lecce" loading="lazy" data-imgkey="campanile">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/vue-du-campanile.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Uitzicht over de daken van Lecce vanaf de campanile" loading="lazy" data-imgkey="vue-du-campanile">
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">De campanile</h3>
+    <p>We steken het plein over en gaan met de lift omhoog. De toren werd tussen 1661 en 1682 gebouwd door Giuseppe Zimbalo en is <b>72 meter</b> hoog. Het uitzicht over Lecce is de moeite waard.</p>
+
+    <h3 class="sub">Kerk San Matteo, de architectonische buitenstaander</h3>
+    <p>Gebouwd tussen 1667 en 1700, met een gevel die met rondingen speelt: onderaan bolt hij naar buiten, bovenaan wijkt hij naar binnen. Geen andere kerk in Lecce doet dat. Architect <b>Giovanni Andrea Larducci</b> was de neef van <b>Borromini</b> en liet zich rechtstreeks inspireren door San Carlo alle Quattro Fontane in Rome. Na zijn dood voltooide opnieuw Giuseppe Zimbalo het bovenste deel, dat hij dichter bij de lokale stijl bracht.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/eglise-saint-matthieu-lecce.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De gebogen gevel van de kerk San Matteo in Lecce" loading="lazy" data-imgkey="eglise-saint-matthieu-lecce">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/eglise-saint-matthieu-interieur.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Het elliptische schip van de kerk San Matteo" loading="lazy" data-imgkey="eglise-saint-matthieu-interieur">
+  </div>
+
+  <div class="col">
+    <p>Binnen is één elliptisch schip met kapellen erlangs. De <b>12 apostelbeelden</b> van Placido Buffelli (1692) staan tussen de kapellen. Het altaar van San Matteo is bijzonder: gedraaide zuilen en een blauwe nis met sterren rond een houten beeld van Matteüs (1691, door de Napolitaanse beeldhouwer Gaetano Patalano). De kerk bewaart ook een fresco van de zogende Maria uit 1400, afkomstig uit een gesloopte kerk.</p>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/eglise-santa-chiara-lecce.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Het plafond van papier-maché in de kerk Santa Chiara in Lecce" loading="lazy" data-imgkey="eglise-santa-chiara-lecce">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Kerk Santa Chiara</h3>
+      <p>Gesticht in 1429 en tussen 1687 en 1691 herbouwd door <b>Giuseppe Cino</b>. Net als San Matteo heeft ze een bolle gevel, geïnspireerd door Borromini. Een langgerekte achthoekige plattegrond, één schip en zes zijkapellen met barokke altaren en houten beelden uit Napels.</p>
+      <p style="margin:0;">Boven de bogen zie je <b>smeedijzeren roosters</b>: daarachter volgden de clarissen ongezien de mis, rechtstreeks bereikbaar vanuit hun klooster. Daar is nu het MUST gevestigd, het historisch museum van Lecce.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="tip"><p><b>Een leuk detail.</b> Het plafond lijkt van gesneden hout, zoals in de andere kerken. Het is echter <b>papier-maché</b>. Mauro Manieri ontwierp het in 1738 met de traditionele Lecce-techniek van <i>cartapesta</i>, beroemd in heel Europa. Van buiten lijkt de kerk bijna onaf. Van binnen is het een juweel.</p></div>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/piazza-sant-oronzo.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Het Romeinse amfitheater midden op de Piazza Sant’Oronzo in Lecce" loading="lazy" data-imgkey="piazza-sant-oronzo">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Piazza Sant’Oronzo</h3>
+    <p>Op weg naar de laatste kerk van het combiticket komen we in het levendige hart van Lecce. Midden op het plein ligt een <b>Romeins amfitheater</b> uit de 1<sup>e</sup> en 2<sup>e</sup> eeuw, tussen de moderne gebouwen. Arbeiders ontdekten het in 1901 bij toeval toen ze de funderingen voor een bank groeven. Je ziet slechts een derde; de rest ligt onder de omliggende gebouwen. Ongeveer 25.000 toeschouwers konden er gladiatorengevechten bekijken. Gratis toegankelijk.</p>
+    <p>De <b>zuil van Sant’Oronzo</b>, 29 meter hoog, domineert het plein. Het verhaal erachter is bijzonder: ze komt van een van de twee Romeinse zuilen aan het eind van de Via Appia in Brindisi, waarover we in het vorige artikel schreven. Brindisi schonk haar in de 17<sup>e</sup> eeuw aan Lecce om Sant’Oronzo te danken voor de redding van de stad tijdens de pest van 1656. Het bronzen beeld bovenop dateert uit 1739: het vorige, van hout bekleed met koper, werd in 1737 door een meteoriet getroffen.</p>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/basilique-santa-croce.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="De kantachtige gevel van de basiliek Santa Croce in Lecce" loading="lazy" data-imgkey="basilique-santa-croce">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Het meesterwerk van de barok van Lecce ⭐</div>
+        <div class="spot-name">Basiliek Santa Croce</div>
+        <p>De bouw duurde 150 jaar (1549-1695), met opeenvolgende architecten: Gabriele Riccardi voor de constructie en het onderste geveldeel, Francesco Antonio Zimbalo en Cesare Penna voor het roosvenster en Giuseppe Zimbalo voor de versiering bovenaan.</p>
+        <p style="margin:0;">De gevel is kantwerk in steen. Onderaan blijft hij sober, bijna renaissancistisch, met zes gladde zuilen. Maar hogerop barst alles los: een balustrade gedragen door groteske figuren, fabeldieren en atlanten. De gebogen figuren zouden de bij Lepanto in 1571 verslagen Turken voorstellen, en de dieren de zegevierende katholieke machten: de leeuw van Venetië en de wolvin van Rome. Middenin zit een groot roosvenster.</p>
+      </div>
+    </div>
+
+    <p><b>Een donker historisch detail:</b> de kerk werd gebouwd op grond die was afgenomen van de Joodse gemeenschap, die begin 16<sup>e</sup> eeuw uit de stad werd verdreven.</p>
+    <p>Helaas konden we niet naar binnen: er was een bruiloft en de trouwauto stond pal voor de ingang. Toch vertellen we wat je kunt verwachten: een Latijns kruis als plattegrond, een notenhouten cassetteplafond met centraal een schilderij van de Drie-eenheid en 16 barokke altaren. Het bijzonderste is dat van <b>San Francesco da Paola</b> in het linkertransept (1614), een monumentaal retabel van Lecce-steen met zes zuilen en door Zimbalo gebeeldhouwde scènes uit het leven van Christus.</p>
+
+    <h3 class="sub">Waar we geen tijd meer voor hadden</h3>
+    <div class="checklist">
+      <ul>
+        <li><b>Het Romeinse theater.</b> Uit de 1<sup>e</sup> en 2<sup>e</sup> eeuw, vlak achter de Piazza Sant’Oronzo, ontdekt in 1929 en met plaats voor ongeveer 5.000 toeschouwers.</li>
+        <li><b>Het kasteel van Karel V.</b> Een vesting uit de 16<sup>e</sup> eeuw, gebouwd tegen Ottomaanse invallen en tegenwoordig een tentoonstellingsruimte.</li>
+        <li><b>De Porta Napoli.</b> Triomfboog uit 1548, opgericht ter ere van Karel V.</li>
+        <li><b>Het interieur van Santa Croce.</b> Dat we door de bruiloft misliepen.</li>
+        <li><b>Het MUST.</b> Historisch museum van Lecce, in het voormalige clarissenklooster achter Santa Chiara.</li>
+      </ul>
+    </div>
+    <p style="margin:0;">Het is 17 uur. Via de Porta San Biagio keren we terug naar Castro Marina en maken we ons klaar voor het restaurant van vanavond.</p>
+  </div>
+</div>
+
+<!-- ================= S05 ================= -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">De grotten van Castro per boot</h2></div>
+    <p>Na twee dagen bezichtigen schakelen we over naar een ander ritme. Vanochtend staan zee en relatieve rust op het programma.</p>
+    <p>Vertrek om <b>9 uur</b> vanuit de haven van Castro Marina voor een boottocht van 3 uur. We waren met tien op een klein bootje: grotten bekijken en twee zwemstops, € 35 per persoon. Volgens ons zou twee uur genoeg zijn.</p>
+    <a class="cta-accent" href="https://getyourguide.tpo.li/2XdSYgU2" target="_blank" rel="sponsored nofollow noopener">Boek de boottocht →</a>
+    <p style="margin-top:22px;">We zijn niet de enigen op het water. Verschillende boten varen dezelfde route langs de kliffen.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/en-bateau-1.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="De boot langs de kliffen van Castro" loading="lazy" data-imgkey="en-bateau-1">
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Grotta Palombara</h3>
+    <p>De eerste grot is 75 meter lang, 18 meter breed en 30 meter hoog. De naam komt van de duiven, <i>palombi</i> in het plaatselijke dialect, die nestelen in de kalkstenen holtes waar zoetwaterbronnen doorsijpelen. De constante temperatuur en het zoete water maken het een ideale schuilplaats voor vogels. Ze wordt ook de gordijnengrot genoemd: van binnen lijkt de opening op een theatergordijn dat aan de zijkanten is vastgebonden. De grot ontstond door het geleidelijk instorten van de bovenste wanden langs twee breuken.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-palombara-1.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De ingang van de Grotta Palombara vanaf zee" loading="lazy" data-imgkey="grotta-palombara-1">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-palombara-2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Het interieur en de kalkstenen wanden van de Grotta Palombara" loading="lazy" data-imgkey="grotta-palombara-2">
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">La Rotonda en de Grotta Azzurra</h3>
+    <p>We varen langs La Rotonda, die in verbinding staat met de <b>Grotta Azzurra</b>, alleen bereikbaar vanaf zee. Het is een kleine holte van 7 meter hoog, met 15 meter diep water. Zonlicht valt door onderwateropeningen naar binnen, weerkaatst op de kalkstenen bodem en kleurt de hele grot kobaltblauw. Hetzelfde verschijnsel als in de beroemde grot van Capri, maar intiemer. Kom ’s ochtends voor de intensste weerspiegelingen.</p>
+
+    <h3 class="sub">Grotta Zinzulusa, te voet te bezoeken</h3>
+    <p>De belangrijkste grot van Castro en een van de opmerkelijkste zeegrotten van Italië. Let op: <b>je bezoekt haar niet per boot, maar te voet</b> via een aangelegde toegang op de klif.</p>
+    <p>Ze ontstond in het Plioceen en loopt 160 meter de klif in. De naam komt van het Salentijnse <i>zinzuli</i>, lompen: de stalactieten aan het plafond lijken op opgehangen was. De rondleiding gaat door de Gang der Wonderen, de Crypte en de grote Koepelzaal. Helemaal achterin ligt de Cocito: een ondergronds meer met gelaagd water, zoet aan de oppervlakte en zout eronder, waarin zeldzame organismen leven. Er zijn resten uit het paleolithicum gevonden, bewijs dat de grot als woning diende.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/ballade-bateau-general.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="De kliffen van Castro en de ingang van de Grotta Romanelli, gezien vanaf de boot" loading="lazy" data-imgkey="ballade-bateau-general">
+
+  <div class="col">
+    <div class="spot">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Gesloten voor publiek</div>
+        <div class="spot-name">Grotta Romanelli</div>
+        <p>We zien haar vanaf de boot, maar gaan niet naar binnen. Er wordt nog steeds onderzoek gedaan en de grot is van groot belang voor de Italiaanse prehistorie. Paolo Emilio Stasi ontdekte haar in 1900. Deze 35 meter lange grot leverde voor het eerst bewijs van het laatpaleolithicum in Italië, wat toen nog werd betwist.</p>
+        <p style="margin:0;">Recent onderzoek door de universiteiten van Rome, Turijn en Milaan, samen met het CNR, heeft de datering teruggebracht tot 350.000 jaar geleden, nog vóór de neanderthalers. Er zijn drie menselijke skeletten, werktuigen, ingekraste jachtscènes op de wanden en fossielen van neushoorns, olifanten en hyena’s gevonden. Dat bewijst dat Salento ooit een savanne was, die na de ijstijd toendra werd. De term ‘Romanellien’ is naar deze grot vernoemd.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/grotta-della-strega.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De Grotta della Strega vanaf zee" loading="lazy" data-imgkey="grotta-della-strega">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Grotta della Strega</h3>
+      <p style="margin:0;">De Heksengrot dankt haar naam aan haar vorm, die aan een heks zou doen denken. Hoe we ook kijken, we herkennen haar niet echt.</p>
+    </div>
+  </div>
+
+  <div class="duo rev">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/villa-maure-a-prendre.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De kust van Santa Cesarea Terme vanaf zee" loading="lazy" data-imgkey="villa-maure-a-prendre">
+    <div>
+      <h3 class="sub" style="margin-top:0;">Zwemmen en een aperitief</h3>
+      <p>De rest van de tocht staat in het teken van genieten: twee zwemstops, waarvan één in de <b>Baia di Porto Miggiano</b>, een ongerepte inham tussen kliffen bij Santa Cesarea Terme. Ze wordt ook het strand van de honderd treden genoemd, maar vanaf de boot besparen we ons de afdaling. Het water is turquoise en boven ons waakt de uitkijktoren uit de 16<sup>e</sup> eeuw.</p>
+      <p style="margin:0;">Drie ontspannen uren, omgeven door Italiaanse klanken, en een aperitief voor de terugkeer. Een perfecte pauze na de intensieve dagen ervoor.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= S06 ================= -->
+<div id="s06" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Tricase en Specchia in de middag</h2></div>
+    <h3 class="sub" style="margin-top:0;">Tricase Porto</h3>
+    <p>Na de boottocht rijden we zuidwaarts. Tricase Porto is een mooi vissershaventje met een aangenaam strand.</p>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/tricase-porto-plage.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Het strand van Tricase Porto" loading="lazy" data-imgkey="tricase-porto-plage">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/tricase-porto-port.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Het vissershaventje van Tricase Porto" loading="lazy" data-imgkey="tricase-porto-port">
+  </div>
+
+  <div class="col">
+    <h3 class="sub" style="margin-top:0;">Het dorp Tricase</h3>
+    <p>We rijden omhoog naar Tricase. Het is een vrij grote plaats met flink wat winkels. Aan het centrale plein zijn het <b>Palazzo Risolo</b> uit de 16<sup>e</sup> eeuw en de hoofdkerk een kijkje waard. We nemen een snelle lunch bij <b>Martinucci</b>, de bekende banketbakkerij van Salento, in 1950 opgericht door Rocco Martinucci en Annunziata Panese. Inmiddels zijn er 28 vestigingen tot in Rome en Milaan, maar hier in Salento begon alles. Pasticciotti, rustici, ijs: je eet er snel en goed.</p>
+  </div>
+
+  <div class="col">
+    <div class="spot">
+      <img class="spot-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/specchia.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Het middeleeuwse dorp Specchia op zijn heuvel" loading="lazy" data-imgkey="specchia">
+      <div class="spot-body">
+        <div class="spot-eyebrow">Onze favoriet ⭐</div>
+        <div class="spot-name">Specchia</div>
+        <p style="margin:0;">Op vijftien minuten van Tricase, opgenomen in de lijst van <i>borghi più belli d’Italia</i>. Dit middeleeuwse dorp uit de 9<sup>e</sup> eeuw ligt op een heuvel tussen olijfbomen. Het historische centrum is een doolhof van geplaveide steegjes, witte huizen, gewelfde doorgangen en kleine bloemrijke binnenplaatsen.</p>
+        <div class="facts">
+          <div class="fact"><b>Piazza del Popolo</b>Met het Palazzo Risolo uit de 16<sup>e</sup> eeuw</div>
+          <div class="fact"><b>Hoogteverschillen</b>Je verkent het dorp via zijn trappen</div>
+          <div class="fact"><b>Wanneer gaan</b>Om 16 uur midden in de zomer: er is niemand</div>
+          <div class="fact"><b>Waarom</b>Zo’n plek vind je in geen enkele reisgids</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gal gal-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/specchia-2.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Geplaveid steegje en witte huizen in Specchia" loading="lazy" data-imgkey="specchia-2">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/specchia-3.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Gewelfde doorgang en bloemrijke binnenplaats in Specchia" loading="lazy" data-imgkey="specchia-3">
+  </div>
+
+  <div class="col">
+    <p style="margin:0;">We bezoeken de kerk en dwalen door de straatjes. Om 16 uur midden in de zomer zijn alleen de zwaluwen en wij op straat. Precies zo’n plek die je in geen enkele gids tegenkomt en die in je geheugen gegrift blijft. Terug naar Castro Marina voor onze derde avond.</p>
+  </div>
+</div>
+
+<!-- ================= S07 ================= -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Castro Marina, onze uitvalsbasis</h2></div>
+    <p>Castro bestaat uit twee delen: <b>Castro Marina</b> beneden aan het water en de <b>oude stad</b> boven op de klif. Hotel degli Ulivi ligt precies ertussen, op 8 minuten lopen van de jachthaven en 8 minuten van de oude stad. Een ideale ligging. ’s Avonds lopen we omhoog om te eten.</p>
+  </div>
+
+  <img class="band" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-de-loin.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Castro van een afstand: de jachthaven beneden en de oude stad op de klif" loading="lazy" data-imgkey="castro-de-loin">
+
+  <div class="duo">
+    <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-anime-le-soir.webp&amp;w=700&amp;output=webp&amp;q=80" alt="De levendige straatjes van de oude stad van Castro bij avond" loading="lazy" data-imgkey="castro-anime-le-soir">
+    <div>
+      <p><b>Het strand.</b> Geen zand hier, maar rotsen. Privéstranden met ligstoelen kosten ongeveer € 30 per dag; op vrij toegankelijke plekken leg je je handdoek op de rotsen. Het water is glashelder.</p>
+      <p style="margin:0;"><b>De oude stad bij avond.</b> Heel charmant. Restaurants volgen elkaar op in de straatjes en het uitzichtpunt kijkt prachtig uit over de baai. Het middeleeuwse kasteel is omgebouwd tot museum.</p>
+    </div>
+  </div>
+
+  <div class="col">
+    <p>Mis onder de kathedraal, de kerk SS. Annunziata, de tentoonstelling <b>Sacra Textile</b> niet: bijzondere kerkelijke gewaden in een kleine gewelfde zaal. We probeerden het hoogst beoordeelde restaurant van de gemeente, gespecialiseerd in vlees maar met vegetarische opties.</p>
+  </div>
+
+  <img class="band short" src="https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/castro-patou.webp&amp;w=1600&amp;output=webp&amp;q=80" alt="Patricia op het uitzichtpunt van Castro, met zicht op de baai" loading="lazy" data-imgkey="castro-patou">
+
+  <div class="col">
+    <p>Castro is een ideale uitvalsbasis voor Salento: 40 minuten van Lecce, 30 minuten van Otranto, 15 minuten van Tricase. Vanuit de haven vertrekken de boottochten naar de grotten.</p>
+
+    <div class="checklist">
+      <ul>
+        <li><b>Uitvalsbasis.</b> Castro Marina.</li>
+        <li><b>Overnachting.</b> Hotel degli Ulivi, € 115 per nacht in augustus.</li>
+        <li><b>Duur.</b> 2 dagen, dag 2 en dag 3 van de roadtrip.</li>
+        <li><b>Boottocht.</b> 3 uur, € 35 per persoon, vertrek om 9 uur vanuit Castro Marina.</li>
+        <li><b>Ticket voor 4 kerken in Lecce.</b> € 11 per persoon, € 21 inclusief de torens.</li>
+      </ul>
+    </div>
+    <p class="lede" style="margin:34px 0 0;">Het vervolg, met Gallipoli en het uiterste zuiden van Salento, lees je in het volgende artikel.</p>
+    <a class="cta" href="https://www.oneroadtrip.com/blog/nl/gallipoli-nardo-salento.html" rel="noopener">Lees verder: Gallipoli, Nardò en het uiterste zuiden van Salento →</a>
+  </div>
+</div>
+
+<!-- ================= S08 : ITINERAIRES =================
+     LANGUES : ne changer QUE le dossier.
+     fr /itineraires/ · en /itineraries/ · es /rutas/ · it /itinerari/ · pt /roteiros/
+     Le nom de fichier reste identique dans les 5 langues. -->
+<div id="s08" style="padding:56px 0;background:#fff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Onze routes door Salento</h2></div>
+    <p>Je kunt ze allemaal aanpassen op OneRoadTrip: etappes toevoegen, verwijderen of verplaatsen en daarna het reisboek exporteren. Deze drie sluiten het best aan op wat je net hebt gelezen.</p>
+
+    <div class="itin-grid">
+      <a class="itin-card" href="https://www.oneroadtrip.com/routes/it-puglia-salento-au-depart-de-lecce.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 dagen · Sluit het best aan</div>
+        <div class="itin-t">De grote rondreis door Salento vanuit Lecce</div>
+        <div class="itin-d">Adriatische en Ionische kust, barokke stadjes en Messapische vindplaatsen. Deze route vertrekt uit Lecce, dat we net bezochten, en omvat het hele schiereiland.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/routes/it-salento-salento-profond-grecia-leuca.html" target="_blank" rel="noopener">
+        <div class="itin-days">10 dagen · Verborgen Salento</div>
+        <div class="itin-t">De Griko-streek, Otranto en Leuca</div>
+        <div class="itin-d">Griko-dorpen, ondergrondse oliemolens en zeegrotten. De route voert door Tricase en naar het puntje van de hak, net voorbij onze stops van vandaag.</div>
+      </a>
+      <a class="itin-card" href="https://www.oneroadtrip.com/routes/it-puglia-route-des-vins.html" target="_blank" rel="noopener">
+        <div class="itin-days">7 dagen · Primitivo</div>
+        <div class="itin-t">Puglia, de wijnroute</div>
+        <div class="itin-d">Van Bari naar Lecce via de trulli van Alberobello, de barok van Lecce en de wijngaarden met primitivo en negroamaro.</div>
+      </a>
+    </div>
+
+    <h3 class="sub">Andere routes, om verder te reizen</h3>
+    <ul class="itin-list">
+      <li><a href="https://www.oneroadtrip.com/routes/it-puglia-brindisi-messapie-torre-guaceto.html" target="_blank" rel="noopener">Brindisi in 2 dagen: Byzantijnse crypten en Torre Guaceto</a><span>Het noorden van Salento, van de Via Appia tot rotscrypten en het natuurreservaat Torre Guaceto.</span></li>
+      <li><a href="https://www.oneroadtrip.com/routes/it-puglia-boucle-bari-itria-matera.html" target="_blank" rel="noopener">Rondreis vanuit Bari: trulli, ravijnen en Matera</a><span>13 dagen en 46 stops: de route die aansluit bij het eerste deel van onze roadtrip.</span></li>
+      <li><a href="https://www.oneroadtrip.com/routes/it-puglia-pouilles-secretes-9-jours.html" target="_blank" rel="noopener">Verborgen Puglia: Frederik II en vergeten dorpen</a><span>7 dagen van Bari naar Brindisi door het binnenland, ver van de klassieke routes.</span></li>
+      <li><a href="https://www.oneroadtrip.com/routes/it-puglia-murgia-barese-gravine-ceramiche.html" target="_blank" rel="noopener">Murgia bij Bari, van Polignano tot de ravijnen</a><span>3 dagen van Bari naar Taranto via witte dorpen en rotsravijnen.</span></li>
+      <li><a href="https://www.oneroadtrip.com/routes/it-sud-pouilles-noires-bari-naples.html" target="_blank" rel="noopener">Duister Puglia: 8 dagen van Bari naar Napels</a><span>Castel del Monte, de Sassi van Matera, het spookdorp Craco en de Napolitaanse verering van de zielen in het vagevuur.</span></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= S09 ================= -->
+<div id="s09" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Fotoverantwoording</h2></div>
+    <button class="credit-btn" onclick="var b=document.getElementById('creditsBox');b.classList.toggle('show');this.textContent=b.classList.contains('show')?'Fotoverantwoording ▲':'Fotoverantwoording ▼'">Fotoverantwoording ▼</button>
+    <div id="creditsBox" class="credit-box">
+      Alle foto’s: Patricia en Marc, OneRoadTrip.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro",
+  "description": "Bezoek barok Lecce, Galatina en zijn pasticciotto, Maglie, Specchia en de grotten van Castro per boot: onze route van 2 dagen door Salento.",
+  "image": [
+    "https://wsrv.nl/?url=photos.oneroadtrip.com/articles-blog/lecce-vue-generale-1.webp&w=1200&output=jpg&q=85"
+  ],
+  "inLanguage": "nl",
+  "datePublished": "2026-08-09",
+  "dateModified": "2026-08-09",
+  "author": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "OneRoadTrip",
+    "url": "https://www.oneroadtrip.com"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.oneroadtrip.com/blog/nl/lecce-galatina-castro.html"
+  },
+  "about": [
+    {
+      "@type": "Place",
+      "name": "Lecce"
+    },
+    {
+      "@type": "Place",
+      "name": "Galatina"
+    },
+    {
+      "@type": "Place",
+      "name": "Maglie"
+    },
+    {
+      "@type": "Place",
+      "name": "Specchia"
+    },
+    {
+      "@type": "Place",
+      "name": "Castro Marina"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://www.oneroadtrip.com/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Blog",
+      "item": "https://www.oneroadtrip.com/blog/fr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Roadtrip door Puglia: Lecce, Galatina en de grotten van Castro",
+      "item": "https://www.oneroadtrip.com/blog/nl/lecce-galatina-castro.html"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{"inLanguage":"nl",
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Hoeveel tijd heb je nodig voor Lecce?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wij brachten er slechts een middag door, genoeg voor de vier kerken van het combiticket, de campanile en de Piazza Sant’Oronzo. Met een hele dag kun je ook het Romeinse theater, het kasteel van Karel V en museum MUST bezoeken."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wat kost het combiticket voor de kerken van Lecce?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "€ 11 per persoon voor de vier kerken en kathedralen, € 21 als je ook de torens wilt bezoeken. Prijzen genoteerd in juli 2026; te koop op de Piazza del Duomo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Waar eet je de beste pasticciotto van Salento?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bij Pasticceria Ascalone in Galatina, Via Vittorio Emanuele II 17, waar het gebakje in 1745 werd uitgevonden. Open van dinsdag tot zaterdag in de ochtend; vóór 13 uur is alles op, dus reserveer."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wat kost de boottocht langs de grotten van Castro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "€ 35 per persoon voor drie uur, met vertrek om 9 uur vanuit de haven van Castro Marina. Twee uur zou volgens ons genoeg zijn. De tocht voert langs de Grotta Palombara en de Grotta Azzurra en omvat twee zwemstops."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kun je de Grotta Zinzulusa per boot bezoeken?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nee, alleen te voet via een aangelegde toegang op de klif. De boottochten varen langs de andere grotten van Castro, maar gaan deze niet binnen."
+      }
+    }
+  ]
+}
+</script>
+
+<script>
+  window.addEventListener('scroll', function () {
+    var doc = document.documentElement;
+    var max = doc.scrollHeight - doc.clientHeight;
+    var pct = max > 0 ? Math.min(100, (window.scrollY / max) * 100) : 0;
+    document.getElementById('progressFill').style.width = pct + '%';
+    var toc = document.getElementById('tocFull');
+    var pill = document.getElementById('tocPill');
+    if (window.scrollY > 460) { toc.style.opacity = '0'; pill.classList.add('show'); }
+    else { toc.style.opacity = '1'; pill.classList.remove('show'); }
+  });
+
+  var seen = {};
+  document.querySelectorAll('img[data-imgkey]').forEach(function (img) {
+    var key = img.dataset.imgkey;
+    if (seen[key]) return;
+    seen[key] = true;
+    var probe = new Image();
+    probe.onerror = function () { fallbackImages(key); };
+    probe.src = img.src;
+  });
+  function fallbackImages(key) {
+    document.querySelectorAll('img[data-imgkey="' + key + '"]').forEach(function (img) {
+      if (img.dataset.fallbackApplied) return;
+      img.dataset.fallbackApplied = '1';
+      var alt = (img.alt || 'Foto').replace(/[<>&]/g, '');
+      var w = img.clientWidth || 400, h = img.clientHeight || 300;
+      var svg = "<svg xmlns='http://www.w3.org/2000/svg' width='" + w + "' height='" + h + "'><rect width='100%' height='100%' fill='#e3e0d8'/><text x='50%' y='50%' font-family='sans-serif' font-size='14' fill='#8a7d68' text-anchor='middle' dominant-baseline='middle'>" + alt + "</text></svg>";
+      img.src = 'data:image/svg+xml,' + encodeURIComponent(svg);
+    });
+  }
+</script>
+
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"lecce-galatina-castro"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>

@@ -36,8 +36,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="https://www.oneroadtrip.com/apple-touch-icon.png">
 <link rel="shortcut icon" href="https://www.oneroadtrip.com/favicon.ico">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<title id="pageTitle">OneRoadTrip | 910+ road trips prêts à l'emploi à personnaliser</title>
-<meta name="description" id="metaDesc" content="Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 910+ parcours et 6500+ lieux testés.">
+<title id="pageTitle">OneRoadTrip | 1021+ road trips prêts à l'emploi à personnaliser</title>
+<meta name="description" id="metaDesc" content="Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 1021+ parcours et 7359+ lieux testés.">
 <link rel="canonical" id="canonicalLink" href="https://www.oneroadtrip.com/index.html">
 <meta name="robots" content="index, follow">
 <link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/index.html">
@@ -536,11 +536,11 @@ main{padding-block:40px 64px}
         <p class="lede" id="heroSub"></p>
       </div>
       <div class="heroB-stats">
-        <div class="s"><b id="heroCount">910</b><span id="statTripsLabel">road trips</span></div>
-        <div class="s"><b id="statCountries">100</b><span id="statCountriesLabel">pays</span></div>
-        <div class="s"><b id="statPlaces">6500</b><span id="statPlacesLabel">lieux</span></div>
-        <div class="s"><b id="statVisits">30000</b><span id="statVisitsLabel">visites</span></div>
-        <div class="s"><b id="statActivities">18000</b><span id="statActivitiesLabel">activités</span></div>
+        <div class="s"><b id="heroCount">1 021</b><span id="statTripsLabel">road trips</span></div>
+        <div class="s"><b id="statCountries">99</b><span id="statCountriesLabel">pays</span></div>
+        <div class="s"><b id="statPlaces">7 359</b><span id="statPlacesLabel">lieux</span></div>
+        <div class="s"><b id="statVisits">32 403</b><span id="statVisitsLabel">visites</span></div>
+        <div class="s"><b id="statActivities">19 333</b><span id="statActivitiesLabel">activités</span></div>
       </div>
     </div>
 
@@ -1965,17 +1965,22 @@ function updateStats(){
     .then(function(r){if(!r.ok) throw new Error('HTTP ' + r.status);return r.json()})
     .then(function(s){
       animateCounters(nodes, [
-        s.itineraries||allData.length,
-        s.countries||0,
-        s.places||0,
-        s.visits||0,
-        s.activities||0
-      ], 1400);
+        s.itineraries,
+        s.countries,
+        s.places,
+        s.visits,
+        s.activities
+      ].map(function(value, i){
+        var n = (typeof value === 'number' || (typeof value === 'string' && /^\d+$/.test(value))) ? Number(value) : NaN;
+        if(Number.isSafeInteger(n) && n > 0) return n;
+        if(i === 0 && allData.length) return allData.length;
+        return parseInt(nodes[i].textContent.replace(/[^0-9]/g, ''), 10);
+      }), 1400);
     })
     .catch(function(){
       var countries = {};
       for(var i=0;i<allData.length;i++) countries[normalizeCC(allData[i].cc)] = 1;
-      animateCounters([nodes[0], nodes[1]], [allData.length, Object.keys(countries).length], 1400);
+      if(allData.length) animateCounters([nodes[0], nodes[1]], [allData.length, Object.keys(countries).length], 1400);
     });
 }
 

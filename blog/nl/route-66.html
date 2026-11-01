@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<!-- ort-pwa-injected-v1 -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="OneRoadTrip">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16.png">
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {});
+    });
+  }
+</script>
+<script src="/pwa-install-button.js" defer></script>
+<!-- /ort-pwa-injected-v1 -->
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Route 66: de legendarische plekken, staat voor staat</title>
+<meta name="description" content="Cadillac Ranch, Blue Swallow Motel, Seligman–Kingman, Santa Monica Pier, neonmotels, diners en de film Cars: de complete gids voor de legendarische plekken langs Route 66.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+
+<link rel="canonical" href="https://www.oneroadtrip.com/blog/nl/route-66.html">
+
+<link rel="alternate" hreflang="fr" href="https://www.oneroadtrip.com/blog/fr/route-66.html">
+<link rel="alternate" hreflang="en" href="https://www.oneroadtrip.com/blog/en/route-66.html">
+<link rel="alternate" hreflang="es" href="https://www.oneroadtrip.com/blog/es/route-66.html">
+<link rel="alternate" hreflang="it" href="https://www.oneroadtrip.com/blog/it/route-66.html">
+<link rel="alternate" hreflang="pt" href="https://www.oneroadtrip.com/blog/pt/route-66.html">
+<link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/blog/fr/route-66.html">
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:site_name" content="OneRoadTrip">
+<meta property="og:title" content="Route 66: de legendarische plekken, staat voor staat">
+<meta property="og:description" content="Cadillac Ranch, Blue Swallow Motel, Seligman–Kingman, Santa Monica Pier, neonmotels, diners en de film Cars: de gids voor de legendarische plekken.">
+<meta property="og:url" content="https://www.oneroadtrip.com/blog/nl/route-66.html">
+<meta property="og:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Route 66 door de Amerikaanse woestijn, tot aan de horizon">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Route 66: de legendarische plekken, staat voor staat">
+<meta name="twitter:description" content="Cadillac Ranch, Blue Swallow Motel, Seligman–Kingman, neonmotels, diners en de film Cars.">
+<meta name="twitter:image" content="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;h=630&amp;fit=cover&amp;output=jpg&amp;q=85">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://wsrv.nl">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#faf8f4;font-family:'Archivo',sans-serif;}
+  a{color:#113f7a;}
+  a:hover{color:#0c2c56;}
+  h1,h2{font-family:'Instrument Serif',serif;}
+  p{font-size:16px;line-height:1.78;color:#4a4030;margin:0 0 18px;}
+  .col{max-width:960px;margin:0 auto;padding:0 48px;}
+  .full-img{width:100%;height:400px;object-fit:cover;display:block;margin:8px 0 28px;}
+  .half-row{display:flex;gap:16px;max-width:960px;margin:0 auto 28px;padding:0 48px;}
+  .half-row img{width:50%;height:210px;object-fit:cover;border-radius:12px;}
+  .sec-head{display:flex;align-items:baseline;gap:16px;margin-bottom:24px;}
+  .sec-num{font-family:'Instrument Serif',serif;font-size:52px;color:#113f7a;line-height:1;}
+  .sec-title{font-size:30px;color:#3a2f22;margin:0;}
+  .cta{display:inline-flex;align-items:center;gap:8px;background:#113f7a;color:#fff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px;margin:14px 0 4px;}
+  .cta:hover,.cta:visited,.cta:focus,.cta:active{color:#fff;background:#0c2c56;}
+  .cta-accent{background:#c1502e;font-size:15px;padding:14px 26px;}
+  .cta-accent:hover,.cta-accent:visited,.cta-accent:focus,.cta-accent:active{background:#a53f20;color:#fff;}
+  .country-card{border:1px solid #e3e0d8;border-radius:16px;background:#fff;padding:24px 28px;margin:24px auto 28px;}
+  .country-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .country-name{font-family:'Instrument Serif',serif;font-size:26px;color:#3a2f22;margin:0 0 14px;}
+  .country-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 24px;margin:16px 0 4px;}
+  .country-fact{font-size:14px;color:#4a4030;line-height:1.5;}
+  .country-fact b{color:#113f7a;display:block;font-size:11px;letter-spacing:1px;text-transform:uppercase;margin-bottom:2px;}
+  .checklist{border:2px solid #113f7a;border-radius:14px;padding:8px 26px;margin:14px auto 28px;background:#fff;}
+  .checklist li{font-size:15px;line-height:1.7;color:#4a4030;margin:12px 0;}
+  .checklist li b{color:#113f7a;}
+  .full-img-c{width:100%;max-width:960px;margin:8px auto 28px;padding:0 48px;display:block;}
+  .full-img-c img{width:100%;height:auto;display:block;border-radius:12px;}
+  .header-row-1{display:flex;align-items:center;gap:12px;padding:14px 28px;flex-wrap:wrap;}
+  .brandlink{display:flex;align-items:center;}
+  .spacer{flex:1;}
+  .langpick{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:8px;padding:6px 8px;font-size:13px;}
+  .auth{position:relative;}
+  .auth .btn{background:#ffffff1a;color:#fff;border:1px solid #ffffff80;border-radius:10px;padding:8px 14px;font-size:13px;cursor:pointer;white-space:nowrap;}
+  .auth-pop{display:none;position:absolute;right:0;top:calc(100% + 8px);background:#fff;border-radius:10px;box-shadow:0 10px 30px rgba(0,0,0,.2);padding:8px;flex-direction:column;gap:6px;min-width:160px;z-index:50;}
+  .auth-pop .btn{background:#faf8f4;color:#113f7a;border:1px solid #e3e0d8;white-space:nowrap;text-align:left;}
+  .auth-pop .btn.out{color:#113f7a;}
+  header.header{background:#113f7a;}
+  #progressBar{position:sticky;top:0;height:4px;background:#e3e0d8;z-index:40;}
+  #progressFill{height:100%;background:#113f7a;width:0%;transition:width 0.1s;}
+  #tocFull{background:#fff;border:1px solid #e3e0d8;border-radius:16px;padding:20px 24px;transition:opacity 0.2s;}
+  #tocFull a{font-size:14px;color:#3a2f22;text-decoration:none;}
+  #tocPill{position:fixed;top:90px;right:28px;display:flex;align-items:center;gap:8px;padding:10px 16px;border-radius:999px;background:#c1502e;border:1px solid #c1502e;box-shadow:0 8px 20px -6px rgba(0,0,0,.35);cursor:pointer;z-index:60;opacity:0 !important;transform:translateY(-8px);pointer-events:none;transition:opacity .2s,transform .2s;}
+  #tocPill.show{opacity:1 !important;transform:translateY(0);pointer-events:auto;}
+  .credit-btn{background:none;border:1px solid #dcd8cd;border-radius:999px;padding:8px 16px;font-size:13px;color:#8a7d68;cursor:pointer;}
+  .credit-box{margin-top:14px;font-size:12px;color:#8a7d68;line-height:1.9;display:none;}
+  .credit-box.show{display:block;}
+  .hotel-card{display:flex;gap:0;border:1px solid #e3e0d8;border-radius:16px;background:#fff;overflow:hidden;margin:24px auto 28px;}
+  .hotel-card img{width:38%;object-fit:cover;display:block;min-height:200px;}
+  .hotel-body{padding:22px 26px;flex:1;}
+  .hotel-flag{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#113f7a;font-weight:700;margin-bottom:6px;}
+  .hotel-name{font-family:'Instrument Serif',serif;font-size:24px;color:#3a2f22;margin:0 0 8px;}
+  .hotel-rating{display:inline-block;background:#113f7a;color:#fff;font-size:13px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:12px;}
+  .hotel-desc{font-size:14px;line-height:1.6;color:#4a4030;margin:0 0 14px;}
+  @media (max-width:600px){.hotel-card{flex-direction:column;}.hotel-card img{width:100%;min-height:180px;height:200px;}}
+  @media (max-width:760px){
+    .col{padding:0 20px;}
+    .half-row{padding:0 20px;gap:10px;}
+    .half-row img{height:150px;}
+    .full-img-c{padding:0 20px;}
+    .full-img{height:220px;}
+    .sec-num{font-size:36px;}
+    .sec-title{font-size:22px;}
+    h1{font-size:30px !important;}
+    .country-grid{grid-template-columns:1fr;}
+    #tocFull{padding:14px 16px;}
+    #tocFull > div:nth-child(2){grid-template-columns:1fr !important;}
+    #tocPill{top:auto;bottom:20px;right:16px;}
+    .header-row-1 span[style*="opacity:0.85"]{display:none;}
+  }
+  @media (max-width:520px){
+    body > div[style*="display:flex"]:first-of-type{flex-direction:column;}
+    body > div[style*="display:flex"]:first-of-type > div{width:100% !important;padding:32px 20px !important;}
+    body > div[style*="display:flex"]:first-of-type > img{width:100% !important;height:220px;}
+    div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;}
+    .half-row{flex-direction:column;}
+    .half-row img{width:100% !important;}
+  }
+</style>
+<link rel="alternate" hreflang="nl" href="https://www.oneroadtrip.com/blog/nl/route-66.html">
+</head>
+<body>
+
+<div id="progressBar"><div id="progressFill"></div></div>
+
+<header class="header">
+  <div id="site-header"></div>
+  <select id="langSel" class="langpick" style="display:none;"></select>
+  <div class="auth" style="display:none;">
+    <button id="openAuth" class="btn" type="button"></button>
+    <div id="authPop" class="auth-pop">
+      <button id="btnGoogle" class="btn" type="button"></button>
+      <button id="btnEmail" class="btn" type="button"></button>
+      <button id="btnLogout" class="btn out" type="button" style="display:none;"></button>
+    </div>
+  </div>
+</header>
+
+<div style="display:flex;">
+  <div style="width:46%;padding:70px 40px;background:#113f7a;color:#fff;">
+    <div class="hero-tag">Verenigde Staten</div>
+    <span style="font-size:12px;letter-spacing:2px;text-transform:uppercase;opacity:0.85;">Gids voor een legendarische route · Route 66</span>
+    <h1 style="font-size:44px;line-height:1.1;margin:12px 0 18px;">Route 66: de legendarische plekken, van Chicago tot de Stille Oceaan</h1>
+    <p style="font-size:15px;line-height:1.7;opacity:0.92;max-width:420px;color:#fff;margin:0;">Ingegraven Cadillacs, neonmotels, authentieke diners, ongerepte weggedeelten en filmdecors. Alles wat de Mother Road tot een legende maakt.</p>
+  </div>
+  <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&amp;w=1200&amp;output=webp&amp;q=80" alt="Route 66 door de Amerikaanse woestijn, tot aan de horizon" data-imgkey="hero-route66" style="width:54%;object-fit:cover;display:block;">
+</div>
+
+<div class="col" style="padding-top:32px;">
+  <div id="tocFull">
+    <div style="font-family:'Instrument Serif',serif;font-size:20px;color:#113f7a;margin-bottom:12px;">Inhoud</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px 24px;">
+      <a href="#s01">01 · Route 66: mythe en werkelijkheid</a>       <a href="#s02">02 · Illinois en Missouri: het vertrek</a>       <a href="#s03">03 · Oklahoma: het hart van de route</a>       <a href="#s04">04 · Texas en New Mexico: neonlichten</a>       <a href="#s05">05 · Arizona: het bewaard gebleven traject</a>       <a href="#s06">06 · Californië: woestijn en oceaan</a>       <a href="#s07">07 · Slapen langs de route: neonmotels</a>       <a href="#s08">08 · Eten langs de route: legendarische diners</a>       <a href="#s09">09 · Route 66 en de film Cars</a>       <a href="#s10">10 · Checklist voor vertrek</a>       <a href="#s11">11 · Fotoverantwoording</a>
+    </div>
+  </div>
+</div>
+
+<div id="tocPill" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <span style="font-family:'Instrument Serif',serif;font-style:italic;color:#fff;">☰</span>   <span style="font-size:12px;font-weight:600;color:#fff;">Inhoud</span>
+</div>
+
+<!-- ============ S01 ============ -->
+<div id="s01" style="padding:56px 0 40px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">01</span><h2 class="sec-title">Route 66: mythe en werkelijkheid</h2></div>
+    <p style="font-family:'Instrument Serif',serif;font-size:22px;font-style:italic;line-height:1.5;color:#3a2f22;margin:0 0 20px;">3.940 kilometer van Chicago tot de Stille Oceaan, door acht staten en een eeuw Amerikaanse geschiedenis. En verrassend voor velen: officieel bestaat Route 66 niet meer.</p>
+  </div>
+  <div class="col" style="margin-top:4px;">
+    <p>De ‘Mother Road’, aangelegd in 1926, was de grote migratieroute naar het westen en het symbool van vrijheid op vier wielen. Maar in <b>1985 verloor ze haar officiële status</b>, vervangen door moderne Interstates. Wat nu overblijft, is een route met borden ‘Historic Route 66’, bestaande uit bewaard gebleven stukken en delen die de snelweg volgen. Je rijdt niet over één doorlopende weg, maar volgt een spoor. Een goede gps met de juiste tussenpunten is dus onmisbaar.</p>
+    <p style="margin:0;">Juist dat maakt de route zo charmant. Langs het tracé leven neonmotels, diners uit de jaren vijftig, tankstations waar de tijd stilstaat en kitscherige attracties die je nergens anders vindt voort. Met haar honderdjarig bestaan in 2026 in zicht is Route 66 levendiger dan ooit. Hier vind je de legendarische plekken in reisvolgorde, van oost naar west, gevolgd door drie manieren om de route volop te beleven: waar slapen, waar eten en waarom de film Cars alles aan haar te danken heeft.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;">
+      <a class="cta cta-accent" href="https://www.oneroadtrip.com/routes/us-us66-route-66-chicago-to-santa-monica-14j.html" target="_blank" rel="noopener">Bekijk de Route 66-reisroute, 14 dagen →</a>       <a class="cta cta-accent" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="sponsored nofollow noopener">Vergelijk huurauto’s →</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S02 : ILLINOIS / MISSOURI ============ -->
+<div id="s02" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">02</span><h2 class="sec-title">Illinois en Missouri: het vertrek</h2></div>
+    <p>Alles begint in Chicago, op de hoek van Adams Street en Michigan Avenue, onder een bord ‘Begin Historic Route 66’ dat zo onopvallend is dat je ernaar moet zoeken. Dit is kilometer nul. In Illinois wordt de toon al gezet: de eerste ‘Muffler Men’, reusachtige reclamefiguren van glasvezel, en in Pontiac meer dan twintig muurschilderingen over de geschiedenis van de route. Daarna volgt Missouri, met Saint Louis en de Gateway Arch, de ‘poort naar het westen’.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Illinois · De eerste reus</div>
+      <div class="country-name">Gemini Giant</div>
+      <p style="margin:0 0 8px;">In Wilmington staat de eerste ‘Muffler Man’ van de route: een glasvezelreus van 9 meter met een Gemini-raket in zijn hand. Hij werd in de jaren zestig voor een restaurant geplaatst om automobilisten te lokken. Het is het schoolvoorbeeld van de wegattracties die de folklore van Route 66 bepalen.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>Jaren zestig</div>
+        <div class="country-fact"><b>Locatie</b>Wilmington, Illinois</div>
+        <div class="country-fact"><b>Type</b>Een ‘Muffler Man’, een reusachtige reclamefiguur langs de weg</div>
+        <div class="country-fact"><b>Stop</b>Korte fotostop, de eerste van een lange reeks</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Missouri · De brug met een knik</div>
+      <div class="country-name">Chain of Rocks Bridge</div>
+      <p style="margin:0 0 8px;">Deze brug uit 1929 over de Mississippi heeft iets unieks: midden op de brug zit een <b>knik van 22 graden</b>. Tegenwoordig mogen alleen voetgangers en fietsers erop. Het is een van de fotogeniekste plekken langs de route en de toegang is gratis.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>Gebouwd in 1929</div>
+        <div class="country-fact"><b>Toegang</b>Voetgangers en fietsers, boven de Mississippi</div>
+        <div class="country-fact"><b>In de buurt</b>Saint Louis en de Gateway Arch</div>
+        <div class="country-fact"><b>Prijs</b>Gratis</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/chain-of-rocks.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Chain of Rocks Bridge boven de Mississippi" loading="lazy" data-imgkey="chain-of-rocks" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/the-langham-chicago.webp&amp;w=700&amp;output=webp&amp;q=80" alt="The Langham Chicago" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Waar overnachten · Chicago, het vertrekpunt</div>
+        <div class="hotel-name">The Langham Chicago</div>
+        <div class="hotel-rating">9,4 / 10 op Booking</div>
+        <p class="hotel-desc">Om de reis in stijl te beginnen: een luxe adres in hartje Chicago, vlak bij kilometer nul van Route 66.</p>
+        <a class="cta" href="https://www.booking.com/Share-GW2cuK" target="_blank" rel="sponsored nofollow noopener">Bekijk op Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S03 : OKLAHOMA ============ -->
+<div id="s03" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">03</span><h2 class="sec-title">Oklahoma: het hart van de route</h2></div>
+    <p>Oklahoma telt de meeste kilometers Route 66 en een mooie verzameling iconen. Vlak voordat je de staat binnenrijdt, voert het piepkleine stuk door Kansas (slechts 21 km) langs Galena en de oude sleepwagen die een personage uit Cars inspireerde. Mis in Oklahoma de Round Barn in Arcadia niet: een ronde houten schuur uit 1898, de enige van dit type langs de hele route.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Oklahoma · Het betonnen icoon</div>
+      <div class="country-name">Blue Whale van Catoosa</div>
+      <p style="margin:0 0 8px;">Een glimlachende blauwe walvis van 24 meter aan een vijver, in 1972 gebouwd door een gepensioneerde voor de verjaardag van zijn vrouw. Je kunt op zijn rug klimmen. Het inmiddels iconische bouwwerk belichaamt de gemoedelijke, zelfgemaakte sfeer van Route 66.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>1972, een verjaardagscadeau dat een monument werd</div>
+        <div class="country-fact"><b>Locatie</b>Catoosa, bij Tulsa</div>
+        <div class="country-fact"><b>Prijs</b>Gratis</div>
+        <div class="country-fact"><b>Ook zien</b>De vintage neonlichten van 11th Street in Tulsa bij het vallen van de avond</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/blue-whale-catoosa.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Blue Whale van Catoosa, een blauwe betonnen walvis aan het water" loading="lazy" data-imgkey="blue-whale" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Oklahoma · De reuzenfles</div>
+      <div class="country-name">POPS 66</div>
+      <p style="margin:0 0 8px;">De 20 meter hoge frisdrankfles bij de ingang van deze stop in Arcadia kun je onmogelijk missen. Binnen vind je meer dan 700 soorten frisdrank uit de hele wereld. Probeer een onwaarschijnlijke smaak: die vind je nergens anders.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Herkenningspunt</b>Een frisdrankfles van 20 meter</div>
+        <div class="country-fact"><b>Locatie</b>Arcadia, Oklahoma</div>
+        <div class="country-fact"><b>Specialiteit</b>Meer dan 700 verschillende frisdranken</div>
+        <div class="country-fact"><b>Vlakbij</b>De Round Barn uit 1898, op een steenworp afstand</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/pops.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="De reusachtige frisdrankfles van POPS 66 in Arcadia, Oklahoma" loading="lazy" data-imgkey="pops" style="height:400px;">
+</div>
+
+<!-- ============ S04 : TEXAS / NOUVEAU-MEXIQUE ============ -->
+<div id="s04" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">04</span><h2 class="sec-title">Texas en New Mexico: neonlichten en woestijn</h2></div>
+    <p>In Texas, bij Amarillo, ligt een van de beroemdste stops van de hele route: Cadillac Ranch. Iets verderop markeert het MidPoint Cafe in Adrian precies het midden, op 1.139 mijl van beide uiteinden. Daarna voert de reis New Mexico binnen, het land van de neonlichten, met Tucumcari als hoofdstad.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Texas · Graffiti wordt aangemoedigd</div>
+      <div class="country-name">Cadillac Ranch</div>
+      <p style="margin:0 0 8px;">Tien Cadillacs met hun neus in de grond, in een veld bij Amarillo. Een excentrieke mecenas liet ze daar in 1974 plaatsen als eerbetoon aan de ontwikkeling van de staartvin. Ze zijn bedekt met steeds vernieuwde lagen graffiti. Vanaf de parkeerplaats loop je 400 meter door het veld. Het is een van de weinige plekken ter wereld waar graffiti spuiten wordt aangemoedigd.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>Geplaatst in 1974</div>
+        <div class="country-fact"><b>Locatie</b>Bij Amarillo, Texas</div>
+        <div class="country-fact"><b>Tip</b>Neem een spuitbus mee: graffiti is toegestaan</div>
+        <div class="country-fact"><b>Prijs</b>Gratis</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/cadillac-ranch.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Cadillac Ranch: tien auto’s in de grond, bedekt met graffiti" loading="lazy" data-imgkey="cadillac-ranch" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">New Mexico · De mooiste neonreclame</div>
+      <div class="country-name">Blue Swallow Motel</div>
+      <p style="margin:0 0 8px;">Kom bij het vallen van de avond: de neonreclame in de vorm van een zwaluw, met de belofte ‘100% Refrigerated Air’, geldt als de mooiste lichtreclame van heel Route 66. Dit beschermde motor court uit 1939 heeft naast elke kamer een garage, zoals gebruikelijk was toen je je auto in het oog wilde houden.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>1939, opgenomen in het nationale monumentenregister</div>
+        <div class="country-fact"><b>Locatie</b>Tucumcari, neonhoofdstad van de route</div>
+        <div class="country-fact"><b>Tip</b>Reserveer in de zomer 2 maanden vooraf als je hier wilt slapen</div>
+        <div class="country-fact"><b>Vlakbij</b>Palomino Motel, Safari Motel en Teepee Curios, ’s avonds allemaal verlicht</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/blue-swallow.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="De neonreclame van het Blue Swallow Motel in Tucumcari bij nacht" loading="lazy" data-imgkey="blue-swallow" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/roadrunner-lodge-motel.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Roadrunner Lodge Motel, Tucumcari" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Waar overnachten · Tucumcari</div>
+        <div class="hotel-name">Roadrunner Lodge Motel</div>
+        <div class="hotel-rating">9,2 / 10 op Booking</div>
+        <p class="hotel-desc">Voor een nacht tussen de neonlichten van Tucumcari. Een gerestaureerd motor court in de pure sfeer van Route 66, een betrouwbare keuze wanneer het legendarische Blue Swallow volgeboekt is.</p>
+        <a class="cta" href="https://www.booking.com/Share-GyuO2H" target="_blank" rel="sponsored nofollow noopener">Bekijk op Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S05 : ARIZONA ============ -->
+<div id="s05" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">05</span><h2 class="sec-title">Arizona: het bewaard gebleven traject</h2></div>
+    <p>In Arizona werd Route 66 gered. In 1987 richtte Angel Delgadillo, een kapper uit Seligman, de vereniging op die voorkwam dat de Mother Road na haar opheffing in de vergetelheid raakte. En 130 km ten noorden van Flagstaff is een omweg onmisbaar, ook al ligt hij niet aan de route: de Grand Canyon, met zijn 1.800 meter diepte en gesteentelagen van twee miljard jaar oud.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Arizona · De ongerepte route</div>
+      <div class="country-name">Het traject Seligman–Kingman</div>
+      <p style="margin:0 0 8px;">De 145 kilometer tussen Seligman en Kingman vormen het <b>best bewaarde traject</b> van heel Route 66: twee rijstroken, nauwelijks verkeer en dezelfde weg als in 1955, door struikgewas en langs ranches. Onderweg ligt de Hackberry General Store, een oud tankstation uit de jaren dertig waar de tijd stilstaat, met originele pompen en een rode Corvette ervoor.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Afstand</b>145 km bewaard zoals in 1955</div>
+        <div class="country-fact"><b>Vertrek</b>Seligman, het dorp dat de route redde</div>
+        <div class="country-fact"><b>Onderweg</b>Hackberry General Store, 50 km ten oosten van Kingman</div>
+        <div class="country-fact"><b>Sfeer</b>Het meest authentieke traject van de route</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/seligman.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Bewaard gebleven Route 66 tussen Seligman en Kingman in Arizona" loading="lazy" data-imgkey="seligman" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Arizona · Het lied van de Eagles</div>
+      <div class="country-name">Standing on the Corner, Winslow</div>
+      <p style="margin:0 0 8px;">‘Standing on the corner in Winslow, Arizona…’: deze regel uit een lied van de Eagles uit 1972 redde het stadje van de ondergang. Een straathoek met een bronzen beeld en een muurschildering eert het lied. Een stop van vijf minuten, maar het deuntje blijft de hele dag in je hoofd zitten.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Oorsprong</b>Een lied van de Eagles uit 1972</div>
+        <div class="country-fact"><b>Locatie</b>Winslow, Arizona</div>
+        <div class="country-fact"><b>Ter plaatse</b>Bronzen beeld en muurschildering op de straathoek</div>
+        <div class="country-fact"><b>Vlakbij</b>La Posada, prachtig hotel uit 1929 van Mary Colter</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/la-posada-hotel.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Posada Hotel and Gardens, Winslow" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Waar overnachten · Winslow</div>
+        <div class="hotel-name">La Posada Hotel and Gardens</div>
+        <div class="hotel-rating">9,3 / 10 op Booking</div>
+        <p class="hotel-desc">Het voormalige Harvey House uit 1929, ontworpen door architect Mary Colter, wordt vaak de mooiste overnachtingsplek van heel Route 66 genoemd. Tuinen, een historische hal en een gerenommeerd restaurant.</p>
+        <a class="cta" href="https://www.booking.com/Share-gc5VDmJ" target="_blank" rel="sponsored nofollow noopener">Bekijk op Booking →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/la-quinta-by-wyndham.webp&amp;w=700&amp;output=webp&amp;q=80" alt="La Quinta by Wyndham Kingman" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Waar overnachten · Kingman</div>
+        <div class="hotel-name">La Quinta by Wyndham Kingman</div>
+        <div class="hotel-rating">8,5 / 10 op Booking</div>
+        <p class="hotel-desc">Een comfortabele, praktische stop in Kingman, ideaal om het bewaard gebleven traject Seligman–Kingman te verkennen en uitgerust door te reizen naar de Mojavewoestijn.</p>
+        <a class="cta" href="https://www.booking.com/Share-x1yMc1" target="_blank" rel="sponsored nofollow noopener">Bekijk op Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S06 : CALIFORNIE ============ -->
+<div id="s06" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">06</span><h2 class="sec-title">Californië: de Mojavewoestijn en de oceaan</h2></div>
+    <p>Het laatste deel doorkruist de Mojavewoestijn, het meest verlaten en spectaculaire gedeelte van de route. Vul in Needles je tank en watervoorraad: de volgende 250 km zijn tankstations schaars en in de zomer wordt het vaak warmer dan 45 °C. Bij Oro Grande staan in Bottle Tree Ranch 200 ‘bomen’ van metalen buizen met glazen flessen die in de wind rinkelen.</p>
+  </div>
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Californië · In niemandsland</div>
+      <div class="country-name">Roy’s Motel &amp; Café, Amboy</div>
+      <p style="margin:0 0 8px;">Midden in de Mojave, letterlijk in niemandsland, vormen dit motel uit de jaren dertig en zijn Googie-reclamebord een van de meest gefotografeerde beelden van de route. De locatie wordt gerenoveerd voor het honderdjarig bestaan in 2026. In de zomer kan het hier warmer worden dan 45 °C: wees voorzichtig.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Periode</b>Jaren dertig, iconisch Googie-reclamebord</div>
+        <div class="country-fact"><b>Locatie</b>Amboy, Mojavewoestijn</div>
+        <div class="country-fact"><b>Let op</b>Extreme zomerhitte, weinig tankstations in de omgeving</div>
+        <div class="country-fact"><b>Status</b>Wordt gerenoveerd voor het honderdjarig bestaan in 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/roys-motel.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Het Googie-reclamebord van Roy’s Motel and Café in Amboy, in de Mojavewoestijn" loading="lazy" data-imgkey="roys-amboy" style="height:400px;">
+
+  <div class="col">
+    <div class="country-card">
+      <div class="country-flag">Californië · Het einde van de reis</div>
+      <div class="country-name">Santa Monica Pier</div>
+      <p style="margin:0 0 8px;">Het bord ‘End of the Trail’, geplaatst in 2009, markeert het officiële einde van Route 66. Je hebt 3.940 km afgelegd vanuit Chicago en voor je ligt de Stille Oceaan. Achter het bord staan het reuzenrad van Pacific Park en de historische draaimolen uit 1922. Dit is het einde van de Mother Road en het begin van Californië.</p>
+      <div class="country-grid">
+        <div class="country-fact"><b>Het eindpunt</b>Bord ‘End of the Trail’, geplaatst in 2009</div>
+        <div class="country-fact"><b>Afstand vanaf Chicago</b>3.940 km</div>
+        <div class="country-fact"><b>Voor aankomst</b>Wigwam Motel met tipikamers, in San Bernardino</div>
+        <div class="country-fact"><b>Vlakbij</b>Venice Beach, 3 km naar het zuiden</div>
+      </div>
+    </div>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/santa-monica.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Santa Monica Pier, het einde van Route 66 aan de Stille Oceaan" loading="lazy" data-imgkey="santa-monica-pier" style="height:400px;">
+
+  <div class="col">
+    <div class="hotel-card">
+      <img src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/casa-del-mar.webp&amp;w=700&amp;output=webp&amp;q=80" alt="Hotel Casa del Mar, Santa Monica" loading="lazy">
+      <div class="hotel-body">
+        <div class="hotel-flag">Waar overnachten · Santa Monica, het eindpunt</div>
+        <div class="hotel-name">Casa del Mar</div>
+        <div class="hotel-rating">9,1 / 10 op Booking</div>
+        <p class="hotel-desc">Een verwenmoment aan het einde van de reis: een vijfsterrenhotel direct aan het strand, tegenover de Stille Oceaan en op enkele minuten van het bord ‘End of the Trail’. De beloning na 3.940 km.</p>
+        <a class="cta" href="https://www.booking.com/Share-Jo9MEY" target="_blank" rel="sponsored nofollow noopener">Bekijk op Booking →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ S07 : MOTELS NEON ============ -->
+<div id="s07" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">07</span><h2 class="sec-title">Slapen langs de route: neonmotels</h2></div>
+    <p>Langs Route 66 hoort overnachten bij de reiservaring. Vergeet de uniforme hotelketens: het draait om slapen in historische <b>motor courts</b>, motels uit de jaren dertig tot vijftig waarvan de neonreclames bij het vallen van de avond een voor een aangaan. Veel zijn gerestaureerd en nog altijd in gebruik.</p>
+    <p>De klassiekers: het <b>Blue Swallow Motel</b> in Tucumcari (1939), met de mooiste neonreclame van de route; het <b>Wigwam Motel</b> in San Bernardino, met 19 kamers in betonnen tipi’s uit 1949, omringd door oldtimers; <b>La Posada</b> in Winslow, een voormalig Harvey House-hotel uit 1929 van Mary Colter, vaak genoemd als de mooiste overnachtingsplek langs de route; en <b>El Rancho</b> in Gallup (1937), waar Hollywoodsterren tijdens westernopnamen verbleven en elke kamer naar een beroemdheid is vernoemd.</p>
+    <p style="margin:0;">Een tip die overal terugkomt: deze legendarische adressen zijn klein en zeer gewild. Als je in het hoogseizoen in het Blue Swallow of Wigwam wilt slapen, boek dan <b>enkele weken vooraf</b>, in de zomer soms twee maanden.</p>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/neon.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Neonreclames van vintage motels langs Route 66 bij nacht" loading="lazy" data-imgkey="neon-motels" style="height:400px;">
+</div>
+
+<!-- ============ S08 : DINERS ============ -->
+<div id="s08" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">08</span><h2 class="sec-title">Eten langs de route: legendarische diners</h2></div>
+    <p>Route 66 is ook een culinaire reis, staat voor staat, langs adressen die al tientallen jaren nauwelijks veranderd zijn. Sommige beweren zelfs een Amerikaans gerecht te hebben uitgevonden.</p>
+  </div>
+  <div class="col">
+    <ul class="checklist">
+      <li><b>Cozy Dog Drive In (Springfield, Illinois).</b> Hier zou in 1946 de corn dog zijn uitgevonden: een worst op een stokje in gefrituurd maisbeslag. Nog altijd in handen van dezelfde familie, met muren vol memorabilia.</li>
+      <li><b>De deep-dish pizza van Chicago.</b> De stad bedacht deze pizza met dikke bodem in de jaren veertig. Iedere inwoner heeft zijn favoriete adres. Hij moet lang bakken, dus bestel ruim van tevoren.</li>
+      <li><b>Ted Drewes (Saint Louis).</b> Sinds 1929 een begrip voor frozen custard, zo stevig dat de verkoper de beker omdraait om te bewijzen dat het ijs er niet uitvalt.</li>
+      <li><b>Snow Cap Drive-In (Seligman, Arizona).</b> Geopend in 1953, een tempel van kitsch en grappen, midden in het dorp dat de route redde.</li>
+      <li><b>Barbecue in Oklahoma.</b> Urenlang gerookte brisket en ribs op kraftpapier, met zoete ijsthee: je bent in het zuiden.</li>
+      <li><b>Groene chile in New Mexico.</b> Bij elke bestelling krijg je de vraag ‘Red or green?’. Antwoord ‘Christmas’ als je beide sauzen wilt.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p style="margin:0;">Wat deze adressen gemeen hebben: je gaat er niet alleen eten, maar ook voor het decor, de geschiedenis en de sfeer. Ze horen net zo goed bij de reis als de landschappen.</p>
+  </div>
+</div>
+
+<!-- ============ S09 : CARS ============ -->
+<div id="s09" style="padding:56px 0;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">09</span><h2 class="sec-title">Route 66 en de film Cars</h2></div>
+    <p>Dat Route 66 kinderen zo aanspreekt, komt grotendeels door Pixar’s film Cars. De makers lieten zich rechtstreeks inspireren door de Mother Road en haar bewoners voor Radiator Springs: het vergeten stadje aan een weg waar niemand meer rijdt, het hart van de film.</p>
+    <p>Verschillende echte locaties vormden de inspiratie. Het dorp <b>Seligman</b> in Arizona en kapper Angel Delgadillo, die voor het behoud van de route streden, inspireerden de sfeer en het verhaal van Radiator Springs. In <b>Galena</b>, Kansas, stond een oude roestige sleepwagen model voor het sleepwagenpersonage. Het <b>Rock Cafe</b> in Stroud, Oklahoma, inspireerde een ander personage. Na een brand in 2008 bouwde de gemeenschap het steen voor steen weer op.</p>
+    <p style="margin:0;">Route 66 rijden betekent vandaag de sfeer van die filmdecors op ware grootte terugvinden: neonreclames, verlaten tankstations en stadjes waar het leven langzaam gaat. Voor gezinnen die fan zijn van de film vormt dat een ideale rode draad door de hele reis.</p>
+  </div>
+
+  <img class="full-img" src="https://wsrv.nl/?url=photos.oneroadtrip.com/route66/car-vintage.webp&amp;w=1400&amp;output=webp&amp;q=80" alt="Een dorp langs Route 66 dat doet denken aan Radiator Springs uit de film Cars" loading="lazy" data-imgkey="cars-route66" style="height:400px;">
+</div>
+
+<!-- ============ S10 : CHECKLIST ============ -->
+<div id="s10" style="padding:56px 0;background:#ffffff;border-top:1px solid #e3e0d8;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">10</span><h2 class="sec-title">Checklist voor vertrek</h2></div>
+    <p>Route 66 vraagt enige voorbereiding om gedoe te voorkomen. Dit zijn de punten die ervaren reizigers het vaakst noemen.</p>
+  </div>
+  <div class="col">
+    <ul class="checklist">
+      <li><b>Een gps met de tussenpunten van Route 66.</b> Het historische tracé is niet doorlopend: bewaard gebleven delen wisselen af met stukken Interstate. Zonder herkenningspunten mis je de helft van de legendarische plekken of verdwaal je.</li>
+      <li><b>Het juiste seizoen.</b> Voorjaar (april-mei) en najaar (september-oktober) zijn ideaal, met 15 tot 25 °C. Vermijd de zomer: in de Mojave en Arizona wordt het warmer dan 40 °C. In de winter is Illinois guur, met sneeuw en vorst.</li>
+      <li><b>Tanken vóór de woestijn.</b> Tussen Needles en Barstow zijn tankstations over een afstand van 250 km schaars. Vul je tank en watervoorraad voordat je de Mojave inrijdt.</li>
+      <li><b>Boek de beroemde motels vroeg.</b> Blue Swallow, Wigwam, La Posada: weinig kamers en veel vraag. Boek enkele weken vooruit, in de zomer tot twee maanden.</li>
+      <li><b>Neem voldoende tijd.</b> 3.940 km doe je niet in een paar dagen als je wilt genieten. Reken op ongeveer twee weken voor een echte reis zonder de hele dag te rijden.</li>
+      <li><b>Een huurauto met een andere inleverlocatie.</b> De meeste reizigers halen de auto op in Chicago en leveren hem in Los Angeles in. De toeslag voor ver uit elkaar liggende locaties kan hoog zijn: vergelijk goed voordat je boekt.</li>
+      <li><b>Een internationaal rijbewijs.</b> Om in de Verenigde Staten met een buitenlands rijbewijs te rijden wordt vaak een officiële vertaling of een internationaal rijbewijs gevraagd. Regel dit vóór vertrek.</li>
+    </ul>
+  </div>
+  <div class="col">
+    <p style="margin:0;">De auto is essentieel voor deze reis: vergelijk de aanbiedingen zorgvuldig, vooral voor een enkele reis Chicago–Los Angeles. Bovenaan deze pagina vind je de huurautovergelijker en de gedetailleerde route van dag tot dag.</p>
+  </div>
+</div>
+
+<!-- ============ S11 CREDITS ============ -->
+<div id="s11" style="padding:40px 0 60px;">
+  <div class="col">
+    <div class="sec-head"><span class="sec-num">11</span><h2 class="sec-title">Fotoverantwoording</h2></div>
+    <button class="credit-btn" onclick="document.getElementById('creditsBox').classList.toggle('show');this.textContent=document.getElementById('creditsBox').classList.contains('show')?'Fotoverantwoording ▲':'Fotoverantwoording ▼'">Fotoverantwoording ▼</button>
+    <div id="creditsBox" class="credit-box">
+      Foto ‘Route 66-bord in de woestijn’: G. Edward Johnson, eigen werk (Nikon Z 9), CC BY 4.0.<br>       Foto ‘Chain of Rocks Bridge’: G. Edward Johnson, eigen werk (Nikon Z 9), CC BY 4.0.<br>       Foto ‘Blue Whale van Catoosa’: G. Edward Johnson, eigen werk (Nikon Z 9), CC BY 4.0, via Wikimedia Commons.<br>       Foto ‘Cadillac Ranch’: inkknife_2000, via Flickr, CC BY-SA 2.0, via Wikimedia Commons.<br>       Foto ‘Blue Swallow Motel’: Michael Zanussi, CC BY 2.0.<br>       Foto ‘traject bij Seligman’: Grenzlandstern, eigen werk, CC BY-SA 4.0, via Wikimedia Commons.<br>       Overige fotovermeldingen worden aangevuld zodra de foto’s worden toegevoegd.
+    </div>
+  </div>
+</div>
+
+<footer id="footer-legal"></footer>
+
+<script src="/js/ort-config.js"></script>
+<script src="/js/ort-i18n-auth.js"></script>
+<script src="/js/ort-header.js"></script>
+<script src="/js/ort-footer.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Route 66: de legendarische plekken, staat voor staat",
+  "description": "Cadillac Ranch, Blue Swallow Motel, Seligman–Kingman, Santa Monica Pier, neonmotels, diners en de film Cars: de complete gids voor de legendarische plekken langs Route 66.",
+  "image": ["https://wsrv.nl/?url=photos.oneroadtrip.com/route66/route-66-desert-highway-sign.webp&w=1200&output=jpg&q=85"],
+  "inLanguage": "nl",
+  "datePublished": "2026-07-27",
+  "dateModified": "2026-07-27",
+  "author": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "publisher": {"@type": "Organization", "name": "OneRoadTrip", "url": "https://www.oneroadtrip.com"},
+  "mainEntityOfPage": {"@type": "WebPage", "@id": "https://www.oneroadtrip.com/blog/nl/route-66.html"}
+}
+</script>
+
+<script>
+(function(){
+  var fill=document.getElementById('progressFill');
+  var pill=document.getElementById('tocPill');
+  var toc=document.getElementById('tocFull');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    var p=h>0?(window.scrollY/h)*100:0;
+    if(fill)fill.style.width=p+'%';
+    if(pill&&toc){
+      var tocBottom=toc.getBoundingClientRect().bottom;
+      if(tocBottom<0)pill.classList.add('show');
+      else pill.classList.remove('show');
+    }
+  });
+})();
+</script>
+
+<!-- Stay22 / letmeallez : habille automatiquement les liens Booking avec l'ID affilié -->
+<script>
+  (function (s, t, a, y, twenty, two) {
+    s.Stay22 = s.Stay22 || {};
+    s.Stay22.params = { lmaID: '692f0c75b2478d16bb9b22fa' };
+    twenty = t.createElement(a);
+    two = t.getElementsByTagName(a)[0];
+    twenty.async = 1;
+    twenty.src = y;
+    two.parentNode.insertBefore(twenty, two);
+  })(window, document, 'script', 'https://scripts.stay22.com/letmeallez.js');
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.oneroadtrip.com/"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.oneroadtrip.com/blog/fr/"},
+    {"@type": "ListItem", "position": 3, "name": "Route 66: de legendarische plekken"}
+  ]
+}
+</script>
+<!-- ort-page-tracking-v1 -->
+<script>
+(function(){try{
+  if(window.__ortTrackStarted)return; window.__ortTrackStarted=true;
+  var openTs=Date.now(),maxScroll=0,sent=false;
+  function device(){try{var w=window.innerWidth||0;return (/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)||w<=900)?"mobile":"desktop";}catch(e){return "unknown";}}
+  function campaign(){try{var p=new URLSearchParams(location.search);var c=p.get("utm_campaign")||p.get("utm_source")||p.get("src")||"";return c?String(c).slice(0,80):"(direct)";}catch(e){return "(direct)";}}
+  function referrer(){try{var r=(document&&document.referrer)?document.referrer:"";if(!r||typeof r!=="string")return "(direct)";var h="";try{h=new URL(r).hostname;}catch(e){return "(direct)";}h=h.replace(/^www\./,"");if(!h)return "(direct)";if(h.indexOf("oneroadtrip")!==-1)return "(interne)";return h.slice(0,80);}catch(e){return "(direct)";}}
+  function visitorId(){try{var k="ort_vid";var v=localStorage.getItem(k);if(!v){v="v"+Date.now().toString(36)+Math.random().toString(36).slice(2,10);localStorage.setItem(k,v);}return v;}catch(e){return "(anon)";}}
+  function lang(){try{return (typeof currentLang!=="undefined"&&currentLang)?currentLang:((document&&document.documentElement&&document.documentElement.lang)||"?");}catch(e){return "?";}}
+  window.addEventListener("scroll",function(){try{var el=document.scrollingElement||document.documentElement;if(!el)return;var sc=el.scrollTop/((el.scrollHeight-el.clientHeight)||1)*100;if(sc>maxScroll)maxScroll=Math.min(100,Math.round(sc));}catch(e){}},{passive:true});
+  function send(){
+    if(sent)return; sent=true;
+    try{
+      var dur=Date.now()-openTs;
+      var body={fields:{tpl:{integerValue:0},itin:{stringValue:"__PAGE__"},cc:{stringValue:"__PAGE__"},lang:{stringValue:lang()},device:{stringValue:device()},campaign:{stringValue:campaign()},referrer:{stringValue:referrer()},visitor:{stringValue:visitorId()},durationMs:{integerValue:dur},scrollPct:{integerValue:maxScroll},page:{stringValue:"route-66"},ts:{timestampValue:new Date(openTs).toISOString()}}};
+      var url="https://firestore.googleapis.com/v1/projects/oneroadtrip-prod/databases/(default)/documents/template_events";
+      var blob=new Blob([JSON.stringify(body)],{type:"application/json"});
+      if(navigator.sendBeacon){navigator.sendBeacon(url,blob);}else{fetch(url,{method:"POST",body:JSON.stringify(body),keepalive:true});}
+    }catch(e){}
+  }
+  window.addEventListener("visibilitychange",function(){if(document.visibilityState==="hidden")send();});
+  window.addEventListener("pagehide",send);
+  window.addEventListener("beforeunload",send);
+}catch(e){}})();
+</script>
+<!-- /ort-page-tracking-v1 -->
+</body>
+</html>
