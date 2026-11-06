@@ -2326,6 +2326,22 @@
     });
   }
 
+  // Bouton "Ajouter" de la carte des pages : au premier clic, l'éditeur charge encore l'itinéraire
+  // et les lieux. On attend qu'il soit prêt (10 s au plus) avant d'ouvrir le choix de position.
+  function openInsertPositionWhenReady(placeId) {
+    var tries = 0;
+    (function attempt() {
+      var ready = editorActive && reorg.active && Object.keys(placesIndex).length > 0;
+      if (ready) {
+        if (placesIndex[placeId]) openInsertPositionModal(placeId);
+        else console.warn('[ORT-EDITOR] Lieu absent des lieux du pays : ' + placeId);
+        return;
+      }
+      if (++tries > 40) { console.warn('[ORT-EDITOR] Ajout abandonné : éditeur pas prêt'); return; }
+      setTimeout(attempt, 250);
+    })();
+  }
+
   // Modale de choix de position d'insertion
   function openInsertPositionModal(placeId) {
     var place = placesIndex[placeId];
@@ -2756,6 +2772,8 @@
     _reorgValidate: reorgValidate,
     _reorgAddOP: function (pid, pos) { reorgAddOP(pid, pos); },
     _openAddFromPanel: function () { openAddFromPanel(); },
+    // Choix de la position (Au début / Après l'étape N), appelé par le bouton "Ajouter" de la carte des pages
+    _openInsertPosition: function (pid) { openInsertPositionWhenReady(pid); },
     _reorgClickPanel: function (sIdx) { handleReorgClick(sIdx); },
     _reorgDblClickPanel: function (sIdx) { handleReorgDblClick(sIdx); },
 
