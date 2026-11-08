@@ -49,6 +49,26 @@ async function loadCatalog(lang, origin) {
   return rows;
 }
 
+// ===== NOMS DE VILLES DANS TOUTES LES LANGUES =====
+// /data/city-aliases.json : { "edimbourg": ["edinburgh"], "londres": ["london"], ... }
+// Lu sur le disque si dispo, sinon telecharge depuis le site. Garde en memoire.
+let aliasCache = null, aliasTs = 0;
+async function loadAliases(origin) {
+  if (aliasCache && Date.now() - aliasTs < CAT_TTL) return aliasCache;
+  let a = null;
+  try { a = JSON.parse(await readFile(join(process.cwd(), 'data', 'city-aliases.json'), 'utf-8')); } catch { /* pas sur le disque */ }
+  if (!a) {
+    try { const r = await fetch(`${origin || SITE}/data/city-aliases.json`); if (r.ok) a = await r.json(); } catch { /* reseau */ }
+  }
+  aliasCache = a || {};
+  aliasTs = Date.now();
+  return aliasCache;
+}
+// Meme nettoyage que la page et que le fichier d'alias : minuscules, sans accents, mots separes par un espace.
+function normMots(s) {
+  return String(s || '').toLowerCase().normalize('NFD').replace(/\p{M}/gu, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+
 // ===== GEO =====
 function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim(); }
 
@@ -165,7 +185,7 @@ function promptParse(query, lang, themesDispo) {
 Format exact : {"depart":"ville ou null","max_heures_vol":nombre ou null,"lieux":[],"mois":[],"soleil":true/false/null,"public":"famille|couple|solo|amis|null","themes":[],"duree_min_jours":nombre ou null,"duree_max_jours":nombre ou null}
 - "depart" : la ville de depart du voyageur (d'ou il part), sinon null.
 - "max_heures_vol" : UNIQUEMENT un temps de trajet/vol en HEURES (ex "moins de 3h", "5 heures de vol"), sinon null.
-- "lieux" : toutes les villes, regions, sites ou monuments PRECIS que la personne veut VOIR ou VISITER. IMPORTANT : pour chaque monument ou site, ajoute AUSSI la ville ou region qui le contient. Ex "Colisee" -> ["Colisee","Rome"] ; "Sagrada Familia" -> ["Sagrada Familia","Barcelone"] ; "Machu Picchu" -> ["Machu Picchu","Cusco"]. Ne mets PAS ici la ville de depart. [] si rien.
+- "lieux" : toutes les villes, regions, sites ou monuments PRECIS que la personne veut VOIR ou VISITER. IMPORTANT : pour chaque monument ou site, ajoute AUSSI la ville ou region qui le contient. Ex "Colisee" -> ["Colisee","Rome"] ; "Sagrada Familia" -> ["Sagrada Familia","Barcelone"] ; "Machu Picchu" -> ["Machu Picchu","Cusco"]. Pour chaque ville, ajoute AUSSI son nom dans la langue du pays ou elle se trouve. Ex "Edimbourg" -> ["Edimbourg","Edinburgh"] ; "Munich" -> ["Munich","München"] ; "Venise" -> ["Venise","Venezia"]. Ne mets PAS ici la ville de depart. [] si rien.
 - "mois" : mois evoques, en minuscules sans accent, dans la langue ${lang}. [] si rien.
 - "soleil" : true si la personne veut du soleil/chaud/se baigner, false si elle veut du froid/neige, null si non precise.
 - "public" : famille, couple, solo ou amis si precise, sinon null.
@@ -177,15 +197,22 @@ Demande : "${query}"`;
 
 // Normalise un texte en ensemble de mots (pour matcher des lieux par mot entier, pas par sous-chaine :
 // evite que "Rome" attrape "Drome").
-function ensembleMots(s) { return new Set(norm(s).split(/[^a-z0-9]+/).filter(Boolean)); }
-// Un lieu est present si tous ses mots significatifs sont des mots de l'itin.
-function lieuPresent(setMots, lieu) {
-  const mots = norm(lieu).split(/[^a-z0-9]+/).filter(w => w.length > 3);
+function ensembleMots(s) { return new Set(normMots(s).split(' ').filter(Boolean)); }
+// Un nom est present si tous ses mots significatifs sont des mots de l'itin.
+function nomPresent(setMots, nom) {
+  const mots = normMots(nom).split(' ').filter(w => w.length > 3);
   return mots.length > 0 && mots.every(m => setMots.has(m));
+}
+// Un lieu est present sous son nom OU sous un de ses noms dans une autre langue
+// ("Edimbourg" -> "edinburgh", "Pekin" -> "beijing").
+function lieuPresent(setMots, lieu, aliases) {
+  if (nomPresent(setMots, lieu)) return true;
+  const autres = (aliases && aliases[normMots(lieu)]) || [];
+  return autres.some(n => nomPresent(setMots, n));
 }
 
 // ===== ETAGE 2 (sans IA) : geo + filtres =====
-function trier(rows, crit, depart) {
+function trier(rows, crit, depart, aliases) {
   const lieux = (crit.lieux || []).filter(Boolean);
   let out = rows.map(r => {
     let heures = null;
@@ -196,7 +223,7 @@ function trier(rows, crit, depart) {
     let nbLieux = 0;
     if (lieux.length) {
       const setMots = ensembleMots([r.title, r.subtitle, (r.cities || []).join(' '), (r.keywords || []).join(' ')].join(' '));
-      nbLieux = lieux.filter(l => lieuPresent(setMots, l)).length;
+      nbLieux = lieux.filter(l => lieuPresent(setMots, l, aliases)).length;
     }
     return { r, heures, nbLieux };
   });
@@ -297,7 +324,8 @@ export default async (request, context) => {
     const depart = crit.depart ? await geocodeVille(crit.depart, lang) : null;
 
     // Etage 2 : tri sans IA (distance + mois + themes)
-    const courte = trier(rows, crit, depart);
+    const aliases = await loadAliases(origin);
+    const courte = trier(rows, crit, depart, aliases);
     if (!courte.length) {
       return new Response(JSON.stringify({ success: true, criteres: crit, depart, results: [], message: 'aucun itineraire dans ces criteres' }), { status: 200, headers });
     }
