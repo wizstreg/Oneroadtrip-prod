@@ -28,7 +28,8 @@ const GEMINI_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
 const GROQ_KEY = process.env.GROQ_API_KEY;
-const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+// Les modeles Llama de Groq ont ete fermes le 16/08/2026. Remplacants officiels :
+const GROQ_MODELS = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
 const MONTHLY_LIMIT = 20;
 
 const CATEGORIES = {
@@ -212,7 +213,7 @@ async function callGroq(content, lang) {
             { role: 'user', content: content }
           ],
           temperature: 0.1,
-          max_tokens: 1024,
+          max_tokens: 4000,
           response_format: { type: 'json_object' }
         })
       });
@@ -241,10 +242,12 @@ async function getOpenRouterFreeModels() {
   if (!res.ok) return [];
   const data = await res.json();
   
-  return data.data
+  const gratuits = data.data
     .filter(m => m.pricing && parseFloat(m.pricing.prompt) === 0 && parseFloat(m.pricing.completion) === 0)
-    .map(m => m.id)
-    .slice(0, 10);
+    .map(m => m.id);
+  // "openrouter/free" choisit seul un modele gratuit dispo : on le tente en premier.
+  const preferes = ['openrouter/free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free'].filter(m => gratuits.includes(m));
+  return [...new Set([...preferes, ...gratuits])].slice(0, 10);
 }
 
 async function callOpenRouter(content, lang) {
@@ -271,7 +274,7 @@ async function callOpenRouter(content, lang) {
             { role: 'user', content: content }
           ],
           temperature: 0.1,
-          max_tokens: 1024
+          max_tokens: 4000
         })
       });
 

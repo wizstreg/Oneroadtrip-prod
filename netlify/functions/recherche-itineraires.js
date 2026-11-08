@@ -19,9 +19,14 @@ const UA = 'OneRoadTrip/2.0 (https://oneroadtrip.com)';
 
 const GEMINI_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
+// Plusieurs modeles Gemini : si l'un est epuise ou retire, on tente le suivant.
+const GEMINI_MODELS = [...new Set([GEMINI_MODEL, 'gemini-3.5-flash', 'gemini-3.6-flash', 'gemini-3.5-flash-lite'])];
 const GROQ_KEY = process.env.GROQ_API_KEY;
-const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+// Les modeles Llama de Groq ont ete fermes le 16/08/2026. Remplacants officiels :
+const GROQ_MODELS = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
+// Anciens modeles gratuits OpenRouter supprimes. "openrouter/free" choisit seul un modele gratuit dispo.
+const OPENROUTER_MODELS = ['openrouter/free', 'google/gemma-4-31b-it:free', 'google/gemma-4-26b-a4b-it:free'];
 
 // ===== CACHE CATALOGUE (memoire chaude) =====
 const catCache = new Map(); // lang -> { rows, ts }
@@ -82,54 +87,76 @@ function parseAiJson(text) {
   return JSON.parse(t.slice(a, b + 1));
 }
 
-async function callGemini(prompt) {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
-  const res = await fetch(url, {
-    method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.4, responseMimeType: 'application/json' } })
-  });
-  if (!res.ok) throw new Error('gemini ' + res.status);
-  const data = await res.json();
-  const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!text) throw new Error('gemini vide');
-  return parseAiJson(text);
+// Raison courte d'un echec (code + debut du message), sans jamais recopier une cle.
+async function raisonEchec(res) {
+  let txt = '';
+  try { txt = await res.text(); } catch { /* rien */ }
+  let msg = txt;
+  try { const j = JSON.parse(txt); msg = j.error?.message || j.error?.status || j.message || txt; } catch { /* texte brut */ }
+  msg = String(msg || '').replace(/\s+/g, ' ').slice(0, 140);
+  for (const k of [GEMINI_KEY, GROQ_KEY, OPENROUTER_KEY]) { if (k) msg = msg.split(k).join('***'); }
+  return `${res.status} ${msg}`.trim();
 }
-async function callGroq(prompt) {
+
+async function callGemini(prompt, erreurs) {
+  for (const model of GEMINI_MODELS) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+      const res = await fetch(url, {
+        method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': GEMINI_KEY },
+        body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }], generationConfig: { temperature: 0.4, responseMimeType: 'application/json' } })
+      });
+      if (!res.ok) { erreurs.push(`gemini ${model}: ${await raisonEchec(res)}`); continue; }
+      const data = await res.json();
+      const text = data.candidates?.[0]?.content?.parts?.map(p => p.text || '').join('');
+      if (!text) { erreurs.push(`gemini ${model}: reponse vide`); continue; }
+      return parseAiJson(text);
+    } catch (e) { erreurs.push(`gemini ${model}: ${e.message}`); }
+  }
+  throw new Error('gemini echec');
+}
+async function callGroq(prompt, erreurs) {
   for (const model of GROQ_MODELS) {
     try {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST', headers: { 'Authorization': `Bearer ${GROQ_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.4, max_tokens: 2000, response_format: { type: 'json_object' } })
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.4, max_tokens: 4000 })
       });
-      if (!res.ok) continue;
+      if (!res.ok) { erreurs.push(`groq ${model}: ${await raisonEchec(res)}`); continue; }
       const data = await res.json();
       const text = data.choices?.[0]?.message?.content;
-      if (text) return parseAiJson(text);
-    } catch { /* modele suivant */ }
+      if (!text) { erreurs.push(`groq ${model}: reponse vide`); continue; }
+      return parseAiJson(text);
+    } catch (e) { erreurs.push(`groq ${model}: ${e.message}`); }
   }
   throw new Error('groq echec');
 }
-async function callOpenRouter(prompt) {
-  const models = ['meta-llama/llama-3.1-8b-instruct:free', 'mistralai/mistral-7b-instruct:free', 'google/gemma-2-9b-it:free'];
-  for (const model of models) {
+async function callOpenRouter(prompt, erreurs) {
+  for (const model of OPENROUTER_MODELS) {
     try {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST', headers: { 'Authorization': `Bearer ${OPENROUTER_KEY}`, 'Content-Type': 'application/json', 'HTTP-Referer': SITE },
-        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.4, max_tokens: 2000 })
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.4, max_tokens: 4000 })
       });
-      if (!res.ok) continue;
+      if (!res.ok) { erreurs.push(`openrouter ${model}: ${await raisonEchec(res)}`); continue; }
       const data = await res.json();
       const text = data.choices?.[0]?.message?.content;
-      if (text) return parseAiJson(text);
-    } catch { /* modele suivant */ }
+      if (!text) { erreurs.push(`openrouter ${model}: reponse vide`); continue; }
+      return parseAiJson(text);
+    } catch (e) { erreurs.push(`openrouter ${model}: ${e.message}`); }
   }
   throw new Error('openrouter echec');
 }
 async function askAi(prompt) {
-  if (GEMINI_KEY) { try { return await callGemini(prompt); } catch (e) { console.warn('gemini:', e.message); } }
-  if (GROQ_KEY) { try { return await callGroq(prompt); } catch (e) { console.warn('groq:', e.message); } }
-  if (OPENROUTER_KEY) { try { return await callOpenRouter(prompt); } catch (e) { console.warn('or:', e.message); } }
-  throw new Error('aucune IA disponible');
+  const erreurs = [];
+  if (!GEMINI_KEY) erreurs.push('gemini: cle GEMINI_API_KEY absente');
+  if (!GROQ_KEY) erreurs.push('groq: cle GROQ_API_KEY absente');
+  if (!OPENROUTER_KEY) erreurs.push('openrouter: cle OPENROUTER_API_KEY absente');
+  if (GEMINI_KEY) { try { return await callGemini(prompt, erreurs); } catch { /* suivant */ } }
+  if (GROQ_KEY) { try { return await callGroq(prompt, erreurs); } catch { /* suivant */ } }
+  if (OPENROUTER_KEY) { try { return await callOpenRouter(prompt, erreurs); } catch { /* suivant */ } }
+  console.warn('IA:', erreurs.join(' | '));
+  throw new Error('aucune IA disponible | ' + erreurs.join(' | '));
 }
 
 // ===== ETAGE 1 : phrase -> criteres =====

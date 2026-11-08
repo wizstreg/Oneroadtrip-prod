@@ -27,7 +27,8 @@ const GEMINI_KEY = process.env.GEMINI_API_KEY;
 const GEMINI_MODEL = process.env.GEMINI_MODEL || 'gemini-3.5-flash';
 const OPENROUTER_KEY = process.env.OPENROUTER_API_KEY;
 const GROQ_KEY = process.env.GROQ_API_KEY;
-const GROQ_MODELS = ['llama-3.3-70b-versatile', 'llama-3.1-8b-instant'];
+// Les modeles Llama de Groq ont ete fermes le 16/08/2026. Remplacants officiels :
+const GROQ_MODELS = ['openai/gpt-oss-120b', 'openai/gpt-oss-20b'];
 const MONTHLY_LIMIT = parseInt(process.env.SUMMARY_MONTHLY_LIMIT || '1', 10);
 const VIP = ['bWFyY3NvcmNpQGZyZWUuZnI='];
 
@@ -373,7 +374,7 @@ async function callGroq(title, stepsText, language) {
       const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${GROQ_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.6, max_tokens: 3000, response_format: { type: 'json_object' } })
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.6, max_tokens: 8000, response_format: { type: 'json_object' } })
       });
       if (!res.ok) { console.warn(`  ⚡ ❌ ${model}: HTTP ${res.status}`); continue; }
       const data = await res.json();
@@ -393,12 +394,11 @@ async function getOpenRouterTextModels() {
   });
   if (!res.ok) return [];
   const data = await res.json();
+  // Anciens modeles gratuits supprimes. "openrouter/free" choisit seul un modele gratuit dispo.
   const preferred = [
-    'meta-llama/llama-3.1-8b-instruct:free',
-    'meta-llama/llama-3.2-3b-instruct:free',
-    'mistralai/mistral-7b-instruct:free',
-    'google/gemma-2-9b-it:free',
-    'qwen/qwen-2.5-7b-instruct:free'
+    'openrouter/free',
+    'google/gemma-4-31b-it:free',
+    'google/gemma-4-26b-a4b-it:free'
   ];
   const available = data.data?.map(m => m.id) || [];
   const found = preferred.filter(m => available.includes(m));
@@ -419,7 +419,7 @@ async function callOpenRouter(title, stepsText, language) {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${OPENROUTER_KEY}`, 'Content-Type': 'application/json', 'HTTP-Referer': 'https://oneroadtrip.co' },
-        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.6, max_tokens: 3000 })
+        body: JSON.stringify({ model, messages: [{ role: 'user', content: prompt }], temperature: 0.6, max_tokens: 8000 })
       });
       if (!res.ok) { console.warn(`  ❌ ${model}: HTTP ${res.status}`); continue; }
       const data = await res.json();
