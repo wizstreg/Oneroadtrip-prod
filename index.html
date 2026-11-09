@@ -1417,6 +1417,24 @@ function buildPhotoVersions(photosDb){
   }
 }
 
+/* Index "nom du lieu" -> cles photos de tous les pays ("nice" -> ["FR::nice"]). Calcule une fois. */
+var _photoSlugIdx = null, _photoSlugDb = null;
+function photoKeysBySlug(photosDb){
+  if(_photoSlugIdx && _photoSlugDb === photosDb) return _photoSlugIdx;
+  var m = {};
+  var all = Object.keys(photosDb);
+  for(var i=0;i<all.length;i++){
+    var e = photosDb[all[i]];
+    if(!e || !e.photos || !e.photos.length) continue;
+    var p = all[i].indexOf('::');
+    if(p < 0) continue;
+    var s = all[i].substring(p + 2);
+    (m[s] = m[s] || []).push(all[i]);
+  }
+  _photoSlugIdx = m; _photoSlugDb = photosDb;
+  return m;
+}
+
 function findPhoto(item, photosDb){
   if(!photosDb) return '';
   var cc = item.cc.toUpperCase();
@@ -1433,11 +1451,20 @@ function findPhoto(item, photosDb){
      premier mot de lieu serait "it" et aucune cle ne correspondrait. */
   var ccLow = (item.cc || '').toLowerCase();
   while(words.length > 1 && words[0].toLowerCase() === ccLow) words.shift();
-  /* Try progressively longer hyphenated place names (up to 6 words) */
-  var maxLen = Math.min(words.length, 6);
-  for(var len=maxLen; len>=1; len--){
-    var place = words.slice(0,len).join('-');
-    var key = cc + '::' + place;
+  /* Nom du 1er lieu : on essaie du plus long au plus court (jusqu a 12 mots,
+     "San Francisco Museum Of Modern Art, CA" en fait 7).
+     D abord dans le pays de l itineraire, puis dans les autres pays
+     (itineraire IT qui part de Nice -> FR::nice). */
+  var maxLen = Math.min(words.length, 12);
+  var keys = [];
+  for(var len=maxLen; len>=1; len--) keys.push(cc + '::' + words.slice(0,len).join('-'));
+  var autres = photoKeysBySlug(photosDb);
+  for(var len2=maxLen; len2>=1; len2--){
+    var ks = autres[words.slice(0,len2).join('-')] || [];
+    for(var k2=0;k2<ks.length;k2++) if(keys.indexOf(ks[k2]) === -1) keys.push(ks[k2]);
+  }
+  for(var ki=0; ki<keys.length; ki++){
+    var key = keys[ki];
     if(photosDb[key] && photosDb[key].photos && photosDb[key].photos.length){
       var entry = photosDb[key];
       /* COUPLE lieu+itin : si CET itin a une selection validee, on prend SA photo
@@ -1495,8 +1522,86 @@ function animateCounters(nodes, targets, duration){
 }
 
 
+/* ========================================================
+   RECHERCHE TOLERANTE
+   - ignore les accents ("edimbourg" trouve "Édimbourg")
+   - les mots peuvent etre dans n importe quel ordre
+   - connait les noms des villes dans toutes les langues
+     ("Edimbourg", "Edimburgo", "إدنبرة" trouvent "edinburgh")
+     grace au fichier /data/city-aliases.json (charge a la 1re recherche)
+   ======================================================== */
+var CITY_ALIASES = null, CITY_ALIASES_LOADING = false;
+function loadCityAliases(){
+  if(CITY_ALIASES || CITY_ALIASES_LOADING) return;
+  CITY_ALIASES_LOADING = true;
+  fetch('/data/city-aliases.json')
+    .then(function(r){ return r.ok ? r.json() : {}; })
+    .then(function(a){ CITY_ALIASES = a || {}; if(getSearchValue().trim()) applyFilters(); })
+    .catch(function(){ CITY_ALIASES = {}; });
+}
+function normTxt(s){
+  return String(s || '').toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
+    .replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+}
+function aliasOf(t){ return (CITY_ALIASES && CITY_ALIASES[t]) || []; }
+/* Petits mots ignores quand on cherche mot par mot */
+var SEARCH_STOP = {};
+('de du des la le les en et au aux un une pour avec sur dans par ' +
+ 'the of in and to an for with on at ' +
+ 'el los las del por con una ' +
+ 'il lo gli di della per ' +
+ 'os as do da dos das em com um uma ' +
+ 'der die das und im mit von zu ' +
+ 'het een van met naar ' +
+ 'road trip roadtrip circuit voyage itineraire itinerary jours jour days day dias giorni tage dagen semaine semaines week weeks')
+ .split(' ').forEach(function(w){ SEARCH_STOP[w] = 1; });
+
+var _sqCache = { q: null, terms: null };
+function searchTerms(query){
+  if(_sqCache.q === query && _sqCache.alias === !!CITY_ALIASES) return _sqCache.terms;
+  var qn = normTxt(query);
+  var words = qn ? qn.split(' ') : [];
+  var groups = [];
+  for(var i = 0; i < words.length; ){
+    var done = false;
+    /* groupes de 3 puis 2 mots qui forment un nom de ville connu ("la haye", "san francisco") */
+    for(var n = 3; n >= 2 && !done; n--){
+      if(i + n > words.length) continue;
+      var ng = words.slice(i, i + n).join(' ');
+      var al = aliasOf(ng);
+      if(al.length){ groups.push({ text: ng, canon: al }); i += n; done = true; }
+    }
+    if(done) continue;
+    var w = words[i]; i++;
+    if(w.length < 2 || SEARCH_STOP[w] || /^\d+$/.test(w)) continue;
+    groups.push({ text: w, canon: w.length >= 5 ? aliasOf(w) : [] });
+  }
+  var terms = { phrase: qn, whole: qn.length >= 4 ? aliasOf(qn) : [], groups: groups };
+  _sqCache = { q: query, alias: !!CITY_ALIASES, terms: terms };
+  return terms;
+}
+function hasCanon(hay, list){
+  for(var k = 0; k < list.length; k++){ if(hay.indexOf(' ' + list[k] + ' ') !== -1) return true; }
+  return false;
+}
+function searchMatch(d, countryName, query){
+  loadCityAliases();
+  var t = searchTerms(query);
+  if(!t.phrase) return true;
+  if(!d._hay) d._hay = ' ' + normTxt((d.search || '') + ' ' + d.title + ' ' + countryName) + ' ';
+  var hay = d._hay;
+  if(hay.indexOf(' ' + t.phrase) !== -1) return true; /* phrase telle quelle (debut de mot : "rome" ne trouve pas "drome") */
+  if(hasCanon(hay, t.whole)) return true;             /* phrase = nom de ville dans une autre langue */
+  if(!t.groups.length) return false;
+  for(var g = 0; g < t.groups.length; g++){            /* chaque mot doit etre trouve */
+    var gr = t.groups[g];
+    if(hay.indexOf(' ' + gr.text) === -1 && !hasCanon(hay, gr.canon)) return false;
+  }
+  return true;
+}
+
 function applyFilters(){
-  var query = getSearchValue().toLowerCase().trim();
+  var query = getSearchValue().trim();
   var selCountry = getCountryValue();
   var selTheme = getThemeValue();
   var selDuration = getDurationValue();
@@ -1568,10 +1673,9 @@ function applyFilters(){
       if(!matched) continue;
     }
 
-    /* Search */
+    /* Search : sans accents, mots dans n importe quel ordre, noms de villes dans toutes les langues */
     if(query){
-      var searchText = ((d.search || '') + ' ' + d.title + ' ' + countryName).toLowerCase();
-      if(searchText.indexOf(query) === -1) continue;
+      if(!searchMatch(d, countryName, query)) continue;
     }
 
     /* Slug filter from URL */
