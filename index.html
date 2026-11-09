@@ -326,6 +326,7 @@ main{padding-block:40px 64px}
 .card-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(10,42,87,.28),transparent 45%)}
 .card-badge{position:absolute;top:10px;left:10px;z-index:1;background:rgba(10,42,87,.88);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 8px;border-radius:6px}
 .card-flag{position:absolute;top:10px;right:10px;z-index:1;font-size:18px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))}
+.card-flag img{display:block;width:26px;height:auto;border-radius:3px}
 .card-body{padding:14px 16px 16px}
 .card-title{font-size:16px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:7px}
 .card-lang-badge{position:absolute;top:10px;left:52px;z-index:1;background:rgba(180,83,9,.92);color:#fff;font-size:11px;font-weight:700;letter-spacing:.06em;padding:4px 8px;border-radius:6px}
@@ -1375,6 +1376,16 @@ function getFlag(cc){
   return '\u{1F30D}';
 }
 
+/* Drapeau en IMAGE pour les cartes : Windows n affiche pas les drapeaux emoji
+   et ecrit "NL" a la place, ce qui doublait le badge pays. */
+function getFlagImg(cc){
+  var c = normalizeCC(cc || '');
+  if(/^[A-Z]{2}$/.test(c) && c !== 'EA'){
+    return '<img src="https://flagcdn.com/w40/' + c.toLowerCase() + '.png" alt="" loading="lazy" onerror="this.parentNode.textContent=\'\\u{1F30D}\'">';
+  }
+  return '\u{1F30D}';
+}
+
 function normalizeCC(cc){
   var MAP = {'es':'ES','it':'IT','gr':'GR','val-de-marne-10-jours':'FR'};
   if(MAP[cc]) return MAP[cc];
@@ -1730,7 +1741,7 @@ function buildCard(item){
   if(item.fallbackLang){
     html += '<span class="card-lang-badge" title="' + (T2.fallbackTitle || '') + '">' + String(item.fallbackLang).toUpperCase() + '</span>';
   }
-  html += '<span class="card-flag">' + getFlag(item.cc) + '</span>';
+  html += '<span class="card-flag">' + getFlagImg(item.cc) + '</span>';
   html += '<span class="card-meteo is-loading" data-cc="' + (item.cc||'') + '" data-slug="' + (item.slug||'') + '" aria-label="Météo">\u26C5</span>';
   html += '</div>';
   html += '<div class="card-body">';
