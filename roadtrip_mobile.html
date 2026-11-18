@@ -235,6 +235,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -8922,14 +8923,7 @@ if (new URLSearchParams(location.search).get('share')) {
 <script src="js/ort-env-score.js"></script>
 <link rel="stylesheet" href="/css/ort-hotels.css">
 
-<!-- Service Worker pour mode offline -->
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(r => {
-    console.log('[SW] ✅ Enregistré, scope:', r.scope);
-  }).catch(e => console.warn('[SW] Échec:', e));
-}
-</script>
+<!-- Hors ligne : gere par /service-worker.js uniquement (appel en haut de page). Ne pas rajouter /sw.js. -->
 
 <!-- ═══ RÉSUMÉ IA - SCRIPT ═══ -->
 <script>

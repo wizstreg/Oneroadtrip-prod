@@ -569,7 +569,13 @@ if (photos.length > 0) {
 const h = document.createElement('h3'); h.textContent = rt.title || 'Sans titre'; c.appendChild(h);
     const meta = document.createElement('div'); meta.className='meta';
     meta.appendChild(chip(rt.country||rt.cc||'–'));
-    meta.appendChild(chip(L.metas(rt.nights||rt.nb_nights||0, rt.kms||0)));
+    // Distance : celle enregistree avec le voyage, sinon celle recalculee depuis
+    // les etapes. Sans distance connue, on n'affiche pas "0 km".
+    const _km = tripKm(rt);
+    const _nuits = rt.nights||rt.nb_nights||0;
+    let _metaTxt = L.metas(_nuits, _km ? ((_km.approx ? '\u2248 ' : '') + _km.km) : 0);
+    if (!_km) _metaTxt = String(_metaTxt).split(' \u00b7 ')[0];
+    meta.appendChild(chip(_metaTxt));
    if(rt.steps) meta.appendChild(chip((rt.steps.length||0)+" "+((L.labels&&L.labels.steps)||'étapes')));
     if(rt.pace)  meta.appendChild(chip(((L.labels&&L.labels.pace)||'Rythme')+' '+rt.pace));
     c.appendChild(meta);
@@ -601,6 +607,32 @@ const shareBtn = btn(L.btn_extra?.share || '📤 Partager', ()=> openShareCompos
 
 
     return c;
+  }
+
+  // Distance d'un voyage pour la vignette.
+  // 1. le total enregistre ; 2. la somme des trajets entre etapes ;
+  // 3. a defaut, la ligne droite entre etapes, marquee comme approximative.
+  function tripKm(rt){
+    const direct = Number(rt && (rt.kms || rt.totalKm || rt.total_km) || 0);
+    if (direct > 0) return { km: Math.round(direct), approx: false };
+    const steps = (rt && Array.isArray(rt.steps)) ? rt.steps : [];
+    let somme = 0;
+    for (const s of steps){
+      if (!s) continue;
+      const leg = s.to_next_leg || {};
+      const v = Number(s._distanceKmToNext || s.distance_km || leg.distance_km || s._distanceToNext || s.dist || 0);
+      if (v > 0) somme += v;
+    }
+    if (somme > 0) return { km: Math.round(somme), approx: false };
+    const pts = steps.map(s => {
+      if (!s) return null;
+      const c = Array.isArray(s.coords) ? s.coords : null;
+      const lat = Number(s.lat != null ? s.lat : (c ? c[0] : NaN));
+      const lon = Number(s.lon != null ? s.lon : (s.lng != null ? s.lng : (c ? c[1] : NaN)));
+      return (Number.isFinite(lat) && Number.isFinite(lon)) ? { lat: lat, lon: lon } : null;
+    }).filter(Boolean);
+    const droite = calculateTotalKm(pts);
+    return droite > 0 ? { km: droite, approx: true } : null;
   }
 
   function btn(lbl, onclick, danger=false){ const b=document.createElement('button'); b.className='btn'+(danger?' danger':''); b.type='button'; b.textContent=lbl; b.onclick=onclick; return b; }

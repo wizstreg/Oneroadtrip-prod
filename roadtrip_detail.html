@@ -15166,14 +15166,7 @@ if (new URLSearchParams(location.search).get('share')) {
 <script src="/js/ort-hotels-v3.js"></script>
 <link rel="stylesheet" href="/css/ort-hotels.css">
 
-<!-- Service Worker pour mode offline -->
-<script>
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').then(r => {
-    console.log('[SW] ✅ Enregistré, scope:', r.scope);
-  }).catch(e => console.warn('[SW] Échec:', e));
-}
-</script>
+<!-- Hors ligne : gere par /service-worker.js uniquement (appel en haut de page). Ne pas rajouter /sw.js. -->
 
 <!-- ═══ RÉSUMÉ IA - SCRIPT ═══ -->
 <script>
