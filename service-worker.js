@@ -14,7 +14,7 @@
 //
 // Pour forcer tout le monde a repartir de zero : changer VERSION.
 // =====================================================================
-const VERSION = 'v3';
+const VERSION = 'v4';
 
 const C_SITE  = 'ort-site-' + VERSION; // pages et fichiers du site
 const C_LIBS  = 'ort-libs-v1';         // carte, connexion, polices
@@ -36,17 +36,20 @@ const KIT_EXTRA = [
   'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js',
   'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js'
 ];
+// Liste legere des photos (6 Mo) : sans elle, la page ne sait pas quelle photo
+// montrer hors ligne. Fabriquee a la mise en ligne par build-photos-light.js.
+const KIT_SITE_FILES = ['/data/photos-json/photos_lieux.light.json'];
 const KIT_MARK = '/__ort_kit__';
 const KIT_MAX_AGE_MS = 24 * 3600 * 1000; // on revoit le kit une fois par jour au plus
 const TRIP_PAGE_RE = /\/(roadtrip_mobile|roadtrip_detail|dashboard_user|custom)(\.html)?$/;
 
 // Fichiers du site trop lourds pour etre gardes sur un telephone.
-// La liste des photos pese 31 Mo : les pages savent s'en passer hors ligne.
-const NO_KEEP = [/^\/data\/photos-json\//];
+// La liste complete des photos pese 31 Mo : seule sa version legere est gardee.
+const NO_KEEP = [/^\/data\/photos-json\/photos_lieux\.json$/];
 const MAX_KEEP_BYTES = 10 * 1024 * 1024;
 
 const LIB_HOSTS = ['cdnjs.cloudflare.com', 'cdn.jsdelivr.net', 'unpkg.com', 'fonts.googleapis.com', 'fonts.gstatic.com'];
-const IMG_HOSTS = ['wsrv.nl', 'flagcdn.com'];
+const IMG_HOSTS = ['wsrv.nl', 'flagcdn.com', 'photos.oneroadtrip.com'];
 
 // ---------------------------------------------------------------------
 // Tri des adresses
@@ -262,6 +265,7 @@ function ensureKit() {
       } catch (e) {}
     }
     for (let k = 0; k < KIT_EXTRA.length; k++) await keepOne(new URL(KIT_EXTRA[k]));
+    for (let f = 0; f < KIT_SITE_FILES.length; f++) await keepOne(new URL(KIT_SITE_FILES[f], self.location.origin));
     // On ne note le kit comme fait que si les pages ont bien ete recues.
     if (ok === KIT_PAGES.length) await site.put(KIT_MARK, new Response(String(Date.now())));
   })().catch(() => {}).then(() => { kitRunning = null; });

@@ -6025,9 +6025,17 @@ window.applyListView = applyListView;
 
 async function loadPhotosJSON(){
   try{
-    const r=await fetch('./data/photos-json/photos_lieux.json');
-    if(r.ok) {
-      const data = await r.json() || {};
+    // Version legere d'abord (6 Mo au lieu de 31, gardee hors ligne) ; la complete en secours.
+    let data = null;
+    try{
+      const rl=await fetch('./data/photos-json/photos_lieux.light.json');
+      if(rl.ok) data = await rl.json();
+    }catch(e){ data = null; }
+    if(!data || typeof data !== 'object'){
+      const r=await fetch('./data/photos-json/photos_lieux.json');
+      if(r.ok) data = await r.json() || {};
+    }
+    if(data) {
       Object.assign(window.PHOTOS_CACHE, data);
       PHOTOS_CACHE = window.PHOTOS_CACHE;
       window.applyCouplesToCache();

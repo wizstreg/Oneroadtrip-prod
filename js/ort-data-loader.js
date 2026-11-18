@@ -23,7 +23,11 @@
   
   const CONFIG = {
     BASE_URL: './data/Roadtripsprefabriques/countries',
+    // Version legere d'abord (6 Mo au lieu de 31, gardee hors ligne), fabriquee
+    // a la mise en ligne par build-photos-light.js ; la complete en secours.
     PHOTOS_PATHS: [
+      './data/photos-json/photos_lieux.light.json',
+      '/data/photos-json/photos_lieux.light.json',
       './data/photos-json/photos_lieux.json',
       '/data/photos-json/photos_lieux.json',
       '../data/photos-json/photos_lieux.json'
