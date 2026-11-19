@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<link rel="canonical" href="https://www.oneroadtrip.com/presentations/presfr">
 <!-- ort-pwa-injected-v1 -->
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#ffffff">
@@ -21,7 +22,7 @@
 <!-- /ort-pwa-injected-v1 -->
 
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>OneRoadTrip — Présentation de la plateforme · Mars 2026</title>
+<title>OneRoadTrip | Présentation de la plateforme · Novembre 2026</title>
 <style>
 :root{--bg:#113f7a;--ink:#e7f6fb;--accent:#00b2ff;--hbase:#0a2a57;--cb:rgba(255,255,255,.06);--cbr:rgba(255,255,255,.12);--max:1100px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -77,15 +78,14 @@ footer a{color:var(--accent);text-decoration:none}
 <body>
 <div class="hero">
   <div class="hero-content">
-    <div class="logo-line">OneRoadTrip · <a href="https://oneroadtrip.com" target="_blank" style="color:var(--accent);text-decoration:none">oneroadtrip.com</a> · Mars 2026</div>
+    <div class="logo-line">OneRoadTrip · <a href="https://oneroadtrip.com" target="_blank" style="color:var(--accent);text-decoration:none">oneroadtrip.com</a> · Novembre 2026</div>
     <h1>Présentation de la plateforme</h1>
-    <div class="hero-sub">Marc Sorci — Fondateur</div>
     <div class="stats">
-      <div class="stat"><span class="num">640+</span><span class="lbl">itinéraires</span></div>
-      <div class="stat"><span class="num">90</span><span class="lbl">pays</span></div>
-      <div class="stat"><span class="num">4 500+</span><span class="lbl">points d'intérêt</span></div>
-      <div class="stat"><span class="num">5</span><span class="lbl">langues</span></div>
-      <div class="stat"><span class="num">159</span><span class="lbl">itinéraires France</span></div>
+      <div class="stat"><span class="num"><span data-ort-stat="itineraries">1 148</span></span><span class="lbl">itinéraires</span></div>
+      <div class="stat"><span class="num"><span data-ort-stat="countries">105</span></span><span class="lbl">pays</span></div>
+      <div class="stat"><span class="num"><span data-ort-stat="places">8 782</span></span><span class="lbl">points d'intérêt</span></div>
+      <div class="stat"><span class="num">7</span><span class="lbl">langues</span></div>
+      <div class="stat"><span class="num"><span data-ort-stat="visitsActivities">56 423</span></span><span class="lbl">visites et activités</span></div>
     </div>
   </div>
 </div>
@@ -95,29 +95,30 @@ footer a{color:var(--accent);text-decoration:none}
 <section>
   <h2><span class="n">1</span>Qu'est-ce que OneRoadTrip ?</h2>
   <p>OneRoadTrip est une plateforme gratuite de construction d'itinéraires de voyage. Elle permet de consulter, personnaliser et créer des itinéraires complets avec carte interactive, calcul d'itinéraire, descriptions détaillées de chaque étape et intégration hôtelière.</p>
-  <p>Contrairement aux outils qui partent d'une page blanche (Wanderlog, TripIt…), ORT propose un catalogue de 640+ itinéraires prêts à l'emploi couvrant 90 pays et 4 500+ points d'intérêt, disponibles en 5 langues complètes (français, anglais, espagnol, italien, portugais) avec une 6e en cours (arabe).</p>
+  <p>Là où beaucoup d'outils partent d'une page blanche, ORT propose un catalogue de <span data-ort-stat="itineraries">1 148</span> itinéraires prêts à l'emploi couvrant <span data-ort-stat="countries">105</span> pays et <span data-ort-stat="places">8 782</span> points d'intérêt, disponibles en 7 langues (français, anglais, espagnol, italien, portugais, allemand, néerlandais).</p>
+  <p>Chaque itinéraire est construit à partir de sources recoupées, contrôlé, puis validé par l'équipe avant publication. Sa date de validation est affichée sur la page.</p>
 </section>
 
 <section>
   <h2><span class="n">2</span>Comment ça marche ?</h2>
   <h3 class="sub">Pour le voyageur</h3>
   <ul class="ol">
-    <li>Parcourir le catalogue d'itinéraires (sur une liste ou une carte) par pays, région ou thématique</li>
+    <li>Parcourir le catalogue d'itinéraires (sur une liste ou une carte) par pays, durée ou thématique</li>
     <li>Consulter chaque étape avec ses visites détaillées, photos et conseils pratiques</li>
-    <li>Personnaliser l'itinéraire : ajouter, supprimer ou réorganiser les étapes/les visites</li>
+    <li>Personnaliser l'itinéraire : ajouter, supprimer ou réorganiser les étapes et les visites</li>
     <li>Visualiser le tout sur une carte interactive avec calcul de distances et temps</li>
-    <li>Réserver hôtels, vols, voitures directement depuis l'itinéraire</li>
+    <li>Réserver hôtels, vols, voitures et activités directement depuis l'itinéraire</li>
     <li>Importer ses réservations dans le voyage sauvegardé</li>
     <li>Exporter en carnet de voyage, partager avec ses proches</li>
     <li>Consulter le voyage hors ligne</li>
-    <li>Et bien d'autres fonctionnalités</li>
   </ul>
-  <h3 class="sub">4 façons de créer un itinéraire</h3>
+  <h3 class="sub">5 façons de trouver ou créer un itinéraire</h3>
   <div class="g2">
-    <div class="card"><h3>Depuis le catalogue ou sur la carte</h3><p>Choisir parmi 640+ itinéraires prêts à l'emploi, consultables par pays, région ou thème.</p></div>
-    <div class="card"><h3>Depuis zéro</h3><p>Créer étape par étape parmi les 4 500+ lieux listés avec visites, ou en insérant un lieu inconnu.</p></div>
-    <div class="card"><h3>Import de page web</h3><p>Transformer un article de blog ou magazine en itinéraire interactif — sans hallucination IA.</p></div>
-    <div class="card"><h3>Par sélection d'un lieu de départ</h3><p>Sélectionner un lieu de départ ou d'arrivée pour générer un itinéraire adapté.</p></div>
+    <div class="card"><h3>Par critères</h3><p>Filtrer le catalogue de <span data-ort-stat="itineraries">1 148</span> itinéraires prêts à l'emploi par pays, durée, thème ou distance.</p></div>
+    <div class="card"><h3>Entre deux points</h3><p>Indiquer un départ et une arrivée : l'outil propose les meilleurs lieux sur le trajet.</p></div>
+    <div class="card"><h3>À partir des lieux</h3><p>Choisir ses étapes une à une parmi les <span data-ort-stat="places">8 782</span> lieux notés, ou ajouter un lieu absent du site.</p></div>
+    <div class="card"><h3>Sur le planisphère</h3><p>Explorer tout le catalogue sur un globe et se laisser tenter.</p></div>
+    <div class="card"><h3>Avec Lilia</h3><p>Décrire son envie à l'assistante, qui oriente vers les itinéraires adaptés.</p></div>
   </div>
 </section>
 
@@ -125,56 +126,38 @@ footer a{color:var(--accent);text-decoration:none}
   <h2><span class="n">3</span>Fonctionnalités principales</h2>
   <div class="g2">
     <div class="card"><h3>Contenu éditorial</h3><p>Chaque étape contient un texte rédigé : visites à faire, activités, conseils pratiques, durée recommandée. Du contenu de guide de voyage, pas une fiche Google.</p></div>
+    <div class="card"><h3>Vérification datée</h3><p>Un badge indique sur chaque itinéraire la date de sa dernière validation. Un bouton permet de signaler une erreur en un clic.</p></div>
     <div class="card"><h3>Score carbone</h3><p>Chaque itinéraire affiche un score carbone évaluant son impact écologique selon les distances, le transport et le nombre d'étapes.</p></div>
-    <div class="card"><h3>Multilinguisme</h3><p>Interface et itinéraires en 5 langues complètes (FR, EN, ES, IT, PT). Un même itinéraire accessible à un public international.</p></div>
-    <div class="card"><h3>Intelligence artificielle</h3><p>Import de pages web, guide IA mobile (photo → lieu raconté), traduction d'image, avis IA détaillés sur les lieux.</p></div>
+    <div class="card"><h3>Multilinguisme</h3><p>Interface et itinéraires en 7 langues (FR, EN, ES, IT, PT, DE, NL). Chaque traduction est contrôlée par rapport à l'original français.</p></div>
+    <div class="card"><h3>Réservations intégrées</h3><p>Hôtels, activités, voitures et vols se réservent depuis l'itinéraire auprès de Booking.com, Viator, Trip.com et Qeeq. Le service reste gratuit pour le voyageur.</p></div>
+    <div class="card"><h3>Intelligence artificielle</h3><p>Guide IA mobile (photo → lieu raconté), traduction d'image, avis IA détaillés sur les lieux.</p></div>
   </div>
 </section>
 
 <section>
-  <h2><span class="n">4</span>ORT face à la concurrence</h2>
-  <div class="leg"><span><span class="y">✅</span> Oui</span><span><span class="pp">⚠️</span> Partiel</span><span><span class="nn">❌</span> Non</span></div>
+  <h2><span class="n">4</span>ORT et trois autres planificateurs</h2>
+  <div class="leg"><span><span class="y">✅</span> Oui</span><span><span class="nn">❌</span> Non</span><span>n.r. : non relevé</span></div>
   <div class="tw"><table>
     <thead><tr>
-      <th>Fonctionnalité</th><th class="oc">ORT</th><th>Wanderlog</th><th>Roadtrippers</th><th>TripIt</th><th>Layla</th><th>Komoot</th><th>Sygic</th><th>Furkot</th>
+      <th>Critère</th><th class="oc">ORT</th><th>Wanderlog</th><th>Roadtrippers</th><th>Furkot</th>
     </tr></thead>
     <tbody>
-      <tr class="cr"><td colspan="9">MOYENS DE CRÉER UN ITINÉRAIRE</td></tr>
-      <tr><td>Depuis un catalogue prêt à l'emploi</td><td class="ov y">✅</td><td class="pp">⚠️</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="nn">❌</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="pp">⚠️</td></tr>
-      <tr><td>Depuis zéro (4 500+ lieux listés)</td><td class="ov y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Génération complète par IA</td><td class="ov nn">❌</td><td class="pp">⚠️</td><td class="y">✅</td><td class="nn">❌</td><td class="y">✅</td><td class="nn">❌</td><td class="pp">⚠️</td><td class="nn">❌</td></tr>
-      <tr><td>Import d'une page web → itinéraire</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr><td>Sélection lieu de départ / arrivée</td><td class="ov y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr class="cr"><td colspan="9">CONTENU PRÉ-EXISTANT</td></tr>
-      <tr><td>Base de données de lieux (POI)</td><td class="ov y">4 500+</td><td class="pp">⚠️</td><td>50K US</td><td class="nn">❌</td><td class="nn">❌</td><td>Trails</td><td>50M+</td><td class="pp">⚠️</td></tr>
-      <tr><td>Visites détaillées rédigées par étape</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr><td>Couverture mondiale (90 pays)</td><td class="ov y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr class="cr"><td colspan="9">MULTILINGUISME</td></tr>
-      <tr><td>Itinéraires en 5 langues</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr><td>Interface multilingue</td><td class="ov y">✅</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td><td class="pp">⚠️</td></tr>
-      <tr class="cr"><td colspan="9">ÉCO-RESPONSABILITÉ</td></tr>
-      <tr><td>Score carbone par itinéraire</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr><td>Hébergements éco-responsables mis en avant</td><td class="ov nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr class="cr"><td colspan="9">INTELLIGENCE ARTIFICIELLE</td></tr>
-      <tr><td>Avis IA détaillés sur les lieux</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td></tr>
-      <tr><td>Suggestions IA le long d'une route</td><td class="ov nn">❌</td><td class="nn">❌</td><td class="y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="y">✅</td></tr>
-      <tr class="cr"><td colspan="9">FONCTIONNALITÉS ITINÉRAIRE</td></tr>
-      <tr><td>Carte interactive avec routing</td><td class="ov y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="pp">⚠️</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Calcul distances / temps entre étapes</td><td class="ov y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="pp">⚠️</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Calcul auto des nuits par destination</td><td class="ov y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="y">✅</td></tr>
-      <tr><td>Intégration hôtels dans l'itinéraire</td><td class="ov y">✅</td><td class="y">✅</td><td class="pp">⚠️</td><td class="y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Suivi budget / dépenses</td><td class="ov y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Export carnet de voyage</td><td class="ov y">✅</td><td class="y">✅</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="pp">⚠️</td></tr>
-      <tr><td>Accès hors ligne</td><td class="ov y">✅</td><td class="pp">⚠️</td><td class="pp">⚠️</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="y">✅</td><td class="y">✅</td><td class="pp">⚠️</td></tr>
-      <tr class="cr"><td colspan="9">COLLABORATION & PARTAGE</td></tr>
-      <tr><td>Partage d'itinéraire (lecture seule)</td><td class="ov y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td><td class="y">✅</td></tr>
-      <tr><td>Édition collaborative en temps réel</td><td class="ov nn">❌</td><td class="y">✅</td><td class="pp">⚠️</td><td class="nn">❌</td><td class="nn">❌</td><td class="nn">❌</td><td class="y">✅</td><td class="nn">❌</td></tr>
+      <tr><td>Prix</td><td class="ov y">Gratuit, sans abonnement</td><td>Gratuit · Pro 39,99 $/an</td><td>3 étapes gratuites · 35,99 à 59,99 $/an</td><td>Gratuit · Pass 14 $/an</td></tr>
+      <tr><td>Pays couverts</td><td class="ov y"><span data-ort-stat="countries">105</span> pays</td><td>Monde</td><td>États-Unis, Canada, Australie, Nouvelle-Zélande</td><td>n.r.</td></tr>
+      <tr><td>Itinéraires prêts à l'emploi</td><td class="ov y">✅ <span data-ort-stat="itineraries">1 148</span>, vérifiés et datés</td><td>Contenus de la communauté</td><td class="y">✅ Guides de road trips</td><td class="y">✅</td></tr>
+      <tr><td>Suggestions le long d'un trajet</td><td class="ov y">✅</td><td>Assistant IA (Pro)</td><td class="y">✅ Autopilot</td><td>n.r.</td></tr>
+      <tr><td>Calcul automatique des nuits</td><td class="ov y">✅</td><td>n.r.</td><td>n.r.</td><td class="y">✅</td></tr>
+      <tr><td>Suivi du budget</td><td class="ov y">✅</td><td class="y">✅ Saisie manuelle</td><td>n.r.</td><td class="y">✅ Avec le Pass</td></tr>
+      <tr><td>Consultation hors ligne</td><td class="ov y">✅</td><td>Avec l'offre Pro</td><td>Avec l'offre Premium</td><td class="y">✅</td></tr>
+      <tr><td>Édition à plusieurs en temps réel</td><td class="ov nn">❌</td><td class="y">✅</td><td class="y">✅ Sur abonnement</td><td>n.r.</td></tr>
+      <tr><td>Langues de l'application</td><td class="ov y">7 langues</td><td>n.r.</td><td>Anglais</td><td>Anglais</td></tr>
     </tbody>
   </table></div>
+  <p style="font-size:.85em;opacity:.8;margin-top:10px">Relevé en novembre 2026 sur les sites des éditeurs, leurs pages d'aide et les fiches des magasins d'applications. Ces offres évoluent : vérifiez auprès de chaque éditeur.</p>
 </section>
 
 </div></main>
-<footer><strong>OneRoadTrip</strong> · <a href="https://oneroadtrip.com">oneroadtrip.com</a> · Marc Sorci, Fondateur · Mars 2026</footer>
+<footer><strong>OneRoadTrip</strong> · <a href="https://oneroadtrip.com">oneroadtrip.com</a> · Novembre 2026</footer>
 <!-- ort-page-tracking-v1 -->
 <script>
 (function(){try{
