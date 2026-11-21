@@ -1026,24 +1026,24 @@
   // Titre et description pour les moteurs (ancien META)
   var PAGEMETA_KEYS = {
     "title": {
-      "fr": "OneRoadTrip | 1148+ road trips prêts à l'emploi à personnaliser",
-      "en": "OneRoadTrip | 1148+ ready-made road trips to customize",
-      "es": "OneRoadTrip | 1148+ rutas listas para personalizar",
-      "it": "OneRoadTrip | 1148+ itinerari pronti da personalizzare",
-      "pt": "OneRoadTrip | 1148+ roteiros prontos para personalizar",
-      "ar": "OneRoadTrip | أكثر من 1148 مسارًا جاهزًا للتخصيص",
-      "nl": "OneRoadTrip | 1148+ kant-en-klare road trips om aan te passen",
-      "de": "OneRoadTrip | 1148+ fertige Roadtrips zum Anpassen"
+      "fr": "OneRoadTrip | 1150+ road trips prêts à l'emploi à personnaliser",
+      "en": "OneRoadTrip | 1150+ ready-made road trips to customize",
+      "es": "OneRoadTrip | 1150+ rutas listas para personalizar",
+      "it": "OneRoadTrip | 1150+ itinerari pronti da personalizzare",
+      "pt": "OneRoadTrip | 1150+ roteiros prontos para personalizar",
+      "ar": "OneRoadTrip | أكثر من 1150 مسارًا جاهزًا للتخصيص",
+      "nl": "OneRoadTrip | 1150+ kant-en-klare road trips om aan te passen",
+      "de": "OneRoadTrip | 1150+ fertige Roadtrips zum Anpassen"
     },
     "desc": {
-      "fr": "Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 1148+ parcours et 8782+ lieux testés.",
-      "en": "Plan your road trip your way: pick your starting point, duration and the area to explore. OneRoadTrip builds your itinerary from 1148+ routes and 8782+ tested places.",
-      "es": "Planifica tu road trip a medida: elige tu punto de partida, la duración y la zona a explorar. OneRoadTrip genera tu ruta entre 1148+ recorridos y 8782+ lugares probados.",
-      "it": "Pianifica il tuo road trip su misura: scegli il punto di partenza, la durata e la zona da esplorare. OneRoadTrip genera il tuo itinerario tra 1148+ percorsi e 8782+ luoghi testati.",
-      "pt": "Planeie a sua road trip à medida: escolha o ponto de partida, a duração e a zona a explorar. A OneRoadTrip gera o seu roteiro entre 1148+ percursos e 8782+ lugares testados.",
-      "ar": "خطط لرحلتك البرية كما تريد: اختر نقطة الانطلاق والمدة والمنطقة. ينشئ OneRoadTrip مسارك من بين أكثر من 1148 مسارًا و8782 مكان مُختبَر.",
-      "nl": "Plan je road trip op jouw manier: kies je vertrekpunt, de duur en het gebied dat je wilt verkennen. OneRoadTrip stelt je route samen uit 1148+ routes en 8782+ geteste plaatsen.",
-      "de": "Plane deinen Roadtrip nach deinen Wünschen: Wähle Startpunkt, Dauer und das Gebiet, das du erkunden willst. OneRoadTrip erstellt deine Route aus 1148+ Strecken und 8782+ geprüften Orten."
+      "fr": "Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 1150+ parcours et 8821+ lieux testés.",
+      "en": "Plan your road trip your way: pick your starting point, duration and the area to explore. OneRoadTrip builds your itinerary from 1150+ routes and 8821+ tested places.",
+      "es": "Planifica tu road trip a medida: elige tu punto de partida, la duración y la zona a explorar. OneRoadTrip genera tu ruta entre 1150+ recorridos y 8821+ lugares probados.",
+      "it": "Pianifica il tuo road trip su misura: scegli il punto di partenza, la durata e la zona da esplorare. OneRoadTrip genera il tuo itinerario tra 1150+ percorsi e 8821+ luoghi testati.",
+      "pt": "Planeie a sua road trip à medida: escolha o ponto de partida, a duração e a zona a explorar. A OneRoadTrip gera o seu roteiro entre 1150+ percursos e 8821+ lugares testados.",
+      "ar": "خطط لرحلتك البرية كما تريد: اختر نقطة الانطلاق والمدة والمنطقة. ينشئ OneRoadTrip مسارك من بين أكثر من 1150 مسارًا و8821 مكان مُختبَر.",
+      "nl": "Plan je road trip op jouw manier: kies je vertrekpunt, de duur en het gebied dat je wilt verkennen. OneRoadTrip stelt je route samen uit 1150+ routes en 8821+ geteste plaatsen.",
+      "de": "Plane deinen Roadtrip nach deinen Wünschen: Wähle Startpunkt, Dauer und das Gebiet, das du erkunden willst. OneRoadTrip erstellt deine Route aus 1150+ Strecken und 8821+ geprüften Orten."
     }
   };
 
