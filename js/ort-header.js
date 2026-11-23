@@ -36,6 +36,18 @@
   function helpUrl(lang) {
     return '/help-' + (HELP_LANGS.indexOf(lang) !== -1 ? lang : 'en') + '.html';
   }
+  // Actualites / Ils parlent de nous / Partenaires : une page par langue,
+  // fabriquees par ort_news_pages.py (news-fr.html, media-fr.html, partners-fr.html...).
+  // L'arabe renvoie vers la page anglaise, comme l'aide.
+  const NEWS_LANGS = HELP_LANGS;
+  function newsUrl(lang, rub) {
+    return '/' + (rub || 'news') + '-' + (NEWS_LANGS.indexOf(lang) !== -1 ? lang : 'en') + '.html';
+  }
+  // Libelles des boutons « Ils parlent de nous » et « Partenaires » (grand ecran seulement).
+  const NAV_MEDIA = { fr: 'Ils parlent de nous', en: 'In the media', es: 'Hablan de nosotros', it: 'Parlano di noi',
+                      pt: 'Falam de nós', de: 'In den Medien', nl: 'In de media', ar: 'In the media' };
+  const NAV_PARTNERS = { fr: 'Partenaires', en: 'Partners', es: 'Socios', it: 'Partner',
+                         pt: 'Parceiros', de: 'Partner', nl: 'Partners', ar: 'Partners' };
 
   // ============================================
   // UTILITAIRES
@@ -144,6 +156,12 @@
     m = path.match(/^\/help-([a-z]{2})(\.html)?$/);
     if (m) {
       return HELP_LANGS.indexOf(newLang) !== -1 ? '/help-' + newLang + (m[2] || '') : null;
+    }
+
+    // Actualites, Ils parlent de nous, Partenaires : /news-fr.html -> /news-en.html.
+    m = path.match(/^\/(news|media|partners)-([a-z]{2})(\.html)?$/);
+    if (m) {
+      return '/' + m[1] + '-' + (NEWS_LANGS.indexOf(newLang) !== -1 ? newLang : 'en') + (m[3] || '');
     }
 
     // Itineraires : on remplace le dossier. Le slug ne change pas.
@@ -789,6 +807,8 @@
     const blogLabel    = lbl('navBlog', 'Blog');
     const tripsLabel   = lbl('navTrips', 'Your trips');
     const helpLabel    = lbl('navHelp', 'Help');
+    const mediaLabel   = lbl('navMedia', NAV_MEDIA[lang] || NAV_MEDIA.en);
+    const partnersLabel = lbl('navPartners', NAV_PARTNERS[lang] || NAV_PARTNERS.en);
 
     // Habillage de base de la barre.
     // Il etait jusqu'ici recopie dans chaque template ; il vit maintenant ici,
@@ -827,6 +847,10 @@
           border-radius:10px;border:1px solid #ffffff80;background:#ffffff1a;color:#fff;
           text-decoration:none;font-size:14px;white-space:nowrap;flex:0 0 auto;}
         .ort-nav-link:hover{background:#ffffff2b;}
+
+        /* « Ils parlent de nous » et « Partenaires » : boutons a part sur grand ecran seulement.
+           En dessous, ils restent accessibles par les onglets de la page Actualites. */
+        @media(max-width:1239px){ .ort-nav-link.ort-nav-large{display:none;} }
 
         /* Ecrans moyens : les libelles retrecissent avant de disparaitre. */
         @media(max-width:900px){
@@ -870,8 +894,14 @@
         <a class="ort-nav-link" id="catalogLink" href="/index.html" aria-label="${catalogLabel}">
           <span aria-hidden="true">📋</span><span class="lbl">${catalogLabel}</span>
         </a>
-        <a class="ort-nav-link" id="newsLink" href="/news.html" aria-label="${newsLabel}">
+        <a class="ort-nav-link" id="newsLink" href="${newsUrl(lang)}" aria-label="${newsLabel}">
           <span aria-hidden="true">📰</span><span class="lbl">${newsLabel}</span>
+        </a>
+        <a class="ort-nav-link ort-nav-large" id="mediaLink" href="${newsUrl(lang, 'media')}" aria-label="${mediaLabel}">
+          <span aria-hidden="true">🗞️</span><span class="lbl">${mediaLabel}</span>
+        </a>
+        <a class="ort-nav-link ort-nav-large" id="partnersLink" href="${newsUrl(lang, 'partners')}" aria-label="${partnersLabel}">
+          <span aria-hidden="true">🤝</span><span class="lbl">${partnersLabel}</span>
         </a>
         <a class="ort-nav-link" id="blogLink" href="/blog/" aria-label="${blogLabel}">
           <span aria-hidden="true">✍️</span><span class="lbl">${blogLabel}</span>

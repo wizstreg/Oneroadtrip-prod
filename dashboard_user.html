@@ -225,6 +225,9 @@ function ortDateLocale(){
 <script>
 // ================= I18N minimal =================
 const I18N = ORT_I18N_DASHBOARD.I18N;
+// Textes restes en dur en francais dans le tableau de bord
+const DASH_TX = {"photosSelected": {"fr": "{n}/4 photos sélectionnées", "en": "{n}/4 photos selected", "es": "{n}/4 fotos seleccionadas", "it": "{n}/4 foto selezionate", "pt": "{n}/4 fotos selecionadas", "nl": "{n}/4 foto's geselecteerd", "de": "{n}/4 Fotos ausgewählt", "ar": "{n}/4 photos selected"}, "photoTips": {"fr": "<strong>💡 Conseils :</strong><br>✅ URL directe d'image : <code>https://example.com/photo.jpg</code><br>❌ Évitez Google Images (CORS bloqué)<br>❌ Certains sites bloquent le partage d'images<br>💾 Hébergez vos photos sur : Imgur, Flickr, Dropbox...", "en": "<strong>💡 Tips:</strong><br>✅ Direct image URL: <code>https://example.com/photo.jpg</code><br>❌ Avoid Google Images (CORS blocked)<br>❌ Some sites block image sharing<br>💾 Host your photos on: Imgur, Flickr, Dropbox...", "es": "<strong>💡 Consejos:</strong><br>✅ URL directa de la imagen: <code>https://example.com/photo.jpg</code><br>❌ Evite Google Imágenes (CORS bloqueado)<br>❌ Algunos sitios bloquean el uso compartido de imágenes<br>💾 Aloje sus fotos en: Imgur, Flickr, Dropbox...", "it": "<strong>💡 Consigli:</strong><br>✅ URL diretto dell'immagine: <code>https://example.com/photo.jpg</code><br>❌ Evita Google Immagini (CORS bloccato)<br>❌ Alcuni siti bloccano la condivisione delle immagini<br>💾 Ospita le tue foto su: Imgur, Flickr, Dropbox...", "pt": "<strong>💡 Dicas:</strong><br>✅ URL direto da imagem: <code>https://example.com/photo.jpg</code><br>❌ Evite o Google Imagens (CORS bloqueado)<br>❌ Alguns sites bloqueiam a partilha de imagens<br>💾 Aloje as suas fotos em: Imgur, Flickr, Dropbox...", "nl": "<strong>💡 Tips:</strong><br>✅ Directe URL van de afbeelding: <code>https://example.com/photo.jpg</code><br>❌ Vermijd Google Afbeeldingen (CORS geblokkeerd)<br>❌ Sommige sites blokkeren het delen van afbeeldingen<br>💾 Zet je foto's op: Imgur, Flickr, Dropbox...", "de": "<strong>💡 Tipps:</strong><br>✅ Direkte Bild-URL: <code>https://example.com/photo.jpg</code><br>❌ Google Bilder vermeiden (CORS blockiert)<br>❌ Manche Seiten blockieren das Teilen von Bildern<br>💾 Lade deine Fotos hoch bei: Imgur, Flickr, Dropbox...", "ar": "<strong>💡 Tips:</strong><br>✅ Direct image URL: <code>https://example.com/photo.jpg</code><br>❌ Avoid Google Images (CORS blocked)<br>❌ Some sites block image sharing<br>💾 Host your photos on: Imgur, Flickr, Dropbox..."}, "checkingImage": {"fr": "🔍 Vérification de l'image...", "en": "🔍 Checking the image...", "es": "🔍 Comprobando la imagen...", "it": "🔍 Verifica dell'immagine...", "pt": "🔍 A verificar a imagem...", "nl": "🔍 Afbeelding controleren...", "de": "🔍 Bild wird geprüft...", "ar": "🔍 Checking the image..."}, "nightsWord": {"fr": "nuits", "en": "nights", "es": "noches", "it": "notti", "pt": "noites", "nl": "nachten", "de": "Nächte", "ar": "nights"}, "ourStops": {"fr": "📍 Nos étapes :", "en": "📍 Our stops:", "es": "📍 Nuestras etapas:", "it": "📍 Le nostre tappe:", "pt": "📍 As nossas etapas:", "nl": "📍 Onze stops:", "de": "📍 Unsere Etappen:", "ar": "📍 Our stops:"}, "stepN": {"fr": "Étape {n}", "en": "Stop {n}", "es": "Etapa {n}", "it": "Tappa {n}", "pt": "Etapa {n}", "nl": "Stop {n}", "de": "Etappe {n}", "ar": "Stop {n}"}, "createOnOrt": {"fr": "Créez votre roadtrip sur OneRoadTrip.com", "en": "Create your road trip on OneRoadTrip.com", "es": "Crea tu road trip en OneRoadTrip.com", "it": "Crea il tuo road trip su OneRoadTrip.com", "pt": "Crie o seu road trip em OneRoadTrip.com", "nl": "Maak je roadtrip op OneRoadTrip.com", "de": "Erstelle deinen Roadtrip auf OneRoadTrip.com", "ar": "Create your road trip on OneRoadTrip.com"}, "downloadImage": {"fr": "Télécharger l'image", "en": "Download image", "es": "Descargar la imagen", "it": "Scarica l'immagine", "pt": "Transferir a imagem", "nl": "Afbeelding downloaden", "de": "Bild herunterladen", "ar": "Download image"}, "close": {"fr": "Fermer", "en": "Close", "es": "Cerrar", "it": "Chiudi", "pt": "Fechar", "nl": "Sluiten", "de": "Schließen", "ar": "Close"}, "generating": {"fr": "Génération...", "en": "Generating...", "es": "Generando...", "it": "Generazione...", "pt": "A gerar...", "nl": "Bezig met maken...", "de": "Wird erstellt...", "ar": "Generating..."}, "downloaded": {"fr": "✅ Téléchargée", "en": "✅ Downloaded", "es": "✅ Descargada", "it": "✅ Scaricata", "pt": "✅ Transferida", "nl": "✅ Gedownload", "de": "✅ Heruntergeladen", "ar": "✅ Downloaded"}, "errorShort": {"fr": "❌ Erreur", "en": "❌ Error", "es": "❌ Error", "it": "❌ Errore", "pt": "❌ Erro", "nl": "❌ Fout", "de": "❌ Fehler", "ar": "❌ Error"}, "nightsUnforgettable": {"fr": "🌙 {n} nuits inoubliables", "en": "🌙 {n} unforgettable nights", "es": "🌙 {n} noches inolvidables", "it": "🌙 {n} notti indimenticabili", "pt": "🌙 {n} noites inesquecíveis", "nl": "🌙 {n} onvergetelijke nachten", "de": "🌙 {n} unvergessliche Nächte", "ar": "🌙 {n} unforgettable nights"}, "createCustom": {"fr": "Créez votre roadtrip sur mesure !", "en": "Create your own tailor-made road trip!", "es": "¡Crea tu road trip a medida!", "it": "Crea il tuo road trip su misura!", "pt": "Crie o seu road trip à medida!", "nl": "Maak je eigen roadtrip op maat!", "de": "Erstelle deinen maßgeschneiderten Roadtrip!", "ar": "Create your own tailor-made road trip!"}, "characters": {"fr": "caractères", "en": "characters", "es": "caracteres", "it": "caratteri", "pt": "caracteres", "nl": "tekens", "de": "Zeichen", "ar": "characters"}, "max300": {"fr": "Maximum 300 caractères !", "en": "Maximum 300 characters!", "es": "¡Máximo 300 caracteres!", "it": "Massimo 300 caratteri!", "pt": "Máximo 300 caracteres!", "nl": "Maximaal 300 tekens!", "de": "Höchstens 300 Zeichen!", "ar": "Maximum 300 characters!"}, "imageGenError": {"fr": "❌ Erreur lors de la génération de l'image", "en": "❌ Error generating the image", "es": "❌ Error al generar la imagen", "it": "❌ Errore durante la generazione dell'immagine", "pt": "❌ Erro ao gerar a imagem", "nl": "❌ Fout bij het maken van de afbeelding", "de": "❌ Fehler beim Erstellen des Bildes", "ar": "❌ Error generating the image"}, "generatingViral": {"fr": "🎨 Génération de votre post viral...", "en": "🎨 Creating your post...", "es": "🎨 Creando su publicación...", "it": "🎨 Creazione del tuo post...", "pt": "🎨 A criar a sua publicação...", "nl": "🎨 Je bericht wordt gemaakt...", "de": "🎨 Dein Beitrag wird erstellt...", "ar": "🎨 Creating your post..."}, "generatingInsta": {"fr": "🎨 Génération de votre post Instagram...", "en": "🎨 Creating your Instagram post...", "es": "🎨 Creando su publicación de Instagram...", "it": "🎨 Creazione del tuo post Instagram...", "pt": "🎨 A criar a sua publicação do Instagram...", "nl": "🎨 Je Instagram-bericht wordt gemaakt...", "de": "🎨 Dein Instagram-Beitrag wird erstellt...", "ar": "🎨 Creating your Instagram post..."}, "tripsImported": {"fr": "{n} voyage(s) importé(s)", "en": "{n} trip(s) imported", "es": "{n} viaje(s) importado(s)", "it": "{n} viaggio/i importato/i", "pt": "{n} viagem(ns) importada(s)", "nl": "{n} reis/reizen geïmporteerd", "de": "{n} Reise(n) importiert", "ar": "{n} trip(s) imported"}, "errorColon": {"fr": "Erreur : ", "en": "Error: ", "es": "Error: ", "it": "Errore: ", "pt": "Erro: ", "nl": "Fout: ", "de": "Fehler: ", "ar": "Error: "}, "exportCopied": {"fr": "Export copié dans le presse-papiers", "en": "Export copied to the clipboard", "es": "Exportación copiada en el portapapeles", "it": "Esportazione copiata negli appunti", "pt": "Exportação copiada para a área de transferência", "nl": "Export gekopieerd naar het klembord", "de": "Export in die Zwischenablage kopiert", "ar": "Export copied to the clipboard"}, "tripsDeleted": {"fr": "{n} voyage(s) supprimé(s)", "en": "{n} trip(s) deleted", "es": "{n} viaje(s) eliminado(s)", "it": "{n} viaggio/i eliminato/i", "pt": "{n} viagem(ns) eliminada(s)", "nl": "{n} reis/reizen verwijderd", "de": "{n} Reise(n) gelöscht", "ar": "{n} trip(s) deleted"}};
+function dx(k){ var l=(localStorage.getItem('lang')||document.documentElement.lang||'fr').slice(0,2).toLowerCase(); var e=DASH_TX[k]||{}; return e[l]||e.en||k; }
 
 
 // ================= Langue & navigation =================
@@ -777,7 +780,7 @@ function buildCarnetUrl(rt){
     
     const info = document.createElement('p');
     info.style.color = '#6c7b87';
-    info.textContent = `${selected.length}/4 photos sélectionnées`;
+    info.textContent = dx('photosSelected').replace('{n}', selected.length);
     info.id = 'photo-counter';
     box.appendChild(info);
     
@@ -829,13 +832,7 @@ function buildCarnetUrl(rt){
         fontSize: '14px',
         color: '#113f7a'
       });
-      instructions.innerHTML = `
-        <strong>💡 Conseils :</strong><br>
-        ✅ URL directe d'image : <code>https://example.com/photo.jpg</code><br>
-        ❌ Évitez Google Images (CORS bloqué)<br>
-        ❌ Certains sites bloquent le partage d'images<br>
-        💾 Hébergez vos photos sur : Imgur, Flickr, Dropbox...
-      `;
+      instructions.innerHTML = dx('photoTips');
       urlBox.appendChild(instructions);
       
       // Input pour l'URL
@@ -900,7 +897,7 @@ function buildCarnetUrl(rt){
             }
             
             // GARDE-FOU : Vérifier que l'image charge vraiment
-            toast('🔍 Vérification de l\'image...');
+            toast(dx('checkingImage'));
             const imgTest = new Image();
             imgTest.crossOrigin = 'anonymous';
             
@@ -990,7 +987,7 @@ function buildCarnetUrl(rt){
         
         if (selected.length < 4) {
           // GARDE-FOU : Vérifier que l'image charge
-          toast('🔍 Vérification de l\'image...');
+          toast(dx('checkingImage'));
           const imgTest = new Image();
           imgTest.crossOrigin = 'anonymous';
           
@@ -1102,7 +1099,7 @@ function buildCarnetUrl(rt){
         }
         
         // Mettre à jour le compteur
-        info.textContent = `${selected.length}/4 photos sélectionnées`;
+        info.textContent = dx('photosSelected').replace('{n}', selected.length);
       };
       
       grid.appendChild(item);
@@ -1243,18 +1240,18 @@ function buildCarnetUrl(rt){
         ctx.font = '28px system-ui';
         const nights = rt.nights || rt.nb_nights || 0;
         const kms = rt.kms || 0;
-        ctx.fillText(`🌙 ${nights} nuits · 🚗 ${kms} km`, 60, y);
+        ctx.fillText(`🌙 ${nights} ${dx('nightsWord')} · 🚗 ${kms} km`, 60, y);
         y += 80;
         
         // Étapes
         ctx.font = 'bold 26px system-ui';
-        ctx.fillText('📍 Nos étapes :', 60, y);
+        ctx.fillText(dx('ourStops'), 60, y);
         y += 50;
         
         ctx.font = '24px system-ui';
         if (rt.steps && rt.steps.length > 0) {
           rt.steps.slice(0, 8).forEach((step, i) => {
-            const stepName = step.name || step.place_id?.split('::')[1] || `Étape ${i+1}`;
+            const stepName = step.name || step.place_id?.split('::')[1] || dx('stepN').replace('{n}', i+1);
             ctx.fillText(`   → ${stepName}`, 60, y);
             y += 40;
           });
@@ -1265,7 +1262,7 @@ function buildCarnetUrl(rt){
         ctx.fillStyle = '#113f7a';
         ctx.font = 'bold 24px system-ui';
         ctx.textAlign = 'center';
-        ctx.fillText('Créez votre roadtrip sur OneRoadTrip.com', 540, y);
+        ctx.fillText(dx('createOnOrt'), 540, y);
       }
       
       function formatDateRange(start, end) {
@@ -1766,11 +1763,11 @@ function buildCarnetUrl(rt){
     actions.style.cssText = 'display:flex;gap:10px;margin-top:6px';
     const btnDl = document.createElement('button');
     btnDl.type = 'button';
-    btnDl.textContent = 'Télécharger l\'image';
+    btnDl.textContent = dx('downloadImage');
     btnDl.style.cssText = 'flex:1;padding:13px;border:none;border-radius:10px;background:#113f7a;color:#fff;font-weight:700;font-size:15px;cursor:pointer';
     const btnClose = document.createElement('button');
     btnClose.type = 'button';
-    btnClose.textContent = 'Fermer';
+    btnClose.textContent = dx('close');
     btnClose.style.cssText = 'padding:13px 20px;border:1px solid #d0d8e4;border-radius:10px;background:#fff;color:#5d6b7e;font-weight:600;font-size:15px;cursor:pointer';
 
     actions.appendChild(btnDl);
@@ -1783,18 +1780,18 @@ function buildCarnetUrl(rt){
       if (!photos.length && !currentCard) return;
       btnDl.disabled = true;
       const old = btnDl.textContent;
-      btnDl.textContent = 'Génération...';
+      btnDl.textContent = dx('generating');
       try {
         const dataUrl = await captureCardOffscreen(rt, photos[idx] || null);
         const a = document.createElement('a');
         a.href = dataUrl;
         a.download = (rt.title || 'mon-voyage').replace(/[^a-z0-9]/gi,'-').toLowerCase() + '-oneroadtrip.png';
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
-        btnDl.textContent = '✅ Téléchargée';
+        btnDl.textContent = dx('downloaded');
         setTimeout(() => { btnDl.textContent = old; btnDl.disabled = false; }, 1500);
       } catch (e){
         console.error('[SHARE] génération échouée:', e);
-        btnDl.textContent = '❌ Erreur';
+        btnDl.textContent = dx('errorShort');
         setTimeout(() => { btnDl.textContent = old; btnDl.disabled = false; }, 1500);
       }
     });
@@ -1831,20 +1828,20 @@ function buildCarnetUrl(rt){
       text += `📅 ${formatDateRange(firstDate, lastDate)}\n`;
     }
     
-    text += `🌙 ${nights} nuits inoubliables\n`;
+    text += dx('nightsUnforgettable').replace('{n}', nights) + '\n';
     text += `🚗 ${kms} km\n\n`;
     
     // Étapes
     if (rt.steps && rt.steps.length > 0) {
-      text += `📍 Nos étapes :\n`;
+      text += dx('ourStops') + '\n';
       rt.steps.forEach((step, i) => {
-        const stepName = step.name || step.place_id?.split('::')[1] || `Étape ${i+1}`;
+        const stepName = step.name || step.place_id?.split('::')[1] || dx('stepN').replace('{n}', i+1);
         text += `   → ${stepName}\n`;
       });
       text += `\n`;
     }
     
-    text += `Créez votre roadtrip sur mesure ! 👉 ${publicUrl}\n\n`;
+    text += dx('createCustom') + ` 👉 ${publicUrl}\n\n`;
     text += `#OneRoadTrip #Roadtrip #Voyage #Travel`;
     
     // Ajouter hashtag du pays
@@ -1972,7 +1969,7 @@ ${roUrl}`
                     placeholder="${texts.placeholder}"
                     maxlength="300"
                     style="width:100%;min-height:100px;padding:12px;border:1px solid #d9e4f0;border-radius:8px;font-family:inherit;font-size:0.95rem;resize:vertical;margin-bottom:8px"></textarea>
-          <div style="font-size:0.85rem;color:#666;margin-bottom:16px" id="charCount">0 / 300 caractères</div>
+          <div style="font-size:0.85rem;color:#666;margin-bottom:16px" id="charCount">0 / 300 ${dx('characters')}</div>
           <div class="modal-actions" style="margin-top:16px">
             <button id="confirmGenerate" class="btn primary">${texts.generate}</button>
             <button id="cancelGenerate" class="btn">${texts.cancel}</button>
@@ -1986,11 +1983,7 @@ ${roUrl}`
       const charCount = document.getElementById('charCount');
       textarea.addEventListener('input', () => {
         const charLength = textarea.value.length;
-        const label = lang === 'fr' ? 'caractères' : 
-                      lang === 'en' ? 'characters' :
-                      lang === 'it' ? 'caratteri' :
-                      lang === 'es' ? 'caracteres' :
-                      lang === 'pt' ? 'caracteres' : 'حروف';
+        const label = dx('characters');
         charCount.textContent = `${charLength} / 300 ${label}`;
         if (charLength > 300) {
           charCount.style.color = '#cb2b2b';
@@ -2008,11 +2001,7 @@ ${roUrl}`
         const customText = textarea.value.trim();
         
         if (customText.length > 300) {
-          const msg = lang === 'fr' ? 'Maximum 300 caractères !' :
-                      lang === 'en' ? 'Maximum 300 characters!' :
-                      lang === 'it' ? 'Massimo 300 caratteri!' :
-                      lang === 'es' ? '¡Máximo 300 caracteres!' :
-                      lang === 'pt' ? 'Máximo 300 caracteres!' : 'الحد الأقصى 300 حرف!';
+          const msg = dx('max300');
           alert(msg);
           return;
         }
@@ -2040,7 +2029,7 @@ ${roUrl}`
           
         } catch (error) {
           console.error('Erreur génération image:', error);
-          toast('❌ Erreur lors de la génération de l\'image', true);
+          toast(dx('imageGenError'), true);
           resolve(false);
         }
       });
@@ -2071,7 +2060,7 @@ ${roUrl}`
     }
     if(net === 'fb'){
       // Génération d'une belle image pro avec modal
-      toast('🎨 Génération de votre post viral...');
+      toast(dx('generatingViral'));
       
       try {
         const imageDataUrl = await generateViralImagePro(rt);
@@ -2081,7 +2070,7 @@ ${roUrl}`
         showShareModal(imageDataUrl, viralText);
       } catch (error) {
         console.error('Erreur génération image:', error);
-        toast('❌ Erreur lors de la génération de l\'image', true);
+        toast(dx('imageGenError'), true);
         // Fallback : partage simple
         const viralText = generateViralText(rt, publicUrl);
         const encQuote = encodeURIComponent(viralText);
@@ -2091,7 +2080,7 @@ ${roUrl}`
     }
     if(net === 'ig'){
       // Instagram : belle image avec légende
-      toast('🎨 Génération de votre post Instagram...');
+      toast(dx('generatingInsta'));
       
       try {
         const L = I18N[lang] || I18N.en;
@@ -2110,7 +2099,7 @@ ${roUrl}`
         showShareModal(imageDataUrl, viralText);
       } catch (error) {
         console.error('Erreur génération image:', error);
-        toast('❌ Erreur lors de la génération de l\'image', true);
+        toast(dx('imageGenError'), true);
       }
       return;
     }
@@ -2388,16 +2377,16 @@ document.getElementById('btnStart').addEventListener('click',()=>{
         const txt = await file.text();
         const obj = JSON.parse(txt);
         const count = await Dashboard.import(obj);
-        toast(`${count} voyage(s) importé(s)`);
+        toast(dx('tripsImported').replace('{n}', count));
       } catch(err) {
-        alert('Erreur: ' + err.message);
+        alert(dx('errorColon') + err.message);
       }
     };
     input.click();
   });
   document.getElementById('btnExportAll').addEventListener('click',async()=>{
     const data = Dashboard.exportAll();
-    try{ await navigator.clipboard.writeText(data); toast('Export copié dans le presse‑papiers'); }catch(_){ alert(data); }
+    try{ await navigator.clipboard.writeText(data); toast(dx('exportCopied')); }catch(_){ alert(data); }
   });
   document.getElementById('btnExportModules')?.addEventListener('click',async()=>{
     const exports = await Dashboard.exportAsModules();
@@ -2462,7 +2451,7 @@ document.getElementById('btnStart').addEventListener('click',()=>{
       }
     }
     
-toast(`${deleted} voyage(s) supprimé(s)`);
+toast(dx('tripsDeleted').replace('{n}', deleted));
     // Rafraîchir l'affichage sans recharger la page
     setTimeout(async () => {
       await render();

@@ -37,7 +37,7 @@
 <link rel="shortcut icon" href="https://www.oneroadtrip.com/favicon.ico">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <title id="pageTitle">OneRoadTrip | 1150+ road trips prêts à l'emploi à personnaliser</title>
-<meta name="description" id="metaDesc" content="Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 1150+ parcours et 8821+ lieux testés.">
+<meta name="description" id="metaDesc" content="Planifiez votre road trip sur mesure : choisissez votre point de départ, votre durée et la zone à explorer. OneRoadTrip génère votre itinéraire parmi 1150+ parcours et 8859+ lieux testés.">
 <link rel="canonical" id="canonicalLink" href="https://www.oneroadtrip.com/index.html">
 <meta name="robots" content="index, follow">
 <link rel="alternate" hreflang="x-default" href="https://www.oneroadtrip.com/index.html">
@@ -539,8 +539,8 @@ main{padding-block:40px 64px}
       <div class="heroB-stats">
         <div class="s"><b id="heroCount">1 150</b><span id="statTripsLabel">road trips</span></div>
         <div class="s"><b id="statCountries">105</b><span id="statCountriesLabel">pays</span></div>
-        <div class="s"><b id="statPlaces">8 821</b><span id="statPlacesLabel">lieux</span></div>
-        <div class="s"><b id="statVisits">35 849</b><span id="statVisitsLabel">visites</span></div>
+        <div class="s"><b id="statPlaces">8 859</b><span id="statPlacesLabel">lieux</span></div>
+        <div class="s"><b id="statVisits">35 819</b><span id="statVisitsLabel">visites</span></div>
         <div class="s"><b id="statActivities">20 712</b><span id="statActivitiesLabel">activités</span></div>
       </div>
     </div>
@@ -919,6 +919,15 @@ var THEMES_LIST = [];
    DETECT LANG from ?lang= param (default: fr)
    ======================================================== */
 var currentLang = 'en';
+/* Petits textes de la page restes en dur en francais */
+var IX_TXT = {
+  weather: {fr:"Météo", en:"Weather", es:"Tiempo", it:"Meteo", pt:"Meteorologia", ar:"الطقس", nl:"Weer", de:"Wetter"},
+  pickStartCity: {fr:"Veuillez sélectionner une ville de départ dans la liste de suggestions.", en:"Please choose a starting city from the list of suggestions.", es:"Seleccione una ciudad de salida en la lista de sugerencias.", it:"Seleziona una città di partenza dall’elenco dei suggerimenti.", pt:"Selecione uma cidade de partida na lista de sugestões.", ar:"يرجى اختيار مدينة الانطلاق من قائمة الاقتراحات.", nl:"Kies een vertrekstad uit de lijst met suggesties.", de:"Bitte wähle eine Startstadt aus der Vorschlagsliste."},
+  loadError: {fr:"Erreur de chargement :", en:"Loading error:", es:"Error de carga:", it:"Errore di caricamento:", pt:"Erro de carregamento:", ar:"خطأ في التحميل:", nl:"Fout bij het laden:", de:"Fehler beim Laden:"},
+  retry: {fr:"Réessayer", en:"Try again", es:"Reintentar", it:"Riprova", pt:"Tentar novamente", ar:"إعادة المحاولة", nl:"Opnieuw proberen", de:"Erneut versuchen"},
+  unitToggle: {fr:"Kilomètres ou miles", en:"Kilometres or miles", es:"Kilómetros o millas", it:"Chilometri o miglia", pt:"Quilómetros ou milhas", ar:"كيلومترات أو أميال", nl:"Kilometers of mijlen", de:"Kilometer oder Meilen"}
+};
+function tIx(k){ var e = IX_TXT[k] || {}; return e[currentLang] || e.en || k; }
 (function(){
   // 1. Paramètre URL ?lang=xx (priorité absolue)
   var params = new URLSearchParams(location.search);
@@ -1303,7 +1312,7 @@ document.getElementById('canonicalLink').href = 'https://www.oneroadtrip.com/ind
     var fs=startCity||{name:sv},fe=isLoop?fs:(endCity||{name:ev});
     // Sécurité : si on n'a pas de coords pour le départ, on bloque
     if (!fs.lat || !fs.lon) {
-      alert('Veuillez sélectionner une ville de départ dans la liste de suggestions.');
+      alert(tIx('pickStartCity'));
       s.focus();
       return;
     }
@@ -1742,7 +1751,7 @@ function buildCard(item){
     html += '<span class="card-lang-badge" title="' + (T2.fallbackTitle || '') + '">' + String(item.fallbackLang).toUpperCase() + '</span>';
   }
   html += '<span class="card-flag">' + getFlagImg(item.cc) + '</span>';
-  html += '<span class="card-meteo is-loading" data-cc="' + (item.cc||'') + '" data-slug="' + (item.slug||'') + '" aria-label="Météo">\u26C5</span>';
+  html += '<span class="card-meteo is-loading" data-cc="' + (item.cc||'') + '" data-slug="' + (item.slug||'') + '" aria-label="' + tIx('weather') + '">\u26C5</span>';
   html += '</div>';
   html += '<div class="card-body">';
   html += '<h3 class="card-title">' + item.title + '</h3>';
@@ -1994,6 +2003,8 @@ function syncUnitToggle(){
   bm.classList.toggle('active', USE_MILES);
   bk.setAttribute('aria-pressed', !USE_MILES);
   bm.setAttribute('aria-pressed', USE_MILES);
+  var utg = document.getElementById('unitToggle');
+  if (utg) utg.setAttribute('aria-label', tIx('unitToggle'));
 }
 function setUnit(unit){
   USE_MILES = (unit === 'mi');
@@ -2512,7 +2523,7 @@ Promise.all([
     }
   })
   .catch(function(err){
-    document.getElementById('mainContent').innerHTML = '<div class="loading"><p style="color:var(--accent);font-weight:600">Erreur de chargement: ' + err.message + '</p><p style="margin-top:10px"><a href="javascript:location.reload()" style="color:var(--navy);text-decoration:underline">R\u00e9essayer</a></p></div>';
+    document.getElementById('mainContent').innerHTML = '<div class="loading"><p style="color:var(--accent);font-weight:600">' + tIx('loadError') + ' ' + err.message + '</p><p style="margin-top:10px"><a href="javascript:location.reload()" style="color:var(--navy);text-decoration:underline">' + tIx('retry') + '</a></p></div>';
   });
 
 </script>
@@ -2647,6 +2658,7 @@ gtag('config', 'GT-WF83FMCX');
     document.getElementById('rbZoneHelp').textContent = isTouch() ? tZ('helpTouch') : tZ('helpMouse');
     resetBtn.textContent = tZ('reset');
     skipBtn.textContent = tZ('skip');
+    if (closeBtn) closeBtn.title = tZ('skip');
     validateBtn.textContent = tZ('validate');
     if (zoneEditLink) zoneEditLink.textContent = tZ('edit');
   }

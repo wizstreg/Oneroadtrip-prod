@@ -629,7 +629,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
     <!-- Email paste -->
     <div class="email-input" id="emailInputWrap">
       <label data-i18n="pasteEmail">Collez l'email de confirmation</label>
-      <textarea id="emailText" placeholder="Copiez-collez ici le contenu de votre email de confirmation de réservation..."></textarea>
+      <textarea id="emailText" data-i18n-placeholder="phEmailText" placeholder="Copiez-collez ici le contenu de votre email de confirmation de réservation..."></textarea>
       <div class="hint" data-i18n="emailHint">Nous analyserons automatiquement les informations</div>
     </div>
     
@@ -713,7 +713,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
     
     <div class="form-group">
       <label data-i18n="notes">Notes</label>
-      <input type="text" id="fieldNotes" placeholder="Informations supplémentaires">
+      <input type="text" id="fieldNotes" data-i18n-placeholder="phNotes" placeholder="Informations supplémentaires">
     </div>
     
     <div class="btn-row" style="margin-top:20px">
@@ -793,7 +793,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
       </div>
       
       <!-- Nom -->
-      <input type="text" id="editFieldName" placeholder="Nom de la réservation" style="width:100%;padding:8px 10px;border:2px solid #e5e7eb;border-radius:6px;margin-bottom:8px;font-size:0.9rem">
+      <input type="text" id="editFieldName" data-i18n-placeholder="phBookingName" placeholder="Nom de la réservation" style="width:100%;padding:8px 10px;border:2px solid #e5e7eb;border-radius:6px;margin-bottom:8px;font-size:0.9rem">
       
       <!-- Dates + Prix sur une ligne -->
       <div style="display:grid;grid-template-columns:1fr 1fr 100px;gap:6px;margin-bottom:8px">
@@ -943,115 +943,121 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
   // I18N
   // ══════════════════════════════════════════════════════════════
   const I18N_LOCAL = {
-    importBookingTitle: { fr: '➕ Importer une réservation', en: '➕ Import a booking', es: '➕ Importar una reserva', it: '➕ Importa una prenotazione', pt: '➕ Importar uma reserva', ar: '➕ استيراد حجز' },
-    selectType: { fr: 'Type de réservation', en: 'Booking type', es: 'Tipo de reserva', it: 'Tipo di prenotazione', pt: 'Tipo de reserva', ar: 'نوع الحجز' },
-    typeStep: { fr: 'Étape', en: 'Step', es: 'Etapa', it: 'Tappa', pt: 'Etapa', ar: 'مرحلة' },
-    typeStepHint: { fr: 'Hôtel, activité, visite', en: 'Hotel, activity, visit', es: 'Hotel, actividad, visita', it: 'Hotel, attività, visita', pt: 'Hotel, atividade, visita', ar: 'فندق، نشاط، زيارة' },
-    typeTravel: { fr: 'Voyage', en: 'Travel', es: 'Viaje', it: 'Viaggio', pt: 'Viagem', ar: 'سفر' },
-    typeTravelHint: { fr: 'Vol, voiture, assurance', en: 'Flight, car, insurance', es: 'Vuelo, coche, seguro', it: 'Volo, auto, assicurazione', pt: 'Voo, carro, seguro', ar: 'طيران، سيارة، تأمين' },
-    selectStep: { fr: 'Sélectionner l\'étape', en: 'Select step', es: 'Seleccionar etapa', it: 'Seleziona tappa', pt: 'Selecionar etapa', ar: 'اختر المرحلة' },
-    importMethod: { fr: 'Méthode d\'import', en: 'Import method', es: 'Método de importación', it: 'Metodo di importazione', pt: 'Método de importação', ar: 'طريقة الاستيراد' },
-    pasteEmail: { fr: 'Collez l\'email de confirmation', en: 'Paste the confirmation email', es: 'Pegue el email de confirmación', it: 'Incolla l\'email di conferma', pt: 'Cole o email de confirmação', ar: 'الصق بريد التأكيد' },
-    emailHint: { fr: 'Nous analyserons automatiquement les informations', en: 'We will automatically analyze the information', es: 'Analizaremos automáticamente la información', it: 'Analizzeremo automaticamente le informazioni', pt: 'Analisaremos automaticamente as informações', ar: 'سنحلل المعلومات تلقائياً' },
-    analyze: { fr: 'Analyser', en: 'Analyze', es: 'Analizar', it: 'Analizza', pt: 'Analisar', ar: 'تحليل' },
-    manualEntry: { fr: 'Saisie manuelle', en: 'Manual entry', es: 'Entrada manual', it: 'Inserimento manuale', pt: 'Entrada manual', ar: 'إدخال يدوي' },
-    analyzing: { fr: 'Analyse en cours...', en: 'Analyzing...', es: 'Analizando...', it: 'Analisi in corso...', pt: 'Analisando...', ar: 'جار التحليل...' },
-    bookingDetails: { fr: 'Détails de la réservation', en: 'Booking details', es: 'Detalles de la reserva', it: 'Dettagli prenotazione', pt: 'Detalhes da reserva', ar: 'تفاصيل الحجز' },
-    extractedInfo: { fr: 'Informations extraites', en: 'Extracted information', es: 'Información extraída', it: 'Informazioni estratte', pt: 'Informações extraídas', ar: 'المعلومات المستخرجة' },
-    category: { fr: 'Catégorie', en: 'Category', es: 'Categoría', it: 'Categoria', pt: 'Categoria', ar: 'الفئة' },
-    catHotel: { fr: 'Hôtel', en: 'Hotel', es: 'Hotel', it: 'Hotel', pt: 'Hotel', ar: 'فندق' },
-    catActivity: { fr: 'Activité', en: 'Activity', es: 'Actividad', it: 'Attività', pt: 'Atividade', ar: 'نشاط' },
-    catFlight: { fr: 'Vol', en: 'Flight', es: 'Vuelo', it: 'Volo', pt: 'Voo', ar: 'طيران' },
-    catCar: { fr: 'Voiture', en: 'Car', es: 'Coche', it: 'Auto', pt: 'Carro', ar: 'سيارة' },
-    catInsurance: { fr: 'Assurance', en: 'Insurance', es: 'Seguro', it: 'Assicurazione', pt: 'Seguro', ar: 'تأمين' },
-    catVisit: { fr: 'Visite', en: 'Visit', es: 'Visita', it: 'Visita', pt: 'Visita', ar: 'زيارة' },
-    catShow: { fr: 'Spectacle', en: 'Show', es: 'Espectáculo', it: 'Spettacolo', pt: 'Espetáculo', ar: 'عرض' },
-    catOther: { fr: 'Autre', en: 'Other', es: 'Otro', it: 'Altro', pt: 'Outro', ar: 'آخر' },
-    bookingName: { fr: 'Nom de la réservation', en: 'Booking name', es: 'Nombre de la reserva', it: 'Nome prenotazione', pt: 'Nome da reserva', ar: 'اسم الحجز' },
-    dateStart: { fr: 'Date début', en: 'Start date', es: 'Fecha inicio', it: 'Data inizio', pt: 'Data início', ar: 'تاريخ البدء' },
-    dateEnd: { fr: 'Date fin', en: 'End date', es: 'Fecha fin', it: 'Data fine', pt: 'Data fim', ar: 'تاريخ الانتهاء' },
-    reference: { fr: 'Référence', en: 'Reference', es: 'Referencia', it: 'Riferimento', pt: 'Referência', ar: 'المرجع' },
-    price: { fr: 'Prix (€)', en: 'Price (€)', es: 'Precio (€)', it: 'Prezzo (€)', pt: 'Preço (€)', ar: 'السعر (€)' },
-    address: { fr: 'Adresse / Lieu', en: 'Address / Location', es: 'Dirección / Lugar', it: 'Indirizzo / Luogo', pt: 'Endereço / Local', ar: 'العنوان / الموقع' },
-    notes: { fr: 'Notes', en: 'Notes', es: 'Notas', it: 'Note', pt: 'Notas', ar: 'ملاحظات' },
-    saveBooking: { fr: 'Enregistrer la réservation', en: 'Save booking', es: 'Guardar reserva', it: 'Salva prenotazione', pt: 'Salvar reserva', ar: 'حفظ الحجز' },
-    reset: { fr: 'Recommencer', en: 'Reset', es: 'Reiniciar', it: 'Ricomincia', pt: 'Recomeçar', ar: 'إعادة' },
-    backToTrip: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع' },
-    cancelAndReturn: { fr: 'Annuler', en: 'Cancel', es: 'Cancelar', it: 'Annulla', pt: 'Cancelar', ar: 'إلغاء' },
-    loading: { fr: 'Chargement...', en: 'Loading...', es: 'Cargando...', it: 'Caricamento...', pt: 'Carregando...', ar: 'جار التحميل...' },
-    saved: { fr: 'Réservation enregistrée !', en: 'Booking saved!', es: '¡Reserva guardada!', it: 'Prenotazione salvata!', pt: 'Reserva salva!', ar: 'تم حفظ الحجز!' },
-    errorSaving: { fr: 'Erreur lors de l\'enregistrement', en: 'Error saving', es: 'Error al guardar', it: 'Errore durante il salvataggio', pt: 'Erro ao salvar', ar: 'خطأ في الحفظ' },
-    noTrip: { fr: 'Voyage non trouvé', en: 'Trip not found', es: 'Viaje no encontrado', it: 'Viaggio non trovato', pt: 'Viagem não encontrada', ar: 'الرحلة غير موجودة' },
-    selectStepFirst: { fr: 'Sélectionnez une étape', en: 'Select a step first', es: 'Seleccione una etapa', it: 'Seleziona una tappa', pt: 'Selecione uma etapa', ar: 'اختر مرحلة أولاً' },
-    enterName: { fr: 'Entrez un nom', en: 'Enter a name', es: 'Ingrese un nombre', it: 'Inserisci un nome', pt: 'Digite um nome', ar: 'أدخل اسماً' },
-    pasteEmailFirst: { fr: 'Collez d\'abord un email', en: 'Paste an email first', es: 'Pegue un email primero', it: 'Incolla prima un\'email', pt: 'Cole um email primeiro', ar: 'الصق بريداً أولاً' },
-    analysisError: { fr: 'Erreur d\'analyse. Essayez la saisie manuelle.', en: 'Analysis error. Try manual entry.', es: 'Error de análisis. Pruebe la entrada manual.', it: 'Errore di analisi. Prova l\'inserimento manuale.', pt: 'Erro de análise. Tente entrada manual.', ar: 'خطأ في التحليل. جرب الإدخال اليدوي.' },
+    importBookingTitle: { fr: '➕ Importer une réservation', en: '➕ Import a booking', es: '➕ Importar una reserva', it: '➕ Importa una prenotazione', pt: '➕ Importar uma reserva', ar: '➕ استيراد حجز', nl: '➕ Een boeking importeren', de: '➕ Eine Buchung importieren' },
+    selectType: { fr: 'Type de réservation', en: 'Booking type', es: 'Tipo de reserva', it: 'Tipo di prenotazione', pt: 'Tipo de reserva', ar: 'نوع الحجز', nl: 'Type boeking', de: 'Buchungsart' },
+    typeStep: { fr: 'Étape', en: 'Step', es: 'Etapa', it: 'Tappa', pt: 'Etapa', ar: 'مرحلة', nl: 'Stop', de: 'Etappe' },
+    typeStepHint: { fr: 'Hôtel, activité, visite', en: 'Hotel, activity, visit', es: 'Hotel, actividad, visita', it: 'Hotel, attività, visita', pt: 'Hotel, atividade, visita', ar: 'فندق، نشاط، زيارة', nl: 'Hotel, activiteit, bezoek', de: 'Hotel, Aktivität, Besichtigung' },
+    typeTravel: { fr: 'Voyage', en: 'Travel', es: 'Viaje', it: 'Viaggio', pt: 'Viagem', ar: 'سفر', nl: 'Reis', de: 'Reise' },
+    typeTravelHint: { fr: 'Vol, voiture, assurance', en: 'Flight, car, insurance', es: 'Vuelo, coche, seguro', it: 'Volo, auto, assicurazione', pt: 'Voo, carro, seguro', ar: 'طيران، سيارة، تأمين', nl: 'Vlucht, auto, verzekering', de: 'Flug, Auto, Versicherung' },
+    selectStep: { fr: 'Sélectionner l\'étape', en: 'Select step', es: 'Seleccionar etapa', it: 'Seleziona tappa', pt: 'Selecionar etapa', ar: 'اختر المرحلة', nl: 'Kies een stop', de: 'Etappe wählen' },
+    importMethod: { fr: 'Méthode d\'import', en: 'Import method', es: 'Método de importación', it: 'Metodo di importazione', pt: 'Método de importação', ar: 'طريقة الاستيراد', nl: 'Importmethode', de: 'Importmethode' },
+    pasteEmail: { fr: 'Collez l\'email de confirmation', en: 'Paste the confirmation email', es: 'Pegue el email de confirmación', it: 'Incolla l\'email di conferma', pt: 'Cole o email de confirmação', ar: 'الصق بريد التأكيد', nl: 'Plak de bevestigingsmail', de: 'Bestätigungs-E-Mail einfügen' },
+    emailHint: { fr: 'Nous analyserons automatiquement les informations', en: 'We will automatically analyze the information', es: 'Analizaremos automáticamente la información', it: 'Analizzeremo automaticamente le informazioni', pt: 'Analisaremos automaticamente as informações', ar: 'سنحلل المعلومات تلقائياً', nl: 'We analyseren de gegevens automatisch', de: 'Wir analysieren die Angaben automatisch' },
+    analyze: { fr: 'Analyser', en: 'Analyze', es: 'Analizar', it: 'Analizza', pt: 'Analisar', ar: 'تحليل', nl: 'Analyseren', de: 'Analysieren' },
+    manualEntry: { fr: 'Saisie manuelle', en: 'Manual entry', es: 'Entrada manual', it: 'Inserimento manuale', pt: 'Entrada manual', ar: 'إدخال يدوي', nl: 'Handmatig invoeren', de: 'Manuelle Eingabe' },
+    analyzing: { fr: 'Analyse en cours...', en: 'Analyzing...', es: 'Analizando...', it: 'Analisi in corso...', pt: 'Analisando...', ar: 'جار التحليل...', nl: 'Bezig met analyseren...', de: 'Wird analysiert...' },
+    bookingDetails: { fr: 'Détails de la réservation', en: 'Booking details', es: 'Detalles de la reserva', it: 'Dettagli prenotazione', pt: 'Detalhes da reserva', ar: 'تفاصيل الحجز', nl: 'Boekingsgegevens', de: 'Buchungsdetails' },
+    extractedInfo: { fr: 'Informations extraites', en: 'Extracted information', es: 'Información extraída', it: 'Informazioni estratte', pt: 'Informações extraídas', ar: 'المعلومات المستخرجة', nl: 'Gevonden gegevens', de: 'Erkannte Angaben' },
+    category: { fr: 'Catégorie', en: 'Category', es: 'Categoría', it: 'Categoria', pt: 'Categoria', ar: 'الفئة', nl: 'Categorie', de: 'Kategorie' },
+    catHotel: { fr: 'Hôtel', en: 'Hotel', es: 'Hotel', it: 'Hotel', pt: 'Hotel', ar: 'فندق', nl: 'Hotel', de: 'Hotel' },
+    catActivity: { fr: 'Activité', en: 'Activity', es: 'Actividad', it: 'Attività', pt: 'Atividade', ar: 'نشاط', nl: 'Activiteit', de: 'Aktivität' },
+    catFlight: { fr: 'Vol', en: 'Flight', es: 'Vuelo', it: 'Volo', pt: 'Voo', ar: 'طيران', nl: 'Vlucht', de: 'Flug' },
+    catCar: { fr: 'Voiture', en: 'Car', es: 'Coche', it: 'Auto', pt: 'Carro', ar: 'سيارة', nl: 'Auto', de: 'Auto' },
+    catInsurance: { fr: 'Assurance', en: 'Insurance', es: 'Seguro', it: 'Assicurazione', pt: 'Seguro', ar: 'تأمين', nl: 'Verzekering', de: 'Versicherung' },
+    catVisit: { fr: 'Visite', en: 'Visit', es: 'Visita', it: 'Visita', pt: 'Visita', ar: 'زيارة', nl: 'Bezoek', de: 'Besichtigung' },
+    catShow: { fr: 'Spectacle', en: 'Show', es: 'Espectáculo', it: 'Spettacolo', pt: 'Espetáculo', ar: 'عرض', nl: 'Voorstelling', de: 'Vorstellung' },
+    catOther: { fr: 'Autre', en: 'Other', es: 'Otro', it: 'Altro', pt: 'Outro', ar: 'آخر', nl: 'Overig', de: 'Sonstiges' },
+    bookingName: { fr: 'Nom de la réservation', en: 'Booking name', es: 'Nombre de la reserva', it: 'Nome prenotazione', pt: 'Nome da reserva', ar: 'اسم الحجز', nl: 'Naam van de boeking', de: 'Name der Buchung' },
+    dateStart: { fr: 'Date début', en: 'Start date', es: 'Fecha inicio', it: 'Data inizio', pt: 'Data início', ar: 'تاريخ البدء', nl: 'Begindatum', de: 'Startdatum' },
+    dateEnd: { fr: 'Date fin', en: 'End date', es: 'Fecha fin', it: 'Data fine', pt: 'Data fim', ar: 'تاريخ الانتهاء', nl: 'Einddatum', de: 'Enddatum' },
+    reference: { fr: 'Référence', en: 'Reference', es: 'Referencia', it: 'Riferimento', pt: 'Referência', ar: 'المرجع', nl: 'Referentie', de: 'Referenz' },
+    price: { fr: 'Prix (€)', en: 'Price (€)', es: 'Precio (€)', it: 'Prezzo (€)', pt: 'Preço (€)', ar: 'السعر (€)', nl: 'Prijs (€)', de: 'Preis (€)' },
+    address: { fr: 'Adresse / Lieu', en: 'Address / Location', es: 'Dirección / Lugar', it: 'Indirizzo / Luogo', pt: 'Endereço / Local', ar: 'العنوان / الموقع', nl: 'Adres / locatie', de: 'Adresse / Ort' },
+    notes: { fr: 'Notes', en: 'Notes', es: 'Notas', it: 'Note', pt: 'Notas', ar: 'ملاحظات', nl: 'Notities', de: 'Notizen' },
+    saveBooking: { fr: 'Enregistrer la réservation', en: 'Save booking', es: 'Guardar reserva', it: 'Salva prenotazione', pt: 'Salvar reserva', ar: 'حفظ الحجز', nl: 'Boeking opslaan', de: 'Buchung speichern' },
+    reset: { fr: 'Recommencer', en: 'Reset', es: 'Reiniciar', it: 'Ricomincia', pt: 'Recomeçar', ar: 'إعادة', nl: 'Opnieuw beginnen', de: 'Zurücksetzen' },
+    backToTrip: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع', nl: 'Terug', de: 'Zurück' },
+    cancelAndReturn: { fr: 'Annuler', en: 'Cancel', es: 'Cancelar', it: 'Annulla', pt: 'Cancelar', ar: 'إلغاء', nl: 'Annuleren', de: 'Abbrechen' },
+    loading: { fr: 'Chargement...', en: 'Loading...', es: 'Cargando...', it: 'Caricamento...', pt: 'Carregando...', ar: 'جار التحميل...', nl: 'Laden...', de: 'Wird geladen...' },
+    saved: { fr: 'Réservation enregistrée !', en: 'Booking saved!', es: '¡Reserva guardada!', it: 'Prenotazione salvata!', pt: 'Reserva salva!', ar: 'تم حفظ الحجز!', nl: 'Boeking opgeslagen!', de: 'Buchung gespeichert!' },
+    errorSaving: { fr: 'Erreur lors de l\'enregistrement', en: 'Error saving', es: 'Error al guardar', it: 'Errore durante il salvataggio', pt: 'Erro ao salvar', ar: 'خطأ في الحفظ', nl: 'Fout bij opslaan', de: 'Fehler beim Speichern' },
+    noTrip: { fr: 'Voyage non trouvé', en: 'Trip not found', es: 'Viaje no encontrado', it: 'Viaggio non trovato', pt: 'Viagem não encontrada', ar: 'الرحلة غير موجودة', nl: 'Reis niet gevonden', de: 'Reise nicht gefunden' },
+    selectStepFirst: { fr: 'Sélectionnez une étape', en: 'Select a step first', es: 'Seleccione una etapa', it: 'Seleziona una tappa', pt: 'Selecione uma etapa', ar: 'اختر مرحلة أولاً', nl: 'Kies eerst een stop', de: 'Wähle zuerst eine Etappe' },
+    enterName: { fr: 'Entrez un nom', en: 'Enter a name', es: 'Ingrese un nombre', it: 'Inserisci un nome', pt: 'Digite um nome', ar: 'أدخل اسماً', nl: 'Voer een naam in', de: 'Gib einen Namen ein' },
+    pasteEmailFirst: { fr: 'Collez d\'abord un email', en: 'Paste an email first', es: 'Pegue un email primero', it: 'Incolla prima un\'email', pt: 'Cole um email primeiro', ar: 'الصق بريداً أولاً', nl: 'Plak eerst een e-mail', de: 'Füge zuerst eine E-Mail ein' },
+    analysisError: { fr: 'Erreur d\'analyse. Essayez la saisie manuelle.', en: 'Analysis error. Try manual entry.', es: 'Error de análisis. Pruebe la entrada manual.', it: 'Errore di analisi. Prova l\'inserimento manuale.', pt: 'Erro de análise. Tente entrada manual.', ar: 'خطأ في التحليل. جرب الإدخال اليدوي.', nl: 'Fout bij de analyse. Probeer handmatig in te voeren.', de: 'Fehler bei der Analyse. Versuche die manuelle Eingabe.' },
     // Réservations existantes
-    stepBookingsTitle: { fr: 'Réservations par étape', en: 'Bookings by step', es: 'Reservas por etapa', it: 'Prenotazioni per tappa', pt: 'Reservas por etapa', ar: 'الحجوزات حسب المرحلة' },
-    travelBookingsTitle: { fr: 'Réservations voyage', en: 'Travel bookings', es: 'Reservas de viaje', it: 'Prenotazioni viaggio', pt: 'Reservas de viagem', ar: 'حجوزات السفر' },
-    noSteps: { fr: 'Aucune étape', en: 'No steps', es: 'Sin etapas', it: 'Nessuna tappa', pt: 'Nenhuma etapa', ar: 'لا توجد مراحل' },
-    addBooking: { fr: 'Ajouter', en: 'Add', es: 'Añadir', it: 'Aggiungi', pt: 'Adicionar', ar: 'إضافة' },
-    noBookings: { fr: 'Aucune réservation', en: 'No bookings', es: 'Sin reservas', it: 'Nessuna prenotazione', pt: 'Nenhuma reserva', ar: 'لا توجد حجوزات' },
-    noTravelBookings: { fr: 'Aucune réservation voyage', en: 'No travel bookings', es: 'Sin reservas de viaje', it: 'Nessuna prenotazione viaggio', pt: 'Nenhuma reserva de viagem', ar: 'لا توجد حجوزات سفر' },
-    confirmDelete: { fr: 'Supprimer cette réservation ?', en: 'Delete this booking?', es: '¿Eliminar esta reserva?', it: 'Eliminare questa prenotazione?', pt: 'Excluir esta reserva?', ar: 'حذف هذا الحجز؟' },
-    bookingDeleted: { fr: 'Réservation supprimée', en: 'Booking deleted', es: 'Reserva eliminada', it: 'Prenotazione eliminata', pt: 'Reserva excluída', ar: 'تم حذف الحجز' },
-    deleteError: { fr: 'Erreur lors de la suppression', en: 'Error deleting', es: 'Error al eliminar', it: 'Errore durante l\'eliminazione', pt: 'Erro ao excluir', ar: 'خطأ في الحذف' },
-    editMode: { fr: 'Mode édition activé', en: 'Edit mode enabled', es: 'Modo edición activado', it: 'Modalità modifica attivata', pt: 'Modo edição ativado', ar: 'تم تفعيل وضع التحرير' },
-    bookingUpdated: { fr: 'Réservation mise à jour !', en: 'Booking updated!', es: '¡Reserva actualizada!', it: 'Prenotazione aggiornata!', pt: 'Reserva atualizada!', ar: 'تم تحديث الحجز!' },
-    updateBooking: { fr: 'Mettre à jour', en: 'Update', es: 'Actualizar', it: 'Aggiorna', pt: 'Atualizar', ar: 'تحديث' },
-    bookingNotFound: { fr: 'Réservation non trouvée', en: 'Booking not found', es: 'Reserva no encontrada', it: 'Prenotazione non trovata', pt: 'Reserva não encontrada', ar: 'الحجز غير موجود' },
-    noName: { fr: 'Sans nom', en: 'No name', es: 'Sin nombre', it: 'Senza nome', pt: 'Sem nome', ar: 'بدون اسم' },
-    bookingsPageTitle: { fr: '📋 Réservations du voyage', en: '📋 Trip bookings', es: '📋 Reservas del viaje', it: '📋 Prenotazioni del viaggio', pt: '📋 Reservas da viagem', ar: '📋 حجوزات الرحلة' },
-    resetAll: { fr: 'Tout réinitialiser', en: 'Reset all', es: 'Restablecer todo', it: 'Reimposta tutto', pt: 'Redefinir tudo', ar: 'إعادة تعيين الكل' },
-    confirmResetAll: { fr: 'Supprimer TOUTES les réservations de ce voyage ? Cette action est irréversible.', en: 'Delete ALL bookings for this trip? This action cannot be undone.', es: '¿Eliminar TODAS las reservas de este viaje? Esta acción es irreversible.', it: 'Eliminare TUTTE le prenotazioni di questo viaggio? Questa azione è irreversibile.', pt: 'Excluir TODAS as reservas desta viagem? Esta ação é irreversível.', ar: 'حذف جميع الحجوزات لهذه الرحلة؟ لا يمكن التراجع عن هذا الإجراء.' },
-    allBookingsDeleted: { fr: 'Toutes les réservations ont été supprimées', en: 'All bookings have been deleted', es: 'Todas las reservas han sido eliminadas', it: 'Tutte le prenotazioni sono state eliminate', pt: 'Todas as reservas foram excluídas', ar: 'تم حذف جميع الحجوزات' },
-    editBooking: { fr: 'Modifier la réservation', en: 'Edit booking', es: 'Editar reserva', it: 'Modifica prenotazione', pt: 'Editar reserva', ar: 'تعديل الحجز' },
-    saveChanges: { fr: 'Enregistrer', en: 'Save', es: 'Guardar', it: 'Salva', pt: 'Salvar', ar: 'حفظ' },
-    bookingType: { fr: 'Type', en: 'Type', es: 'Tipo', it: 'Tipo', pt: 'Tipo', ar: 'النوع' },
+    stepBookingsTitle: { fr: 'Réservations par étape', en: 'Bookings by step', es: 'Reservas por etapa', it: 'Prenotazioni per tappa', pt: 'Reservas por etapa', ar: 'الحجوزات حسب المرحلة', nl: 'Boekingen per stop', de: 'Buchungen pro Etappe' },
+    travelBookingsTitle: { fr: 'Réservations voyage', en: 'Travel bookings', es: 'Reservas de viaje', it: 'Prenotazioni viaggio', pt: 'Reservas de viagem', ar: 'حجوزات السفر', nl: 'Reisboekingen', de: 'Reisebuchungen' },
+    noSteps: { fr: 'Aucune étape', en: 'No steps', es: 'Sin etapas', it: 'Nessuna tappa', pt: 'Nenhuma etapa', ar: 'لا توجد مراحل', nl: 'Geen stops', de: 'Keine Etappen' },
+    addBooking: { fr: 'Ajouter', en: 'Add', es: 'Añadir', it: 'Aggiungi', pt: 'Adicionar', ar: 'إضافة', nl: 'Toevoegen', de: 'Hinzufügen' },
+    noBookings: { fr: 'Aucune réservation', en: 'No bookings', es: 'Sin reservas', it: 'Nessuna prenotazione', pt: 'Nenhuma reserva', ar: 'لا توجد حجوزات', nl: 'Geen boekingen', de: 'Keine Buchungen' },
+    noTravelBookings: { fr: 'Aucune réservation voyage', en: 'No travel bookings', es: 'Sin reservas de viaje', it: 'Nessuna prenotazione viaggio', pt: 'Nenhuma reserva de viagem', ar: 'لا توجد حجوزات سفر', nl: 'Geen reisboekingen', de: 'Keine Reisebuchungen' },
+    confirmDelete: { fr: 'Supprimer cette réservation ?', en: 'Delete this booking?', es: '¿Eliminar esta reserva?', it: 'Eliminare questa prenotazione?', pt: 'Excluir esta reserva?', ar: 'حذف هذا الحجز؟', nl: 'Deze boeking verwijderen?', de: 'Diese Buchung löschen?' },
+    bookingDeleted: { fr: 'Réservation supprimée', en: 'Booking deleted', es: 'Reserva eliminada', it: 'Prenotazione eliminata', pt: 'Reserva excluída', ar: 'تم حذف الحجز', nl: 'Boeking verwijderd', de: 'Buchung gelöscht' },
+    deleteError: { fr: 'Erreur lors de la suppression', en: 'Error deleting', es: 'Error al eliminar', it: 'Errore durante l\'eliminazione', pt: 'Erro ao excluir', ar: 'خطأ في الحذف', nl: 'Fout bij verwijderen', de: 'Fehler beim Löschen' },
+    editMode: { fr: 'Mode édition activé', en: 'Edit mode enabled', es: 'Modo edición activado', it: 'Modalità modifica attivata', pt: 'Modo edição ativado', ar: 'تم تفعيل وضع التحرير', nl: 'Bewerkmodus ingeschakeld', de: 'Bearbeitungsmodus aktiviert' },
+    bookingUpdated: { fr: 'Réservation mise à jour !', en: 'Booking updated!', es: '¡Reserva actualizada!', it: 'Prenotazione aggiornata!', pt: 'Reserva atualizada!', ar: 'تم تحديث الحجز!', nl: 'Boeking bijgewerkt!', de: 'Buchung aktualisiert!' },
+    updateBooking: { fr: 'Mettre à jour', en: 'Update', es: 'Actualizar', it: 'Aggiorna', pt: 'Atualizar', ar: 'تحديث', nl: 'Bijwerken', de: 'Aktualisieren' },
+    bookingNotFound: { fr: 'Réservation non trouvée', en: 'Booking not found', es: 'Reserva no encontrada', it: 'Prenotazione non trovata', pt: 'Reserva não encontrada', ar: 'الحجز غير موجود', nl: 'Boeking niet gevonden', de: 'Buchung nicht gefunden' },
+    noName: { fr: 'Sans nom', en: 'No name', es: 'Sin nombre', it: 'Senza nome', pt: 'Sem nome', ar: 'بدون اسم', nl: 'Geen naam', de: 'Kein Name' },
+    bookingsPageTitle: { fr: '📋 Réservations du voyage', en: '📋 Trip bookings', es: '📋 Reservas del viaje', it: '📋 Prenotazioni del viaggio', pt: '📋 Reservas da viagem', ar: '📋 حجوزات الرحلة', nl: '📋 Reisboekingen', de: '📋 Reisebuchungen' },
+    resetAll: { fr: 'Tout réinitialiser', en: 'Reset all', es: 'Restablecer todo', it: 'Reimposta tutto', pt: 'Redefinir tudo', ar: 'إعادة تعيين الكل', nl: 'Alles wissen', de: 'Alles zurücksetzen' },
+    confirmResetAll: { fr: 'Supprimer TOUTES les réservations de ce voyage ? Cette action est irréversible.', en: 'Delete ALL bookings for this trip? This action cannot be undone.', es: '¿Eliminar TODAS las reservas de este viaje? Esta acción es irreversible.', it: 'Eliminare TUTTE le prenotazioni di questo viaggio? Questa azione è irreversibile.', pt: 'Excluir TODAS as reservas desta viagem? Esta ação é irreversível.', ar: 'حذف جميع الحجوزات لهذه الرحلة؟ لا يمكن التراجع عن هذا الإجراء.', nl: 'ALLE boekingen van deze reis verwijderen? Dit kan niet ongedaan worden gemaakt.', de: 'ALLE Buchungen dieser Reise löschen? Das kann nicht rückgängig gemacht werden.' },
+    allBookingsDeleted: { fr: 'Toutes les réservations ont été supprimées', en: 'All bookings have been deleted', es: 'Todas las reservas han sido eliminadas', it: 'Tutte le prenotazioni sono state eliminate', pt: 'Todas as reservas foram excluídas', ar: 'تم حذف جميع الحجوزات', nl: 'Alle boekingen zijn verwijderd', de: 'Alle Buchungen wurden gelöscht' },
+    editBooking: { fr: 'Modifier la réservation', en: 'Edit booking', es: 'Editar reserva', it: 'Modifica prenotazione', pt: 'Editar reserva', ar: 'تعديل الحجز', nl: 'Boeking bewerken', de: 'Buchung bearbeiten' },
+    saveChanges: { fr: 'Enregistrer', en: 'Save', es: 'Guardar', it: 'Salva', pt: 'Salvar', ar: 'حفظ', nl: 'Opslaan', de: 'Speichern' },
+    bookingType: { fr: 'Type', en: 'Type', es: 'Tipo', it: 'Tipo', pt: 'Tipo', ar: 'النوع', nl: 'Type', de: 'Art' },
     // Multi-step
-    selectSteps: { fr: 'Affecter aux étapes', en: 'Assign to steps', es: 'Asignar a etapas', it: 'Assegna alle tappe', pt: 'Atribuir às etapas', ar: 'تعيين للمراحل' },
-    multiStepHint: { fr: 'Cliquez sur plusieurs étapes pour partager (ex: hôtel 2 nuits)', en: 'Click multiple steps to share (e.g. hotel 2 nights)', es: 'Haga clic en varias etapas para compartir (ej: hotel 2 noches)', it: 'Clicca su più tappe per condividere (es: hotel 2 notti)', pt: 'Clique em várias etapas para compartilhar (ex: hotel 2 noites)', ar: 'انقر على عدة مراحل للمشاركة (مثال: فندق ليلتين)' },
-    selectAtLeastOneStep: { fr: 'Sélectionnez au moins une étape', en: 'Select at least one step', es: 'Seleccione al menos una etapa', it: 'Seleziona almeno una tappa', pt: 'Selecione pelo menos uma etapa', ar: 'اختر مرحلة واحدة على الأقل' },
-    sharedOn: { fr: 'partagé sur {n} étapes', en: 'shared on {n} steps', es: 'compartido en {n} etapas', it: 'condiviso su {n} tappe', pt: 'compartilhado em {n} etapas', ar: 'مشترك على {n} مراحل' },
-    noStepSelected: { fr: 'Aucune étape sélectionnée', en: 'No step selected', es: 'Ninguna etapa seleccionada', it: 'Nessuna tappa selezionata', pt: 'Nenhuma etapa selecionada', ar: 'لم يتم تحديد أي مرحلة' },
+    selectSteps: { fr: 'Affecter aux étapes', en: 'Assign to steps', es: 'Asignar a etapas', it: 'Assegna alle tappe', pt: 'Atribuir às etapas', ar: 'تعيين للمراحل', nl: 'Aan stops toewijzen', de: 'Etappen zuordnen' },
+    multiStepHint: { fr: 'Cliquez sur plusieurs étapes pour partager (ex: hôtel 2 nuits)', en: 'Click multiple steps to share (e.g. hotel 2 nights)', es: 'Haga clic en varias etapas para compartir (ej: hotel 2 noches)', it: 'Clicca su più tappe per condividere (es: hotel 2 notti)', pt: 'Clique em várias etapas para compartilhar (ex: hotel 2 noites)', ar: 'انقر على عدة مراحل للمشاركة (مثال: فندق ليلتين)', nl: 'Klik op meerdere stops om te delen (bijv. hotel voor 2 nachten)', de: 'Klicke mehrere Etappen an, um sie zu teilen (z. B. Hotel für 2 Nächte)' },
+    selectAtLeastOneStep: { fr: 'Sélectionnez au moins une étape', en: 'Select at least one step', es: 'Seleccione al menos una etapa', it: 'Seleziona almeno una tappa', pt: 'Selecione pelo menos uma etapa', ar: 'اختر مرحلة واحدة على الأقل', nl: 'Kies minstens één stop', de: 'Wähle mindestens eine Etappe' },
+    sharedOn: { fr: 'partagé sur {n} étapes', en: 'shared on {n} steps', es: 'compartido en {n} etapas', it: 'condiviso su {n} tappe', pt: 'compartilhado em {n} etapas', ar: 'مشترك على {n} مراحل', nl: 'gedeeld over {n} stops', de: 'auf {n} Etappen verteilt' },
+    noStepSelected: { fr: 'Aucune étape sélectionnée', en: 'No step selected', es: 'Ninguna etapa seleccionada', it: 'Nessuna tappa selezionata', pt: 'Nenhuma etapa selecionada', ar: 'لم يتم تحديد أي مرحلة', nl: 'Geen stop gekozen', de: 'Keine Etappe ausgewählt' },
     // Parsing IA
-    contentTooShort: { fr: 'Contenu trop court (min 50 caractères)', en: 'Content too short (min 50 characters)', es: 'Contenido demasiado corto (mín 50 caracteres)', it: 'Contenuto troppo corto (min 50 caratteri)', pt: 'Conteúdo muito curto (mín 50 caracteres)', ar: 'المحتوى قصير جداً (50 حرف كحد أدنى)' },
-    loginRequired: { fr: 'Connexion requise', en: 'Login required', es: 'Inicio de sesión requerido', it: 'Accesso richiesto', pt: 'Login necessário', ar: 'تسجيل الدخول مطلوب' },
-    quotaExceeded: { fr: 'Quota atteint ({n}/mois). Réessayez le mois prochain.', en: 'Quota exceeded ({n}/month). Try again next month.', es: 'Cuota alcanzada ({n}/mes). Intente el próximo mes.', it: 'Quota raggiunta ({n}/mese). Riprova il mese prossimo.', pt: 'Cota atingida ({n}/mês). Tente novamente no próximo mês.', ar: 'تم تجاوز الحصة ({n}/شهر). حاول الشهر المقبل.' },
-    analysisSuccess: { fr: 'Analyse réussie ! ({n} analyses restantes ce mois)', en: 'Analysis successful! ({n} analyses left this month)', es: '¡Análisis exitoso! ({n} análisis restantes este mes)', it: 'Analisi riuscita! ({n} analisi rimanenti questo mese)', pt: 'Análise bem-sucedida! ({n} análises restantes este mês)', ar: 'تم التحليل بنجاح! ({n} تحليلات متبقية هذا الشهر)' },
-    analysisErrorFallback: { fr: 'Erreur IA, analyse locale utilisée', en: 'AI error, using local analysis', es: 'Error IA, usando análisis local', it: 'Errore IA, usando analisi locale', pt: 'Erro IA, usando análise local', ar: 'خطأ في الذكاء الاصطناعي، استخدام التحليل المحلي' },
-    aiUnavailable: { fr: 'L\'IA n\'est pas disponible. Nous utilisons des IA gratuites pour vous permettre d\'utiliser ce site gratuitement. Merci de rentrer manuellement la réservation ou de revenir plus tard.', en: 'AI is not available. We use free AI services to keep this site free. Please enter the booking manually or try again later.', es: 'La IA no está disponible. Usamos servicios de IA gratuitos para mantener este sitio gratuito. Por favor, ingrese la reserva manualmente o intente más tarde.', it: 'L\'IA non è disponibile. Utilizziamo servizi IA gratuiti per mantenere questo sito gratuito. Inserisci la prenotazione manualmente o riprova più tardi.', pt: 'A IA não está disponível. Usamos serviços de IA gratuitos para manter este site gratuito. Por favor, insira a reserva manualmente ou tente novamente mais tarde.', ar: 'الذكاء الاصطناعي غير متاح. نستخدم خدمات ذكاء اصطناعي مجانية للحفاظ على هذا الموقع مجانياً. يرجى إدخال الحجز يدوياً أو المحاولة لاحقاً.' },
+    contentTooShort: { fr: 'Contenu trop court (min 50 caractères)', en: 'Content too short (min 50 characters)', es: 'Contenido demasiado corto (mín 50 caracteres)', it: 'Contenuto troppo corto (min 50 caratteri)', pt: 'Conteúdo muito curto (mín 50 caracteres)', ar: 'المحتوى قصير جداً (50 حرف كحد أدنى)', nl: 'Tekst te kort (min. 50 tekens)', de: 'Text zu kurz (mind. 50 Zeichen)' },
+    loginRequired: { fr: 'Connexion requise', en: 'Login required', es: 'Inicio de sesión requerido', it: 'Accesso richiesto', pt: 'Login necessário', ar: 'تسجيل الدخول مطلوب', nl: 'Inloggen vereist', de: 'Anmeldung erforderlich' },
+    quotaExceeded: { fr: 'Quota atteint ({n}/mois). Réessayez le mois prochain.', en: 'Quota exceeded ({n}/month). Try again next month.', es: 'Cuota alcanzada ({n}/mes). Intente el próximo mes.', it: 'Quota raggiunta ({n}/mese). Riprova il mese prossimo.', pt: 'Cota atingida ({n}/mês). Tente novamente no próximo mês.', ar: 'تم تجاوز الحصة ({n}/شهر). حاول الشهر المقبل.', nl: 'Limiet bereikt ({n}/maand). Probeer het volgende maand opnieuw.', de: 'Kontingent überschritten ({n}/Monat). Versuche es nächsten Monat erneut.' },
+    analysisSuccess: { fr: 'Analyse réussie ! ({n} analyses restantes ce mois)', en: 'Analysis successful! ({n} analyses left this month)', es: '¡Análisis exitoso! ({n} análisis restantes este mes)', it: 'Analisi riuscita! ({n} analisi rimanenti questo mese)', pt: 'Análise bem-sucedida! ({n} análises restantes este mês)', ar: 'تم التحليل بنجاح! ({n} تحليلات متبقية هذا الشهر)', nl: 'Analyse geslaagd! (nog {n} analyses deze maand)', de: 'Analyse erfolgreich! (noch {n} Analysen diesen Monat)' },
+    analysisErrorFallback: { fr: 'Erreur IA, analyse locale utilisée', en: 'AI error, using local analysis', es: 'Error IA, usando análisis local', it: 'Errore IA, usando analisi locale', pt: 'Erro IA, usando análise local', ar: 'خطأ في الذكاء الاصطناعي، استخدام التحليل المحلي', nl: 'AI-fout, lokale analyse wordt gebruikt', de: 'KI-Fehler, lokale Analyse wird verwendet' },
+    aiUnavailable: { fr: 'L\'IA n\'est pas disponible. Nous utilisons des IA gratuites pour vous permettre d\'utiliser ce site gratuitement. Merci de rentrer manuellement la réservation ou de revenir plus tard.', en: 'AI is not available. We use free AI services to keep this site free. Please enter the booking manually or try again later.', es: 'La IA no está disponible. Usamos servicios de IA gratuitos para mantener este sitio gratuito. Por favor, ingrese la reserva manualmente o intente más tarde.', it: 'L\'IA non è disponibile. Utilizziamo servizi IA gratuiti per mantenere questo sito gratuito. Inserisci la prenotazione manualmente o riprova più tardi.', pt: 'A IA não está disponível. Usamos serviços de IA gratuitos para manter este site gratuito. Por favor, insira a reserva manualmente ou tente novamente mais tarde.', ar: 'الذكاء الاصطناعي غير متاح. نستخدم خدمات ذكاء اصطناعي مجانية للحفاظ على هذا الموقع مجانياً. يرجى إدخال الحجز يدوياً أو المحاولة لاحقاً.', nl: 'AI is niet beschikbaar. We gebruiken gratis AI-diensten om deze site gratis te houden. Voer de boeking handmatig in of probeer het later opnieuw.', de: 'Die KI ist nicht verfügbar. Wir nutzen kostenlose KI-Dienste, damit diese Seite kostenlos bleibt. Gib die Buchung manuell ein oder versuche es später erneut.' },
     // Disclaimer IA
-    aiDisclaimer: { fr: '⚠️ L\'IA peut faire des erreurs. Vérifiez les informations avant d\'enregistrer. OneRoadTrip ne peut être tenu responsable d\'éventuelles erreurs d\'extraction.', en: '⚠️ AI may make mistakes. Please verify the information before saving. OneRoadTrip cannot be held responsible for any extraction errors.', es: '⚠️ La IA puede cometer errores. Verifique la información antes de guardar. OneRoadTrip no se responsabiliza de posibles errores de extracción.', it: '⚠️ L\'IA può commettere errori. Verificare le informazioni prima di salvare. OneRoadTrip non può essere ritenuto responsabile di eventuali errori di estrazione.', pt: '⚠️ A IA pode cometer erros. Verifique as informações antes de salvar. OneRoadTrip não pode ser responsabilizado por erros de extração.', ar: '⚠️ قد يخطئ الذكاء الاصطناعي. يرجى التحقق من المعلومات قبل الحفظ. لا يمكن تحميل OneRoadTrip مسؤولية أي أخطاء في الاستخراج.' },
-    aiDisclaimerAccept: { fr: 'J\'ai compris, ne plus afficher', en: 'I understand, don\'t show again', es: 'Entendido, no mostrar de nuevo', it: 'Ho capito, non mostrare più', pt: 'Entendi, não mostrar novamente', ar: 'فهمت، لا تعرض مرة أخرى' },
-    aiDisclaimerContinue: { fr: 'Continuer', en: 'Continue', es: 'Continuar', it: 'Continua', pt: 'Continuar', ar: 'متابعة' },
+    aiDisclaimer: { fr: '⚠️ L\'IA peut faire des erreurs. Vérifiez les informations avant d\'enregistrer. OneRoadTrip ne peut être tenu responsable d\'éventuelles erreurs d\'extraction.', en: '⚠️ AI may make mistakes. Please verify the information before saving. OneRoadTrip cannot be held responsible for any extraction errors.', es: '⚠️ La IA puede cometer errores. Verifique la información antes de guardar. OneRoadTrip no se responsabiliza de posibles errores de extracción.', it: '⚠️ L\'IA può commettere errori. Verificare le informazioni prima di salvare. OneRoadTrip non può essere ritenuto responsabile di eventuali errori di estrazione.', pt: '⚠️ A IA pode cometer erros. Verifique as informações antes de salvar. OneRoadTrip não pode ser responsabilizado por erros de extração.', ar: '⚠️ قد يخطئ الذكاء الاصطناعي. يرجى التحقق من المعلومات قبل الحفظ. لا يمكن تحميل OneRoadTrip مسؤولية أي أخطاء في الاستخراج.', nl: '⚠️ AI kan fouten maken. Controleer de gegevens voordat je opslaat. OneRoadTrip is niet aansprakelijk voor fouten bij het uitlezen.', de: '⚠️ Die KI kann Fehler machen. Prüfe die Angaben vor dem Speichern. OneRoadTrip haftet nicht für Fehler bei der Auslesung.' },
+    aiDisclaimerAccept: { fr: 'J\'ai compris, ne plus afficher', en: 'I understand, don\'t show again', es: 'Entendido, no mostrar de nuevo', it: 'Ho capito, non mostrare più', pt: 'Entendi, não mostrar novamente', ar: 'فهمت، لا تعرض مرة أخرى', nl: 'Begrepen, niet meer tonen', de: 'Verstanden, nicht mehr anzeigen' },
+    aiDisclaimerContinue: { fr: 'Continuer', en: 'Continue', es: 'Continuar', it: 'Continua', pt: 'Continuar', ar: 'متابعة', nl: 'Doorgaan', de: 'Weiter' },
     // Vols éditables
-    flightOutbound: { fr: 'ALLER', en: 'OUTBOUND', es: 'IDA', it: 'ANDATA', pt: 'IDA', ar: 'ذهاب' },
-    flightReturn: { fr: 'RETOUR', en: 'RETURN', es: 'VUELTA', it: 'RITORNO', pt: 'VOLTA', ar: 'عودة' },
-    flightSegment: { fr: 'Segment', en: 'Segment', es: 'Segmento', it: 'Segmento', pt: 'Segmento', ar: 'مقطع' },
-    flightNumber: { fr: 'N° vol', en: 'Flight #', es: 'N° vuelo', it: 'N° volo', pt: 'N° voo', ar: 'رقم الرحلة' },
-    airline: { fr: 'Compagnie', en: 'Airline', es: 'Aerolínea', it: 'Compagnia', pt: 'Companhia', ar: 'شركة الطيران' },
-    departure: { fr: 'Départ', en: 'Departure', es: 'Salida', it: 'Partenza', pt: 'Partida', ar: 'المغادرة' },
-    arrival: { fr: 'Arrivée', en: 'Arrival', es: 'Llegada', it: 'Arrivo', pt: 'Chegada', ar: 'الوصول' },
-    duration: { fr: 'Durée', en: 'Duration', es: 'Duración', it: 'Durata', pt: 'Duração', ar: 'المدة' },
-    durationHint: { fr: 'ex: 2h30', en: 'e.g. 2h30', es: 'ej: 2h30', it: 'es: 2h30', pt: 'ex: 2h30', ar: 'مثال: 2h30' },
-    airport: { fr: 'Aéroport', en: 'Airport', es: 'Aeropuerto', it: 'Aeroporto', pt: 'Aeroporto', ar: 'المطار' },
-    city: { fr: 'Ville', en: 'City', es: 'Ciudad', it: 'Città', pt: 'Cidade', ar: 'المدينة' },
-    addSegment: { fr: '+ Ajouter un segment', en: '+ Add segment', es: '+ Añadir segmento', it: '+ Aggiungi segmento', pt: '+ Adicionar segmento', ar: '+ إضافة مقطع' },
-    removeSegment: { fr: 'Supprimer', en: 'Remove', es: 'Eliminar', it: 'Elimina', pt: 'Remover', ar: 'إزالة' },
+    flightOutbound: { fr: 'ALLER', en: 'OUTBOUND', es: 'IDA', it: 'ANDATA', pt: 'IDA', ar: 'ذهاب', nl: 'HEENREIS', de: 'HINFLUG' },
+    flightReturn: { fr: 'RETOUR', en: 'RETURN', es: 'VUELTA', it: 'RITORNO', pt: 'VOLTA', ar: 'عودة', nl: 'TERUGREIS', de: 'RÜCKFLUG' },
+    flightSegment: { fr: 'Segment', en: 'Segment', es: 'Segmento', it: 'Segmento', pt: 'Segmento', ar: 'مقطع', nl: 'Traject', de: 'Teilstrecke' },
+    flightNumber: { fr: 'N° vol', en: 'Flight #', es: 'N° vuelo', it: 'N° volo', pt: 'N° voo', ar: 'رقم الرحلة', nl: 'Vluchtnr.', de: 'Flugnr.' },
+    airline: { fr: 'Compagnie', en: 'Airline', es: 'Aerolínea', it: 'Compagnia', pt: 'Companhia', ar: 'شركة الطيران', nl: 'Luchtvaartmaatschappij', de: 'Fluggesellschaft' },
+    departure: { fr: 'Départ', en: 'Departure', es: 'Salida', it: 'Partenza', pt: 'Partida', ar: 'المغادرة', nl: 'Vertrek', de: 'Abflug' },
+    arrival: { fr: 'Arrivée', en: 'Arrival', es: 'Llegada', it: 'Arrivo', pt: 'Chegada', ar: 'الوصول', nl: 'Aankomst', de: 'Ankunft' },
+    duration: { fr: 'Durée', en: 'Duration', es: 'Duración', it: 'Durata', pt: 'Duração', ar: 'المدة', nl: 'Duur', de: 'Dauer' },
+    durationHint: { fr: 'ex: 2h30', en: 'e.g. 2h30', es: 'ej: 2h30', it: 'es: 2h30', pt: 'ex: 2h30', ar: 'مثال: 2h30', nl: 'bijv. 2u30', de: 'z. B. 2 Std. 30' },
+    airport: { fr: 'Aéroport', en: 'Airport', es: 'Aeropuerto', it: 'Aeroporto', pt: 'Aeroporto', ar: 'المطار', nl: 'Luchthaven', de: 'Flughafen' },
+    city: { fr: 'Ville', en: 'City', es: 'Ciudad', it: 'Città', pt: 'Cidade', ar: 'المدينة', nl: 'Stad', de: 'Stadt' },
+    addSegment: { fr: '+ Ajouter un segment', en: '+ Add segment', es: '+ Añadir segmento', it: '+ Aggiungi segmento', pt: '+ Adicionar segmento', ar: '+ إضافة مقطع', nl: '+ Traject toevoegen', de: '+ Teilstrecke hinzufügen' },
+    removeSegment: { fr: 'Supprimer', en: 'Remove', es: 'Eliminar', it: 'Elimina', pt: 'Remover', ar: 'إزالة', nl: 'Verwijderen', de: 'Entfernen' },
     // Location voiture
-    carPickup: { fr: 'Prise en charge', en: 'Pickup', es: 'Recogida', it: 'Ritiro', pt: 'Retirada', ar: 'الاستلام' },
-    carDropoff: { fr: 'Restitution', en: 'Dropoff', es: 'Devolución', it: 'Riconsegna', pt: 'Devolução', ar: 'التسليم' },
-    vehicleType: { fr: 'Type véhicule', en: 'Vehicle type', es: 'Tipo vehículo', it: 'Tipo veicolo', pt: 'Tipo veículo', ar: 'نوع المركبة' },
-    vehicleModel: { fr: 'Modèle', en: 'Model', es: 'Modelo', it: 'Modello', pt: 'Modelo', ar: 'الطراز' },
-    mileage: { fr: 'Kilométrage', en: 'Mileage', es: 'Kilometraje', it: 'Chilometraggio', pt: 'Quilometragem', ar: 'المسافة' },
-    fuelPolicy: { fr: 'Carburant', en: 'Fuel policy', es: 'Política combustible', it: 'Politica carburante', pt: 'Política combustível', ar: 'سياسة الوقود' },
-    tripSaveRequired: { fr: 'Voyage non sauvegardé', en: 'Trip not saved', es: 'Viaje no guardado', it: 'Viaggio non salvato', pt: 'Viagem não guardada', ar: 'الرحلة غير محفوظة' },
-    tripSaveRequiredMsg: { fr: 'Vous devez d\'abord enregistrer ce voyage dans votre Dashboard pour pouvoir ajouter des photos et réservations.', en: 'You must first save this trip to your Dashboard to add photos and bookings.', es: 'Debe guardar primero este viaje en su Dashboard para añadir fotos y reservas.', it: 'Devi prima salvare questo viaggio nella tua Dashboard per aggiungere foto e prenotazioni.', pt: 'Deve primeiro guardar esta viagem no seu Dashboard para adicionar fotos e reservas.', ar: 'يجب أولاً حفظ هذه الرحلة في لوحة التحكم لإضافة الصور والحجوزات.' },
-    loginRequiredMsg: { fr: 'Vous devez être connecté pour accéder à cette page.', en: 'You must be signed in to access this page.', es: 'Debe iniciar sesión para acceder a esta página.', it: 'Devi accedere per accedere a questa pagina.', pt: 'Deve iniciar sessão para aceder a esta página.', ar: 'يجب تسجيل الدخول للوصول إلى هذه الصفحة.' },
-    goBack: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع' },
-    edit: { fr: 'Modifier', en: 'Edit', es: 'Editar', it: 'Modifica', pt: 'Editar', ar: 'تعديل' },
-    delete: { fr: 'Supprimer', en: 'Delete', es: 'Eliminar', it: 'Elimina', pt: 'Excluir', ar: 'حذف' }
+    carPickup: { fr: 'Prise en charge', en: 'Pickup', es: 'Recogida', it: 'Ritiro', pt: 'Retirada', ar: 'الاستلام', nl: 'Ophalen', de: 'Abholung' },
+    carDropoff: { fr: 'Restitution', en: 'Dropoff', es: 'Devolución', it: 'Riconsegna', pt: 'Devolução', ar: 'التسليم', nl: 'Inleveren', de: 'Rückgabe' },
+    vehicleType: { fr: 'Type véhicule', en: 'Vehicle type', es: 'Tipo vehículo', it: 'Tipo veicolo', pt: 'Tipo veículo', ar: 'نوع المركبة', nl: 'Type voertuig', de: 'Fahrzeugtyp' },
+    vehicleModel: { fr: 'Modèle', en: 'Model', es: 'Modelo', it: 'Modello', pt: 'Modelo', ar: 'الطراز', nl: 'Model', de: 'Modell' },
+    mileage: { fr: 'Kilométrage', en: 'Mileage', es: 'Kilometraje', it: 'Chilometraggio', pt: 'Quilometragem', ar: 'المسافة', nl: 'Kilometers', de: 'Kilometer' },
+    fuelPolicy: { fr: 'Carburant', en: 'Fuel policy', es: 'Política combustible', it: 'Politica carburante', pt: 'Política combustível', ar: 'سياسة الوقود', nl: 'Brandstofbeleid', de: 'Tankregelung' },
+    tripSaveRequired: { fr: 'Voyage non sauvegardé', en: 'Trip not saved', es: 'Viaje no guardado', it: 'Viaggio non salvato', pt: 'Viagem não guardada', ar: 'الرحلة غير محفوظة', nl: 'Reis niet opgeslagen', de: 'Reise nicht gespeichert' },
+    tripSaveRequiredMsg: { fr: 'Vous devez d\'abord enregistrer ce voyage dans votre Dashboard pour pouvoir ajouter des photos et réservations.', en: 'You must first save this trip to your Dashboard to add photos and bookings.', es: 'Debe guardar primero este viaje en su Dashboard para añadir fotos y reservas.', it: 'Devi prima salvare questo viaggio nella tua Dashboard per aggiungere foto e prenotazioni.', pt: 'Deve primeiro guardar esta viagem no seu Dashboard para adicionar fotos e reservas.', ar: 'يجب أولاً حفظ هذه الرحلة في لوحة التحكم لإضافة الصور والحجوزات.', nl: 'Sla deze reis eerst op in je dashboard om foto\'s en boekingen toe te voegen.', de: 'Speichere diese Reise zuerst in deinem Dashboard, um Fotos und Buchungen hinzuzufügen.' },
+    loginRequiredMsg: { fr: 'Vous devez être connecté pour accéder à cette page.', en: 'You must be signed in to access this page.', es: 'Debe iniciar sesión para acceder a esta página.', it: 'Devi accedere per accedere a questa pagina.', pt: 'Deve iniciar sessão para aceder a esta página.', ar: 'يجب تسجيل الدخول للوصول إلى هذه الصفحة.', nl: 'Je moet ingelogd zijn om deze pagina te openen.', de: 'Du musst angemeldet sein, um diese Seite zu öffnen.' },
+    goBack: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع', nl: 'Terug', de: 'Zurück' },
+    edit: { fr: 'Modifier', en: 'Edit', es: 'Editar', it: 'Modifica', pt: 'Editar', ar: 'تعديل', nl: 'Bewerken', de: 'Bearbeiten' },
+    delete: { fr: 'Supprimer', en: 'Delete', es: 'Eliminar', it: 'Elimina', pt: 'Excluir', ar: 'حذف', nl: 'Verwijderen', de: 'Löschen' },
+    convUnavailable: { fr: 'Conversion indisponible, montant gardé en ', en: 'Conversion unavailable, amount kept in ', es: 'Conversión no disponible, importe mantenido en ', it: 'Conversione non disponibile, importo mantenuto in ', pt: 'Conversão indisponível, montante mantido em ', ar: 'Conversion unavailable, amount kept in ', nl: 'Omrekening niet beschikbaar, bedrag blijft in ', de: 'Umrechnung nicht verfügbar, Betrag bleibt in ' },
+    perStepInfo: { fr: '💰 {amount} € par étape ({n} étapes)', en: '💰 {amount} € per stop ({n} stops)', es: '💰 {amount} € por etapa ({n} etapas)', it: '💰 {amount} € per tappa ({n} tappe)', pt: '💰 {amount} € por etapa ({n} etapas)', ar: '💰 {amount} € per stop ({n} stops)', nl: '💰 {amount} € per stop ({n} stops)', de: '💰 {amount} € pro Etappe ({n} Etappen)' },
+    localModeNoAi: { fr: 'Mode local : analyse simplifiée (sans IA)', en: 'Local mode: simplified analysis (no AI)', es: 'Modo local: análisis simplificado (sin IA)', it: 'Modalità locale: analisi semplificata (senza IA)', pt: 'Modo local: análise simplificada (sem IA)', ar: 'Local mode: simplified analysis (no AI)', nl: 'Lokale modus: vereenvoudigde analyse (zonder AI)', de: 'Lokaler Modus: vereinfachte Analyse (ohne KI)' },
+    phEmailText: { fr: 'Copiez-collez ici le contenu de votre email de confirmation de réservation...', en: 'Paste the content of your booking confirmation email here...', es: 'Pegue aquí el contenido de su correo de confirmación de reserva...', it: 'Incolla qui il contenuto della tua email di conferma della prenotazione...', pt: 'Cole aqui o conteúdo do seu e-mail de confirmação de reserva...', ar: 'Paste the content of your booking confirmation email here...', nl: 'Plak hier de inhoud van je boekingsbevestiging...', de: 'Füge hier den Inhalt deiner Buchungsbestätigung ein...' },
+    phNotes: { fr: 'Informations supplémentaires', en: 'Additional information', es: 'Información adicional', it: 'Informazioni aggiuntive', pt: 'Informações adicionais', ar: 'Additional information', nl: 'Extra informatie', de: 'Zusätzliche Informationen' },
+    phBookingName: { fr: 'Nom de la réservation', en: 'Booking name', es: 'Nombre de la reserva', it: 'Nome della prenotazione', pt: 'Nome da reserva', ar: 'Booking name', nl: 'Naam van de boeking', de: 'Name der Buchung' }
   };
   
   let lang = localStorage.getItem('ORT_LANG') || localStorage.getItem('lang')?.slice(0,2) || navigator.language?.slice(0,2) || 'fr';
@@ -1066,6 +1072,12 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
       const key = el.getAttribute('data-i18n');
       const text = t(key);
       if (text && text !== key) el.textContent = text;
+    });
+    // Textes d'aide des champs
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      const text = t(key);
+      if (text && text !== key) el.setAttribute('placeholder', text);
     });
     // Tooltips
     document.querySelectorAll('[data-i18n-title]').forEach(el => {
@@ -1918,7 +1930,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
         finalPrice = Math.round(conv * 100) / 100;
         priceOriginal = { amount: totalPrice, currency: fromCur };
       } else {
-        showToast('Conversion indisponible, montant gardé en ' + fromCur, 'error');
+        showToast(t('convUnavailable') + fromCur, 'error');
       }
     }
     
@@ -2370,7 +2382,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
     
     if (stepCount > 1 && totalPrice > 0) {
       const perStep = (totalPrice / stepCount).toFixed(2);
-      infoEl.textContent = `💰 ${perStep} € par étape (${stepCount} étapes)`;
+      infoEl.textContent = t('perStepInfo').replace('{amount}', perStep).replace('{n}', stepCount);
     } else {
       infoEl.textContent = '';
     }
@@ -2456,7 +2468,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
         console.log('[PARSE-BOOKING] Mode local → parsing regex');
         $('analyzing').classList.remove('show');
         $('btnAnalyze').disabled = false;
-        showToast('Mode local : analyse simplifiée (sans IA)', 'error');
+        showToast(t('localModeNoAi'), 'error');
         const extracted = extractFromText(text);
         if (extracted.name || extracted.date_start || extracted.reference) {
           showFormWithData(extracted);
@@ -2646,7 +2658,7 @@ h1{margin:0 0 4px;font-size:1.2rem;text-align:center}
         finalPrice = Math.round(conv * 100) / 100;
         priceOriginal = { amount: totalPrice, currency: fromCur };
       } else {
-        showToast('Conversion indisponible, montant gardé en ' + fromCur, 'error');
+        showToast(t('convUnavailable') + fromCur, 'error');
       }
     }
     

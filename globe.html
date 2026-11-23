@@ -183,6 +183,13 @@
   $('cardLink').textContent = T.cta;
   $('lDays').textContent = T.days; $('lKm').textContent = T.km;
   $('lStops').textContent = T.stops; $('lNights').textContent = T.nights;
+  // Titre de l'onglet et texte de l'image (restaient en francais)
+  var _GT = {
+    title: {fr:"OneRoadTrip — Globe des itinéraires", en:"OneRoadTrip — Road trip globe", es:"OneRoadTrip — Globo de rutas", it:"OneRoadTrip — Globo degli itinerari", pt:"OneRoadTrip — Globo de roteiros", ar:"OneRoadTrip — كرة المسارات", nl:"OneRoadTrip — Routewereldbol", de:"OneRoadTrip — Routen-Globus"},
+    mapAlt: {fr:"Tracé de l'itinéraire", en:"Route map", es:"Trazado de la ruta", it:"Tracciato dell'itinerario", pt:"Traçado do roteiro", ar:"خريطة المسار", nl:"Routekaart", de:"Routenverlauf"}
+  };
+  document.title = _GT.title[lang] || _GT.title.en;
+  $('cardImg').alt = _GT.mapAlt[lang] || _GT.mapAlt.en;
   if ((window.ORT_RTL_LANGS || ['ar']).indexOf(lang) !== -1) {
     $('searchInput').dir = 'rtl';
     document.querySelector('#card .body').dir = 'rtl';

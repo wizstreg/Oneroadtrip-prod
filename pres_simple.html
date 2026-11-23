@@ -715,6 +715,94 @@ const T = {
     filterAllDays: "الكل", filterAllThemes: "الكل",
     filter_days_1_3: "1-3 أيام", filter_days_4_7: "4-7 أيام",
     filter_days_8_14: "8-14 يوم", filter_days_15plus: "15+ يوم"
+  },
+  nl: {
+    selectionTitle: "Jouw selectie",
+    labelCountryJump: "Ga naar land:",
+    btnValidate: "Mijn selectie bevestigen",
+    mapTitle: "Kies je route op de kaart",
+    labelDays: "Duur:",
+    labelTheme: "Thema:",
+    labelSearch: "Trefwoord:",
+    searchPlaceholder: "Zoeken...",
+    btnReset: "Opnieuw instellen",
+    filterCount_single: "route gevonden",
+    filterCount_plural: "routes gevonden",
+    days: "dagen",
+    km: "km",
+    cities: "Doorkruiste steden:",
+    selectBtn: "Selecteren",
+    rating: "Beoordeling",
+    zoomHint: "Zoom in om meer routes te zien en kies de route die bij je past",
+    alertAlreadySelected: "Al geselecteerd",
+    legendTitle: "Routes",
+    legendMustSee: "Niet te missen",
+    legendRecommended: "Aanbevolen",
+    legendDiscover: "Te ontdekken",
+    legendStandard: "Standaard",
+    legendSelected: "Geselecteerd",
+    visibleCount: "zichtbare routes",
+    sidebarTitle: "Filters",
+    alertMaxSelection: "Maximaal 3 routes", warningReorder: "⚠️ Vergeet niet de etappes op de volgende pagina te herschikken om je route te optimaliseren.",
+    modalTitle: "Stel je reis samen",
+    labelDepartDate: "Vertrekdatum:",
+    labelNbDays: "Gewenst aantal dagen:",
+    labelRythme: "Tempo:",
+    rythmeSlow: "Rustig",
+    rythmeNormal: "Normaal",
+    rythmeFast: "Snel",
+    labelMaxHotels: "Maximaal aantal hotelwissels:",
+    modalCancel: "Annuleren",
+    modalConfirm: "Bevestigen",
+    mobilePreviewCancel: "Annuleren",
+    mobilePreviewConfirm: "Bevestigen",
+    filterAllDays: "Alle", filterAllThemes: "Alle",
+    filter_days_1_3: "1-3 dagen", filter_days_4_7: "4-7 dagen",
+    filter_days_8_14: "8-14 dagen", filter_days_15plus: "15+ dagen"
+  },
+  de: {
+    selectionTitle: "Deine Auswahl",
+    labelCountryJump: "Zum Land:",
+    btnValidate: "Meine Auswahl bestätigen",
+    mapTitle: "Wähle deine Route auf der Karte",
+    labelDays: "Dauer:",
+    labelTheme: "Thema:",
+    labelSearch: "Stichwort:",
+    searchPlaceholder: "Suchen...",
+    btnReset: "Zurücksetzen",
+    filterCount_single: "Route gefunden",
+    filterCount_plural: "Routen gefunden",
+    days: "Tage",
+    km: "km",
+    cities: "Durchquerte Städte:",
+    selectBtn: "Auswählen",
+    rating: "Bewertung",
+    zoomHint: "Zoome hinein, um mehr Routen zu sehen, und wähle die passende aus",
+    alertAlreadySelected: "Bereits ausgewählt",
+    legendTitle: "Routen",
+    legendMustSee: "Unverzichtbar",
+    legendRecommended: "Empfohlen",
+    legendDiscover: "Zu entdecken",
+    legendStandard: "Standard",
+    legendSelected: "Ausgewählt",
+    visibleCount: "sichtbare Routen",
+    sidebarTitle: "Filter",
+    alertMaxSelection: "Höchstens 3 Routen", warningReorder: "⚠️ Denk daran, die Etappen auf der nächsten Seite neu zu ordnen, um deine Strecke zu optimieren.",
+    modalTitle: "Plane deine Reise",
+    labelDepartDate: "Abreisedatum:",
+    labelNbDays: "Gewünschte Anzahl Tage:",
+    labelRythme: "Tempo:",
+    rythmeSlow: "Gemächlich",
+    rythmeNormal: "Normal",
+    rythmeFast: "Zügig",
+    labelMaxHotels: "Maximale Hotelwechsel:",
+    modalCancel: "Abbrechen",
+    modalConfirm: "Bestätigen",
+    mobilePreviewCancel: "Abbrechen",
+    mobilePreviewConfirm: "Bestätigen",
+    filterAllDays: "Alle", filterAllThemes: "Alle",
+    filter_days_1_3: "1-3 Tage", filter_days_4_7: "4-7 Tage",
+    filter_days_8_14: "8-14 Tage", filter_days_15plus: "15+ Tage"
   }
 };
 
@@ -795,6 +883,11 @@ const COUNTRY_CODES = ['FR','IT','ES','PT','CH','GR','HR','DE','AT','BE','NL','G
 })();
 
 function applyTranslations() {
+  // Titre de l'onglet et titre de la selection (restaient en francais)
+  var PAGE_T = {fr:"Itinéraires de Road Trip Clés en Main", en:"Ready-made road trip itineraries", es:"Itinerarios de road trip listos para usar", it:"Itinerari di road trip chiavi in mano", pt:"Roteiros de road trip prontos a usar", ar:"مسارات رحلات برية جاهزة", nl:"Kant-en-klare roadtriproutes", de:"Fertige Roadtrip-Routen"};
+  document.title = (PAGE_T[lang] || PAGE_T.en) + ' | OneRoadTrip';
+  var selT = document.getElementById('selectionTitle');
+  if (selT && L_TEXT.selectionTitle) selT.textContent = L_TEXT.selectionTitle;
   document.getElementById('mapTitle').textContent = L_TEXT.mapTitle;
   document.getElementById('labelDays').textContent = L_TEXT.labelDays;
   document.getElementById('labelTheme').textContent = L_TEXT.labelTheme;
@@ -1008,7 +1101,9 @@ async function loadItineraries() {
       es: 'Cargando',
       it: 'Caricamento',
       pt: 'Carregando',
-      ar: 'جاري التحميل'
+      ar: 'جاري التحميل',
+      nl: 'Laden',
+      de: 'Wird geladen'
     };
     const loadingText = T_LOADING[lang] || T_LOADING.fr;
     

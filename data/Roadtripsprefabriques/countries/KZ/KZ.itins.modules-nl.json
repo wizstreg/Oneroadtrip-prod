@@ -41,7 +41,7 @@
           "slice": 1,
           "region_code": "aktau",
           "suggested_days": 0.5,
-          "rating": 5,
+          "rating": 4.9,
           "night": {
             "place_id": "KZ::aktau",
             "coords": [
@@ -212,11 +212,12 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 206,
-            "drive_min": 208,
+            "distance_km": 300,
+            "drive_min": 300,
             "transport_mode": "car",
-            "road_type": "4x4_track",
-            "method": "osrm"
+            "road_type": "Vanuit Aktau via Zhanaozen, daarna met een 4×4 over de toegangswegen naar Boszhira.",
+            "method": "corrige-audit",
+            "justification": "Le repère de départ correspond à Aktau : l’itinéraire rejoint Zhanaozen par la route, puis emprunte les accès au plateau et les pistes en 4×4, pour environ 300 km et 5 heures de conduite selon le belvédère choisi."
           }
         },
         {
@@ -228,8 +229,8 @@
           "night": {
             "place_id": "KZ::boszhira",
             "coords": [
-              43.5333,
-              53.1833
+              43.41397,
+              54.07343
             ],
             "map_keywords": [
               "Boszhira Valley Mangystau",
@@ -257,24 +258,26 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 206,
-            "drive_min": 208,
+            "distance_km": 45,
+            "drive_min": 120,
             "transport_mode": "car",
-            "road_type": "4x4_pad",
-            "method": "osrm"
+            "road_type": "Met een 4×4 over de onverharde wegen van het Oestjoertplateau naar Oglandy, daarna te voet naar de ondergrondse moskee.",
+            "method": "corrige-audit",
+            "multimodal": true,
+            "justification": "Depuis le secteur de Boszhira, comptez environ 44 km et 90 minutes en 4×4 par les pistes et la route d’accès à Oglandy, puis 1,2 km et 30 minutes de descente à pied jusqu’à la mosquée souterraine de Beket Ata."
           }
         },
         {
           "day": 6,
           "slice": 1,
           "region_code": "mangystau",
-          "suggested_days": 2,
-          "rating": 6.6,
+          "suggested_days": 0.3,
+          "rating": 8.9,
           "night": {
-            "place_id": "KZ::mangystau",
+            "place_id": "KZ::beket-ata",
             "coords": [
-              43.6525,
-              51.1575
+              43.5971,
+              54.0702
             ],
             "map_keywords": [
               "Beket-Ata underground mosque Mangystau",
@@ -301,19 +304,20 @@
             }
           ],
           "to_next_leg": {
-            "distance_km": 1,
-            "drive_min": 3,
+            "distance_km": 280,
+            "drive_min": 435,
             "transport_mode": "car",
-            "road_type": "4x4_pad",
+            "road_type": "",
             "method": "osrm"
-          }
+          },
+          "stay_at": "KZ::beket-ata"
         },
         {
           "day": 7,
           "slice": 1,
           "region_code": "aktau",
           "suggested_days": 0.5,
-          "rating": 5,
+          "rating": 4.9,
           "night": {
             "place_id": "KZ::aktau",
             "coords": [
@@ -921,13 +925,6 @@
               "activity_duration_min": 75
             }
           ],
-          "to_next_leg": {
-            "distance_km": 120,
-            "drive_min": 150,
-            "transport_mode": "car",
-            "road_type": "",
-            "method": "corrige-audit"
-          },
           "stay_at": "KZ::charyn-canyon",
           "stay_nights": 1
         },
@@ -935,13 +932,13 @@
           "day": 6,
           "slice": 1,
           "region_code": "kolsai",
-          "suggested_days": 1,
-          "rating": 5.2,
+          "suggested_days": 0.5,
+          "rating": 8.8,
           "night": {
-            "place_id": "KZ::kolsai",
+            "place_id": "KZ::charyn-canyon",
             "coords": [
-              42.9667,
-              78.3333
+              43.35,
+              79.0847
             ],
             "map_keywords": [
               "Charyn-kloof Valley of Castles Kazakhstan",
@@ -963,8 +960,15 @@
               "activity_duration_min": 60
             }
           ],
+          "to_next_leg": {
+            "distance_km": 107,
+            "drive_min": 234,
+            "transport_mode": "car",
+            "road_type": "",
+            "method": "osrm"
+          },
           "stay_at": "KZ::kolsai",
-          "stay_nights": 1
+          "stay_nights": 0
         },
         {
           "day": 7,
@@ -1006,7 +1010,7 @@
             "method": "osrm"
           },
           "stay_at": "KZ::kolsai",
-          "stay_nights": 1
+          "stay_nights": 2
         },
         {
           "day": 8,
@@ -1088,7 +1092,7 @@
           "slice": 1,
           "region_code": "astana",
           "suggested_days": 2,
-          "rating": 6.7,
+          "rating": 6.6,
           "night": {
             "place_id": "KZ::astana",
             "coords": [
@@ -1129,7 +1133,7 @@
           "slice": 1,
           "region_code": "astana",
           "suggested_days": 2,
-          "rating": 6.7,
+          "rating": 6.6,
           "night": {
             "place_id": "KZ::astana",
             "coords": [
@@ -1182,7 +1186,7 @@
           "slice": 1,
           "region_code": "karaganda",
           "suggested_days": 1,
-          "rating": 4.6,
+          "rating": 4.5,
           "night": {
             "place_id": "KZ::karaganda",
             "coords": [
@@ -1282,7 +1286,7 @@
           "slice": 1,
           "region_code": "astana",
           "suggested_days": 2,
-          "rating": 6.7,
+          "rating": 6.6,
           "night": {
             "place_id": "KZ::astana",
             "coords": [

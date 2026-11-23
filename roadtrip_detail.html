@@ -2583,6 +2583,31 @@ input[type="number"] {
 <script src="/js/ort-routing.js"></script>
 <script src="/js/ort-tripid.js"></script>
 <script src="/js/ort-i18n.js"></script>
+<script>
+// Cles absentes de ort-i18n.js : sans elles, ces textes restaient en francais
+// pour les visiteurs des autres langues.
+(function () {
+  var I = window.ORT_I18N || (window.ORT_I18N = {});
+  var ADD = {
+    addManualItem: { fr: 'Ajouter une dépense', en: 'Add expense', es: 'Añadir gasto', it: 'Aggiungi spesa', pt: 'Adicionar despesa', ar: 'إضافة نفقة', nl: 'Een uitgave toevoegen', de: 'Eine Ausgabe hinzufügen' },
+    budgetTotal: { fr: 'Budget total', en: 'Total budget', es: 'Presupuesto total', it: 'Budget totale', pt: 'Orçamento total', ar: 'الميزانية الإجمالية', nl: 'Totaalbudget', de: 'Gesamtbudget' },
+    budgetTooltip: { fr: 'Cliquez pour voir le détail', en: 'Click to see details', es: 'Haga clic para ver los detalles', it: 'Clicca per vedere i dettagli', pt: 'Clique para ver detalhes', ar: 'انقر لرؤية التفاصيل', nl: 'Klik voor de details', de: 'Für Details klicken' },
+    confirmPassword: { fr: 'Confirmez le mot de passe', en: 'Confirm password', es: 'Confirme la contraseña', it: 'Conferma la password', pt: 'Confirme a senha', ar: 'تأكيد كلمة المرور', nl: 'Bevestig het wachtwoord', de: 'Passwort bestätigen' },
+    activitiesExperiences: { fr: 'Activités & Expériences', en: 'Activities & Experiences', es: 'Actividades y experiencias', it: 'Attività ed esperienze', pt: 'Atividades e experiências', ar: 'أنشطة وتجارب', nl: 'Activiteiten & belevenissen', de: 'Aktivitäten & Erlebnisse' },
+    carRentalTitle: { fr: 'Location de voiture', en: 'Car rental', es: 'Alquiler de coche', it: 'Noleggio auto', pt: 'Aluguel de carro', ar: 'تأجير سيارات', nl: 'Autoverhuur', de: 'Mietwagen' },
+    travelDaysTitle: { fr: 'Jours de trajet (vols/longues routes)', en: 'Travel days (flights/long drives)', es: 'Días de viaje (vuelos/trayectos largos)', it: 'Giorni di viaggio (voli/lunghi tragitti)', pt: 'Dias de viagem (voos/viagens longas)', ar: 'أيام السفر (رحلات جوية/طرق طويلة)', nl: 'Reisdagen (vluchten/lange ritten)', de: 'Reisetage (Flüge/lange Fahrten)' },
+    travelDaysBadge: { fr: '+{n}j trajet', en: '+{n}d travel', es: '+{n}d de viaje', it: '+{n}g di viaggio', pt: '+{n}d de viagem', ar: '+{n} يوم سفر', nl: '+{n} d reizen', de: '+{n} T. Fahrt' }
+  };
+  Object.keys(ADD).forEach(function (k) { if (!I[k]) I[k] = ADD[k]; });
+  // Autres textes restes en dur en francais dans le code de la page
+  var DTX = {"writeMsg": {"fr": "\n\nÉcrivez votre message :", "en": "\n\nWrite your message:", "es": "\n\nEscriba su mensaje:", "it": "\n\nScrivi il tuo messaggio:", "pt": "\n\nEscreva a sua mensagem:", "nl": "\n\nSchrijf je bericht:", "de": "\n\nSchreibe deine Nachricht:", "ar": "\n\nWrite your message:"}, "toVerify": {"fr": " (à vérifier)", "en": " (to verify)", "es": " (por verificar)", "it": " (da verificare)", "pt": " (por verificar)", "nl": " (te controleren)", "de": " (zu prüfen)", "ar": " (to verify)"}, "pwdMin6": {"fr": "Mot de passe ≥ 6 caractères", "en": "Password ≥ 6 characters", "es": "Contraseña ≥ 6 caracteres", "it": "Password ≥ 6 caratteri", "pt": "Senha ≥ 6 caracteres", "nl": "Wachtwoord ≥ 6 tekens", "de": "Passwort ≥ 6 Zeichen", "ar": "Password ≥ 6 characters"}, "pwdMismatch": {"fr": "Les mots de passe ne correspondent pas", "en": "Passwords do not match", "es": "Las contraseñas no coinciden", "it": "Le password non corrispondono", "pt": "As senhas não coincidem", "nl": "De wachtwoorden komen niet overeen", "de": "Die Passwörter stimmen nicht überein", "ar": "Passwords do not match"}, "accountCreatedVerify": {"fr": "Compte créé ! Vérifiez votre e-mail.", "en": "Account created! Check your email.", "es": "¡Cuenta creada! Revise su correo.", "it": "Account creato! Controlla la tua email.", "pt": "Conta criada! Verifique o seu e-mail.", "nl": "Account aangemaakt! Controleer je e-mail.", "de": "Konto erstellt! Prüfe deine E-Mails.", "ar": "Account created! Check your email."}, "noAccountBelow": {"fr": "Aucun compte. Création ci-dessous.", "en": "No account found. Create one below.", "es": "No hay ninguna cuenta. Créela a continuación.", "it": "Nessun account. Crealo qui sotto.", "pt": "Nenhuma conta. Crie-a abaixo.", "nl": "Geen account gevonden. Maak er hieronder een aan.", "de": "Kein Konto gefunden. Erstelle unten eines.", "ar": "No account found. Create one below."}, "loginOk": {"fr": "Connexion réussie.", "en": "Signed in.", "es": "Sesión iniciada.", "it": "Accesso effettuato.", "pt": "Sessão iniciada.", "nl": "Ingelogd.", "de": "Angemeldet.", "ar": "Signed in."}, "loginToSave": {"fr": "🔐 Connectez-vous pour sauvegarder", "en": "🔐 Sign in to save", "es": "🔐 Inicie sesión para guardar", "it": "🔐 Accedi per salvare", "pt": "🔐 Inicie sessão para guardar", "nl": "🔐 Log in om op te slaan", "de": "🔐 Melde dich an, um zu speichern", "ar": "🔐 Sign in to save"}, "bookingDefault": {"fr": "Réservation", "en": "Booking", "es": "Reserva", "it": "Prenotazione", "pt": "Reserva", "nl": "Boeking", "de": "Buchung", "ar": "Booking"}, "linkInvalid": {"fr": "❌ Lien invalide ou expiré", "en": "❌ Invalid or expired link", "es": "❌ Enlace no válido o caducado", "it": "❌ Link non valido o scaduto", "pt": "❌ Ligação inválida ou expirada", "nl": "❌ Ongeldige of verlopen link", "de": "❌ Ungültiger oder abgelaufener Link", "ar": "❌ Invalid or expired link"}, "itineraryDefault": {"fr": "Itinéraire", "en": "Itinerary", "es": "Itinerario", "it": "Itinerario", "pt": "Itinerário", "nl": "Route", "de": "Route", "ar": "Itinerary"}, "headerStats": {"fr": "{steps} étapes · {nights} nuits · {km} km", "en": "{steps} stops · {nights} nights · {km} km", "es": "{steps} etapas · {nights} noches · {km} km", "it": "{steps} tappe · {nights} notti · {km} km", "pt": "{steps} etapas · {nights} noites · {km} km", "nl": "{steps} stops · {nights} nachten · {km} km", "de": "{steps} Etappen · {nights} Nächte · {km} km", "ar": "{steps} stops · {nights} nights · {km} km"}, "reduce": {"fr": "⤡ Réduire", "en": "⤡ Reduce", "es": "⤡ Reducir", "it": "⤡ Riduci", "pt": "⤡ Reduzir", "nl": "⤡ Verkleinen", "de": "⤡ Verkleinern", "ar": "⤡ Reduce"}, "dayStepTitle": {"fr": "Jour {d} (étape {s})", "en": "Day {d} (stop {s})", "es": "Día {d} (etapa {s})", "it": "Giorno {d} (tappa {s})", "pt": "Dia {d} (etapa {s})", "nl": "Dag {d} (stop {s})", "de": "Tag {d} (Etappe {s})", "ar": "Day {d} (stop {s})"}, "passagesNoNight": {"fr": "✅ {n} passage(s) sans nuit", "en": "✅ {n} stop(s) without overnight stay", "es": "✅ {n} parada(s) sin pernocta", "it": "✅ {n} sosta/e senza pernottamento", "pt": "✅ {n} paragem(ns) sem pernoita", "nl": "✅ {n} stop(s) zonder overnachting", "de": "✅ {n} Zwischenstopp(s) ohne Übernachtung", "ar": "✅ {n} stop(s) without overnight stay"}, "nightsKept": {"fr": "✅ {n} nuits conservées", "en": "✅ {n} nights kept", "es": "✅ {n} noches conservadas", "it": "✅ {n} notti mantenute", "pt": "✅ {n} noites mantidas", "nl": "✅ {n} nachten behouden", "de": "✅ {n} Nächte beibehalten", "ar": "✅ {n} nights kept"}, "copyModeHint": {"fr": "📋 Cliquez sur l'étape au-dessus de laquelle vous souhaitez insérer la copie", "en": "📋 Click the stop above which you want to insert the copy", "es": "📋 Haga clic en la etapa encima de la cual desea insertar la copia", "it": "📋 Clicca sulla tappa sopra la quale vuoi inserire la copia", "pt": "📋 Clique na etapa acima da qual pretende inserir a cópia", "nl": "📋 Klik op de stop waarboven je de kopie wilt invoegen", "de": "📋 Klicke auf die Etappe, über der du die Kopie einfügen möchtest", "ar": "📋 Click the stop above which you want to insert the copy"}, "cancelX": {"fr": "✕ Annuler", "en": "✕ Cancel", "es": "✕ Cancelar", "it": "✕ Annulla", "pt": "✕ Cancelar", "nl": "✕ Annuleren", "de": "✕ Abbrechen", "ar": "✕ Cancel"}, "tripBookings": {"fr": "📋 Réservations du voyage", "en": "📋 Trip bookings", "es": "📋 Reservas del viaje", "it": "📋 Prenotazioni del viaggio", "pt": "📋 Reservas da viagem", "nl": "📋 Reisboekingen", "de": "📋 Reisebuchungen", "ar": "📋 Trip bookings"}, "booked": {"fr": "🏨 Réservé", "en": "🏨 Booked", "es": "🏨 Reservado", "it": "🏨 Prenotato", "pt": "🏨 Reservado", "nl": "🏨 Geboekt", "de": "🏨 Gebucht", "ar": "🏨 Booked"}, "offItinerary": {"fr": "Place master (hors itinéraire)", "en": "Place outside the itinerary", "es": "Lugar fuera del itinerario", "it": "Luogo fuori dall'itinerario", "pt": "Local fora do itinerário", "nl": "Plaats buiten de route", "de": "Ort außerhalb der Route", "ar": "Place outside the itinerary"}, "insertPlace": {"fr": "📍 Insérer {name} :", "en": "📍 Insert {name}:", "es": "📍 Insertar {name}:", "it": "📍 Inserisci {name}:", "pt": "📍 Inserir {name}:", "nl": "📍 {name} invoegen:", "de": "📍 {name} einfügen:", "ar": "📍 Insert {name}:"}, "offRoutePlace": {"fr": "Lieu hors trajet (places master)", "en": "Place off the route", "es": "Lugar fuera de la ruta", "it": "Luogo fuori percorso", "pt": "Local fora do percurso", "nl": "Plaats buiten de route", "de": "Ort abseits der Strecke", "ar": "Place off the route"}, "addedName": {"fr": "✅ {name} ajouté", "en": "✅ {name} added", "es": "✅ {name} añadido", "it": "✅ {name} aggiunto", "pt": "✅ {name} adicionado", "nl": "✅ {name} toegevoegd", "de": "✅ {name} hinzugefügt", "ar": "✅ {name} added"}, "positionUpdated": {"fr": "✅ Position mise à jour", "en": "✅ Position updated", "es": "✅ Posición actualizada", "it": "✅ Posizione aggiornata", "pt": "✅ Posição atualizada", "nl": "✅ Positie bijgewerkt", "de": "✅ Position aktualisiert", "ar": "✅ Position updated"}, "placeNotIdentified": {"fr": "❌ Lieu non identifié", "en": "❌ Place not identified", "es": "❌ Lugar no identificado", "it": "❌ Luogo non identificato", "pt": "❌ Local não identificado", "nl": "❌ Plaats niet herkend", "de": "❌ Ort nicht erkannt", "ar": "❌ Place not identified"}, "cityNotFound": {"fr": "❌ Ville non trouvée", "en": "❌ City not found", "es": "❌ Ciudad no encontrada", "it": "❌ Città non trovata", "pt": "❌ Cidade não encontrada", "nl": "❌ Stad niet gevonden", "de": "❌ Stadt nicht gefunden", "ar": "❌ City not found"}, "identError": {"fr": "❌ Erreur identification", "en": "❌ Identification error", "es": "❌ Error de identificación", "it": "❌ Errore di identificazione", "pt": "❌ Erro de identificação", "nl": "❌ Fout bij herkenning", "de": "❌ Fehler bei der Erkennung", "ar": "❌ Identification error"}, "placeNamePrompt": {"fr": "Nom du lieu:", "en": "Place name:", "es": "Nombre del lugar:", "it": "Nome del luogo:", "pt": "Nome do local:", "nl": "Naam van de plaats:", "de": "Name des Ortes:", "ar": "Place name:"}, "placeNotFoundMap": {"fr": "❌ Lieu non trouvé. Essayez sur la carte.", "en": "❌ Place not found. Try on the map.", "es": "❌ Lugar no encontrado. Pruebe en el mapa.", "it": "❌ Luogo non trovato. Prova sulla mappa.", "pt": "❌ Local não encontrado. Tente no mapa.", "nl": "❌ Plaats niet gevonden. Probeer het op de kaart.", "de": "❌ Ort nicht gefunden. Versuche es auf der Karte.", "ar": "❌ Place not found. Try on the map."}, "apiUnavailable": {"fr": "❌ API indisponible. Utilisez la carte.", "en": "❌ Service unavailable. Use the map.", "es": "❌ Servicio no disponible. Use el mapa.", "it": "❌ Servizio non disponibile. Usa la mappa.", "pt": "❌ Serviço indisponível. Use o mapa.", "nl": "❌ Dienst niet beschikbaar. Gebruik de kaart.", "de": "❌ Dienst nicht verfügbar. Nutze die Karte.", "ar": "❌ Service unavailable. Use the map."}, "modeCar": {"fr": "🚗 Voiture", "en": "🚗 Car", "es": "🚗 Coche", "it": "🚗 Auto", "pt": "🚗 Carro", "nl": "🚗 Auto", "de": "🚗 Auto", "ar": "🚗 Car"}, "modeBike": {"fr": "🚴 Vélo", "en": "🚴 Bike", "es": "🚴 Bicicleta", "it": "🚴 Bici", "pt": "🚴 Bicicleta", "nl": "🚴 Fiets", "de": "🚴 Fahrrad", "ar": "🚴 Bike"}, "modeWalk": {"fr": "🚶 Pieds", "en": "🚶 Walking", "es": "🚶 A pie", "it": "🚶 A piedi", "pt": "🚶 A pé", "nl": "🚶 Te voet", "de": "🚶 Zu Fuß", "ar": "🚶 Walking"}, "modeTransit": {"fr": "🚆 Train/Métro", "en": "🚆 Train/Metro", "es": "🚆 Tren/Metro", "it": "🚆 Treno/Metro", "pt": "🚆 Comboio/Metro", "nl": "🚆 Trein/Metro", "de": "🚆 Zug/U-Bahn", "ar": "🚆 Train/Metro"}, "transitTip": {"fr": "💡 Transports en commun : horaires et correspondances affichés", "en": "💡 Public transport: timetables and connections shown", "es": "💡 Transporte público: horarios y conexiones mostrados", "it": "💡 Trasporto pubblico: orari e coincidenze visualizzati", "pt": "💡 Transportes públicos: horários e ligações apresentados", "nl": "💡 Openbaar vervoer: dienstregeling en overstappen weergegeven", "de": "💡 Öffentliche Verkehrsmittel: Fahrpläne und Anschlüsse angezeigt", "ar": "💡 Public transport: timetables and connections shown"}, "kilometres": {"fr": "Kilomètres", "en": "Kilometres", "es": "Kilómetros", "it": "Chilometri", "pt": "Quilómetros", "nl": "Kilometers", "de": "Kilometer", "ar": "Kilometres"}, "milesWord": {"fr": "Miles", "en": "Miles", "es": "Millas", "it": "Miglia", "pt": "Milhas", "nl": "Mijlen", "de": "Meilen", "ar": "Miles"}, "saved": {"fr": "✅ Sauvegardé", "en": "✅ Saved", "es": "✅ Guardado", "it": "✅ Salvato", "pt": "✅ Guardado", "nl": "✅ Opgeslagen", "de": "✅ Gespeichert", "ar": "✅ Saved"}, "tripTitlePh": {"fr": "Titre du voyage", "en": "Trip title", "es": "Título del viaje", "it": "Titolo del viaggio", "pt": "Título da viagem", "nl": "Titel van de reis", "de": "Titel der Reise", "ar": "Trip title"}, "titleChanged": {"fr": "✅ Titre modifié", "en": "✅ Title updated", "es": "✅ Título modificado", "it": "✅ Titolo modificato", "pt": "✅ Título alterado", "nl": "✅ Titel gewijzigd", "de": "✅ Titel geändert", "ar": "✅ Title updated"}, "loginToEditTitle": {"fr": "Connectez-vous pour modifier le titre", "en": "Sign in to edit the title", "es": "Inicie sesión para modificar el título", "it": "Accedi per modificare il titolo", "pt": "Inicie sessão para alterar o título", "nl": "Log in om de titel te wijzigen", "de": "Melde dich an, um den Titel zu ändern", "ar": "Sign in to edit the title"}, "reportSent": {"fr": "✅ Signalement envoyé", "en": "✅ Report sent", "es": "✅ Aviso enviado", "it": "✅ Segnalazione inviata", "pt": "✅ Alerta enviado", "nl": "✅ Melding verzonden", "de": "✅ Meldung gesendet", "ar": "✅ Report sent"}, "unnamedStep": {"fr": "Étape sans nom", "en": "Unnamed stop", "es": "Etapa sin nombre", "it": "Tappa senza nome", "pt": "Etapa sem nome", "nl": "Naamloze stop", "de": "Unbenannte Etappe", "ar": "Unnamed stop"}};
+  window.dtx = function (k) {
+    var l = window.ORT_getLang ? window.ORT_getLang() : (localStorage.getItem('lang') || 'fr');
+    var e = DTX[k] || {};
+    return e[String(l).slice(0, 2)] || e.en || k;
+  };
+})();
+</script>
 <script src="/js/ort-trip-data.js"></script>
 <script>
 // === Fallback i18n si ort-i18n.js non chargé ===
@@ -3178,7 +3203,7 @@ if(!icoWrap){
   // ❗ Alerter → boîte de dialogue + envoi silencieux
   bFlag.addEventListener('click', ()=>{
     const title = TIP_FLAG; // I18N déjà mis à jour plus haut
-    const note = prompt(title + '\n\nÉcrivez votre message libre :');
+    const note = prompt(title + dtx('writeMsg'));
     if(!note || !note.trim()) return;
 
     const payload = {
@@ -3877,9 +3902,9 @@ hdr.appendChild(row);
 </button>
     <div id="quickStats" class="pill stats" data-i18n-title="legend" title="Survolez pour la légende">
       <span id="qsNights">— nuits</span> · <span id="qsDelta">Δ 0</span> ·
-      <span id="qsKm">— km</span> · <span id="qsTime">— h — min</span> · <span id="qsTravelDays" title="Jours de trajet (vols/longues routes)">+0j trajet</span>
+      <span id="qsKm">— km</span> · <span id="qsTime">— h — min</span> · <span id="qsTravelDays" title="Jours de trajet (vols/longues routes)" data-i18n-title="travelDaysTitle">+0j trajet</span>
     </div>
-    <div id="budgetBadge" class="pill budget-badge" style="display:none;cursor:pointer;background:#dcfce7;color:#166534;border-color:#86efac;" title="Cliquez pour voir le détail">
+    <div id="budgetBadge" class="pill budget-badge" style="display:none;cursor:pointer;background:#dcfce7;color:#166534;border-color:#86efac;" title="Cliquez pour voir le détail" data-i18n-title="budgetTooltip">
       💰 <span id="budgetAmount">0 €</span>
     </div>
     </div>
@@ -4148,13 +4173,13 @@ hdr.appendChild(row);
   <div class="modal-card" style="width:min(440px,92vw);background:#fff;border-radius:14px;border:1px solid #c3d6b6;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.16);color:#113f7a;max-height:90vh;overflow-y:auto;">
     <h3 id="emailTitle" style="margin:0 0 6px" data-i18n="emailLogin">Connexion par e-mail</h3>
     <div id="alertContainer"></div>
-    <input id="emailInput" class="input" type="email" placeholder="Votre e-mail" autocomplete="email" style="width:100%;padding:10px 12px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
+    <input id="emailInput" class="input" type="email" placeholder="Votre e-mail" data-i18n-placeholder="email" autocomplete="email" style="width:100%;padding:10px 12px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
     <div class="input-wrap" style="position:relative">
-      <input id="pwdInput" class="input" type="password" placeholder="Mot de passe (min. 6 caractères)" autocomplete="current-password" style="width:100%;padding:10px 12px;padding-right:40px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
+      <input id="pwdInput" class="input" type="password" placeholder="Mot de passe (min. 6 caractères)" data-i18n-placeholder="passwordMin" autocomplete="current-password" style="width:100%;padding:10px 12px;padding-right:40px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
       <button type="button" id="togglePwd1" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:4px;">👁</button>
     </div>
     <div id="pwd2Group" class="input-wrap" style="display:none;position:relative">
-      <input id="pwd2Input" class="input" type="password" placeholder="Confirmez le mot de passe" autocomplete="new-password" style="width:100%;padding:10px 12px;padding-right:40px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
+      <input id="pwd2Input" class="input" type="password" placeholder="Confirmez le mot de passe" data-i18n-placeholder="confirmPassword" autocomplete="new-password" style="width:100%;padding:10px 12px;padding-right:40px;border:1px solid #113f7a;border-radius:10px;margin:8px 0">
       <button type="button" id="togglePwd2" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:18px;padding:4px;">👁</button>
     </div>
     <div class="actions" style="display:flex;gap:10px;justify-content:flex-end;margin-top:8px">
@@ -4225,7 +4250,7 @@ hdr.appendChild(row);
     if(!openAuth) return;
     if(user){
       let label=user.displayName||user.email||'Mon compte';
-      if(user.email && user.emailVerified===false) label+=' (à vérifier)';
+      if(user.email && user.emailVerified===false) label+=dtx('toVerify');
       openAuth.textContent=label;
       if(btnLogout) btnLogout.style.display='';
       if(btnGoogle) btnGoogle.style.display='none';
@@ -4300,7 +4325,7 @@ hdr.appendChild(row);
       success: { fr:'Message envoyé ! Nous vous répondons rapidement.', en:'Message sent! We\'ll reply shortly.', es:'¡Mensaje enviado!', it:'Messaggio inviato!', pt:'Mensagem enviada!', ar:'تم الإرسال!' , nl: 'Bericht verstuurd! We antwoorden snel.', de: 'Nachricht gesendet! Wir antworten schnell.'},
       error:   { fr:'Erreur d\'envoi', en:'Send error', es:'Error de envío', it:'Errore di invio', pt:'Erro de envio', ar:'خطأ في الإرسال' , nl: 'Fout bij verzenden', de: 'Fehler beim Senden'}
     };
-    function getLang(){ return document.documentElement.lang||'fr'; }
+    function getLang(){ return window.ORT_getLang ? window.ORT_getLang() : (document.documentElement.lang||'fr'); }
     function ct(key){ return C[key][getLang()]||C[key].en; }
 
     // Initialiser les textes contact
@@ -4353,16 +4378,16 @@ hdr.appendChild(row);
         const fb=await ensureFirebase(); const a=fb.auth();
         const mail=(email.value||'').trim().toLowerCase(); const pass=pwd.value||'';
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(mail)) return showMsg("E-mail invalide", false);
-        if(!pass || pass.length<6) return showMsg("Mot de passe ≥ 6 caractères", false);
+        if(!pass || pass.length<6) return showMsg(dtx('pwdMin6'), false);
         
         // Mode création de compte
         if(isSignupMode || pwd2Group.style.display !== 'none'){
           const pass2 = pwd2.value||'';
-          if(pass !== pass2) return showMsg("Les mots de passe ne correspondent pas", false);
+          if(pass !== pass2) return showMsg(dtx('pwdMismatch'), false);
           const r = await a.createUserWithEmailAndPassword(mail, pass);
           if(r?.user){ 
             await r.user.sendEmailVerification();
-            showMsg("Compte créé ! Vérifiez votre e-mail.", true); 
+            showMsg(dtx('accountCreatedVerify'), true); 
             setHeaderLabel(r.user); 
             setTimeout(()=>{ modal.style.display='none'; }, 1500); 
           }
@@ -4371,11 +4396,11 @@ hdr.appendChild(row);
         
         // Mode connexion
         const r=await a.signInWithEmailAndPassword(mail,pass).catch(async(e)=>{
-          if(e.code==='auth/user-not-found'){ switchMode(true); showMsg("Aucun compte. Création ci-dessous.", false); return null; }
+          if(e.code==='auth/user-not-found'){ switchMode(true); showMsg(dtx('noAccountBelow'), false); return null; }
           if(e.code==='auth/wrong-password'){ showMsg("Mot de passe incorrect", false); return null; }
           throw e;
         });
-        if(r?.user){ showMsg("Connexion réussie.", true); setHeaderLabel(r.user); setTimeout(()=>{ modal.style.display='none'; }, 500); }
+        if(r?.user){ showMsg(dtx('loginOk'), true); setHeaderLabel(r.user); setTimeout(()=>{ modal.style.display='none'; }, 500); }
       }catch(e){ console.error('[AUTH]', e); showMsg("Erreur: " + (e.message || "Réessayez."), false); }
     });
   }
@@ -4458,7 +4483,7 @@ const ORTSaves = {
   load(uid){ try{ return JSON.parse(localStorage.getItem(this.key(uid))||'[]'); }catch(_){ return []; } },
   save(uid, arr){ try{ localStorage.setItem(this.key(uid), JSON.stringify(arr)); }catch(_){} },
   upsert(user, rt){
-    if(!user){ toast('🔐 Connectez-vous pour sauvegarder'); return false; }
+    if(!user){ toast(dtx('loginToSave')); return false; }
     if(window.ORT_STATE && typeof window.ORT_STATE.saveTrip === 'function') {
       const tripData = Object.assign({ createdAt: Date.now(), updatedAt: Date.now() }, rt);
       window.ORT_STATE.saveTrip(tripData);
@@ -5022,7 +5047,7 @@ function addBookingToCalendar(bookingIdx) {
   } else {
     // Fallback: générer un fichier ICS simple
     console.warn('[CALENDAR] Module ORT_CALENDAR non chargé, fallback...');
-    const title = booking.name || 'Réservation';
+    const title = booking.name || dtx('bookingDefault');
     const start = booking.date_start || '';
     const end = booking.date_end || start;
     
@@ -5368,7 +5393,7 @@ window.showStepPreview = (step) => showStepPreview(step);
           }, 100);
         }
       } else {
-        loadingBanner.innerHTML = '❌ Lien invalide ou expiré';
+        loadingBanner.innerHTML = dtx('linkInvalid');
         loadingBanner.style.background = '#dc2626';
         setTimeout(() => loadingBanner.remove(), 5000);
       }
@@ -5810,7 +5835,7 @@ function applyListView(mode) {
       document.body.appendChild(fullHeader);
     }
     
-    const title = state?.title || 'Itinéraire';
+    const title = state?.title || dtx('itineraryDefault');
     const stepsCount = state?.steps?.length || 0;
     const totalNights = state?.steps?.reduce((s, x) => s + (x.nights || 0), 0) || 0;
     const totalKm = TOTALS?.km || 0;
@@ -5818,9 +5843,9 @@ function applyListView(mode) {
     fullHeader.innerHTML = `
       <span style="display:flex;align-items:center;gap:12px;">
         <span style="font-weight:800;">${title}</span>
-        <span style="opacity:0.85;font-size:0.85rem;">${stepsCount} étapes · ${totalNights} nuits · ${totalKm} km</span>
+        <span style="opacity:0.85;font-size:0.85rem;">${dtx('headerStats').replace('{steps}', stepsCount).replace('{nights}', totalNights).replace('{km}', totalKm)}</span>
       </span>
-      <button id="btnListExitHeader" style="background:rgba(255,255,255,0.95);color:#113f7a;border:none;padding:8px 16px;font-size:14px;font-weight:700;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;">⤡ Réduire</button>
+      <button id="btnListExitHeader" style="background:rgba(255,255,255,0.95);color:#113f7a;border:none;padding:8px 16px;font-size:14px;font-weight:700;border-radius:6px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.2s;">${dtx('reduce')}</button>
     `;
     fullHeader.style.display = 'flex';
     
@@ -5918,7 +5943,7 @@ function applyListView(mode) {
         // Stocker le numéro original pour restauration
         if (!stepNum.dataset.origNum) stepNum.dataset.origNum = stepNum.textContent;
         stepNum.textContent = 'J' + dayNumbers[i];
-        stepNum.title = 'Jour ' + dayNumbers[i] + ' (étape ' + (i + 1) + ')';
+        stepNum.title = dtx('dayStepTitle').replace('{d}', dayNumbers[i]).replace('{s}', i + 1);
       }
       
       // Retirer tout order précédent
@@ -6738,14 +6763,14 @@ function showNightsAdjustmentAlert(adjustment){
     delete state._pendingNightsAdjustment;
     renderRows();
     refreshCounters();
-    toast(`✅ ${diff} passage(s) sans nuit`);
+    toast(dtx('passagesNoNight').replace('{n}', diff));
     overlay.remove();
   };
   
   // Garder les nuits calculées
   document.getElementById('alertKeepNights').onclick = () => {
     delete state._pendingNightsAdjustment;
-    toast(`✅ ${allocated} nuits conservées`);
+    toast(dtx('nightsKept').replace('{n}', allocated));
     overlay.remove();
   };
 }
@@ -6810,7 +6835,7 @@ function updateHelpPop(){
   const deltaSign = delta>0? '+' : '';
   const travelDays = TOTALS.travelDays || 0;
   const travelDaysInfo = travelDays > 0 
-    ? `<div class="row"><span>${t('travelDaysLegend')}</span><strong>+${travelDays}j</strong></div>`
+    ? `<div class="row"><span>${t('travelDaysLegend')}</span><strong>+${travelDays} ${t(travelDays > 1 ? 'days' : 'day')}</strong></div>`
     : '';
   box.innerHTML = `
     <div class="mut">${t('legendTitle')}</div>
@@ -6845,7 +6870,7 @@ function updateQuickStats(){
   }
   if(qsTD) {
     const td = TOTALS.travelDays || 0;
-    qsTD.textContent = td > 0 ? `+${td}j trajet` : '';
+    qsTD.textContent = td > 0 ? String(t('travelDaysBadge')).replace('{n}', td) : '';
     qsTD.style.display = td > 0 ? '' : 'none';
   }
 }
@@ -6877,8 +6902,8 @@ function startCopyMode(sourceIdx) {
     gap: 12px;
   `;
   popup.innerHTML = `
-    📋 Cliquez sur l'étape au-dessus de laquelle vous souhaitez insérer la copie
-    <button onclick="cancelCopyMode()" style="background:#fff;color:#3b82f6;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:700">✕ Annuler</button>
+    ${dtx('copyModeHint')}
+    <button onclick="cancelCopyMode()" style="background:#fff;color:#3b82f6;border:none;padding:6px 12px;border-radius:6px;cursor:pointer;font-weight:700">${dtx('cancelX')}</button>
   `;
   document.body.appendChild(popup);
   
@@ -7089,7 +7114,7 @@ function renderTripBookings() {
   });
   
   // Afficher
-  let html = '<div style="margin-bottom:16px"><div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'span.chev\').textContent=this.nextElementSibling.style.display===\'none\'?\'▸\':\'▾\'" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 14px;background:linear-gradient(135deg,#f0f4ff,#e8f0fe);border-radius:10px;margin-bottom:8px;user-select:none"><h3 style="color:#113f7a;font-size:1.1rem;margin:0">📋 Réservations du voyage</h3><span class="chev" style="font-size:16px;color:#64748b">▸</span></div><div id="tripBookingsInner" style="display:none">';
+  let html = '<div style="margin-bottom:16px"><div onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display===\'none\'?\'block\':\'none\';this.querySelector(\'span.chev\').textContent=this.nextElementSibling.style.display===\'none\'?\'▸\':\'▾\'" style="display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:10px 14px;background:linear-gradient(135deg,#f0f4ff,#e8f0fe);border-radius:10px;margin-bottom:8px;user-select:none"><h3 style="color:#113f7a;font-size:1.1rem;margin:0">' + dtx('tripBookings') + '</h3><span class="chev" style="font-size:16px;color:#64748b">▸</span></div><div id="tripBookingsInner" style="display:none">';
   
   Object.entries(grouped).forEach(([cat, bookings]) => {
     const icon = getCategoryIconForCell(cat);
@@ -7455,7 +7480,7 @@ dateCell.style.textAlign='left';
   if (Number(step.nights||0) > 0) {
     if (bookedHotel) {
       // ✅ Hôtel réservé → afficher son nom
-      const hotelName = bookedHotel.name || bookedHotel.title || '🏨 Réservé';
+      const hotelName = bookedHotel.name || bookedHotel.title || dtx('booked');
       const shortName = hotelName.length > 25 ? hotelName.substring(0, 23) + '…' : hotelName;
       hotel.innerHTML = `
         <div style="font-size:0.8rem;line-height:1.3;color:#059669;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:4px" title="${_esc(hotelName)}">
@@ -8923,7 +8948,7 @@ function otherHoverHTML(p){
     <div style="font:600 13px/1.2 system-ui;color:#0b3b6f">${safe(p.name||p.pid)}</div>
     ${img ? `<img src="${safe(img)}" alt="" style="display:block;width:220px;height:140px;object-fit:cover;border-radius:6px;margin-top:6px;border:1px solid #e5e7eb">` : ``}
     <div style="margin-top:6px;color:#475569;font:12px system-ui">
-      <em>Place master (hors itinéraire)</em>
+      <em>${dtx('offItinerary')}</em>
     </div>
   `;
 }
@@ -8958,12 +8983,12 @@ function openOtherPlaceDetails(p){
     let posListHtml = '';
     posListHtml += `<button class="op-pos-btn" data-pos="0" type="button" style="display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:1px solid #e5e7eb;border-radius:9px;background:#fff;cursor:pointer;text-align:left;margin-bottom:6px;font-family:inherit">
       <span style="background:#e11d48;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex:none">↑</span>
-      <span style="font-size:.88rem;color:#374151;font-weight:600">Au début</span>
+      <span style="font-size:.88rem;color:#374151;font-weight:600">${t('insertAtStart')}</span>
     </button>`;
     currentSteps.forEach((step, idx) => {
       posListHtml += `<button class="op-pos-btn" data-pos="${idx + 1}" type="button" style="display:flex;align-items:center;gap:10px;width:100%;padding:9px 12px;border:1px solid #e5e7eb;border-radius:9px;background:#fff;cursor:pointer;text-align:left;margin-bottom:6px;font-family:inherit">
         <span style="background:#113f7a;color:#fff;width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;flex:none">${idx + 1}</span>
-        <span style="font-size:.88rem;color:#374151">Après <strong>${safe(step.name || '')}</strong></span>
+        <span style="font-size:.88rem;color:#374151">${t('insertAfterLbl')} <strong>${safe(step.name || '')}</strong></span>
       </button>`;
     });
 
@@ -8971,12 +8996,12 @@ function openOtherPlaceDetails(p){
     desc.textContent = '';
     desc.insertAdjacentHTML('afterbegin', `
       <div style="padding:6px 0 10px;border-bottom:1px solid #e5e7eb;margin-bottom:12px">
-        <p style="margin:0 0 8px;font-weight:700;color:#113f7a;font-size:.95rem">📍 Insérer ${safe(p.name || '')} :</p>
+        <p style="margin:0 0 8px;font-weight:700;color:#113f7a;font-size:.95rem">${dtx('insertPlace').replace('{name}', safe(p.name || ''))}</p>
         <div style="max-height:184px;overflow-y:auto;padding-right:4px">
           ${posListHtml}
         </div>
       </div>
-      <p class="mut" style="margin:6px 0 10px">Lieu hors trajet (places master)</p>
+      <p class="mut" style="margin:6px 0 10px">${dtx('offRoutePlace')}</p>
       <p><strong>🏛️ ${visitsLbl}:</strong><br>${v}</p>
       <p><strong>🎯 ${actsLbl}:</strong><br>${a}</p>
     `);
@@ -9006,7 +9031,7 @@ function openOtherPlaceDetails(p){
       if (typeof markUnsavedChanges === 'function') markUnsavedChanges();
 
       popup?.classList.remove('show');
-      toast(`✅ ${p.name} ajouté`);
+      toast(dtx('addedName').replace('{name}', p.name));
     };
 
     // Brancher les clics sur les boutons de position
@@ -9396,10 +9421,10 @@ Object.entries(grouped).forEach(([key, indices]) => {
           renderRows();
           toast(`✅ ${place.name}`);
         }else{
-          toast('✅ Position mise à jour');
+          toast(dtx('positionUpdated'));
         }
       }catch(_){
-        toast('✅ Position mise à jour');
+        toast(dtx('positionUpdated'));
       }
     });
 
@@ -9888,7 +9913,7 @@ async function reverseGeocode(lat,lon){
     const nomData=await nomRes.json();
     
     if(!nomData||!nomData.address){
-      toast('❌ Lieu non identifié');
+      toast(dtx('placeNotIdentified'));
       return null;
     }
     
@@ -9900,7 +9925,7 @@ async function reverseGeocode(lat,lon){
     const country=addr.country_code?.toUpperCase()||'XX';
     
     if(!cityRaw){
-      toast('❌ Ville non trouvée');
+      toast(dtx('cityNotFound'));
       return null;
     }
     
@@ -9956,7 +9981,7 @@ try{
     
   }catch(err){
     console.error('Geocode error:',err);
-    toast('❌ Erreur identification');
+    toast(dtx('identError'));
     return null;
   }
 }
@@ -10061,7 +10086,7 @@ function ortAskInsertPosition(placeName, onPick){
 }
 
 $('#btnAddStep').onclick=()=>{
-  const name=prompt('Nom du lieu:');
+  const name=prompt(dtx('placeNamePrompt'));
   if(!name)return;
   
   // Recherche via API pour obtenir les coordonnées
@@ -10130,16 +10155,16 @@ ortAskInsertPosition(item.name, async (posInOrder) => {
   if (typeof renderRows === 'function') renderRows();
   if (typeof drawMap === 'function') drawMap();
   if (typeof markUnsavedChanges === 'function') markUnsavedChanges();
-  toast(`✅ ${item.name} ajouté`);
+  toast(dtx('addedName').replace('{name}', item.name));
 });
             return;
           }
         }
       }
-      toast('❌ Lieu non trouvé. Essayez sur la carte.');
+      toast(dtx('placeNotFoundMap'));
     }catch(e){
       console.error('Erreur recherche:',e);
-      toast('❌ API indisponible. Utilisez la carte.');
+      toast(dtx('apiUnavailable'));
     }
   })();
 };
@@ -10279,7 +10304,7 @@ if($('#unitToggle')) $('#unitToggle').onclick=()=>{
   console.log('Toggle unit clicked');
   state.distanceUnit=state.distanceUnit==='km'?'mi':'km';
   if($('#unitLabel')) $('#unitLabel').textContent=state.distanceUnit;
-  toast(`📏 ${state.distanceUnit==='km'?'Kilomètres':'Miles'}`);
+  toast(`📏 ${state.distanceUnit==='km'?dtx('kilometres'):dtx('milesWord')}`);
   renderRows();
 };
 
@@ -10291,24 +10316,24 @@ const setTransportMode = (m)=> localStorage.setItem('ort.transportMode', m);
 const TRANSPORT_MODES = {
   // Modes OSRM (disponibles partout)
   driving: { 
-    label: '🚗 Voiture', 
+    get label(){ return dtx('modeCar'); }, 
     api: 'osrm', 
     countries: '*' 
   },
   cycling: { 
-    label: '🚴 Vélo', 
+    get label(){ return dtx('modeBike'); }, 
     api: 'osrm', 
     countries: '*' 
   },
   walking: { 
-    label: '🚶 Pieds', 
+    get label(){ return dtx('modeWalk'); }, 
     api: 'osrm', 
     countries: '*' 
   },
   
   // Modes Navitia (France + Europe uniquement)
   transit: { 
-    label: '🚆 Train/Métro', 
+    get label(){ return dtx('modeTransit'); }, 
     api: 'navitia', 
     countries: ['FR', 'DE', 'BE', 'CH', 'LU', 'NL', 'ES', 'IT', 'GB'] 
   }
@@ -10359,7 +10384,7 @@ function buildModeMenu() {
     
     btn.addEventListener('click', () => {
       setTransportMode(key);
-      document.getElementById('modeLabel').textContent = config.label.split(' ')[1];
+      document.getElementById('modeLabel').textContent = config.label.split(' ').slice(1).join(' ');
       menu.classList.remove('show');
       toast(`${config.label}`);
       renderRows(); // Recalcul distances
@@ -10367,7 +10392,7 @@ function buildModeMenu() {
       // Si on passe à un mode transit, avertir l'utilisateur
       if (config.api === 'mapbox') {
         setTimeout(() => {
-          toast('💡 Transports en commun : horaires et correspondances affichés', 3000);
+          toast(dtx('transitTip'), 3000);
         }, 500);
       }
     });
@@ -10406,7 +10431,7 @@ const currentMode = getTransportMode();
 const currentConfig = TRANSPORT_MODES[currentMode];
 const modeLabelEl = document.getElementById('modeLabel');
 if (currentConfig && modeLabelEl) {
-  modeLabelEl.textContent = currentConfig.label.split(' ')[1];
+  modeLabelEl.textContent = currentConfig.label.split(' ').slice(1).join(' ');
 }
 
 $('#btnSave').onclick = async ()=>{
@@ -10504,7 +10529,7 @@ try{
   }
   
   ORTSaves.upsert(u, summary);
-  toast('✅ Sauvegardé');
+  toast(dtx('saved'));
   
   // Réinitialiser le flag de modifications non sauvegardées
   if (typeof clearUnsavedChanges === 'function') clearUnsavedChanges();
@@ -11293,7 +11318,7 @@ await initFromItin(toUse);
     input.type = 'text';
     input.className = 'title-input';
     input.value = currentTitle;
-    input.placeholder = 'Titre du voyage';
+    input.placeholder = dtx('tripTitlePh');
     
     // Remplacer le titre par l'input
     titleEl.style.display = 'none';
@@ -11341,7 +11366,7 @@ await initFromItin(toUse);
       state.title = newTitle;
       titleEl.textContent = newTitle;
       endEdit();
-      toast('✅ Titre modifié');
+      toast(dtx('titleChanged'));
       scheduleAutosave();
     }
     
@@ -11815,7 +11840,7 @@ window.showLoginModalForSave = function() {
         ar: 'الإبلاغ عن خطأ أو اقتراح'
       , nl: 'Een fout of verbetering melden', de: 'Einen Fehler oder eine Verbesserung melden'}[lang] || 'Report';
       
-      const note = prompt(tipMsg + '\n\nÉcrivez votre message :');
+      const note = prompt(tipMsg + dtx('writeMsg'));
       if(!note || !note.trim()) return;
       
       const payload = {
@@ -11828,7 +11853,7 @@ window.showLoginModalForSave = function() {
         headers: {'Content-Type':'application/json'},
         body: JSON.stringify(payload)
       })
-      .then(() => toast('✅ Signalement envoyé'))
+      .then(() => toast(dtx('reportSent')))
       .catch(() => toast('❌ Envoi impossible'));
     });
   }
@@ -12793,7 +12818,7 @@ const num = document.createElement('div');
       
       const name = document.createElement('div');
       name.className = 'reorg-step-name';
-      name.textContent = step.name || 'Étape sans nom';
+      name.textContent = step.name || dtx('unnamedStep');
       
      const meta = document.createElement('div');
       meta.className = 'reorg-step-meta';
@@ -14565,7 +14590,7 @@ setTimeout(function(){
     const isAdmin = location.hostname === 'localhost' || location.hostname === '127.0.0.1';
     
     if(!user && !isAdmin){
-      if(typeof toast === 'function') toast('Connectez-vous pour modifier le titre');
+      if(typeof toast === 'function') toast(dtx('loginToEditTitle'));
       return;
     }
     
@@ -14576,7 +14601,7 @@ setTimeout(function(){
     input.type = 'text';
     input.className = 'title-input';
     input.value = currentTitle;
-    input.placeholder = 'Titre du voyage';
+    input.placeholder = dtx('tripTitlePh');
     
     titleEl.style.display = 'none';
     editBtn.style.display = 'none';
@@ -14621,7 +14646,7 @@ setTimeout(function(){
       if(window.state) window.state.title = newTitle;
       titleEl.textContent = newTitle;
       endEdit();
-      if(typeof toast === 'function') toast('✅ Titre modifié');
+      if(typeof toast === 'function') toast(dtx('titleChanged'));
       if(typeof scheduleAutosave === 'function') scheduleAutosave();
     }
     
@@ -14720,7 +14745,7 @@ setTimeout(function(){
 <div id="gygModal">
   <div class="gyg-modal-content">
     <div class="gyg-modal-header" style="background:linear-gradient(135deg,#113f7a 0%,#1a5298 100%);">
-      <h3>🎫 Activités & Expériences</h3>
+      <h3>🎫 <span data-i18n="activitiesExperiences">Activités & Expériences</span></h3>
       <button class="gyg-modal-close" onclick="closeGygModal()">✕</button>
     </div>
     <div class="gyg-modal-body">
@@ -14883,7 +14908,7 @@ setTimeout(function(){
 <div id="carRentalModal">
   <div class="car-modal-content">
     <div class="car-modal-header">
-      <h3>🚗 Location de voiture</h3>
+      <h3>🚗 <span data-i18n="carRentalTitle">Location de voiture</span></h3>
       <button class="car-modal-close" onclick="closeCarRentalModal()">✕</button>
     </div>
     <div class="car-modal-body">

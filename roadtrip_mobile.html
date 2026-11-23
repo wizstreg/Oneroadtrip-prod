@@ -241,6 +241,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -2372,7 +2373,7 @@ html, body {
   <button class="header-btn" id="btnLangHeader" aria-label="Langue" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">🌐</button>
   <button class="header-btn" id="btnSaveHeader" aria-label="Sauvegarder" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">💾</button>
   <button class="header-btn" id="btnShareHeader" aria-label="Partager" style="background:none;border:none;font-size:18px;cursor:pointer;padding:6px 10px;color:#fff;">🔗</button>
-  <button class="header-btn" id="btnUser" aria-label="Profil utilisateur" style="background:none;border:none;cursor:pointer;padding:4px 8px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
+  <button class="header-btn" id="btnUser" aria-label="Profil utilisateur" data-i18n-aria="profile" style="background:none;border:none;cursor:pointer;padding:4px 8px;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></button>
 </header>
 
 <!-- Main Content -->
@@ -2381,15 +2382,15 @@ html, body {
   <!-- Bookings Panel (NEW) -->
   <div class="tab-panel" id="bookingsPanel">
     <div id="bookingsContainer">
-      <p style="padding: 20px; text-align: center; color: #999;">Aucune réservation</p>
+      <p style="padding: 20px; text-align: center; color: #999;" data-i18n="noBookings">Aucune réservation</p>
     </div>
   </div>
   
   <!-- Map Panel -->
   <div class="tab-panel" id="mapPanel">
     <div id="map"></div>
-    <button id="btnTogglePlaces" aria-label="Afficher les autres lieux" title="Afficher les autres lieux" style="position:absolute;bottom:128px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:18px;cursor:pointer;z-index:500;display:none;align-items:center;justify-content:center;">📍</button>
-    <button id="btnEditItin" aria-label="Modifier l'itinéraire" data-i18n-title="editItinTitle" title="Modifier l'itinéraire" style="position:absolute;bottom:74px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:18px;cursor:pointer;z-index:500;display:none;align-items:center;justify-content:center;">✏️</button>
+    <button id="btnTogglePlaces" aria-label="Afficher les autres lieux" title="Afficher les autres lieux" data-i18n-aria="showOtherPlaces" data-i18n-title="showOtherPlaces" style="position:absolute;bottom:128px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:18px;cursor:pointer;z-index:500;display:none;align-items:center;justify-content:center;">📍</button>
+    <button id="btnEditItin" aria-label="Modifier l'itinéraire" data-i18n-aria="editItinTitle" data-i18n-title="editItinTitle" title="Modifier l'itinéraire" style="position:absolute;bottom:74px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:18px;cursor:pointer;z-index:500;display:none;align-items:center;justify-content:center;">✏️</button>
     <button id="btnCenterMap" aria-label="Centrer la carte" style="position:absolute;bottom:20px;right:16px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.15);font-size:20px;cursor:pointer;z-index:500;display:flex;align-items:center;justify-content:center;">🎯</button>
   </div>
   
@@ -2499,7 +2500,7 @@ html, body {
       <div class="gmap-iframe-wrapper" id="gmapWrapper">
         <div class="gmap-placeholder">
           <div class="gmap-placeholder-icon">🗺️</div>
-          <div>Chargement de la carte...</div>
+          <div data-i18n="loadingMap">Chargement de la carte...</div>
         </div>
       </div>
     </div>
@@ -2545,18 +2546,16 @@ html, body {
     <button class="step-nav-btn" id="btnNextStep" onclick="navigateStep(1)">›</button>
   </div>
   <div class="sheet-body">
-    <img class="sheet-photo" id="sheetStepPhoto" src="" alt="" style="cursor:zoom-in" onclick="openStepPhotoGrid()" title="Voir toutes les photos">
+    <img class="sheet-photo" id="sheetStepPhoto" src="" alt="" style="cursor:zoom-in" onclick="openStepPhotoGrid()" title="Voir toutes les photos" data-i18n-title="seeAllPhotos">
     
     <!-- Liens affiliés EN HAUT -->
     <div class="affiliate-buttons">
       <a class="affiliate-btn affiliate-gyg" id="btnGyg" href="#" target="_blank" rel="noopener">
         🎫 Tours
       </a>
-      <a class="affiliate-btn affiliate-tiqets" id="btnTiqets" href="#" target="_blank" rel="noopener">
-        🎟️ Billets
-      </a>
+      <a class="affiliate-btn affiliate-tiqets" id="btnTiqets" href="#" target="_blank" rel="noopener" data-i18n="ticketsBtn">🎟️ Billets</a>
       <a class="affiliate-btn affiliate-hotel" id="btnHotel" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px">
-        <img src="/assets/hotel.webp" alt="" style="width:18px;height:18px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'"> Hôtel
+        <img src="/assets/hotel.webp" alt="" style="width:18px;height:18px;border-radius:4px;object-fit:cover" onerror="this.style.display='none'"> <span data-i18n="hotelBtn">Hôtel</span>
       </a>
     </div>
     
@@ -2603,7 +2602,7 @@ html, body {
   <div class="content-modal-header">
     <h2 data-i18n="plannedVisits">📍 Visites prévues</h2>
     <span class="content-modal-step" id="visitsModalStep"></span>
-    <button class="content-add-btn" onclick="addVisit()" title="Ajouter une visite">＋</button>
+    <button class="content-add-btn" onclick="addVisit()" title="Ajouter une visite" data-i18n-title="addVisitTitle">＋</button>
   </div>
   <div class="content-modal-body" id="visitsModalBody">
     <!-- Contenu rempli dynamiquement -->
@@ -2618,7 +2617,7 @@ html, body {
   <div class="content-modal-header">
     <h2>🎯 <span data-i18n="activities">Activités</span></h2>
     <span class="content-modal-step" id="activitiesModalStep"></span>
-    <button class="content-add-btn" onclick="addActivity()" title="Ajouter une activité">＋</button>
+    <button class="content-add-btn" onclick="addActivity()" title="Ajouter une activité" data-i18n-title="addActivityTitle">＋</button>
   </div>
   <div class="content-modal-body" id="activitiesModalBody">
     <!-- Contenu rempli dynamiquement -->
@@ -2716,23 +2715,23 @@ html, body {
       </div>
       <a class="service-card" href="https://ektatraveling.tpo.li/KrBrIrRc" target="_blank" rel="noopener">
         <span class="service-icon">🛡️</span>
-        <span class="service-name">Assurance</span>
-        <span class="service-desc">Voyage serein</span>
+        <span class="service-name" data-i18n="lblInsurance">Assurance</span>
+        <span class="service-desc" data-i18n="svcInsuranceDesc">Voyage serein</span>
       </a>
       <a class="service-card" href="https://trip.tpo.li/ljpidUUf" target="_blank" rel="noopener">
         <span class="service-icon">✈️</span>
-        <span class="service-name">Vols</span>
-        <span class="service-desc">Meilleurs prix</span>
+        <span class="service-name" data-i18n="svcFlights">Vols</span>
+        <span class="service-desc" data-i18n="svcFlightsDesc">Meilleurs prix</span>
       </a>
       <a class="service-card" href="https://qeeq.tpo.li/rMRoXmko" target="_blank" rel="noopener">
         <span class="service-icon">🚗</span>
-        <span class="service-name">Location auto</span>
-        <span class="service-desc">Comparer les offres</span>
+        <span class="service-name" data-i18n="svcCar">Location auto</span>
+        <span class="service-desc" data-i18n="svcCarDesc">Comparer les offres</span>
       </a>
       <a class="service-card" href="https://gettransfer.tpo.li/NQ4bVvpZ" target="_blank" rel="noopener">
         <span class="service-icon">🚐</span>
-        <span class="service-name">Transferts</span>
-        <span class="service-desc">Aéroport & plus</span>
+        <span class="service-name" data-i18n="svcTransfers">Transferts</span>
+        <span class="service-desc" data-i18n="svcTransfersDesc">Aéroport & plus</span>
       </a>
       <!-- Masqué temporairement - fonctionnalité en développement -->
       <div class="service-card" id="btnScanBooking" style="display:none;">
@@ -3980,6 +3979,949 @@ const I18N_MOBILE = {
   }
 };
 
+// Textes ajoutes : restaient en francais dans le code de la page.
+// Fusionnes dans I18N_MOBILE pour passer par i18n() et applyI18n().
+(function () {
+  var ADD = {
+"errorTitle": {
+"fr": "❌ Erreur",
+"en": "❌ Error",
+"es": "❌ Error",
+"it": "❌ Errore",
+"pt": "❌ Erro",
+"nl": "❌ Fout",
+"de": "❌ Fehler",
+"ar": "❌ Error"
+},
+"sharedTrip": {
+"fr": "Voyage partagé",
+"en": "Shared trip",
+"es": "Viaje compartido",
+"it": "Viaggio condiviso",
+"pt": "Viagem partilhada",
+"nl": "Gedeelde reis",
+"de": "Geteilte Reise",
+"ar": "Shared trip"
+},
+"computingRoute": {
+"fr": "🔄 Calcul de l'itinéraire...",
+"en": "🔄 Calculating the route...",
+"es": "🔄 Calculando el itinerario...",
+"it": "🔄 Calcolo dell'itinerario...",
+"pt": "🔄 A calcular o itinerário...",
+"nl": "🔄 Route wordt berekend...",
+"de": "🔄 Route wird berechnet...",
+"ar": "🔄 Calculating the route..."
+},
+"startPoint": {
+"fr": "Point de départ",
+"en": "Starting point",
+"es": "Punto de partida",
+"it": "Punto di partenza",
+"pt": "Ponto de partida",
+"nl": "Vertrekpunt",
+"de": "Startpunkt",
+"ar": "Starting point"
+},
+"endPoint": {
+"fr": "Point d'arrivée",
+"en": "End point",
+"es": "Punto de llegada",
+"it": "Punto di arrivo",
+"pt": "Ponto de chegada",
+"nl": "Eindpunt",
+"de": "Zielpunkt",
+"ar": "End point"
+},
+"travelBookingsTitle": {
+"fr": "🌍 Réservations voyage",
+"en": "🌍 Trip bookings",
+"es": "🌍 Reservas del viaje",
+"it": "🌍 Prenotazioni del viaggio",
+"pt": "🌍 Reservas da viagem",
+"nl": "🌍 Reisboekingen",
+"de": "🌍 Reisebuchungen",
+"ar": "🌍 Trip bookings"
+},
+"addBookingsHint": {
+"fr": "Ajoutez des réservations depuis RT Detail",
+"en": "Add bookings from the detailed view",
+"es": "Añada reservas desde la vista detallada",
+"it": "Aggiungi prenotazioni dalla vista dettagliata",
+"pt": "Adicione reservas a partir da vista detalhada",
+"nl": "Voeg boekingen toe via de detailweergave",
+"de": "Füge Buchungen in der Detailansicht hinzu",
+"ar": "Add bookings from the detailed view"
+},
+"loggedOut": {
+"fr": "👋 Déconnecté",
+"en": "👋 Signed out",
+"es": "👋 Sesión cerrada",
+"it": "👋 Disconnesso",
+"pt": "👋 Sessão terminada",
+"nl": "👋 Uitgelogd",
+"de": "👋 Abgemeldet",
+"ar": "👋 Signed out"
+},
+"verifSentTo": {
+"fr": "✅ Vérification envoyée à ",
+"en": "✅ Verification sent to ",
+"es": "✅ Verificación enviada a ",
+"it": "✅ Verifica inviata a ",
+"pt": "✅ Verificação enviada para ",
+"nl": "✅ Verificatie verzonden naar ",
+"de": "✅ Bestätigung gesendet an ",
+"ar": "✅ Verification sent to "
+},
+"resetEmailSent": {
+"fr": "✅ Email de réinitialisation envoyé",
+"en": "✅ Reset email sent",
+"es": "✅ Correo de restablecimiento enviado",
+"it": "✅ Email di reimpostazione inviata",
+"pt": "✅ E-mail de redefinição enviado",
+"nl": "✅ Resetmail verzonden",
+"de": "✅ E-Mail zum Zurücksetzen gesendet",
+"ar": "✅ Reset email sent"
+},
+"accountDeleted": {
+"fr": "❌ Compte supprimé",
+"en": "❌ Account deleted",
+"es": "❌ Cuenta eliminada",
+"it": "❌ Account eliminato",
+"pt": "❌ Conta eliminada",
+"nl": "❌ Account verwijderd",
+"de": "❌ Konto gelöscht",
+"ar": "❌ Account deleted"
+},
+"seeDetails": {
+"fr": "Voir détails",
+"en": "See details",
+"es": "Ver detalles",
+"it": "Vedi dettagli",
+"pt": "Ver detalhes",
+"nl": "Details bekijken",
+"de": "Details ansehen",
+"ar": "See details"
+},
+"describeVisit": {
+"fr": "Décrivez cette visite...",
+"en": "Describe this visit...",
+"es": "Describa esta visita...",
+"it": "Descrivi questa visita...",
+"pt": "Descreva esta visita...",
+"nl": "Beschrijf dit bezoek...",
+"de": "Beschreibe diesen Besuch...",
+"ar": "Describe this visit..."
+},
+"describeActivity": {
+"fr": "Décrivez cette activité...",
+"en": "Describe this activity...",
+"es": "Describa esta actividad...",
+"it": "Descrivi questa attività...",
+"pt": "Descreva esta atividade...",
+"nl": "Beschrijf deze activiteit...",
+"de": "Beschreibe diese Aktivität...",
+"ar": "Describe this activity..."
+},
+"saveCheck": {
+"fr": "✓ Enregistrer",
+"en": "✓ Save",
+"es": "✓ Guardar",
+"it": "✓ Salva",
+"pt": "✓ Guardar",
+"nl": "✓ Opslaan",
+"de": "✓ Speichern",
+"ar": "✓ Save"
+},
+"saveTick": {
+"fr": "✅ Enregistrer",
+"en": "✅ Save",
+"es": "✅ Guardar",
+"it": "✅ Salva",
+"pt": "✅ Guardar",
+"nl": "✅ Opslaan",
+"de": "✅ Speichern",
+"ar": "✅ Save"
+},
+"deleteStepConfirm": {
+"fr": "Supprimer \"{name}\" ?",
+"en": "Delete \"{name}\"?",
+"es": "¿Eliminar «{name}»?",
+"it": "Eliminare \"{name}\"?",
+"pt": "Eliminar \"{name}\"?",
+"nl": "\"{name}\" verwijderen?",
+"de": "„{name}“ löschen?",
+"ar": "Delete \"{name}\"?"
+},
+"stepDeleted": {
+"fr": "🗑️ Étape supprimée",
+"en": "🗑️ Stop deleted",
+"es": "🗑️ Etapa eliminada",
+"it": "🗑️ Tappa eliminata",
+"pt": "🗑️ Etapa eliminada",
+"nl": "🗑️ Stop verwijderd",
+"de": "🗑️ Etappe gelöscht",
+"ar": "🗑️ Stop deleted"
+},
+"savedDashboard": {
+"fr": "✅ Sauvegardé dans votre Dashboard !",
+"en": "✅ Saved to your dashboard!",
+"es": "✅ ¡Guardado en su panel!",
+"it": "✅ Salvato nella tua dashboard!",
+"pt": "✅ Guardado no seu painel!",
+"nl": "✅ Opgeslagen in je dashboard!",
+"de": "✅ In deinem Dashboard gespeichert!",
+"ar": "✅ Saved to your dashboard!"
+},
+"savedLocally": {
+"fr": "✅ Sauvegardé localement (connectez-vous pour synchroniser)",
+"en": "✅ Saved on this device (sign in to sync)",
+"es": "✅ Guardado en este dispositivo (inicie sesión para sincronizar)",
+"it": "✅ Salvato su questo dispositivo (accedi per sincronizzare)",
+"pt": "✅ Guardado neste dispositivo (inicie sessão para sincronizar)",
+"nl": "✅ Opgeslagen op dit apparaat (log in om te synchroniseren)",
+"de": "✅ Auf diesem Gerät gespeichert (melde dich an, um zu synchronisieren)",
+"ar": "✅ Saved on this device (sign in to sync)"
+},
+"saveError": {
+"fr": "❌ Erreur de sauvegarde",
+"en": "❌ Save error",
+"es": "❌ Error al guardar",
+"it": "❌ Errore di salvataggio",
+"pt": "❌ Erro ao guardar",
+"nl": "❌ Fout bij opslaan",
+"de": "❌ Fehler beim Speichern",
+"ar": "❌ Save error"
+},
+"shareText": {
+"fr": "Découvre mon roadtrip : ",
+"en": "Check out my road trip: ",
+"es": "Descubre mi road trip: ",
+"it": "Scopri il mio road trip: ",
+"pt": "Descobre o meu road trip: ",
+"nl": "Bekijk mijn roadtrip: ",
+"de": "Schau dir meinen Roadtrip an: ",
+"ar": "Check out my road trip: "
+},
+"cat_flight": {
+"fr": "✈️ Vol",
+"en": "✈️ Flight",
+"es": "✈️ Vuelo",
+"it": "✈️ Volo",
+"pt": "✈️ Voo",
+"nl": "✈️ Vlucht",
+"de": "✈️ Flug",
+"ar": "✈️ Flight"
+},
+"cat_car_rental": {
+"fr": "🚗 Location voiture",
+"en": "🚗 Car rental",
+"es": "🚗 Alquiler de coche",
+"it": "🚗 Noleggio auto",
+"pt": "🚗 Aluguer de carro",
+"nl": "🚗 Autoverhuur",
+"de": "🚗 Mietwagen",
+"ar": "🚗 Car rental"
+},
+"cat_insurance": {
+"fr": "🛡️ Assurance",
+"en": "🛡️ Insurance",
+"es": "🛡️ Seguro",
+"it": "🛡️ Assicurazione",
+"pt": "🛡️ Seguro",
+"nl": "🛡️ Verzekering",
+"de": "🛡️ Versicherung",
+"ar": "🛡️ Insurance"
+},
+"cat_hotel": {
+"fr": "🏨 Hébergement",
+"en": "🏨 Accommodation",
+"es": "🏨 Alojamiento",
+"it": "🏨 Alloggio",
+"pt": "🏨 Alojamento",
+"nl": "🏨 Accommodatie",
+"de": "🏨 Unterkunft",
+"ar": "🏨 Accommodation"
+},
+"cat_activity": {
+"fr": "🎯 Activité",
+"en": "🎯 Activity",
+"es": "🎯 Actividad",
+"it": "🎯 Attività",
+"pt": "🎯 Atividade",
+"nl": "🎯 Activiteit",
+"de": "🎯 Aktivität",
+"ar": "🎯 Activity"
+},
+"cat_restaurant": {
+"fr": "🍽️ Restaurant",
+"en": "🍽️ Restaurant",
+"es": "🍽️ Restaurante",
+"it": "🍽️ Ristorante",
+"pt": "🍽️ Restaurante",
+"nl": "🍽️ Restaurant",
+"de": "🍽️ Restaurant",
+"ar": "🍽️ Restaurant"
+},
+"cat_transport": {
+"fr": "🚌 Transport",
+"en": "🚌 Transport",
+"es": "🚌 Transporte",
+"it": "🚌 Trasporto",
+"pt": "🚌 Transporte",
+"nl": "🚌 Vervoer",
+"de": "🚌 Transport",
+"ar": "🚌 Transport"
+},
+"cat_ferry": {
+"fr": "⛴️ Ferry",
+"en": "⛴️ Ferry",
+"es": "⛴️ Ferry",
+"it": "⛴️ Traghetto",
+"pt": "⛴️ Ferry",
+"nl": "⛴️ Veerboot",
+"de": "⛴️ Fähre",
+"ar": "⛴️ Ferry"
+},
+"cat_train": {
+"fr": "🚆 Train",
+"en": "🚆 Train",
+"es": "🚆 Tren",
+"it": "🚆 Treno",
+"pt": "🚆 Comboio",
+"nl": "🚆 Trein",
+"de": "🚆 Zug",
+"ar": "🚆 Train"
+},
+"lblCategory": {
+"fr": "Catégorie",
+"en": "Category",
+"es": "Categoría",
+"it": "Categoria",
+"pt": "Categoria",
+"nl": "Categorie",
+"de": "Kategorie",
+"ar": "Category"
+},
+"lblProvider": {
+"fr": "Prestataire",
+"en": "Provider",
+"es": "Proveedor",
+"it": "Fornitore",
+"pt": "Fornecedor",
+"nl": "Aanbieder",
+"de": "Anbieter",
+"ar": "Provider"
+},
+"flightOut": {
+"fr": "✈️ Aller",
+"en": "✈️ Outbound",
+"es": "✈️ Ida",
+"it": "✈️ Andata",
+"pt": "✈️ Ida",
+"nl": "✈️ Heenvlucht",
+"de": "✈️ Hinflug",
+"ar": "✈️ Outbound"
+},
+"flightBack": {
+"fr": "✈️ Retour",
+"en": "✈️ Return",
+"es": "✈️ Vuelta",
+"it": "✈️ Ritorno",
+"pt": "✈️ Regresso",
+"nl": "✈️ Terugvlucht",
+"de": "✈️ Rückflug",
+"ar": "✈️ Return"
+},
+"lblDeparture": {
+"fr": "Départ",
+"en": "Departure",
+"es": "Salida",
+"it": "Partenza",
+"pt": "Partida",
+"nl": "Vertrek",
+"de": "Abflug",
+"ar": "Departure"
+},
+"lblArrival": {
+"fr": "Arrivée",
+"en": "Arrival",
+"es": "Llegada",
+"it": "Arrivo",
+"pt": "Chegada",
+"nl": "Aankomst",
+"de": "Ankunft",
+"ar": "Arrival"
+},
+"atTime": {
+"fr": "à",
+"en": "at",
+"es": "a las",
+"it": "alle",
+"pt": "às",
+"nl": "om",
+"de": "um",
+"ar": "at"
+},
+"lblDuration": {
+"fr": "Durée",
+"en": "Duration",
+"es": "Duración",
+"it": "Durata",
+"pt": "Duração",
+"nl": "Duur",
+"de": "Dauer",
+"ar": "Duration"
+},
+"lblGate": {
+"fr": "Porte",
+"en": "Gate",
+"es": "Puerta",
+"it": "Gate",
+"pt": "Porta",
+"nl": "Gate",
+"de": "Gate",
+"ar": "Gate"
+},
+"lblSeat": {
+"fr": "Siège",
+"en": "Seat",
+"es": "Asiento",
+"it": "Posto",
+"pt": "Lugar",
+"nl": "Stoel",
+"de": "Sitzplatz",
+"ar": "Seat"
+},
+"lblClass": {
+"fr": "Classe",
+"en": "Class",
+"es": "Clase",
+"it": "Classe",
+"pt": "Classe",
+"nl": "Klasse",
+"de": "Klasse",
+"ar": "Class"
+},
+"lblBaggage": {
+"fr": "Bagages",
+"en": "Baggage",
+"es": "Equipaje",
+"it": "Bagagli",
+"pt": "Bagagem",
+"nl": "Bagage",
+"de": "Gepäck",
+"ar": "Baggage"
+},
+"lblStops": {
+"fr": "Escales",
+"en": "Stops",
+"es": "Escalas",
+"it": "Scali",
+"pt": "Escalas",
+"nl": "Tussenstops",
+"de": "Zwischenstopps",
+"ar": "Stops"
+},
+"directFlight": {
+"fr": "Direct",
+"en": "Direct",
+"es": "Directo",
+"it": "Diretto",
+"pt": "Direto",
+"nl": "Rechtstreeks",
+"de": "Direkt",
+"ar": "Direct"
+},
+"plusOneDay": {
+"fr": "(+1j)",
+"en": "(+1d)",
+"es": "(+1d)",
+"it": "(+1g)",
+"pt": "(+1d)",
+"nl": "(+1 d)",
+"de": "(+1 T.)",
+"ar": "(+1d)"
+},
+"carPickup": {
+"fr": "📍 Prise en charge",
+"en": "📍 Pick-up",
+"es": "📍 Recogida",
+"it": "📍 Ritiro",
+"pt": "📍 Levantamento",
+"nl": "📍 Ophalen",
+"de": "📍 Abholung",
+"ar": "📍 Pick-up"
+},
+"carDropoff": {
+"fr": "📍 Restitution",
+"en": "📍 Drop-off",
+"es": "📍 Devolución",
+"it": "📍 Riconsegna",
+"pt": "📍 Devolução",
+"nl": "📍 Inleveren",
+"de": "📍 Rückgabe",
+"ar": "📍 Drop-off"
+},
+"lblKmIncluded": {
+"fr": "Km inclus",
+"en": "Included km",
+"es": "Km incluidos",
+"it": "Km inclusi",
+"pt": "Km incluídos",
+"nl": "Inbegrepen km",
+"de": "Inklusive km",
+"ar": "Included km"
+},
+"lblFuel": {
+"fr": "Carburant",
+"en": "Fuel",
+"es": "Combustible",
+"it": "Carburante",
+"pt": "Combustível",
+"nl": "Brandstof",
+"de": "Kraftstoff",
+"ar": "Fuel"
+},
+"lblInsurance": {
+"fr": "Assurance",
+"en": "Insurance",
+"es": "Seguro",
+"it": "Assicurazione",
+"pt": "Seguro",
+"nl": "Verzekering",
+"de": "Versicherung",
+"ar": "Insurance"
+},
+"lblRoom": {
+"fr": "Chambre",
+"en": "Room",
+"es": "Habitación",
+"it": "Camera",
+"pt": "Quarto",
+"nl": "Kamer",
+"de": "Zimmer",
+"ar": "Room"
+},
+"lblDateStart": {
+"fr": "Date début",
+"en": "Start date",
+"es": "Fecha de inicio",
+"it": "Data di inizio",
+"pt": "Data de início",
+"nl": "Begindatum",
+"de": "Startdatum",
+"ar": "Start date"
+},
+"lblDateEnd": {
+"fr": "Date fin",
+"en": "End date",
+"es": "Fecha de fin",
+"it": "Data di fine",
+"pt": "Data de fim",
+"nl": "Einddatum",
+"de": "Enddatum",
+"ar": "End date"
+},
+"lblNights": {
+"fr": "Nuits",
+"en": "Nights",
+"es": "Noches",
+"it": "Notti",
+"pt": "Noites",
+"nl": "Nachten",
+"de": "Nächte",
+"ar": "Nights"
+},
+"lblConfirmation": {
+"fr": "N° confirmation",
+"en": "Confirmation no.",
+"es": "N.º de confirmación",
+"it": "N. di conferma",
+"pt": "N.º de confirmação",
+"nl": "Bevestigingsnr.",
+"de": "Bestätigungsnr.",
+"ar": "Confirmation no."
+},
+"lblPrice": {
+"fr": "Prix",
+"en": "Price",
+"es": "Precio",
+"it": "Prezzo",
+"pt": "Preço",
+"nl": "Prijs",
+"de": "Preis",
+"ar": "Price"
+},
+"lblNotes": {
+"fr": "Notes",
+"en": "Notes",
+"es": "Notas",
+"it": "Note",
+"pt": "Notas",
+"nl": "Notities",
+"de": "Notizen",
+"ar": "Notes"
+},
+"lblName": {
+"fr": "Nom",
+"en": "Name",
+"es": "Nombre",
+"it": "Nome",
+"pt": "Nome",
+"nl": "Naam",
+"de": "Name",
+"ar": "Name"
+},
+"lblLink": {
+"fr": "Lien",
+"en": "Link",
+"es": "Enlace",
+"it": "Link",
+"pt": "Link",
+"nl": "Link",
+"de": "Link",
+"ar": "Link"
+},
+"seeBooking": {
+"fr": "🔗 Voir la réservation",
+"en": "🔗 View booking",
+"es": "🔗 Ver la reserva",
+"it": "🔗 Vedi la prenotazione",
+"pt": "🔗 Ver a reserva",
+"nl": "🔗 Boeking bekijken",
+"de": "🔗 Buchung ansehen",
+"ar": "🔗 View booking"
+},
+"bookingUpdated": {
+"fr": "✅ Réservation modifiée",
+"en": "✅ Booking updated",
+"es": "✅ Reserva modificada",
+"it": "✅ Prenotazione modificata",
+"pt": "✅ Reserva alterada",
+"nl": "✅ Boeking bijgewerkt",
+"de": "✅ Buchung geändert",
+"ar": "✅ Booking updated"
+},
+"errorPrefix": {
+"fr": "❌ Erreur: ",
+"en": "❌ Error: ",
+"es": "❌ Error: ",
+"it": "❌ Errore: ",
+"pt": "❌ Erro: ",
+"nl": "❌ Fout: ",
+"de": "❌ Fehler: ",
+"ar": "❌ Error: "
+},
+"deleteBookingConfirm": {
+"fr": "Supprimer la réservation \"{name}\" ?",
+"en": "Delete the booking \"{name}\"?",
+"es": "¿Eliminar la reserva «{name}»?",
+"it": "Eliminare la prenotazione \"{name}\"?",
+"pt": "Eliminar a reserva \"{name}\"?",
+"nl": "Boeking \"{name}\" verwijderen?",
+"de": "Buchung „{name}“ löschen?",
+"ar": "Delete the booking \"{name}\"?"
+},
+"thisBooking": {
+"fr": "cette réservation",
+"en": "this booking",
+"es": "esta reserva",
+"it": "questa prenotazione",
+"pt": "esta reserva",
+"nl": "deze boeking",
+"de": "diese Buchung",
+"ar": "this booking"
+},
+"bookingDeleted": {
+"fr": "✅ Réservation supprimée",
+"en": "✅ Booking deleted",
+"es": "✅ Reserva eliminada",
+"it": "✅ Prenotazione eliminata",
+"pt": "✅ Reserva eliminada",
+"nl": "✅ Boeking verwijderd",
+"de": "✅ Buchung gelöscht",
+"ar": "✅ Booking deleted"
+},
+"cantDeleteLogin": {
+"fr": "❌ Impossible de supprimer - connexion requise",
+"en": "❌ Cannot delete - sign-in required",
+"es": "❌ No se puede eliminar: inicie sesión",
+"it": "❌ Impossibile eliminare - accesso richiesto",
+"pt": "❌ Impossível eliminar - sessão necessária",
+"nl": "❌ Verwijderen niet mogelijk - inloggen vereist",
+"de": "❌ Löschen nicht möglich - Anmeldung erforderlich",
+"ar": "❌ Cannot delete - sign-in required"
+},
+"stepCounter": {
+"fr": "Étape {n} / {total}",
+"en": "Stop {n} / {total}",
+"es": "Etapa {n} / {total}",
+"it": "Tappa {n} / {total}",
+"pt": "Etapa {n} / {total}",
+"nl": "Stop {n} / {total}",
+"de": "Etappe {n} / {total}",
+"ar": "Stop {n} / {total}"
+},
+"stepN": {
+"fr": "Étape {n}",
+"en": "Stop {n}",
+"es": "Etapa {n}",
+"it": "Tappa {n}",
+"pt": "Etapa {n}",
+"nl": "Stop {n}",
+"de": "Etappe {n}",
+"ar": "Stop {n}"
+},
+"noStepsInItin": {
+"fr": "Aucune étape dans cet itinéraire",
+"en": "No stops in this itinerary",
+"es": "No hay etapas en este itinerario",
+"it": "Nessuna tappa in questo itinerario",
+"pt": "Nenhuma etapa neste itinerário",
+"nl": "Geen stops in deze route",
+"de": "Keine Etappen in dieser Route",
+"ar": "No stops in this itinerary"
+},
+"noVisitsActs": {
+"fr": "Pas de visites ni d'activités pour cette étape",
+"en": "No visits or activities for this stop",
+"es": "No hay visitas ni actividades para esta etapa",
+"it": "Nessuna visita né attività per questa tappa",
+"pt": "Sem visitas nem atividades para esta etapa",
+"nl": "Geen bezoeken of activiteiten voor deze stop",
+"de": "Keine Besichtigungen oder Aktivitäten für diese Etappe",
+"ar": "No visits or activities for this stop"
+},
+"noStepsToShow": {
+"fr": "Aucune étape à afficher",
+"en": "No stops to show",
+"es": "No hay etapas que mostrar",
+"it": "Nessuna tappa da mostrare",
+"pt": "Nenhuma etapa para mostrar",
+"nl": "Geen stops om te tonen",
+"de": "Keine Etappen anzuzeigen",
+"ar": "No stops to show"
+},
+"coordsUnavailable": {
+"fr": "Coordonnées non disponibles",
+"en": "Coordinates unavailable",
+"es": "Coordenadas no disponibles",
+"it": "Coordinate non disponibili",
+"pt": "Coordenadas indisponíveis",
+"nl": "Coördinaten niet beschikbaar",
+"de": "Koordinaten nicht verfügbar",
+"ar": "Coordinates unavailable"
+},
+"hotelsLoadFail": {
+"fr": "Impossible de charger les hôtels",
+"en": "Unable to load hotels",
+"es": "No se pueden cargar los hoteles",
+"it": "Impossibile caricare gli hotel",
+"pt": "Não foi possível carregar os hotéis",
+"nl": "Hotels kunnen niet worden geladen",
+"de": "Hotels konnten nicht geladen werden",
+"ar": "Unable to load hotels"
+},
+"loadingMap": {
+"fr": "Chargement de la carte...",
+"en": "Loading map...",
+"es": "Cargando el mapa...",
+"it": "Caricamento della mappa...",
+"pt": "A carregar o mapa...",
+"nl": "Kaart laden...",
+"de": "Karte wird geladen...",
+"ar": "Loading map..."
+},
+"loadingHotelsMap": {
+"fr": "⏳ Chargement de la carte des hôtels...",
+"en": "⏳ Loading hotel map...",
+"es": "⏳ Cargando el mapa de hoteles...",
+"it": "⏳ Caricamento della mappa degli hotel...",
+"pt": "⏳ A carregar o mapa de hotéis...",
+"nl": "⏳ Hotelkaart laden...",
+"de": "⏳ Hotelkarte wird geladen...",
+"ar": "⏳ Loading hotel map..."
+},
+"noItinerary": {
+"fr": "Aucun itinéraire spécifié",
+"en": "No itinerary specified",
+"es": "No se ha indicado ningún itinerario",
+"it": "Nessun itinerario specificato",
+"pt": "Nenhum itinerário indicado",
+"nl": "Geen route opgegeven",
+"de": "Keine Route angegeben",
+"ar": "No itinerary specified"
+},
+"hotelBtn": {
+"fr": "Hôtel",
+"en": "Hotel",
+"es": "Hotel",
+"it": "Hotel",
+"pt": "Hotel",
+"nl": "Hotel",
+"de": "Hotel",
+"ar": "Hotel"
+},
+"ticketsBtn": {
+"fr": "🎟️ Billets",
+"en": "🎟️ Tickets",
+"es": "🎟️ Entradas",
+"it": "🎟️ Biglietti",
+"pt": "🎟️ Bilhetes",
+"nl": "🎟️ Tickets",
+"de": "🎟️ Tickets",
+"ar": "🎟️ Tickets"
+},
+"svcInsuranceDesc": {
+"fr": "Voyage serein",
+"en": "Travel with peace of mind",
+"es": "Viaje tranquilo",
+"it": "Viaggia sereno",
+"pt": "Viagem tranquila",
+"nl": "Zorgeloos reizen",
+"de": "Sorglos reisen",
+"ar": "Travel with peace of mind"
+},
+"svcFlights": {
+"fr": "Vols",
+"en": "Flights",
+"es": "Vuelos",
+"it": "Voli",
+"pt": "Voos",
+"nl": "Vluchten",
+"de": "Flüge",
+"ar": "Flights"
+},
+"svcFlightsDesc": {
+"fr": "Meilleurs prix",
+"en": "Best prices",
+"es": "Mejores precios",
+"it": "Prezzi migliori",
+"pt": "Melhores preços",
+"nl": "Beste prijzen",
+"de": "Beste Preise",
+"ar": "Best prices"
+},
+"svcCar": {
+"fr": "Location auto",
+"en": "Car rental",
+"es": "Alquiler de coche",
+"it": "Noleggio auto",
+"pt": "Aluguer de carro",
+"nl": "Autoverhuur",
+"de": "Mietwagen",
+"ar": "Car rental"
+},
+"svcCarDesc": {
+"fr": "Comparer les offres",
+"en": "Compare offers",
+"es": "Comparar ofertas",
+"it": "Confronta le offerte",
+"pt": "Comparar ofertas",
+"nl": "Aanbiedingen vergelijken",
+"de": "Angebote vergleichen",
+"ar": "Compare offers"
+},
+"svcTransfers": {
+"fr": "Transferts",
+"en": "Transfers",
+"es": "Traslados",
+"it": "Transfer",
+"pt": "Transferes",
+"nl": "Transfers",
+"de": "Transfers",
+"ar": "Transfers"
+},
+"svcTransfersDesc": {
+"fr": "Aéroport & plus",
+"en": "Airport & more",
+"es": "Aeropuerto y más",
+"it": "Aeroporto e altro",
+"pt": "Aeroporto e mais",
+"nl": "Luchthaven & meer",
+"de": "Flughafen & mehr",
+"ar": "Airport & more"
+},
+"activitiesExperiences": {
+"fr": "Activités & Expériences",
+"en": "Activities & Experiences",
+"es": "Actividades y experiencias",
+"it": "Attività ed esperienze",
+"pt": "Atividades e experiências",
+"nl": "Activiteiten & belevenissen",
+"de": "Aktivitäten & Erlebnisse",
+"ar": "Activities & Experiences"
+},
+"showOtherPlaces": {
+"fr": "Afficher les autres lieux",
+"en": "Show other places",
+"es": "Mostrar otros lugares",
+"it": "Mostra altri luoghi",
+"pt": "Mostrar outros lugares",
+"nl": "Andere plaatsen tonen",
+"de": "Andere Orte anzeigen",
+"ar": "Show other places"
+},
+"editItinTitle": {
+"fr": "Modifier l'itinéraire",
+"en": "Edit itinerary",
+"es": "Editar el itinerario",
+"it": "Modifica l'itinerario",
+"pt": "Editar o itinerário",
+"nl": "Route bewerken",
+"de": "Route bearbeiten",
+"ar": "Edit itinerary"
+},
+"seeAllPhotos": {
+"fr": "Voir toutes les photos",
+"en": "See all photos",
+"es": "Ver todas las fotos",
+"it": "Vedi tutte le foto",
+"pt": "Ver todas as fotos",
+"nl": "Alle foto's bekijken",
+"de": "Alle Fotos ansehen",
+"ar": "See all photos"
+},
+"addVisitTitle": {
+"fr": "Ajouter une visite",
+"en": "Add a visit",
+"es": "Añadir una visita",
+"it": "Aggiungi una visita",
+"pt": "Adicionar uma visita",
+"nl": "Een bezoek toevoegen",
+"de": "Besichtigung hinzufügen",
+"ar": "Add a visit"
+},
+"addActivityTitle": {
+"fr": "Ajouter une activité",
+"en": "Add an activity",
+"es": "Añadir una actividad",
+"it": "Aggiungi un'attività",
+"pt": "Adicionar uma atividade",
+"nl": "Een activiteit toevoegen",
+"de": "Aktivität hinzufügen",
+"ar": "Add an activity"
+},
+"addBookingTitle": {
+"fr": "Ajouter une réservation",
+"en": "Add a booking",
+"es": "Añadir una reserva",
+"it": "Aggiungi una prenotazione",
+"pt": "Adicionar uma reserva",
+"nl": "Een boeking toevoegen",
+"de": "Buchung hinzufügen",
+"ar": "Add a booking"
+}
+};
+  Object.keys(ADD).forEach(function (k) {
+    Object.keys(ADD[k]).forEach(function (l) {
+      if (!I18N_MOBILE[l]) I18N_MOBILE[l] = {};
+      if (!I18N_MOBILE[l][k]) I18N_MOBILE[l][k] = ADD[k][l];
+    });
+  });
+})();
+
 function i18n(key) {
   const lang = (window.ORT_getLang ? window.ORT_getLang() : (localStorage.getItem('lang') || localStorage.getItem('ort_lang') || 'fr'));
   // 1. Chercher dans I18N_MOBILE local
@@ -3997,6 +4939,18 @@ function applyI18n() {
     const key = el.getAttribute('data-i18n');
     const text = i18n(key);
     if (text && text !== key) el.textContent = text;
+  });
+  document.querySelectorAll('[data-i18n-title]').forEach(el => {
+    const text = i18n(el.getAttribute('data-i18n-title'));
+    if (text && text !== el.getAttribute('data-i18n-title')) el.title = text;
+  });
+  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
+    const text = i18n(el.getAttribute('data-i18n-aria'));
+    if (text && text !== el.getAttribute('data-i18n-aria')) el.setAttribute('aria-label', text);
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const text = i18n(el.getAttribute('data-i18n-placeholder'));
+    if (text && text !== el.getAttribute('data-i18n-placeholder')) el.placeholder = text;
   });
 }
 
@@ -4208,7 +5162,7 @@ async function init() {
       await loadItinerary(cc, itinId, lang);
     } else {
       debugLog('❌ Aucun mode correspondant!');
-      throw new Error('Aucun itinéraire spécifié');
+      throw new Error(i18n('noItinerary'));
     }
     
     // Charger les noms multilingues pour tous les pays des steps
@@ -4297,7 +5251,7 @@ async function init() {
     if (err.message !== 'Redirection en cours...') {
       showToast('❌ ' + (err.message || 'Erreur'));
       // Afficher message d'erreur au lieu de démo
-      state.title = '❌ Erreur';
+      state.title = i18n('errorTitle');
       state.steps = [];
       renderList();
       renderBookings();
@@ -4341,7 +5295,7 @@ async function loadFromShare(shareToken, lang) {
     
     // Charger les données dans state
     const tripData = sharedData.data;
-    state.title = tripData.title || 'Voyage partagé';
+    state.title = tripData.title || i18n('sharedTrip');
     state.cc = tripData.country || tripData.cc || '';
     state.steps = tripData.steps || [];
     state.lang = lang;
@@ -4495,7 +5449,7 @@ async function loadFromTemp(rtKey) {
       const placeSlug = s.night.place_id.split('::').pop() || '';
       stepName = placeSlug.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
     }
-    if (!stepName) stepName = `Étape ${idx + 1}`;
+    if (!stepName) stepName = i18n('stepN').replace('{n}', idx + 1);
     
     return {
       _idx: idx,
@@ -4802,7 +5756,7 @@ async function applyTripDataToState(tripData) {
     
     return {
       _idx: idx,
-      name: s.name || s.place_name || `Étape ${idx + 1}`,
+      name: s.name || s.place_name || i18n('stepN').replace('{n}', idx + 1),
       lat: s.lat || s.latitude,
       lng: s.lng || s.lon || s.longitude,
       nights: Number(s.nights) || 0,
@@ -4870,7 +5824,7 @@ async function initRouteBuilder(params) {
   const url = `roadtrip_detail.html?${newParams.toString()}`;
   console.log('[MOBILE-BUILDER] Redirect:', url);
   
-  showToast('🔄 Calcul de l\'itinéraire...');
+  showToast(i18n('computingRoute'));
   
   // Petit délai pour voir le toast
   setTimeout(() => {
@@ -5216,7 +6170,7 @@ function selectStepsAlongRoute(config, routeData, places) {
     lat: config.start.lat,
     lng: config.start.lon,
     nights: 1,
-    description: 'Point de départ',
+    description: i18n('startPoint'),
     photos: startPhotos,
     placeId: `${config.start.cc}::${toSlug(config.start.name)}`,
     _progress: 0,
@@ -5294,7 +6248,7 @@ function selectStepsAlongRoute(config, routeData, places) {
     lat: config.end.lat,
     lng: config.end.lon,
     nights: 1,
-    description: 'Point d\'arrivée',
+    description: i18n('endPoint'),
     photos: endPhotos,
     placeId: `${config.end.cc}::${toSlug(config.end.name)}`,
     _progress: 1,
@@ -5462,7 +6416,7 @@ async function loadItinerary_OLD(cc, itinId, lang) {
           let name = day.name || '';
           if (!name && placeId) {
             const parts = placeId.split('::');
-            name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || `Étape ${idx + 1}`;
+            name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || i18n('stepN').replace('{n}', idx + 1);
           }
           
           const visits = Array.isArray(day.visits) ? day.visits.map(v => typeof v === 'string' ? {text: v} : v) : [];
@@ -5478,7 +6432,7 @@ async function loadItinerary_OLD(cc, itinId, lang) {
           
           allSteps.push({
             _idx: allSteps.length,
-            name: name || `Étape ${idx + 1}`,
+            name: name || i18n('stepN').replace('{n}', idx + 1),
             lat: coords[0] || day.lat,
             lng: coords[1] || day.lng || day.lon,
             nights, description,
@@ -5544,7 +6498,7 @@ async function loadItinerary_OLD(cc, itinId, lang) {
     let name = day.name || '';
     if (!name && placeId) {
       const parts = placeId.split('::');
-      name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || `Étape ${idx + 1}`;
+      name = parts[parts.length - 1]?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()) || i18n('stepN').replace('{n}', idx + 1);
     }
     
     const visits = Array.isArray(day.visits) ? day.visits.map(v => typeof v === 'string' ? {text: v} : v) : [];
@@ -5561,7 +6515,7 @@ async function loadItinerary_OLD(cc, itinId, lang) {
     
     steps.push({
       _idx: steps.length,
-      name: name || `Étape ${idx + 1}`,
+      name: name || i18n('stepN').replace('{n}', idx + 1),
       lat: coords[0] || day.lat,
       lng: coords[1] || day.lng || day.lon,
       nights, description,
@@ -5627,7 +6581,7 @@ async function loadFromFirebase(rtKey) {
     
     return {
       _idx: idx,
-      name: s.name || `Étape ${idx + 1}`,
+      name: s.name || i18n('stepN').replace('{n}', idx + 1),
       lat: s.lat, lng: s.lng || s.lon,
       nights: s.nights || s.adjustedDays || 0,
       description: s.description || '',
@@ -5709,7 +6663,7 @@ function renderBookings() {
   
   if (travelBookings.length > 0) {
     html += `<div class="booking-section">
-      <h3 class="booking-section-title">🌍 Réservations voyage</h3>`;
+      <h3 class="booking-section-title">${i18n('travelBookingsTitle')}</h3>`;
     
     travelBookings.forEach(b => {
       const icon = getCategoryIcon(b.category);
@@ -5849,8 +6803,8 @@ function renderBookings() {
     container.innerHTML = `
       <div style="padding: 40px 20px; text-align: center; color: #999;">
         <div style="font-size: 3rem; margin-bottom: 16px;">📋</div>
-        <div>Aucune réservation</div>
-        <div style="font-size: 0.85rem; margin-top: 8px;">Ajoutez des réservations depuis RT Detail</div>
+        <div>${i18n('noBookings')}</div>
+        <div style="font-size: 0.85rem; margin-top: 8px;">${i18n('addBookingsHint')}</div>
       </div>`;
     return;
   }
@@ -6020,7 +6974,7 @@ function updateUserUI() {
     
     if (user) {
       emailEl.textContent = user.email || 'Utilisateur';
-      statusEl.textContent = `Connecté depuis ${new Date(user.metadata.creationTime).toLocaleDateString(ortDateLocale())}`;
+      statusEl.textContent = `${i18n('connectedSince')} ${new Date(user.metadata.creationTime).toLocaleDateString(ortDateLocale())}`;
       
       loginBtn.style.display = 'none';
       logoutBtn.style.display = 'block';
@@ -6057,7 +7011,7 @@ function updateUserUI() {
       window.firebase?.auth?.().signOut().then(() => {
         closeSheet($('userSheet'));
         updateUserUI();
-        showToast('👋 Déconnecté');
+        showToast(i18n('loggedOut'));
       });
     }
   };
@@ -6068,7 +7022,7 @@ function updateUserUI() {
       const user = window.firebase?.auth?.()?.currentUser;
       if (user) {
         user.verifyBeforeUpdateEmail(newEmail.trim()).then(() => {
-          showToast('✅ Vérification envoyée à ' + newEmail);
+          showToast(i18n('verifSentTo') + newEmail);
         }).catch(e => showToast('❌ ' + e.message));
       }
     }
@@ -6078,7 +7032,7 @@ function updateUserUI() {
     const user = window.firebase?.auth?.()?.currentUser;
     if (user && user.email) {
       window.firebase?.auth?.().sendPasswordResetEmail(user.email).then(() => {
-        showToast('✅ Email de réinitialisation envoyé');
+        showToast(i18n('resetEmailSent'));
       }).catch(e => showToast('❌ ' + e.message));
     }
   };
@@ -6089,9 +7043,9 @@ function updateUserUI() {
         const user = window.firebase?.auth?.()?.currentUser;
         if (user) {
           user.delete().then(() => {
-            showToast('❌ Compte supprimé');
+            showToast(i18n('accountDeleted'));
             setTimeout(() => location.href = 'dashboard_user.html', 1000);
-          }).catch(e => showToast('Erreur: ' + e.message));
+          }).catch(e => showToast(i18n('errorPrefix') + e.message));
         }
       }
     }
@@ -6579,7 +7533,7 @@ function renderMarkers() {
           <div class="map-popup-mini">
             <img src="${photoUrl}" onerror="this.src='${PLACEHOLDER_IMG}'">
             <div class="name">${popupName}</div>
-            <button class="btn-details" onclick="openStepSheet(${idx})">Voir détails</button>
+            <button class="btn-details" onclick="openStepSheet(${idx})">${i18n('seeDetails')}</button>
           </div>
         `).openPopup();
       });
@@ -6865,7 +7819,7 @@ function centerMap() {
   closeAllSheets();
   fitMapBounds();
   $('tabMap').click();
-  showToast('🎯 Carte centrée');
+  showToast(i18n('mapCentered'));
 }
 
 // === SHEETS ===
@@ -6984,7 +7938,7 @@ function openStepSheet(idx) {
   } else {
     btnHotel.style.display = '';
     // Mettre la photo hôtel si dispo, sinon hotel.png
-    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
+    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> ' + i18n('hotelBtn');
     const sheetPid = step.placeId || step.place_id;
     if (sheetPid && window.ORT_HOTELS && ORT_HOTELS.loadHotelsForPlace) {
       ORT_HOTELS.loadHotelsForPlace(sheetPid).then(data => {
@@ -6992,7 +7946,7 @@ function openStepSheet(idx) {
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
         const thumbUrl = imgUrl.replace('square240', 'square60');
-        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> ${i18n('hotelBtn')}`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {
@@ -7162,8 +8116,8 @@ function editVisit(idx) {
   
   item.classList.add('editing');
   item.innerHTML = `
-    <textarea class="content-item-textarea" id="visit-textarea-${idx}" placeholder="Décrivez cette visite...">${text}</textarea>
-    <button class="content-item-save-btn" onclick="saveVisit(${idx})">✓ Enregistrer</button>
+    <textarea class="content-item-textarea" id="visit-textarea-${idx}" placeholder="${i18n('describeVisit')}">${text}</textarea>
+    <button class="content-item-save-btn" onclick="saveVisit(${idx})">${i18n('saveCheck')}</button>
   `;
   
   const textarea = $(`visit-textarea-${idx}`);
@@ -7224,8 +8178,8 @@ function editActivity(idx) {
   
   item.classList.add('editing');
   item.innerHTML = `
-    <textarea class="content-item-textarea" id="activity-textarea-${idx}" placeholder="Décrivez cette activité...">${text}</textarea>
-    <button class="content-item-save-btn" onclick="saveActivity(${idx})">✓ Enregistrer</button>
+    <textarea class="content-item-textarea" id="activity-textarea-${idx}" placeholder="${i18n('describeActivity')}">${text}</textarea>
+    <button class="content-item-save-btn" onclick="saveActivity(${idx})">${i18n('saveCheck')}</button>
   `;
   
   const textarea = $(`activity-textarea-${idx}`);
@@ -7303,7 +8257,7 @@ function adjustNights(delta) {
     btnHotel.style.display = 'none';
   } else {
     btnHotel.style.display = '';
-    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> Hôtel';
+    btnHotel.innerHTML = '<img src="/assets/hotel.webp" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.style.display=\'none\'"> ' + i18n('hotelBtn');
     const adjPid = step.placeId || step.place_id;
     if (adjPid && window.ORT_HOTELS && ORT_HOTELS.loadHotelsForPlace) {
       ORT_HOTELS.loadHotelsForPlace(adjPid).then(data => {
@@ -7311,7 +8265,7 @@ function adjustNights(delta) {
         const imgUrl = data.hotels[0].imageUrl;
         if (!imgUrl) return;
         const thumbUrl = imgUrl.replace('square240', 'square60');
-        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> Hôtel`;
+        btnHotel.innerHTML = `<img src="${thumbUrl}" alt="" style="width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px" onerror="this.outerHTML='<img src=\\'/assets/hotel.webp\\' alt=\\'\\' style=\\'width:20px;height:20px;border-radius:4px;object-fit:cover;vertical-align:middle;margin-right:4px\\'>'"> ${i18n('hotelBtn')}`;
       }).catch(() => {});
     }
     btnHotel.onclick = (e) => {
@@ -7335,7 +8289,7 @@ function adjustNights(delta) {
 function deleteCurrentStep() {
   if (currentStepIndex === null) return;
   const step = state.steps[currentStepIndex];
-  if (!confirm(`Supprimer "${step.name}" ?`)) return;
+  if (!confirm(i18n('deleteStepConfirm').replace('{name}', step.name))) return;
   
   if (typeof globalBookingManager !== 'undefined' && globalBookingManager && globalBookingManager.reindexAfterDelete) {
     globalBookingManager.reindexAfterDelete(currentStepIndex);
@@ -7351,7 +8305,7 @@ function deleteCurrentStep() {
   updateSummary();
   renderMarkers();
   fetchAndDrawRoute();
-  showToast('🗑️ Étape supprimée');
+  showToast(i18n('stepDeleted'));
 }
 
 async function saveTrip() {
@@ -7413,7 +8367,7 @@ async function saveTrip() {
       if (window.ORT_TRIPID) window.ORT_TRIPID.store(tripId);
       
       hasUnsavedChanges = false;
-      showToast('✅ Sauvegardé dans votre Dashboard !');
+      showToast(i18n('savedDashboard'));
       console.log('[SAVE] ✅ Trip sauvegardé via ORT_STATE:', tripId);
     } else if (user) {
       // Fallback Firestore direct si ORT_STATE non disponible
@@ -7455,7 +8409,7 @@ async function saveTrip() {
       state.tripId = tripId;
       
       hasUnsavedChanges = false;
-      showToast('✅ Sauvegardé dans votre Dashboard !');
+      showToast(i18n('savedDashboard'));
     } else {
       // Fallback localStorage pour non-connectés
       let saveKey = state._originalItinId || Date.now();
@@ -7465,11 +8419,11 @@ async function saveTrip() {
       }
       localStorage.setItem(`ort_trip_${saveKey}`, JSON.stringify({ ...state, savedAt: new Date().toISOString() }));
       hasUnsavedChanges = false;
-      showToast('✅ Sauvegardé localement (connectez-vous pour synchroniser)');
+      showToast(i18n('savedLocally'));
     }
   } catch (err) {
     console.error('[SAVE]', err);
-    showToast('❌ Erreur de sauvegarde');
+    showToast(i18n('saveError'));
   }
 }
 
@@ -7588,7 +8542,7 @@ async function generateShareLink() {
     const tripId = state.tripId || (window.ORT_TRIPID ? window.ORT_TRIPID.get() : null);
     
     if (!tripId) {
-      showToast('❌ Voyage non sauvegardé');
+      showToast(i18n('tripNotSaved'));
       $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
       $('btnGenerateShare').disabled = false;
       return;
@@ -7596,7 +8550,7 @@ async function generateShareLink() {
     
     // Vérifier que state.steps existe
     if (!state.steps || state.steps.length === 0) {
-      showToast('❌ Aucune étape à partager');
+      showToast(i18n('noStepsToShare'));
       $('btnGenerateShare').innerHTML = `<span>${i18n('shareGenerate')}</span>`;
       $('btnGenerateShare').disabled = false;
       return;
@@ -7658,7 +8612,7 @@ function nativeShare() {
   if (url && navigator.share) {
     navigator.share({
       title: state.title || 'Mon roadtrip',
-      text: `Découvre mon roadtrip : ${state.title}`,
+      text: i18n('shareText') + state.title,
       url: url
     });
   } else {
@@ -7927,39 +8881,39 @@ function showBookingDetail(booking) {
   // Category
   if (b.category) {
     const categoryLabels = {
-      flight: '✈️ Vol', car_rental: '🚗 Location voiture', insurance: '🛡️ Assurance',
-      hotel: '🏨 Hébergement', activity: '🎯 Activité', restaurant: '🍽️ Restaurant',
-      transport: '🚌 Transport', ferry: '⛴️ Ferry', train: '🚆 Train'
+      flight: i18n('cat_flight'), car_rental: i18n('cat_car_rental'), insurance: i18n('cat_insurance'),
+      hotel: i18n('cat_hotel'), activity: i18n('cat_activity'), restaurant: i18n('cat_restaurant'),
+      transport: i18n('cat_transport'), ferry: i18n('cat_ferry'), train: i18n('cat_train')
     };
-    html += `<div style="margin-bottom:12px;"><strong>Catégorie:</strong> ${categoryLabels[b.category] || b.category}</div>`;
+    html += `<div style="margin-bottom:12px;"><strong>${i18n('lblCategory')}:</strong> ${categoryLabels[b.category] || b.category}</div>`;
   }
   
-  if (b.provider) html += `<div style="margin-bottom:12px;"><strong>Prestataire:</strong> ${b.provider}</div>`;
+  if (b.provider) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblProvider')}:</strong> ${b.provider}</div>`;
   
   // === FLIGHTS ===
   if (b.category === 'flight' && b.flights && b.flights.length > 0) {
     html += '<div style="margin-top:8px;border-top:1px solid #e5e7eb;padding-top:10px">';
     b.flights.forEach(function(f) {
-      const typeLabel = f.type === 'outbound' ? '✈️ Aller' : f.type === 'return' ? '✈️ Retour' : '✈️ Vol';
+      const typeLabel = f.type === 'outbound' ? i18n('flightOut') : f.type === 'return' ? i18n('flightBack') : i18n('cat_flight');
       const route = [f.departure_city, f.departure_airport ? '(' + f.departure_airport + ')' : ''].filter(Boolean).join(' ') +
         ' → ' + [f.arrival_city, f.arrival_airport ? '(' + f.arrival_airport + ')' : ''].filter(Boolean).join(' ');
       html += '<div style="margin-bottom:12px;padding:10px;background:#f0f9ff;border-radius:8px">';
       html += '<div style="font-weight:700;color:#1e40af;margin-bottom:6px">' + typeLabel + '</div>';
       if (route.replace(/[→ ]/g, '')) html += '<div style="font-size:0.9rem;margin-bottom:4px">🛫 ' + route + '</div>';
       if (f.airline || f.flight_number) html += '<div style="font-size:0.85rem;color:#666">🔢 ' + [f.airline, f.flight_number].filter(Boolean).join(' • ') + '</div>';
-      if (f.departure_date || f.departure_time) html += '<div style="font-size:0.85rem;color:#666">🛫 Départ: ' + [f.departure_date ? formatDate(f.departure_date) : '', f.departure_time ? 'à ' + f.departure_time : ''].filter(Boolean).join(' ') + '</div>';
+      if (f.departure_date || f.departure_time) html += '<div style="font-size:0.85rem;color:#666">🛫 ' + i18n('lblDeparture') + ': ' + [f.departure_date ? formatDate(f.departure_date) : '', f.departure_time ? i18n('atTime') + ' ' + f.departure_time : ''].filter(Boolean).join(' ') + '</div>';
       if (f.arrival_date || f.arrival_time) {
-        let arrStr = '🛬 Arrivée: ' + [f.arrival_date ? formatDate(f.arrival_date) : '', f.arrival_time ? 'à ' + f.arrival_time : ''].filter(Boolean).join(' ');
-        if (f.arrival_date && f.departure_date && f.arrival_date !== f.departure_date) arrStr += ' (+1j)';
+        let arrStr = '🛬 ' + i18n('lblArrival') + ': ' + [f.arrival_date ? formatDate(f.arrival_date) : '', f.arrival_time ? i18n('atTime') + ' ' + f.arrival_time : ''].filter(Boolean).join(' ');
+        if (f.arrival_date && f.departure_date && f.arrival_date !== f.departure_date) arrStr += ' ' + i18n('plusOneDay');
         html += '<div style="font-size:0.85rem;color:#666">' + arrStr + '</div>';
       }
-      if (f.duration_minutes) html += '<div style="font-size:0.85rem;color:#666">⏱️ Durée: ' + Math.floor(f.duration_minutes / 60) + 'h' + (f.duration_minutes % 60 ? String(f.duration_minutes % 60).padStart(2, '0') : '') + '</div>';
+      if (f.duration_minutes) html += '<div style="font-size:0.85rem;color:#666">⏱️ ' + i18n('lblDuration') + ': ' + Math.floor(f.duration_minutes / 60) + 'h' + (f.duration_minutes % 60 ? String(f.duration_minutes % 60).padStart(2, '0') : '') + '</div>';
       if (f.terminal) html += '<div style="font-size:0.85rem;color:#666">🏢 Terminal: ' + f.terminal + '</div>';
-      if (f.gate) html += '<div style="font-size:0.85rem;color:#666">🚪 Porte: ' + f.gate + '</div>';
-      if (f.seat) html += '<div style="font-size:0.85rem;color:#666">💺 Siège: ' + f.seat + '</div>';
-      if (f.class_type) html += '<div style="font-size:0.85rem;color:#666">🎫 Classe: ' + f.class_type + '</div>';
-      if (f.baggage) html += '<div style="font-size:0.85rem;color:#666">🧳 Bagages: ' + f.baggage + '</div>';
-      if (f.stops !== undefined && f.stops !== null) html += '<div style="font-size:0.85rem;color:#666">🔄 Escales: ' + (f.stops === 0 ? 'Direct' : f.stops) + '</div>';
+      if (f.gate) html += '<div style="font-size:0.85rem;color:#666">🚪 ' + i18n('lblGate') + ': ' + f.gate + '</div>';
+      if (f.seat) html += '<div style="font-size:0.85rem;color:#666">💺 ' + i18n('lblSeat') + ': ' + f.seat + '</div>';
+      if (f.class_type) html += '<div style="font-size:0.85rem;color:#666">🎫 ' + i18n('lblClass') + ': ' + f.class_type + '</div>';
+      if (f.baggage) html += '<div style="font-size:0.85rem;color:#666">🧳 ' + i18n('lblBaggage') + ': ' + f.baggage + '</div>';
+      if (f.stops !== undefined && f.stops !== null) html += '<div style="font-size:0.85rem;color:#666">🔄 ' + i18n('lblStops') + ': ' + (f.stops === 0 ? i18n('directFlight') : f.stops) + '</div>';
       html += '</div>';
     });
     html += '</div>';
@@ -7972,21 +8926,21 @@ function showBookingDetail(booking) {
     if (car.vehicle_model || car.vehicle_type) html += '<div style="font-size:0.9rem;margin-bottom:8px">🚗 ' + (car.vehicle_model || car.vehicle_type) + '</div>';
     if (car.pickup_location || car.pickup_date || car.pickup_time) {
       html += '<div style="margin-bottom:8px;padding:8px;background:#f0fdf4;border-radius:6px">';
-      html += '<div style="font-weight:600;color:#16a34a;margin-bottom:4px">📍 Prise en charge</div>';
+      html += '<div style="font-weight:600;color:#16a34a;margin-bottom:4px">' + i18n('carPickup') + '</div>';
       if (car.pickup_location) html += '<div style="font-size:0.85rem">' + car.pickup_location + '</div>';
-      if (car.pickup_date || car.pickup_time) html += '<div style="font-size:0.85rem;color:#666">📅 ' + [car.pickup_date ? formatDate(car.pickup_date) : '', car.pickup_time ? 'à ' + car.pickup_time : ''].filter(Boolean).join(' ') + '</div>';
+      if (car.pickup_date || car.pickup_time) html += '<div style="font-size:0.85rem;color:#666">📅 ' + [car.pickup_date ? formatDate(car.pickup_date) : '', car.pickup_time ? i18n('atTime') + ' ' + car.pickup_time : ''].filter(Boolean).join(' ') + '</div>';
       html += '</div>';
     }
     if (car.dropoff_location || car.dropoff_date || car.dropoff_time) {
       html += '<div style="margin-bottom:8px;padding:8px;background:#fef2f2;border-radius:6px">';
-      html += '<div style="font-weight:600;color:#dc2626;margin-bottom:4px">📍 Restitution</div>';
+      html += '<div style="font-weight:600;color:#dc2626;margin-bottom:4px">' + i18n('carDropoff') + '</div>';
       if (car.dropoff_location) html += '<div style="font-size:0.85rem">' + car.dropoff_location + '</div>';
-      if (car.dropoff_date || car.dropoff_time) html += '<div style="font-size:0.85rem;color:#666">📅 ' + [car.dropoff_date ? formatDate(car.dropoff_date) : '', car.dropoff_time ? 'à ' + car.dropoff_time : ''].filter(Boolean).join(' ') + '</div>';
+      if (car.dropoff_date || car.dropoff_time) html += '<div style="font-size:0.85rem;color:#666">📅 ' + [car.dropoff_date ? formatDate(car.dropoff_date) : '', car.dropoff_time ? i18n('atTime') + ' ' + car.dropoff_time : ''].filter(Boolean).join(' ') + '</div>';
       html += '</div>';
     }
-    if (car.included_km) html += '<div style="font-size:0.85rem;color:#666">🛣️ Km inclus: ' + car.included_km + '</div>';
-    if (car.fuel_policy) html += '<div style="font-size:0.85rem;color:#666">⛽ Carburant: ' + car.fuel_policy + '</div>';
-    if (car.insurance) html += '<div style="font-size:0.85rem;color:#666">🛡️ Assurance: ' + car.insurance + '</div>';
+    if (car.included_km) html += '<div style="font-size:0.85rem;color:#666">🛣️ ' + i18n('lblKmIncluded') + ': ' + car.included_km + '</div>';
+    if (car.fuel_policy) html += '<div style="font-size:0.85rem;color:#666">⛽ ' + i18n('lblFuel') + ': ' + car.fuel_policy + '</div>';
+    if (car.insurance) html += '<div style="font-size:0.85rem;color:#666">🛡️ ' + i18n('lblInsurance') + ': ' + car.insurance + '</div>';
     html += '</div>';
   }
   
@@ -7994,32 +8948,32 @@ function showBookingDetail(booking) {
   if (b.category === 'hotel') {
     if (b.check_in) html += `<div style="margin-bottom:12px;"><strong>Check-in:</strong> ${b.check_in}</div>`;
     if (b.check_out) html += `<div style="margin-bottom:12px;"><strong>Check-out:</strong> ${b.check_out}</div>`;
-    if (b.room_type) html += `<div style="margin-bottom:12px;"><strong>Chambre:</strong> ${b.room_type}</div>`;
+    if (b.room_type) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblRoom')}:</strong> ${b.room_type}</div>`;
     if (b.address) html += `<div style="margin-bottom:12px;">📍 ${b.address}</div>`;
     if (b.phone) html += `<div style="margin-bottom:12px;">📞 <a href="tel:${b.phone}">${b.phone}</a></div>`;
   }
   
   // === GENERIC FIELDS ===
-  if (b.date_start) html += `<div style="margin-bottom:12px;"><strong>Date début:</strong> ${formatDate(b.date_start)}</div>`;
-  if (b.date_end) html += `<div style="margin-bottom:12px;"><strong>Date fin:</strong> ${formatDate(b.date_end)}</div>`;
-  if (b.nights) html += `<div style="margin-bottom:12px;"><strong>Nuits:</strong> ${b.nights}</div>`;
+  if (b.date_start) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblDateStart')}:</strong> ${formatDate(b.date_start)}</div>`;
+  if (b.date_end) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblDateEnd')}:</strong> ${formatDate(b.date_end)}</div>`;
+  if (b.nights) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblNights')}:</strong> ${b.nights}</div>`;
   if (b.address && b.category !== 'hotel') html += `<div style="margin-bottom:12px;">📍 ${b.address}</div>`;
   if (b.phone && b.category !== 'hotel') html += `<div style="margin-bottom:12px;">📞 <a href="tel:${b.phone}">${b.phone}</a></div>`;
   
   if (b.confirmation_number || b.reference) {
     const ref = b.confirmation_number || b.reference;
-    html += `<div style="margin-bottom:12px;"><strong>N° confirmation:</strong> <span style="font-family:monospace;background:#e2e8f0;padding:2px 6px;border-radius:4px;">${ref}</span></div>`;
+    html += `<div style="margin-bottom:12px;"><strong>${i18n('lblConfirmation')}:</strong> <span style="font-family:monospace;background:#e2e8f0;padding:2px 6px;border-radius:4px;">${ref}</span></div>`;
   }
   
   if (b.price) {
     const price = typeof b.price === 'object' ? b.price.amount : b.price;
     const currency = typeof b.price === 'object' ? (b.price.currency || '€') : '€';
-    html += `<div style="margin-bottom:12px;"><strong>Prix:</strong> <span style="color:#059669;font-weight:600;">${parseFloat(price).toFixed(2)} ${currency}</span></div>`;
+    html += `<div style="margin-bottom:12px;"><strong>${i18n('lblPrice')}:</strong> <span style="color:#059669;font-weight:600;">${parseFloat(price).toFixed(2)} ${currency}</span></div>`;
   }
   
-  if (b.notes) html += `<div style="margin-bottom:12px;"><strong>Notes:</strong><br><span style="color:#666;">${b.notes}</span></div>`;
+  if (b.notes) html += `<div style="margin-bottom:12px;"><strong>${i18n('lblNotes')}:</strong><br><span style="color:#666;">${b.notes}</span></div>`;
   
-  if (b.link) html += `<div style="margin-top:16px;"><a href="${b.link}" target="_blank" style="display:inline-block;padding:10px 16px;background:#113f7a;color:white;border-radius:8px;text-decoration:none;font-weight:500;">🔗 Voir la réservation</a></div>`;
+  if (b.link) html += `<div style="margin-top:16px;"><a href="${b.link}" target="_blank" style="display:inline-block;padding:10px 16px;background:#113f7a;color:white;border-radius:8px;text-decoration:none;font-weight:500;">${i18n('seeBooking')}</a></div>`;
   
   html += '</div>';
   content.innerHTML = html;
@@ -8070,58 +9024,58 @@ async function editBooking() {
   content.innerHTML = `
     <div style="background:#f8f9fa;border-radius:12px;padding:16px;">
       <div style="margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.85rem;color:#555;">Nom</label>
+        <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblName')}</label>
         <input type="text" id="editBookingName" value="${(b.name || '').replace(/"/g, '&quot;')}" 
           style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
       </div>
       ${b.provider !== undefined || isFlight || isCarRental ? `
       <div style="margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.85rem;color:#555;">Prestataire</label>
+        <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblProvider')}</label>
         <input type="text" id="editBookingProvider" value="${(b.provider || '').replace(/"/g, '&quot;')}" 
           style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
       </div>` : ''}
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <div style="flex:1;">
-          <label style="font-weight:600;font-size:0.85rem;color:#555;">Date début</label>
+          <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblDateStart')}</label>
           <input type="date" id="editBookingDateStart" value="${b.date_start || ''}" 
             style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
         </div>
         <div style="flex:1;">
-          <label style="font-weight:600;font-size:0.85rem;color:#555;">Date fin</label>
+          <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblDateEnd')}</label>
           <input type="date" id="editBookingDateEnd" value="${b.date_end || ''}" 
             style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
         </div>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:12px;">
         <div style="flex:1;">
-          <label style="font-weight:600;font-size:0.85rem;color:#555;">Prix (€)</label>
+          <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblPrice')} (€)</label>
           <input type="number" id="editBookingPrice" value="${priceVal}" step="0.01"
             style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
         </div>
         ${isHotel ? `
         <div style="flex:1;">
-          <label style="font-weight:600;font-size:0.85rem;color:#555;">Nuits</label>
+          <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblNights')}</label>
           <input type="number" id="editBookingNights" value="${b.nights || ''}" min="1"
             style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
         </div>` : ''}
       </div>
       <div style="margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.85rem;color:#555;">N° confirmation</label>
+        <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblConfirmation')}</label>
         <input type="text" id="editBookingRef" value="${(b.confirmation_number || b.reference || '').replace(/"/g, '&quot;')}" 
           style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
       </div>
       <div style="margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.85rem;color:#555;">Lien</label>
+        <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblLink')}</label>
         <input type="url" id="editBookingLink" value="${(b.link || '').replace(/"/g, '&quot;')}" placeholder="https://..."
           style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;">
       </div>
       <div style="margin-bottom:12px;">
-        <label style="font-weight:600;font-size:0.85rem;color:#555;">Notes</label>
+        <label style="font-weight:600;font-size:0.85rem;color:#555;">${i18n('lblNotes')}</label>
         <textarea id="editBookingNotes" rows="2" style="width:100%;padding:10px;border:1px solid #ddd;border-radius:8px;font-size:0.95rem;margin-top:4px;box-sizing:border-box;resize:vertical;">${b.notes || ''}</textarea>
       </div>
       <div style="display:flex;gap:8px;margin-top:16px;">
-        <button onclick="cancelEditBooking()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:8px;background:#f0f0f0;font-weight:600;cursor:pointer;">Annuler</button>
-        <button onclick="saveEditBooking()" style="flex:1;padding:12px;border:none;border-radius:8px;background:#113f7a;color:white;font-weight:600;cursor:pointer;">✅ Enregistrer</button>
+        <button onclick="cancelEditBooking()" style="flex:1;padding:12px;border:1px solid #ddd;border-radius:8px;background:#f0f0f0;font-weight:600;cursor:pointer;">${i18n('cancelBtn')}</button>
+        <button onclick="saveEditBooking()" style="flex:1;padding:12px;border:none;border-radius:8px;background:#113f7a;color:white;font-weight:600;cursor:pointer;">${i18n('saveTick')}</button>
       </div>
     </div>
   `;
@@ -8194,7 +9148,7 @@ async function saveEditBooking() {
       }
     }
     
-    showToast('✅ Réservation modifiée');
+    showToast(i18n('bookingUpdated'));
     currentBookingData = updated;
     showBookingDetail(updated);
     $('btnEditBooking').style.display = '';
@@ -8205,7 +9159,7 @@ async function saveEditBooking() {
     
   } catch(e) {
     console.error('[BOOKING EDIT]', e);
-    showToast('❌ Erreur: ' + e.message);
+    showToast(i18n('errorPrefix') + e.message);
   }
 }
 
@@ -8215,7 +9169,7 @@ window.saveEditBooking = saveEditBooking;
 async function deleteBooking() {
   if (!currentBookingData) return;
   
-  const confirmDelete = confirm(`Supprimer la réservation "${currentBookingData.name || 'cette réservation'}" ?`);
+  const confirmDelete = confirm(i18n('deleteBookingConfirm').replace('{name}', currentBookingData.name || i18n('thisBooking')));
   if (!confirmDelete) return;
   
   try {
@@ -8234,7 +9188,7 @@ async function deleteBooking() {
         await ORT_TRIP_DATA.removeStepBooking(stepIndex, bookingId);
       }
       
-      showToast('✅ Réservation supprimée');
+      showToast(i18n('bookingDeleted'));
       closeAllSheets();
       
       // Rafraîchir l'affichage
@@ -8246,11 +9200,11 @@ async function deleteBooking() {
       }, 500);
       
     } else {
-      showToast('❌ Impossible de supprimer - connexion requise');
+      showToast(i18n('cantDeleteLogin'));
     }
   } catch(e) {
     console.error('[BOOKING DELETE]', e);
-    showToast('❌ Erreur: ' + e.message);
+    showToast(i18n('errorPrefix') + e.message);
   }
 }
 
@@ -8402,12 +9356,12 @@ window.deleteActivity = deleteActivity;
       return;
     }
     
-    const stepName = (typeof getCityDisplayName === 'function' ? getCityDisplayName(step, state.lang) : null) || step.name || `Étape ${vizCurrentStep + 1}`;
+    const stepName = (typeof getCityDisplayName === 'function' ? getCityDisplayName(step, state.lang) : null) || step.name || i18n('stepN').replace('{n}', vizCurrentStep + 1);
     const nights = step.nights || 0;
-    const nightsText = nights > 0 ? `🌙 ${nights} nuit${nights > 1 ? 's' : ''}` : '';
+    const nightsText = nights > 0 ? `🌙 ${nights} ${nights > 1 ? i18n('nightPlural') : i18n('night')}` : '';
     
     document.querySelectorAll('.viz-step-counter').forEach(el => {
-      el.textContent = `Étape ${vizCurrentStep + 1} / ${steps.length}`;
+      el.textContent = i18n('stepCounter').replace('{n}', vizCurrentStep + 1).replace('{total}', steps.length);
     });
     document.querySelectorAll('.viz-step-name').forEach(el => {
       el.textContent = stepName;
@@ -8453,7 +9407,7 @@ window.deleteActivity = deleteActivity;
       container.innerHTML = `
         <div class="viz-no-steps">
           <div class="viz-no-steps-icon">📍</div>
-          <div>Aucune étape dans cet itinéraire</div>
+          <div>${i18n('noStepsInItin')}</div>
         </div>
       `;
       return;
@@ -8511,7 +9465,7 @@ window.deleteActivity = deleteActivity;
     if (activities.length > 0) {
       html += `
         <div class="viz-section">
-          <div class="viz-section-title">🎯 Activités (${activities.length})</div>
+          <div class="viz-section-title">🎯 ${i18n('activities')} (${activities.length})</div>
       `;
       activities.forEach((a, i) => {
         const text = typeof a === 'string' ? a : (a.text || a.description || a.name || '');
@@ -8546,7 +9500,7 @@ window.deleteActivity = deleteActivity;
       if (stepBookings.length > 0) {
         html += `
           <div class="viz-section viz-section-bookings">
-            <div class="viz-section-title">📋 Mes réservations (${stepBookings.length})</div>
+            <div class="viz-section-title">📋 ${i18n('myBookings')} (${stepBookings.length})</div>
         `;
         stepBookings.forEach(b => {
           const icon = typeof getCategoryIcon === 'function' ? getCategoryIcon(b.category) : '📋';
@@ -8578,7 +9532,7 @@ window.deleteActivity = deleteActivity;
     
     // Message si aucun contenu
     if (visits.length === 0 && activities.length === 0) {
-      html += '<div class="viz-empty">Pas de visites ni d\'activités pour cette étape</div>';
+      html += '<div class="viz-empty">' + i18n('noVisitsActs') + '</div>';
     }
     
     container.innerHTML = html;
@@ -8597,7 +9551,7 @@ window.deleteActivity = deleteActivity;
       wrapper.innerHTML = `
         <div class="gmap-placeholder">
           <div class="gmap-placeholder-icon">🗺️</div>
-          <div>Aucune étape à afficher</div>
+          <div>${i18n('noStepsToShow')}</div>
         </div>
       `;
       return;
@@ -8648,7 +9602,7 @@ window.deleteActivity = deleteActivity;
       wrapper.innerHTML = `
         <div class="gmap-placeholder">
           <div class="gmap-placeholder-icon">❌</div>
-          <div>Coordonnées non disponibles</div>
+          <div>${i18n('coordsUnavailable')}</div>
         </div>
       `;
     }
@@ -8749,7 +9703,7 @@ window.deleteActivity = deleteActivity;
       wrapper.innerHTML = `
         <div class="hotels-placeholder">
           <div class="hotels-placeholder-icon"><img src="/assets/hotel.webp" alt="" style="width:48px;height:48px;border-radius:8px;object-fit:cover;opacity:0.6" onerror="this.style.display='none'"></div>
-          <div>Aucune étape à afficher</div>
+          <div>${i18n('noStepsToShow')}</div>
         </div>
       `;
       return;
@@ -8775,7 +9729,7 @@ window.deleteActivity = deleteActivity;
       wrapper.innerHTML = `
         <div class="hotels-placeholder">
           <div class="hotels-placeholder-icon">❌</div>
-          <div>Impossible de charger les hôtels</div>
+          <div>${i18n('hotelsLoadFail')}</div>
         </div>
       `;
     }
@@ -8842,7 +9796,7 @@ window.addEventListener('pageshow', async function(event) {
 </script>
 
 <!-- Bouton flottant pour ajouter une réservation (visible sur l'onglet Réservations) -->
-<button id="btnAddBookingFab" style="position:fixed;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:#3b82f6;color:#fff;border:none;font-size:32px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(59,130,246,0.4);z-index:200;display:none;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;" title="Ajouter une réservation">+</button>
+<button id="btnAddBookingFab" data-i18n-title="addBookingTitle" style="position:fixed;bottom:100px;right:16px;width:56px;height:56px;border-radius:50%;background:#3b82f6;color:#fff;border:none;font-size:32px;font-weight:bold;cursor:pointer;box-shadow:0 4px 12px rgba(59,130,246,0.4);z-index:200;display:none;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;" title="Ajouter une réservation">+</button>
 <script>
 (function() {
   const fab = document.getElementById('btnAddBookingFab');
@@ -9321,7 +10275,7 @@ if (new URLSearchParams(location.search).get('share')) {
 <div id="gygModal">
   <div class="gyg-modal-content">
     <div class="gyg-modal-header">
-      <h3>🎫 Activités & Expériences</h3>
+      <h3>🎫 <span data-i18n="activitiesExperiences">Activités & Expériences</span></h3>
       <button class="gyg-modal-close" onclick="closeGygModal()">✕</button>
     </div>
     <div class="gyg-modal-body">
@@ -9373,7 +10327,7 @@ if (new URLSearchParams(location.search).get('share')) {
     mode = m;
     var steps = (window.state && window.state.steps) || [];
     if (!steps.length) {
-      alert('Aucune étape à afficher');
+      alert(i18n('noStepsToShow'));
       return;
     }
     var titles = {
@@ -9383,7 +10337,7 @@ if (new URLSearchParams(location.search).get('share')) {
     document.getElementById('ortSpTitle').textContent = titles[m] || '';
     var list = document.getElementById('ortSpList');
     list.innerHTML = steps.map(function(s, i){
-      var name = s.name || s.place_name || ('Étape ' + (i+1));
+      var name = s.name || s.place_name || i18n('stepN').replace('{n}', i+1);
       return '<button class="ort-step-picker-item" data-idx="' + i + '">' +
              '<span class="ort-step-picker-num">' + (i+1) + '</span>' +
              '<span class="ort-step-picker-name">' + name + '</span>' +
@@ -9449,7 +10403,7 @@ if (new URLSearchParams(location.search).get('share')) {
       console.log('[ORGANIZE] Stay22 URL:', url);
       var wrap = document.getElementById('ortSpIframeWrap');
       // Placeholder pendant le chargement de l'iframe
-      wrap.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;font-size:0.9rem;">⏳ Chargement de la carte des hôtels...</div>';
+      wrap.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:#64748b;font-size:0.9rem;">' + i18n('loadingHotelsMap') + '</div>';
       // Insertion de l'iframe apres un tick pour que le placeholder s'affiche d'abord
       setTimeout(function(){
         var iframe = document.createElement('iframe');

@@ -2766,6 +2766,16 @@
       approxRoute: 'ungefährer Verlauf'
     }
   };
+  // Textes restes en dur en francais dans le carnet
+  const EDITOR_TX = {
+    newPlace: {"fr": "Nouveau lieu...", "en": "New place...", "es": "Nuevo lugar...", "it": "Nuovo luogo...", "pt": "Novo local...", "nl": "Nieuwe plaats...", "de": "Neuer Ort...", "ar": "New place..."},
+    newActivity: {"fr": "Nouvelle activité...", "en": "New activity...", "es": "Nueva actividad...", "it": "Nuova attività...", "pt": "Nova atividade...", "nl": "Nieuwe activiteit...", "de": "Neue Aktivität...", "ar": "New activity..."},
+    linkError: {"fr": "Erreur lors de la création du lien", "en": "Error creating the link", "es": "Error al crear el enlace", "it": "Errore durante la creazione del link", "pt": "Erro ao criar a ligação", "nl": "Fout bij het maken van de link", "de": "Fehler beim Erstellen des Links", "ar": "Error creating the link"},
+    linkCreated: {"fr": "✅ Lien créé - Partagez-le avec vos amis!", "en": "✅ Link created - share it with your friends!", "es": "✅ Enlace creado: ¡compártelo con tus amigos!", "it": "✅ Link creato: condividilo con i tuoi amici!", "pt": "✅ Ligação criada: partilhe-a com os seus amigos!", "nl": "✅ Link gemaakt - deel hem met je vrienden!", "de": "✅ Link erstellt - teile ihn mit deinen Freunden!", "ar": "✅ Link created - share it with your friends!"},
+    readOnlyWarn: {"fr": "👁️ Mode lecture seule - Les personnes qui ouvrent ce lien pourront modifier leur propre copie.", "en": "👁️ Read-only mode - people who open this link can edit their own copy.", "es": "👁️ Modo de solo lectura: quienes abran este enlace podrán modificar su propia copia.", "it": "👁️ Modalità sola lettura: chi apre questo link potrà modificare la propria copia.", "pt": "👁️ Modo só de leitura: quem abrir esta ligação poderá modificar a sua própria cópia.", "nl": "👁️ Alleen-lezen: wie deze link opent, kan een eigen kopie bewerken.", "de": "👁️ Nur-Lese-Modus: Wer diesen Link öffnet, kann seine eigene Kopie bearbeiten.", "ar": "👁️ Read-only mode - people who open this link can edit their own copy."},
+    stepDefault: {"fr": "Étape", "en": "Stop", "es": "Etapa", "it": "Tappa", "pt": "Etapa", "nl": "Stop", "de": "Etappe", "ar": "Stop"}
+  };
+  function tx(k){ var e = EDITOR_TX[k] || {}; return e[LANG] || e.en || k; }
         
         // Fonction de traduction
         function t(key) {
@@ -2889,7 +2899,7 @@
                     
                     steps.push({
                         place_id: pid,
-                        name: name || d.night?.name || 'Étape',
+                        name: name || d.night?.name || tx('stepDefault'),
                         lat: coords[0] || null,
                         lon: coords[1] || null,
                         nights: 1,
@@ -2907,7 +2917,7 @@
                     const pid = p.place_id || p.id || '';
                     steps.push({
                         place_id: pid,
-                        name: p.name || p.title || 'Étape',
+                        name: p.name || p.title || tx('stepDefault'),
                         lat: p.lat || null,
                         lon: p.lon || null,
                         nights: 1,
@@ -4790,7 +4800,7 @@
             li.dataset.step = stepIdx;
             li.dataset.field = field;
             li.dataset.idx = ul.children.length;
-            li.textContent = field === 'visits' ? 'Nouveau lieu...' : 'Nouvelle activité...';
+            li.textContent = field === 'visits' ? tx('newPlace') : tx('newActivity');
             
             li.addEventListener('input', handleInput);
             ul.appendChild(li);
@@ -4907,7 +4917,7 @@
             // Créer le partage avec les données actuelles
             ORT_SHARE.createShareLink(tripData, tripData.title || 'Voyage').then(result => {
                 if (!result) {
-                    alert('Erreur lors de la création du lien');
+                    alert(tx('linkError'));
                     return;
                 }
 
@@ -4937,14 +4947,14 @@
                         </div>
                         <div class="share-modal-body">
                             <p style="margin-bottom: 12px; color: #666; font-size: 0.9em;">
-                                ✅ Lien créé - Partagez-le avec vos amis!
+                                ${tx('linkCreated')}
                             </p>
                             <div class="share-link-box">
                                 <input type="text" class="share-link-input" id="shareLinkInput" value="${shareUrl}" readonly>
                                 <button class="share-copy-btn" id="shareCopyBtn">${t('copyToClipboard')}</button>
                             </div>
                             <div class="share-warning">
-                                👁️ Mode lecture seule - Les personnes qui ouvrent ce lien pourront modifier leur propre copie.
+                                ${tx('readOnlyWarn')}
                             </div>
                         </div>
                         <div class="share-modal-footer">
@@ -4992,7 +5002,7 @@
                 document.addEventListener('keydown', escHandler);
             }).catch(error => {
                 console.error('[SHARE] Erreur:', error);
-                alert('Erreur lors de la création du lien');
+                alert(tx('linkError'));
             });
         }
         

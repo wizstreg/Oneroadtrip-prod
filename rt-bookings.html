@@ -165,30 +165,40 @@ h1{margin:0 0 8px;font-size:1.5rem;text-align:center}
   'use strict';
   
   const I18N_LOCAL = {
-    bookingsPageTitle: { fr: '📋 Mes réservations', en: '📋 My bookings', es: '📋 Mis reservas', it: '📋 Le mie prenotazioni', pt: '📋 Minhas reservas', ar: '📋 حجوزاتي' },
-    travelBookings: { fr: 'Réservations voyage', en: 'Travel bookings', es: 'Reservas de viaje', it: 'Prenotazioni viaggio', pt: 'Reservas de viagem', ar: 'حجوزات السفر' },
-    stepBookings: { fr: 'Réservations par étape', en: 'Bookings by step', es: 'Reservas por etapa', it: 'Prenotazioni per tappa', pt: 'Reservas por etapa', ar: 'الحجوزات حسب المرحلة' },
-    totalBudget: { fr: 'Budget total', en: 'Total budget', es: 'Presupuesto total', it: 'Budget totale', pt: 'Orçamento total', ar: 'الميزانية الإجمالية' },
-    noBookings: { fr: 'Aucune réservation', en: 'No bookings', es: 'Sin reservas', it: 'Nessuna prenotazione', pt: 'Sem reservas', ar: 'لا توجد حجوزات' },
-    addFirst: { fr: 'Ajoutez votre première réservation', en: 'Add your first booking', es: 'Añade tu primera reserva', it: 'Aggiungi la tua prima prenotazione', pt: 'Adicione sua primeira reserva', ar: 'أضف حجزك الأول' },
-    backToTrip: { fr: 'Retour au voyage', en: 'Back to trip', es: 'Volver al viaje', it: 'Torna al viaggio', pt: 'Voltar à viagem', ar: 'العودة للرحلة' },
-    close: { fr: 'Fermer', en: 'Close', es: 'Cerrar', it: 'Chiudi', pt: 'Fechar', ar: 'إغلاق' },
-    delete: { fr: 'Supprimer', en: 'Delete', es: 'Eliminar', it: 'Elimina', pt: 'Excluir', ar: 'حذف' },
-    confirmDelete: { fr: 'Supprimer cette réservation ?', en: 'Delete this booking?', es: '¿Eliminar esta reserva?', it: 'Eliminare questa prenotazione?', pt: 'Excluir esta reserva?', ar: 'حذف هذا الحجز؟' },
-    deleted: { fr: 'Réservation supprimée', en: 'Booking deleted', es: 'Reserva eliminada', it: 'Prenotazione eliminata', pt: 'Reserva excluída', ar: 'تم حذف الحجز' },
-    loading: { fr: 'Chargement...', en: 'Loading...', es: 'Cargando...', it: 'Caricamento...', pt: 'Carregando...', ar: 'جار التحميل...' },
-    noTrip: { fr: 'Voyage non trouvé', en: 'Trip not found', es: 'Viaje no encontrado', it: 'Viaggio non trovato', pt: 'Viagem não encontrada', ar: 'الرحلة غير موجودة' },
-    step: { fr: 'Étape', en: 'Step', es: 'Etapa', it: 'Tappa', pt: 'Etapa', ar: 'مرحلة' },
-    viewStep: { fr: 'Voir l\'étape', en: 'View step', es: 'Ver etapa', it: 'Vedi tappa', pt: 'Ver etapa', ar: 'عرض المرحلة' },
-    loginRequired: { fr: 'Connexion requise', en: 'Login required', es: 'Inicio de sesión requerido', it: 'Accesso richiesto', pt: 'Login necessário', ar: 'تسجيل الدخول مطلوب' },
-    loginRequiredMsg: { fr: 'Vous devez être connecté.', en: 'You must be logged in.', es: 'Debes iniciar sesión.', it: 'Devi effettuare l\'accesso.', pt: 'Você precisa estar logado.', ar: 'يجب تسجيل الدخول.' },
-    tripNotSaved: { fr: 'Voyage non sauvegardé', en: 'Trip not saved', es: 'Viaje no guardado', it: 'Viaggio non salvato', pt: 'Viagem não salva', ar: 'الرحلة غير محفوظة' },
-    tripNotSavedMsg: { fr: 'Sauvegardez d\'abord le voyage.', en: 'Save the trip first.', es: 'Guarde el viaje primero.', it: 'Salva prima il viaggio.', pt: 'Salve a viagem primeiro.', ar: 'احفظ الرحلة أولاً.' },
-    goBack: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع' },
-    addBooking: { fr: 'Ajouter une réservation', en: 'Add a booking', es: 'Añadir una reserva', it: 'Aggiungi una prenotazione', pt: 'Adicionar uma reserva', ar: 'إضافة حجز' },
-    details: { fr: 'Détails', en: 'Details', es: 'Detalles', it: 'Dettagli', pt: 'Detalhes', ar: 'تفاصيل' },
-    nights: { fr: 'nuits', en: 'nights', es: 'noches', it: 'notti', pt: 'noites', ar: 'ليال' },
-    steps: { fr: 'Étapes', en: 'Steps', es: 'Etapas', it: 'Tappe', pt: 'Etapas', ar: 'مراحل' }
+    bookingsPageTitle: { fr: '📋 Mes réservations', en: '📋 My bookings', es: '📋 Mis reservas', it: '📋 Le mie prenotazioni', pt: '📋 Minhas reservas', ar: '📋 حجوزاتي', nl: '📋 Mijn boekingen', de: '📋 Meine Buchungen' },
+    travelBookings: { fr: 'Réservations voyage', en: 'Travel bookings', es: 'Reservas de viaje', it: 'Prenotazioni viaggio', pt: 'Reservas de viagem', ar: 'حجوزات السفر', nl: 'Reisboekingen', de: 'Reisebuchungen' },
+    stepBookings: { fr: 'Réservations par étape', en: 'Bookings by step', es: 'Reservas por etapa', it: 'Prenotazioni per tappa', pt: 'Reservas por etapa', ar: 'الحجوزات حسب المرحلة', nl: 'Boekingen per stop', de: 'Buchungen pro Etappe' },
+    totalBudget: { fr: 'Budget total', en: 'Total budget', es: 'Presupuesto total', it: 'Budget totale', pt: 'Orçamento total', ar: 'الميزانية الإجمالية', nl: 'Totaalbudget', de: 'Gesamtbudget' },
+    noBookings: { fr: 'Aucune réservation', en: 'No bookings', es: 'Sin reservas', it: 'Nessuna prenotazione', pt: 'Sem reservas', ar: 'لا توجد حجوزات', nl: 'Geen boekingen', de: 'Keine Buchungen' },
+    addFirst: { fr: 'Ajoutez votre première réservation', en: 'Add your first booking', es: 'Añade tu primera reserva', it: 'Aggiungi la tua prima prenotazione', pt: 'Adicione sua primeira reserva', ar: 'أضف حجزك الأول', nl: 'Voeg je eerste boeking toe', de: 'Füge deine erste Buchung hinzu' },
+    backToTrip: { fr: 'Retour au voyage', en: 'Back to trip', es: 'Volver al viaje', it: 'Torna al viaggio', pt: 'Voltar à viagem', ar: 'العودة للرحلة', nl: 'Terug naar de reis', de: 'Zurück zur Reise' },
+    close: { fr: 'Fermer', en: 'Close', es: 'Cerrar', it: 'Chiudi', pt: 'Fechar', ar: 'إغلاق', nl: 'Sluiten', de: 'Schließen' },
+    delete: { fr: 'Supprimer', en: 'Delete', es: 'Eliminar', it: 'Elimina', pt: 'Excluir', ar: 'حذف', nl: 'Verwijderen', de: 'Löschen' },
+    confirmDelete: { fr: 'Supprimer cette réservation ?', en: 'Delete this booking?', es: '¿Eliminar esta reserva?', it: 'Eliminare questa prenotazione?', pt: 'Excluir esta reserva?', ar: 'حذف هذا الحجز؟', nl: 'Deze boeking verwijderen?', de: 'Diese Buchung löschen?' },
+    deleted: { fr: 'Réservation supprimée', en: 'Booking deleted', es: 'Reserva eliminada', it: 'Prenotazione eliminata', pt: 'Reserva excluída', ar: 'تم حذف الحجز', nl: 'Boeking verwijderd', de: 'Buchung gelöscht' },
+    loading: { fr: 'Chargement...', en: 'Loading...', es: 'Cargando...', it: 'Caricamento...', pt: 'Carregando...', ar: 'جار التحميل...', nl: 'Laden...', de: 'Wird geladen...' },
+    noTrip: { fr: 'Voyage non trouvé', en: 'Trip not found', es: 'Viaje no encontrado', it: 'Viaggio non trovato', pt: 'Viagem não encontrada', ar: 'الرحلة غير موجودة', nl: 'Reis niet gevonden', de: 'Reise nicht gefunden' },
+    step: { fr: 'Étape', en: 'Step', es: 'Etapa', it: 'Tappa', pt: 'Etapa', ar: 'مرحلة', nl: 'Stop', de: 'Etappe' },
+    viewStep: { fr: 'Voir l\'étape', en: 'View step', es: 'Ver etapa', it: 'Vedi tappa', pt: 'Ver etapa', ar: 'عرض المرحلة', nl: 'Stop bekijken', de: 'Etappe ansehen' },
+    loginRequired: { fr: 'Connexion requise', en: 'Login required', es: 'Inicio de sesión requerido', it: 'Accesso richiesto', pt: 'Login necessário', ar: 'تسجيل الدخول مطلوب', nl: 'Inloggen vereist', de: 'Anmeldung erforderlich' },
+    loginRequiredMsg: { fr: 'Vous devez être connecté.', en: 'You must be logged in.', es: 'Debes iniciar sesión.', it: 'Devi effettuare l\'accesso.', pt: 'Você precisa estar logado.', ar: 'يجب تسجيل الدخول.', nl: 'Je moet ingelogd zijn.', de: 'Du musst angemeldet sein.' },
+    tripNotSaved: { fr: 'Voyage non sauvegardé', en: 'Trip not saved', es: 'Viaje no guardado', it: 'Viaggio non salvato', pt: 'Viagem não salva', ar: 'الرحلة غير محفوظة', nl: 'Reis niet opgeslagen', de: 'Reise nicht gespeichert' },
+    tripNotSavedMsg: { fr: 'Sauvegardez d\'abord le voyage.', en: 'Save the trip first.', es: 'Guarde el viaje primero.', it: 'Salva prima il viaggio.', pt: 'Salve a viagem primeiro.', ar: 'احفظ الرحلة أولاً.', nl: 'Sla de reis eerst op.', de: 'Speichere zuerst die Reise.' },
+    goBack: { fr: 'Retour', en: 'Back', es: 'Volver', it: 'Indietro', pt: 'Voltar', ar: 'رجوع', nl: 'Terug', de: 'Zurück' },
+    addBooking: { fr: 'Ajouter une réservation', en: 'Add a booking', es: 'Añadir una reserva', it: 'Aggiungi una prenotazione', pt: 'Adicionar uma reserva', ar: 'إضافة حجز', nl: 'Een boeking toevoegen', de: 'Eine Buchung hinzufügen' },
+    details: { fr: 'Détails', en: 'Details', es: 'Detalles', it: 'Dettagli', pt: 'Detalhes', ar: 'تفاصيل', nl: 'Details', de: 'Details' },
+    nights: { fr: 'nuits', en: 'nights', es: 'noches', it: 'notti', pt: 'noites', ar: 'ليال', nl: 'nachten', de: 'Nächte' },
+    steps: { fr: 'Étapes', en: 'Steps', es: 'Etapas', it: 'Tappe', pt: 'Etapas', ar: 'مراحل', nl: 'Stops', de: 'Etappen' },
+    deleteError: { fr: 'Erreur lors de la suppression', en: 'Error deleting', es: 'Error al eliminar', it: 'Errore durante l’eliminazione', pt: 'Erro ao eliminar', ar: 'Error deleting', nl: 'Fout bij verwijderen', de: 'Fehler beim Löschen' },
+    saveErrorMsg: { fr: 'Erreur de sauvegarde', en: 'Save error', es: 'Error al guardar', it: 'Errore di salvataggio', pt: 'Erro ao guardar', ar: 'Save error', nl: 'Fout bij opslaan', de: 'Fehler beim Speichern' },
+    lblCategory: { fr: 'Catégorie', en: 'Category', es: 'Categoría', it: 'Categoria', pt: 'Categoria', ar: 'Category', nl: 'Categorie', de: 'Kategorie' },
+    lblDateStart: { fr: 'Date début', en: 'Start date', es: 'Fecha de inicio', it: 'Data di inizio', pt: 'Data de início', ar: 'Start date', nl: 'Begindatum', de: 'Startdatum' },
+    lblDateEnd: { fr: 'Date fin', en: 'End date', es: 'Fecha de fin', it: 'Data di fine', pt: 'Data de fim', ar: 'End date', nl: 'Einddatum', de: 'Enddatum' },
+    lblReference: { fr: 'Référence', en: 'Reference', es: 'Referencia', it: 'Riferimento', pt: 'Referência', ar: 'Reference', nl: 'Referentie', de: 'Referenz' },
+    lblPrice: { fr: 'Prix', en: 'Price', es: 'Precio', it: 'Prezzo', pt: 'Preço', ar: 'Price', nl: 'Prijs', de: 'Preis' },
+    lblProvider: { fr: 'Fournisseur', en: 'Provider', es: 'Proveedor', it: 'Fornitore', pt: 'Fornecedor', ar: 'Provider', nl: 'Aanbieder', de: 'Anbieter' },
+    lblAddress: { fr: 'Adresse', en: 'Address', es: 'Dirección', it: 'Indirizzo', pt: 'Morada', ar: 'Address', nl: 'Adres', de: 'Adresse' },
+    lblNotes: { fr: 'Notes', en: 'Notes', es: 'Notas', it: 'Note', pt: 'Notas', ar: 'Notes', nl: 'Notities', de: 'Notizen' }
   };
   
   let lang = localStorage.getItem('ORT_LANG') || localStorage.getItem('lang')?.slice(0,2) || 'fr';
@@ -209,6 +219,11 @@ h1{margin:0 0 8px;font-size:1.5rem;text-align:center}
     document.querySelectorAll('[data-i18n]').forEach(el => {
       const text = t(el.getAttribute('data-i18n'));
       if (text) el.textContent = text;
+    });
+    document.querySelectorAll('[data-title-i18n]').forEach(el => {
+      const key = el.getAttribute('data-title-i18n');
+      const text = t(key);
+      if (text && text !== key) el.title = text;
     });
   }
   
@@ -479,21 +494,21 @@ h1{margin:0 0 8px;font-size:1.5rem;text-align:center}
   
   function showDetailModal(booking) {
     const icon = ICONS[booking.category] || ICONS.other;
-    $('modalTitle').innerHTML = `${icon} ${booking.name || 'Détails'}`;
+    $('modalTitle').innerHTML = `${icon} ${booking.name || t('details')}`;
     
     const fields = [];
-    if (booking.category) fields.push({ label: 'Catégorie', value: booking.category });
-    if (booking.date_start) fields.push({ label: 'Date début', value: booking.date_start });
-    if (booking.date_end) fields.push({ label: 'Date fin', value: booking.date_end });
-    if (booking.reference || booking.confirmation_number) fields.push({ label: 'Référence', value: booking.reference || booking.confirmation_number });
+    if (booking.category) fields.push({ label: t('lblCategory'), value: booking.category });
+    if (booking.date_start) fields.push({ label: t('lblDateStart'), value: booking.date_start });
+    if (booking.date_end) fields.push({ label: t('lblDateEnd'), value: booking.date_end });
+    if (booking.reference || booking.confirmation_number) fields.push({ label: t('lblReference'), value: booking.reference || booking.confirmation_number });
     if (booking.price) {
       const pVal = typeof booking.price === 'object' ? booking.price.amount : booking.price;
       const pCur = typeof booking.price === 'object' ? (booking.price.currency || '€') : '€';
-      fields.push({ label: 'Prix', value: parseFloat(pVal).toFixed(2) + ' ' + pCur });
+      fields.push({ label: t('lblPrice'), value: parseFloat(pVal).toFixed(2) + ' ' + pCur });
     }
-    if (booking.provider) fields.push({ label: 'Fournisseur', value: booking.provider });
-    if (booking.address) fields.push({ label: 'Adresse', value: booking.address });
-    if (booking.notes) fields.push({ label: 'Notes', value: booking.notes });
+    if (booking.provider) fields.push({ label: t('lblProvider'), value: booking.provider });
+    if (booking.address) fields.push({ label: t('lblAddress'), value: booking.address });
+    if (booking.notes) fields.push({ label: t('lblNotes'), value: booking.notes });
     
     $('modalContent').innerHTML = fields.map(f => `<div class="modal-field"><div class="label">${f.label}</div><div class="value">${f.value}</div></div>`).join('');
     $('detailModal').classList.add('show');
@@ -575,7 +590,7 @@ h1{margin:0 0 8px;font-size:1.5rem;text-align:center}
       showToast(t('deleted'));
     } catch (e) {
       console.error('[RT-BOOKINGS] ❌ forceSave ERREUR:', e);
-      showToast(t('deleteError') || 'Erreur de sauvegarde', 'error');
+      showToast(t('saveErrorMsg'), 'error');
     }
     
     closeModal();

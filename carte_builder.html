@@ -2620,10 +2620,10 @@ body.fullscreen-mode .place-preview {
   </div>
   <!-- Résumé du voyage (en haut) -->
   <div id="tripStats" class="trip-stats" hidden>
-    <span class="trip-stat"><b id="tripStatSteps">0</b> étapes</span>
-    <span class="trip-stat"><b id="tripStatDays">0</b> jours</span>
+    <span class="trip-stat"><b id="tripStatSteps">0</b> <span id="tripStatStepsLbl">étapes</span></span>
+    <span class="trip-stat"><b id="tripStatDays">0</b> <span id="tripStatDaysLbl">jours</span></span>
     <span class="trip-stat"><b id="tripStatKm">0</b> km</span>
-    <span class="trip-stat"><b id="tripStatDrive">0h</b> de route</span>
+    <span class="trip-stat"><b id="tripStatDrive">0h</b> <span id="tripStatDriveLbl">de route</span></span>
   </div>
   <div class="step-howto" id="stepHowto">Ajoutez vos étapes une à une : servez-vous de la recherche, ou cliquez directement sur la carte, que l'endroit soit référencé ou non. Si vous dormez plusieurs nuits au même endroit, resélectionnez-le après vos visites autour : le tracé suivra vos allers-retours.</div>
   <!-- Liste des étapes (+ bouton ajouter en fin de liste) -->
@@ -3025,6 +3025,61 @@ function applyTranslations() {
   if (fsb) fsb.textContent = '\u2336 ' + (document.body.classList.contains('fullscreen-mode') ? TXT.exitFullscreen : TXT.fullscreen);
   document.getElementById('visitsLabel').textContent = TXT.visitsLabel;
   document.getElementById('activitiesLabel').textContent = TXT.activitiesLabel;
+  // Compteurs affiches avant le premier calcul (etaient en dur en francais)
+  if (map) {
+    try { updateStats(); } catch (_) {}
+  } else {
+    ['statsBox', 'fsStatsBox'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.textContent = '0 ' + TXT.placesVisible;
+    });
+  }
+  var lct = document.getElementById('loadingCounterText');
+  if (lct) lct.textContent = TXT.loadingPlaces;
+  var mic = document.getElementById('mobileItinCount');
+  if (mic && selectedPlaces.length === 0) mic.textContent = '0 ' + TXT.stepMany;
+  var lblSteps = document.getElementById('tripStatStepsLbl');
+  if (lblSteps) lblSteps.textContent = TXT.stepMany;
+  var lblDays = document.getElementById('tripStatDaysLbl');
+  if (lblDays) lblDays.textContent = TXT.days;
+  var lblDrive = document.getElementById('tripStatDriveLbl');
+  if (lblDrive) lblDrive.textContent = TXT.drivingTime;
+  // Autres textes restes en dur en francais dans la page
+  var setT = function (id, v) { var el = document.getElementById(id); if (el && v) el.textContent = v; };
+  setT('resetBtnMobile', TXT.resetShort);
+  setT('validateBtnMobile', TXT.validate);
+  setT('selValidateBtn', TXT.validate);
+  setT('selPanelTitle', TXT.myItinerary);
+  setT('selEmptyMsg', TXT.emptyItinerary);
+  setT('howtoTitle', TXT.howtoTitle);
+  setT('howtoText', TXT.stepHowto);
+  setT('revisitTitle', TXT.revisitTitle);
+  var fsTitle = document.querySelector('.fs-title');
+  if (fsTitle) fsTitle.textContent = TXT.builderTitle;
+  var exitFs = document.querySelector('.exit-fullscreen-btn');
+  if (exitFs) exitFs.textContent = '\u2715 ' + TXT.exitFullscreen;
+  var hb = document.getElementById('howtoBtn');
+  if (hb) hb.title = TXT.howtoTitle;
+  var sClose = document.getElementById('stepSearchClose');
+  if (sClose) sClose.title = TXT.close;
+  var hdrT = document.getElementById('hdrToggle');
+  if (hdrT) hdrT.title = TXT.toggleMenu;
+  ['countrySelect', 'fsCountrySelect'].forEach(function (id) {
+    var s = document.getElementById(id);
+    if (s && s.options[0] && s.options[0].value === '') s.options[0].textContent = TXT.allCountries;
+  });
+  // Textes caches (fiche du lieu, fenetre d'envoi) : traduits des le chargement
+  setT('addPlaceBtn', TXT.addPlace);
+  setT('addPlaceBtnMobile', TXT.addPlace);
+  setT('previewDuration', TXT.duration + ': -');
+  try {
+    var DT = DEST_T[currentLang] || DEST_T.en;
+    setT('labelDest', DT.label);
+    setT('destDetailTitle', DT.detailTitle);
+    setT('destDetailSub', DT.detailSub);
+    setT('destCarnetTitle', DT.carnetTitle);
+    setT('destCarnetSub', DT.carnetSub);
+  } catch (_) {}
   const howto = document.getElementById('stepHowto');
   if (howto) howto.textContent = TXT.stepHowto || howto.textContent;
   const stepInput = document.getElementById('stepSearchInput');
@@ -3733,11 +3788,12 @@ function updateLoadingCounter() {
   const txt = document.getElementById('loadingCounterText');
   if (!txt) return;
   const loaded = renderedCount.toLocaleString(ortDateLocale());
+  const TXT = T[currentLang] || T.en;
   if (allCountriesLoaded) {
     const total = (renderedCount + renderQueue.length).toLocaleString(ortDateLocale());
-    txt.textContent = `Chargement des lieux… ${loaded} / ${total}`;
+    txt.textContent = `${TXT.loadingPlaces} ${loaded} / ${total}`;
   } else {
-    txt.textContent = `Chargement des lieux… ${loaded}`;
+    txt.textContent = `${TXT.loadingPlaces} ${loaded}`;
   }
 }
 
@@ -3934,7 +3990,7 @@ function updateStats() {
   });
 
   const TXT = T[currentLang] || T.en;
-  document.getElementById('statsBox').textContent = `${visibleCount} ${TXT.placesVisible}`;
+  document.getElementById('statsBox').textContent = `${Number(visibleCount).toLocaleString(ortDateLocale())} ${TXT.placesVisible}`;
   updateFsStats();
 }
 
@@ -4766,7 +4822,8 @@ const SAVE_MSG = {
     "fail": "No se pudo guardar. Inténtelo de nuevo.",
     "intro": "Va a crear un viaje a medida. Inicie sesión y guárdelo para recuperarlo y modificarlo después.",
     "resume": "Sus cambios solo se conservarán si ha iniciado sesión y guarda el viaje.",
-    "gotIt": "Entendido"
+    "gotIt": "Entendido",
+    "pickCountry": "¿Por qué país quiere empezar?"
   },
   "pt": {
     "empty": "Adicione pelo menos uma etapa antes de guardar.",
@@ -4777,7 +4834,8 @@ const SAVE_MSG = {
     "fail": "Não foi possível guardar. Tente novamente.",
     "intro": "Vai criar uma viagem à medida. Inicie sessão e guarde-a para a recuperar e modificar depois.",
     "resume": "As suas alterações só serão conservadas se tiver sessão iniciada e guardar a viagem.",
-    "gotIt": "Percebi"
+    "gotIt": "Percebi",
+    "pickCountry": "Por que país quer começar?"
   },
   "it": {
     "empty": "Aggiungi almeno una tappa prima di salvare.",
@@ -4788,7 +4846,8 @@ const SAVE_MSG = {
     "fail": "Salvataggio non riuscito. Riprova.",
     "intro": "Stai per comporre un viaggio su misura. Accedi e salvalo per ritrovarlo e modificarlo in seguito.",
     "resume": "Le tue modifiche saranno conservate solo se hai effettuato l'accesso e salvi il viaggio.",
-    "gotIt": "Ho capito"
+    "gotIt": "Ho capito",
+    "pickCountry": "Da quale paese vuoi iniziare?"
   },
   "ar": {
     "empty": "أضف محطة واحدة على الأقل قبل الحفظ.",
@@ -4799,7 +4858,8 @@ const SAVE_MSG = {
     "fail": "فشل الحفظ. أعد المحاولة.",
     "intro": "أنت على وشك إنشاء رحلة مخصّصة. سجّل الدخول واحفظها لتعود إليها وتعدّلها لاحقًا.",
     "resume": "لن تُحفظ تعديلاتك إلا إذا سجّلت الدخول وحفظت الرحلة.",
-    "gotIt": "فهمت"
+    "gotIt": "فهمت",
+    "pickCountry": "من أي بلد تريد أن تبدأ؟"
   },
   "nl": {
     "empty": "Voeg minstens één stop toe voordat je opslaat.",
@@ -4810,7 +4870,8 @@ const SAVE_MSG = {
     "fail": "Opslaan is mislukt. Probeer het opnieuw.",
     "intro": "Je gaat een reis op maat samenstellen. Log in en sla hem op om hem later terug te vinden en aan te passen.",
     "resume": "Je wijzigingen worden alleen bewaard als je ingelogd bent en de reis opslaat.",
-    "gotIt": "Begrepen"
+    "gotIt": "Begrepen",
+    "pickCountry": "Met welk land wil je beginnen?"
   },
   "de": {
     "empty": "Füge mindestens eine Etappe hinzu, bevor du speicherst.",
@@ -4821,7 +4882,8 @@ const SAVE_MSG = {
     "fail": "Speichern fehlgeschlagen. Bitte versuche es erneut.",
     "intro": "Du stellst gleich eine maßgeschneiderte Reise zusammen. Melde dich an und speichere sie, um sie später wiederzufinden und zu bearbeiten.",
     "resume": "Deine Änderungen bleiben nur erhalten, wenn du angemeldet bist und die Reise speicherst.",
-    "gotIt": "Verstanden"
+    "gotIt": "Verstanden",
+    "pickCountry": "Mit welchem Land möchtest du beginnen?"
   }
 };
 function saveMsg(){ return SAVE_MSG[currentLang] || SAVE_MSG.en; }
@@ -4857,7 +4919,7 @@ async function saveBuilderTrip(){
   const nights = arrondiJours(steps.reduce((n, st) => n + (st.nights || 1), 0));
   const trip = {
     id: resumingTripId || ('custom::' + Date.now()),
-    title: (selectedPlaces[0] && selectedPlaces[0].name ? selectedPlaces[0].name : 'Mon voyage') + ' — ' + steps.length + ' étapes',
+    title: (selectedPlaces[0] && selectedPlaces[0].name ? selectedPlaces[0].name : (T[currentLang] || T.en).myTrip) + ' — ' + steps.length + ' ' + (steps.length > 1 ? (T[currentLang] || T.en).stepMany : (T[currentLang] || T.en).stepOne),
     country: (selectedPlaces[0] && selectedPlaces[0].cc) || '',
     cc: (selectedPlaces[0] && selectedPlaces[0].cc) || '',
     language: currentLang,
@@ -4929,7 +4991,7 @@ function resumeSavedTrip(){
   const applyTrip = (trip) => {
     if (!trip || !Array.isArray(trip.steps) || trip.steps.length === 0) {
       console.warn('[BUILDER] Voyage introuvable ou sans etape : ' + tripId);
-      alert("Ce voyage n'a pas pu être rechargé. Vérifiez que vous êtes bien connecté au même compte.");
+      alert((T[currentLang] || T.en).tripReloadFail);
       return;
     }
     selectedPlaces = trip.steps.map(st => ({
@@ -5142,7 +5204,7 @@ function snapDuration(val) {
 function durationLabel(val) {
   const TXT = T[currentLang] || T.en;
   const unit = val > 1 ? (TXT.days || 'jours') : (TXT.day || 'jour');
-  const num = Number.isInteger(val) ? val : val.toString().replace('.', ',');
+  const num = Number(val).toLocaleString(ortDateLocale());
   return `${num} ${unit}`;
 }
 
@@ -5159,7 +5221,7 @@ function updateItineraryList() {
 
   if (mobileCount) {
     const count = selectedPlaces.length;
-    mobileCount.textContent = count === 0 ? TXT.emptyItinerary : `${count} étape${count > 1 ? 's' : ''}`;
+    mobileCount.textContent = count === 0 ? TXT.emptyItinerary : `${count} ${count > 1 ? TXT.stepMany : TXT.stepOne}`;
   }
 
   if (selectedPlaces.length === 0) {
@@ -5193,7 +5255,7 @@ function updateItineraryList() {
     // Poignée : glisser pour réordonner (recalcul auto des tronçons)
     const drag = document.createElement('span');
     drag.className = 'step-drag';
-    drag.title = 'Glisser pour déplacer';
+    drag.title = (T[currentLang] || T.en).dragToMove;
     drag.textContent = '⠿';
     drag.draggable = true;
     drag.addEventListener('dragstart', (e) => {
@@ -5661,11 +5723,17 @@ function updateTripStats() {
     const leg = legCache.get(key);
     if (leg) { km += leg.km; min += leg.min; }
   }
-  const daysLabel = Number.isInteger(days) ? days : days.toFixed(1).replace('.', ',');
+  const TXT = T[currentLang] || T.en;
+  // Virgule ou point selon la langue (1,5 en francais, 1.5 en anglais)
+  const daysLabel = Number(days.toFixed(1)).toLocaleString(ortDateLocale());
   document.getElementById('tripStatSteps').textContent = nSteps;
   document.getElementById('tripStatDays').textContent = daysLabel;
   document.getElementById('tripStatKm').textContent = km;
   document.getElementById('tripStatDrive').textContent = formatDrive(min);
+  // Libelles traduits (etaient en dur en francais)
+  document.getElementById('tripStatStepsLbl').textContent = nSteps > 1 ? TXT.stepMany : TXT.stepOne;
+  document.getElementById('tripStatDaysLbl').textContent = days > 1 ? TXT.days : TXT.day;
+  document.getElementById('tripStatDriveLbl').textContent = TXT.drivingTime;
 }
 
 
@@ -6077,7 +6145,7 @@ function submitItinerary() {
     
   } catch (e) {
     console.error('❌ Erreur de stockage:', e);
-    alert('Erreur de stockage local. Veuillez réessayer.');
+    alert((T[currentLang] || T.en).storageError);
   }
 }
 
@@ -6128,7 +6196,7 @@ async function submitToCarnet(ctx) {
   try {
     if (!window.ORT_STATE || typeof window.ORT_STATE.saveTrip !== 'function') {
       console.error('❌ ORT_STATE indisponible');
-      alert('Erreur, réessayez.');
+      alert((T[currentLang] || T.en).errorRetry);
       return;
     }
     submitToCarnet.pending = true;
@@ -6142,7 +6210,7 @@ async function submitToCarnet(ctx) {
     const res = await window.ORT_STATE.saveTrip(Object.assign({}, existing || {}, trip));
     if (!res || !res.success || !res.tripId) {
       console.error('❌ Sauvegarde carnet échouée:', res);
-      alert('Erreur, réessayez.');
+      alert((T[currentLang] || T.en).errorRetry);
       return;
     }
     console.log('✅ Carnet sauvegardé, tripId final:', res.tripId, '(', res.storage, ')');
@@ -6155,7 +6223,7 @@ async function submitToCarnet(ctx) {
     window.location.href = `/${langSlug}/custom.html?${params.toString()}`;
   } catch (e) {
     console.error('❌ Erreur envoi carnet:', e);
-    alert('Erreur, réessayez.');
+    alert((T[currentLang] || T.en).errorRetry);
   } finally {
     submitToCarnet.pending = false;
     const confirmBtn = document.getElementById('configConfirm');

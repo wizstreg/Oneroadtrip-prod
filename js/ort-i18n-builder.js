@@ -393,7 +393,7 @@
     },
     "placesVisible": {
       "fr": "lieux visibles",
-      "en": "places visible",
+      "en": "visible places",
       "es": "lugares visibles",
       "it": "luoghi visibili",
       "pt": "lugares visíveis",
@@ -670,6 +670,146 @@
       "ar": "التنقلات",
       "nl": "Verbindingen",
       "de": "Verbindungen"
+    },
+    "stepOne": {
+      "fr": "étape",
+      "en": "stop",
+      "es": "etapa",
+      "it": "tappa",
+      "pt": "etapa",
+      "ar": "مرحلة",
+      "nl": "stop",
+      "de": "Etappe"
+    },
+    "stepMany": {
+      "fr": "étapes",
+      "en": "stops",
+      "es": "etapas",
+      "it": "tappe",
+      "pt": "etapas",
+      "ar": "مراحل",
+      "nl": "stops",
+      "de": "Etappen"
+    },
+    "drivingTime": {
+      "fr": "de route",
+      "en": "driving",
+      "es": "de carretera",
+      "it": "di guida",
+      "pt": "de estrada",
+      "ar": "قيادة",
+      "nl": "rijden",
+      "de": "Fahrzeit"
+    },
+    "loadingPlaces": {
+      "fr": "Chargement des lieux…",
+      "en": "Loading places…",
+      "es": "Cargando lugares…",
+      "it": "Caricamento dei luoghi…",
+      "pt": "Carregando lugares…",
+      "ar": "جارٍ تحميل الأماكن…",
+      "nl": "Plaatsen laden…",
+      "de": "Orte werden geladen…"
+    },
+    "resetShort": {
+      "fr": "🔄 Réinit.",
+      "en": "🔄 Reset",
+      "es": "🔄 Reiniciar",
+      "it": "🔄 Reimposta",
+      "pt": "🔄 Reiniciar",
+      "ar": "🔄 إعادة تعيين",
+      "nl": "🔄 Opnieuw",
+      "de": "🔄 Zurücksetzen"
+    },
+    "close": {
+      "fr": "Fermer",
+      "en": "Close",
+      "es": "Cerrar",
+      "it": "Chiudi",
+      "pt": "Fechar",
+      "ar": "إغلاق",
+      "nl": "Sluiten",
+      "de": "Schließen"
+    },
+    "toggleMenu": {
+      "fr": "Afficher/masquer le menu",
+      "en": "Show/hide menu",
+      "es": "Mostrar/ocultar el menú",
+      "it": "Mostra/nascondi il menu",
+      "pt": "Mostrar/ocultar o menu",
+      "ar": "إظهار/إخفاء القائمة",
+      "nl": "Menu tonen/verbergen",
+      "de": "Menü ein-/ausblenden"
+    },
+    "builderTitle": {
+      "fr": "🗺️ Constructeur d'itinéraire",
+      "en": "🗺️ Itinerary builder",
+      "es": "🗺️ Creador de itinerarios",
+      "it": "🗺️ Costruttore di itinerari",
+      "pt": "🗺️ Criador de itinerários",
+      "ar": "🗺️ منشئ المسارات",
+      "nl": "🗺️ Routeplanner",
+      "de": "🗺️ Routenplaner"
+    },
+    "myItinerary": {
+      "fr": "Mon itinéraire",
+      "en": "My itinerary",
+      "es": "Mi itinerario",
+      "it": "Il mio itinerario",
+      "pt": "Meu itinerário",
+      "ar": "مساري",
+      "nl": "Mijn route",
+      "de": "Meine Route"
+    },
+    "myTrip": {
+      "fr": "Mon voyage",
+      "en": "My trip",
+      "es": "Mi viaje",
+      "it": "Il mio viaggio",
+      "pt": "Minha viagem",
+      "ar": "رحلتي",
+      "nl": "Mijn reis",
+      "de": "Meine Reise"
+    },
+    "dragToMove": {
+      "fr": "Glisser pour déplacer",
+      "en": "Drag to move",
+      "es": "Arrastrar para mover",
+      "it": "Trascina per spostare",
+      "pt": "Arraste para mover",
+      "ar": "اسحب للنقل",
+      "nl": "Sleep om te verplaatsen",
+      "de": "Ziehen zum Verschieben"
+    },
+    "tripReloadFail": {
+      "fr": "Ce voyage n'a pas pu être rechargé. Vérifiez que vous êtes bien connecté au même compte.",
+      "en": "This trip could not be reloaded. Check that you are signed in to the same account.",
+      "es": "No se ha podido volver a cargar este viaje. Compruebe que ha iniciado sesión con la misma cuenta.",
+      "it": "Impossibile ricaricare questo viaggio. Verifica di aver effettuato l'accesso con lo stesso account.",
+      "pt": "Não foi possível recarregar esta viagem. Verifique se tem sessão iniciada na mesma conta.",
+      "ar": "تعذّر إعادة تحميل هذه الرحلة. تحقّق من أنك سجّلت الدخول بالحساب نفسه.",
+      "nl": "Deze reis kon niet opnieuw worden geladen. Controleer of je met hetzelfde account bent ingelogd.",
+      "de": "Diese Reise konnte nicht neu geladen werden. Prüfe, ob du mit demselben Konto angemeldet bist."
+    },
+    "storageError": {
+      "fr": "Erreur de stockage local. Veuillez réessayer.",
+      "en": "Local storage error. Please try again.",
+      "es": "Error de almacenamiento local. Inténtelo de nuevo.",
+      "it": "Errore di archiviazione locale. Riprova.",
+      "pt": "Erro de armazenamento local. Tente novamente.",
+      "ar": "خطأ في التخزين المحلي. يرجى المحاولة مرة أخرى.",
+      "nl": "Fout bij lokale opslag. Probeer het opnieuw.",
+      "de": "Fehler beim lokalen Speichern. Bitte versuche es erneut."
+    },
+    "errorRetry": {
+      "fr": "Erreur, réessayez.",
+      "en": "Error, please try again.",
+      "es": "Error, inténtelo de nuevo.",
+      "it": "Errore, riprova.",
+      "pt": "Erro, tente novamente.",
+      "ar": "حدث خطأ، حاول مرة أخرى.",
+      "nl": "Fout, probeer het opnieuw.",
+      "de": "Fehler, bitte erneut versuchen."
     },
   "saveTrip": {
     "fr": "Sauvegarder",
