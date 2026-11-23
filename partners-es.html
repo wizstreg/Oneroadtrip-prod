@@ -102,6 +102,9 @@ nav.tabs a[aria-current=page]{background:#fff;box-shadow:0 -3px 10px rgba(17,63,
 .art .content img{max-width:100%;height:auto}
 .art .repli{margin:10px 0 0;font-size:13px;color:var(--tl);font-style:italic}
 .vide{text-align:center;color:var(--tl);padding:40px 10px}
+/* Grand ecran : la barre du haut a deja un bouton par rubrique, on cache donc les onglets.
+   Meme seuil que dans js/ort-header.js. Les liens restent dans la page pour Google. */
+@media(min-width:1240px){nav.tabs{display:none}.feed{border-radius:14px}}
 /* Telephone : les trois onglets tiennent sur une ligne (sans picto), et defilent au pire. */
 @media(max-width:600px){main.nx h1{font-size:1.5rem}nav.tabs{gap:4px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none}nav.tabs::-webkit-scrollbar{display:none}nav.tabs a{padding:8px 9px;font-size:13px}nav.tabs .ico{display:none}.art img.cover{max-height:240px}}
 </style>
