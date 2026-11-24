@@ -40,6 +40,9 @@
 
   const CACHE = { data: {}, timestamps: {} };
 
+  // Booking ajoute parfois un bandeau français devant le nom (« En bord de plage · Plage privée ») : on l'enlève
+  function cleanHotelName(n) { return String(n || '').replace(/^En bord de plage(\s*·\s*Plage privée)?\s+/, ''); }
+
   // === I18N ===
   const I18N = {
     topHotels: { fr: 'Meilleurs hôtels', en: 'Top hotels', es: 'Mejores hoteles', pt: 'Melhores hotéis', it: 'Migliori hotel', ar: 'أفضل الفنادق' , nl: 'Beste hotels', de: 'Top-Hotels'},
@@ -51,7 +54,7 @@
     premium: { fr: 'Premium', en: 'Premium', es: 'Premium', pt: 'Premium', it: 'Premium', ar: 'فاخر' , nl: 'Premium', de: 'Premium'},
     seeOnBooking: { fr: 'Voir sur Booking', en: 'See on Booking', es: 'Ver en Booking', pt: 'Ver no Booking', it: 'Vedi su Booking', ar: 'عرض على Booking' , nl: 'Bekijken op Booking', de: 'Auf Booking ansehen'},
     prev: { fr: 'Précédent', en: 'Previous', es: 'Anterior', pt: 'Anterior', it: 'Precedente', ar: 'السابق' , nl: 'Vorige', de: 'Zurück'},
-    next: { fr: 'Suivant', en: 'Next', es: 'Next', pt: 'Seguinte', it: 'Successivo', ar: 'التالي' , nl: 'Volgende', de: 'Weiter'},
+    next: { fr: 'Suivant', en: 'Next', es: 'Siguiente', pt: 'Seguinte', it: 'Successivo', ar: 'التالي' , nl: 'Volgende', de: 'Weiter'},
     eliteBadge: { fr: '★ Coup de cœur', en: '★ Top pick', es: '★ Nuestra favorita', pt: '★ Nosso favorito', it: '★ La nostra preferita', ar: '★ المفضل لدينا' , nl: '★ Onze favoriet', de: '★ Unser Favorit'},
     sePitch: {
       fr: 'Et si vous vous laissiez tenter par un des hôtels que nous proposons ? Même si vous prenez un autre hôtel par la suite, cliquer sur nos liens permet de gagner quelques $ et nous permettre de conserver le site gratuit.',
@@ -102,6 +105,10 @@
 
   function bigImg(url) {
     if (!url) return '';
+    // Photo Booking avec jeton (?k=...) : adresse gardee telle quelle.
+    // Le jeton est lie a la taille d'origine ; en demander une autre avec le
+    // meme jeton est refuse par Booking pour une partie des photos.
+    if (url.indexOf('bstatic.com') > -1 && url.indexOf('k=') > -1) return url;
     return url.replace('square240', 'square600');
   }
 
@@ -285,7 +292,7 @@
     function paint(entry) {
       const h = entry.hotel;
       const isElite = !!entry.elite;
-      const name = h.name || '';
+      const name = cleanHotelName(h.name);
       const score = h.score || '';
       const photos = (entry.photos && entry.photos.length) ? entry.photos : [];
       const url = buildBookingAffiliateUrl(h.bookingUrl);
@@ -621,7 +628,7 @@
     const i1 = bigImg(hotel.imageUrl || hotel.coverPhoto);
     const u = buildBookingAffiliateUrl(hotel.bookingUrl);
     if (!i1 || !u || u === '#') return null;
-    return { n: hotel.name || '', place: placeName || '', pl: hotel.priceLevel || 0, sc: (hotel.score != null ? hotel.score : ''), u: u, i1: i1, i2: bigImg(hotel.imageUrl2), i3: bigImg(hotel.imageUrl3) };
+    return { n: cleanHotelName(hotel.name), place: placeName || '', pl: hotel.priceLevel || 0, sc: (hotel.score != null ? hotel.score : ''), u: u, i1: i1, i2: bigImg(hotel.imageUrl2), i3: bigImg(hotel.imageUrl3) };
   }
 
   function _seDollars(p) { p = parseInt(p, 10) || 0; let s = ''; for (let i = 0; i < p; i++) s += '$'; return s; }

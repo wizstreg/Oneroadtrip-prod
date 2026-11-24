@@ -244,6 +244,7 @@ function ortDateLocale(){
 
 
 
+
 <meta charset="utf-8">
 <meta name="robots" content="noindex, follow">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
@@ -5203,6 +5204,28 @@ async function init() {
       }
     }
     
+    // Noms d'étapes : sans nom dans le fichier, l'étape prenait le code du lieu (Munchen, Wurzburg).
+    // La liste des lieux du pays donne le vrai nom, avec ses accents et trémas.
+    try {
+      for (const ccN of countriesToLoad) {
+        const ccl = ccN.toLowerCase();
+        let pm = null;
+        for (const u of [`./data/Roadtripsprefabriques/countries/${ccN}/${ccl}.places.master-${lang}.json`,
+                         `./data/Roadtripsprefabriques/countries/${ccN}/${ccl}.places.master-en.json`]) {
+          try { const r = await fetch(u); if (r.ok) { pm = await r.json(); break; } } catch (e) { /* suivant */ }
+        }
+        const list = pm ? (Array.isArray(pm) ? pm : (pm.places || [])) : [];
+        const byId = {};
+        list.forEach(p => { if (p && p.place_id && p.name) byId[p.place_id] = p.name; });
+        (state.steps || []).forEach(st => {
+          const pid = st.place_id || st.placeId;
+          if (!pid || !byId[pid]) return;
+          const slugName = pid.split('::').pop().replace(/[-_]/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+          if (!st.name || st.name === slugName) st.name = byId[pid];
+        });
+      }
+    } catch (e) { console.warn('[NAMES] places master:', e); }
+
     debugLog('Chargement terminé! state.steps=' + state.steps.length);
     
     // === CALCUL AUTOMATIQUE DES NUITS - DÉPLACÉ AVANT RENDERLIST ===
@@ -6647,7 +6670,7 @@ function renderBookings() {
     
     // Ajouter les nuits si applicable (hôtels)
     if (nights && nights > 0) {
-      line += line ? ` (${nights} nuit${nights > 1 ? 's' : ''})` : `🌙 ${nights} nuit${nights > 1 ? 's' : ''}`;
+      line += line ? ` (${nights} ${nights > 1 ? i18n('nightPlural') : i18n('night')})` : `🌙 ${nights} ${nights > 1 ? i18n('nightPlural') : i18n('night')}`;
     }
     
     return line;
@@ -7241,7 +7264,7 @@ function renderList() {
     
     // Utiliser getStepPhoto avec l'index pour éviter les doublons
     const photoUrl = getStepPhoto(step, idx);
-    const nightsText = step.nights > 0 ? `${step.nights} nuit${step.nights > 1 ? 's' : ''}` : '';
+    const nightsText = step.nights > 0 ? `${step.nights} ${step.nights > 1 ? i18n('nightPlural') : i18n('night')}` : '';
 
     // Distance vers l'étape suivante : on utilise step.distance_km si dispo,
     // sinon Haversine (vol d'oiseau) entre cette étape et la suivante.

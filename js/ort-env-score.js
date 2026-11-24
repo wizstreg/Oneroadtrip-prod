@@ -32,7 +32,7 @@
         var i18n = window.ORT_I18N;
         if (i18n._envKeysAdded) return;
         i18n.envCar = { fr: 'VOI', en: 'CAR', es: 'COC', it: 'AUT', pt: 'CAR', ar: 'سيارة' , nl: 'AUTO', de: 'AUTO' };
-        i18n.envTransit = { fr: 'TC', en: 'TC', es: 'TP', it: 'TP', pt: 'TP', ar: 'نقل' , nl: 'OV', de: 'ÖPNV' };
+        i18n.envTransit = { fr: 'TC', en: 'PT', es: 'TP', it: 'TP', pt: 'TP', ar: 'نقل' , nl: 'OV', de: 'ÖPNV' };
         i18n.envCarTitle = { fr: 'Empreinte voiture', en: 'Car footprint', es: 'Huella coche', it: 'Impronta auto', pt: 'Pegada carro', ar: 'البصمة الكربونية للسيارة' , nl: 'Voetafdruk auto', de: 'CO₂-Bilanz Auto' };
         i18n.envTransitTitle = { fr: 'Empreinte transports en commun', en: 'Public transport footprint', es: 'Huella transporte público', it: 'Impronta trasporto pubblico', pt: 'Pegada transporte público', ar: 'البصمة الكربونية للنقل العام' , nl: 'Voetafdruk openbaar vervoer', de: 'CO₂-Bilanz öffentlicher Verkehr' };
         i18n.envDistance = { fr: 'Distance', en: 'Distance', es: 'Distancia', it: 'Distanza', pt: 'Distância', ar: 'المسافة' , nl: 'Afstand', de: 'Entfernung' };
