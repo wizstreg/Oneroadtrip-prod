@@ -103,13 +103,31 @@
       .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
   }
 
+  // Adresse d'origine de chaque photo agrandie : secours si la grande taille est refusee.
+  const ORIG_SRC = {};
+
   function bigImg(url) {
     if (!url) return '';
-    // Photo Booking avec jeton (?k=...) : adresse gardee telle quelle.
-    // Le jeton est lie a la taille d'origine ; en demander une autre avec le
-    // meme jeton est refuse par Booking pour une partie des photos.
-    if (url.indexOf('bstatic.com') > -1 && url.indexOf('k=') > -1) return url;
-    return url.replace('square240', 'square600');
+    let big;
+    if (url.indexOf('bstatic.com') > -1) {
+      // Photo Booking : on demande toujours la grande taille (1024 px),
+      // meme avec jeton (?k=...). Si Booking refuse, on reprend l'originale.
+      big = url.replace(/\/(square\d+|max\d+(x\d+)?)\//, '/max1024x768/');
+    } else {
+      big = url.replace('square240', 'square600');
+    }
+    if (big !== url) ORIG_SRC[big] = url;
+    return big;
+  }
+
+  // La grande taille a plante : on remet l'adresse d'origine (une seule fois).
+  function retryOriginal(img) {
+    const src = img.getAttribute('src') || '';
+    const orig = ORIG_SRC[src];
+    if (!orig || img.getAttribute('data-ohv3-retried')) return false;
+    img.setAttribute('data-ohv3-retried', '1');
+    img.src = orig;
+    return true;
   }
 
   function priceSymbol(level) {
@@ -356,6 +374,10 @@
       }
 
       function photoFailed(img) {
+        if (img.getAttribute('data-ohv3-dead')) return;
+        if (retryOriginal(img)) return;
+        // Alerte en retard de la grande taille alors que l'originale charge : on ignore.
+        if (img.getAttribute('data-ohv3-retried') && !(img.complete && img.naturalWidth === 0)) return;
         img.setAttribute('data-ohv3-dead', '1');
         img.classList.remove('ohv3-img-on');
         img.style.display = 'none';
@@ -637,7 +659,11 @@
     const im = document.createElement('img');
     im.src = src; im.alt = alt || ''; im.loading = 'lazy';
     if (cls) im.className = cls;
-    im.onerror = function() { im.style.display = 'none'; };
+    im.onerror = function() {
+      if (retryOriginal(im)) return;
+      if (im.getAttribute('data-ohv3-retried') && !(im.complete && im.naturalWidth === 0)) return;
+      im.style.display = 'none';
+    };
     return im;
   }
 

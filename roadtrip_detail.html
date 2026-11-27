@@ -6359,7 +6359,18 @@ async function loadItin(){
 }
 
 async function initFromItin(it){
-  await ensurePlacesIndex();
+  // MULTI-PAYS. Un itineraire peut traverser plusieurs pays (ex: MA avec des etapes PT:: et ES::).
+  // On charge les lieux de TOUS les pays presents dans les etapes AVANT de construire
+  // les etapes. Avant, seul le pays principal etait charge : les etapes etrangeres
+  // n'avaient ni note ni donnees du fichier des lieux.
+  const _pidsEtapes = Array.isArray(it.days_plan) && it.days_plan.length
+    ? it.days_plan.map(d => d?.night?.place_id)
+    : (Array.isArray(it.places) ? it.places.map(p => p?.place_id || p?.id) : []);
+  const _paysEtapes = [...new Set(_pidsEtapes
+    .filter(pid => typeof pid === 'string' && pid.includes('::'))
+    .map(pid => pid.split('::')[0].toUpperCase())
+    .filter(cc => /^[A-Z]{2}$/.test(cc)))];
+  await ensurePlacesIndex(_paysEtapes);
   
   // Récupérer estimated_days_base de l'itinéraire
   const estimatedDaysBase = it.estimated_days_base || 0;
@@ -6395,6 +6406,7 @@ async function initFromItin(it){
       
       steps.push({
         place_id:pid,name,lat,lon,nights:1,visits,activities,
+        cc:(pid.split('::')[0]||'').toUpperCase(), // pays de l'etape (multi-pays)
         rating,
         // Ou dort le voyageur ce soir la, decide en amont et ecrit dans le
         // fichier. Absent sur les itineraires non traites : le calcul reprend.
@@ -6420,6 +6432,7 @@ async function initFromItin(it){
       const suggestedDays = p.suggested_days || masterData.suggested_days || 1;
       return{
         place_id:pid,
+        cc:(String(pid).split('::')[0]||'').toUpperCase(), // pays de l'etape (multi-pays)
         name:p.name||p.title||'',
         lat:Number(p.lat)||null,
         lon:Number(p.lon)||null,
