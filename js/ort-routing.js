@@ -96,7 +96,8 @@
           return {
             coordinates: route.geometry.coordinates.map(c => [c[1], c[0]]),
             distance: route.distance,
-            duration: route.duration
+            duration: route.duration,
+            snaps: (data.waypoints || []).map(w => w.distance || 0)
           };
         }
         throw new Error(`OSRM code: ${data.code}`);
@@ -104,6 +105,49 @@
         console.warn(`[ORT-ROUTING] OSRM failed: ${e.message}`);
         return null;
       }
+    },
+
+    /**
+     * Appel OSRM avec reparation des traversees (ferry, detroit, ile).
+     * Quand la demande melange deux reseaux routiers non relies par la route
+     * (ex. Espagne + Maroc), OSRM rabat une partie des points sur l'autre rive,
+     * a des dizaines de km. On le voit a l'ecart entre le point demande et la
+     * route trouvee. Dans ce cas on recalcule chaque rive a part et on les
+     * relie par un trait droit (la traversee).
+     * @param {Array} waypoints - [[lat, lon], ...]
+     * @param {string} profile - 'car', 'bike', 'foot'
+     * @param {number} niveau - profondeur de reparation (interne)
+     * @returns {Promise<Object|null>}
+     */
+    callOSRMRepare: async function(waypoints, profile = 'car', niveau = 0) {
+      const res = await this.callOSRMChunk(waypoints, profile);
+      if (!res || niveau >= 2 || !res.snaps || res.snaps.length !== waypoints.length) return res;
+
+      const SEUIL_M = 5000; // au-dela, le point a ete rabattu ailleurs
+      const loin = res.snaps.map(d => d > SEUIL_M);
+      if (!loin.some(Boolean) || loin.every(Boolean)) return res;
+
+      // Decouper en suites de points consecutifs du meme cote
+      const suites = [];
+      let debut = 0;
+      for (let i = 1; i <= waypoints.length; i++) {
+        if (i === waypoints.length || loin[i] !== loin[debut]) {
+          suites.push(waypoints.slice(debut, i));
+          debut = i;
+        }
+      }
+      console.warn(`[ORT-ROUTING] Traversee detectee: ${suites.length} portions recalculees a part`);
+
+      const combine = { coordinates: [], distance: 0, duration: 0 };
+      for (const suite of suites) {
+        let part = null;
+        if (suite.length >= 2) part = await this.callOSRMRepare(suite, profile, niveau + 1);
+        if (!part) part = { coordinates: suite.map(p => [p[0], p[1]]), distance: 0, duration: 0 };
+        combine.coordinates = combine.coordinates.concat(part.coordinates);
+        combine.distance += part.distance || 0;
+        combine.duration += part.duration || 0;
+      }
+      return combine;
     },
 
     /**
@@ -237,7 +281,7 @@
       if (waypoints.length <= 25) {
         console.log(`[ORT-ROUTING] 📍 ${waypoints.length} pts: appel direct`);
         
-        let result = await this.callOSRMChunk(waypoints, profile);
+        let result = await this.callOSRMRepare(waypoints, profile);
         if (result) {
           console.log(`[ORT-ROUTING] ✅ OSRM OK: ${Math.round(result.distance/1000)}km`);
           return result;
@@ -273,7 +317,7 @@
       for (let i = 0; i < chunks.length; i += MAX_PARALLEL) {
         const batch = chunks.slice(i, i + MAX_PARALLEL);
         const batchResults = await Promise.all(
-          batch.map(chunk => this.callOSRMChunk(chunk, profile))
+          batch.map(chunk => this.callOSRMRepare(chunk, profile))
         );
         osrmResults.push(...batchResults);
       }
